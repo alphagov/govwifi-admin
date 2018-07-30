@@ -8,7 +8,7 @@ Rails.application.config.assets.precompile += %w(
   ie8.css
 )
 
-Rails.application.config.assets.paths += [
-  Rails.root.join('node_modules/govuk-frontend')
-]
+# Rails.application.config.assets.paths += [
+#   Rails.root.join('node_modules/govuk-frontend')
+# ]
 
