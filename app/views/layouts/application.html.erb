@@ -15,7 +15,17 @@
 
   <%= csrf_meta_tags %>
 
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <!--[if !IE 8]><!-->
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+  <!--<![endif]-->
+
+  <!--[if IE 8]>
+    <%= stylesheet_link_tag 'ie8', media: 'all' %>
+  <![endif]-->
+
+  <!--[if lt IE 9]>
+    some kind of html5shiv
+  <![endif]-->
 
   <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
 </head>
