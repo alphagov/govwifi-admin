@@ -53,7 +53,6 @@ pipeline {
 
 def deploy(deploy_environment) {
   if(deployCancelled()) {
-    setBuildStatus("Build successful", "SUCCESS");
     return
   }
 
