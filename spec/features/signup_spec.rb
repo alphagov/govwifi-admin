@@ -18,4 +18,12 @@ RSpec.feature "Signup Process" do
       expect(page).to have_css("a.govuk-button", text: "Sign Up for Trial")
     end
   end
+
+  context "confirmation page" do
+    it "should display the correct page" do
+      visit "/signup/confirmation"
+
+      expect(page).to have_css("h1.govuk-heading-xl", text: "Super")
+    end
+  end
 end
