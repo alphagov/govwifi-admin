@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get '/healthcheck', to: 'monitoring#healthcheck'
-
   root 'example#page'
+
+  get '/healthcheck', to: 'monitoring#healthcheck'
+  get '/signup/start', to: 'signups#start'
 end
