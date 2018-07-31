@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root 'basic#fun'
 
   get '/signup/start', to: 'signups#start'
+  get '/signup/organisation', to: 'signups#organisation'
 end
