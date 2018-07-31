@@ -6,9 +6,9 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in
         vestibulum lectus. Suspendisse molestie mollis metus quis maximus.
       </p>
-      <button type="submit" class="govuk-button">
+      <%= link_to "#", class: "govuk-button" do %>
         How to Sign Up
-      </button>
+      <% end %>
     </div>
   </div>
 
@@ -20,9 +20,9 @@
         vestibulum lectus. Suspendisse molestie mollis metus quis maximus.
       </p>
       <div class="govuk-grid-row">
-        <button type="submit" class="govuk-button">
+        <%= link_to signup_organisation_path, class: "govuk-button" do %>
           Sign up Organisation
-        </button>
+        <% end %>
         <%= link_to "Login", "#", class: "govuk-body" %>
       </div>
     </div>
