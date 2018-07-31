@@ -1,5 +1,11 @@
 {
   "name": "govwifi-admin",
   "private": true,
-  "dependencies": { }
+  "dependencies": {
+    "@rails/webpacker": "3.5",
+    "govuk-frontend": "^1.0.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "2.11.2"
+  }
 }

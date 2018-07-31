@@ -12,6 +12,7 @@ gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.5'
 gem 'sass-rails', '~> 5.0'
 gem 'sqlite3'
+gem 'webpacker', '~> 3.5'
 
 group :development, :test do
   gem 'byebug', '~> 10'
