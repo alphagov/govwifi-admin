@@ -13,11 +13,19 @@ gem 'rails', '~> 5.1.5'
 gem 'sass-rails', '~> 5.0'
 gem 'sqlite3'
 gem 'webpacker', '~> 3.5'
+gem 'devise', '~> 4.4.3'
+
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+end
 
 group :development, :test do
   gem 'byebug', '~> 10'
   gem 'govuk-lint', '~> 3'
+  gem 'database_cleaner'
   gem 'rspec-rails', '~> 3'
+  gem 'pry'
 end
 
 group :development do
