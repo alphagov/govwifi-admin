@@ -2,6 +2,7 @@
   "name": "govwifi-admin",
   "private": true,
   "dependencies": {
-    "govuk-frontend": "^1.0.0"
+    "govuk-frontend": "^1.2.0",
+    "html5shiv": "^3.7.3"
   }
 }
