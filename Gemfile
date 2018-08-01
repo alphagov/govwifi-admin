@@ -25,6 +25,7 @@ group :development, :test do
   gem 'govuk-lint', '~> 3'
   gem 'database_cleaner'
   gem 'rspec-rails', '~> 3'
+  gem 'pry'
 end
 
 group :development do
