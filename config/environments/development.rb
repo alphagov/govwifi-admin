@@ -1,6 +1,7 @@
+require 'action_mailer/railtie'
 Rails.application.configure do
   # Verifies that versions and hashed value of the package contents in the project's package.json
-config.webpacker.check_yarn_integrity = true
+  config.webpacker.check_yarn_integrity = true
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -49,4 +50,7 @@ config.webpacker.check_yarn_integrity = true
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Default mailer suggested by Devise
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end
