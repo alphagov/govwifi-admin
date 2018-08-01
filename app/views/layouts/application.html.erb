@@ -16,6 +16,15 @@
 
     <%= csrf_meta_tags %>
 
+    <!--[if !IE 8]><!-->
+      <%= stylesheet_link_tag 'application', media: 'all' %>
+    <!--<![endif]-->
+    <!--[if IE 8]>
+        <%= stylesheet_link_tag 'application_ie8', media: 'all' %>
+    <![endif]-->
+
+    <%= javascript_include_tag "html5shiv" %>
+
     <%= stylesheet_link_tag    'application', media: 'all' %>
 
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
