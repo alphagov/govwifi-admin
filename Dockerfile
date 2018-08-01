@@ -5,12 +5,15 @@ ENV RACK_ENV=development
 WORKDIR /usr/src/app
 
 COPY Gemfile Gemfile.lock .ruby-version ./
-RUN apk --update --upgrade add build-base sqlite-dev tzdata && \
+RUN apk --update --upgrade add build-base sqlite-dev tzdata nodejs && \
   bundle check || ${BUNDLE_INSTALL_CMD} && \
+  npm install -g yarn && \
   apk del build-base && \
   find / -type f -iname \*.apk-new -delete && \
   rm -rf /var/cache/apk/*
 
 COPY . .
+
+RUN RAILS_ENV=production rails assets:precompile
 
 CMD ["bundle", "exec", "rails", "server"]
