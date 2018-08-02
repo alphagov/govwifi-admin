@@ -2,6 +2,8 @@ class User < ApplicationRecord
   devise :confirmable, :database_authenticatable, :registerable, :recoverable,
     :rememberable, :trackable, :validatable
 
+  after_create :reset_confirmation_token
+
   # new function to set the password without knowing the current
   # password used in our confirmation controller.
   def attempt_set_password(params)
@@ -24,5 +26,11 @@ class User < ApplicationRecord
 
   def password_required?
     false
+  end
+
+  private
+
+  def reset_confirmation_token
+    update(confirmation_token: Devise.token_generator.digest(User, :confirmation_token, self.confirmation_token))
   end
 end
