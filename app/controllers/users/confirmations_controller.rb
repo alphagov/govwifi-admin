@@ -68,7 +68,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   def do_confirm
     @confirmable.confirm
-    @confirmable.update(password: params[:user][:password])
     set_flash_message :notice, :confirmed
     sign_in_and_redirect(resource_name, @confirmable)
   end
