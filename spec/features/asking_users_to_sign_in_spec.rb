@@ -1,25 +1,12 @@
-require_relative 'support/sign_up_helpers'
+require 'features/support/sign_up_helpers'
+require 'features/support/not_signed_in'
 
 describe 'asking users to sign in' do
-  shared_examples 'I am not signed in' do
-    it 'asks for an email' do
-      expect(page).to have_field 'Email'
-    end
-
-    it 'asks for a password' do
-      expect(page).to have_field 'Password'
-    end
-
-    it 'asks me to sign in' do
-      expect(page).to have_button 'Log in'
-    end
-  end
-
   context 'with no account' do
     context 'when I try to visit the homepage' do
       before { visit '/' }
 
-      it_behaves_like 'I am not signed in'
+      it_behaves_like 'not signed in'
     end
   end
 
@@ -33,6 +20,6 @@ describe 'asking users to sign in' do
       visit '/'
     end
 
-    it_behaves_like 'I am not signed in'
+    it_behaves_like 'not signed in'
   end
 end
