@@ -16,6 +16,8 @@ gem 'devise', '~> 4.4.3'
 
 group :test do
   gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'nokogiri'
 end
 
 group :development, :test do

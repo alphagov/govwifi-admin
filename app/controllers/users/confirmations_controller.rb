@@ -1,5 +1,5 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
-  skip_before_action :authenticate_user!
+  # skip_before_action :authenticate_user!
 
   # PUT /resource/confirmation
   def update

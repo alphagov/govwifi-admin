@@ -1,20 +1,30 @@
-RSpec.feature "Signup Process" do
-  context "as an Organisation" do
-    it "should direct the user through the flow" do
-      visit "/users/sign_up"
-      fill_in("Email", :with => "tom@tom.com")
+require 'nokogiri'
+require 'capybara-screenshot/rspec'
 
-      expect do
-        click_on "Sign up"
-      end.to change { User.count }.by(1)
+describe 'Signing up' do
+  describe 'as an Organisation' do
+    it 'congratulates me' do
+      visit sign_up_path
+      fill_in 'user_email', with: 'tom@tom.com'
+      click_on 'Sign up'
+
+      visit confirmation_email_link
+
+      fill_in 'New password', with: 'supersecret'
+      fill_in 'Confirm new password', with: 'supersecret'
+      click_on 'Change my password'
+
+      expect(page).to have_content "Congratulations!"
     end
   end
 
-  context "confirmation page" do
-    it "should display the correct page" do
-      visit "/signup/confirmation"
+  def sign_up_path
+    '/users/sign_up'
+  end
 
-      expect(page).to have_css("h1.govuk-heading-xl", text: "Super")
-    end
+  def confirmation_email_link
+    confirmation_email = ActionMailer::Base.deliveries.first
+    parsed_email = Nokogiri::HTML(confirmation_email.body.to_s)
+    parsed_email.css('a').first['href']
   end
 end
