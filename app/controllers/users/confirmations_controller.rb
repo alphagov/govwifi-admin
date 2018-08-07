@@ -1,7 +1,8 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
-  # skip_before_action :authenticate_user!
+  # This controller overrides the Devise:ConfirmationsController (part of Devise gem)
+  # in order to set user passwords after they have confirmed their email. This is
+  # based on recommendations here: 'https://github.com/plataformatec/devise/wiki/How-To:-Override-confirmations-so-users-can-pick-their-own-passwords-as-part-of-confirmation-activation'
 
-  # PUT /resource/confirmation
   def update
     with_unconfirmed_confirmable do
       if @confirmable.has_no_password?
@@ -23,7 +24,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     end
   end
 
-  # GET /resource/confirmation?confirmation_token=abcdef
   def show
     with_unconfirmed_confirmable do
       if @confirmable.has_no_password?
