@@ -7,10 +7,10 @@ class User < ApplicationRecord
   # new function to set the password without knowing the current
   # password used in our confirmation controller.
   def attempt_set_password(params)
-    p = {}
-    p[:password] = params[:password]
-    p[:password_confirmation] = params[:password_confirmation]
-    update_attributes(p)
+    unless params[:password] == params[:password_confirmation]
+      errors.add(:base, "Passwords must match") and return
+    end
+    update(password: params[:password])
   end
 
   # new function to return whether a password has been set

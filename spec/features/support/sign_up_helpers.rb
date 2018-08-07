@@ -4,7 +4,7 @@ def sign_up_for_account
   click_on 'Sign up'
 end
 
-def create_password_for_account(password: 'supersecret')
+def create_password_for_account(password: 'supersecret', confirmed_password: 'supersecret')
   visit confirmation_email_link
   fill_in 'New password', with: password
   fill_in 'Confirm new password', with: password
