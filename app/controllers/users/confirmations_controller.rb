@@ -6,7 +6,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     with_unconfirmed_confirmable do
       if @confirmable.has_no_password?
         @confirmable.attempt_set_password(params[:user])
-        if @confirmable.valid? and passwords_match?
+        if @confirmable.valid? && passwords_match?
           do_confirm
         else
           do_show
@@ -38,10 +38,9 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     end
   end
 
-  def pending
-  end
+  def pending; end
 
-  protected
+protected
 
   def passwords_match?
     params[:user][:password] == params[:user][:password_confirmation]
@@ -52,7 +51,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     confirmation_token = Devise.token_generator.digest(User, :confirmation_token, original_token)
     @confirmable = User.find_or_initialize_with_error_by(:confirmation_token, confirmation_token)
     if !@confirmable.new_record?
-      @confirmable.only_if_unconfirmed {yield}
+      @confirmable.only_if_unconfirmed { yield }
     end
   end
 
