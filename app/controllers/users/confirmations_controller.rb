@@ -2,39 +2,24 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # This controller overrides the Devise:ConfirmationsController (part of Devise gem)
   # in order to set user passwords after they have confirmed their email. This is
   # based largely on recommendations here: 'https://github.com/plataformatec/devise/wiki/How-To:-Override-confirmations-so-users-can-pick-their-own-passwords-as-part-of-confirmation-activation'
+  before_action :set_resources, only: %i[update show]
 
   def update
     with_unconfirmed_confirmable do
-      if @confirmable.has_no_password?
-        @confirmable.attempt_set_password(params[:user])
-        if @confirmable.valid? && passwords_match?
-          do_confirm
-        else
-          do_show
-          @confirmable.errors.clear #so that we wont render :new
-        end
+      if @confirmable.attempt_set_password(params[:user])
+        confirm_user
       else
-        @confirmable.errors.add(:email, :password_already_set)
+        render_show_page
       end
-    end
-
-    if !@confirmable.errors.empty?
-      self.resource = @confirmable
-      render 'devise/confirmations/new'
     end
   end
 
   def show
     with_unconfirmed_confirmable do
-      if @confirmable.has_no_password?
-        do_show
-      else
-        do_confirm
-      end
+      render_show_page
     end
-    unless @confirmable.errors.empty?
-      self.resource = @confirmable
-      render 'users/confirmations/new'
+    if @confirmable.errors.present?
+      render_new_page
     end
   end
 
@@ -42,30 +27,29 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
 protected
 
-  def passwords_match?
-    params[:user][:password] == params[:user][:password_confirmation]
+  def set_resources
+    @original_token = params[:confirmation_token] || params[:user][:confirmation_token]
+    confirmation_token = Devise.token_generator.digest(User, :confirmation_token, @original_token)
+    @confirmable = User.find_or_initialize_with_error_by(:confirmation_token, confirmation_token)
   end
 
   def with_unconfirmed_confirmable
-    original_token = params[:confirmation_token] || params[:user][:confirmation_token]
-    confirmation_token = Devise.token_generator.digest(User, :confirmation_token, original_token)
-    @confirmable = User.find_or_initialize_with_error_by(:confirmation_token, confirmation_token)
     if !@confirmable.new_record?
       @confirmable.only_if_unconfirmed { yield }
     end
   end
 
-  def do_show
-    original_token = params[:confirmation_token]
-    confirmation_token = Devise.token_generator.digest(User, :confirmation_token, original_token)
-    @confirmable = User.find_or_initialize_with_error_by(:confirmation_token, confirmation_token)
-    @requires_password = true
+  def render_show_page
     self.resource = @confirmable
-
-    render 'users/confirmations/show'
+    render 'users/confirmations/show', confirmation_token: @original_token
   end
 
-  def do_confirm
+  def render_new_page
+    self.resource = @confirmable
+    render 'users/confirmations/new'
+  end
+
+  def confirm_user
     @confirmable.confirm
     set_flash_message :notice, :confirmed
     sign_in_and_redirect(resource_name, @confirmable)
