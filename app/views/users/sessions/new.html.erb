@@ -1,26 +1,35 @@
-<h2>Log in</h2>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-heading-l">Login</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="govuk-form-group">
+        <%= f.label :email, class: "govuk-label" %>
+        <%= f.email_field :email, autofocus: true, class: "govuk-input", autocomplete: "email" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+      <div class="govuk-form-group">
+        <%= f.label :password, class: "govuk-label" %>
+        <%= f.password_field :password, class: "govuk-input", autocomplete: "off" %>
+      </div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <% if devise_mapping.rememberable? -%>
+          <div class="govuk-form-group">
+            <div class="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <%= f.check_box :remember_me, class: "govuk-checkboxes__input" %>
+                <%= f.label :remember_me, class: "govuk-label govuk-checkboxes__label" %>
+              </div>
+            </div>
+          </div>
+      <% end -%>
+
+      <div class="govuk-checkboxes" >
+        <%= f.submit "Log in", class: "govuk-button govuk-!-margin-top-2" %>
+      </div>
+    <% end %>
+
+    <%= render "users/shared/links" %>
+
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>
