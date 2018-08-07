@@ -30,7 +30,12 @@ class User < ApplicationRecord
 
 private
 
+  # Required as Devise fails to encrypt/digest the user confirmation token when
+  # creating the user.  See: https://github.com/plataformatec/devise/issues/2615
   def reset_confirmation_token
-    update(confirmation_token: Devise.token_generator.digest(User, :confirmation_token, self.confirmation_token))
+    encrypted_token = Devise.token_generator.digest(
+      User, :confirmation_token, self.confirmation_token
+    )
+    update(confirmation_token: encrypted_token)
   end
 end

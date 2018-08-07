@@ -1,7 +1,7 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
   # This controller overrides the Devise:ConfirmationsController (part of Devise gem)
   # in order to set user passwords after they have confirmed their email. This is
-  # based on recommendations here: 'https://github.com/plataformatec/devise/wiki/How-To:-Override-confirmations-so-users-can-pick-their-own-passwords-as-part-of-confirmation-activation'
+  # based largely on recommendations here: 'https://github.com/plataformatec/devise/wiki/How-To:-Override-confirmations-so-users-can-pick-their-own-passwords-as-part-of-confirmation-activation'
 
   def update
     with_unconfirmed_confirmable do
