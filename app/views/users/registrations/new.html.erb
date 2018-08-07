@@ -1,5 +1,5 @@
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-three-quarters">
+  <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">Welcome!</h1>
     <p class="govuk-body">
       We are glad you would like to sign up your organisation for GovWifi.
@@ -12,16 +12,16 @@
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
 
-      <div class="govuk-form-group govuk-!-margin-top-7">
+      <div class="govuk-form-group govuk-grid-column-two-thirds govuk-!-padding-left-0">
         <%= f.label :email, "Provide your email address", class: "govuk-label"  %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input" %>
-      </div>
 
-      <div class="actions">
-        <%= f.submit "Sign up", class: "govuk-button govuk-!-margin-top-4" %>
-      </div>
+        <div class="actions">
+          <%= f.submit "Sign up", class: "govuk-button govuk-!-margin-top-4" %>
+        </div>
     <% end %>
 
     <%= render "users/shared/links" %>
+    </div>
   </div>
 </div>

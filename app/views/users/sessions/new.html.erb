@@ -3,12 +3,13 @@
     <h2 class="govuk-heading-l">Login</h2>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="govuk-form-group">
+
+      <div class="govuk-form-group govuk-grid-column-two-thirds govuk-!-padding-left-0">
         <%= f.label :email, class: "govuk-label" %>
         <%= f.email_field :email, autofocus: true, class: "govuk-input", autocomplete: "email" %>
       </div>
 
-      <div class="govuk-form-group">
+      <div class="govuk-form-group govuk-grid-column-two-thirds govuk-!-padding-left-0">
         <%= f.label :password, class: "govuk-label" %>
         <%= f.password_field :password, class: "govuk-input", autocomplete: "off" %>
       </div>

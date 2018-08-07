@@ -6,7 +6,7 @@
       <%= devise_error_messages! %>
       <%= f.hidden_field :confirmation_token, value: params[:confirmation_token] %>
 
-      <div class="govuk-form-group">
+      <div class="govuk-form-group govuk-grid-column-two-thirds govuk-!-padding-left-0">
         <%= f.label :password, "New password", class: "govuk-label" %>
         <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
