@@ -4,12 +4,12 @@ describe 'logging in after signing up' do
   let(:correct_password) { 'f1uffy-bu44ies' }
 
   before do
-    sign_up_for_account
+    sign_up_for_account(email: 'tom@gov.uk')
     create_password_for_account(password: correct_password)
 
     click_on 'Logout'
 
-    fill_in 'Email', with: 'tom@tom.com'
+    fill_in 'Email', with: 'tom@gov.uk'
     fill_in 'Password', with: entered_password
 
     click_on 'Log in'
