@@ -1,6 +1,7 @@
 FROM ruby:2.5-alpine
 ARG BUNDLE_INSTALL_CMD
 ENV RACK_ENV=development
+ENV DEVISE_SECRET_KEY=fake-secret-key
 
 WORKDIR /usr/src/app
 

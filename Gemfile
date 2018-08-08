@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'devise', '~> 4.4.3'
 gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.1.5'
 gem 'sass-rails', '~> 5.0'
@@ -15,14 +15,15 @@ gem 'sqlite3'
 
 group :test do
   gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'database_cleaner'
+  gem 'govuk-lint', '~> 3'
+  gem 'nokogiri'
+  gem 'rspec-rails', '~> 3'
 end
 
 group :development, :test do
   gem 'byebug', '~> 10'
-  gem 'govuk-lint', '~> 3'
-  gem 'rspec-rails', '~> 3'
-end
-
-group :development do
   gem 'listen', '~> 3'
+  gem 'pry'
 end

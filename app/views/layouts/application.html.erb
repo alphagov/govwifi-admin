@@ -66,11 +66,15 @@
         </a>
       </div>
       <div class="govuk-header__content">
-
         <a href="#" class="govuk-header__link govuk-header__link--service-name">
           GovWifi
         </a>
-
+        <% if user_signed_in? %>
+            <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "govuk-header__link" %>
+          <% else %>
+            <%= link_to 'Sign Up', new_user_registration_path, class: "govuk-header__link" %> |
+            <%= link_to 'Login', new_user_session_path, class: "govuk-header__link" %>
+        <% end %>
       </div>
     </div>
   </header>

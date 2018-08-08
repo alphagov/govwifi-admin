@@ -1,8 +1,8 @@
 require_relative '../rails_helper'
 
-describe MonitoringController, type: :controller do
-  it "Should return a 200 to a healthchecker request" do
-    get :healthcheck
-    assert_response :success
+describe 'healthcheck', type: :request do
+  it 'responds successfully' do
+    get '/healthcheck'
+    expect(response).to be_success
   end
 end

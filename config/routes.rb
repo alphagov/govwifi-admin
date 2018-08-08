@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
-  get '/healthcheck', to: 'monitoring#healthcheck'
-
   root 'example#page'
+
+  devise_for :users, controllers: {
+    confirmations: 'users/confirmations',
+    registrations: 'users/registrations'
+  }
+  devise_scope :user do
+    put 'users/confirmations', to: 'users/confirmations#update'
+    get 'users/confirmations/pending', to: 'users/confirmations#pending'
+  end
+
+  get '/healthcheck', to: 'monitoring#healthcheck'
 end
