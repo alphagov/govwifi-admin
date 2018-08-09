@@ -4,7 +4,7 @@
       <h2 class="govuk-error-summary__title">There is a problem</h2>
       <div class="govuk-error-summary__body">
         <% resource.errors.full_messages.each do |message| %>
-          <%= content_tag :p, message %>
+          <p><%= message %></p>
         <% end %>
       </div>
     </div>
