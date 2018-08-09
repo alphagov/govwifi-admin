@@ -10,7 +10,8 @@
 
       <div class="govuk-form-group govuk-grid-column-two-thirds govuk-!-padding-left-0">
         <%= f.label :email, "Provide your email address", class: "govuk-label" %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input",
+          value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), required: true %>
       </div>
 
       <div class="actions">

@@ -12,11 +12,11 @@
 
         <div class="govuk-form-group">
           <%= f.label :email, class: "govuk-label" %>
-          <%= f.email_field :email, autofocus: true, class: "govuk-input", autocomplete: "email" %>
+          <%= f.email_field :email, autofocus: true, class: "govuk-input", autocomplete: "email", required: true %>
         </div>
         <div class="govuk-form-group">
           <%= f.label :password, class: "govuk-label" %>
-          <%= f.password_field :password, class: "govuk-input", autocomplete: "off" %>
+          <%= f.password_field :password, class: "govuk-input", autocomplete: "off", required: true %>
         </div>
 
         <% if devise_mapping.rememberable? -%>

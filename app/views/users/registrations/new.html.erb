@@ -15,14 +15,14 @@
 
         <div class="govuk-form-group">
           <%= f.label :email, "Provide your email address", class: "govuk-label"  %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input", required: true %>
         </div>
 
         <div class="actions">
           <%= f.submit "Sign up", class: "govuk-button govuk-!-margin-top-4" %>
         </div>
       <% end %>
-      
+
       <%= render "users/shared/links" %>
     </div>
   </div>
