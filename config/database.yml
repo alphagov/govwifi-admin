@@ -3,8 +3,12 @@ mysql: &mysql
   encoding: utf8
   host: db
   port: 3306
-  username: <%= p ENV; ENV.fetch('DB_USER') %>
-  password: <%= p ENV; ENV.fetch('DB_PASS') %>
+  username: <%= ENV.fetch('DB_USER') %>
+  password: <%= ENV.fetch('DB_PASS') %>
+
+test:
+  <<: *mysql
+  database: govwifi_admin_test
 
 development:
   <<: *mysql
@@ -13,11 +17,9 @@ development:
 staging:
   <<: *mysql
   database: govwifi_admin_staging
+  host: <%= ENV.fetch('DB_HOST') %>
 
 production:
   <<: *mysql
   database: govwifi_admin_production
-
-test:
-  <<: *mysql
-  database: govwifi_admin_test
+  host: <%= ENV.fetch('DB_HOST') %>
