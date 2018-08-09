@@ -1,0 +1,41 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-heading-l">Sign in</h2>
+
+    <p class="govuk-body">If you do not have an account, you can
+      <%= link_to "create one now.", new_user_registration_path, class: "govuk-link" %>
+    </p>
+
+
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+        <div class="govuk-form-group">
+          <%= f.label :email, class: "govuk-label" %>
+          <%= f.email_field :email, autofocus: true, class: "govuk-input", autocomplete: "email", required: true %>
+        </div>
+        <div class="govuk-form-group">
+          <%= f.label :password, class: "govuk-label" %>
+          <%= f.password_field :password, class: "govuk-input", autocomplete: "off", required: true %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+            <div class="govuk-form-group">
+              <div class="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                  <%= f.check_box :remember_me, class: "govuk-checkboxes__input" %>
+                  <%= f.label :remember_me, class: "govuk-label govuk-checkboxes__label" %>
+                </div>
+              </div>
+            </div>
+        <% end -%>
+
+        <div class="govuk-checkboxes" >
+          <%= f.submit "Continue", class: "govuk-button govuk-!-margin-top-2" %>
+        </div>
+      <% end %>
+
+      <%= render "users/shared/links" %>
+    </div>
+  </div>
+</div>

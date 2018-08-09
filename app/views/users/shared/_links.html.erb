@@ -1,0 +1,13 @@
+<ul class="govuk-list">
+  <%- if controller_name != 'sessions' %>
+    <li>
+      <%= link_to "Log in", new_session_path(resource_name), class: "govuk-link" %>
+    </li>
+  <% end -%>
+
+  <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+    <li>
+      <%= link_to "Resend confirmation email", new_confirmation_path(resource_name), class: "govuk-link" %>
+    </li>
+  <% end -%>
+</ul>
