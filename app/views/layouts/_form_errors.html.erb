@@ -1,0 +1,12 @@
+<% if defined? resource %>
+  <% if resource&.errors&.any? %>
+    <div class="govuk-error-summary">
+      <h2 class="govuk-error-summary__title">There is a problem</h2>
+      <div class="govuk-error-summary__body">
+        <% resource.errors.full_messages.each do |message| %>
+          <%= content_tag :p, message %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

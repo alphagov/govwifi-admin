@@ -12,19 +12,31 @@ describe 'Sign up as an organisation' do
   end
 
   context 'when password does not match password confirmation' do
-    it 'tells me that my passwords do not match' do
+    it 'tells the user that the passwords do not match' do
       sign_up_for_account
       create_password_for_account(password: "password", confirmed_password: "password1")
       expect(page).to have_content "Set your password"
+      expect(page).to have_content "There is a problem"
       expect(page).to have_content "Passwords must match"
     end
   end
 
+  context 'when password is too short' do
+    it 'tells the user that the password is too short' do
+      sign_up_for_account
+      create_password_for_account(password: "1", confirmed_password: "1")
+      expect(page).to have_content "Set your password"
+      expect(page).to have_content "There is a problem"
+      expect(page).to have_content "Password is too short (minimum is 8 characters)"
+    end
+  end
+
   context 'when account is already confirmed' do
-    it 'tells me my email is already confirmed' do
+    it 'tells the user the email is already confirmed' do
       sign_up_for_account
       create_password_for_account
       visit confirmation_email_link
+      expect(page).to have_content "There is a problem"
       expect(page).to have_content 'Email was already confirmed'
     end
   end
