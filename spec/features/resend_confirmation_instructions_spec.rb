@@ -6,7 +6,7 @@ describe 'Resending confirmation instructions' do
 
   context 'when user has not been confirmed' do
     before do
-      sign_up_for_account(email: 'user@user.com')
+      sign_up_for_account(email: correct_email)
       visit new_user_confirmation_path
       fill_in 'user_email', with: entered_email
       click_on 'Resend confirmation instructions'
@@ -16,8 +16,7 @@ describe 'Resending confirmation instructions' do
       let(:entered_email) { correct_email }
 
       it 'resends the confirmation link' do
-        expect(page).to have_content 'Sign in'
-        expect(confirmation_email_link).to be_present
+        expect(ActionMailer::Base.deliveries.count).to eq(2)
       end
     end
 
@@ -43,7 +42,7 @@ describe 'Resending confirmation instructions' do
 
     it_behaves_like 'errors in form'
 
-    it 'should tell the user this email has already been confirmed' do
+    it 'tells the user this email has already been confirmed' do
       expect(page).to have_content 'Email was already confirmed'
     end
   end
