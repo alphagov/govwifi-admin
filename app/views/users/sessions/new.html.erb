@@ -1,11 +1,12 @@
 <div class="govuk-grid-row">
   <% if flash.present? %>
     <div class="govuk-error-summary">
-      <h2 class="govuk-error-summary__title">There is a problem</h2>
       <div class="govuk-error-summary__body">
-        <% flash.each do |name, message| %>
-          <%= content_tag :p, message %>
-        <% end %>
+        <ul class="govuk-list govuk-error-summary__list">
+          <% flash.each do |name, message| %>
+            <%= content_tag :li, message %>
+          <% end %>
+        </ul>
       </div>
     </div>
   <% end %>
