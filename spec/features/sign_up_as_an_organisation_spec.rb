@@ -3,28 +3,92 @@ require 'capybara-screenshot/rspec'
 require 'features/support/sign_up_helpers'
 
 describe 'Sign up as an organisation' do
-  context 'when entering correct information' do
-    it 'congratulates me' do
-      sign_up_for_account
+  context 'with matching passwords' do
+    before do
+      sign_up_for_account(email: email)
       create_password_for_account
-      expect(page).to have_content "Congratulations!"
+    end
+
+    context 'with a .gov.uk email' do
+      let(:email) { 'someone@gov.uk' }
+
+      it 'congratulates me' do
+        expect(page).to have_content 'Congratulations!'
+      end
+    end
+
+    context 'with a other.gov.uk email' do
+      let(:email) { 'someone@other.gov.uk' }
+
+      it 'congratulates me' do
+        expect(page).to have_content 'Congratulations!'
+      end
+    end
+
+    context 'with a notgov.uk email' do
+      let(:email) { 'someone@notgov.uk' }
+
+      it 'tells me my email is not valid' do
+        expect(page).to have_content(
+          'only government/whitelisted emails can sign up'
+        )
+      end
+    end
+
+    context 'with a other.notgov.uk email' do
+      let(:email) { 'someone@other.notgov.uk' }
+
+      it 'tells me my email is not valid' do
+        expect(page).to have_content(
+          'only government/whitelisted emails can sign up'
+        )
+      end
+    end
+
+    context 'with an email with gov in the local-part' do
+      let(:email) { 'fake.gov.uk@unrelateddomain.com' }
+
+      it 'tells me my email is not valid' do
+        expect(page).to have_content(
+          'only government/whitelisted emails can sign up'
+        )
+      end
+    end
+
+    context 'with a blank email' do
+      let(:email) { '' }
+
+      it 'tells me my email is not valid' do
+        expect(page).to have_content(
+          'only government/whitelisted emails can sign up'
+        )
+      end
     end
   end
 
-  context 'when password does not match password confirmation' do
+  context 'with different password and confirmation' do
+    before do
+      sign_up_for_account
+      create_password_for_account(
+        password: 'password',
+        confirmed_password: 'different'
+      )
+    end
+
     it 'tells me that my passwords do not match' do
-      sign_up_for_account
-      create_password_for_account(password: "password", confirmed_password: "password1")
-      expect(page).to have_content "Set your password"
-      expect(page).to have_content "Passwords must match"
+      expect(page).to have_content 'Set your password'
+      expect(page).to have_content 'Passwords must match'
     end
   end
 
-  context 'when account is already confirmed' do
-    it 'tells me my email is already confirmed' do
+  context 'when trying to register again' do
+    before do
       sign_up_for_account
       create_password_for_account
-      visit confirmation_email_link
+      2.times { visit confirmation_email_link }
+    end
+
+    it 'tells me my email is already confirmed' do
       expect(page).to have_content 'Email was already confirmed'
     end
   end
