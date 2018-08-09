@@ -12,6 +12,7 @@ gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.1.5'
 gem 'sass-rails', '~> 5.0'
 gem 'sqlite3'
+gem 'mysql2', '~> 0.4.4'
 
 group :test do
   gem 'capybara'

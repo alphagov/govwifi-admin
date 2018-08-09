@@ -13,7 +13,10 @@ build:
 
 serve:
 	$(MAKE) build
-	docker-compose up -d
+	docker-compose up -d db
+	./mysql/bin/wait_for_mysql
+	docker-compose run --rm app ./bin/rails db:create db:schema:load
+	docker-compose up -d app
 
 lint:
 	$(MAKE) build

@@ -2,6 +2,8 @@ FROM ruby:2.5
 ARG BUNDLE_INSTALL_CMD
 ENV RACK_ENV=development
 ENV DEVISE_SECRET_KEY=fake-secret-key
+ENV DB_USER=root
+ENV DB_PASS=root
 
 WORKDIR /usr/src/app
 

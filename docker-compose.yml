@@ -1,9 +1,19 @@
 version: '3.4'
 
 services:
+  db:
+    build: ./mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: root
+    ports:
+      - "13306:3306"
+
   app:
     build: .
     environment:
       RACK_ENV: development
+      DB_USER: root
+      DB_PASS: root
     ports:
     - "8080:3000"
