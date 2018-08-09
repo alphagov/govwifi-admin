@@ -3,9 +3,11 @@
     <div class="govuk-error-summary">
       <h2 class="govuk-error-summary__title">There is a problem</h2>
       <div class="govuk-error-summary__body">
-        <% resource.errors.full_messages.each do |message| %>
-          <p><%= message %></p>
-        <% end %>
+        <ul class="govuk-list govuk-error-summary__list">
+          <% resource.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
       </div>
     </div>
   <% end %>

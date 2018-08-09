@@ -1,4 +1,5 @@
 require 'features/support/sign_up_helpers'
+require 'features/support/errors_in_form'
 
 describe 'Sign up as an organisation' do
   context 'when entering correct information' do
@@ -10,35 +11,44 @@ describe 'Sign up as an organisation' do
   end
 
   context 'when password does not match password confirmation' do
-    it 'tells the user that the passwords do not match' do
+    before do
       sign_up_for_account
       create_password_for_account(password: 'password', confirmed_password: 'password1')
       expect(page).to have_content 'Set your password'
-      expect(page).to have_content 'There is a problem'
+    end
+
+    it_behaves_like 'errors in form'
+
+    it 'tells the user that the passwords do not match' do
       expect(page).to have_content 'Passwords must match'
-      expect(page).to have_css 'div.govuk-form-group--error'
     end
   end
 
   context 'when password is too short' do
-    it 'tells the user that the password is too short' do
+    before do
       sign_up_for_account
       create_password_for_account(password: '1', confirmed_password: '1')
       expect(page).to have_content 'Set your password'
-      expect(page).to have_content 'There is a problem'
+    end
+
+    it_behaves_like 'errors in form'
+
+    it 'tells the user that the password is too short' do
       expect(page).to have_content 'Password is too short (minimum is 8 characters)'
-      expect(page).to have_css 'div.govuk-form-group--error'
     end
   end
 
   context 'when account is already confirmed' do
-    it 'tells the user the email is already confirmed' do
+    before do
       sign_up_for_account
       create_password_for_account
       visit confirmation_email_link
-      expect(page).to have_content 'There is a problem'
+    end
+
+    it_behaves_like 'errors in form'
+
+    it 'tells the user the email is already confirmed' do
       expect(page).to have_content 'Email was already confirmed'
-      expect(page).to have_css 'div.govuk-form-group--error'
     end
   end
 end

@@ -4,7 +4,7 @@
       <div class="govuk-error-summary__body">
         <ul class="govuk-list govuk-error-summary__list">
           <% flash.each do |name, message| %>
-            <%= content_tag :li, message %>
+            <li><%= message %></li>
           <% end %>
         </ul>
       </div>

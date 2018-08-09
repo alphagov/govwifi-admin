@@ -1,4 +1,5 @@
 require 'features/support/sign_up_helpers'
+require 'features/support/errors_in_form'
 
 describe 'Resending confirmation instructions' do
   let(:correct_email) { 'user@user.com' }
@@ -23,10 +24,10 @@ describe 'Resending confirmation instructions' do
     context 'when email cannot be found' do
       let(:entered_email) { 'not@correct.com' }
 
+      it_behaves_like 'errors in form'
+
       it 'displays an error to the user' do
-        expect(page).to have_content 'There is a problem'
         expect(page).to have_content 'Email not found'
-        expect(page).to have_css 'div.govuk-form-group--error'
       end
     end
   end
@@ -40,10 +41,10 @@ describe 'Resending confirmation instructions' do
       click_on 'Resend confirmation instructions'
     end
 
+    it_behaves_like 'errors in form'
+
     it 'should tell the user this email has already been confirmed' do
-      expect(page).to have_content 'There is a problem'
       expect(page).to have_content 'Email was already confirmed'
-      expect(page).to have_css 'div.govuk-form-group--error'
     end
   end
 end
