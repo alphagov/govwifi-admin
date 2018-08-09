@@ -34,7 +34,7 @@ describe 'Sign up as an organisation' do
     it_behaves_like 'errors in form'
 
     it 'tells the user that the password is too short' do
-      expect(page).to have_content 'Password is too short (minimum is 8 characters)'
+      expect(page).to have_content 'Password is too short (minimum is 6 characters)'
     end
   end
 
