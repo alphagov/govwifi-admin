@@ -8,7 +8,7 @@
       <%= form_for(resource, as: resource_name, url: users_confirmations_path, html: { method: :put }) do |f| %>
         <%= f.hidden_field :confirmation_token, value: params[:confirmation_token] %>
 
-        <div class="govuk-form-group ">
+        <div class="govuk-form-group <%= "govuk-form-group--error" if resource&.errors&.any? %>">
           <%= f.label :password, "New password", class: "govuk-label" %>
           <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>

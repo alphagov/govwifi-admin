@@ -32,7 +32,7 @@ describe 'logging in after signing up' do
     it_behaves_like 'not signed in'
 
     it 'should display an error to the user' do
-      expect(page).to have_content "Invalid Email or password"
+      expect(page).to have_content 'Invalid Email or password'
     end
   end
 end

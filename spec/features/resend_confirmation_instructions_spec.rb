@@ -24,8 +24,9 @@ describe 'Resending confirmation instructions' do
       let(:entered_email) { 'not@correct.com' }
 
       it 'displays an error to the user' do
-        expect(page).to have_content "There is a problem"
-        expect(page).to have_content "Email not found"
+        expect(page).to have_content 'There is a problem'
+        expect(page).to have_content 'Email not found'
+        expect(page).to have_css 'div.govuk-form-group--error'
       end
     end
   end
@@ -40,8 +41,9 @@ describe 'Resending confirmation instructions' do
     end
 
     it 'should tell the user this email has already been confirmed' do
-      expect(page).to have_content "There is a problem"
-      expect(page).to have_content "Email was already confirmed"
+      expect(page).to have_content 'There is a problem'
+      expect(page).to have_content 'Email was already confirmed'
+      expect(page).to have_css 'div.govuk-form-group--error'
     end
   end
 end

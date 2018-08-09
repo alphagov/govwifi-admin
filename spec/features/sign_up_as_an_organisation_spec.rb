@@ -5,27 +5,29 @@ describe 'Sign up as an organisation' do
     it 'congratulates me' do
       sign_up_for_account
       create_password_for_account
-      expect(page).to have_content "Congratulations!"
+      expect(page).to have_content 'Congratulations!'
     end
   end
 
   context 'when password does not match password confirmation' do
     it 'tells the user that the passwords do not match' do
       sign_up_for_account
-      create_password_for_account(password: "password", confirmed_password: "password1")
-      expect(page).to have_content "Set your password"
-      expect(page).to have_content "There is a problem"
-      expect(page).to have_content "Passwords must match"
+      create_password_for_account(password: 'password', confirmed_password: 'password1')
+      expect(page).to have_content 'Set your password'
+      expect(page).to have_content 'There is a problem'
+      expect(page).to have_content 'Passwords must match'
+      expect(page).to have_css 'div.govuk-form-group--error'
     end
   end
 
   context 'when password is too short' do
     it 'tells the user that the password is too short' do
       sign_up_for_account
-      create_password_for_account(password: "1", confirmed_password: "1")
-      expect(page).to have_content "Set your password"
-      expect(page).to have_content "There is a problem"
-      expect(page).to have_content "Password is too short (minimum is 8 characters)"
+      create_password_for_account(password: '1', confirmed_password: '1')
+      expect(page).to have_content 'Set your password'
+      expect(page).to have_content 'There is a problem'
+      expect(page).to have_content 'Password is too short (minimum is 8 characters)'
+      expect(page).to have_css 'div.govuk-form-group--error'
     end
   end
 
@@ -34,8 +36,9 @@ describe 'Sign up as an organisation' do
       sign_up_for_account
       create_password_for_account
       visit confirmation_email_link
-      expect(page).to have_content "There is a problem"
+      expect(page).to have_content 'There is a problem'
       expect(page).to have_content 'Email was already confirmed'
+      expect(page).to have_css 'div.govuk-form-group--error'
     end
   end
 end
