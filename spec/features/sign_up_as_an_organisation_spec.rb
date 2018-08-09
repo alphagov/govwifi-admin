@@ -1,5 +1,3 @@
-require 'nokogiri'
-require 'capybara-screenshot/rspec'
 require 'features/support/sign_up_helpers'
 
 describe 'Sign up as an organisation' do

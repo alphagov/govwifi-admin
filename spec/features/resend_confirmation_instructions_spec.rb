@@ -1,5 +1,3 @@
-require 'nokogiri'
-require 'capybara-screenshot/rspec'
 require 'features/support/sign_up_helpers'
 
 describe 'Resending confirmation instructions' do
