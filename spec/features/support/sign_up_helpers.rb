@@ -8,7 +8,7 @@ def create_password_for_account(password: 'supersecret', confirmed_password: 'su
   visit confirmation_email_link
   fill_in 'New password', with: password
   fill_in 'Confirm new password', with: confirmed_password
-  click_on 'Change my password'
+  click_on 'Save my password'
 end
 
 def confirmation_email_link

@@ -15,7 +15,7 @@ describe 'logging in after signing up' do
     fill_in 'Email', with: 'tom@tom.com'
     fill_in 'Password', with: entered_password
 
-    click_on 'Log in'
+    click_on 'Continue'
   end
 
   context 'with correct password' do

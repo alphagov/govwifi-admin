@@ -8,6 +8,6 @@ shared_examples 'not signed in' do
   end
 
   it 'asks me to sign in' do
-    expect(page).to have_button 'Log in'
+    expect(page).to have_button 'Continue'
   end
 end
