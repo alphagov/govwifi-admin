@@ -24,7 +24,10 @@ lint:
 
 test:
 	$(MAKE) build
-	docker-compose run --rm app rspec
+	docker-compose up -d db
+	./mysql/bin/wait_for_mysql
+	docker-compose run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load
+	docker-compose run --rm app bundle exec rspec
 
 stop:
 	docker-compose kill

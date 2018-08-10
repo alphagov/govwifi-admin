@@ -1,7 +1,7 @@
 mysql: &mysql
   adapter: mysql2
   encoding: utf8
-  host: db
+  host: <%= ENV.fetch('DB_HOST') %>
   port: 3306
   username: <%= ENV.fetch('DB_USER') %>
   password: <%= ENV.fetch('DB_PASS') %>
@@ -17,9 +17,7 @@ development:
 staging:
   <<: *mysql
   database: govwifi_admin_staging
-  host: <%= ENV.fetch('DB_HOST') %>
 
 production:
   <<: *mysql
   database: govwifi_admin_production
-  host: <%= ENV.fetch('DB_HOST') %>
