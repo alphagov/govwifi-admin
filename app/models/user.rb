@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :ips
+
   devise :confirmable, :database_authenticatable, :registerable, :recoverable,
     :rememberable, :trackable, :validatable
 

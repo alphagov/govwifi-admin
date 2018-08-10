@@ -4,7 +4,8 @@ class IpsController < ApplicationController
   end
 
   def create
-    Ip.create!(ip_params)
+    current_user.ips.create!(ip_params)
+    render :show
   end
 
 private

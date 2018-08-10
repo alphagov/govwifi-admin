@@ -48,6 +48,12 @@ pipeline {
       }
     }
   }
+
+  post {
+    always {
+      sh 'make stop'
+    }
+  }
 }
 
 
