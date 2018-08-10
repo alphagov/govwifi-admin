@@ -1,1 +1,6 @@
 <h1>Add an IP</h1>
+
+<%= form_with model: @ip do |form| %>
+  <%= form.text_field :address, id: :address %>
+  <%= form.submit "save" %>
+<% end %>
