@@ -1,6 +1,6 @@
-def sign_up_for_account
+def sign_up_for_account(email: 'tom@tom.com')
   visit new_user_registration_path
-  fill_in 'user_email', with: 'tom@tom.com'
+  fill_in 'user_email', with: email
   click_on 'Sign up'
 end
 

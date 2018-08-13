@@ -1,3 +1,5 @@
+<%= render "layouts/form_errors" %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">Welcome!</h1>
@@ -11,9 +13,8 @@
 
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= devise_error_messages! %>
 
-        <div class="govuk-form-group">
+        <div class="govuk-form-group <%= "govuk-form-group--error" if resource&.errors&.any? %>">
           <%= f.label :email, "Provide your email address", class: "govuk-label"  %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input", required: true %>
         </div>

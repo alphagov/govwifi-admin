@@ -1,13 +1,14 @@
+<%= render "layouts/form_errors" %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-l">Set your password</h2>
 
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
       <%= form_for(resource, as: resource_name, url: users_confirmations_path, html: { method: :put }) do |f| %>
-        <%= devise_error_messages! %>
         <%= f.hidden_field :confirmation_token, value: params[:confirmation_token] %>
 
-        <div class="govuk-form-group ">
+        <div class="govuk-form-group <%= "govuk-form-group--error" if resource&.errors&.any? %>">
           <%= f.label :password, "New password", class: "govuk-label" %>
           <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>

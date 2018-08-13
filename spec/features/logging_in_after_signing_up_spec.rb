@@ -30,5 +30,9 @@ describe 'logging in after signing up' do
     let(:entered_password) { 'coarse' }
 
     it_behaves_like 'not signed in'
+
+    it 'displays an error to the user' do
+      expect(page).to have_content 'Invalid Email or password'
+    end
   end
 end
