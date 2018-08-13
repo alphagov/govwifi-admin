@@ -21,3 +21,8 @@ end
 def confirmation_email_received?
   ActionMailer::Base.deliveries.any?
 end
+
+def sign_in_user(user)
+  user.confirm unless user.confirmed?
+  login_as(user, scope: :user)
+end
