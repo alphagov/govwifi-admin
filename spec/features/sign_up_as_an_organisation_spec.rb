@@ -24,8 +24,8 @@ describe 'Sign up as an organisation' do
       end
     end
 
-    context 'with a notgov.uk email' do
-      let(:email) { 'someone@notgov.uk' }
+    context 'with a non-gov email' do
+      let(:email) { 'someone@google.com' }
 
       it 'tells me my email is not valid' do
         expect(page).to have_content(
