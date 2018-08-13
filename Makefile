@@ -1,11 +1,15 @@
 BUNDLE_FLAGS = --build-arg BUNDLE_INSTALL_CMD='bundle install --jobs 20 --retry 5'
+DOCKER_COMPOSE = docker-compose -f docker-compose.yml
 
 ifdef DEPLOYMENT
 	BUNDLE_FLAGS = --build-arg BUNDLE_INSTALL_CMD='bundle install --without test'
 endif
 
-DOCKER_BUILD_CMD = docker-compose build $(BUNDLE_FLAGS)
+ifndef JENKINS_URL
+  DOCKER_COMPOSE += -f docker-compose.development.yml
+endif
 
+DOCKER_BUILD_CMD = $(DOCKER_COMPOSE) build $(BUNDLE_FLAGS)
 
 build:
 	$(MAKE) stop
@@ -13,24 +17,25 @@ build:
 
 serve:
 	$(MAKE) build
-	docker-compose up -d db
+	$(DOCKER_COMPOSE) up -d db
 	./mysql/bin/wait_for_mysql
-	docker-compose run --rm app ./bin/rails db:create db:schema:load
-	docker-compose up -d app
+	$(DOCKER_COMPOSE) run --rm app rm -f tmp/pids/server.pid
+	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load
+	$(DOCKER_COMPOSE) up -d app
 
 lint:
 	$(MAKE) build
-	docker-compose run --rm app bundle exec govuk-lint-ruby app lib spec Gemfile*
+	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-ruby app lib spec Gemfile*
 
 test:
 	$(MAKE) build
-	docker-compose up -d db
+	$(DOCKER_COMPOSE) up -d db
 	./mysql/bin/wait_for_mysql
-	docker-compose run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load
-	docker-compose run --rm app bundle exec rspec
+	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load
+	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
 stop:
-	docker-compose kill
-	docker-compose rm -f
+	$(DOCKER_COMPOSE) kill
+	$(DOCKER_COMPOSE) rm -f
 
 .PHONY: build serve lint test stop
