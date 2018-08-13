@@ -6,6 +6,7 @@ ENV DB_USER root
 ENV DB_PASS root
 ENV DB_HOST db
 ENV DEVISE_SECRET_KEY fake-secret-key
+ENV AUTHORISED_EMAIL_DOMAINS_REGEX '.*'
 
 WORKDIR /usr/src/app
 
