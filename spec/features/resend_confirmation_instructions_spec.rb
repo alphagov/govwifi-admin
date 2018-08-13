@@ -2,7 +2,7 @@ require 'features/support/sign_up_helpers'
 require 'features/support/errors_in_form'
 
 describe 'Resending confirmation instructions' do
-  let(:correct_email) { 'user@user.com' }
+  let(:correct_email) { 'user@gov.uk' }
 
   context 'when user has not been confirmed' do
     before do
@@ -21,7 +21,7 @@ describe 'Resending confirmation instructions' do
     end
 
     context 'when email cannot be found' do
-      let(:entered_email) { 'not@correct.com' }
+      let(:entered_email) { 'different_user@gov.uk' }
 
       it_behaves_like 'errors in form'
 

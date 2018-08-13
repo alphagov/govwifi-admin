@@ -23,4 +23,34 @@ RSpec.describe User do
       end
     end
   end
+
+  describe '#save' do
+    subject { build(:user) }
+
+    context 'with the factory-built model' do
+      it { is_expected.to be_valid }
+    end
+
+    context 'with a gov.uk email' do
+      subject { build(:user, email: 'name@gov.uk') }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'with a non-gov.uk email' do
+      subject { build(:user, email: 'name@arbitrary-domain.com') }
+
+      it { is_expected.to_not be_valid }
+
+      context 'when saved' do
+        before { subject.save }
+
+        it 'explains the email must be from the correct domain' do
+          expect(subject.errors.full_messages).to eq(
+            ['Email must be from a government domain']
+          )
+        end
+      end
+    end
+  end
 end
