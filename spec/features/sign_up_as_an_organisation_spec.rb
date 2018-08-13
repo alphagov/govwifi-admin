@@ -9,7 +9,7 @@ describe 'Sign up as an organisation' do
       create_password_for_account
     end
 
-    context 'with a .gov.uk email' do
+    context 'with a gov.uk email' do
       let(:email) { 'someone@gov.uk' }
 
       it 'congratulates me' do
@@ -17,7 +17,7 @@ describe 'Sign up as an organisation' do
       end
     end
 
-    context 'with a other.gov.uk email' do
+    context 'with a email from a subdomain of gov.uk' do
       let(:email) { 'someone@other.gov.uk' }
 
       it 'congratulates me' do
@@ -27,26 +27,6 @@ describe 'Sign up as an organisation' do
 
     context 'with a notgov.uk email' do
       let(:email) { 'someone@notgov.uk' }
-
-      it 'tells me my email is not valid' do
-        expect(page).to have_content(
-          'only government/whitelisted emails can sign up'
-        )
-      end
-    end
-
-    context 'with a other.notgov.uk email' do
-      let(:email) { 'someone@other.notgov.uk' }
-
-      it 'tells me my email is not valid' do
-        expect(page).to have_content(
-          'only government/whitelisted emails can sign up'
-        )
-      end
-    end
-
-    context 'with an email with gov in the local-part' do
-      let(:email) { 'fake.gov.uk@unrelateddomain.com' }
 
       it 'tells me my email is not valid' do
         expect(page).to have_content(
