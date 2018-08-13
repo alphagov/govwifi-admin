@@ -1,12 +1,11 @@
 class IpsController < ApplicationController
-  skip_before_action :authenticate_user!
-
   def new
     @ip = Ip.new
   end
 
   def create
-    Ip.create(ip_params)
+    current_user.ips.create!(ip_params)
+    render :show
   end
 
 private

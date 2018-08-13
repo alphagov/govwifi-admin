@@ -16,3 +16,8 @@ def confirmation_email_link
   parsed_email = Nokogiri::HTML(confirmation_email.body.to_s)
   parsed_email.css('a').first['href']
 end
+
+def sign_in_user(user)
+  user.confirm unless user.confirmed?
+  login_as(user, scope: :user)
+end

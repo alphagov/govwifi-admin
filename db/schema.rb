@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180810095424) do
+ActiveRecord::Schema.define(version: 20180810103847) do
 
   create_table "ips", force: :cascade do |t|
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_ips_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
