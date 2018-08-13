@@ -71,9 +71,6 @@ def deploy(deploy_environment) {
       sh('git fetch')
       sh('git checkout stable')
 
-      sh '''
-          aws ecs run-task --cluster ${deploy_environment}-api-cluster --task-definition admin-task-${deploy_environment} --count 1 --overrides "{ \\"containerOverrides\\": [{ \\"name\\": \\"admin\\", \\"command\\": [\\"bundle\\", \\"exec\\", \\"rake\\", \\"db:migrate\\"] }] }"
-      '''
       docker.withRegistry(env.AWS_ECS_API_REGISTRY) {
         sh("eval \$(aws ecr get-login --no-include-email)")
         def appImage = docker.build(
@@ -81,6 +78,7 @@ def deploy(deploy_environment) {
           "--build-arg BUNDLE_INSTALL_CMD='bundle install --without test' ."
         )
         appImage.push()
+        sh("aws ecs run-task --cluster ${deploy_environment}-api-cluster --task-definition  admin-task-${deploy_environment} --count 1 --overrides \"{ \\\"containerOverrides\\\": [{ \\\"name\\\": \\\"admin\\\", \\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\"] }] }\"")
       }
     }
   } catch(err) { // timeout reached or input false
