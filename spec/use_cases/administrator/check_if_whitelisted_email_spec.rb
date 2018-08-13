@@ -6,6 +6,11 @@ describe CheckIfWhitelistedEmail do
     expect(result).to eq(success: false)
   end
 
+  it 'rejects a nil address' do
+    result = subject.execute(nil)
+    expect(result).to eq(success: false)
+  end
+
   it 'approves an address from the gov.uk domain' do
     result = subject.execute('someone@gov.uk')
     expect(result).to eq(success: true)
