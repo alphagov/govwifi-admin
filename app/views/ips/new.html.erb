@@ -1,6 +1,20 @@
-<h1>Add an IP</h1>
+<%= render "layouts/form_errors" %>
 
-<%= form_with model: @ip do |form| %>
-  <%= form.text_field :address, id: :address %>
-  <%= form.submit "save" %>
-<% end %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-heading-l">Add an IP</h2>
+
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
+      <%= form_with model: @ip do |form| %>
+        <div class="govuk-form-group <%= "govuk-form-group--error" if @ip&.errors&.any? %>">
+          <%= form.label :ip, "Enter a valid IP address", class: "govuk-label"  %><br />
+          <%= form.text_field :address, id: :address, autofocus: true, class: "govuk-input", required: true %>
+        </div>
+
+        <div class="actions">
+          <%= form.submit "save", class: "govuk-button govuk-!-margin-top-4" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
