@@ -8,6 +8,6 @@
     </p>
 
     <h3 class="govuk-heading-m">Your Secret Key for IP: <%= @ip.address %></h3>
-    <p class="govuk-body">XXXXXXXX</p>
+    <p class="govuk-body"><%= current_user.radius_secret_key %></p>
   </div>
 </div>

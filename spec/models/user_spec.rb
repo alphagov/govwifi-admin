@@ -31,10 +31,18 @@ RSpec.describe User do
       it { is_expected.to be_valid }
     end
 
-    context 'with a gov.uk email' do
+    context 'with valid data' do
       subject { build(:user, email: 'name@gov.uk') }
 
       it { is_expected.to be_valid }
+
+      context 'when saved' do
+        before { subject.save }
+
+        it 'sets the radius_secret_key' do
+          expect(subject.radius_secret_key).to be_present
+        end
+      end
     end
 
     context 'with a non-gov.uk email' do
