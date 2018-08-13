@@ -4,8 +4,14 @@ class IpsController < ApplicationController
   end
 
   def create
-    current_user.ips.create!(ip_params)
-    render :show
+    ip = current_user.ips.create!(ip_params)
+    redirect_to ip
+  end
+
+  def index; end
+
+  def show
+    @ip = Ip.find(params[:id])
   end
 
 private

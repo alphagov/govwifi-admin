@@ -14,10 +14,12 @@ describe 'Add an IP to my account' do
     let(:user) { create(:user) }
     before do
       sign_in_user user
-      visit new_ip_path
+      visit ips_path
+      expect(page).to have_content "Add IP"
+      click_on "Add IP"
     end
 
-    it 'displays the page' do
+    it 'displays the form' do
       expect(page).to have_content('Add an IP')
     end
 
@@ -27,6 +29,7 @@ describe 'Add an IP to my account' do
 
       expect(Ip.first.user).to eq(user)
       expect(page).to have_content('New IP Added!')
+      expect(page).to have_content(Ip.last.address)
     end
   end
 end
