@@ -30,7 +30,7 @@ describe 'Sign up as an organisation' do
 
       it 'tells me my email is not valid' do
         expect(page).to have_content(
-          'only government/whitelisted emails can sign up'
+          'Email must be from a government domain'
         )
       end
     end
@@ -40,7 +40,7 @@ describe 'Sign up as an organisation' do
 
       it 'tells me my email is not valid' do
         expect(page).to have_content(
-          'only government/whitelisted emails can sign up'
+          "Email can't be blank"
         )
       end
     end

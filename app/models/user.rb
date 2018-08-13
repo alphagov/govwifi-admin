@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   after_create :reset_confirmation_token
 
+  validate :email_on_whitelist
+
   def attempt_set_password(params)
     unless params[:password] == params[:password_confirmation]
       errors.add(:base, "Passwords must match") && return
@@ -20,6 +22,12 @@ class User < ApplicationRecord
   # Must be defined to allow Devise to create users without passwords
   def password_required?
     false
+  end
+
+  def email_on_whitelist
+    checker = CheckIfWhitelistedEmail.new
+    whitelisted = checker.execute(self.email)[:success]
+    errors.add(:email, 'must be from a government domain') unless whitelisted
   end
 
 private
