@@ -15,8 +15,8 @@ describe 'Add an IP to my account' do
     before do
       sign_in_user user
       visit ips_path
-      expect(page).to have_content "Add Site"
-      click_on "Add Site"
+      expect(page).to have_content "Add IP"
+      click_on "Add IP"
     end
 
     it 'displays the form' do
