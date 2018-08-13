@@ -1,4 +1,16 @@
 <div class="govuk-grid-row">
+  <% if flash.present? %>
+    <div class="govuk-error-summary">
+      <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+          <% flash.each do |name, message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-l">Sign in</h2>
 
