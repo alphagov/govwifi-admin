@@ -1,9 +1,25 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-l">Locations</h2>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-l">Locations</h2>
+      </div>
+      <div class="govuk-grid-column-one-third">
+        <%= link_to "Add IP", new_ip_path, class: "govuk-button",  style: "float:right;" %>
+      </div>
+    </div>
 
-    <p class="govuk-body">Currently there are no IPs added</p>
+    <% if @ips.empty? %>
+      <p class="govuk-body">
+        You have not added any IPs, <%= link_to "add one now", new_ip_path, class: "govuk-link" %>
+      </p>
+    <% else %>
+      <p class="govuk-body">
+        <strong>Your Secret Key:</strong>
+        <span class="float-right"><%= current_user.radius_secret_key %></span>
+      </p>
 
-    <%= link_to "Add IP", new_ip_path, class: "govuk-button" %>
+      <%= render "ips/table", ips: @ips %>
+    <% end %>
   </div>
 </div>

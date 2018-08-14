@@ -1,11 +1,15 @@
 <div class="govuk-grid-row">
+  <p class="govuk-body"><%= link_to "Back to list", ips_path, class: "govuk-back-link" %></p>
+  
   <div class="govuk-panel govuk-panel--confirmation">
     <h1 class="govuk-panel__title">
       IP Added
     </h1>
+    <p class="govuk-panel__body"><%= @ip.address %></p>
     <div class="govuk-panel__body">
-      Your Secret Key
-      <br><strong><%= current_user.radius_secret_key %></strong>
+       <strong>Your Secret Key</strong>
+       <br>
+       <%= current_user.radius_secret_key %>
     </div>
   </div>
 
