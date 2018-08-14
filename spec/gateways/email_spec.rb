@@ -13,14 +13,12 @@ describe EmailGateway do
     let(:confirmation_url) { 'http://example.com/confirm?token=123' }
     let(:template_id) { 1 }
     let(:reference) { 'confirmation_email' }
-    let(:email_reply_to_id) { 2 }
     let(:notifications_payload) do
       {
         email_address: 'test@example.com',
         template_id: 1,
         personalisation: { confirmation_url: 'http://example.com/confirm?token=123' },
-        reference: 'confirmation_email',
-        email_reply_to_id: 2
+        reference: 'confirmation_email'
       }
     end
 
@@ -29,8 +27,7 @@ describe EmailGateway do
         email: email,
         template_id: template_id,
         locals: { confirmation_url: confirmation_url },
-        reference: reference,
-        email_reply_to_id: email_reply_to_id
+        reference: reference
       )
     end
   end
