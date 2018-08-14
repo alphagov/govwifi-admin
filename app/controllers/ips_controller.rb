@@ -8,7 +8,9 @@ class IpsController < ApplicationController
     redirect_to ip
   end
 
-  def index; end
+  def index
+    @ips = current_user.ips
+  end
 
   def show
     @ip = Ip.find(params[:id])

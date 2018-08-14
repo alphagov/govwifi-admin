@@ -1,31 +1,25 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-l">Locations</h2>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-l">Locations</h2>
+      </div>
+      <div class="govuk-grid-column-one-third">
+        <%= link_to "Add IP", new_ip_path, class: "govuk-button",  style: "float:right;" %>
+      </div>
+    </div>
 
-    <%= link_to "Add IP", new_ip_path, class: "govuk-button" %>
-
-    <%= if @ips.empty? %>
-      <p class="govuk-body">Currently there are no IPs added</p>
+    <% if @ips.empty? %>
+      <p class="govuk-body">
+        You have not added any IPs, <%= link_to "add one now", new_ip_path, class: "govuk-link" %>
+      </p>
     <% else %>
-      <h3 class="govuk-heading-m"></h3>
+      <p class="govuk-body">
+        <strong>Your Secret Key:</strong>
+        <span class="float-right"><%= current_user.radius_secret_key %></span>
+      </p>
 
-      <table class="govuk-table">
-        <caption class="govuk-table__caption">List of added IPs:</caption>
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th class="govuk-table__header" scope="col">IP Address</th>
-            <th class="govuk-table__header" scope="col">Date Added</th>
-          </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-          <% @ip.each do |ip| %>
-            <tr class="govuk-table__row">
-              <th class="govuk-table__header" scope="row"><%= ip.address %></th>
-              <td class="govuk-table__cell "><%= ip.created_at.strftime("%d %b %Y, %l:%M %p") %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <%= render "ips/table", ips: @ips %>
     <% end %>
   </div>
 </div>
