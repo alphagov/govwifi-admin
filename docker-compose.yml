@@ -11,7 +11,5 @@ services:
 
   app:
     build: .
-    volumes:
-    - ./:/usrc/src/app
     ports:
     - "8080:3000"
