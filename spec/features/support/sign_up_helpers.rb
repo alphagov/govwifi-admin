@@ -1,3 +1,5 @@
+require 'support/confirmation_use_case_spy'
+
 def sign_up_for_account(email: 'default@gov.uk')
   visit new_user_registration_path
   fill_in 'user_email', with: email
@@ -13,13 +15,11 @@ def create_password_for_account(password: 'supersecret', confirmed_password: 'su
 end
 
 def confirmation_email_link
-  confirmation_email = ActionMailer::Base.deliveries.first
-  parsed_email = Nokogiri::HTML(confirmation_email.body.to_s)
-  parsed_email.css('a').first['href']
+  ConfirmationUseCaseSpy.last_confirmation_url
 end
 
 def confirmation_email_received?
-  ActionMailer::Base.deliveries.any?
+  !ConfirmationUseCaseSpy.last_confirmation_url.nil?
 end
 
 def sign_in_user(user)

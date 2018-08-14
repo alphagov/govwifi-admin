@@ -1,4 +1,8 @@
+require 'support/notifications_service'
+
 describe User do
+  include_examples 'notifications service'
+
   context 'associations' do
     it { should have_many(:ips) }
   end

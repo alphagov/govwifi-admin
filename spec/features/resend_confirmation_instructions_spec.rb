@@ -1,26 +1,39 @@
 require 'features/support/sign_up_helpers'
 require 'features/support/errors_in_form'
+require 'support/notifications_service'
+require 'support/confirmation_use_case_spy'
+require 'support/confirmation_use_case'
 
 describe 'Resending confirmation instructions' do
+  include_examples 'confirmation use case spy'
+  include_examples 'notifications service'
+
   let(:correct_email) { 'user@gov.uk' }
 
+  context 'when entering correct information' do
+    let(:entered_email) { correct_email }
+
+    it 'resends the confirmation link' do
+      expect {
+        sign_up_for_account(email: correct_email)
+        visit new_user_confirmation_path
+        fill_in 'user_email', with: entered_email
+        click_on 'Resend confirmation instructions'
+      }.to change{ ConfirmationUseCaseSpy.confirmations_count }.by(2)
+    end
+  end
+
   context 'when user has not been confirmed' do
-    before do
-      sign_up_for_account(email: correct_email)
-      visit new_user_confirmation_path
-      fill_in 'user_email', with: entered_email
-      click_on 'Resend confirmation instructions'
-    end
-
-    context 'when entering correct information' do
-      let(:entered_email) { correct_email }
-
-      it 'resends the confirmation link' do
-        expect(ActionMailer::Base.deliveries.count).to eq(2)
-      end
-    end
+    let(:entered_email) { correct_email }
 
     context 'when email cannot be found' do
+      before do
+        sign_up_for_account(email: correct_email)
+        visit new_user_confirmation_path
+        fill_in 'user_email', with: entered_email
+        click_on 'Resend confirmation instructions'
+      end
+
       let(:entered_email) { 'different_user@gov.uk' }
 
       it_behaves_like 'errors in form'

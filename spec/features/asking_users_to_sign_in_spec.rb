@@ -1,7 +1,12 @@
 require 'features/support/sign_up_helpers'
 require 'features/support/not_signed_in'
+require 'support/notifications_service'
+require 'support/confirmation_use_case'
 
 describe 'asking users to sign in' do
+  include_examples 'confirmation use case spy'
+  include_examples 'notifications service'
+
   context 'with no account' do
     context 'when I try to visit the homepage' do
       before { visit '/' }
