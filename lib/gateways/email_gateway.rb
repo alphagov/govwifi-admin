@@ -10,8 +10,7 @@ class EmailGateway
       email_address: opts[:email],
       template_id: opts[:template_id],
       personalisation: opts[:locals],
-      reference: opts[:reference],
-      email_reply_to_id: opts[:email_reply_to_id]
+      reference: opts[:reference]
     )
   end
 
