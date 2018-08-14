@@ -18,8 +18,7 @@ private
 
   def address_is_ipv4?(address)
     begin
-      ip_object = IPAddr.new(address)
-      ip_object.ipv4?
+      IPAddr.new(address).ipv4?
     rescue IPAddr::InvalidAddressError
       false
     end
