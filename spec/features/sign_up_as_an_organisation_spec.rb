@@ -11,16 +11,16 @@ describe 'Sign up as an organisation' do
     context 'with a gov.uk email' do
       let(:email) { 'someone@gov.uk' }
 
-      it 'congratulates me' do
-        expect(page).to have_content 'Congratulations!'
+      it 'signs me in' do
+        expect(page).to have_content 'Logout'
       end
     end
 
     context 'with a email from a subdomain of gov.uk' do
       let(:email) { 'someone@other.gov.uk' }
 
-      it 'congratulates me' do
-        expect(page).to have_content 'Congratulations!'
+      it 'signs me in' do
+        expect(page).to have_content 'Logout'
       end
     end
 

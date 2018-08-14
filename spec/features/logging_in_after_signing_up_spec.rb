@@ -22,8 +22,8 @@ describe 'logging in after signing up' do
   context 'with correct password' do
     let(:password) { correct_password }
 
-    it 'shows me congratulations' do
-      expect(page).to have_content 'Congratulations!'
+    it 'signs me in' do
+      expect(page).to have_content 'Logout'
     end
   end
 
