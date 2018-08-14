@@ -1,11 +1,8 @@
 class CheckIfWhitelistedEmail
   def execute(email)
-    return { success: false } if email.blank?
+    pattern = ENV.fetch('AUTHORISED_EMAIL_DOMAINS_REGEX')
+    checker = Regexp.new(pattern, Regexp::IGNORECASE)
 
-    domain = email.split('@').last
-    valid_domain = domain.starts_with?('gov.uk')
-    valid_subdomain = domain.include?('.gov.uk')
-
-    { success: valid_domain || valid_subdomain }
+    { success: email.to_s.match?(checker) }
   end
 end

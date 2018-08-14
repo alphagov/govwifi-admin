@@ -1,4 +1,4 @@
-RSpec.describe User do
+describe User do
   context 'associations' do
     it { should have_many(:ips) }
   end
