@@ -26,8 +26,8 @@ describe 'View all my IP addresses' do
     end
 
     context 'when user has IPs' do
-      let!(:ip_1) { create(:ip, user: user )}
-      let!(:ip_2) { create(:ip, user: user )}
+      let!(:ip_1) { create(:ip, user: user) }
+      let!(:ip_2) { create(:ip, user: user) }
 
       before do
         sign_in_user user
