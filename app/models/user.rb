@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :confirmable, :database_authenticatable, :registerable, :recoverable,
     :rememberable, :trackable, :validatable
 
-  after_create :reset_confirmation_token
+  before_create :reset_confirmation_token, :set_radius_secret_key
 
   validate :email_on_whitelist
 
@@ -38,6 +38,10 @@ private
     encrypted_token = Devise.token_generator.digest(
       User, :confirmation_token, self.confirmation_token
     )
-    update(confirmation_token: encrypted_token)
+    self.confirmation_token = encrypted_token
+  end
+
+  def set_radius_secret_key
+    self.radius_secret_key = RadiusSecretKeyGenerator.new.execute
   end
 end
