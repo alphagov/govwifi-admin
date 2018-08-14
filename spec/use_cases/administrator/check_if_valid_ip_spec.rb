@@ -46,6 +46,15 @@ describe CheckIfValidIp do
         expect(result).to eq(success: false)
       end
     end
+
+    context 'with a mistyped IP address' do
+      let(:address) { '192.618.0.1' }
+
+      it 'returns false' do
+        result = subject.execute(address)
+        expect(result).to eq(success: false)
+      end
+    end
   end
 
   context 'not IPv4' do
