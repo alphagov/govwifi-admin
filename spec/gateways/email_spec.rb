@@ -9,8 +9,8 @@ describe EmailGateway do
   end
 
   context 'confirmation emails' do
-    let(:email) { 'test@example.com'}
-    let(:confirmation_url) { 'http://example.com/confirm?token=123'}
+    let(:email) { 'test@example.com' }
+    let(:confirmation_url) { 'http://example.com/confirm?token=123' }
     let(:template_id) { 1 }
     let(:reference) { 'confirmation_email' }
     let(:email_reply_to_id) { 2 }

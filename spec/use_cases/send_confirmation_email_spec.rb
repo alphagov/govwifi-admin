@@ -20,7 +20,7 @@ describe SendConfirmationEmail do
   end
 
   it 'calls notifications gateway with valid data' do
-    expect {subject.execute(email: email, confirmation_url: confirmation_url) }
+    expect { subject.execute(email: email, confirmation_url: confirmation_url) }
       .to_not raise_error
   end
 end

@@ -19,7 +19,7 @@ describe 'Resending confirmation instructions' do
         visit new_user_confirmation_path
         fill_in 'user_email', with: entered_email
         click_on 'Resend confirmation instructions'
-      }.to change{ ConfirmationUseCaseSpy.confirmations_count }.by(2)
+      }.to change { ConfirmationUseCaseSpy.confirmations_count }.by(2)
     end
   end
 

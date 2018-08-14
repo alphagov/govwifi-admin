@@ -1,3 +1,4 @@
+# rubocop:disable Style/ClassVars
 class ConfirmationUseCaseSpy
   @@last_confirmation_url = nil
   @@confirmations_count = 0
@@ -17,10 +18,11 @@ class ConfirmationUseCaseSpy
     end
   end
 
-  def execute(email:, confirmation_url:)
+  def execute(_email:, confirmation_url:)
     @@last_confirmation_url = confirmation_url
     @@confirmations_count += 1
 
     {}
   end
 end
+# rubocop:enable Style/ClassVars

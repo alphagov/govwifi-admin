@@ -2,7 +2,7 @@ require 'notifications/client'
 
 class EmailGateway
   def initialize
-    @client =  Notifications::Client.new(ENV.fetch('NOTIFICATIONS_API_KEY'))
+    @client = Notifications::Client.new(ENV.fetch('NOTIFICATIONS_API_KEY'))
   end
 
   def send(opts)
@@ -15,7 +15,7 @@ class EmailGateway
     )
   end
 
-  private
+private
 
   attr_reader :client
 end
