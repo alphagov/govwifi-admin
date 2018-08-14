@@ -14,7 +14,8 @@ class ConfirmationUseCaseSpy
 
   def execute(email:, confirmation_url:)
     @@last_confirmation_url = confirmation_url
-    @@confirmations_count += 1
+
+    {}
   end
 
   private
