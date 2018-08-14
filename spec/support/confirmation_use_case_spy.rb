@@ -18,11 +18,13 @@ class ConfirmationUseCaseSpy
     end
   end
 
-  def execute(_email:, confirmation_url:)
+  # rubocop:disable Lint/UnusedMethodArgument
+  def execute(email:, confirmation_url:)
     @@last_confirmation_url = confirmation_url
     @@confirmations_count += 1
 
     {}
   end
+  # rubocop:enable Lint/UnusedMethodArgument
 end
 # rubocop:enable Style/ClassVars

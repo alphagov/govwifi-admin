@@ -2,7 +2,7 @@ require 'support/notifications_service'
 
 describe EmailGateway do
   before do
-    ENV['NOTIFICATIONS_API_KEY'] = 'dummy_key-00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000'
+    ENV['NOTIFY_API_KEY'] = 'dummy_key-00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000'
 
     expect_any_instance_of(Notifications::Client).to \
       receive(:send_email).with(notifications_payload)
