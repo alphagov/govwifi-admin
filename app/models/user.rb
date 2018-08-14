@@ -24,13 +24,13 @@ class User < ApplicationRecord
     false
   end
 
+private
+
   def email_on_whitelist
     checker = CheckIfWhitelistedEmail.new
     whitelisted = checker.execute(self.email)[:success]
     errors.add(:email, 'must be from a government domain') unless whitelisted
   end
-
-private
 
   # Required as Devise fails to encrypt/digest the user confirmation token when
   # creating the user.  See: https://github.com/plataformatec/devise/issues/2615

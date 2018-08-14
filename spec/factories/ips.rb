@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :ip do
-    address "1.12.123.45.78"
+    address '10.0.0.1'
   end
 end
