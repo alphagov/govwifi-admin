@@ -9,7 +9,7 @@
     <% ips.each do |ip| %>
       <tr class="govuk-table__row">
         <th class="govuk-table__header" scope="row"><%= ip.address %></th>
-        <td class="govuk-table__cell "><%= ip.created_at.strftime("%d %b %Y, %l:%M %p") %></td>
+        <td class="govuk-table__cell "><%= ip.created_at.strftime("%d %b %Y") %></td>
       </tr>
     <% end %>
   </tbody>

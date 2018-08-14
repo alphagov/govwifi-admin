@@ -10,8 +10,6 @@ services:
       - "13306:3306"
 
   app:
-    volumes:
-      - .:/usr/src/app
     build: .
     ports:
     - "8080:3000"
