@@ -31,7 +31,7 @@ test:
 	$(MAKE) build
 	$(DOCKER_COMPOSE) up -d db
 	./mysql/bin/wait_for_mysql
-	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load
+	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load db:migrate
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
 stop:
