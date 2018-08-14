@@ -17,4 +17,5 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
   config.active_record.dump_schema_after_migration = false
+  config.action_mailer.default_url_options = { host: "admin-platform.staging.wifi.service.gov.uk" }
 end

@@ -1,7 +1,12 @@
 require 'features/support/sign_up_helpers'
 require 'features/support/errors_in_form'
+require 'support/notifications_service'
+require 'support/confirmation_use_case'
 
 describe 'Sign up as an organisation' do
+  include_examples 'confirmation use case spy'
+  include_examples 'notifications service'
+
   context 'with matching passwords' do
     before do
       sign_up_for_account(email: email)
