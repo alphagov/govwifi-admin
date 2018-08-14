@@ -5,4 +5,8 @@ shared_examples 'confirmation use case spy' do
     allow(SendConfirmationEmail).to \
       receive(:new).and_return(ConfirmationUseCaseSpy.new)
   end
+
+  after do
+    ConfirmationUseCaseSpy.clear!
+  end
 end 
