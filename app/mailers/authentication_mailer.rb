@@ -1,6 +1,13 @@
 class AuthenticationMailer < ::Devise::Mailer
-  helper :application # gives access to all helpers defined within `application_helper`.
+  helper :application
   include Rails.application.routes.url_helpers
-  include Devise::Controllers::UrlHelpers # Optional. eg. `confirmation_url`
-  default template_path: 'views/users/mailer' # to make sure that your mailer uses the devise views
+  include Devise::Controllers::UrlHelpers
+
+  def confirmation_instructions(record, token, _opts = {})
+    confirmation_link = confirmation_url(record, confirmation_token: token)
+
+    SendConfirmationEmail.new(
+      notifications_gateway: EmailGateway.new
+    ).execute(email: record.email, confirmation_url: confirmation_link)
+  end
 end

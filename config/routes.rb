@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'example#page'
+  root 'ips#index'
 
   devise_for :users, controllers: {
     confirmations: 'users/confirmations',

@@ -1,8 +1,13 @@
 require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
 require 'features/support/activation_notice'
+require 'support/notifications_service'
+require 'support/confirmation_use_case'
 
 describe 'Add an IP to my account' do
+  include_examples 'confirmation use case spy'
+  include_examples 'notifications service'
+
   context 'when logged out' do
     before do
       visit new_ip_path

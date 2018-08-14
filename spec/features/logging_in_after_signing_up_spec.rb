@@ -1,7 +1,12 @@
 require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
+require 'support/notifications_service'
+require 'support/confirmation_use_case'
 
 describe 'logging in after signing up' do
+  include_examples 'confirmation use case spy'
+  include_examples 'notifications service'
+
   let(:correct_password) { 'f1uffy-bu44ies' }
 
   before do
@@ -22,8 +27,8 @@ describe 'logging in after signing up' do
   context 'with correct password' do
     let(:password) { correct_password }
 
-    it 'shows me congratulations' do
-      expect(page).to have_content 'Congratulations!'
+    it 'signs me in' do
+      expect(page).to have_content 'Logout'
     end
   end
 

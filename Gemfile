@@ -9,6 +9,7 @@ end
 
 gem 'devise', '~> 4.4.3'
 gem 'mysql2', '~> 0.5.2'
+gem 'notifications-ruby-client', '~> 2.7.0'
 gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.2.1'
 gem 'sass-rails', '~> 5.0'

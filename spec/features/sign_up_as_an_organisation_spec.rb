@@ -1,7 +1,12 @@
 require 'features/support/sign_up_helpers'
 require 'features/support/errors_in_form'
+require 'support/notifications_service'
+require 'support/confirmation_use_case'
 
 describe 'Sign up as an organisation' do
+  include_examples 'confirmation use case spy'
+  include_examples 'notifications service'
+
   context 'with matching passwords' do
     before do
       sign_up_for_account(email: email)
@@ -11,16 +16,16 @@ describe 'Sign up as an organisation' do
     context 'with a gov.uk email' do
       let(:email) { 'someone@gov.uk' }
 
-      it 'congratulates me' do
-        expect(page).to have_content 'Congratulations!'
+      it 'signs me in' do
+        expect(page).to have_content 'Logout'
       end
     end
 
     context 'with a email from a subdomain of gov.uk' do
       let(:email) { 'someone@other.gov.uk' }
 
-      it 'congratulates me' do
-        expect(page).to have_content 'Congratulations!'
+      it 'signs me in' do
+        expect(page).to have_content 'Logout'
       end
     end
 
