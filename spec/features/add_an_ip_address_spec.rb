@@ -29,6 +29,7 @@ describe 'Add an IP to my account' do
 
       expect(Ip.first.user).to eq(user)
       expect(page).to have_content('IP Added')
+      expect(page).to have_content(Ip.first.address)
       expect(page).to have_content(user.radius_secret_key)
     end
   end
