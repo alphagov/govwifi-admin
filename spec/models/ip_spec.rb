@@ -1,5 +1,11 @@
-RSpec.describe Ip do
+require 'support/notifications_service'
+require 'support/confirmation_use_case'
+
+describe Ip do
   it { should belong_to(:user) }
+
+  include_examples 'confirmation use case spy'
+  include_examples 'notifications service'
 
   context "validations" do
     it { should validate_presence_of(:address) }
