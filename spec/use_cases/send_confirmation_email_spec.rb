@@ -3,7 +3,7 @@ describe SendConfirmationEmail do
     def send(opts)
       raise unless opts[:email] == 'test@example.com'
       raise unless opts[:locals][:confirmation_url] == 'https://example.com'
-      raise unless opts[:template_id] == '5f42e490-ce5e-44e7-9104-805136961116'
+      raise unless opts[:template_id] == 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
       raise unless opts[:reference] == 'confirmation_email'
 
       {}
@@ -12,6 +12,7 @@ describe SendConfirmationEmail do
 
   let(:email) { 'test@example.com' }
   let(:confirmation_url) { 'https://example.com' }
+  let(:template_id) { GOV_NOTIFY_CONFIG['confirmation_email']['template_id'] }
 
   subject do
     described_class.new(
@@ -20,7 +21,13 @@ describe SendConfirmationEmail do
   end
 
   it 'calls notifications gateway with valid data' do
-    expect { subject.execute(email: email, confirmation_url: confirmation_url) }
-      .to_not raise_error
+    expect {
+      subject
+        .execute(
+          email: email,
+          confirmation_url: confirmation_url,
+          template_id: template_id
+        )
+    }.to_not raise_error
   end
 end
