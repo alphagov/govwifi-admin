@@ -19,7 +19,7 @@ class ConfirmationUseCaseSpy
   end
 
   # rubocop:disable Lint/UnusedMethodArgument
-  def execute(email:, confirmation_url:)
+  def execute(email:, confirmation_url:, template_id:)
     @@last_confirmation_url = confirmation_url
     @@confirmations_count += 1
 

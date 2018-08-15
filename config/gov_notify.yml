@@ -1,0 +1,15 @@
+staging:
+  confirmation_email:
+    template_id: '1af17502-9797-4e61-904e-999f6cf259a5'
+
+development:
+  confirmation_email:
+    template_id: '1af17502-9797-4e61-904e-999f6cf259a5'
+
+test:
+  confirmation_email:
+    template_id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+
+production:
+  confirmation_email:
+    template_id: '5f42e490-ce5e-44e7-9104-805136961116'
