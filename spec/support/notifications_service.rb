@@ -1,3 +1,5 @@
+require 'notifications/client'
+
 shared_examples 'notifications service' do
   let(:notifications_payload) { double }
 
