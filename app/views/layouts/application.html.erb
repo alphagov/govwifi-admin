@@ -64,16 +64,26 @@
           </span>
         <% end %>
       </div>
-      <div class="govuk-header__content">
+
+      <div class="govuk-header__content d-flex justify-content-between">
         <%= link_to "GovWifi", root_path, class: "govuk-header__link govuk-header__link--service-name" %>
-        <div class="float-right govuk-link govuk-!-margin-top-1 govuk-!-font-weight-bold">
-          <% if user_signed_in? %>
-              <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "govuk-header__link" %>
+        <button role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+        <nav>
+          <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
+            <% if user_signed_in? %>
+              <li class="govuk-header__navigation-item">
+                <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "govuk-header__link" %>
+              </li>
             <% else %>
-              <%= link_to 'Sign Up', new_user_registration_path, class: "govuk-header__link govuk-!-margin-right-3" %>
-              <%= link_to 'Login', new_user_session_path, class: "govuk-header__link" %>
-          <% end %>
-        </div>
+              <li class="govuk-header__navigation-item">
+                <%= link_to 'Sign Up', new_user_registration_path, class: "govuk-header__link govuk-!-margin-right-3" %>
+              </li>
+              <li class="govuk-header__navigation-item">
+                <%= link_to 'Login', new_user_session_path, class: "govuk-header__link" %>
+              </li>
+            <% end %>
+          </ul>
+        </nav>
       </div>
     </div>
   </header>
