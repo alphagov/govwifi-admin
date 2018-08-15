@@ -1,17 +1,11 @@
-require 'support/notifications_service'
-require 'support/confirmation_use_case'
-
 describe Ip do
   it { should belong_to(:user) }
-
-  include_examples 'confirmation use case spy'
-  include_examples 'notifications service'
 
   context "validations" do
     it { should validate_presence_of(:address) }
 
     context "address" do
-      let(:user) { create(:user) }
+      let(:user) { create(:user, :confirmed) }
 
       context "when invalid" do
         let!(:ip) { Ip.create(address: "invalidIP", user: user) }
