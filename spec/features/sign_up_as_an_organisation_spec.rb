@@ -1,6 +1,7 @@
 require 'features/support/sign_up_helpers'
 require 'features/support/errors_in_form'
 require 'support/notifications_service'
+require 'support/confirmation_use_case_spy'
 require 'support/confirmation_use_case'
 
 describe 'Sign up as an organisation' do
@@ -89,6 +90,25 @@ describe 'Sign up as an organisation' do
 
     it 'tells the user the email is already confirmed' do
       expect(page).to have_content 'Email was already confirmed'
+    end
+  end
+
+  context 'when making two errors in a row' do
+    before do
+      sign_up_for_account
+      create_password_for_account(password: '1', confirmed_password: '1')
+      expect(page).to have_content 'Password is too short (minimum is 6 characters)'
+      expect(page).to have_content 'Set your password'
+
+      fill_in 'New password', with: "password"
+      fill_in 'Confirm new password', with: "password1"
+      click_on 'Save my password'
+    end
+
+    # it_behaves_like 'errors in form'
+
+    it 'correctly sets the second error' do
+      expect(page).to have_content 'Passwords must match'
     end
   end
 end
