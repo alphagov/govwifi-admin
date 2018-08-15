@@ -35,7 +35,7 @@ describe 'Add an IP to my account' do
 
     context 'after successfully saving an IP' do
       before do
-        fill_in 'address', with: '123213213'
+        fill_in 'address', with: '10.0.0.1'
         expect { click_on 'save' }.to change { Ip.count }.by 1
       end
 
