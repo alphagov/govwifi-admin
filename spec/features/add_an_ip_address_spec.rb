@@ -1,5 +1,6 @@
 require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
+require 'features/support/errors_in_form'
 require 'features/support/activation_notice'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
@@ -30,6 +31,20 @@ describe 'Add an IP to my account' do
 
       it 'displays the form' do
         expect(page).to have_content('Add an IP')
+      end
+    end
+
+    context 'with an invalid IP address' do
+      before do
+        fill_in 'address', with: 'InvalidIP'
+        expect { click_on 'save' }.to change { Ip.count }.by(0)
+      end
+
+      it_behaves_like 'errors in form'
+
+      it 'displays the form with error message' do
+        expect(page).to have_content('Add an IP')
+        expect(page).to have_content('Address must be valid IP address format')
       end
     end
 

@@ -4,8 +4,12 @@ class IpsController < ApplicationController
   end
 
   def create
-    ip = current_user.ips.create!(ip_params)
-    redirect_to ip
+    @ip = current_user.ips.new(ip_params)
+    if @ip.save
+      redirect_to @ip
+    else
+      render :new
+    end
   end
 
   def index
