@@ -1,5 +1,5 @@
 describe SendConfirmationEmail do
-  class NotificationsGatewayMock
+  class SendConfirmationEmailGatewayMock
     def send(opts)
       raise unless opts[:email] == 'test@example.com'
       raise unless opts[:locals][:confirmation_url] == 'https://example.com'
@@ -16,7 +16,7 @@ describe SendConfirmationEmail do
 
   subject do
     described_class.new(
-      notifications_gateway: NotificationsGatewayMock.new
+      notifications_gateway: SendConfirmationEmailGatewayMock.new
     )
   end
 
