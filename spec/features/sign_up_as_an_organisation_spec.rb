@@ -80,6 +80,9 @@ describe 'Sign up as an organisation' do
 
   context 'when account is already confirmed' do
     before do
+      expect_any_instance_of(NotifySupportOfNewUser).to \
+        receive(:execute)
+
       sign_up_for_account
       create_password_for_account
       visit confirmation_email_link
