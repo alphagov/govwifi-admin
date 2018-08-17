@@ -15,4 +15,7 @@ class AuthenticationMailer < ::Devise::Mailer
       template_id: template_id
     )
   end
+
+  # Overrides https://github.com/plataformatec/devise/blob/master/app/mailers/devise/mailer.rb#L12
+  
 end
