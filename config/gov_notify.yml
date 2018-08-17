@@ -18,6 +18,8 @@ test:
     template_id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
   notify_support_of_new_user:
     template_id: 'yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy'
+  password_reset_email:
+    template_id: 'zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz'
 
 production:
   support_email: 'govwifi-support@digital.cabinet-office.gov.uk'
