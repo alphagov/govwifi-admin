@@ -1,3 +1,7 @@
+require 'support/notifications_service'
+require 'support/reset_password_use_case_spy'
+require 'support/reset_password_use_case'
+
 describe "Resetting a password" do
   it "displays the forgot password link at login" do
     visit root_path
@@ -20,6 +24,9 @@ describe "Resetting a password" do
   end
 
   context "when the user does exist" do
+    include_examples 'reset password use case spy'
+    include_examples 'notifications service'
+
     let(:user) { create(:user, :confirmed) }
 
     it "confirms that the reset instructions have been sent" do
@@ -27,6 +34,14 @@ describe "Resetting a password" do
       fill_in "user_email", with: user.email
       click_on "Send me reset password instructions"
       expect(page).to have_content("You will receive an email with instructions")
+    end
+
+    it "sends the reset password instructions" do
+      expect {
+        visit new_user_password_path
+        fill_in "user_email", with: user.email
+        click_on "Send me reset password instructions"
+      }.to change { ResetPasswordUseCaseSpy.reset_count }.by(1)
     end
   end
 end
