@@ -43,5 +43,29 @@ describe "Resetting a password" do
         click_on "Send me reset password instructions"
       }.to change { ResetPasswordUseCaseSpy.reset_count }.by(1)
     end
+
+    context "when clicking on reset link" do
+      let(:reset_path) { ResetPasswordUseCaseSpy.last_reset_path_with_query }
+
+      before do
+        visit new_user_password_path
+        fill_in "user_email", with: user.email
+        click_on "Send me reset password instructions"
+        visit(reset_path)
+      end
+
+      it "redirects user to edit password page" do
+        expect(page).to have_content("Change your password")
+      end
+
+      context "when entering correct passwords" do
+        it "changes to users password" do
+          fill_in "user_password", with: "password"
+          fill_in "user_password_confirmation", with: "password"
+          click_on "Change my password"
+          expect(page).to have_content("Logout")
+        end
+      end
+    end
   end
 end

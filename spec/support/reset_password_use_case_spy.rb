@@ -8,6 +8,11 @@ class ResetPasswordUseCaseSpy
       @@last_reset_url
     end
 
+    def last_reset_path_with_query
+      url_obj = URI.parse(last_reset_url)
+      url_obj.path + "?" + url_obj.query
+    end
+
     def reset_count
       @@reset_count
     end
