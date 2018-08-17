@@ -18,7 +18,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'database_cleaner'
-  gem 'factory_bot_rails', '~> 4.0'
+  gem 'factory_bot_rails', '~> 4.11'
   gem 'govuk-lint', '~> 3'
   gem 'nokogiri'
   gem 'rspec-rails', '~> 3'
