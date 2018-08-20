@@ -10,9 +10,6 @@
 
         <div class="govuk-form-group <%= "govuk-form-group--error" if resource&.errors&.any? %>">
           <%= f.label :password, "New password", class: "govuk-label" %>
-          <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %>
           <%= f.password_field :password, autofocus: true, class: "govuk-input", autocomplete: "off", required: true %>
         </div>
 
