@@ -1,0 +1,22 @@
+<%= render "layouts/form_errors" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-heading-l">Reset your password</h2>
+
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <div class="govuk-form-group">
+          <%= f.label :email, "Provide your email address", class: "govuk-label" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Send me reset password instructions", class: "govuk-button govuk-!-margin-top-2" %>
+        </div>
+      <% end %>
+
+      <%= render "users/shared/links" %>
+    </div>
+  </div>
+</div>
