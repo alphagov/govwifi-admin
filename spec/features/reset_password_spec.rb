@@ -35,19 +35,13 @@ describe "Resetting a password" do
 
     let(:user) { create(:user, :confirmed) }
 
-    it "confirms that the reset instructions have been sent" do
-      visit new_user_password_path
-      fill_in "user_email", with: user.email
-      click_on "Send me reset password instructions"
-      expect(page).to have_content("You will receive an email with instructions")
-    end
-
     it "sends the reset password instructions" do
       expect {
         visit new_user_password_path
         fill_in "user_email", with: user.email
         click_on "Send me reset password instructions"
       }.to change { ResetPasswordUseCaseSpy.reset_count }.by(1)
+      expect(page).to have_content("You will receive an email with instructions")
     end
 
     context "when clicking on reset link" do
@@ -65,10 +59,13 @@ describe "Resetting a password" do
       end
 
       context "when entering correct passwords" do
-        it "changes to users password" do
+        before do
           fill_in "user_password", with: "password"
           fill_in "user_password_confirmation", with: "password"
           click_on "Change my password"
+        end
+
+        it "changes to users password" do
           expect(page).to have_content("Logout")
         end
       end
