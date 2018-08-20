@@ -16,10 +16,15 @@ describe "Resetting a password" do
   end
 
   context "when user does not exist" do
-    it "tells the user the email cannot be found" do
+    before do
       visit new_user_password_path
       fill_in "user_email", with: "user@user.com"
       click_on "Send me reset password instructions"
+    end
+
+    it_behaves_like "errors in form"
+
+    it "tells the user the email cannot be found" do
       expect(page).to have_content("Email not found")
     end
   end
