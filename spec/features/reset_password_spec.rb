@@ -1,6 +1,7 @@
 require 'support/notifications_service'
 require 'support/reset_password_use_case_spy'
 require 'support/reset_password_use_case'
+require 'features/support/errors_in_form'
 
 describe "Resetting a password" do
   it "displays the forgot password link at login" do
@@ -64,6 +65,21 @@ describe "Resetting a password" do
           fill_in "user_password_confirmation", with: "password"
           click_on "Change my password"
           expect(page).to have_content("Logout")
+        end
+      end
+
+
+      context "when entering a password that is too short" do
+        before do
+          fill_in "user_password", with: "1"
+          fill_in "user_password_confirmation", with: "1"
+          click_on "Change my password"
+        end
+
+        it_behaves_like "errors in form"
+
+        it "tells the user the password is too short" do
+          expect(page).to have_content("Password is too short")
         end
       end
     end
