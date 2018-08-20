@@ -4,7 +4,7 @@ describe SendResetPasswordEmail do
       raise unless opts[:email] == 'test@example.com'
       raise unless opts[:locals][:reset_url] == 'https://example.com'
       raise unless opts[:template_id] == 'zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz'
-      raise unless opts[:reference] == 'password_reset_email'
+      raise unless opts[:reference] == 'reset_password_email'
 
       {}
     end
@@ -12,7 +12,7 @@ describe SendResetPasswordEmail do
 
   let(:email) { 'test@example.com' }
   let(:reset_url) { 'https://example.com' }
-  let(:template_id) { GOV_NOTIFY_CONFIG['password_reset_email']['template_id'] }
+  let(:template_id) { GOV_NOTIFY_CONFIG['reset_password_email']['template_id'] }
 
   subject do
     described_class.new(

@@ -1,5 +1,5 @@
 class SendResetPasswordEmail
-  REFERENCE = 'password_reset_email'.freeze
+  REFERENCE = 'reset_password_email'.freeze
 
   def initialize(notifications_gateway:)
     @notifications_gateway = notifications_gateway
