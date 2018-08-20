@@ -32,4 +32,4 @@ production:
   notify_support_of_new_user:
     template_id: 'fd79c7b9-48d7-4086-b62a-0fc6f56daa4b'
   reset_password_email:
-    template_id: '1672af2e-2acb-463a-95ee-2adad2aaceee'
+    template_id: '63f566f6-8ae8-4356-9baa-cb4c3c0a6671'
