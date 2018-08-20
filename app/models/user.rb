@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   before_create :reset_confirmation_token, :set_radius_secret_key
 
+  validates_confirmation_of :password
   validate :email_on_whitelist
 
   def attempt_set_password(params)
