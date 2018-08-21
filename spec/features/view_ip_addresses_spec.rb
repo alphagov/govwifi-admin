@@ -81,6 +81,15 @@ describe 'View all my IP addresses' do
         end
       end
 
+      context 'Viewing someone elses IP Addresses' do
+        let(:other_ip) { create(:ip, user: create(:user, email: 'someone-else@gov.uk')) }
+
+        it 'Redirects to the root path' do
+          visit ip_path(other_ip)
+          expect(page.current_path).to eq(root_path)
+        end
+      end
+
       context 'with no radius IPs in config' do
         before do
           ENV.delete('LONDON_RADIUS_IPS')

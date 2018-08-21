@@ -19,7 +19,9 @@ class IpsController < ApplicationController
   end
 
   def show
-    @ip = Ip.find(params[:id])
+    @ip = current_user.ips.find_by(id: params[:id])
+
+    redirect_to root_path unless @ip.present?
   end
 
 private
