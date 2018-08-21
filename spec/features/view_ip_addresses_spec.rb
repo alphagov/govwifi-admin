@@ -39,14 +39,46 @@ describe 'View all my IP addresses' do
         visit ips_path
       end
 
+
+      it 'displays the list of my allowed IPs' do
+        expect(page).to have_content(ip_1.address)
+        expect(page).to have_content(ip_2.address)
+      end
+
       it 'displays the radius secret key' do
-        expect(page).to have_content("Your Secret Key")
+        expect(page).to have_content('Your Secret Key')
         expect(page).to have_content(user.radius_secret_key)
       end
 
-      it 'displays the list of IPs' do
-        expect(page).to have_content(ip_1.address)
-        expect(page).to have_content(ip_2.address)
+      context 'with radius IPs in config' do
+        let(:radius_ip_1) { '111.111.111.111'}
+        let(:radius_ip_2) { '121.121.121.121'}
+        let(:radius_ip_3) { '131.131.131.131'}
+        let(:radius_ip_4) { '141.141.141.141'}
+
+        before do
+          ENV['LONDON_RADIUS_IPS'] = '#{radius_ip_1},#{radius_ip_2}'
+          ENV['DUBLIN_RADIUS_IPS'] = '#{radius_ip_3},#{radius_ip_4}'
+        end
+
+        it 'displays RADIUS settings' do
+          expect(page).to have_content("RADIUS")
+          expect(page).to have_content("London")
+          expect(page).to have_content("Dublin")
+        end
+
+        xit 'displays the correct IPs' do
+          expect(page).to have_content(radius_ip_1)
+          expect(page).to have_content(radius_ip_2)
+          expect(page).to have_content(radius_ip_3)
+          expect(page).to have_content(radius_ip_4)
+        end
+      end
+
+      context 'with no radius IPs in config' do
+        xit 'blows up' do
+          expect(page).to have_content 'Sorry, something went wrong'
+        end
       end
     end
   end
