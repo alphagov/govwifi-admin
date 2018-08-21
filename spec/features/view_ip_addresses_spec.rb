@@ -25,8 +25,8 @@ describe 'View all my IP addresses' do
       end
 
       it 'shows there are no IPs' do
-        expect(page).to have_content "Add IP"
-        expect(page).to have_content "You have not added any IPs"
+        expect(page).to have_content 'Add IP'
+        expect(page).to have_content 'You have not added any of your IPs'
       end
     end
 
