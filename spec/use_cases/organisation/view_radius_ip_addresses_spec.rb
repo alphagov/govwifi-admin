@@ -35,19 +35,25 @@ describe ViewRadiusIPAddresses do
       end
     end
 
-    xcontext 'including invalid IPs' do
+    context 'including invalid Dublin IPs' do
       let(:radius_ip_1) { '111.111.111.111' }
       let(:radius_ip_2) { '121.121.121.121' }
       let(:radius_ip_3) { '131.131.131.131' }
       let(:radius_ip_4) { 'cat.dog.bear.pig' }
 
       it 'blows up' do
-        expect{ subject.execute }.to raise_error(
-          ArgumentError,
-          `LONDON_RADIUS_IPS and DUBLIN_RADIUS_IPS envvars do not contain
-           valid IPs - they should be in the format
-           'xxx.xxx.xxx.xxx,yyy.yyy.yyy.yyy'`
-        )
+        expect{ subject.execute }.to raise_error(IPAddr::InvalidAddressError)
+      end
+    end
+
+    context 'including invalid London IPs' do
+      let(:radius_ip_1) { '111.111.111.111' }
+      let(:radius_ip_2) { 'cat.dog.bear.pig' }
+      let(:radius_ip_3) { '131.131.131.131' }
+      let(:radius_ip_4) { '141.141.141.141' }
+
+      it 'blows up' do
+        expect{ subject.execute }.to raise_error(IPAddr::InvalidAddressError)
       end
     end
   end
