@@ -14,6 +14,8 @@ class IpsController < ApplicationController
 
   def index
     @ips = current_user.ips
+    @london_radius_ips = radius_ips[:london]
+    @dublin_radius_ips = radius_ips[:dublin]
   end
 
   def show
@@ -24,5 +26,9 @@ private
 
   def ip_params
     params.require(:ip).permit(:address)
+  end
+
+  def radius_ips
+    ViewRadiusIPAddresses.new.execute
   end
 end

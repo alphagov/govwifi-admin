@@ -20,7 +20,9 @@
       </p>
 
       <%= render "ips/table", ips: @ips %>
-      <%= render "radius_details" %>
+      <%= render "radius_details",
+        london_ips: @london_radius_ips,
+        dublin_ips: @dublin_radius_ips  %>
     <% end %>
   </div>
 </div>

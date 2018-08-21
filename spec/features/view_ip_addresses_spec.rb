@@ -30,9 +30,9 @@ describe 'View all my IP addresses' do
       end
 
       it 'does not show RADIUS settings' do
-        expect(page).to_not have_content("RADIUS")
-        expect(page).to_not have_content("London")
-        expect(page).to_not have_content("Dublin")
+        expect(page).to_not have_content('RADIUS')
+        expect(page).to_not have_content('London')
+        expect(page).to_not have_content('Dublin')
       end
     end
 
@@ -56,24 +56,24 @@ describe 'View all my IP addresses' do
         expect(page).to have_content(user.radius_secret_key)
       end
 
-      context 'with radius IPs in config' do
-        let(:radius_ip_1) { '111.111.111.111'}
-        let(:radius_ip_2) { '121.121.121.121'}
-        let(:radius_ip_3) { '131.131.131.131'}
-        let(:radius_ip_4) { '141.141.141.141'}
+      context 'with radius IPs in env-vars' do
+        let(:radius_ip_1) { '111.111.111.111' }
+        let(:radius_ip_2) { '121.121.121.121' }
+        let(:radius_ip_3) { '131.131.131.131' }
+        let(:radius_ip_4) { '141.141.141.141' }
 
         before do
-          ENV['LONDON_RADIUS_IPS'] = '#{radius_ip_1},#{radius_ip_2}'
-          ENV['DUBLIN_RADIUS_IPS'] = '#{radius_ip_3},#{radius_ip_4}'
+          ENV['LONDON_RADIUS_IPS'] = "#{radius_ip_1},#{radius_ip_2}"
+          ENV['DUBLIN_RADIUS_IPS'] = "#{radius_ip_3},#{radius_ip_4}"
         end
 
         it 'displays RADIUS settings' do
-          expect(page).to have_content("RADIUS")
-          expect(page).to have_content("London")
-          expect(page).to have_content("Dublin")
+          expect(page).to have_content('RADIUS')
+          expect(page).to have_content('London')
+          expect(page).to have_content('Dublin')
         end
 
-        xit 'displays the correct IPs' do
+        it 'displays the correct IPs' do
           expect(page).to have_content(radius_ip_1)
           expect(page).to have_content(radius_ip_2)
           expect(page).to have_content(radius_ip_3)
@@ -82,8 +82,13 @@ describe 'View all my IP addresses' do
       end
 
       context 'with no radius IPs in config' do
-        xit 'blows up' do
-          expect(page).to have_content 'Sorry, something went wrong'
+        before do
+          ENV.delete('LONDON_RADIUS_IPS')
+          ENV.delete('DUBLIN_RADIUS_IPS')
+        end
+
+        it 'blows up' do
+          expect{ visit ips_path }.to raise_error(KeyError)
         end
       end
     end
