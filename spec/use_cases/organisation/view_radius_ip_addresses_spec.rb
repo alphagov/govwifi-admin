@@ -14,10 +14,10 @@ describe ViewRadiusIPAddresses do
       let(:radius_ip_4) { '141.141.141.141' }
 
       it 'returns those IPs in a hash' do
-        expect(subject.execute).to eq({
+        expect(subject.execute).to eq(
           london: [radius_ip_1, radius_ip_2],
           dublin: [radius_ip_3, radius_ip_4]
-        })
+        )
       end
     end
 
@@ -28,10 +28,10 @@ describe ViewRadiusIPAddresses do
       let(:radius_ip_4) { '181.181.181.181' }
 
       it 'returns those IPs in a hash' do
-        expect(subject.execute).to eq({
+        expect(subject.execute).to eq(
           london: [radius_ip_1, radius_ip_2],
           dublin: [radius_ip_3, radius_ip_4]
-        })
+        )
       end
     end
 
@@ -42,7 +42,7 @@ describe ViewRadiusIPAddresses do
       let(:radius_ip_4) { 'cat.dog.bear.pig' }
 
       it 'blows up' do
-        expect{ subject.execute }.to raise_error(IPAddr::InvalidAddressError)
+        expect { subject.execute }.to raise_error(IPAddr::InvalidAddressError)
       end
     end
 
@@ -53,7 +53,7 @@ describe ViewRadiusIPAddresses do
       let(:radius_ip_4) { '141.141.141.141' }
 
       it 'blows up' do
-        expect{ subject.execute }.to raise_error(IPAddr::InvalidAddressError)
+        expect { subject.execute }.to raise_error(IPAddr::InvalidAddressError)
       end
     end
   end
@@ -65,7 +65,7 @@ describe ViewRadiusIPAddresses do
     end
 
     it 'blows up' do
-      expect{ subject.execute }.to raise_error(IndexError)
+      expect { subject.execute }.to raise_error(IndexError)
     end
   end
 end

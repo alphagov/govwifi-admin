@@ -1,22 +1,22 @@
 class ViewRadiusIPAddresses
   def execute
-    validate_as_IP_addresses!(london_IPs)
-    validate_as_IP_addresses!(dublin_IPs)
+    validate_as_ip_addresses!(london_ips)
+    validate_as_ip_addresses!(dublin_ips)
 
-    { london: london_IPs, dublin: dublin_IPs }
+    { london: london_ips, dublin: dublin_ips }
   end
 
-  private
+private
 
-  def london_IPs
+  def london_ips
     ENV.fetch('LONDON_RADIUS_IPS').split(',')
   end
 
-  def dublin_IPs
+  def dublin_ips
     ENV.fetch('DUBLIN_RADIUS_IPS').split(',')
   end
 
-  def validate_as_IP_addresses!(addresses)
-    addresses.each{ |address| IPAddr.new(address) }
+  def validate_as_ip_addresses!(addresses)
+    addresses.each { |address| IPAddr.new(address) }
   end
 end

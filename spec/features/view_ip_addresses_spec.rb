@@ -88,7 +88,7 @@ describe 'View all my IP addresses' do
         end
 
         it 'blows up' do
-          expect{ visit ips_path }.to raise_error(KeyError)
+          expect { visit ips_path }.to raise_error(KeyError)
         end
       end
     end
