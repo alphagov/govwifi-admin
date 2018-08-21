@@ -11,7 +11,7 @@
 
     <% if @ips.empty? %>
       <p class="govuk-body">
-        You have not added any IPs, <%= link_to "add one now", new_ip_path, class: "govuk-link" %>
+        You have not added any of your IPs, <%= link_to "add one now", new_ip_path, class: "govuk-link" %>
       </p>
     <% else %>
       <p class="govuk-body">
@@ -20,6 +20,9 @@
       </p>
 
       <%= render "ips/table", ips: @ips %>
+      <%= render "radius_details",
+        london_ips: @london_radius_ips,
+        dublin_ips: @dublin_radius_ips  %>
     <% end %>
   </div>
 </div>
