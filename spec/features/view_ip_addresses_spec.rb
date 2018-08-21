@@ -28,6 +28,12 @@ describe 'View all my IP addresses' do
         expect(page).to have_content 'Add IP'
         expect(page).to have_content 'You have not added any of your IPs'
       end
+
+      it 'does not show RADIUS settings' do
+        expect(page).to_not have_content("RADIUS")
+        expect(page).to_not have_content("London")
+        expect(page).to_not have_content("Dublin")
+      end
     end
 
     context 'when user has IPs' do
