@@ -22,31 +22,6 @@
       <%= render "ips/table", ips: @ips %>
     <% end %>
 
-    <h3 class="govuk-heading-m"> Connecting to us </h3>
-    <p class="govuk-body"> You'll need to configure your access point to contact our RADIUS servers, to authenticate your users. </p>
-
-    <p class="govuk-body"> We recommend connecting to one IP from each region. </p>
-
-    <details class="govuk-details">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">
-          Show London IP Addresses
-        </span>
-      </summary>
-      <div class="govuk-details__text">
-        1, 2, 3
-      </div>
-    </details>
-
-    <details class="govuk-details">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">
-          Show Dublin IP Addresses
-        </span>
-      </summary>
-      <div class="govuk-details__text">
-        1, 2, 3
-      </div>
-    </details>
+    <%= render "radius_details" %>
   </div>
 </div>
