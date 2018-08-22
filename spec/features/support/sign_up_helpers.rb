@@ -13,10 +13,10 @@ def create_password_for_account(
 )
   return unless confirmation_email_received?
   visit confirmation_email_link
-  fill_in 'Organisation Name', with: organisation_name
-  fill_in 'New password', with: password
-  fill_in 'Confirm new password', with: confirmed_password
-  click_on 'Save my password'
+  fill_in 'Organisation name', with: organisation_name
+  fill_in 'Password', with: password
+  fill_in 'Confirm password', with: confirmed_password
+  click_on 'Create my account'
 end
 
 def confirmation_email_link

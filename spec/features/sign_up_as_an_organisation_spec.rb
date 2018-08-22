@@ -82,6 +82,36 @@ describe 'Sign up as an organisation' do
     end
   end
 
+  context 'when Organisation name is taken' do
+    let!(:existing_org) { create(:organisation) }
+
+    before do
+      sign_up_for_account
+      create_password_for_account(organisation_name: existing_org.name)
+      expect(page).to have_content 'Create your account'
+    end
+
+    it_behaves_like 'errors in form'
+
+    it 'tells the user that the organisation name must be unique' do
+      expect(page).to have_content 'Organisation name has already been taken'
+    end
+  end
+
+  context 'when password is too short' do
+    before do
+      sign_up_for_account
+      create_password_for_account(password: '1', confirmed_password: '1')
+      expect(page).to have_content 'Create your account'
+    end
+
+    it_behaves_like 'errors in form'
+
+    it 'tells the user that the password is too short' do
+      expect(page).to have_content 'Password is too short (minimum is 6 characters)'
+    end
+  end
+
   context 'when account is already confirmed' do
     before do
       expect_any_instance_of(NotifySupportOfNewUser).to \
@@ -106,9 +136,9 @@ describe 'Sign up as an organisation' do
       expect(page).to have_content 'Password is too short (minimum is 6 characters)'
       expect(page).to have_content 'Create your account'
 
-      fill_in 'New password', with: "password"
-      fill_in 'Confirm new password', with: "password1"
-      click_on 'Save my password'
+      fill_in 'Password', with: "password"
+      fill_in 'Confirm password', with: "password1"
+      click_on 'Create my account'
     end
 
     it_behaves_like 'errors in form'

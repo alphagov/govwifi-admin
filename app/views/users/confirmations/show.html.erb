@@ -9,22 +9,22 @@
         <%= f.hidden_field :confirmation_token, value: params[:confirmation_token] || params[:user][:confirmation_token] %>
 
         <div class="govuk-form-group <%= "govuk-form-group--error" if resource&.errors&.any? %>">
-          <%= label_tag :organisation_name, "Organisation Name", class: "govuk-label" %>
-          <%= text_field_tag :organisation_name, autofocus: true, class: "govuk-input", autocomplete: "off", required: true %>
+          <%= label_tag :organisation_name, "Organisation name", class: "govuk-label" %>
+          <%= text_field_tag :organisation_name, nil, autofocus: true, class: "govuk-input", autocomplete: "off", required: true %>
         </div>
 
         <div class="govuk-form-group <%= "govuk-form-group--error" if resource&.errors&.any? %>">
-          <%= f.label :password, "New password", class: "govuk-label" %>
+          <%= f.label :password, "Password", class: "govuk-label" %>
           <%= f.password_field :password, class: "govuk-input", autocomplete: "off", required: true %>
         </div>
 
         <div class="govuk-form-group">
-          <%= f.label :password_confirmation, "Confirm new password", class: "govuk-label" %>
+          <%= f.label :password_confirmation, "Confirm password", class: "govuk-label" %>
           <%= f.password_field :password_confirmation, class: "govuk-input", autocomplete: "off", required: true %>
         </div>
 
         <div class="actions">
-          <%= f.submit "Save my password", class: "govuk-button govuk-!-margin-top-2" %>
+          <%= f.submit "Create my account", class: "govuk-button govuk-!-margin-top-2" %>
         </div>
       <% end %>
 

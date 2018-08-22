@@ -6,8 +6,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   def update
     with_unconfirmed_confirmable do
-      if @confirmable.attempt_set_password(params[:user])
-        Organisation.create(name: params[:organisation_name], users: [@confirmable])
+      if set_password && create_organisation
         confirm_user
       else
         render_show_page
@@ -27,6 +26,20 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   def pending; end
 
 protected
+
+  def set_password
+    @confirmable.attempt_set_password(params[:user])
+  end
+
+  def create_organisation
+    organisation = Organisation.new(name: params[:organisation_name], users: [@confirmable])
+    if organisation.save
+      true
+    else
+      @confirmable.errors.add(:organisation, organisation.errors.full_messages.last.downcase)
+      false
+    end
+  end
 
   def set_resources
     @original_token = params[:confirmation_token] || params[:user][:confirmation_token]
