@@ -2,15 +2,20 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-l">Set your password</h2>
+    <h2 class="govuk-heading-l">Create your account</h2>
 
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
       <%= form_for(resource, as: resource_name, url: users_confirmations_path, html: { method: :put }) do |f| %>
         <%= f.hidden_field :confirmation_token, value: params[:confirmation_token] || params[:user][:confirmation_token] %>
 
         <div class="govuk-form-group <%= "govuk-form-group--error" if resource&.errors&.any? %>">
+          <%= label_tag :organisation_name, "Organisation Name", class: "govuk-label" %>
+          <%= text_field_tag :organisation_name, autofocus: true, class: "govuk-input", autocomplete: "off", required: true %>
+        </div>
+
+        <div class="govuk-form-group <%= "govuk-form-group--error" if resource&.errors&.any? %>">
           <%= f.label :password, "New password", class: "govuk-label" %>
-          <%= f.password_field :password, autofocus: true, class: "govuk-input", autocomplete: "off", required: true %>
+          <%= f.password_field :password, class: "govuk-input", autocomplete: "off", required: true %>
         </div>
 
         <div class="govuk-form-group">

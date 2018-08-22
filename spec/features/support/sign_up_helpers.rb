@@ -6,9 +6,14 @@ def sign_up_for_account(email: 'default@gov.uk')
   click_on 'Sign up'
 end
 
-def create_password_for_account(password: 'supersecret', confirmed_password: 'supersecret')
+def create_password_for_account(
+  password: 'supersecret',
+  confirmed_password: 'supersecret',
+  organisation_name: 'Parks and Recreation'
+)
   return unless confirmation_email_received?
   visit confirmation_email_link
+  fill_in 'Organisation Name', with: organisation_name
   fill_in 'New password', with: password
   fill_in 'Confirm new password', with: confirmed_password
   click_on 'Save my password'

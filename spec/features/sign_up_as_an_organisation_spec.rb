@@ -7,10 +7,10 @@ describe 'Sign up as an organisation' do
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
 
-  context 'with matching passwords' do
+  context 'with correct data' do
     before do
       sign_up_for_account(email: email)
-      create_password_for_account
+      create_password_for_account(organisation_name: "Parks & Recreation")
     end
 
     context 'with a gov.uk email' do
@@ -18,6 +18,10 @@ describe 'Sign up as an organisation' do
 
       it 'signs me in' do
         expect(page).to have_content 'Logout'
+      end
+
+      it 'creates an organisation for the user' do
+        expect(User.last.organisation.name).to eq("Parks & Recreation")
       end
     end
 
@@ -54,7 +58,7 @@ describe 'Sign up as an organisation' do
     before do
       sign_up_for_account
       create_password_for_account(password: 'password', confirmed_password: 'password1')
-      expect(page).to have_content 'Set your password'
+      expect(page).to have_content 'Create your account'
     end
 
     it_behaves_like 'errors in form'
@@ -68,7 +72,7 @@ describe 'Sign up as an organisation' do
     before do
       sign_up_for_account
       create_password_for_account(password: '1', confirmed_password: '1')
-      expect(page).to have_content 'Set your password'
+      expect(page).to have_content 'Create your account'
     end
 
     it_behaves_like 'errors in form'
@@ -100,7 +104,7 @@ describe 'Sign up as an organisation' do
       sign_up_for_account
       create_password_for_account(password: '1', confirmed_password: '1')
       expect(page).to have_content 'Password is too short (minimum is 6 characters)'
-      expect(page).to have_content 'Set your password'
+      expect(page).to have_content 'Create your account'
 
       fill_in 'New password', with: "password"
       fill_in 'Confirm new password', with: "password1"
