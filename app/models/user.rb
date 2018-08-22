@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :ips
+  belongs_to :organisation, optional: true
 
   devise :confirmable, :database_authenticatable, :registerable, :recoverable,
     :rememberable, :trackable, :validatable

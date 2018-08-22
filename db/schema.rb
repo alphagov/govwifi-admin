@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_13_135333) do
+ActiveRecord::Schema.define(version: 2018_08_22_142913) do
 
   create_table "ips", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "address"
@@ -18,6 +18,12 @@ ActiveRecord::Schema.define(version: 2018_08_13_135333) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_ips_on_user_id"
+  end
+
+  create_table "organisations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -37,8 +43,10 @@ ActiveRecord::Schema.define(version: 2018_08_13_135333) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "radius_secret_key"
+    t.bigint "organisation_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["organisation_id"], name: "index_users_on_organisation_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

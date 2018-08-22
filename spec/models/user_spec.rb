@@ -5,6 +5,7 @@ describe User do
 
   context 'associations' do
     it { should have_many(:ips) }
+    it { should belong_to(:organisation) }
   end
 
   describe '#attempt_set_password' do
