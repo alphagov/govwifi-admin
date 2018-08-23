@@ -23,6 +23,14 @@ module GovwifiAdmin
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
+    # Force HTTPS for all requests except healthcheck endpoint
+    config.force_ssl = true
+    config.ssl_options = {
+      redirect: {
+        exclude: -> request { request.path =~ /healthcheck/ }
+      }
+    }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
