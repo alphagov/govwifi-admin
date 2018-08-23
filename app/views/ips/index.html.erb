@@ -80,28 +80,27 @@
       </p>
       <%= link_to "Add IP", new_ip_path, class: "govuk-button" %>
     <% else %>
-        <%= render "radius_details",
+      <%= render "radius_details",
         london_ips: @london_radius_ips,
         dublin_ips: @dublin_radius_ips  %>
+      <%= link_to "Add IP", new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
+      <%= render "ips/table", ips: @ips %>
+
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            What if I want to remove an IP?
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p> Contact us via our <%= link_to "support form", "#" %> and use this format: </p>
+          <ul class="govuk-list">
+            <li> Subject: Remove IP </li>
+            <li> Text: Name of organisation, IPs you want to remove </li>
+          </ul>
+        </div>
+      </details>
     <% end %>
-
-    <%= link_to "Add IP", new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
-    <%= render "ips/table", ips: @ips %>
-
-    <details class="govuk-details">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">
-          What if I want to remove an IP?
-        </span>
-      </summary>
-      <div class="govuk-details__text">
-        <p> Contact us via our <%= link_to "support form", "#" %> and use this format: </p>
-        <ul class="govuk-list">
-          <li> Subject: Remove IP </li>
-          <li> Text: Name of organisation, IPs you want to remove </li>
-        </ul>
-      </div>
-    </details>
   </section>
 
    <section class="govuk-tabs__panel" id="team">
