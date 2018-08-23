@@ -33,12 +33,9 @@ protected
 
   def create_organisation
     organisation = Organisation.new(name: params[:organisation_name], users: [@confirmable])
-    if organisation.save
-      true
-    else
-      @confirmable.errors.add(:organisation, organisation.errors.full_messages.last.downcase)
-      false
-    end
+    return true if organisation.save
+    @confirmable.errors.add(:organisation, organisation.errors.full_messages.last.downcase)
+    false
   end
 
   def set_resources
