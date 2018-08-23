@@ -18,7 +18,7 @@ describe 'asking users to sign in' do
   context 'with a pre-existing account, but signed out' do
     before do
       sign_up_for_account
-      create_password_for_account
+      update_user_details
 
       click_on 'Logout'
 

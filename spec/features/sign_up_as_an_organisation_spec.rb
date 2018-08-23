@@ -7,10 +7,12 @@ describe 'Sign up as an organisation' do
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
 
+  let(:name) { 'Sally' }
+
   context 'with correct data' do
     before do
       sign_up_for_account(email: email)
-      create_password_for_account(organisation_name: "Parks & Recreation")
+      update_user_details(name: name, organisation_name: "Parks & Recreation")
     end
 
     context 'with a gov.uk email' do
@@ -52,12 +54,21 @@ describe 'Sign up as an organisation' do
         )
       end
     end
+
+    context 'without a name' do
+      let(:name) { '' }
+      let(:email) { 'someone@other.gov.uk' }
+
+      it 'tells me my name is not valid' do
+        expect(page).to have_content("Name can't be blank")
+      end
+    end
   end
 
   context 'when password does not match password confirmation' do
     before do
       sign_up_for_account
-      create_password_for_account(password: 'password', confirmed_password: 'password1')
+      update_user_details(password: 'password', confirmed_password: 'password1')
       expect(page).to have_content 'Create your account'
     end
 
@@ -101,7 +112,7 @@ describe 'Sign up as an organisation' do
   context 'when password is too short' do
     before do
       sign_up_for_account
-      create_password_for_account(password: '1', confirmed_password: '1')
+      update_user_details(password: '1', confirmed_password: '1')
       expect(page).to have_content 'Create your account'
     end
 
@@ -118,7 +129,7 @@ describe 'Sign up as an organisation' do
         receive(:execute)
 
       sign_up_for_account
-      create_password_for_account
+      update_user_details
       visit confirmation_email_link
     end
 
@@ -132,7 +143,7 @@ describe 'Sign up as an organisation' do
   context 'when making two errors in a row' do
     before do
       sign_up_for_account
-      create_password_for_account(password: '1', confirmed_password: '1')
+      update_user_details(password: '1', confirmed_password: '1')
       expect(page).to have_content 'Password is too short (minimum is 6 characters)'
       expect(page).to have_content 'Create your account'
 

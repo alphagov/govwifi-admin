@@ -47,7 +47,7 @@ describe 'Resending confirmation instructions' do
   context 'when user has been confirmed' do
     before do
       sign_up_for_account(email: correct_email)
-      create_password_for_account
+      update_user_details
       visit new_user_confirmation_path
       fill_in 'user_email', with: correct_email
       click_on 'Resend confirmation instructions'

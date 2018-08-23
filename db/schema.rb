@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_22_142913) do
+ActiveRecord::Schema.define(version: 2018_08_22_150340) do
 
   create_table "ips", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "address"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2018_08_22_142913) do
     t.datetime "updated_at", null: false
     t.string "radius_secret_key"
     t.bigint "organisation_id"
+    t.string "name"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organisation_id"], name: "index_users_on_organisation_id"

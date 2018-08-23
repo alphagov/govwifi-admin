@@ -1,5 +1,5 @@
 staging:
-  support_email: 'govwifi-support@digital.cabinet-office.gov.uk'
+  support_email: 'dev@localhost'
   confirmation_email:
     template_id: '1af17502-9797-4e61-904e-999f6cf259a5'
   notify_support_of_new_user:
@@ -8,7 +8,7 @@ staging:
     template_id: '1672af2e-2acb-463a-95ee-2adad2aaceee'
 
 development:
-  support_email: 'dev@localhost'
+  support_email: 'dev@localhost.com'
   confirmation_email:
     template_id: '1af17502-9797-4e61-904e-999f6cf259a5'
   notify_support_of_new_user:

@@ -6,7 +6,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   def update
     with_unconfirmed_confirmable do
-      if set_password && create_organisation
+      if update_user && create_organisation
         confirm_user
       else
         render_show_page
@@ -27,8 +27,8 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
 protected
 
-  def set_password
-    @confirmable.attempt_set_password(params[:user])
+  def update_user
+    @confirmable.update_details(params[:user])
   end
 
   def create_organisation
