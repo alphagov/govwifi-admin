@@ -45,6 +45,7 @@ describe "Resetting a password" do
     end
 
     context "when clicking on reset link" do
+      let(:reset_link) { ResetPasswordUseCaseSpy.last_reset_url }
       let(:reset_path) { ResetPasswordUseCaseSpy.last_reset_path_with_query }
 
       before do
@@ -52,6 +53,10 @@ describe "Resetting a password" do
         fill_in "user_email", with: user.email
         click_on "Send me reset password instructions"
         visit(reset_path)
+      end
+
+      it "sends an https link" do
+        expect(URI(reset_link).scheme).to eq("https")
       end
 
       it "redirects user to edit password page" do
