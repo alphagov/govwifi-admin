@@ -64,7 +64,7 @@ describe 'Sign up as an organisation' do
     it_behaves_like 'errors in form'
 
     it 'tells the user that the passwords do not match' do
-      expect(page).to have_content 'Passwords must match'
+      expect(page).to have_content 'Password must match confirmation'
     end
   end
 
@@ -144,7 +144,7 @@ describe 'Sign up as an organisation' do
     it_behaves_like 'errors in form'
 
     it 'correctly sets the second error' do
-      expect(page).to have_content 'Passwords must match'
+      expect(page).to have_content 'Password must match confirmation'
     end
   end
 end

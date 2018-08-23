@@ -24,7 +24,7 @@ describe User do
       it 'should not set the users password' do
         expect { user.attempt_set_password(params) }.to_not change(user, :password)
         expect(user.errors.empty?).to eq(false)
-        expect(user.errors.full_messages).to eq(['Passwords must match'])
+        expect(user.errors.full_messages).to eq(['Password must match confirmation'])
       end
     end
   end

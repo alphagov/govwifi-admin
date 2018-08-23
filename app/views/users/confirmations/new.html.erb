@@ -9,7 +9,7 @@
 
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
       <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-        <div class="govuk-form-group <%= "govuk-form-group--error" if resource&.errors&.any? %>">
+        <div class="govuk-form-group <%= field_error(resource, :email) %>">
           <%= f.label :email, "Provide your email address", class: "govuk-label" %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input",
             value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), required: true %>

@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   def attempt_set_password(params)
     unless params[:password] == params[:password_confirmation]
-      errors.add(:base, "Passwords must match") && return
+      errors.add(:password, "must match confirmation") && return
     end
     update(password: params[:password])
   end
