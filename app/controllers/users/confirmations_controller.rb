@@ -6,7 +6,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   def update
     with_unconfirmed_confirmable do
-      if @confirmable.attempt_set_password(params[:user])
+      if @confirmable.update_details(params[:user])
         confirm_user
       else
         render_show_page

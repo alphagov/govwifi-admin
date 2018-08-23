@@ -6,9 +6,10 @@ def sign_up_for_account(email: 'default@gov.uk')
   click_on 'Sign up'
 end
 
-def create_password_for_account(password: 'supersecret', confirmed_password: 'supersecret')
+def update_user_details(password: 'supersecret', confirmed_password: 'supersecret', name: 'bob')
   return unless confirmation_email_received?
   visit confirmation_email_link
+  fill_in 'Name', with: name
   fill_in 'New password', with: password
   fill_in 'Confirm new password', with: confirmed_password
   click_on 'Save my password'
