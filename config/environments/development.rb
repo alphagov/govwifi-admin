@@ -52,5 +52,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = false
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
+
+  config.force_ssl = false
 end
 ActionMailer::Base.perform_deliveries = false
