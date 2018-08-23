@@ -74,22 +74,34 @@
 
   <section class="govuk-tabs__panel" id="locations">
     <h2 class="govuk-heading-l">Locations</h2>
-      <%= link_to "Add IP", new_ip_path, class: "govuk-button" %>
     <% if @ips.empty? %>
       <p class="govuk-body">
-        You have not added any of your IPs, <%= link_to "add one now", new_ip_path, class: "govuk-link" %>
+        You currently have no IPs configured for use with GovWifi. Find out <%= link_to "more", "#", class: "govuk-link" %>
       </p>
+      <%= link_to "Add IP", new_ip_path, class: "govuk-button" %>
     <% else %>
-      <p class="govuk-body">
-        <strong>Your Secret Key:</strong>
-        <span class="float-right"><%= current_user.radius_secret_key %></span>
-      </p>
-
-      <%= render "ips/table", ips: @ips %>
-      <%= render "radius_details",
+        <%= render "radius_details",
         london_ips: @london_radius_ips,
         dublin_ips: @dublin_radius_ips  %>
     <% end %>
+
+    <%= link_to "Add IP", new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
+    <%= render "ips/table", ips: @ips %>
+
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          What if I want to remove an IP?
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        <p> Contact us via our <%= link_to "support form", "#" %> and use this format: </p>
+        <ul class="govuk-list">
+          <li> Subject: Remove IP </li>
+          <li> Text: Name of organisation, IPs you want to remove </li>
+        </ul>
+      </div>
+    </details>
   </section>
 
    <section class="govuk-tabs__panel" id="team">
