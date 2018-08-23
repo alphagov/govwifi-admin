@@ -7,21 +7,25 @@ describe User do
     it { should have_many(:ips) }
   end
 
-  describe '#attempt_set_password' do
+  describe '#update_details' do
     let(:user) { create(:user, password: 'password') }
     context 'when passwords match' do
-      let(:params) { { password: '123456', password_confirmation: '123456' } }
+      let(:params) { { password: '123456', password_confirmation: '123456', name: 'bob' } }
 
       it 'should set the users password' do
-        expect { user.attempt_set_password(params) }.to change(user, :password)
+        expect { user.update_details(params) }.to change(user, :password)
         expect(user.errors.empty?).to eq(true)
+      end
+
+      context 'Name validation' do
+        it { should validate_presence_of(:name).on(:update) }
       end
     end
 
     context 'when passwords do not match' do
       let(:params) { { password: '123456', password_confirmation: '1234567' } }
       it 'should not set the users password' do
-        expect { user.attempt_set_password(params) }.to_not change(user, :password)
+        expect { user.update_details(params) }.to_not change(user, :password)
         expect(user.errors.empty?).to eq(false)
         expect(user.errors.full_messages).to eq(['Passwords must match'])
       end
