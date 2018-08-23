@@ -8,14 +8,16 @@
       <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
         <%= f.hidden_field :reset_password_token %>
 
-        <div class="govuk-form-group <%= "govuk-form-group--error" if resource&.errors&.any? %>">
-          <%= f.label :password, "New password", class: "govuk-label" %>
-          <%= f.password_field :password, autofocus: true, class: "govuk-input", autocomplete: "off", required: true %>
-        </div>
+        <div class="<%= field_error(resource, :password) %>">
+          <div class="govuk-form-group">
+            <%= f.label :password, "New password", class: "govuk-label" %>
+            <%= f.password_field :password, autofocus: true, class: "govuk-input", autocomplete: "off", required: true %>
+          </div>
 
-        <div class="govuk-form-group">
-          <%= f.label :password_confirmation, "Confirm new password", class: "govuk-label" %>
-          <%= f.password_field :password_confirmation, class: "govuk-input", autocomplete: "off", required: true %>
+          <div class="govuk-form-group">
+            <%= f.label :password_confirmation, "Confirm new password", class: "govuk-label" %>
+            <%= f.password_field :password_confirmation, class: "govuk-input", autocomplete: "off", required: true %>
+          </div>
         </div>
 
         <div class="actions">
