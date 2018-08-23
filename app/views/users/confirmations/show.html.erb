@@ -8,9 +8,15 @@
       <%= form_for(resource, as: resource_name, url: users_confirmations_path, html: { method: :put }) do |f| %>
         <%= f.hidden_field :confirmation_token, value: params[:confirmation_token] || params[:user][:confirmation_token] %>
 
+         <%= resource.errors.full_messages %>
+        <div class="govuk-form-group">
+          <%= f.label :name, "Name", class: "govuk-label" %>
+          <%= f.text_field :name, autofocus: true, class: "govuk-input", required: true %>
+        </div>
+
         <div class="govuk-form-group <%= "govuk-form-group--error" if resource&.errors&.any? %>">
           <%= f.label :password, "New password", class: "govuk-label" %>
-          <%= f.password_field :password, autofocus: true, class: "govuk-input", autocomplete: "off", required: true %>
+          <%= f.password_field :password, class: "govuk-input", autocomplete: "off", required: true %>
         </div>
 
         <div class="govuk-form-group">

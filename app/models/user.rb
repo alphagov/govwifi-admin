@@ -8,12 +8,14 @@ class User < ApplicationRecord
 
   validates_confirmation_of :password
   validate :email_on_whitelist
+  validates :name, presence: true, on: :update
 
-  def attempt_set_password(params)
+  def update_details(params)
     unless params[:password] == params[:password_confirmation]
       errors.add(:base, "Passwords must match") && return
     end
-    update(password: params[:password])
+
+    update(password: params[:password], name: params[:name])
   end
 
   def only_if_unconfirmed

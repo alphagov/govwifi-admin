@@ -11,7 +11,7 @@ describe 'logging in after signing up' do
 
   before do
     sign_up_for_account(email: 'tom@gov.uk')
-    create_password_for_account(
+    update_user_details(
       password: correct_password,
       confirmed_password: correct_password
     )
