@@ -20,6 +20,8 @@ describe 'Resending confirmation instructions' do
         fill_in 'user_email', with: entered_email
         click_on 'Resend confirmation instructions'
       }.to change { ConfirmationUseCaseSpy.confirmations_count }.by(2)
+
+      expect(URI(confirmation_email_link).scheme).to eq("https")
     end
   end
 
