@@ -16,8 +16,8 @@ def update_user_details(
   visit confirmation_email_link
   fill_in 'Organisation name', with: organisation_name
   fill_in 'Your name', with: name
-  fill_in 'New password', with: password
-  fill_in 'Confirm new password', with: confirmed_password
+  fill_in 'Password', with: password
+  fill_in 'Confirm password', with: confirmed_password
   click_on 'Create my account'
 end
 

@@ -82,7 +82,7 @@ describe 'Sign up as an organisation' do
   context 'when password is too short' do
     before do
       sign_up_for_account
-      create_password_for_account(password: '1', confirmed_password: '1')
+      update_user_details(password: '1', confirmed_password: '1')
       expect(page).to have_content 'Create your account'
     end
 
@@ -98,7 +98,7 @@ describe 'Sign up as an organisation' do
 
     before do
       sign_up_for_account
-      create_password_for_account(organisation_name: existing_org.name)
+      update_user_details(organisation_name: existing_org.name)
       expect(page).to have_content 'Create your account'
     end
 
