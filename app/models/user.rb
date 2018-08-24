@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :ips
-  belongs_to :organisation, optional: true
+  belongs_to :organisation, inverse_of: :users, optional: true
+  accepts_nested_attributes_for :organisation
 
   devise :confirmable, :database_authenticatable, :registerable, :recoverable,
     :rememberable, :trackable, :validatable

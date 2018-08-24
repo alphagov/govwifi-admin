@@ -9,13 +9,15 @@
         <%= f.hidden_field :confirmation_token, value: params[:confirmation_token] || params[:user][:confirmation_token] %>
 
         <div class="govuk-form-group <%= field_error(resource, :organisation) %>">
-          <%= label_tag :organisation_name, "Organisation name", class: "govuk-label" %>
-          <%= text_field_tag :organisation_name, nil, autofocus: true, class: "govuk-input", autocomplete: "off", required: true %>
+          <%= f.fields_for :organisation, resource.build_organisation do |organisation_form| %>
+            <%= organisation_form.label :name, "Organisation name", class: "govuk-label" %>
+            <%= organisation_form.text_field :name, autofocus: true, class: "govuk-input", required: true %>
+          <% end %>
         </div>
 
         <div class="govuk-form-group">
           <%= f.label :name, "Your name", class: "govuk-label" %>
-          <%= f.text_field :name, autofocus: true, class: "govuk-input", required: true %>
+          <%= f.text_field :name, class: "govuk-input", required: true %>
         </div>
 
         <div class="<%= field_error(resource, :password) %>">

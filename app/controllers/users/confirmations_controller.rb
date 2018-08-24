@@ -6,7 +6,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   def update
     with_unconfirmed_confirmable do
-      if update_user && create_organisation
+      if @confirmable.update(user_params)
         confirm_user
       else
         render_show_page
@@ -26,17 +26,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   def pending; end
 
 protected
-
-  def update_user
-    @confirmable.update_details(params[:user])
-  end
-
-  def create_organisation
-    organisation = Organisation.new(name: params[:organisation_name], users: [@confirmable])
-    return true if organisation.save
-    @confirmable.errors.add(:organisation, organisation.errors.full_messages.last.downcase)
-    false
-  end
 
   def set_resources
     @original_token = params[:confirmation_token] || params[:user][:confirmation_token]
@@ -74,5 +63,9 @@ protected
       new_user_email: user.email,
       template_id: GOV_NOTIFY_CONFIG['notify_support_of_new_user']['template_id']
     )
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :password, :password_confirmation, organisation_attributes: [:name])
   end
 end
