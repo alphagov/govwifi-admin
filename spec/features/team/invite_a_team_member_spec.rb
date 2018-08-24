@@ -24,10 +24,13 @@ describe "Invite a team member" do
     context "with correct data" do
       before do
         fill_in "Email", with: "testing@gov.uk"
-        click_on "Send an invitation"
       end
 
-      it "sends an invitation link" do
+      it "creates an unconfirmed user" do
+        expect {
+          click_on "Send an invitation"
+        }.to change{User.count}.by(1)
+        expect(User.last.confirmed?).to eq(false)
       end
     end
   end
