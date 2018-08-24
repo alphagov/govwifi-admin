@@ -6,7 +6,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   def update
     with_unconfirmed_confirmable do
-      if @confirmable.update(user_params)
+      if user_params[:password] != user_params[:password_confirmation]
+        @confirmable.errors.add(:password, "must match confirmation")
+        render_show_page
+      elsif @confirmable.update(user_params)
         confirm_user
       else
         render_show_page
