@@ -29,4 +29,9 @@ class AuthenticationMailer < ::Devise::Mailer
       template_id: template_id
     )
   end
+
+  def invitation_instructions(record, token, _opts={})
+    puts "Invitations system is hitting custom mailer class"
+    # Send mail via Gov Notify here
+  end
 end
