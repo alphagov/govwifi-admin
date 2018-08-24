@@ -32,6 +32,7 @@ class AuthenticationMailer < ::Devise::Mailer
 
   def invitation_instructions(record, token, _opts={})
     puts "Invitations system is hitting custom mailer class"
-    # Send mail via Gov Notify here
+    invitation_link = accept_invitation_url(record, invitation_token: token)
+    puts invitation_link
   end
 end
