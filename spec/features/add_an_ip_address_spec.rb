@@ -23,7 +23,7 @@ describe 'Add an IP to my account' do
       sign_in_user user
       visit ips_path
       expect(page).to have_content "Add IP"
-      click_on "Add Location"
+      click_on "Add IP Address"
     end
 
     context 'before saving the IP' do
