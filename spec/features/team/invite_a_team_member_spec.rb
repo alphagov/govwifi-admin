@@ -21,7 +21,7 @@ describe "Invite a team member" do
     end
 
     it "shows the invites page" do
-      expect(page).to have_content("Send invitation")
+      expect(page).to have_content("Invite a team member")
     end
 
     context "with correct data" do
@@ -36,7 +36,7 @@ describe "Invite a team member" do
 
       it "creates an unconfirmed user" do
         expect {
-          click_on "Send an invitation"
+          click_on "Send invitation email"
         }.to change { User.count }.by(1)
         expect(InviteUseCaseSpy.invite_count).to eq(1)
         expect(invited_user.confirmed?).to eq(false)
