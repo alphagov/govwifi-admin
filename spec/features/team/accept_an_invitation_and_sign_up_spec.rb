@@ -25,15 +25,15 @@ describe "Sign up from invitation" do
     end
 
     it "displays the sign up page" do
-      expect(page).to have_content("Set your password")
+      expect(page).to have_content("Create your account")
     end
 
     context "signing up as an invited user" do
       before do
-        fill_in "Name", with: "Ron Swanson"
+        fill_in "Your name", with: "Ron Swanson"
         fill_in "Password", with: "password"
-        fill_in "Password confirmation", with: "password"
-        click_on "Set my password"
+        fill_in "Confirm password", with: "password"
+        click_on "Create my account"
       end
 
       it "confirms the user" do
