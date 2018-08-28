@@ -6,7 +6,8 @@ class IpsController < ApplicationController
   def create
     @ip = current_user.ips.new(ip_params)
     if @ip.save
-      redirect_to @ip
+      flash[:notice] = 'IP Added: ' + @ip.address
+      redirect_to ips_path(anchor: 'locations')
     else
       render :new
     end
