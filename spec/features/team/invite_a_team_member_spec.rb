@@ -1,6 +1,8 @@
 require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
 require 'support/invite_use_case_spy'
+require 'support/invite_use_case'
+require 'support/notifications_service'
 
 describe "Invite a team member" do
   context "when logged out" do
@@ -23,25 +25,22 @@ describe "Invite a team member" do
     end
 
     context "with correct data" do
-      before do
-        allow(SendInviteEmail).to \
-          receive(:new).and_return(InviteUseCaseSpy.new)
-        fill_in "Email", with: "testing@gov.uk"
-      end
+      include_examples 'invite use case spy'
+      include_examples 'notifications service'
+      let(:invited_user_email) { "testing@gov.uk" }
+      let(:invited_user) { User.find_by(email: invited_user_email) }
 
-      after do
-        ConfirmationUseCaseSpy.clear!
+      before do
+        fill_in "Email", with: invited_user_email
       end
 
       it "creates an unconfirmed user" do
         expect {
           click_on "Send an invitation"
         }.to change { User.count }.by(1)
-        expect(User.last.confirmed?).to eq(false)
-      end
-
-      it "sends the invite email" do
         expect(InviteUseCaseSpy.invite_count).to eq(1)
+        expect(invited_user.confirmed?).to eq(false)
+        expect(page).to have_content("Logout")
       end
     end
   end
