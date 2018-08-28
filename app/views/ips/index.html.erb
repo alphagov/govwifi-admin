@@ -78,12 +78,12 @@
       <p class="govuk-body">
         You currently have no IPs configured for use with GovWifi. Find out <%= link_to "more", "#", class: "govuk-link" %>
       </p>
-      <%= link_to "Add IP", new_ip_path, class: "govuk-button" %>
+      <%= link_to "Add Location", new_ip_path, class: "govuk-button" %>
     <% else %>
       <%= render "radius_details",
         london_ips: @london_radius_ips,
         dublin_ips: @dublin_radius_ips  %>
-      <%= link_to "Add IP", new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
+      <%= link_to "Add Location", new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
       <%= render "ips/table", ips: @ips %>
 
       <details class="govuk-details">

@@ -12,7 +12,9 @@ describe Ip do
 
         it "does not save when address is an invalid IP" do
           expect(Ip.count).to eq(0)
-          expect(ip.errors.full_messages).to eq(["Address must be valid IP address format"])
+          expect(ip.errors.full_messages).to eq([
+            "Address must be a valid IPv4 address (without subnet)"
+          ])
         end
       end
 

@@ -2,29 +2,23 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-l">Add an IP</h2>
+    <%= link_to "Back to list", ips_path(anchor: :locations), class: "govuk-back-link" %>
 
-    <div class="govuk-body">
-      <p>Only IPv4 addresses can be accepted</p>
-      <ul>
-        <li>Must not be an IPv6 Address</li>
-        <li>Must not include a "/" (subnet IPv4)</li>
-      </ul>
-    </div>
+    <h2 class="govuk-heading-l">Add a new location</h2>
+
+    <%= render "activation_notice" %>
 
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
       <%= form_with model: @ip do |form| %>
         <div class="govuk-form-group <%= "govuk-form-group--error" if @ip&.errors&.any? %>">
-          <%= form.label :ip, "IP Address", class: "govuk-label"  %><br />
-          <%= form.text_field :address, id: :address, autofocus: true, class: "govuk-input", required: true %>
+          <%= form.label :ip, "Enter IP Address (IPv4 only)", class: "govuk-label"  %><br />
+          <%= form.text_field :address, id: :address, autofocus: true, autocomplete: "off", class: "govuk-input", required: true %>
         </div>
 
         <div class="actions">
-          <%= form.submit "save", class: "govuk-button govuk-!-margin-top-4" %>
+          <%= form.submit "Save", class: "govuk-button govuk-!-margin-top-4" %>
         </div>
       <% end %>
     </div>
   </div>
-
-  <%= render "activation_notice" %>
 </div>
