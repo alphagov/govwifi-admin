@@ -18,6 +18,8 @@ development:
 
 test:
   support_email: 'test@localhost'
+  invite_email:
+    template_id: 'wwwwwwww-wwww-wwww-wwww-wwwwwwwwwwww'
   confirmation_email:
     template_id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
   notify_support_of_new_user:
