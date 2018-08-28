@@ -40,6 +40,6 @@ end
 
 def invite_user(email)
   visit new_user_invitation_path
-  fill_in "Email", with: invited_user_email
+  fill_in "Email", with: email
   click_on "Send an invitation"
 end

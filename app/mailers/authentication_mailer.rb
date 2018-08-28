@@ -30,7 +30,7 @@ class AuthenticationMailer < ::Devise::Mailer
     )
   end
 
-  def invitation_instructions(record, token, _opts={})
+  def invitation_instructions(record, token, _opts = {})
     invite_link = accept_invitation_url(record, invitation_token: token)
     template_id = GOV_NOTIFY_CONFIG['invite_email']['template_id']
 
