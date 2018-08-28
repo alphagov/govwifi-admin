@@ -9,58 +9,64 @@ describe 'Add an IP to my account' do
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
 
-  context 'when logged out' do
+  context 'when logged in' do
     before do
+      sign_in_user create(:user)
       visit new_ip_path
     end
 
-    it_behaves_like 'not signed in'
-  end
+    it_behaves_like 'shows activation notice'
 
-  context 'when logged in' do
-    let(:user) { create(:user) }
-    before do
-      sign_in_user user
-      visit ips_path
-      expect(page).to have_content "Add IP"
-      click_on "Add Location"
+    it 'asks me to enter an IP' do
+      expect(page).to have_content('Enter IP Address (IPv4 only)')
     end
 
-    context 'before saving the IP' do
-      it_behaves_like 'shows activation notice'
+    context 'and that IP is valid' do
+      before do
+        fill_in 'address', with: '10.0.0.1'
+        click_on 'Save'
+      end
 
-      it 'displays the form' do
-        expect(page).to have_content('Enter IP Address (IPv4 only)')
+      it 'shows a success message' do
+        expect(page).to have_content('IP Added')
+      end
+
+      it 'shows me a list of IPs including the new IP' do
+        expect(page).to have_content('10.0.0.1')
       end
     end
 
-    context 'with an invalid IP address' do
+    context 'and that IP is invalid' do
       before do
         fill_in 'address', with: 'InvalidIP'
+        click_on 'Save'
       end
 
       it_behaves_like 'errors in form'
 
-      it 'displays the form with error message' do
+      it 'asks me to re-enter my IP' do
         expect(page).to have_content('Enter IP Address')
+      end
+
+      it 'tells me what I entered was invalid' do
         expect(page).to have_content(
           'Address must be a valid IPv4 address (without subnet)'
         )
       end
-    end
 
-    context 'after successfully saving an IP' do
-      before do
-        fill_in 'address', with: '10.0.0.1'
-      end
+      context 'when looking back at the list' do
+        before { visit ips_path }
 
-      it_behaves_like 'shows activation notice'
-
-      it 'shows the successful confirmation page' do
-        expect(page).to have_content('IP Added')
-        expect(page).to have_content(Ip.first.address)
-        expect(page).to have_content(user.radius_secret_key)
+        it 'has not added the invalid IP' do
+          expect(page).to_not have_content('InvalidIP')
+        end
       end
     end
+  end
+
+  context 'when logged out' do
+    before { visit new_ip_path }
+
+    it_behaves_like 'not signed in'
   end
 end
