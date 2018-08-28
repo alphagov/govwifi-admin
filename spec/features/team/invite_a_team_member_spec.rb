@@ -40,7 +40,7 @@ describe "Invite a team member" do
         }.to change { User.count }.by(1)
         expect(InviteUseCaseSpy.invite_count).to eq(1)
         expect(invited_user.confirmed?).to eq(false)
-        expect(page).to have_content("Logout")
+        expect(page).to have_content("Home")
       end
     end
   end
