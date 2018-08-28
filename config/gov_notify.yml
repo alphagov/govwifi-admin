@@ -6,6 +6,8 @@ staging:
     template_id: '79af3335-ab32-4c4b-9075-b9d7138c7e61'
   reset_password_email:
     template_id: '1672af2e-2acb-463a-95ee-2adad2aaceee'
+  invite_email:
+    template_id: 'e3b5ca96-9164-462f-a0b0-65d2103c1ab8'
 
 development:
   support_email: 'dev@localhost.com'
@@ -15,17 +17,19 @@ development:
     template_id: '79af3335-ab32-4c4b-9075-b9d7138c7e61'
   reset_password_email:
     template_id: '1672af2e-2acb-463a-95ee-2adad2aaceee'
+  invite_email:
+    template_id: 'e3b5ca96-9164-462f-a0b0-65d2103c1ab8'
 
 test:
   support_email: 'test@localhost'
-  invite_email:
-    template_id: 'wwwwwwww-wwww-wwww-wwww-wwwwwwwwwwww'
   confirmation_email:
     template_id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
   notify_support_of_new_user:
     template_id: 'yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy'
   reset_password_email:
     template_id: 'zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz'
+  invite_email:
+    template_id: 'wwwwwwww-wwww-wwww-wwww-wwwwwwwwwwww'
 
 production:
   support_email: 'govwifi-support@digital.cabinet-office.gov.uk'
@@ -35,3 +39,5 @@ production:
     template_id: 'fd79c7b9-48d7-4086-b62a-0fc6f56daa4b'
   reset_password_email:
     template_id: '63f566f6-8ae8-4356-9baa-cb4c3c0a6671'
+  invite_email:
+    template_id: '21b73fa7-8149-4778-8cba-46287bbfecc5'
