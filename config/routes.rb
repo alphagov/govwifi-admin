@@ -3,8 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     confirmations: 'users/confirmations',
-    registrations: 'users/registrations',
-    invitations: 'users/invitations'
+    registrations: 'users/registrations'
   }
   devise_scope :user do
     put 'users/confirmations', to: 'users/confirmations#update'
