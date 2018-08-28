@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :ips
+  belongs_to :organisation, inverse_of: :users, optional: true
+  accepts_nested_attributes_for :organisation
 
   devise :confirmable, :database_authenticatable, :registerable, :recoverable,
     :rememberable, :trackable, :validatable
@@ -12,7 +14,7 @@ class User < ApplicationRecord
 
   def update_details(params)
     unless params[:password] == params[:password_confirmation]
-      errors.add(:base, "Passwords must match") && return
+      errors.add(:password, "must match confirmation") && return
     end
 
     update(password: params[:password], name: params[:name])
