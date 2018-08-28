@@ -1,7 +1,14 @@
 class Users::InvitationsController < Devise::InvitationsController
-  before_action :add_organisation_to_params, only: :create
+  before_action :add_organisation_to_params, :validate_invited_user, only: :create
 
 private
+
+  def validate_invited_user
+    @user = User.new(invite_params)
+    unless @user.validate
+      render :new, resource: @user
+    end
+  end
 
   def add_organisation_to_params
     params[:user][:organisation_id] = current_user.organisation_id
