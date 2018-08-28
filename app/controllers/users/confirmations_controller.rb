@@ -6,7 +6,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   def update
     with_unconfirmed_confirmable do
-      if @confirmable.update_details(params[:user])
+      if user_params[:password] != user_params[:password_confirmation]
+        @confirmable.errors.add(:password, "must match confirmation")
+        render_show_page
+      elsif @confirmable.update(user_params)
         confirm_user
       else
         render_show_page
@@ -63,5 +66,9 @@ protected
       new_user_email: user.email,
       template_id: GOV_NOTIFY_CONFIG['notify_support_of_new_user']['template_id']
     )
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :password, :password_confirmation, organisation_attributes: [:name])
   end
 end

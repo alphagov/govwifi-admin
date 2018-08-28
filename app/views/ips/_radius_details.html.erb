@@ -1,28 +1,23 @@
 <h3 class="govuk-heading-m"> Connecting to us </h3>
 <p class="govuk-body"> You'll need to configure your access point to contact our RADIUS servers, to authenticate your users. </p>
 
-<p class="govuk-body"> We recommend connecting to one IP from each region. </p>
-
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Show London IP Addresses
+      Show connection details
     </span>
   </summary>
   <div class="govuk-details__text">
+    <p> Your RADIUS secret is <strong> <%= current_user.radius_secret_key %> </strong></p>
+
+    <p> We recommend connecting to one of our RADIUS servers from each region: </p>
+
+    <h3> London: </h3>
     <% london_ips.each do |ip| %>
       <p class="govuk-body"> <%= ip %>
     <% end %>
-  </div>
-</details>
 
-<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Show Dublin IP Addresses
-    </span>
-  </summary>
-  <div class="govuk-details__text">
+    <h3> Dublin: </h3>
     <% dublin_ips.each do |ip| %>
       <p class="govuk-body"> <%= ip %>
     <% end %>

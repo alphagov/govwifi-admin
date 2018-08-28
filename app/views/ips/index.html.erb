@@ -1,28 +1,115 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h2 class="govuk-heading-l">Locations</h2>
-      </div>
-      <div class="govuk-grid-column-one-third">
-        <%= link_to "Add IP", new_ip_path, class: "govuk-button",  style: "float:right;" %>
-      </div>
+<div class="govuk-tabs" data-module="tabs">
+  <ul class="govuk-tabs__list">
+    <li class="govuk-tabs__list-item">
+      <a class="govuk-tabs__tab" href="#home">
+        Home
+      </a>
+    </li>
+    <li class="govuk-tabs__list-item">
+      <a class="govuk-tabs__tab" href="#locations">
+        Locations
+      </a>
+    </li>
+    <li class="govuk-tabs__list-item">
+      <a class="govuk-tabs__tab" href="#team">
+        Team
+      </a>
+    </li>
+  </ul>
+
+  <section class="govuk-tabs__panel" id="home">
+    <div>
+      <h2 class="govuk-heading-l">Home</h2>
+      <p class="govuk-body">Use this service to:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li> add IPs </li>
+        <li> add team members to your organisation </li>
+        <li> understand how your users are using GovWifi </li>
+        <li> get support </li>
+      </ul>
     </div>
 
+    <h2> Steps to get GovWifi in your building</h2>
+    <div>
+      <h3> 1. Add IP </h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li> Go to "Locations" </li>
+        <li> Enter the IPs of your access points </li>
+      </ul>
+    </div>
+
+    <div>
+      <h3> 2. Configure your access point </h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li> Use the secret key provided </li>
+        <li> Use your GovWifi IP </li>
+        <li> Install the access point </li>
+      </ul>
+    </div>
+
+    <div>
+      <h3> 3. Wait until the next working day </h3>
+      <p class="govuk-body"> Once you've set IPs in this tool, they won't be available for use until tomorrow. </p>
+    </div>
+
+    <div>
+      <h3> 4. Add team members </h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li> They must have government/whitelisted emails </li>
+        <li> They will need to confirm their email address and enter an account password </li>
+      </ul>
+    </div>
+
+    <div>
+      <h3> 5. Confirm your setup is working </h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li> Check you have login attempts for your users </li>
+        <li> Check activity from your access points </li>
+        <li> Check the GovWifi service status </li>
+      </ul>
+    </div>
+
+    <a href="#support"> Getting help </a>
+  </section>
+
+  <section class="govuk-tabs__panel" id="locations">
+    <h2 class="govuk-heading-l">Locations</h2>
     <% if @ips.empty? %>
       <p class="govuk-body">
-        You have not added any of your IPs, <%= link_to "add one now", new_ip_path, class: "govuk-link" %>
+        You currently have no IPs configured for use with GovWifi. Find out <%= link_to "more", "#", class: "govuk-link" %>
       </p>
+      <%= link_to "Add IP", new_ip_path, class: "govuk-button" %>
     <% else %>
-      <p class="govuk-body">
-        <strong>Your Secret Key:</strong>
-        <span class="float-right"><%= current_user.radius_secret_key %></span>
-      </p>
-
-      <%= render "ips/table", ips: @ips %>
       <%= render "radius_details",
         london_ips: @london_radius_ips,
         dublin_ips: @dublin_radius_ips  %>
+      <%= link_to "Add IP", new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
+      <%= render "ips/table", ips: @ips %>
+
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            What if I want to remove an IP?
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p> Contact us via our <%= link_to "support form", "#" %> and use this format: </p>
+          <ul class="govuk-list">
+            <li> Subject: Remove IP </li>
+            <li> Text: Name of organisation, IPs you want to remove </li>
+          </ul>
+        </div>
+      </details>
     <% end %>
-  </div>
+  </section>
+
+   <section class="govuk-tabs__panel" id="team">
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+        Managing team isn't available yet.
+      </strong>
+    </div>
+  </section>
 </div>

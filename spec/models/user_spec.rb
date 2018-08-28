@@ -5,6 +5,7 @@ describe User do
 
   context 'associations' do
     it { should have_many(:ips) }
+    it { should belong_to(:organisation) }
   end
 
   describe '#update_details' do
@@ -27,7 +28,7 @@ describe User do
       it 'should not set the users password' do
         expect { user.update_details(params) }.to_not change(user, :password)
         expect(user.errors.empty?).to eq(false)
-        expect(user.errors.full_messages).to eq(['Passwords must match'])
+        expect(user.errors.full_messages).to eq(['Password must match confirmation'])
       end
     end
   end
