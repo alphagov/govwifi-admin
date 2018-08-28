@@ -6,8 +6,8 @@
       </a>
     </li>
     <li class="govuk-tabs__list-item">
-      <a class="govuk-tabs__tab" href="#locations">
-        Locations
+      <a class="govuk-tabs__tab" href="#ips">
+        IP Addresses
       </a>
     </li>
     <li class="govuk-tabs__list-item">
@@ -33,7 +33,7 @@
     <div>
       <h3> 1. Add IP </h3>
       <ul class="govuk-list govuk-list--bullet">
-        <li> Go to "Locations" </li>
+        <li> Go to "IP Addresses" </li>
         <li> Enter the IPs of your access points </li>
       </ul>
     </div>
@@ -72,18 +72,18 @@
     <a href="#support"> Getting help </a>
   </section>
 
-  <section class="govuk-tabs__panel" id="locations">
-    <h2 class="govuk-heading-l">Locations</h2>
+  <section class="govuk-tabs__panel" id="ips">
+    <h2 class="govuk-heading-l">IP Addresses</h2>
     <% if @ips.empty? %>
       <p class="govuk-body">
         You currently have no IPs configured for use with GovWifi. Find out <%= link_to "more", "#", class: "govuk-link" %>
       </p>
-      <%= link_to "Add IP", new_ip_path, class: "govuk-button" %>
+      <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
     <% else %>
       <%= render "radius_details",
         london_ips: @london_radius_ips,
         dublin_ips: @dublin_radius_ips  %>
-      <%= link_to "Add IP", new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
+      <%= link_to "Add IP Address", new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
       <%= render "ips/table", ips: @ips %>
 
       <details class="govuk-details">
