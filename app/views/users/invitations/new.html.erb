@@ -3,6 +3,8 @@
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
   <%= devise_error_messages! %>
 
+  <%= f.hidden_field :organisation_id %>
+
 <% resource.class.invite_key_fields.each do |field| -%>
   <p><%= f.label field %><br />
   <%= f.text_field field %></p>

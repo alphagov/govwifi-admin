@@ -14,7 +14,7 @@ describe "Invite a team member" do
   end
 
   context "when logged in" do
-    let(:user) { create(:user, :confirmed) }
+    let(:user) { create(:user, :confirmed, :with_organisation) }
     before do
       sign_in_user user
       visit new_user_invitation_path
@@ -40,6 +40,7 @@ describe "Invite a team member" do
         }.to change { User.count }.by(1)
         expect(InviteUseCaseSpy.invite_count).to eq(1)
         expect(invited_user.confirmed?).to eq(false)
+        expect(invited_user.organisation).to eq(user.organisation)
         expect(page).to have_content("Home")
       end
     end

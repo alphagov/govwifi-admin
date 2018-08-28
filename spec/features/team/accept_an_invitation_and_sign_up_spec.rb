@@ -7,7 +7,7 @@ describe "Sign up from invitation" do
   include_examples 'invite use case spy'
   include_examples 'notifications service'
 
-  let(:user) { create(:user, :confirmed) }
+  let(:user) { create(:user, :confirmed, :with_organisation) }
   let(:invited_user_email) { "invited@gov.uk" }
 
   before do
@@ -39,6 +39,7 @@ describe "Sign up from invitation" do
       it "confirms the user" do
         expect(invited_user.confirmed?).to eq(true)
         expect(invited_user.name).to eq("Ron Swanson")
+        expect(invited_user.organisation).to eq(user.organisation)
         expect(page).to have_content("Home")
         expect(page).to have_content("Logout")
       end
