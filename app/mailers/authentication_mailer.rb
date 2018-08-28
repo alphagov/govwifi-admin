@@ -29,4 +29,17 @@ class AuthenticationMailer < ::Devise::Mailer
       template_id: template_id
     )
   end
+
+  def invitation_instructions(record, token, _opts = {})
+    invite_link = accept_invitation_url(record, invitation_token: token)
+    template_id = GOV_NOTIFY_CONFIG['invite_email']['template_id']
+
+    SendInviteEmail.new(
+      notifications_gateway: EmailGateway.new
+    ).execute(
+      email: record.email,
+      invite_url: invite_link,
+      template_id: template_id
+    )
+  end
 end

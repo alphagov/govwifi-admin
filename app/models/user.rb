@@ -3,7 +3,7 @@ class User < ApplicationRecord
   belongs_to :organisation, inverse_of: :users, optional: true
   accepts_nested_attributes_for :organisation
 
-  devise :confirmable, :database_authenticatable, :registerable, :recoverable,
+  devise :invitable, :confirmable, :database_authenticatable, :registerable, :recoverable,
     :rememberable, :trackable, :validatable
 
   before_create :reset_confirmation_token, :set_radius_secret_key
