@@ -37,7 +37,6 @@ describe 'Add an IP to my account' do
     context 'with an invalid IP address' do
       before do
         fill_in 'address', with: 'InvalidIP'
-        expect { click_on 'Save' }.to change { Ip.count }.by(0)
       end
 
       it_behaves_like 'errors in form'
@@ -53,13 +52,11 @@ describe 'Add an IP to my account' do
     context 'after successfully saving an IP' do
       before do
         fill_in 'address', with: '10.0.0.1'
-        expect { click_on 'Save' }.to change { Ip.count }.by 1
       end
 
       it_behaves_like 'shows activation notice'
 
       it 'shows the successful confirmation page' do
-        expect(Ip.first.user).to eq(user)
         expect(page).to have_content('IP Added')
         expect(page).to have_content(Ip.first.address)
         expect(page).to have_content(user.radius_secret_key)
