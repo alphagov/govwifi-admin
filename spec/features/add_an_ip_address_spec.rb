@@ -12,7 +12,8 @@ describe 'Add an IP to my account' do
   context 'when logged in' do
     before do
       sign_in_user create(:user)
-      visit new_ip_path
+      visit ips_path
+      click_on "Add IP Address"
     end
 
     it_behaves_like 'shows activation notice'
