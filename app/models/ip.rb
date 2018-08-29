@@ -9,6 +9,7 @@ private
   def address_must_be_valid_ip
     checker = CheckIfValidIp.new
     valid_ip = checker.execute(self.address)[:success]
-    errors.add(:address, 'must be valid IP address format') unless valid_ip
+    message = 'must be a valid IPv4 address (without subnet)'
+    errors.add(:address, message) unless valid_ip
   end
 end

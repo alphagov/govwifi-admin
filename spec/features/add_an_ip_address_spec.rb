@@ -18,40 +18,42 @@ describe 'Add an IP to my account' do
   end
 
   context 'when logged in' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :confirmed, :with_organisation) }
     before do
       sign_in_user user
       visit ips_path
       expect(page).to have_content "Add IP"
-      click_on "Add IP"
+      click_on "Add IP Address"
     end
 
     context 'before saving the IP' do
       it_behaves_like 'shows activation notice'
 
       it 'displays the form' do
-        expect(page).to have_content('Add an IP')
+        expect(page).to have_content('Enter IP Address (IPv4 only)')
       end
     end
 
     context 'with an invalid IP address' do
       before do
         fill_in 'address', with: 'InvalidIP'
-        expect { click_on 'save' }.to change { Ip.count }.by(0)
+        expect { click_on 'Save' }.to change { Ip.count }.by(0)
       end
 
       it_behaves_like 'errors in form'
 
       it 'displays the form with error message' do
-        expect(page).to have_content('Add an IP')
-        expect(page).to have_content('Address must be valid IP address format')
+        expect(page).to have_content('Enter IP Address')
+        expect(page).to have_content(
+          'Address must be a valid IPv4 address (without subnet)'
+        )
       end
     end
 
     context 'after successfully saving an IP' do
       before do
         fill_in 'address', with: '10.0.0.1'
-        expect { click_on 'save' }.to change { Ip.count }.by 1
+        expect { click_on 'Save' }.to change { Ip.count }.by 1
       end
 
       it_behaves_like 'shows activation notice'

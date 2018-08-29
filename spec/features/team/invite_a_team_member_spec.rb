@@ -5,6 +5,9 @@ require 'support/invite_use_case'
 require 'support/notifications_service'
 
 describe "Invite a team member" do
+  include_examples 'invite use case spy'
+  include_examples 'notifications service'
+
   context "when logged out" do
     before do
       visit new_user_invitation_path
@@ -96,6 +99,35 @@ describe "Invite a team member" do
           expect(page).to have_content("Email must be from a government domain")
         end
       end
+    end
+  end
+
+  context "resending invitation link" do
+    let(:organisation) { create(:organisation) }
+    let(:user) { create(:user, :confirmed, organisation: organisation) }
+    let(:invited_user_email) { "invited@gov.uk" }
+
+    before do
+      sign_in_user user
+      invite_user(invited_user_email)
+
+      new_user = User.find_by_email(invited_user_email)
+      new_user.organisation = organisation
+      new_user.name = 'Bob'
+      new_user.save
+    end
+
+    it 'will have "invitation sent" text on team members page' do
+      visit ips_path
+
+      expect(page).to have_content('invitation pending')
+    end
+
+    it 'will send an invitation' do
+      visit ips_path
+
+      expect { click_button("resend invite") }.to \
+        change { InviteUseCaseSpy.invite_count }.by(1)
     end
   end
 end

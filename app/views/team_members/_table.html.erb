@@ -1,0 +1,24 @@
+<table class="govuk-table govuk-!-margin-top-7">
+  <tbody class="govuk-table__body">
+    <% team_members.each do |member| %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell "><%= member.email %></td>
+        <td class="govuk-table__cell ">
+	  <% if !member.invitation_sent_at.nil? && !member.invitation_accepted? %>
+            invitation pending
+	  <% end %>
+	</td>
+        <td class="govuk-table__cell ">
+	  <% if !member.invitation_sent_at.nil? && !member.invitation_accepted? %>
+	    <%= button_to(
+	      "resend invite",
+              user_invitation_path({ user: { email: member.email }}),
+              method: :post,
+	      class: "govuk-button small-table-button")
+	    %>
+	  <% end %>
+	</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

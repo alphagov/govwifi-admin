@@ -39,9 +39,8 @@ describe "Sign up from invitation" do
       it "confirms the user" do
         expect(invited_user.confirmed?).to eq(true)
         expect(invited_user.name).to eq("Ron Swanson")
-        expect(invited_user.organisation).to eq(user.organisation)
-        expect(page).to have_content("Home")
         expect(page).to have_content("Logout")
+        expect(page).to have_content(user.organisation.name)
       end
     end
   end

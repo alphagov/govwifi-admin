@@ -1,3 +1,7 @@
+<h3 class="govuk-heading-m float-right govuk-!-margin-bottom-0 govuk-!-margin-top-3">
+  <%= current_user&.organisation&.name %>
+</h3>
+
 <div class="govuk-tabs" data-module="tabs">
   <ul class="govuk-tabs__list">
     <li class="govuk-tabs__list-item">
@@ -6,8 +10,8 @@
       </a>
     </li>
     <li class="govuk-tabs__list-item">
-      <a class="govuk-tabs__tab" href="#locations">
-        Locations
+      <a class="govuk-tabs__tab" href="#ips">
+        IP Addresses
       </a>
     </li>
     <li class="govuk-tabs__list-item">
@@ -33,7 +37,7 @@
     <div>
       <h3> 1. Add IP </h3>
       <ul class="govuk-list govuk-list--bullet">
-        <li> Go to "Locations" </li>
+        <li> Go to "IP Addresses" </li>
         <li> Enter the IPs of your access points </li>
       </ul>
     </div>
@@ -72,18 +76,18 @@
     <a href="#support"> Getting help </a>
   </section>
 
-  <section class="govuk-tabs__panel" id="locations">
-    <h2 class="govuk-heading-l">Locations</h2>
+  <section class="govuk-tabs__panel" id="ips">
+    <h2 class="govuk-heading-l">IP Addresses</h2>
     <% if @ips.empty? %>
       <p class="govuk-body">
         You currently have no IPs configured for use with GovWifi. Find out <%= link_to "more", "#", class: "govuk-link" %>
       </p>
-      <%= link_to "Add IP", new_ip_path, class: "govuk-button" %>
+      <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
     <% else %>
       <%= render "radius_details",
         london_ips: @london_radius_ips,
         dublin_ips: @dublin_radius_ips  %>
-      <%= link_to "Add IP", new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
+      <%= link_to "Add IP Address", new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
       <%= render "ips/table", ips: @ips %>
 
       <details class="govuk-details">
@@ -104,12 +108,31 @@
   </section>
 
    <section class="govuk-tabs__panel" id="team">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        Managing team isn't available yet.
-      </strong>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">
+	  Team Members
+	</h1>
+      </div>
+      <div class="govuk-grid-column-one-third">
+        <%= link_to "Invite team member", "#", class: "govuk-button" %>
+      </div>
     </div>
+    <%= render "team_members/table", team_members: @team_members %>
+
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          What if I want to edit or remove a team member?
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        <p> Contact us via our <%= link_to "support form", "#" %> and use this format: </p>
+        <ul class="govuk-list">
+          <li> Subject: Edit or remove team member </li>
+          <li> Text: Name of organisation, user details to amend </li>
+        </ul>
+      </div>
+    </details>
   </section>
 </div>
