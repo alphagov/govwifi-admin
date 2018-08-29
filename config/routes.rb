@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     get 'users/confirmations/pending', to: 'users/confirmations#pending'
   end
 
-  get '/healthcheck', to: 'monitoring#healthcheck'
-
+  resources :health_checks, only: [:index]
   resources :ips, only: [:index, :new, :create, :show]
 end
