@@ -38,7 +38,7 @@ describe 'Add an IP to my account' do
 
     context 'and that IP is invalid' do
       before do
-        fill_in 'address', with: 'InvalidIP'
+        fill_in 'address', with: '10.wrong.0.1'
         click_on 'Save'
       end
 
@@ -58,7 +58,7 @@ describe 'Add an IP to my account' do
         before { visit ips_path }
 
         it 'has not added the invalid IP' do
-          expect(page).to_not have_content('InvalidIP')
+          expect(page).to_not have_content('10.wrong.0.1')
         end
       end
     end
