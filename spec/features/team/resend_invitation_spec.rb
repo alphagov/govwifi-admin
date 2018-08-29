@@ -24,33 +24,33 @@ describe "Resend invitation to team member" do
       expect { click_button("resend invite") }.to \
         change { InviteUseCaseSpy.invite_count }.by(1)
     end
-  end
 
-  context "signup from resent invitation" do
-    let(:invite_link) { InviteUseCaseSpy.last_invite_url }
-    let(:invited_user) { User.find_by(email: invited_user_email) }
+    context "signup from resent invitation" do
+      let(:invite_link) { InviteUseCaseSpy.last_invite_url }
+      let(:invited_user) { User.find_by(email: invited_user_email) }
 
-    before do
-      visit invite_link
-    end
-
-    it "displays the sign up page" do
-      expect(page).to have_content("Create your account")
-    end
-
-    context "signing up as an invited user" do
       before do
-        fill_in "Your name", with: "Ron Swanson"
-        fill_in "Password", with: "password"
-        fill_in "Confirm password", with: "password"
-        click_on "Create my account"
+        visit invite_link
       end
 
-      it "confirms the user" do
-        expect(invited_user.confirmed?).to eq(true)
-        expect(invited_user.name).to eq("Ron Swanson")
-        expect(page).to have_content("Logout")
-        expect(page).to have_content(user.organisation.name)
+      it "displays the sign up page" do
+        expect(page).to have_content("Create your account")
+      end
+
+      context "signing up as an invited user" do
+        before do
+          fill_in "Your name", with: "Ron Swanson"
+          fill_in "Password", with: "password"
+          fill_in "Confirm password", with: "password"
+          click_on "Create my account"
+        end
+
+        it "confirms the user" do
+          expect(invited_user.confirmed?).to eq(true)
+          expect(invited_user.name).to eq("Ron Swanson")
+          expect(page).to have_content("Logout")
+          expect(page).to have_content(user.organisation.name)
+        end
       end
     end
   end
