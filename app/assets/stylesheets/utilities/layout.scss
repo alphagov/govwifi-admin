@@ -10,6 +10,19 @@
   justify-content: space-between;
 }
 
+.flash-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flash-message-notice {
+  width: 100%;
+  padding: 1em;
+  color: #fff;
+  background: #28a197;
+}
+
 .small-table-button {
   margin-bottom: 0px;
 }
