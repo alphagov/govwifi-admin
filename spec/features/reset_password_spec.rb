@@ -1,6 +1,8 @@
 require 'support/notifications_service'
 require 'support/reset_password_use_case_spy'
 require 'support/reset_password_use_case'
+require 'support/confirmation_use_case_spy'
+require 'support/confirmation_use_case'
 require 'features/support/errors_in_form'
 
 describe "Resetting a password" do
@@ -26,6 +28,24 @@ describe "Resetting a password" do
 
     it "tells the user the email cannot be found" do
       expect(page).to have_content("Email not found")
+    end
+  end
+
+  context "when user is not yet confirmed" do
+    include_examples 'confirmation use case spy'
+    include_examples 'notifications service'
+
+    let(:user) { create(:user) }
+
+    it "sends the confirmation instructions instead of reset password" do
+      visit new_user_password_path
+      fill_in "user_email", with: user.email
+
+      expect {
+        click_on "Send me reset password instructions"
+      }.to change { ConfirmationUseCaseSpy.confirmations_count }.by(1)
+
+      expect(page).to have_content("You will receive an email with instructions")
     end
   end
 
