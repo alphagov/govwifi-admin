@@ -18,7 +18,7 @@ describe 'Add an IP to my account' do
   end
 
   context 'when logged in' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :confirmed, :with_organisation) }
     before do
       sign_in_user user
       visit ips_path
