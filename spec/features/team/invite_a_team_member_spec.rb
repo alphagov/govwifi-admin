@@ -72,6 +72,30 @@ describe "Invite a team member" do
           expect(page).to have_content("Email has already been taken")
         end
       end
+
+      context "without an email" do
+        let(:invited_user_email) { "" }
+
+        it "tells the user that email cannot be blank" do
+          expect {
+            click_on "Send invitation email"
+          }.to change { User.count }.by(0)
+          expect(InviteUseCaseSpy.invite_count).to eq(0)
+          expect(page).to have_content("Email can't be blank")
+        end
+      end
+
+      context "tells user that email must be a valid gov.uk email" do
+        let(:invited_user_email) { "hello" }
+
+        it "tells the user " do
+          expect {
+            click_on "Send invitation email"
+          }.to change { User.count }.by(0)
+          expect(InviteUseCaseSpy.invite_count).to eq(0)
+          expect(page).to have_content("Email must be from a government domain")
+        end
+      end
     end
   end
 end
