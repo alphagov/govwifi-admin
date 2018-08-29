@@ -75,6 +75,9 @@
               </li>
             <% if user_signed_in? %>
               <li class="govuk-header__navigation-item">
+                <%= link_to 'Help', help_index_path, class: "govuk-header__link" %>
+              </li>
+              <li class="govuk-header__navigation-item">
                 <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "govuk-header__link" %>
               </li>
             <% else %>

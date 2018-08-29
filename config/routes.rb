@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   get '/healthcheck', to: 'monitoring#healthcheck'
   resources :status, only: [:index]
   resources :ips, only: [:index, :new, :create, :show]
+  resources :help, only: [:index, :create] 
 end
