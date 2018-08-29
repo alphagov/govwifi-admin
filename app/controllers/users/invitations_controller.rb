@@ -4,6 +4,7 @@ class Users::InvitationsController < Devise::InvitationsController
 private
 
   def validate_invited_user
+    return if User.find_by(email: invite_params[:email])
     @user = User.new(invite_params)
     render :new, resource: @user unless @user.validate
   end
