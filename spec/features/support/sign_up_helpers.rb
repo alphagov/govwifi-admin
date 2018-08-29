@@ -33,3 +33,13 @@ def sign_in_user(user)
   user.confirm unless user.confirmed?
   login_as(user, scope: :user)
 end
+
+def sign_out
+  click_on "Logout"
+end
+
+def invite_user(email)
+  visit new_user_invitation_path
+  fill_in "Email", with: email
+  click_on "Send an invitation"
+end

@@ -1,0 +1,9 @@
+<table class="govuk-table govuk-!-margin-top-7">
+  <tbody class="govuk-table__body">
+    <% team_members.each do |member| %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell "><%= member.email %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

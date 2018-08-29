@@ -17,6 +17,7 @@ class IpsController < ApplicationController
     @ips = current_user.ips
     @london_radius_ips = radius_ips[:london]
     @dublin_radius_ips = radius_ips[:dublin]
+    @team_members = current_user&.organisation&.users || []
   end
 
   def show

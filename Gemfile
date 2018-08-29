@@ -8,6 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'devise', '~> 4.5.0'
+gem 'devise_invitable', '~> 1.7.0'
 gem 'mysql2', '~> 0.5.2'
 gem 'notifications-ruby-client', '~> 2.7.0'
 gem 'puma', '~> 3.12'
