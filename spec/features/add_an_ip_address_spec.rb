@@ -31,8 +31,21 @@ describe 'Add an IP to my account' do
         expect(page).to have_content('IP Added')
       end
 
-      it 'shows me a list of IPs including the new IP' do
+      it 'shows me the new IP' do
         expect(page).to have_content('10.0.0.1')
+      end
+
+      context 'when I add a second IP' do
+        before do
+          visit new_ip_path
+          fill_in 'address', with: '10.0.0.2'
+          click_on 'Save'
+        end
+
+        it 'shows both new IPs' do
+          expect(page).to have_content('10.0.0.1')
+          expect(page).to have_content('10.0.0.2')
+        end
       end
     end
 
