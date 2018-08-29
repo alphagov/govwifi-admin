@@ -2,7 +2,7 @@ module UseCases
   module Administrator
     module HealthChecks
       class CalculateHealth
-        def initialize(route53_gateway:)
+        def initialize(route53_gateway: Gateways::Route53.new)
           @route53_gateway = route53_gateway
         end
 
@@ -22,7 +22,7 @@ module UseCases
           return if health_check.nil?
 
           {
-            ip: health_check.health_check_config.ip_address,
+            ip_address: health_check.health_check_config.ip_address,
             status: status(route53_gateway.get_health_check_status(health_check_id: health_check.id))
           }
         end
