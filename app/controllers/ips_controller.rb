@@ -7,7 +7,7 @@ class IpsController < ApplicationController
     @ip = current_user.ips.new(ip_params)
     if @ip.save
       flash[:notice] = 'IP Added: ' + @ip.address
-      redirect_to ips_path(anchor: 'locations')
+      redirect_to ips_path(anchor: 'ips')
     else
       render :new
     end
