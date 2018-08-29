@@ -24,24 +24,53 @@ describe "Invite a team member" do
       expect(page).to have_content("Invite a team member")
     end
 
-    context "with correct data" do
+    context "when entering a team members email address" do
       include_examples 'invite use case spy'
       include_examples 'notifications service'
-      let(:invited_user_email) { "testing@gov.uk" }
-      let(:invited_user) { User.find_by(email: invited_user_email) }
 
       before do
         fill_in "Email", with: invited_user_email
       end
 
-      it "creates an unconfirmed user" do
-        expect {
-          click_on "Send invitation email"
-        }.to change { User.count }.by(1)
-        expect(InviteUseCaseSpy.invite_count).to eq(1)
-        expect(invited_user.confirmed?).to eq(false)
-        expect(invited_user.organisation).to eq(user.organisation)
-        expect(page).to have_content("Home")
+      context "with gov.uk email address" do
+        let(:invited_user_email) { "correct@gov.uk" }
+        let(:invited_user) { User.find_by(email: invited_user_email) }
+
+        it "creates an unconfirmed user" do
+          expect {
+            click_on "Send invitation email"
+          }.to change { User.count }.by(1)
+          expect(InviteUseCaseSpy.invite_count).to eq(1)
+          expect(invited_user.confirmed?).to eq(false)
+          expect(invited_user.organisation).to eq(user.organisation)
+          expect(page).to have_content("Home")
+        end
+      end
+
+      context "with non gov.uk email address" do
+        let(:invited_user_email) { "incorrect@gmail.com" }
+        let(:invited_user) { User.find_by(email: invited_user_email) }
+
+        it "tells user that email must be a valid gov.uk email" do
+          expect {
+            click_on "Send invitation email"
+          }.to change { User.count }.by(0)
+          expect(InviteUseCaseSpy.invite_count).to eq(0)
+          expect(invited_user).to eq(nil)
+          expect(page).to have_content("Email must be from a government domain")
+        end
+      end
+
+      context "with an email that already exists" do
+        let(:invited_user_email) { user.email }
+
+        it "tells the user that the email has already been taken" do
+          expect {
+            click_on "Send invitation email"
+          }.to change { User.count }.by(0)
+          expect(InviteUseCaseSpy.invite_count).to eq(0)
+          expect(page).to have_content("Email has already been taken")
+        end
       end
     end
   end

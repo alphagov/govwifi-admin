@@ -5,9 +5,7 @@ private
 
   def validate_invited_user
     @user = User.new(invite_params)
-    unless @user.validate
-      render :new, resource: @user
-    end
+    render :new, resource: @user unless @user.validate
   end
 
   def add_organisation_to_params

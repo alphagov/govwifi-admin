@@ -4,7 +4,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :organisation
 
   devise :invitable, :confirmable, :database_authenticatable, :registerable, :recoverable,
-    :rememberable, :trackable, :validatable, :validate_on_invite => true
+    :rememberable, :trackable, :validatable
 
   before_create :reset_confirmation_token, :set_radius_secret_key
 
