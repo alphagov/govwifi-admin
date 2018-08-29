@@ -24,58 +24,81 @@ describe "Invite a team member" do
     end
 
     it "shows the invites page" do
-      expect(page).to have_content("Send invitation")
+      expect(page).to have_content("Invite a team member")
     end
 
-    context "with correct data" do
+    context "when entering a team members email address" do
       include_examples 'invite use case spy'
       include_examples 'notifications service'
-      let(:invited_user_email) { "testing@gov.uk" }
-      let(:invited_user) { User.find_by(email: invited_user_email) }
 
       before do
         fill_in "Email", with: invited_user_email
       end
 
-      it "creates an unconfirmed user" do
-        expect {
-          click_on "Send an invitation"
-        }.to change { User.count }.by(1)
+      context "with gov.uk email address" do
+        let(:invited_user_email) { "correct@gov.uk" }
+        let(:invited_user) { User.find_by(email: invited_user_email) }
 
-        expect(InviteUseCaseSpy.invite_count).to eq(1)
-        expect(invited_user.confirmed?).to eq(false)
-        expect(invited_user.organisation).to eq(user.organisation)
-        expect(page).to have_content("Home")
+        it "creates an unconfirmed user" do
+          expect {
+            click_on "Send invitation email"
+          }.to change { User.count }.by(1)
+          expect(InviteUseCaseSpy.invite_count).to eq(1)
+          expect(invited_user.confirmed?).to eq(false)
+          expect(invited_user.organisation).to eq(user.organisation)
+          expect(page).to have_content("Home")
+        end
       end
-    end
-  end
 
-  context "resending invitation link" do
-    let(:organisation) { create(:organisation) }
-    let(:user) { create(:user, :confirmed, organisation: organisation) }
-    let(:invited_user_email) { "invited@gov.uk" }
+      context "with non gov.uk email address" do
+        let(:invited_user_email) { "incorrect@gmail.com" }
+        let(:invited_user) { User.find_by(email: invited_user_email) }
 
-    before do
-      sign_in_user user
-      invite_user(invited_user_email)
+        it "tells user that email must be a valid gov.uk email" do
+          expect {
+            click_on "Send invitation email"
+          }.to change { User.count }.by(0)
+          expect(InviteUseCaseSpy.invite_count).to eq(0)
+          expect(invited_user).to eq(nil)
+          expect(page).to have_content("Email must be from a government domain")
+        end
+      end
 
-      new_user = User.find_by_email(invited_user_email)
-      new_user.organisation = organisation
-      new_user.name = 'Bob'
-      new_user.save
-    end
+      context "with an email that already exists" do
+        let(:invited_user_email) { user.email }
 
-    it 'will have "invitation sent" text on team members page' do
-      visit ips_path
+        it "tells the user that the email has already been taken" do
+          expect {
+            click_on "Send invitation email"
+          }.to change { User.count }.by(0)
+          expect(InviteUseCaseSpy.invite_count).to eq(0)
+          expect(page).to have_content("Email has already been taken")
+        end
+      end
 
-      expect(page).to have_content('invitation pending')
-    end
+      context "without an email" do
+        let(:invited_user_email) { "" }
 
-    it 'will send an invitation' do
-      visit ips_path
+        it "tells the user that email cannot be blank" do
+          expect {
+            click_on "Send invitation email"
+          }.to change { User.count }.by(0)
+          expect(InviteUseCaseSpy.invite_count).to eq(0)
+          expect(page).to have_content("Email can't be blank")
+        end
+      end
 
-      expect { click_button("resend invite") }.to \
-        change { InviteUseCaseSpy.invite_count }.by(1)
+      context "tells user that email must be a valid gov.uk email" do
+        let(:invited_user_email) { "hello" }
+
+        it "tells the user " do
+          expect {
+            click_on "Send invitation email"
+          }.to change { User.count }.by(0)
+          expect(InviteUseCaseSpy.invite_count).to eq(0)
+          expect(page).to have_content("Email must be from a government domain")
+        end
+      end
     end
   end
 end

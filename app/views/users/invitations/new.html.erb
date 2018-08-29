@@ -1,12 +1,22 @@
-<h2><%= t "devise.invitations.new.header" %></h2>
+<%= render "layouts/form_errors" %>
 
-<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
-  <%= devise_error_messages! %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-heading-l">Invite a team member</h2>
 
-<% resource.class.invite_key_fields.each do |field| -%>
-  <p><%= f.label field %><br />
-  <%= f.text_field field %></p>
-<% end -%>
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
+      <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post } do |f| %>
 
-  <p><%= f.submit t("devise.invitations.new.submit_button") %></p>
-<% end %>
+        <div class="govuk-form-group <%= field_error(resource, :email) %>">
+          <%= f.label :email, "Email address", class: "govuk-label"  %>
+          <div class="govuk-hint">Must be a valid government email address</div>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input", required: true %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Send invitation email", class: "govuk-button govuk-!-margin-top-4" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
