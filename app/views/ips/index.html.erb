@@ -115,7 +115,7 @@
 	</h1>
       </div>
       <div class="govuk-grid-column-one-third">
-        <%= link_to "Invite team member", "#", class: "govuk-button" %>
+        <%= link_to "Invite team member", new_user_invitation_path, class: "govuk-button" %>
       </div>
     </div>
     <%= render "team_members/table", team_members: @team_members %>
