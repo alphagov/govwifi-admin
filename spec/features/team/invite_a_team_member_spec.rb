@@ -20,7 +20,8 @@ describe "Invite a team member" do
     let(:user) { create(:user, :confirmed, :with_organisation) }
     before do
       sign_in_user user
-      visit new_user_invitation_path
+      visit root_path
+      click_on "Invite team member"
     end
 
     it "shows the invites page" do
