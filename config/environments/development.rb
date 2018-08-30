@@ -89,15 +89,6 @@ Rails.application.configure do
                 measure_latency: false,
                 type: 'HTTP',
               }
-            }, {
-              caller_reference: 'AdminMonitoring',
-              id: 'latency123',
-              health_check_version: 1,
-              health_check_config: {
-                ip_address: '777.777.777.777',
-                measure_latency: true,
-                type: 'HTTP',
-              }
             }
           ]
         }
