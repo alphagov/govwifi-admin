@@ -1,47 +1,58 @@
-require 'support/notifications_service'
-
 describe User do
-  include_examples 'notifications service'
-
   context 'associations' do
     it { should have_many(:ips) }
     it { should belong_to(:organisation) }
   end
 
-  describe '#update_details' do
-    let(:user) { create(:user, password: 'password') }
-    context 'when passwords match' do
-      let(:params) { { password: '123456', password_confirmation: '123456', name: 'bob' } }
+  context 'validations' do
+    it { should validate_presence_of(:name).on(:update) }
 
-      it 'should set the users password' do
-        expect { user.update_details(params) }.to change(user, :password)
-        expect(user.errors.empty?).to eq(true)
+    describe "password and password confirmation must match" do
+      let!(:user) { create(:user, :confirmed, name: "Old name") }
+      before do
+        user.update(params)
       end
 
-      context 'Name validation' do
-        it { should validate_presence_of(:name).on(:update) }
-      end
-    end
+      context 'when passwords match' do
+        let(:params) { { password: 'new_password', password_confirmation: 'new_password', name: "New name" } }
 
-    context 'when passwords do not match' do
-      let(:params) { { password: '123456', password_confirmation: '1234567' } }
-      it 'should not set the users password' do
-        expect { user.update_details(params) }.to_not change(user, :password)
-        expect(user.errors.empty?).to eq(false)
-        expect(user.errors.full_messages).to eq(['Password must match confirmation'])
+        it 'should set the users password' do
+          expect(user.errors.empty?).to eq(true)
+          expect(user.name).to eq("New name")
+        end
+      end
+
+      context 'when passwords do not match' do
+        let(:params) { { password: 'new_password', password_confirmation: 'other_password', name: "New name" } }
+
+        it 'should not set the users password' do
+          expect(user.reload.name).to eq("Old name")
+          expect(user.errors.empty?).to eq(false)
+          expect(user.errors.full_messages).to eq(["Password confirmation doesn't match Password"])
+        end
+      end
+
+      context 'when password confirmation is not present' do
+        let(:params) { { password: 'new_password', name: "New name" } }
+
+        it 'should not set the users password' do
+          expect(user.reload.name).to eq("Old name")
+          expect(user.errors.empty?).to eq(false)
+          expect(user.errors.full_messages).to eq(["Password confirmation doesn't match Password"])
+        end
       end
     end
   end
 
   describe '#save' do
-    subject { build(:user) }
+    subject { build(:user, :confirmed) }
 
     context 'with the factory-built model' do
       it { is_expected.to be_valid }
     end
 
     context 'with valid data' do
-      subject { build(:user, email: 'name@gov.uk') }
+      subject { build(:user, :confirmed, email: 'name@gov.uk') }
 
       it { is_expected.to be_valid }
 
@@ -55,7 +66,7 @@ describe User do
     end
 
     context 'with a non-gov.uk email' do
-      subject { build(:user, email: 'name@arbitrary-domain.com') }
+      subject { build(:user, :confirmed, email: 'name@arbitrary-domain.com') }
 
       it { is_expected.to_not be_valid }
 
