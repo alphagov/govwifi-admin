@@ -3,7 +3,9 @@ FactoryBot.define do
     sequence :email do |n|
       "test#{n}@gov.uk"
     end
-    password { "123456" }
+    sequence :password do |n|
+      "#{n}123456#{n}"
+    end
     name { "bob" }
 
     trait :confirmed do

@@ -12,14 +12,6 @@ class User < ApplicationRecord
   validate :email_on_whitelist
   validates :name, presence: true, on: :update
 
-  def update_details(params)
-    unless params[:password] == params[:password_confirmation]
-      errors.add(:password, "must match confirmation") && return
-    end
-
-    update(password: params[:password], name: params[:name])
-  end
-
   def only_if_unconfirmed
     pending_any_confirmation { yield }
   end
