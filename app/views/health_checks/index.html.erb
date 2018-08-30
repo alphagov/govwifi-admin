@@ -1,5 +1,6 @@
-Health Checks
+<h1 class="govuk-heading-l float-left">
+  Health Checks
+</h1>
 
-<% @health_checks.each do |health_check| %>
-   <%= health_check.fetch(:ip_address) %> <%= health_check.fetch(:status) %>
-<% end %>
+<%= render 'result', region: 'London', health_checks: @health_checks_london %>
+<%= render 'result', region: 'Dublin', health_checks: @health_checks_dublin %>

@@ -1,0 +1,8 @@
+<div>
+  <h2 class="govuk-heading-m"><%= region %></h2>
+  <ul class="govuk-list">
+    <% health_checks.each do |health_check| %>
+      <li><div class="health-check-status health-check-<%= health_check.fetch(:status) %>">&nbsp;</div> <%= health_check.fetch(:ip_address) %></li>
+    <% end %>
+  </ul>
+</div>

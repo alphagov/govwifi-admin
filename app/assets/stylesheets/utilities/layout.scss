@@ -26,3 +26,19 @@
 .small-table-button {
   margin-bottom: 0px;
 }
+
+.health-check-status {
+  border-radius: 50%;
+  float: left;
+  height: 20px;
+  margin-right: 10px;
+  width: 20px;
+}
+
+.health-check-healthy {
+  background: green;
+}
+
+.health-check-unhealthy {
+  background: red;
+}
