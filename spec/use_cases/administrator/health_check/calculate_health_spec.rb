@@ -115,10 +115,10 @@ describe UseCases::Administrator::HealthChecks::CalculateHealth do
   context 'Given health checkers are healthy' do
     let(:ips) { ['111.111.111.111', '222.222.222.222'] }
 
-    it 'returns healthy if all health checkers are healthy' do
+    it 'returns operational if all health checkers are healthy' do
       expected_result = [
-        { ip_address: '111.111.111.111', status: :healthy },
-        { ip_address: '222.222.222.222', status: :healthy }
+        { ip_address: '111.111.111.111', status: :operational },
+        { ip_address: '222.222.222.222', status: :operational }
       ]
 
       expect(result).to eq(expected_result)
@@ -129,8 +129,8 @@ describe UseCases::Administrator::HealthChecks::CalculateHealth do
     let(:aws_route53_gateway) { FakeUnHealthyRoute53Gateway.new }
     let(:ips) { ['123.123.123.123'] }
 
-    it 'returns an unhealthy status' do
-      expected_result = [{ ip_address: '123.123.123.123', status: :unhealthy }]
+    it 'returns an offline status' do
+      expected_result = [{ ip_address: '123.123.123.123', status: :offline }]
 
       expect(result).to eq(expected_result)
     end

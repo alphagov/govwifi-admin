@@ -17,7 +17,7 @@ describe 'View GovWifi Status' do
       allow_any_instance_of(
         UseCases::Administrator::HealthChecks::CalculateHealth
       ).to receive(:execute).and_return(
-        [ip_address: '111.111.111.111', status: :healthy]
+        [ip_address: '111.111.111.111', status: :operational]
       )
 
       sign_in_user user
