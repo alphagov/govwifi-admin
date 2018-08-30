@@ -4,7 +4,7 @@ require 'features/support/sign_up_helpers'
 describe 'View Health Checks' do
   context 'when logged out' do
     before do
-      visit health_checks_path
+      visit status_index_path
     end
 
     it_behaves_like 'not signed in'
@@ -21,7 +21,7 @@ describe 'View Health Checks' do
       )
 
       sign_in_user user
-      visit health_checks_path
+      visit status_index_path
     end
 
     it 'allows viewing the health checks' do
