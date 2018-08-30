@@ -1,7 +1,7 @@
 require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
 
-describe 'View Health Checks' do
+describe 'View GovWifi Status' do
   context 'when logged out' do
     before do
       visit status_index_path
@@ -24,8 +24,8 @@ describe 'View Health Checks' do
       visit status_index_path
     end
 
-    it 'allows viewing the health checks' do
-      expect(page).to have_content('Health Checks')
+    it 'allows viewing the GovWifi Status' do
+      expect(page).to have_content('Status')
       expect(page).to have_content('111.111.111.111')
     end
   end
