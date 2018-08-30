@@ -8,7 +8,7 @@ describe User do
     it { should validate_presence_of(:name).on(:update) }
 
     describe "password and password confirmation must match" do
-      let!(:user) { create(:user, :confirmed, name: "Old name") }
+      let(:user) { create(:user, :confirmed, name: "Old name") }
       before do
         user.update(params)
       end
