@@ -32,7 +32,7 @@ describe User do
         end
       end
 
-      context 'when password confirmation is not present' do
+      context 'when password confirmation is missing' do
         let(:params) { { password: 'new_password', name: "New name" } }
 
         it 'should not set the users password' do
