@@ -8,9 +8,12 @@ class User < ApplicationRecord
 
   before_create :reset_confirmation_token, :set_radius_secret_key
 
-  validates_confirmation_of :password
-  validate :email_on_whitelist
   validates :name, presence: true, on: :update
+
+  validates :password, confirmation: true, on: :update
+  validates :password_confirmation, presence: true, on: :update
+
+  validate :email_on_whitelist
 
   def only_if_unconfirmed
     pending_any_confirmation { yield }

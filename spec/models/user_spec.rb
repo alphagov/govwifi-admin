@@ -8,21 +8,35 @@ describe User do
     it { should validate_presence_of(:name).on(:update) }
 
     describe "password and password confirmation must match" do
-      let(:user) { create(:user, :confirmed) }
+      let!(:user) { create(:user, :confirmed, name: "Old name") }
+      before do
+        user.update(params)
+      end
 
       context 'when passwords match' do
-        let(:params) { { password: 'new_password', password_confirmation: 'new_password' } }
+        let(:params) { { password: 'new_password', password_confirmation: 'new_password', name: "New name" } }
 
         it 'should set the users password' do
-          expect { user.update(params) }.to change(user, :password)
           expect(user.errors.empty?).to eq(true)
+          expect(user.name).to eq("New name")
         end
       end
 
       context 'when passwords do not match' do
-        let(:params) { { password: 'new_password', password_confirmation: 'other_password' } }
+        let(:params) { { password: 'new_password', password_confirmation: 'other_password', name: "New name" } }
+
         it 'should not set the users password' do
-          expect { user.update(params) }.to_not change(user, :password)
+          expect(user.reload.name).to eq("Old name")
+          expect(user.errors.empty?).to eq(false)
+          expect(user.errors.full_messages).to eq(["Password confirmation doesn't match Password"])
+        end
+      end
+
+      context 'when password confirmation is not present' do
+        let(:params) { { password: 'new_password', name: "New name" } }
+
+        it 'should not set the users password' do
+          expect(user.reload.name).to eq("Old name")
           expect(user.errors.empty?).to eq(false)
           expect(user.errors.full_messages).to eq(["Password confirmation doesn't match Password"])
         end
