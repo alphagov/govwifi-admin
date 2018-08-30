@@ -20,16 +20,14 @@
           <%= f.text_field :name, class: "govuk-input", required: true %>
         </div>
 
-        <div class="<%= field_error(resource, :password) %>">
-          <div class="govuk-form-group ">
-            <%= f.label :password, "Password", class: "govuk-label" %>
-            <%= f.password_field :password, class: "govuk-input", autocomplete: "off", required: true %>
-          </div>
+        <div class="govuk-form-group <%= field_error(resource, :password) %>">
+          <%= f.label :password, "Password", class: "govuk-label" %>
+          <%= f.password_field :password, class: "govuk-input", autocomplete: "off", required: true %>
+        </div>
 
-          <div class="govuk-form-group">
-            <%= f.label :password_confirmation, "Confirm password", class: "govuk-label" %>
-            <%= f.password_field :password_confirmation, class: "govuk-input", autocomplete: "off", required: true %>
-          </div>
+        <div class="govuk-form-group <%= field_error(resource, :password_confirmation) %>">
+          <%= f.label :password_confirmation, "Confirm password", class: "govuk-label" %>
+          <%= f.password_field :password_confirmation, class: "govuk-input", autocomplete: "off", required: true %>
         </div>
 
         <div class="actions">
