@@ -37,8 +37,8 @@ describe 'View all my IP addresses' do
     end
 
     context 'when user has IPs' do
-      let!(:ip_1) { create(:ip, user: user) }
-      let!(:ip_2) { create(:ip, user: user) }
+      let!(:ip_1) { create(:ip, organisation: user.organisation) }
+      let!(:ip_2) { create(:ip, organisation: user.organisation) }
 
       before do
         sign_in_user user
@@ -52,7 +52,9 @@ describe 'View all my IP addresses' do
       end
 
       it 'displays the radius secret key' do
-        expect(page).to have_content("Your RADIUS secret is #{user.radius_secret_key}")
+        expect(page).to have_content(
+          "Your RADIUS secret is #{user.organisation.radius_secret_key}"
+        )
       end
 
       context 'with radius IPs in env-vars' do
@@ -81,7 +83,7 @@ describe 'View all my IP addresses' do
       end
 
       context 'Viewing someone elses IP Addresses' do
-        let(:other_ip) { create(:ip, user: create(:user, email: 'someone-else@gov.uk')) }
+        let(:other_ip) { create(:ip, organisation: create(:organisation)) }
 
         it 'Redirects to the root path' do
           visit ip_path(other_ip)

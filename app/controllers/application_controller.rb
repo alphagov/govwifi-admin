@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
 
+  helper_method :current_organisation
+
+  def current_organisation
+    @current_organisation ||= current_user.organisation
+  end
+
 protected
 
   def configure_devise_permitted_parameters

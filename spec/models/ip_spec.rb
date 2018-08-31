@@ -1,14 +1,14 @@
 describe Ip do
-  it { should belong_to(:user) }
+  it { should belong_to(:organisation) }
 
   context "validations" do
     it { should validate_presence_of(:address) }
 
     context "address" do
-      let(:user) { create(:user, :confirmed) }
+      let(:organisation) { create(:organisation) }
 
       context "when invalid" do
-        let!(:ip) { Ip.create(address: "invalidIP", user: user) }
+        let!(:ip) { Ip.create(address: "invalidIP", organisation: organisation) }
 
         it "does not save when address is an invalid IP" do
           expect(Ip.count).to eq(0)
@@ -19,7 +19,7 @@ describe Ip do
       end
 
       context "when valid" do
-        let!(:ip) { Ip.create(address: "10.0.0.1", user: user) }
+        let!(:ip) { Ip.create(address: "10.0.0.1", organisation: organisation) }
 
         it "saves when address is a valid IP" do
           expect(Ip.count).to eq(1)

@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :organisation do
-    name { 'Parks & Recreation' }
+    name { Faker::Company.name }
   end
 end
