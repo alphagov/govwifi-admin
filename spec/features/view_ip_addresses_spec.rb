@@ -52,7 +52,9 @@ describe 'View all my IP addresses' do
       end
 
       it 'displays the radius secret key' do
-        expect(page).to have_content("Your RADIUS secret is #{user.radius_secret_key}")
+        expect(page).to have_content(
+          "Your RADIUS secret is #{user.organisation.radius_secret_key}"
+        )
       end
 
       context 'with radius IPs in env-vars' do
