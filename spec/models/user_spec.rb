@@ -59,8 +59,8 @@ describe User do
       context 'when saved' do
         before { subject.save }
 
-        it 'sets the radius_secret_key' do
-          expect(subject.radius_secret_key).to be_present
+        it 'saves the user' do
+          expect(subject.persisted?).to be true
         end
       end
     end
