@@ -37,8 +37,8 @@ describe 'View all my IP addresses' do
     end
 
     context 'when user has IPs' do
-      let!(:ip_1) { create(:ip, user: user) }
-      let!(:ip_2) { create(:ip, user: user) }
+      let!(:ip_1) { create(:ip, organisation: user.organisation) }
+      let!(:ip_2) { create(:ip, organisation: user.organisation) }
 
       before do
         sign_in_user user
@@ -83,7 +83,7 @@ describe 'View all my IP addresses' do
       end
 
       context 'Viewing someone elses IP Addresses' do
-        let(:other_ip) { create(:ip, user: create(:user, email: 'someone-else@gov.uk')) }
+        let(:other_ip) { create(:ip, organisation: create(:organisation)) }
 
         it 'Redirects to the root path' do
           visit ip_path(other_ip)

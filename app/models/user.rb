@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  has_many :ips
   belongs_to :organisation, inverse_of: :users, optional: true
   accepts_nested_attributes_for :organisation
 

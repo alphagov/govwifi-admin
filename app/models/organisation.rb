@@ -1,5 +1,6 @@
 class Organisation < ApplicationRecord
   has_many :users, inverse_of: :organisation
+  has_many :ips
 
   validates :name, presence: true, uniqueness: true
 
