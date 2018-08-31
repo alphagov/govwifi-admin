@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :invitable, :confirmable, :database_authenticatable, :registerable, :recoverable,
     :rememberable, :trackable, :validatable
 
-  before_create :reset_confirmation_token, :set_radius_secret_key
+  before_create :reset_confirmation_token
 
   validates :name, presence: true, on: :update
 
@@ -39,9 +39,5 @@ private
       User, :confirmation_token, self.confirmation_token
     )
     self.confirmation_token = encrypted_token
-  end
-
-  def set_radius_secret_key
-    self.radius_secret_key = RadiusSecretKeyGenerator.new.execute
   end
 end
