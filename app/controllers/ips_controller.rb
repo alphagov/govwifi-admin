@@ -6,8 +6,11 @@ class IpsController < ApplicationController
   def create
     @ip = current_organisation.ips.new(ip_params)
     if @ip.save
-      flash[:notice] = "#{@ip.address} added, it will be active starting tomorrow"
-      redirect_to ips_path(anchor: 'ips')
+      redirect_to(
+        ips_path,
+        anchor: 'ips',
+        notice: "#{@ip.address} added, it will be active starting tomorrow"
+      )
     else
       render :new
     end
