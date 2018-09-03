@@ -15,6 +15,7 @@ gem 'notifications-ruby-client', '~> 2.7.0'
 gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.2.1'
 gem 'sass-rails', '~> 5.0'
+gem 'sentry-raven'
 
 group :test do
   gem 'capybara'
