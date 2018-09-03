@@ -23,6 +23,10 @@ class User < ApplicationRecord
     false
   end
 
+  def invitation_pending?
+    invitation_sent_at && !invitation_accepted?
+  end
+
 private
 
   def email_on_whitelist
