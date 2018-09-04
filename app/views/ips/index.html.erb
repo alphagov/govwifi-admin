@@ -80,15 +80,12 @@
     <h2 class="govuk-heading-l">IP Addresses</h2>
     <% if @ips.empty? %>
       <p class="govuk-body">
-        You currently have no IPs configured for use with GovWifi. Find out <%= link_to "more", "#", class: "govuk-link" %>
+        You need to add the IPs of your access point(s)
       </p>
       <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
     <% else %>
-      <%= render "radius_details",
-        london_ips: @london_radius_ips,
-        dublin_ips: @dublin_radius_ips  %>
-      <%= link_to "Add IP Address", new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
       <%= render "ips/table", ips: @ips %>
+      <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
 
       <details class="govuk-details">
         <summary class="govuk-details__summary">
@@ -105,6 +102,10 @@
         </div>
       </details>
     <% end %>
+    <hr class="govuk-section-break--m govuk-section-break--visible">
+    <%= render "radius_details",
+      london_ips: @london_radius_ips,
+      dublin_ips: @dublin_radius_ips  %>
   </section>
 
    <section class="govuk-tabs__panel" id="team">

@@ -25,22 +25,18 @@ describe 'Add an IP to my account' do
     context 'and that IP is valid' do
       before do
         fill_in 'address', with: '10.0.0.1'
-        click_on 'Save'
+        click_on 'Add new IP Address'
       end
 
-      it 'shows a success message' do
-        expect(page).to have_content('IP Added')
-      end
-
-      it 'shows me the new IP' do
-        expect(page).to have_content('10.0.0.1')
+      it 'shows me the IP was added' do
+        expect(page).to have_content('10.0.0.1 added')
       end
 
       context 'when I add a second IP' do
         before do
           visit new_ip_path
           fill_in 'address', with: '10.0.0.2'
-          click_on 'Save'
+          click_on 'Add new IP Address'
         end
 
         it 'shows both new IPs' do
@@ -53,7 +49,7 @@ describe 'Add an IP to my account' do
     context 'and that IP is invalid' do
       before do
         fill_in 'address', with: '10.wrong.0.1'
-        click_on 'Save'
+        click_on 'Add new IP Address'
       end
 
       it_behaves_like 'errors in form'
