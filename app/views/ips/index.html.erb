@@ -10,77 +10,113 @@
       </a>
     </li>
     <li class="govuk-tabs__list-item">
+      <a class="govuk-tabs__tab" href="#infrastructure">
+        Your Infrastructure
+      </a>
+    </li>
+    <li class="govuk-tabs__list-item">
       <a class="govuk-tabs__tab" href="#ips">
         IP Addresses
       </a>
     </li>
     <li class="govuk-tabs__list-item">
       <a class="govuk-tabs__tab" href="#team">
-        Team
+        Team Members
       </a>
     </li>
   </ul>
 
   <section class="govuk-tabs__panel" id="home">
-    <div>
-      <h2 class="govuk-heading-l">Home</h2>
-      <p class="govuk-body">Use this service to:</p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li> add IPs </li>
-        <li> add team members to your organisation </li>
-        <li> understand how your users are using GovWifi </li>
-        <li> get support </li>
-      </ul>
-    </div>
-
     <h2> Steps to get GovWifi in your building</h2>
     <div>
-      <h3> 1. Add IP </h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li> Go to "IP Addresses" </li>
-        <li> Enter the IPs of your access points </li>
-      </ul>
+      <h3> 1. Configure your infrastructure </h3>
+      <p class="govuk-body"> You will need to <%= link_to "configure your infrastructure", "#infrastructure" %> to use our RADIUS servers. </p>
+
+      <%= render "radius_details",
+      london_ips: @london_radius_ips,
+      dublin_ips: @dublin_radius_ips  %>
     </div>
 
     <div>
-      <h3> 2. Configure your access point </h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li> Use the secret key provided </li>
-        <li> Use your GovWifi IP </li>
-        <li> Install the access point </li>
-      </ul>
+      <h3> 2. Add IPs </h3>
+      <% if @ips.empty? %>
+        <p class="govuk-body">
+          You need to <%= link_to "add the IPs", new_ip_path %> of your access point(s).
+        </p>
+      <% else %>
+        <p class="govuk-body"> You have <%= link_to "#{pluralize(@ips.count, "IP")} configured.", "#ips"  %>
+        </p>
+      <% end %>
+
+      <p class="govuk-body">
+        New IPs will not be activated until
+        <strong class="govuk-!-font-weight-bold"> the next day. </strong>
+      </p>
     </div>
 
     <div>
-      <h3> 3. Wait until the next working day </h3>
-      <p class="govuk-body"> Once you've set IPs in this tool, they won't be available for use until tomorrow. </p>
+      <h3> 3. Get connected </h3>
+      <p> Connect to your own access point as an end user, and start using GovWifi. </p>
+
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            What if I don't have a GovWifi end user account?
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p>
+            Send a blank email from your government email address to signup@wifi.service.gov.uk.
+          </p>
+          <p> You’ll receive your username and password in reply. </p>
+
+          <p>
+            See our <%= link_to "full guidance", "https://www.gov.uk/government/collections/connect-to-govwifi" %> for end users.
+          </p>
+        </div>
+      </details>
     </div>
 
-    <div>
-      <h3> 4. Add team members </h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li> They must have government/whitelisted emails </li>
-        <li> They will need to confirm their email address and enter an account password </li>
-      </ul>
-    </div>
+    <%= link_to "Getting help", help_index_path %>
+  </section>
 
-    <div>
-      <h3> 5. Confirm your setup is working </h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li> Check you have login attempts for your users </li>
-        <li> Check activity from your access points </li>
-        <li> Check the GovWifi service status </li>
-      </ul>
-    </div>
 
-    <a href="#support"> Getting help </a>
+  <section class="govuk-tabs__panel" id="infrastructure">
+    <h3 class="govuk-heading-m"> Configure your authenticator(s) </h3>
+    <%= render "radius_details",
+      london_ips: @london_radius_ips,
+      dublin_ips: @dublin_radius_ips  %>
+
+    <h3 class="govuk-heading-m"> Make sure your authenticator can reach the internet </h3>
+    <p>
+      Create a NAT rule if one doesn’t already exist so your wifi controller (or access points for cloud-managed devices) can reach the internet via the IP addresses you specified when you registered your site.
+    </p>
+
+    <h3 class="govuk-heading-m"> Network Access Identifier </h3>
+    <p>
+    If permitted by your infrastructure vendor, set the Network Access Identifier (NAI) for your outer tunnel to be anonymous
+    (see RFC 7542 for full details of permitted NAI syntax)
+    </p>
+
+    <h3 class="govuk-heading-m"> Create the GovWifi SSID </h3>
+    <p>
+      The details:
+      name: GovWifi
+      type: WPA2-Enterprise (AES encryption)
+      inner encryption: MsChapV2
+    </p>
+
+    <h3 class="govuk-heading-m"> Configure your firewall </h3>
+    <p>
+      Your firewall needs to allow traffic on UDP ports 1812 and 1813, so that your authenticator to reach our RADIUS servers.
+    </p>
   </section>
 
   <section class="govuk-tabs__panel" id="ips">
     <h2 class="govuk-heading-l">IP Addresses</h2>
     <% if @ips.empty? %>
       <p class="govuk-body">
-        You need to add the IPs of your access point(s)
+        You need to add the IPs of your access point(s).
       </p>
       <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
     <% else %>
@@ -102,10 +138,6 @@
         </div>
       </details>
     <% end %>
-    <hr class="govuk-section-break--m govuk-section-break--visible">
-    <%= render "radius_details",
-      london_ips: @london_radius_ips,
-      dublin_ips: @dublin_radius_ips  %>
   </section>
 
    <section class="govuk-tabs__panel" id="team">

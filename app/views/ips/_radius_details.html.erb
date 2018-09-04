@@ -1,7 +1,4 @@
-<h3 class="govuk-heading-m"> Connecting to us </h3>
-<p class="govuk-body"> You need to configure your access point to contact our RADIUS servers. </p>
-
-<details class="govuk-details">
+<details class="govuk-details govuk-!-margin-bottom-0">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       Show connection details
@@ -10,7 +7,7 @@
   <div class="govuk-details__text">
     <p> Your RADIUS secret is <strong> <%= current_organisation.radius_secret_key %> </strong></p>
 
-    <p> We recommend connecting to one of our RADIUS servers from each region: </p>
+    <p> We recommend connecting to one RADIUS server from each region: </p>
 
     <h3> London: </h3>
     <% london_ips.each do |ip| %>
