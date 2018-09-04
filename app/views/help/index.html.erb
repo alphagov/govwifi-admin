@@ -1,0 +1,71 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-heading-l">Help</h2>
+
+    <p class="govuk-body">
+      <h2 class="govuk-heading-s">Issues</h2>
+
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            My end user is having problem connecting to GovWifi
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p class="govuk-body">
+            If an end user is having trouble with GovWifi, we recommend directing them to <%= link_to 'our guidance on common issues', @end_user_docs_link %>.
+          </p>
+          <p class="govuk-body">
+            If this doesn't resolve the issue, we recommend they contact their local support - we don't provide end user support directly
+          </p>
+          <p class="govuk-body">
+            If you're seeing systemic issues with GovWifi - lots of your end users are having trouble, but your access point is connecting to our RADIUS servers correctly - then check our <%= link_to 'guidance for resolving access point issues', @organisation_docs_link %>.
+          </p>
+        </div>
+      </details>
+    </p>
+
+    <p class="govuk-body">
+      <h2 class="govuk-heading-s">Before you contact us</h2>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li><%= link_to 'Check servers status', status_index_path %></li>
+        <li><%= link_to 'Browse technical documentation', @organisation_docs_link %></li>
+      </ul>
+    <p>
+  </div>
+</div>
+
+<div class="govuk-grid-row govuk-!-margin-top-6">
+  <div class="govuk-grid-column-two-thirds">
+
+  <%= form_tag('/help') do %>
+    <div class="govuk-two-thirds">
+      <h2 class="govuk-heading-l">Contact us</h2>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="contact_number">
+          Contact number (optional)
+        </label>
+        <%= text_field_tag 'contact_number', nil, class: 'govuk-input', type: 'tel' %>
+      </div>
+
+      <div class="govuk-form-group">
+	<label class="govuk-label" for="subject">
+	  Subject
+	</label>
+	<%= text_field_tag 'subject', nil, class: 'govuk-input', required: true %>
+      </div>
+
+      <div class="govuk-form-group">
+	<label class="govuk-label" for="details">
+	  Describe your problem
+	</label>
+	<%= text_area_tag 'details', nil, rows: 9, class: 'govuk-textarea', required: true %>
+      </div>
+
+      <%= submit_tag 'Submit', class: 'govuk-button' %>
+    </div>
+  <% end %>
+  </div>
+</div>

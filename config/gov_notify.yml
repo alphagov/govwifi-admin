@@ -8,6 +8,8 @@ staging:
     template_id: '1672af2e-2acb-463a-95ee-2adad2aaceee'
   invite_email:
     template_id: 'e3b5ca96-9164-462f-a0b0-65d2103c1ab8'
+  help_email:
+    template_id: '152cf3ff-e0e2-4f41-9ba0-28091db3f37f'
 
 development:
   support_email: 'dev@localhost.com'
@@ -19,6 +21,8 @@ development:
     template_id: '1672af2e-2acb-463a-95ee-2adad2aaceee'
   invite_email:
     template_id: 'e3b5ca96-9164-462f-a0b0-65d2103c1ab8'
+  help_email:
+    template_id: '152cf3ff-e0e2-4f41-9ba0-28091db3f37f'
 
 test:
   support_email: 'test@localhost'
@@ -30,6 +34,8 @@ test:
     template_id: 'zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz'
   invite_email:
     template_id: 'wwwwwwww-wwww-wwww-wwww-wwwwwwwwwwww'
+  help_email:
+    template_id: 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee'
 
 production:
   support_email: 'govwifi-support@digital.cabinet-office.gov.uk'
@@ -41,3 +47,6 @@ production:
     template_id: '63f566f6-8ae8-4356-9baa-cb4c3c0a6671'
   invite_email:
     template_id: '21b73fa7-8149-4778-8cba-46287bbfecc5'
+  help_email:
+    template_id: '5afffbbc-dbbf-4f50-b29d-8d058eb51734'
+

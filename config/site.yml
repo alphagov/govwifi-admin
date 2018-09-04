@@ -1,0 +1,15 @@
+default: &default
+  end_user_docs_link: 'https://www.gov.uk/government/collections/connect-to-govwifi'
+  organisation_docs_link: 'https://govwifi-tech-docs.cloudapps.digital'
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+staging:
+  <<: *default
+
+production:
+  <<: *default

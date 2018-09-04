@@ -92,6 +92,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.9.1)
       i18n (>= 0.7)
+    faraday (0.15.2)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.23)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -121,6 +123,7 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
+    multipart-post (2.0.0)
     mysql2 (0.5.2)
     nio4r (2.3.1)
     nokogiri (1.8.4)
@@ -214,6 +217,8 @@ GEM
     scss_lint (0.57.0)
       rake (>= 0.9, < 13)
       sass (~> 3.5.5)
+    sentry-raven (2.7.4)
+      faraday (>= 0.7.6, < 1.0)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
     sprockets (3.7.2)
@@ -260,6 +265,7 @@ DEPENDENCIES
   rails (~> 5.2.1)
   rspec-rails (~> 3)
   sass-rails (~> 5.0)
+  sentry-raven
   shoulda-matchers (~> 3.1)
 
 RUBY VERSION
