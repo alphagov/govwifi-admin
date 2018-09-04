@@ -31,10 +31,6 @@
     <div>
       <h3> 1. Configure your infrastructure </h3>
       <p class="govuk-body"> You will need to <%= link_to "configure your infrastructure", "#infrastructure" %> to use our RADIUS servers. </p>
-
-      <%= render "radius_details",
-      london_ips: @london_radius_ips,
-      dublin_ips: @dublin_radius_ips  %>
     </div>
 
     <div>
@@ -80,36 +76,41 @@
     <%= link_to "Getting help", help_index_path %>
   </section>
 
-
   <section class="govuk-tabs__panel" id="infrastructure">
     <h3 class="govuk-heading-m"> Configure your authenticator(s) </h3>
+
+    <p> You'll need one or more authenticators - typically <strong>Network switches</strong> or <strong>Wireless access points</strong>.</p>
+
+    <p> GovWifi provides <strong> authentication servers</strong>, using the RADIUS protocol.
+
+    <p> Configure your authenticator to connect to our RADIUS servers with these details: </p>
+
     <%= render "radius_details",
       london_ips: @london_radius_ips,
       dublin_ips: @dublin_radius_ips  %>
 
-    <h3 class="govuk-heading-m"> Make sure your authenticator can reach the internet </h3>
+    <h3 class="govuk-heading-m"> Make sure authenticator(s) can reach the internet </h3>
+    <p> Your firewall must allow traffic on UDP ports 1812 and 1813. </p>
+
+    <h3 class="govuk-heading-m"> Make sure authentication requests originate from approved IPs</h3>
     <p>
-      Create a NAT rule if one doesn’t already exist so your wifi controller (or access points for cloud-managed devices) can reach the internet via the IP addresses you specified when you registered your site.
+      Our authentication server will only accept requests from <%= link_to "your approved IPs", '#ips' %>.
+    </p>
+    <p>
+      You can use NAT rules for consistent IPs.
     </p>
 
-    <h3 class="govuk-heading-m"> Network Access Identifier </h3>
-    <p>
-    If permitted by your infrastructure vendor, set the Network Access Identifier (NAI) for your outer tunnel to be anonymous
-    (see RFC 7542 for full details of permitted NAI syntax)
-    </p>
+    <h3 class="govuk-heading-m"> Create an SSID </h3>
+    <ul class="govuk-list govuk-list">
+      <li>Name: <strong>GovWifi</strong></li>
+      <li>Type: <strong>WPA2-Enterprise (AES encryption)</strong></li>
+      <li>Inner Encryption: <strong>MsChapV2</strong> </li>
+    </ul>
 
-    <h3 class="govuk-heading-m"> Create the GovWifi SSID </h3>
+    <!-- <h3 class="govuk-heading-m"> Protect your users? </h3>
     <p>
-      The details:
-      name: GovWifi
-      type: WPA2-Enterprise (AES encryption)
-      inner encryption: MsChapV2
-    </p>
-
-    <h3 class="govuk-heading-m"> Configure your firewall </h3>
-    <p>
-      Your firewall needs to allow traffic on UDP ports 1812 and 1813, so that your authenticator to reach our RADIUS servers.
-    </p>
+    Set the Network Access Identifier (NAI) for your outer tunnel to be anonymous.
+    </p> -->
   </section>
 
   <section class="govuk-tabs__panel" id="ips">
