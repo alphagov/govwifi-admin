@@ -138,6 +138,10 @@
         </div>
       </details>
     <% end %>
+    <hr class="govuk-section-break--m govuk-section-break--visible">
+    <%= render "radius_details",
+      london_ips: @london_radius_ips,
+      dublin_ips: @dublin_radius_ips  %>
   </section>
 
    <section class="govuk-tabs__panel" id="team">
