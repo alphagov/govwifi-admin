@@ -89,7 +89,7 @@
       london_ips: @london_radius_ips,
       dublin_ips: @dublin_radius_ips  %>
 
-    <h3 class="govuk-heading-m"> Make sure authenticator(s) can reach the internet </h3>
+    <h3 class="govuk-heading-m"> Make sure authentication requests from your network can reach GovWifi </h3>
     <p> Your firewall must allow traffic on UDP ports 1812 and 1813. </p>
 
     <h3 class="govuk-heading-m"> Make sure authentication requests originate from approved IPs</h3>
@@ -97,7 +97,7 @@
       Our authentication server will only accept requests from <%= link_to "your approved IPs", '#ips' %>.
     </p>
     <p>
-      You can use NAT rules for consistent IPs.
+      If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules to your requests come from consistent IPs.
     </p>
 
     <h3 class="govuk-heading-m"> Create an SSID </h3>
@@ -106,11 +106,6 @@
       <li>Type: <strong>WPA2-Enterprise (AES encryption)</strong></li>
       <li>Inner Encryption: <strong>MsChapV2</strong> </li>
     </ul>
-
-    <!-- <h3 class="govuk-heading-m"> Protect your users? </h3>
-    <p>
-    Set the Network Access Identifier (NAI) for your outer tunnel to be anonymous.
-    </p> -->
   </section>
 
   <section class="govuk-tabs__panel" id="ips">
