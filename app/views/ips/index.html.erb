@@ -89,9 +89,11 @@
       london_ips: @london_radius_ips,
       dublin_ips: @dublin_radius_ips  %>
 
+    <hr class="govuk-section-break--m govuk-section-break--visible">
     <h3 class="govuk-heading-m"> Make sure authentication requests from your network can reach GovWifi </h3>
     <p> Your firewall must allow traffic on UDP ports 1812 and 1813. </p>
 
+    <hr class="govuk-section-break--m govuk-section-break--visible">
     <h3 class="govuk-heading-m"> Make sure authentication requests originate from approved IPs</h3>
     <p>
       Our authentication server will only accept requests from <%= link_to "your approved IPs", '#ips' %>.
@@ -100,6 +102,7 @@
       If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules to your requests come from consistent IPs.
     </p>
 
+    <hr class="govuk-section-break--m govuk-section-break--visible">
     <h3 class="govuk-heading-m"> Create an SSID </h3>
     <ul class="govuk-list govuk-list">
       <li>Name: <strong>GovWifi</strong></li>
