@@ -48,7 +48,7 @@ describe 'View all my IP addresses' do
 
       it 'displays the radius secret key' do
         expect(page).to have_content(
-          "Your RADIUS secret is #{user.organisation.radius_secret_key}"
+          "Your RADIUS secret is #{user.organisation.locations.first.radius_secret_key}"
         )
       end
 

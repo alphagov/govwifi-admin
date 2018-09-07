@@ -5,7 +5,7 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    <p> Your RADIUS secret is <strong> <%= current_organisation.radius_secret_key %> </strong></p>
+    <p> Your RADIUS secret is <strong> <%= current_organisation.locations.first.radius_secret_key %> </strong></p>
 
     <p> We recommend connecting to one RADIUS server from each region: </p>
 

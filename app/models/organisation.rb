@@ -5,14 +5,9 @@ class Organisation < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  before_create :set_radius_secret_key
   after_create :create_location
 
 private
-
-  def set_radius_secret_key
-    self.radius_secret_key = RadiusSecretKeyGenerator.new.execute
-  end
 
   def create_location
     self.locations.create
