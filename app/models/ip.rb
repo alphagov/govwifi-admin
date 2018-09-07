@@ -1,5 +1,5 @@
 class Ip < ApplicationRecord
-  belongs_to :organisation
+  belongs_to :location
 
   validates :address, presence: true
   validate :address_must_be_valid_ip
