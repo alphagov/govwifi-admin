@@ -4,7 +4,8 @@ class IpsController < ApplicationController
   end
 
   def create
-    @ip = current_organisation.ips.new(ip_params)
+    default_location = current_organisation.locations.first
+    @ip = default_location.ips.new(ip_params)
     if @ip.save
       redirect_to(
         ips_path,
