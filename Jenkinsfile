@@ -64,7 +64,7 @@ def deploy(deploy_environment) {
 
   echo "${deploy_environment}"
   try {
-    timeout(time: 5, unit: 'MINUTES') {
+    timeout(time: 1, unit: 'MINUTES') {
       input "Do you want to deploy to ${deploy_environment}?"
       // Jenkins does a fetch without tags during setup this means
       // we need to run git fetch again here before we can checkout stable
