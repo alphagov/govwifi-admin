@@ -23,7 +23,7 @@ module Gateways
     attr_reader :bucket, :key
 
     def config
-      { region: DEFAULT_REGION }.merge(Rails.application.config.aws_config)
+      { region: DEFAULT_REGION }.merge(Rails.application.config.s3_aws_config)
     end
   end
 end
