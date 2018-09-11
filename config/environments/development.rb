@@ -55,19 +55,21 @@ Rails.application.configure do
 
   config.force_ssl = false
   config.aws_config = {
-    stub_responses: {
-      list
-      get_health_check_status: {
-        health_check_observations: [
-          {
-            region: 'ap-southeast-2',
-            ip_address: '39.239.222.111',
-            status_report: {
-              status: 'Success: HTTP Status Code 200, OK'
+    stub_responses: [
+      {
+        put_object: {},
+        get_health_check_status: {
+          health_check_observations: [
+            {
+              region: 'ap-southeast-2',
+              ip_address: '39.239.222.111',
+              status_report: {
+                status: 'Success: HTTP Status Code 200, OK'
+              }
             }
-          }
-        ]
-      }, list_health_checks: {
+          ]
+        },
+        list_health_checks: {
           max_items: 10,
           marker: 'PageMarker',
           is_truncated: false,
@@ -93,7 +95,8 @@ Rails.application.configure do
             }
           ]
         }
-    }
+      }
+    ]
   }
 
 end

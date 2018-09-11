@@ -15,7 +15,7 @@ describe Gateways::S3 do
       'SecretAccessKey': 'SECRET_ACCESS_KEY',
       'Token': 'SECURITY_TOKEN_STRING'
     }.to_json)
-    
+
     stub_request(:put, "https://s3.eu-west-1.amazonaws.com/#{bucket}/#{key}") \
       .with({
         body: data.to_json

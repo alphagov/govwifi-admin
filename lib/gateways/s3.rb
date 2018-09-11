@@ -4,19 +4,26 @@ module Gateways
       @bucket = bucket
       @key = key
     end
-  
-    def upload(data:)
-      s3 = Aws::S3::Resource.new(region: 'eu-west-1')
-      b = s3.bucket(bucket)
-      obj = b.object(key)
 
-      obj.put(body: data.to_json)
+    def upload(data:)
+      client = Aws::S3::Client.new(config)
+      client.put_object({
+        body: data.to_json,
+        bucket: bucket,
+        key: key,
+      })
 
       {}
     end
-  
+
   private
-  
+
+    DEFAULT_REGION = 'eu-west-2'.freeze
+
     attr_reader :bucket, :key
+
+    def config
+      { region: DEFAULT_REGION }.merge(Rails.application.config.aws_config)
+    end
   end
 end

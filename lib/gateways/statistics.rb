@@ -2,7 +2,7 @@ module Gateways
   class Statistics
     def initialize
     end
-  
+
     def fetch_statistics
       repository.all.map do |ip|
         {
