@@ -1,15 +1,24 @@
 class PublishLocationsIps
-  def initialize(upload_gateway:, statistics_gateway:)
+  def initialize(upload_gateway:, ips_gateway:)
     @upload_gateway = upload_gateway
-    @statistics_gateway = statistics_gateway
+    @ips_gateway = ips_gateway
   end
 
   def execute
-    data = statistics_gateway.fetch_statistics
-    upload_gateway.upload(data: data)
+    results = ips_gateway.fetch_ips
+    upload_gateway.upload(data: generate_payload(results))
   end
 
 private
 
-  attr_reader :upload_gateway, :statistics_gateway
+  def generate_payload(results)
+    results.map do |ip|
+      {
+        ip: ip.address,
+        location_id: ip.location_id
+      }
+    end
+  end
+
+  attr_reader :upload_gateway, :ips_gateway
 end
