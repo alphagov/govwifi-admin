@@ -56,6 +56,7 @@ Rails.application.configure do
   config.force_ssl = false
   config.aws_config = {
     stub_responses: {
+      list
       get_health_check_status: {
         health_check_observations: [
           {
