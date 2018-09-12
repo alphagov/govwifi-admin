@@ -3,6 +3,7 @@ describe "POST /ips", type: :request do
 
   let(:user) { create(:user, :confirmed, :with_organisation) }
   let(:location) { user.organisation.locations.first }
+  let(:ip_address) { "10.0.0.1" }
 
   before do
     Warden.test_mode!
@@ -14,7 +15,7 @@ describe "POST /ips", type: :request do
     to_return(status: 200, body: "", headers: {})
 
     stub_request(:put, "https://s3.eu-west-2.amazonaws.com/StubBucket/StubKey").
-    with(body: "[{\"ip\":\"10.0.0.1\",\"location_id\":#{location.id}}]").
+    with(body: "[{\"ip\":\"#{ip_address}\",\"location_id\":#{location.id}}]").
     to_return(status: 200, body: "", headers: {})
   end
 
@@ -23,6 +24,6 @@ describe "POST /ips", type: :request do
   end
 
   it "publishes IP to s3 for performance platform" do
-    post '/ips', params: { ip: { address: "10.0.0.1" } }
+    post ips_path, params: { ip: { address: ip_address } }
   end
 end
