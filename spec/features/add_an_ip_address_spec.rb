@@ -24,31 +24,16 @@ describe 'Add an IP to my account' do
 
     context 'and that IP is valid' do
       before do
-        ENV['S3_PUBLISHED_LOCATIONS_IPS_BUCKET'] = 'StubBucket'
-        ENV['S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY'] = "StubKey"
-
-        allow_any_instance_of(Gateways::S3).to receive(:upload)
-      end
-
-      it 'calls locations_ips publishing' do
-        expect_any_instance_of(PublishLocationsIps).to receive(:execute)
-
         fill_in 'address', with: '10.0.0.1'
         click_on 'Add new IP Address'
       end
 
       it 'shows me the IP was added' do
-        fill_in 'address', with: '10.0.0.1'
-        click_on 'Add new IP Address'
-
         expect(page).to have_content('10.0.0.1 added')
       end
 
       context 'when I add a second IP' do
         before do
-          fill_in 'address', with: '10.0.0.1'
-          click_on 'Add new IP Address'
-
           visit new_ip_path
           fill_in 'address', with: '10.0.0.2'
           click_on 'Add new IP Address'
