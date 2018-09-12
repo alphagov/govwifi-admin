@@ -54,7 +54,12 @@ Rails.application.configure do
   config.action_mailer.default :charset => "utf-8"
 
   config.force_ssl = false
-  config.aws_config = {
+  config.s3_aws_config = {
+    stub_responses: {
+      put_object: {}
+    }
+  }
+  config.route53_aws_config = {
     stub_responses: {
       get_health_check_status: {
         health_check_observations: [
@@ -66,32 +71,33 @@ Rails.application.configure do
             }
           }
         ]
-      }, list_health_checks: {
-          max_items: 10,
-          marker: 'PageMarker',
-          is_truncated: false,
-          health_checks: [
-            {
-              caller_reference: 'AdminMonitoring',
-              id: 'abc123',
-              health_check_version: 1,
-              health_check_config: {
-                ip_address: '111.111.111.111',
-                measure_latency: false,
-                type: 'HTTP',
-              }
-            }, {
-              caller_reference: 'AdminMonitoring',
-              id: 'xyz789',
-              health_check_version: 1,
-              health_check_config: {
-                ip_address: '222.222.222.222',
-                measure_latency: false,
-                type: 'HTTP',
-              }
+      },
+      list_health_checks: {
+        max_items: 10,
+        marker: 'PageMarker',
+        is_truncated: false,
+        health_checks: [
+          {
+            caller_reference: 'AdminMonitoring',
+            id: 'abc123',
+            health_check_version: 1,
+            health_check_config: {
+              ip_address: '111.111.111.111',
+              measure_latency: false,
+              type: 'HTTP',
             }
-          ]
-        }
+          }, {
+            caller_reference: 'AdminMonitoring',
+            id: 'xyz789',
+            health_check_version: 1,
+            health_check_config: {
+              ip_address: '222.222.222.222',
+              measure_latency: false,
+              type: 'HTTP',
+            }
+          }
+        ]
+      }
     }
   }
 

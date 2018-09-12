@@ -19,7 +19,7 @@ module Gateways
     attr_reader :client
 
     def config
-      { region: DEFAULT_REGION }.merge(Rails.application.config.aws_config)
+      { region: DEFAULT_REGION }.merge(Rails.application.config.route53_aws_config)
     end
   end
 end

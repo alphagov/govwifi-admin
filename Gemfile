@@ -8,6 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'aws-sdk-route53', '~> 1.12.0'
+gem 'aws-sdk-s3', '~> 1'
 gem 'devise', '~> 4.5.0'
 gem 'devise_invitable', '~> 1.7.0'
 gem 'mysql2', '~> 0.5.2'
@@ -27,6 +28,7 @@ group :test do
   gem 'nokogiri'
   gem 'rspec-rails', '~> 3'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'webmock', '~> 3.4.2'
 end
 
 group :development, :test do
