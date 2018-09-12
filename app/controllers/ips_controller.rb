@@ -7,7 +7,7 @@ class IpsController < ApplicationController
     default_location = current_organisation.locations.first
     @ip = default_location.ips.new(ip_params)
     if @ip.save
-      publish_locations_and_ips_to_s3
+      publish_for_performance_platform
       redirect_to(
         ips_path,
         anchor: 'ips',
@@ -33,13 +33,13 @@ class IpsController < ApplicationController
 
 private
 
-  def publish_locations_and_ips_to_s3
+  def publish_for_performance_platform
     PublishLocationsIps.new(
-      upload_gateway: Gateways::S3.new(
+      destination_gateway: Gateways::S3.new(
         bucket: ENV.fetch('S3_PUBLISHED_LOCATIONS_IPS_BUCKET'),
         key: ENV.fetch('S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY')
       ),
-      ips_gateway: Gateways::Ips.new
+      source_gateway: Gateways::Ips.new
     ).execute
   end
 

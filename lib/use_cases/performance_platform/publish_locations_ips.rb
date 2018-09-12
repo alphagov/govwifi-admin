@@ -1,15 +1,15 @@
 class PublishLocationsIps
-  def initialize(upload_gateway:, ips_gateway:)
-    @upload_gateway = upload_gateway
-    @ips_gateway = ips_gateway
+  def initialize(destination_gateway:, source_gateway:)
+    @destination_gateway = destination_gateway
+    @source_gateway = source_gateway
   end
 
   def execute
-    payload = ips_gateway.fetch_ips
-    upload_gateway.upload(data: payload)
+    payload = source_gateway.fetch_ips
+    destination_gateway.upload(data: payload)
   end
 
 private
 
-  attr_reader :upload_gateway, :ips_gateway
+  attr_reader :destination_gateway, :source_gateway
 end

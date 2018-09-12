@@ -1,5 +1,5 @@
 describe PublishLocationsIps do
-  let(:ips_gateway) { double(fetch_ips: s3_payload) }
+  let(:source_gateway) { double(fetch_ips: s3_payload) }
   let(:s3_gateway) { double }
   let(:s3_payload) do
     [
@@ -21,8 +21,8 @@ describe PublishLocationsIps do
 
   subject do
     described_class.new(
-      upload_gateway: s3_gateway,
-      ips_gateway: ips_gateway
+      destination_gateway: s3_gateway,
+      source_gateway: source_gateway
     )
   end
 
