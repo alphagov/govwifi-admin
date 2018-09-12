@@ -1,12 +1,9 @@
 describe "POST /ips", type: :request do
-  include Warden::Test::Helpers
-
   let(:user) { create(:user, :confirmed, :with_organisation) }
   let(:location) { user.organisation.locations.first }
   let(:ip_address) { "10.0.0.1" }
 
   before do
-    Warden.test_mode!
     login_as(user, scope: :user)
     Rails.application.config.force_ssl = false
     Rails.application.config.s3_aws_config = { access_key_id: "1234", secret_access_key: "abc" }
@@ -17,10 +14,6 @@ describe "POST /ips", type: :request do
     stub_request(:put, "https://s3.eu-west-2.amazonaws.com/StubBucket/StubKey").
     with(body: "[{\"ip\":\"#{ip_address}\",\"location_id\":#{location.id}}]").
     to_return(status: 200, body: "", headers: {})
-  end
-
-  after do
-    Warden.test_reset!
   end
 
   it "publishes IP to s3 for performance platform" do
