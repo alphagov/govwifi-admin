@@ -1,11 +1,5 @@
 describe PublishLocationsIps do
-  let(:locations_ips) do
-    [
-      double(address: "127.0.0.1", location_id: 1),
-      double(address: "186.3.1.1", location_id: 2)
-    ]
-  end
-  let(:ips_gateway) { double(fetch_ips: locations_ips) }
+  let(:ips_gateway) { double(fetch_ips: s3_payload) }
   let(:s3_gateway) { double }
   let(:s3_payload) do
     [
