@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :password, confirmation: true, on: :update
   validates :password_confirmation, presence: true, on: :update
 
-  validate :email_on_whitelist
+  validate :email_on_whitelist, on: :create
 
   def only_if_unconfirmed
     pending_any_confirmation { yield }
