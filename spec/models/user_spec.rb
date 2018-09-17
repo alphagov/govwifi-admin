@@ -65,18 +65,30 @@ describe User do
     end
 
     context 'with a non-gov.uk email' do
-      subject { build(:user, :confirmed, email: 'name@arbitrary-domain.com') }
+      context 'for a new record' do
+        subject { build(:user, :confirmed, email: 'name@arbitrary-domain.com') }
 
-      it { is_expected.to_not be_valid }
+        it { is_expected.to_not be_valid }
 
-      context 'when saved' do
-        before { subject.save }
+        context 'when saved' do
+          before { subject.save }
 
-        it 'explains the email must be from the correct domain' do
-          expect(subject.errors.full_messages).to eq(
-            ['Email must be from a government domain']
-          )
+          it 'explains the email must be from the correct domain' do
+            expect(subject.errors.full_messages).to eq(
+              ['Email must be from a government domain']
+            )
+          end
         end
+      end
+
+      context 'for an existing record' do
+        subject do
+          user = create(:user, :confirmed)
+          user.email = 'name@arbitrary-domain.com'
+          user
+        end
+
+        it { is_expected.to be_valid }
       end
     end
   end
