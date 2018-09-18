@@ -19,7 +19,7 @@ describe 'Sign up as an organisation' do
       let(:email) { 'someone@gov.uk' }
 
       it 'signs me in' do
-        expect(page).to have_content 'Logout'
+        expect(page).to have_content 'Sign out'
       end
 
       it 'creates an organisation for the user' do
@@ -31,7 +31,7 @@ describe 'Sign up as an organisation' do
       let(:email) { 'someone@other.gov.uk' }
 
       it 'signs me in' do
-        expect(page).to have_content 'Logout'
+        expect(page).to have_content 'Sign out'
       end
     end
 

@@ -20,7 +20,7 @@ describe 'asking users to sign in' do
       sign_up_for_account
       update_user_details
 
-      click_on 'Logout'
+      click_on 'Sign out'
 
       visit '/'
     end

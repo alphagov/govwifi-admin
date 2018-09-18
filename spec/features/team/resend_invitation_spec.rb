@@ -49,7 +49,7 @@ describe 'Resend invitation to team member' do
         it 'confirms the user' do
           expect(invited_user.confirmed?).to eq(true)
           expect(invited_user.name).to eq('Ron Swanson')
-          expect(page).to have_content('Logout')
+          expect(page).to have_content('Sign out')
           expect(page).to have_content(user.organisation.name)
         end
       end

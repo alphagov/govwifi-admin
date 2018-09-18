@@ -35,7 +35,7 @@ def sign_in_user(user)
 end
 
 def sign_out
-  click_on "Logout"
+  click_on "Sign out"
 end
 
 def invite_user(email)

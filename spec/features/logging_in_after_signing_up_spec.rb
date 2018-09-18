@@ -16,7 +16,7 @@ describe 'logging in after signing up' do
       confirmed_password: correct_password
     )
 
-    click_on 'Logout'
+    click_on 'Sign out'
 
     fill_in 'Email', with: 'tom@gov.uk'
     fill_in 'Password', with: password
@@ -28,7 +28,7 @@ describe 'logging in after signing up' do
     let(:password) { correct_password }
 
     it 'signs me in' do
-      expect(page).to have_content 'Logout'
+      expect(page).to have_content 'Sign out'
     end
   end
 
