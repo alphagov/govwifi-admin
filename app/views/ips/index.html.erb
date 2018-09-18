@@ -10,11 +10,6 @@
       </a>
     </li>
     <li class="govuk-tabs__list-item">
-      <a class="govuk-tabs__tab" href="#infrastructure">
-        Your Infrastructure
-      </a>
-    </li>
-    <li class="govuk-tabs__list-item">
       <a class="govuk-tabs__tab" href="#ips">
         IP Addresses
       </a>
@@ -27,37 +22,65 @@
   </ul>
 
   <section class="govuk-tabs__panel" id="home">
-    <h2> Steps to get GovWifi in your building</h2>
+    <h2> Get GovWifi in your building</h2>
     <div>
-      <h3> 1. Configure your infrastructure </h3>
-      <p class="govuk-body"> You will need to <%= link_to "configure your infrastructure", "#infrastructure" %> to use our RADIUS servers. </p>
+      <h3> 1. Configure your authenticator(s) </h3>
+      <p class="govuk-body"> Configure your authenticator(s) to connect to our RADIUS servers with these details: </p>
+
+      <%= render "radius_details",
+      london_ips: @london_radius_ips,
+      dublin_ips: @dublin_radius_ips  %>
+
+      <p class="govuk-body"> You'll need one or more authenticators - typically network switches or wireless access points. </p>
     </div>
+    <hr class="govuk-section-break--m govuk-section-break--visible">
 
     <div>
-      <h3> 2. Add IPs </h3>
+      <h3> 2. Check authentication requests from your network can reach GovWifi </h3>
+      <p class="govuk-body"> You must check your firewall allows traffic on UDP ports 1812/1813. </p>
+      <p class="govuk-body"> There may also be additional configuration to allow outbound traffic, depending on your local network. </p>
+    </div>
+    <hr class="govuk-section-break--m govuk-section-break--visible">
+
+    <div>
+      <h3> 3. Add IPs </h3>
       <% if @ips.empty? %>
         <p class="govuk-body">
-          You need to <%= link_to "add the IPs", new_ip_path %> of your access point(s).
+          You need to <%= link_to "add the IPs", new_ip_path %> of your authenticator(s).
         </p>
       <% else %>
         <p class="govuk-body"> You have <%= link_to "#{pluralize(@ips.count, "IP")} configured.", "#ips"  %>
         </p>
       <% end %>
 
+      <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
+
       <p class="govuk-body">
         New IPs will not be activated until
         <strong class="govuk-!-font-weight-bold"> the next day. </strong>
       </p>
     </div>
+    <hr class="govuk-section-break--m govuk-section-break--visible">
 
     <div>
-      <h3> 3. Get connected </h3>
-      <p> Connect to your own access point as an end user, and start using GovWifi. </p>
+      <h3> 4. Create and name the 'GovWifi' network </h3>
+      <p class="govuk-body"> You must create an SSID using these details</p>
+      <ul class="govuk-list govuk-list">
+        <li>Name: <strong>GovWifi</strong></li>
+        <li>Type: <strong>WPA2-Enterprise (AES encryption)</strong></li>
+        <li>Inner Encryption: <strong>MsChapV2</strong> </li>
+      </ul>
+    </div>
+    <hr class="govuk-section-break--m govuk-section-break--visible">
+
+    <div>
+      <h3> 5. Check the connection works </h3>
+      <p> Connect to your new GovWifi network, and sign in with an individual account. </p>
 
       <details class="govuk-details">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text">
-            What if I don't have a GovWifi end user account?
+            What if I don't have a individual account?
           </span>
         </summary>
         <div class="govuk-details__text">
@@ -67,48 +90,13 @@
           <p> You’ll receive your username and password in reply. </p>
 
           <p>
-            See our <%= link_to "full guidance", "https://www.gov.uk/government/collections/connect-to-govwifi" %> for end users.
+            See our <%= link_to "full guidance", "https://www.gov.uk/government/collections/connect-to-govwifi" %> for individuals.
           </p>
         </div>
       </details>
     </div>
 
     <%= link_to "Getting help", help_index_path %>
-  </section>
-
-  <section class="govuk-tabs__panel" id="infrastructure">
-    <h3 class="govuk-heading-m"> Configure your authenticator(s) </h3>
-
-    <p> You'll need one or more authenticators - typically <strong>Network switches</strong> or <strong>Wireless access points</strong>.</p>
-
-    <p> GovWifi provides <strong> authentication servers</strong>, using the RADIUS protocol.
-
-    <p> Configure your authenticator to connect to our RADIUS servers with these details: </p>
-
-    <%= render "radius_details",
-      london_ips: @london_radius_ips,
-      dublin_ips: @dublin_radius_ips  %>
-
-    <hr class="govuk-section-break--m govuk-section-break--visible">
-    <h3 class="govuk-heading-m"> Make sure authentication requests from your network can reach GovWifi </h3>
-    <p> Your firewall must allow traffic on UDP ports 1812 and 1813. </p>
-
-    <hr class="govuk-section-break--m govuk-section-break--visible">
-    <h3 class="govuk-heading-m"> Make sure authentication requests originate from approved IPs</h3>
-    <p>
-      Our authentication server will only accept requests from <%= link_to "your approved IPs", '#ips' %>.
-    </p>
-    <p>
-      If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules to your requests come from consistent IPs.
-    </p>
-
-    <hr class="govuk-section-break--m govuk-section-break--visible">
-    <h3 class="govuk-heading-m"> Create an SSID </h3>
-    <ul class="govuk-list govuk-list">
-      <li>Name: <strong>GovWifi</strong></li>
-      <li>Type: <strong>WPA2-Enterprise (AES encryption)</strong></li>
-      <li>Inner Encryption: <strong>MsChapV2</strong> </li>
-    </ul>
   </section>
 
   <section class="govuk-tabs__panel" id="ips">
