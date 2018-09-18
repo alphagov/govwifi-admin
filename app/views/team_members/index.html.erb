@@ -1,0 +1,27 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l"> Team Members </h1>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= link_to "Invite team member", new_user_invitation_path, class: "govuk-button" %>
+  </div>
+</div>
+
+<%= render "team_members/table", team_members: @team_members %>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What if I want to edit or remove a team member?
+    </span>
+  </summary>
+
+  <div class="govuk-details__text">
+    <p> Contact us via our <%= link_to "support form", "#" %> and use this format: </p>
+    <ul class="govuk-list">
+    <li> Subject: Edit or remove team member </li>
+    <li> Text: Name of organisation, user details to amend </li>
+    </ul>
+  </div>
+</details>

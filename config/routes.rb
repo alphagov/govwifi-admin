@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   resources :status, only: [:index]
   resources :ips, only: [:index, :new, :create, :show]
   resources :help, only: [:index, :create]
+  resources :team_members, only: [:index]
 end

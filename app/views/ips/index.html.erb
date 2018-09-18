@@ -1,79 +1,27 @@
-<h3 class="govuk-heading-m float-right govuk-!-margin-bottom-0 govuk-!-margin-top-3">
-  <%= current_user&.organisation&.name %>
-</h3>
+<h2 class="govuk-heading-l">IP Addresses</h2>
+<% if @ips.empty? %>
+  <p class="govuk-body">
+    You need to add the IPs of your authenticator(s).
+  </p>
+  <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
 
-<div class="govuk-tabs" data-module="tabs">
-  <ul class="govuk-tabs__list">
-    <li class="govuk-tabs__list-item">
-      <a class="govuk-tabs__tab" href="#ips">
-        IP Addresses
-      </a>
-    </li>
-    <li class="govuk-tabs__list-item">
-      <a class="govuk-tabs__tab" href="#team">
-        Team Members
-      </a>
-    </li>
-  </ul>
+  <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
+<% else %>
+  <%= render "ips/table", ips: @ips %>
+  <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
 
-  <section class="govuk-tabs__panel" id="ips">
-    <h2 class="govuk-heading-l">IP Addresses</h2>
-    <% if @ips.empty? %>
-      <p class="govuk-body">
-        You need to add the IPs of your access point(s).
-      </p>
-      <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
-    <% else %>
-      <%= render "ips/table", ips: @ips %>
-      <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
-
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            What if I want to remove an IP?
-          </span>
-        </summary>
-        <div class="govuk-details__text">
-          <p> Contact us via our <%= link_to "support form", "#" %> and use this format: </p>
-          <ul class="govuk-list">
-            <li> Subject: Remove IP </li>
-            <li> Text: Name of organisation, IPs you want to remove </li>
-          </ul>
-        </div>
-      </details>
-    <% end %>
-    <hr class="govuk-section-break--m govuk-section-break--visible">
-    <%= render "radius_details",
-      london_ips: @london_radius_ips,
-      dublin_ips: @dublin_radius_ips  %>
-  </section>
-
-   <section class="govuk-tabs__panel" id="team">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">
-	  Team Members
-	</h1>
-      </div>
-      <div class="govuk-grid-column-one-third">
-        <%= link_to "Invite team member", new_user_invitation_path, class: "govuk-button" %>
-      </div>
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        What if I want to remove an IP?
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      <p> Contact us via our <%= link_to "support form", help_index_path %> and use this format: </p>
+      <ul class="govuk-list">
+        <li> Subject: Remove IP </li>
+        <li> Text: Name of organisation, IPs you want to remove </li>
+      </ul>
     </div>
-    <%= render "team_members/table", team_members: @team_members %>
-
-    <details class="govuk-details">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">
-          What if I want to edit or remove a team member?
-        </span>
-      </summary>
-      <div class="govuk-details__text">
-        <p> Contact us via our <%= link_to "support form", "#" %> and use this format: </p>
-        <ul class="govuk-list">
-          <li> Subject: Edit or remove team member </li>
-          <li> Text: Name of organisation, user details to amend </li>
-        </ul>
-      </div>
-    </details>
-  </section>
-</div>
+  </details>
+<% end %>

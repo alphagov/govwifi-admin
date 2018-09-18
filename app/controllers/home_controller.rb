@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     @dublin_radius_ips = radius_ips[:dublin]
   end
 
-  private
+private
 
   def radius_ips
     ViewRadiusIPAddresses.new.execute

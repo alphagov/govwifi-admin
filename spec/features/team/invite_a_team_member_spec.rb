@@ -21,6 +21,7 @@ describe "Invite a team member" do
     before do
       sign_in_user user
       visit root_path
+      click_on "Team Members"
       click_on "Invite team member"
     end
 
@@ -47,7 +48,6 @@ describe "Invite a team member" do
           expect(InviteUseCaseSpy.invite_count).to eq(1)
           expect(invited_user.confirmed?).to eq(false)
           expect(invited_user.organisation).to eq(user.organisation)
-          expect(page).to have_content("Home")
         end
       end
 
