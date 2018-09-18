@@ -20,9 +20,6 @@ class IpsController < ApplicationController
 
   def index
     @ips = current_organisation.ips
-    @london_radius_ips = radius_ips[:london]
-    @dublin_radius_ips = radius_ips[:dublin]
-    @team_members = current_user&.organisation&.users || []
   end
 
   def show
@@ -45,9 +42,5 @@ private
 
   def ip_params
     params.require(:ip).permit(:address)
-  end
-
-  def radius_ips
-    ViewRadiusIPAddresses.new.execute
   end
 end

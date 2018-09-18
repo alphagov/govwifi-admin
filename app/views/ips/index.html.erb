@@ -1,174 +1,27 @@
-<h3 class="govuk-heading-m float-right govuk-!-margin-bottom-0 govuk-!-margin-top-3">
-  <%= current_user&.organisation&.name %>
-</h3>
+<h2 class="govuk-heading-l">IP Addresses</h2>
+<% if @ips.empty? %>
+  <p class="govuk-body">
+    You need to add the IPs of your authenticator(s).
+  </p>
+  <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
 
-<div class="govuk-tabs" data-module="tabs">
-  <ul class="govuk-tabs__list">
-    <li class="govuk-tabs__list-item">
-      <a class="govuk-tabs__tab" href="#home">
-        Home
-      </a>
-    </li>
-    <li class="govuk-tabs__list-item">
-      <a class="govuk-tabs__tab" href="#infrastructure">
-        Your Infrastructure
-      </a>
-    </li>
-    <li class="govuk-tabs__list-item">
-      <a class="govuk-tabs__tab" href="#ips">
-        IP Addresses
-      </a>
-    </li>
-    <li class="govuk-tabs__list-item">
-      <a class="govuk-tabs__tab" href="#team">
-        Team Members
-      </a>
-    </li>
-  </ul>
+  <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
+<% else %>
+  <%= render "ips/table", ips: @ips %>
+  <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
 
-  <section class="govuk-tabs__panel" id="home">
-    <h2> Steps to get GovWifi in your building</h2>
-    <div>
-      <h3> 1. Configure your infrastructure </h3>
-      <p class="govuk-body"> You will need to <%= link_to "configure your infrastructure", "#infrastructure" %> to use our RADIUS servers. </p>
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        What if I want to remove an IP?
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      <p> Contact us via our <%= link_to "support form", help_index_path %> and use this format: </p>
+      <ul class="govuk-list">
+        <li> Subject: Remove IP </li>
+        <li> Text: Name of organisation, IPs you want to remove </li>
+      </ul>
     </div>
-
-    <div>
-      <h3> 2. Add IPs </h3>
-      <% if @ips.empty? %>
-        <p class="govuk-body">
-          You need to <%= link_to "add the IPs", new_ip_path %> of your access point(s).
-        </p>
-      <% else %>
-        <p class="govuk-body"> You have <%= link_to "#{pluralize(@ips.count, "IP")} configured.", "#ips"  %>
-        </p>
-      <% end %>
-
-      <p class="govuk-body">
-        New IPs will not be activated until
-        <strong class="govuk-!-font-weight-bold"> the next day. </strong>
-      </p>
-    </div>
-
-    <div>
-      <h3> 3. Get connected </h3>
-      <p> Connect to your own access point as an end user, and start using GovWifi. </p>
-
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            What if I don't have a GovWifi end user account?
-          </span>
-        </summary>
-        <div class="govuk-details__text">
-          <p>
-            Send a blank email from your government email address to signup@wifi.service.gov.uk.
-          </p>
-          <p> You’ll receive your username and password in reply. </p>
-
-          <p>
-            See our <%= link_to "full guidance", "https://www.gov.uk/government/collections/connect-to-govwifi" %> for end users.
-          </p>
-        </div>
-      </details>
-    </div>
-
-    <%= link_to "Getting help", help_index_path %>
-  </section>
-
-  <section class="govuk-tabs__panel" id="infrastructure">
-    <h3 class="govuk-heading-m"> Configure your authenticator(s) </h3>
-
-    <p> You'll need one or more authenticators - typically <strong>Network switches</strong> or <strong>Wireless access points</strong>.</p>
-
-    <p> GovWifi provides <strong> authentication servers</strong>, using the RADIUS protocol.
-
-    <p> Configure your authenticator to connect to our RADIUS servers with these details: </p>
-
-    <%= render "radius_details",
-      london_ips: @london_radius_ips,
-      dublin_ips: @dublin_radius_ips  %>
-
-    <hr class="govuk-section-break--m govuk-section-break--visible">
-    <h3 class="govuk-heading-m"> Make sure authentication requests from your network can reach GovWifi </h3>
-    <p> Your firewall must allow traffic on UDP ports 1812 and 1813. </p>
-
-    <hr class="govuk-section-break--m govuk-section-break--visible">
-    <h3 class="govuk-heading-m"> Make sure authentication requests originate from approved IPs</h3>
-    <p>
-      Our authentication server will only accept requests from <%= link_to "your approved IPs", '#ips' %>.
-    </p>
-    <p>
-      If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules to your requests come from consistent IPs.
-    </p>
-
-    <hr class="govuk-section-break--m govuk-section-break--visible">
-    <h3 class="govuk-heading-m"> Create an SSID </h3>
-    <ul class="govuk-list govuk-list">
-      <li>Name: <strong>GovWifi</strong></li>
-      <li>Type: <strong>WPA2-Enterprise (AES encryption)</strong></li>
-      <li>Inner Encryption: <strong>MsChapV2</strong> </li>
-    </ul>
-  </section>
-
-  <section class="govuk-tabs__panel" id="ips">
-    <h2 class="govuk-heading-l">IP Addresses</h2>
-    <% if @ips.empty? %>
-      <p class="govuk-body">
-        You need to add the IPs of your access point(s).
-      </p>
-      <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
-    <% else %>
-      <%= render "ips/table", ips: @ips %>
-      <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
-
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            What if I want to remove an IP?
-          </span>
-        </summary>
-        <div class="govuk-details__text">
-          <p> Contact us via our <%= link_to "support form", "#" %> and use this format: </p>
-          <ul class="govuk-list">
-            <li> Subject: Remove IP </li>
-            <li> Text: Name of organisation, IPs you want to remove </li>
-          </ul>
-        </div>
-      </details>
-    <% end %>
-    <hr class="govuk-section-break--m govuk-section-break--visible">
-    <%= render "radius_details",
-      london_ips: @london_radius_ips,
-      dublin_ips: @dublin_radius_ips  %>
-  </section>
-
-   <section class="govuk-tabs__panel" id="team">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">
-	  Team Members
-	</h1>
-      </div>
-      <div class="govuk-grid-column-one-third">
-        <%= link_to "Invite team member", new_user_invitation_path, class: "govuk-button" %>
-      </div>
-    </div>
-    <%= render "team_members/table", team_members: @team_members %>
-
-    <details class="govuk-details">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">
-          What if I want to edit or remove a team member?
-        </span>
-      </summary>
-      <div class="govuk-details__text">
-        <p> Contact us via our <%= link_to "support form", "#" %> and use this format: </p>
-        <ul class="govuk-list">
-          <li> Subject: Edit or remove team member </li>
-          <li> Text: Name of organisation, user details to amend </li>
-        </ul>
-      </div>
-    </details>
-  </section>
-</div>
+  </details>
+<% end %>

@@ -2,7 +2,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= link_to "Back", ips_path(anchor: :team), class: "govuk-back-link" %>
+    <%= link_to "Back", team_members_path, class: "govuk-back-link" %>
     <h2 class="govuk-heading-l">Invite a team member</h2>
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
       <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post } do |f| %>

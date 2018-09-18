@@ -1,11 +1,9 @@
 require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
 
-describe 'View team mebers of my organisation' do
+describe 'View team members of my organisation' do
   context 'when logged out' do
-    before do
-      visit ips_path
-    end
+    before { visit team_members_path }
 
     it_behaves_like 'not signed in'
   end
@@ -22,7 +20,7 @@ describe 'View team mebers of my organisation' do
     context 'when user is the only in the organisation' do
       it 'renders only the user' do
         sign_in_user user
-        visit ips_path
+        visit team_members_path
 
         expect(page).to have_content('me@example.gov.uk')
       end
@@ -35,7 +33,7 @@ describe 'View team mebers of my organisation' do
 
       it 'renders all users within my organisation' do
         sign_in_user user
-        visit ips_path
+        visit team_members_path
 
         expect(page).to have_content('me@example.gov.uk')
         expect(page).to have_content('friend@example.gov.uk')
@@ -50,7 +48,7 @@ describe 'View team mebers of my organisation' do
 
       it 'does not include users from other organisations' do
         sign_in_user user
-        visit ips_path
+        visit team_members_path
 
         expect(page).to_not have_content('stranger@example.gov.uk')
       end
