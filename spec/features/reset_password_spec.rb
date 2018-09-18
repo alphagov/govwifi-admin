@@ -91,7 +91,7 @@ describe "Resetting a password" do
         end
 
         it "changes to users password" do
-          expect(page).to have_content("Logout")
+          expect(page).to have_content("Sign out")
         end
       end
 

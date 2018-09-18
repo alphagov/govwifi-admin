@@ -1,0 +1,11 @@
+<div class="govuk-grid-row subnav">
+  <div class="govuk-grid-column-one-third">
+    <h3 class="govuk-heading-m"><%= current_organisation.name %></h3>
+  </div>
+
+  <nav class="govuk-grid-column-two-thirds">
+    <%= link_to "Overview", '/', class: "govuk-link active" %>
+    <%= link_to "Team Members", team_members_path, class: "govuk-link" %>
+    <%= link_to "Settings", ips_path, class: "govuk-link" %>
+  </nav>
+</div>
