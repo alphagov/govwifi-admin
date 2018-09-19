@@ -95,10 +95,9 @@
   </header>
 
   <div class="govuk-width-container">
+    <%= render "subnavigation" if user_signed_in? %>
+    
     <main class="govuk-main-wrapper " id="main-content" role="main">
-      <% if user_signed_in? %>
-        <%= render "subnavigation" %>
-      <% end %>
       <%= render "layouts/flash_notices" %>
       <%= yield %>
     </main>
