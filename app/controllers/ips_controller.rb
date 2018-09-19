@@ -22,12 +22,6 @@ class IpsController < ApplicationController
     @locations = Location.includes(:ips).where(organisation: current_organisation)
   end
 
-  def show
-    @ip = current_organisation.ips.find_by(id: params[:id])
-
-    redirect_to root_path unless @ip.present?
-  end
-
 private
 
   def publish_for_performance_platform

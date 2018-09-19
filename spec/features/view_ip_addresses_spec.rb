@@ -55,16 +55,6 @@ describe 'View all my IP addresses' do
         expect(page).to have_content(ip_1)
         expect(page).to have_content(ip_2)
       end
-
-      context 'Viewing someone elses IP Addresses' do
-        let(:location) { create(:organisation).locations.first }
-        let(:other_ip) { create(:ip, location: location) }
-
-        it 'Redirects to the root path' do
-          visit ip_path(other_ip)
-          expect(page.current_path).to eq(root_path)
-        end
-      end
     end
   end
 end
