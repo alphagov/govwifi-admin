@@ -1,3 +1,4 @@
+<h3 class="govuk-heading-m"><%= location.address %></h2>
 <table class="govuk-table">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
@@ -6,7 +7,7 @@
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-    <% ips.each do |ip| %>
+    <% location.ips.each do |ip| %>
       <tr class="govuk-table__row">
         <th class="govuk-table__header" scope="row"><%= ip.address %></th>
         <td class="govuk-table__cell "><%= ip.created_at.strftime("%d %b %Y") %></td>
