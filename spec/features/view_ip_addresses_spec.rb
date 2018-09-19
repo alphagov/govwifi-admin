@@ -31,18 +31,29 @@ describe 'View all my IP addresses' do
     end
 
     context 'when user has IPs' do
-      let(:location) { user.organisation.locations.first }
-      let!(:ip_1) { create(:ip, location: location) }
-      let!(:ip_2) { create(:ip, location: location) }
+      let(:ip_1) { '10.0.0.1' }
+      let(:ip_2) { '10.0.0.2' }
+      let(:address_1) { '179 Southern Street, Southwark' }
+      let(:address_2) { '123 Northern Street, Whitechapel' }
+
+      let(:org) { user.organisation }
+      let(:location_1) { org.locations.create!(address: address_1) }
+      let(:location_2) { org.locations.create!(address: address_2) }
 
       before do
+        create(:ip, address: ip_1, location: location_1)
+        create(:ip, address: ip_2, location: location_2)
+
         sign_in_user user
         visit ips_path
       end
 
       it 'displays the list of my allowed IPs' do
-        expect(page).to have_content(ip_1.address)
-        expect(page).to have_content(ip_2.address)
+        expect(page).to have_content(address_1)
+        expect(page).to have_content(address_2)
+
+        expect(page).to have_content(ip_1)
+        expect(page).to have_content(ip_2)
       end
 
       context 'Viewing someone elses IP Addresses' do
