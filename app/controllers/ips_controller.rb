@@ -6,8 +6,10 @@ class IpsController < ApplicationController
   def create
     default_location = current_organisation.locations.first
     @ip = default_location.ips.new(ip_params)
+
     if @ip.save
       publish_for_performance_platform
+      publish_radius_whitelist
       redirect_to(
         ips_path,
         anchor: 'ips',
@@ -31,6 +33,16 @@ private
         key: ENV.fetch('S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY')
       ),
       source_gateway: Gateways::Ips.new
+    ).execute
+  end
+
+  def publish_radius_whitelist
+    PublishWhitelist.new(
+      destination_gateway: Gateways::S3.new(
+        bucket: ENV.fetch('S3_PUBLISHED_LOCATIONS_IPS_BUCKET'),
+        key: ENV.fetch('S3_WHITELIST_OBJECT_KEY')
+      ),
+      generate_whitelist: GenerateRadiusIpWhitelist.new
     ).execute
   end
 
