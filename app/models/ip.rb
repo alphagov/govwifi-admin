@@ -4,6 +4,8 @@ class Ip < ApplicationRecord
   validates :address, presence: true
   validate :address_must_be_valid_ip
 
+  accepts_nested_attributes_for :location
+
 private
 
   def address_must_be_valid_ip

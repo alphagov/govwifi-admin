@@ -49,14 +49,6 @@ describe 'View all my IP addresses' do
       end
 
       it 'displays the list of my allowed IPs' do
-        expect(page).to have_content(ip_1.address)
-        expect(page).to have_content(ip_2.address)
-      end
-
-      context 'Viewing someone elses IP Addresses' do
-        let(:other_organisation) { create(:organisation) }
-        let(:location) { create(:location, organisation: other_organisation) }
-        let(:other_ip) { create(:ip, location: location) }
         expect(page).to have_content(address_1)
         expect(page).to have_content(address_2)
 

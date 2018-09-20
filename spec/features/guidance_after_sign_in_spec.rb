@@ -16,9 +16,7 @@ describe 'guidance after sign in' do
   end
 
   it 'displays radius connection details' do
-    expect(page).to have_content(
-      "#{user.organisation.locations.first.radius_secret_key}"
-    )
+    expect(page).to have_content(location.radius_secret_key)
   end
 
   context 'with radius IPs in env-vars' do

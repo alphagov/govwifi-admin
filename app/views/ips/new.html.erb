@@ -17,21 +17,24 @@
 
         <p class="govuk-body"><strong>OR</strong></p>
 
-        <div class="govuk-form-group <%= field_error(@ip, :location_address) %>">
-          <%= form.label :location_address, "Enter new location address", class: "govuk-label"  %><br />
-          <%= form.text_field :location_address, id: :location_address, autofocus: true, autocomplete: "off", class: "govuk-input", required: true %>
-        </div>
+        <%= form.fields_for :location, @ip.build_location do |location_form| %>
+          <div class="govuk-form-group">
+            <%= location_form.label :address, "Enter new location address", class: "govuk-label"  %><br />
+            <%= location_form.text_field :address, autocomplete: "off", class: "govuk-input" %>
+          </div>
 
-        <div class="govuk-form-group <%= field_error(@ip, :location_postcode) %>">
-          <%= form.label :location_postcode, "Enter new location postcode", class: "govuk-label"  %><br />
-          <%= form.text_field :location_postcode, id: :location_postcode, autofocus: true, autocomplete: "off", class: "govuk-input", required: true %>
-        </div>
+          <div class="govuk-form-group">
+            <%= location_form.label :postcode, "Enter new location postcode", class: "govuk-label"  %><br />
+            <%= location_form.text_field :postcode, autocomplete: "off", class: "govuk-input" %>
+          </div>
+        <% end %>
+
 
         <p><hr></p>
 
         <div class="govuk-form-group <%= field_error(@ip, :address) %>">
           <%= form.label :ip, "Enter IP Address (IPv4 only)", class: "govuk-label"  %><br />
-          <%= form.text_field :address, id: :address, autofocus: true, autocomplete: "off", class: "govuk-input", required: true %>
+          <%= form.text_field :address, id: :address, autocomplete: "off", class: "govuk-input", required: true %>
         </div>
 
         <div class="actions">

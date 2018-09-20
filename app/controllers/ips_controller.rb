@@ -1,12 +1,11 @@
 class IpsController < ApplicationController
   def new
     @ip = Ip.new
-    @locations = current_locations
+    @locations = available_locations
   end
 
   def create
-    @ip = Ip.new(ip_params)
-    @ip.location = get_location || create_location
+    @ip = Ip.new(create_params)
 
     if @ip.save
       publish_for_performance_platform
@@ -16,8 +15,7 @@ class IpsController < ApplicationController
         notice: "#{@ip.address} added, it will be active starting tomorrow"
       )
     else
-      @ip.destroy if @ip.location.ips.count.zero?
-      @locations = current_locations
+      @locations = available_locations
       render :new
     end
   end
@@ -28,7 +26,7 @@ class IpsController < ApplicationController
 
 private
 
-  def current_locations
+  def available_locations
     current_organisation.locations.order('address ASC').map do |loc|
       ["#{loc.address}, #{loc.postcode}", loc.id]
     end
@@ -44,23 +42,26 @@ private
     ).execute
   end
 
-  def get_location
-    current_organisation.locations.find_by(id: location_params[:location_id])
-  end
-
-  def create_location
-    Location.create!(
-      address: location_params[:location_address],
-      postcode: location_params[:location_postcode],
-      organisation_id: current_organisation.id
-    )
-  end
-
-  def location_params
-    params.require(:ip).permit(:location_address, :location_postcode, :location_id)
-  end
-
   def ip_params
-    params.require(:ip).permit(:address)
+    params.require(:ip).permit(:address, :location_id, location_attributes: %i[address postcode])
+  end
+
+  def create_params
+    return params_with_new_location if user_creates_new_location?
+    params_with_existing_location
+  end
+
+  def user_creates_new_location?
+    ip_params[:location_id].blank?
+  end
+
+  def params_with_new_location
+    p = ip_params.except(:location_id)
+    p[:location_attributes][:organisation] = current_organisation
+    p
+  end
+
+  def params_with_existing_location
+    ip_params.except(:location_attributes)
   end
 end
