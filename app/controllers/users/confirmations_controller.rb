@@ -29,8 +29,7 @@ protected
 
   def set_resources
     @original_token = params[:confirmation_token] || params[:user][:confirmation_token]
-    confirmation_token = Devise.token_generator.digest(User, :confirmation_token, @original_token)
-    @confirmable = User.find_or_initialize_with_error_by(:confirmation_token, confirmation_token)
+    @confirmable = User.find_or_initialize_with_error_by(:confirmation_token, @original_token)
   end
 
   def with_unconfirmed_confirmable
