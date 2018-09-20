@@ -1,8 +1,5 @@
 class HelpController < ApplicationController
-  def index
-    @end_user_docs_link = SITE_CONFIG['end_user_docs_link']
-    @organisation_docs_link = SITE_CONFIG['organisation_docs_link']
-  end
+  def index; end
 
   def create
     template_id = GOV_NOTIFY_CONFIG['help_email']['template_id']
