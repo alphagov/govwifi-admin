@@ -2,7 +2,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # This controller overrides the Devise:ConfirmationsController (part of Devise gem)
   # in order to set user passwords after they have confirmed their email. This is
   # based largely on recommendations here: 'https://github.com/plataformatec/devise/wiki/How-To:-Override-confirmations-so-users-can-pick-their-own-passwords-as-part-of-confirmation-activation'
-  before_action :set_resources, only: %i[update show]
+  before_action :set_resource, only: %i[update show]
 
   def update
     with_unconfirmed_confirmable do
@@ -27,10 +27,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
 protected
 
-  def set_resources
-    @original_token = params[:confirmation_token] || params[:user][:confirmation_token]
-    confirmation_token = Devise.token_generator.digest(User, :confirmation_token, @original_token)
-    @confirmable = User.find_or_initialize_with_error_by(:confirmation_token, confirmation_token)
+  def set_resource
+    token = params[:confirmation_token] || params[:user][:confirmation_token]
+    @confirmable = User.find_or_initialize_with_error_by(:confirmation_token, token)
+    self.resource = @confirmable
   end
 
   def with_unconfirmed_confirmable
@@ -40,12 +40,10 @@ protected
   end
 
   def render_show_page
-    self.resource = @confirmable
     render 'users/confirmations/show', confirmation_token: @original_token
   end
 
   def render_new_page
-    self.resource = @confirmable
     render 'users/confirmations/new'
   end
 
