@@ -1,6 +1,9 @@
 class IpsController < ApplicationController
   def new
     @ip = Ip.new
+    @locations = current_organisation.locations.order('address ASC').map do |loc|
+      ["#{loc.address}, #{loc.postcode}", loc.id]
+    end
   end
 
   def create
