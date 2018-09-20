@@ -5,7 +5,7 @@ describe Ip do
     it { should validate_presence_of(:address) }
 
     context "address" do
-      let(:location) { create(:organisation).locations.first }
+      let(:location) { create(:location, organisation: create(:organisation)) }
 
       context "when invalid" do
         let!(:ip) { Ip.create(address: "invalidIP", location: location) }

@@ -8,34 +8,45 @@ require 'support/confirmation_use_case'
 describe 'Add an IP to my account' do
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
+  
+  context 'to an already existing location' do
+    let!(:user) { create(:user, :confirmed, :with_organisation) }
+    let!(:location_1) { create(:location, address: '10 Street', postcode: 'XX YYY', organisation: user.organisation) }
+    let!(:location_2) { create(:location, address: '50 Road', postcode: 'ZZ AAA', organisation: user.organisation) }
 
-  context 'when logged in' do
-    before do
-      sign_in_user create(:user, :confirmed, :with_organisation)
-      visit ips_path
-      click_on "Add IP Address"
-    end
+    context 'when logged in' do
+      before do
+        sign_in_user user
+        visit ips_path
+        click_on "Add IP Address"
+      end
 
-    it_behaves_like 'shows activation notice'
+      it_behaves_like 'shows activation notice'
 
-    it 'asks me to enter an IP' do
-      expect(page).to have_content('Enter IP Address (IPv4 only)')
-    end
+      it 'asks me to enter an IP' do
+        expect(page).to have_content('Enter IP Address (IPv4 only)')
+      end
 
     context 'and that IP is valid' do
       before do
         fill_in 'address', with: '10.0.0.1'
+        select '10 Street, XX YYY'
         click_on 'Add new IP Address'
       end
 
       it 'shows me the IP was added' do
-        expect(page).to have_content('10.0.0.1 added')
+         expect(page).to have_content('10.0.0.1 added')
       end
 
-      context 'when I add a second IP' do
+      it 'adds IP to a selected location' do
+        expect(Ip.last.location).to eq(location_1)
+      end
+
+      context 'when I add a second IP to a different location' do
         before do
           visit new_ip_path
           fill_in 'address', with: '10.0.0.2'
+          select '50 Road, ZZ AAA'
           click_on 'Add new IP Address'
         end
 
@@ -43,12 +54,17 @@ describe 'Add an IP to my account' do
           expect(page).to have_content('10.0.0.1')
           expect(page).to have_content('10.0.0.2')
         end
+
+        it 'adds IP to a selected location' do
+          expect(Ip.last.location).to eq(location_2)
+        end
       end
     end
 
     context 'and that IP is invalid' do
       before do
         fill_in 'address', with: '10.wrong.0.1'
+        select '10 Street, XX YYY'
         click_on 'Add new IP Address'
       end
 
@@ -74,9 +90,81 @@ describe 'Add an IP to my account' do
     end
   end
 
+  context 'to new location' do
+    let!(:user) { create(:user, :confirmed, :with_organisation) }
+    let!(:location_1) { create(:location, address: '10 Street', postcode: 'XX YYY', organisation: user.organisation) }
+
+    context 'when logged in' do
+      before do
+        sign_in_user user
+        visit ips_path
+        click_on "Add IP Address"
+      end
+
+      context 'and that IP is invalid' do
+        before do
+          fill_in 'address', with: '10.0.0.1'
+          fill_in 'location_address', with: '30 Square'
+          fill_in 'location_postcode', with: 'CC DDD'
+          select '10 Street, XX YYY'
+          click_on 'Add new IP Address'
+        end
+
+        it 'shows me the IP was added' do
+          expect(page).to have_content('10.0.0.1 added')
+        end
+
+        it 'adds IP to the selected location instead of creating a new one' do
+          expect(Ip.last.location.address).to eq('10 Street')
+          expect(Ip.last.location.postcode).to eq('XX YYY')
+        end
+      end
+
+      context 'and that IP is valid' do
+        context 'when new location provided' do
+          before do
+            fill_in 'address', with: '10.0.0.1'
+            fill_in 'location_address', with: '30 Square'
+            fill_in 'location_postcode', with: 'CC DDD'
+            select '10 Street, XX YYY'
+            click_on 'Add new IP Address'
+          end
+
+          it 'shows me the IP was added' do
+            expect(page).to have_content('10.0.0.1 added')
+          end
+
+          it 'adds IP to the selected location instead of creating a new one' do
+            expect(Ip.last.location.address).to eq('10 Street')
+            expect(Ip.last.location.postcode).to eq('XX YYY')
+          end
+        end
+
+        context 'when new location provided BUT old one was selected' do
+          before do
+            fill_in 'address', with: '10.0.0.1'
+            fill_in 'location_address', with: '30 Square'
+            fill_in 'location_postcode', with: 'CC DDD'
+            click_on 'Add new IP Address'
+          end
+
+          it 'shows me the IP was added' do
+            expect(page).to have_content('10.0.0.1 added')
+          end
+
+          it 'adds IP to a newly created location' do
+            expect(Ip.last.location.address).to eq('30 Square')
+            expect(Ip.last.location.postcode).to eq('CC DDD')
+          end
+        end
+      end
+    end
+  end
+
   context 'when logged out' do
     before { visit new_ip_path }
 
-    it_behaves_like 'not signed in'
+      it_behaves_like 'not signed in'
+    end
   end
 end

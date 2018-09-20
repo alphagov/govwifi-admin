@@ -1,6 +1,6 @@
 describe "POST /ips", type: :request do
   let(:user) { create(:user, :confirmed, :with_organisation) }
-  let(:location) { user.organisation.locations.first }
+  let(:location) { create(:location, organisation: user.organisation) }
   let(:ip_address) { "10.0.0.1" }
 
   before do

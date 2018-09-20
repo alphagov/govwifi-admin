@@ -31,7 +31,7 @@ describe 'View all my IP addresses' do
     end
 
     context 'when user has IPs' do
-      let(:location) { user.organisation.locations.first }
+      let(:location) { create(:location, organisation: user.organisation) }
       let!(:ip_1) { create(:ip, location: location) }
       let!(:ip_2) { create(:ip, location: location) }
 
@@ -46,7 +46,8 @@ describe 'View all my IP addresses' do
       end
 
       context 'Viewing someone elses IP Addresses' do
-        let(:location) { create(:organisation).locations.first }
+        let(:other_organisation) { create(:organisation) }
+        let(:location) { create(:location, organisation: other_organisation) }
         let(:other_ip) { create(:ip, location: location) }
 
         it 'Redirects to the root path' do

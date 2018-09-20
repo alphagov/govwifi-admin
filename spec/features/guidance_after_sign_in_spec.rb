@@ -3,6 +3,7 @@ require 'support/notifications_service'
 
 describe 'guidance after sign in' do
   let(:user) { create(:user, :confirmed, :with_organisation) }
+  let!(:location) { create(:location, organisation: user.organisation) }
 
   before do
     sign_in_user user
@@ -16,7 +17,7 @@ describe 'guidance after sign in' do
 
   it 'displays radius connection details' do
     expect(page).to have_content(
-      "Your RADIUS secret is #{user.organisation.locations.first.radius_secret_key}"
+      "#{user.organisation.locations.first.radius_secret_key}"
     )
   end
 
