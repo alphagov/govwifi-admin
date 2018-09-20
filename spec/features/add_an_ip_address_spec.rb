@@ -46,6 +46,15 @@ describe 'Add an IP to my account' do
       end
     end
 
+    context 'Given a valid new IP' do
+      it 'includes it in the whitelist to be published to S3' do
+        expect_any_instance_of(PublishWhitelist).to receive(:execute)
+
+        fill_in 'address', with: '10.0.0.2'
+        click_on 'Add new IP Address'
+      end
+    end
+
     context 'and that IP is invalid' do
       before do
         fill_in 'address', with: '10.wrong.0.1'
