@@ -23,6 +23,17 @@ describe 'Resending confirmation instructions' do
 
       expect(URI(confirmation_email_link).scheme).to eq("https")
     end
+
+    it 'does not change the link' do
+      sign_up_for_account(email: correct_email)
+      previous_link = confirmation_email_link
+
+      visit new_user_confirmation_path
+      fill_in 'user_email', with: entered_email
+      click_on 'Resend confirmation instructions'
+
+      expect(confirmation_email_link).to eq(previous_link)
+    end
   end
 
   context 'when user has not been confirmed' do
