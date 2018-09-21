@@ -48,10 +48,10 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.perform_deliveries = false
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.default charset: "utf-8"
 
   config.force_ssl = false
   config.s3_aws_config = {
@@ -100,6 +100,5 @@ Rails.application.configure do
       }
     }
   }
-
 end
 ActionMailer::Base.perform_deliveries = false

@@ -5,7 +5,12 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    <p> Your RADIUS secret is <strong> <%= current_organisation.locations.first.radius_secret_key %> </strong></p>
+    <p> Your RADIUS secrets are:</p>
+    <ul class="govuk-list">
+      <% current_organisation.locations.each do |loc| %>
+        <li><%= "#{loc.address}, #{loc.postcode}" %> - <strong><%= loc.radius_secret_key %></strong></li>
+      <% end %>
+    </ul>
 
     <p> We recommend connecting to one RADIUS server from each region: </p>
 

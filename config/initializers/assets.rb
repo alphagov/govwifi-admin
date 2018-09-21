@@ -16,4 +16,3 @@ Rails.application.config.assets.paths += [
   Rails.root.join('node_modules/govuk-frontend'),
   Rails.root.join('node_modules/html5shiv/dist')
 ]
-
