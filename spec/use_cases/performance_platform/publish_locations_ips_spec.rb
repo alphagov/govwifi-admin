@@ -15,7 +15,7 @@ describe PublishLocationsIps do
 
   before do
     expect(s3_gateway).to receive(:upload)
-      .with(data: s3_payload)
+      .with(data: s3_payload.to_json)
       .and_return({})
   end
 
