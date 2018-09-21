@@ -1,7 +1,7 @@
 describe Gateways::S3 do
   let(:bucket) { 'StubBucket' }
   let(:key) { 'StubKey' }
-  let(:data) { { blah: "foobar" } }
+  let(:data) { { blah: 'foobar' }.to_json }
 
   subject { described_class.new(bucket: bucket, key: key) }
 

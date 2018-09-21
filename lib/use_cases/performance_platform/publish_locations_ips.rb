@@ -5,7 +5,7 @@ class PublishLocationsIps
   end
 
   def execute
-    payload = source_gateway.fetch_ips
+    payload = source_gateway.fetch_ips.to_json
     destination_gateway.upload(data: payload)
   end
 
