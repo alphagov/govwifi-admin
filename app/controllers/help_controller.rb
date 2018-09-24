@@ -16,5 +16,6 @@ class HelpController < ApplicationController
       subject: params[:subject],
       template_id: template_id
     )
+    redirect_to root_path
   end
 end

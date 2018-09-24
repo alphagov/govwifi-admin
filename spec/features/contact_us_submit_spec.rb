@@ -21,7 +21,6 @@ describe 'contact us page' do
       fill_in "details", with: "Details"
   
       click_on 'Submit'
-
     }.to change { SendHelpEmailSpy.support_emails_sent_count }.by(1)
 
     # expect(page).to have_content('Your support request has been submitted')
