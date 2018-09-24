@@ -2,7 +2,7 @@ require 'features/support/sign_up_helpers'
 require 'support/notifications_service'
 require 'support/support_email_use_case_spy'
 
-describe 'contact us page', focus: true do
+describe 'contact us page' do
   let(:user) { create(:user, :confirmed, :with_organisation) }
 
   before do

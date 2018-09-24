@@ -3,10 +3,10 @@ shared_examples 'support email use case spy' do
 
   before do
     allow(SendConfirmationEmail).to \
-      receive(:new).and_return(ConfirmationUseCaseSpy.new)
+      receive(:new).and_return(SupportEmailUseCaseSpy.new)
   end
 
   after do
-    ConfirmationUseCaseSpy.clear!
+    SupportEmailUseCaseSpy.clear!
   end
 end
