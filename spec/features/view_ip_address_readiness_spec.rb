@@ -15,19 +15,13 @@ describe 'even more requires' do
 
   describe 'Viewing IPs' do
     context 'when one has been added' do
-      let(:user) do
-        user = create(:user, :with_organisation)
-        create(:location, organisation: user.organisation)
-        user
-      end
+      let(:user) { create(:user, :with_organisation) }
 
       before do
         sign_in_user user
         visit new_ip_path
-        fill_in 'address', with: '10.0.0.1'
-        fill_in 'Enter new location address', with: 'home'
-        fill_in 'Enter new location postcode', with: 'XYZ'
-        click_on 'Add new IP Address'
+        fill_in "IP", with: '10.0.0.1'
+        click_on "Add IP"
       end
 
       context 'and I view it immediately' do
