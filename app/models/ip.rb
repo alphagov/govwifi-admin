@@ -6,6 +6,10 @@ class Ip < ApplicationRecord
 
   accepts_nested_attributes_for :location
 
+  def available?
+    created_at < Date.today.beginning_of_day + 2.hour
+  end
+
 private
 
   def address_must_be_valid_ip

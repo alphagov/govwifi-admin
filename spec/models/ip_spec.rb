@@ -28,4 +28,18 @@ describe Ip do
       end
     end
   end
+
+  context '#available' do
+    context 'with a created date at 2am today' do
+      before { subject.created_at = Date.today.beginning_of_day + 2.hour }
+
+      it { is_expected.to_not be_available }
+    end
+
+    context 'with a created date before 2am today' do
+      before { subject.created_at = Date.today.beginning_of_day + 119.minutes }
+
+      it { is_expected.to be_available }
+    end
+  end
 end

@@ -42,3 +42,7 @@
 .health-check-unhealthy {
   background: red;
 }
+
+.unavailable-ip {
+  color: $govuk-error-colour;
+}
