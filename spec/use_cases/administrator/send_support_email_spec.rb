@@ -1,14 +1,14 @@
 describe SendSupportEmail do
   class SendSupportEmailGatewayMock
     def send(opts)
+      puts opts
       raise unless opts[:email] == 'test@localhost'
       raise unless opts[:locals][:sender_email] == 'user@example.com'
       raise unless opts[:locals][:phone] == '11111111111'
       raise unless opts[:locals][:organisation] == 'Fake Organisation'
       raise unless opts[:locals][:details] == 'Fake details'
       raise unless opts[:locals][:name] == 'Barry Barlow'
-      raise unless opts[:locals][:subject] == 'Fake support'
-
+      raise unless opts[:locals][:subject] == 'my problem'
       raise unless opts[:template_id] == 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee'
       raise unless opts[:reference] == 'support_email'
 
@@ -23,7 +23,7 @@ describe SendSupportEmail do
   let(:details) { 'Fake details' }
   let(:name) { 'Barry Barlow' }
   let(:email) { 'test@localhost' }
-  let(:subject) { 'Fake support' }
+  let(:email_subject) { 'my problem' }
 
   subject do
     described_class.new(
@@ -42,7 +42,7 @@ describe SendSupportEmail do
           details: details,
           name: name,
           email: email,
-          subject: subject
+          subject: email_subject
         )
     }.to_not raise_error
   end
