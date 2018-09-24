@@ -1,4 +1,4 @@
-class SupportEmailUseCaseSpy
+class SendHelpEmailSpy
   @@support_emails_count = 0
 
   class << self
@@ -11,7 +11,7 @@ class SupportEmailUseCaseSpy
     end
   end
 
-  def execute(email:, confirmation_url:, template_id:)
+  def execute(email:, sender_email:, name:, organisation:, details:, phone:, subject:, template_id:)
     @@support_emails_count += 1
 
     {}
