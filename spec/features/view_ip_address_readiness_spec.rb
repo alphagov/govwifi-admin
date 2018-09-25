@@ -1,14 +1,7 @@
-# TODO: don't require eveerything ever to fill in a form
-require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
-require 'features/support/errors_in_form'
-require 'features/support/activation_notice'
-require 'support/notifications_service'
-require 'support/confirmation_use_case'
 require 'timecop'
 
-describe 'even more requires' do
-  include_examples 'confirmation use case spy'
+describe 'with a stubbed notifications service' do
   include_examples 'notifications service'
 
   after { Timecop.return }
