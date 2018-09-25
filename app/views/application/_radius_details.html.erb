@@ -1,31 +1,28 @@
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
-      Show connection details
+    Show connection details
     </span>
   </summary>
   <div class="govuk-details__text">
+    <% if (current_organisation.locations).empty? %>
+    <p>Your RADIUS secret keys will be generated when you <%=link_to('add your first IP address', new_ip_path, class: "govuk-link")%></p>
+    <% else %>
     <p> Your RADIUS secrets are:</p>
     <ul class="govuk-list">
-    <% if (current_organisation.locations).empty? %>
-        <p>Your Radius secret keys will be generated when you <%=link_to('add your first IP address', new_ip_path, class: "govuk-link")%></p>
-    <% else %>
       <% current_organisation.locations.each do |loc| %>
-          <li><%= "#{loc.address}, #{loc.postcode}" %> - <strong><%= loc.radius_secret_key %></strong></li>
-        <% end %>
+      <li><%= "#{loc.address}, #{loc.postcode}" %> - <strong><%= loc.radius_secret_key %></strong></li>
       <% end %>
     </ul>
-
+    <% end %>
     <p> We recommend connecting to one RADIUS server from each region: </p>
-
     <h3> London: </h3>
     <% london_ips.each do |ip| %>
-      <p class="govuk-body"> <%= ip %>
-    <% end %>
-
+    <p class="govuk-body"> <%= ip %>
+      <% end %>
     <h3> Dublin: </h3>
     <% dublin_ips.each do |ip| %>
-      <p class="govuk-body"> <%= ip %>
-    <% end %>
+    <p class="govuk-body"> <%= ip %>
+      <% end %>
   </div>
 </details>
