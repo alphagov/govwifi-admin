@@ -22,7 +22,11 @@ describe 'contact us page' do
     it 'submitting request explains a support request has been submitted' do
       click_on 'Submit'
       expect(page).to have_content('Your support request has been submitted')
+    end
 
+    it 'redirects to the home page' do
+      click_on 'Submit'
+      expect(page.current_path).to eq(root_path)
     end
 
     it 'submitting request sends an email to support' do
