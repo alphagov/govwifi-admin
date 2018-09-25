@@ -9,7 +9,7 @@ describe 'guidance after sign in' do
     before { visit root_path }
 
     it 'displays message to inform user to add IPs and locations' do
-      expect(page).to have_content 'Your Radius secret keys will be generated when you add your first IP address'
+      expect(page).to have_content 'RADIUS secret keys will be generated'
     end
   end
 
