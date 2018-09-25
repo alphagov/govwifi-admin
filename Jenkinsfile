@@ -51,7 +51,9 @@ pipeline {
 
   post {
     always {
-      sh 'make stop'
+      retry(3) {
+        sh 'make stop'
+      }
     }
   }
 }
