@@ -12,7 +12,7 @@ describe 'contact us page' do
   context 'with support ticket details filled in' do
     before do
       sign_in_user user
-      visit help_index_path 
+      visit help_index_path
       fill_in 'contact_number', with: '11111111112'
       fill_in 'subject', with: 'Subject'
       fill_in 'details', with: 'Details'
