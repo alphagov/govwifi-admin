@@ -7,8 +7,12 @@
   <div class="govuk-details__text">
     <p> Your RADIUS secrets are:</p>
     <ul class="govuk-list">
+    <% if (current_organisation.locations).empty? %>
+        <p>Your Radius secret keys will be generated when you <%=link_to('add your first IP address', new_ip_path, class: "govuk-link")%></p>
+    <% else %>
       <% current_organisation.locations.each do |loc| %>
-        <li><%= "#{loc.address}, #{loc.postcode}" %> - <strong><%= loc.radius_secret_key %></strong></li>
+          <li><%= "#{loc.address}, #{loc.postcode}" %> - <strong><%= loc.radius_secret_key %></strong></li>
+        <% end %>
       <% end %>
     </ul>
 
