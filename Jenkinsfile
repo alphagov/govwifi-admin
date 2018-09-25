@@ -15,7 +15,7 @@ pipeline {
     stage('Test') {
       steps {
         sh 'EXIT 1'
-        trap 'make test' ERR
+        sh "trap 'make test' ERR"
       }
     }
 
