@@ -14,8 +14,7 @@ pipeline {
 
     stage('Test') {
       steps {
-        sh "trap 'make test' ERR"
-        sh 'EXIT 1'
+        sh 'make test'
       }
     }
 
@@ -52,7 +51,9 @@ pipeline {
 
   post {
     always {
-      sh 'make stop'
+      retry(3) {
+        sh 'make stop'
+      }
     }
   }
 }
