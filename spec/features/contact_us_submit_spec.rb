@@ -13,7 +13,7 @@ describe 'contact us page' do
 
   context 'with support ticket details filled in' do
     before do
-      visit('/help')
+      visit(help_index_path)
       fill_in 'contact_number', with: '11111111112'
       fill_in 'subject', with: 'Subject'
       fill_in 'details', with: 'Details'
@@ -22,6 +22,7 @@ describe 'contact us page' do
     it 'submitting request explains a support request has been submitted' do
       click_on 'Submit'
       expect(page).to have_content('Your support request has been submitted')
+
     end
 
     it 'submitting request sends an email to support' do
