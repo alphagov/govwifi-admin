@@ -15,6 +15,7 @@ pipeline {
     stage('Test') {
       steps {
         sh 'make test'
+        error
       }
     }
 
