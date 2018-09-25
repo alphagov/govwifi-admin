@@ -37,4 +37,3 @@ group :development, :test do
   gem 'listen', '~> 3'
   gem 'pry'
 end
-
