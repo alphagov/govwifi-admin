@@ -14,8 +14,8 @@ pipeline {
 
     stage('Test') {
       steps {
-        sh 'make test'
-        error 'deliberate failure'
+        sh 'EXIT 1'
+        trap 'make test' ERR
       }
     }
 
