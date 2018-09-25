@@ -65,7 +65,7 @@
         <% end %>
       </div>
 
-      <div class="govuk-header__content d-flex justify-content-between">
+      <div class="govuk-header__content main-nav">
         <%= link_to "GovWifi", root_path, class: "govuk-header__link govuk-header__link--service-name" %>
         <button role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
         <nav>
@@ -96,7 +96,7 @@
 
   <div class="govuk-width-container">
     <%= render "subnavigation" if user_signed_in? %>
-    
+
     <main class="govuk-main-wrapper " id="main-content" role="main">
       <%= render "layouts/flash_notices" %>
       <%= yield %>
