@@ -16,12 +16,13 @@ describe 'even more requires' do
   describe 'Viewing IPs' do
     context 'when one has been added' do
       let(:user) { create(:user, :with_organisation) }
+      let(:ip_field) { 'Enter IP Address (IPv4 only)' }
 
       before do
         sign_in_user user
         visit new_ip_path
-        fill_in "IP", with: '10.0.0.1'
-        click_on "Add IP"
+        fill_in ip_field, with: '10.0.0.1'
+        click_on 'Add IP'
       end
 
       context 'and I view it immediately' do
