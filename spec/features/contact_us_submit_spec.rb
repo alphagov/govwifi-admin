@@ -6,23 +6,30 @@ require'support/send_help_email_use_case'
 describe 'contact us page' do
   include_examples 'notifications service'
   include_examples 'send help email use case spy'
+
   let(:user) { create(:user, :confirmed, :with_organisation) }
 
-  before do
-    sign_in_user user
-  end
+  before { sign_in_user user }
 
-  it 'says request sent after pressing submit' do
-    expect {
+  context 'with support ticket details filled in' do
+    before do
       visit('/help')
+      fill_in 'contact_number', with: '11111111112'
+      fill_in 'subject', with: 'Subject'
+      fill_in 'details', with: 'Details'
+    end
 
-      fill_in "contact_number", with: "11111111112"
-      fill_in "subject", with: "Subject"
-      fill_in "details", with: "Details"
-
+    it 'submitting request explains a support request has been submitted' do
       click_on 'Submit'
-    }.to change { SendHelpEmailSpy.support_emails_sent_count }.by(1)
+      expect(page).to have_content('Your support request has been submitted')
+    end
 
-    expect(page).to have_content('Your support request has been submitted')
+    it 'submitting request sends an email to support' do
+      expect {
+        click_on 'Submit'
+      }.to change {
+        SendHelpEmailSpy.support_emails_sent_count
+      }.by(1)
+    end
   end
 end
