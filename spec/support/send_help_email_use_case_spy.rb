@@ -1,3 +1,4 @@
+# rubocop:disable Style/ClassVars
 class SendHelpEmailSpy
   @@support_emails_count = 0
 
@@ -11,9 +12,12 @@ class SendHelpEmailSpy
     end
   end
 
+  # rubocop:disable Lint/UnusedMethodArgument
   def execute(email:, sender_email:, name:, organisation:, details:, phone:, subject:, template_id:)
     @@support_emails_count += 1
 
     {}
   end
+  # rubocop:enable Lint/UnusedMethodArgument
 end
+# rubocop:enable Style/ClassVars
