@@ -3,14 +3,20 @@ require 'support/notifications_service'
 
 describe 'guidance after sign in' do
   let(:user) { create(:user, :confirmed, :with_organisation) }
-  let!(:location) { create(:location, organisation: user.organisation) }
+  before { sign_in_user user }
 
-  before do
-    sign_in_user user
-    visit root_path
+  context 'without locations' do
+    before { visit root_path }
+
+    it 'displays message to inform user to add IPs and locations' do
+      expect(page).to have_content 'Your Radius secret keys will be generated when you add your first IP address'
+    end
   end
 
   context 'with locations' do
+    let!(:location) { create(:location, organisation: user.organisation) }
+    before { visit root_path }
+
     it 'shows me the landing guidance' do
       expect(page).to have_content 'Get GovWifi'
       expect(page).to have_content 'Getting help'
@@ -44,9 +50,5 @@ describe 'guidance after sign in' do
         expect(page).to have_content(radius_ip_4)
       end
     end
-  end
-
-  context 'without locations' do 
-
   end
 end
