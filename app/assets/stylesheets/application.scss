@@ -2,5 +2,9 @@ $govuk-image-url-function: "image-url";
 $govuk-font-url-function: "font-url";
 
 @import "../../../node_modules/govuk-frontend/all";
-@import "./utilities/layout";
-@import "./components/subnav";
+@import "./components/flash_messages";
+@import "./components/health_checks";
+@import "./components/ips";
+@import "./components/main_nav";
+@import "./components/sub_nav";
+@import "./components/team_members";

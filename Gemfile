@@ -28,6 +28,7 @@ group :test do
   gem 'nokogiri'
   gem 'rspec-rails', '~> 3'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'timecop', '~> 0.9.1'
   gem 'webmock', '~> 3.4.2'
 end
 

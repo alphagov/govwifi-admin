@@ -244,6 +244,7 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
+    timecop (0.9.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.4.0)
@@ -285,6 +286,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sentry-raven
   shoulda-matchers (~> 3.1)
+  timecop (~> 0.9.1)
   webmock (~> 3.4.2)
 
 RUBY VERSION
