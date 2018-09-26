@@ -7,8 +7,8 @@
           <p class="govuk-body">
             You need to <%= link_to "add the IPs", new_ip_path %> of your authenticator(s).</p>
         <% else %>
-          <p class="govuk-body"> 
-            You have <%= link_to "#{pluralize(@ips.count, "IP")} configured.", "#ips"  %></p>
+          <p class="govuk-body">
+            You have <%= link_to "#{pluralize(@ips.count, "IP")} configured.", ips_path  %></p>
         <% end %>
         <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
         <p class="govuk-body">
