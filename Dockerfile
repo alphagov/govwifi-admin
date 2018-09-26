@@ -27,6 +27,6 @@ RUN ${BUNDLE_INSTALL_CMD}
 
 COPY . .
 
-RUN bash -c "RAILS_ENV=production bundle exec rails assets:precompile"
+RUN RAILS_ENV=production bundle exec rails assets:precompile
 
 CMD ["bundle", "exec", "rails", "server"]
