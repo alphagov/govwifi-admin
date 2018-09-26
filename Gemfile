@@ -25,6 +25,7 @@ group :test do
   gem 'factory_bot_rails', '~> 4.11'
   gem 'faker'
   gem 'govuk-lint', '~> 3'
+  gem 'guard-rspec'
   gem 'nokogiri'
   gem 'rspec-rails', '~> 3'
   gem 'shoulda-matchers', '~> 3.1'
