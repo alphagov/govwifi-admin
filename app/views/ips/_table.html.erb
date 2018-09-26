@@ -9,11 +9,11 @@
   <tbody class="govuk-table__body">
     <% location.ips.each do |ip| %>
       <tr class="govuk-table__row">
-        <td class="govuk-table__cell" scope="row"><%= ip.address %></td>
+        <td class="govuk-table__cell half-column" scope="row"><%= ip.address %></td>
         <% if ip.available? %>
-          <td class="govuk-table__cell">Available</td>
+          <td class="govuk-table__cell half-column">Available</td>
         <% else %>
-          <td class="govuk-table__cell unavailable-ip">Not available until 6am tomorrow
+          <td class="govuk-table__cell half-column unavailable-ip">Not available until 6am tomorrow
           </td>
         <% end %>
       </tr>
