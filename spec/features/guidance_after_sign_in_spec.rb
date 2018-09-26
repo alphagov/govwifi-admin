@@ -26,6 +26,27 @@ describe 'guidance after sign in' do
       expect(page).to have_content(location.radius_secret_key)
     end
 
+    context 'and an IP, clicking on that IP' do
+      let(:ip_address) { '10.0.0.1' }
+
+      before do
+        create(:ip, address: ip_address, location: location)
+        visit root_path
+        click_on '1 IP'
+      end
+
+      it 'shows me the IP address' do
+        expect(page).to have_content(ip_address)
+      end
+    end
+
+    context 'and no IPs' do
+      it 'shows me I can add new IPs' do
+        click_on 'add the IPs'
+        expect(page).to have_content('Enter IP Address')
+      end
+    end
+
     context 'with radius IPs in env-vars' do
       let(:radius_ip_1) { '111.111.111.111' }
       let(:radius_ip_2) { '121.121.121.121' }
