@@ -34,8 +34,11 @@ test:
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load db:migrate
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
+bash: serve
+	docker exec -it `docker-compose ps -q app | awk 'END{print}'` bash
+
 stop:
 	$(DOCKER_COMPOSE) kill
 	$(DOCKER_COMPOSE) rm -f
 
-.PHONY: build serve lint test stop
+.PHONY: build serve lint test stop bash
