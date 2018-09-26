@@ -16,16 +16,17 @@ ENV S3_WHITELIST_OBJECT_KEY 'WhitelistStubKey'
 
 WORKDIR /usr/src/app
 
-COPY Gemfile Gemfile.lock .ruby-version ./
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-  apt-get update && apt-get install -y apt-transport-https && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-  apt-get update && apt-get install -y yarn && \
-  bundle check || ${BUNDLE_INSTALL_CMD} && \
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+  apt-get update && apt-get install -y apt-transport-https nodejs libuv1 && \
+  curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.9.4 && \
   rm -rf /var/lib/apt/lists/*
+ENV PATH "$PATH:/root/.yarn/bin:/root/.config/yarn/global/node_modules/.bin"
+
+COPY Gemfile Gemfile.lock .ruby-version ./
+RUN ${BUNDLE_INSTALL_CMD}
 
 COPY . .
 
-RUN RAILS_ENV=production rails assets:precompile
+RUN bash -c "RAILS_ENV=production bundle exec rails assets:precompile"
 
 CMD ["bundle", "exec", "rails", "server"]
