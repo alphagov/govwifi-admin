@@ -22,7 +22,7 @@ class IpsController < ApplicationController
   end
 
   def index
-    @locations = Location.includes(:ips).where(organisation: current_organisation)
+    @locations = Location.includes(:ips).where(organisation: current_organisation).order(:address)
   end
 
 private
