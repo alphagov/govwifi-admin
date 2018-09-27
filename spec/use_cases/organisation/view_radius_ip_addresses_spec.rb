@@ -69,7 +69,7 @@ describe ViewRadiusIPAddresses do
       let(:radius_ip_3) { '131.131.131.131' }
       let(:radius_ip_4) { '141.141.141.141' }
 
-      it 'returns those IPs in a hash' do
+      it 'returns those IPs in a differently ordered hash' do
         expect(subject.execute).to eq(
           london: [radius_ip_2, radius_ip_1],
           dublin: [radius_ip_4, radius_ip_3]
