@@ -1,4 +1,4 @@
-describe SendResetPasswordEmail do
+describe UseCases::Administrator::SendResetPasswordEmail do
   class SendPasswordResetEmailGatewayMock
     def send(opts)
       raise unless opts[:email] == 'test@example.com'

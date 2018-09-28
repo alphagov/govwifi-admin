@@ -28,7 +28,7 @@ class User < ApplicationRecord
 private
 
   def email_on_whitelist
-    checker = CheckIfWhitelistedEmail.new
+    checker = UseCases::Administrator::CheckIfWhitelistedEmail.new
     whitelisted = checker.execute(self.email)[:success]
     errors.add(:email, 'must be from a government domain') unless whitelisted
   end

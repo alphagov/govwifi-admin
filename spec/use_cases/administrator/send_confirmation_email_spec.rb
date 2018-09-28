@@ -1,4 +1,4 @@
-describe SendConfirmationEmail do
+describe UseCases::Administrator::SendConfirmationEmail do
   class SendConfirmationEmailGatewayMock
     def send(opts)
       raise unless opts[:email] == 'test@example.com'

@@ -7,7 +7,7 @@ class AuthenticationMailer < ::Devise::Mailer
     confirmation_link = confirmation_url(record, confirmation_token: token)
     template_id = GOV_NOTIFY_CONFIG['confirmation_email']['template_id']
 
-    SendConfirmationEmail.new(
+    UseCases::Administrator::SendConfirmationEmail.new(
       notifications_gateway: EmailGateway.new
     ).execute(
       email: record.email,
@@ -23,7 +23,7 @@ class AuthenticationMailer < ::Devise::Mailer
     reset_link = edit_password_url(record, reset_password_token: token)
     template_id = GOV_NOTIFY_CONFIG['reset_password_email']['template_id']
 
-    SendResetPasswordEmail.new(
+    UseCases::Administrator::SendResetPasswordEmail.new(
       notifications_gateway: EmailGateway.new
     ).execute(
       email: record.email,
@@ -36,7 +36,7 @@ class AuthenticationMailer < ::Devise::Mailer
     invite_link = accept_invitation_url(record, invitation_token: token)
     template_id = GOV_NOTIFY_CONFIG['invite_email']['template_id']
 
-    SendInviteEmail.new(
+    UseCases::Administrator::SendInviteEmail.new(
       notifications_gateway: EmailGateway.new
     ).execute(
       email: record.email,

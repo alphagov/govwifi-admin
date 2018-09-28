@@ -4,7 +4,7 @@ class HelpController < ApplicationController
   def create
     template_id = GOV_NOTIFY_CONFIG['help_email']['template_id']
 
-    SendHelpEmail.new(
+    UseCases::Administrator::SendHelpEmail.new(
       notifications_gateway: EmailGateway.new
     ).execute(
       email: GOV_NOTIFY_CONFIG['support_email'],
