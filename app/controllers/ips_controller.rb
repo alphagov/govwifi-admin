@@ -34,7 +34,7 @@ private
   end
 
   def publish_for_performance_platform
-    PublishLocationsIps.new(
+    UseCases::PerformancePlatform::PublishLocationsIps.new(
       destination_gateway: Gateways::S3.new(
         bucket: ENV.fetch('S3_PUBLISHED_LOCATIONS_IPS_BUCKET'),
         key: ENV.fetch('S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY')
@@ -49,7 +49,7 @@ private
         bucket: ENV.fetch('S3_PUBLISHED_LOCATIONS_IPS_BUCKET'),
         key: ENV.fetch('S3_WHITELIST_OBJECT_KEY')
       ),
-      generate_whitelist: GenerateRadiusIpWhitelist.new
+      generate_whitelist: UseCases::Radius::GenerateRadiusIpWhitelist.new
     ).execute
   end
 

@@ -1,4 +1,4 @@
-describe PublishLocationsIps do
+describe UseCases::PerformancePlatform::PublishLocationsIps do
   let(:source_gateway) { double(fetch_ips: s3_payload) }
   let(:s3_gateway) { double }
   let(:s3_payload) do

@@ -1,4 +1,4 @@
-describe GenerateRadiusIpWhitelist do
+describe UseCases::Radius::GenerateRadiusIpWhitelist do
   let(:organisation) { create(:organisation) }
   let(:location1) { create(:location, organisation: organisation) }
   let(:location2) { create(:location, organisation: organisation) }
@@ -17,18 +17,18 @@ describe GenerateRadiusIpWhitelist do
   describe '#execute' do
     it 'returns the correct configuration' do
       expect(configuration_result).to eq('client 1-1-1-1 {
-  ipaddr = 1.1.1.1
-  secret = radkey1
-}
-client 1-2-2-1 {
-  ipaddr = 1.2.2.1
-  secret = radkey1
-}
-client 2-2-2-2 {
-  ipaddr = 2.2.2.2
-  secret = radkey2
-}
-')
+      ipaddr = 1.1.1.1
+      secret = radkey1
+    }
+    client 1-2-2-1 {
+      ipaddr = 1.2.2.1
+      secret = radkey1
+    }
+    client 2-2-2-2 {
+      ipaddr = 2.2.2.2
+      secret = radkey2
+    }
+    ')
     end
   end
 
@@ -39,18 +39,18 @@ client 2-2-2-2 {
 
     it 'removes duplicates' do
       expect(configuration_result).to eq('client 1-1-1-1 {
-  ipaddr = 1.1.1.1
-  secret = radkey1
-}
-client 1-2-2-1 {
-  ipaddr = 1.2.2.1
-  secret = radkey1
-}
-client 2-2-2-2 {
-  ipaddr = 2.2.2.2
-  secret = radkey2
-}
-')
+      ipaddr = 1.1.1.1
+      secret = radkey1
+    }
+    client 1-2-2-1 {
+      ipaddr = 1.2.2.1
+      secret = radkey1
+    }
+    client 2-2-2-2 {
+      ipaddr = 2.2.2.2
+      secret = radkey2
+    }
+    ')
     end
   end
 
@@ -61,10 +61,10 @@ client 2-2-2-2 {
 
     it 'omits this IP' do
       expect(configuration_result).to eq('client 2-2-2-2 {
-  ipaddr = 2.2.2.2
-  secret = radkey2
-}
-')
+      ipaddr = 2.2.2.2
+      secret = radkey2
+    }
+    ')
     end
   end
 
@@ -75,14 +75,14 @@ client 2-2-2-2 {
 
     it 'omits IP this entry' do
       expect(configuration_result).to eq('client 1-2-2-1 {
-  ipaddr = 1.2.2.1
-  secret = radkey1
-}
-client 2-2-2-2 {
-  ipaddr = 2.2.2.2
-  secret = radkey2
-}
-')
+      ipaddr = 1.2.2.1
+      secret = radkey1
+    }
+    client 2-2-2-2 {
+      ipaddr = 2.2.2.2
+      secret = radkey2
+    }
+    ')
     end
   end
 end
