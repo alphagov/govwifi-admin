@@ -1,4 +1,4 @@
-describe CheckIfValidIp do
+describe UseCases::Administrator::CheckIfValidIp do
   subject { described_class.new }
 
   context 'invalid' do

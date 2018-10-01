@@ -8,7 +8,7 @@ class HomeController < ApplicationController
 private
 
   def radius_ips
-    view_radius = ViewRadiusIPAddresses.new(organisation_id: current_organisation.id)
+    view_radius = UseCases::Organisation::ViewRadiusIPAddresses.new(organisation_id: current_organisation.id)
     view_radius.execute
   end
 end

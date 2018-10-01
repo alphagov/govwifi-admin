@@ -1,4 +1,4 @@
-describe NotifySupportOfNewUser do
+describe UseCases::Administrator::NotifySupportOfNewUser do
   class NotifySupportOfNewUserGatewayMock
     def send(opts)
       raise unless opts[:email] == 'test@localhost'

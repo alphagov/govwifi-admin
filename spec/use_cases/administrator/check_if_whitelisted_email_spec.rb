@@ -1,4 +1,4 @@
-describe CheckIfWhitelistedEmail do
+describe UseCases::Administrator::CheckIfWhitelistedEmail do
   subject { described_class.new }
 
   context 'with a regex in the environment variable' do
