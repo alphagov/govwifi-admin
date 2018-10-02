@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   resources :ips, only: %i[index new create]
   resources :help, only: %i[index create]
   resources :team_members, only: [:index]
+  get 'logs/search', to: 'logs#search'
 end
