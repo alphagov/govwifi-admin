@@ -16,6 +16,13 @@ describe Ip do
             "Address must be a valid IPv4 address (without subnet)"
           ])
         end
+
+        it 'prevents 0.0.0.0' do
+          ip = Ip.create(address: '0.0.0.0', location: location)
+          expect(ip.errors.full_messages).to eq([
+            "Address must be a valid IPv4 address (without subnet)"
+          ])
+        end
       end
 
       context "when valid" do
