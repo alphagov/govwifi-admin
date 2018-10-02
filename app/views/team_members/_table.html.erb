@@ -4,7 +4,7 @@
       <tr class="govuk-table__row">
         <td class="govuk-table__cell "><%= member.email %></td>
         <% if member.invitation_pending? %>
-          <td class="govuk-table__cell ">
+          <td class="govuk-table__cell" id="pending-invite">
             Invitation pending
           </td>
           <td class="govuk-table__cell ">
