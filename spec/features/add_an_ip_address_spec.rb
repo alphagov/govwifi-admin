@@ -9,6 +9,33 @@ describe 'Add an IP to my account' do
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
 
+  context 'and the new location is invalid' do
+    let!(:user) { create(:user, :confirmed, :with_organisation) }
+
+    before do
+      sign_in_user user
+      visit ips_path
+      click_on 'Add IP Address'
+    end
+
+    context 'the location field empty' do
+      before do
+        fill_in 'address', with: '10.0.0.1'
+        fill_in 'ip_location_attributes_address', with: ''
+        fill_in 'ip_location_attributes_postcode', with: 'CC DDD'
+        click_on 'Add new IP Address'
+      end
+
+      it_behaves_like 'errors in form'
+
+      it 'tells me what I entered was invalid' do
+        expect(page).to have_content(
+          "Location address can't be blank"
+        )
+      end
+    end
+  end
+
   context 'to an already existing location' do
     let!(:user) { create(:user, :confirmed, :with_organisation) }
     let!(:location_1) { create(:location, address: '10 Street', postcode: 'XX YYY', organisation: user.organisation) }
