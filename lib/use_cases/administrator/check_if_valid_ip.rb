@@ -2,29 +2,29 @@ module UseCases
   module Administrator
     class CheckIfValidIp
       def execute(address)
-        { success: address_valid_for_radius?(address) }
+        @address = address
+        { success: valid_address? }
       end
 
     private
 
-      def address_valid_for_radius?(address)
-        return false if invalid_address?(address)
-        address_is_ipv4?(address)
+      attr_reader :address
+
+      def valid_address?
+        address.present? &&
+          address_is_ipv4? &&
+          !(address_is_subnet? || address_allows_all?)
       end
 
-      def invalid_address?(address)
-        address.nil? || address_is_subnet?(address) || allow_all?(address)
-      end
-
-      def allow_all?(address)
+      def address_allows_all?
         address.match?('0.0.0.0')
       end
 
-      def address_is_subnet?(address)
+      def address_is_subnet?
         address.include?("/")
       end
 
-      def address_is_ipv4?(address)
+      def address_is_ipv4?
         begin
           IPAddr.new(address).ipv4?
         rescue IPAddr::InvalidAddressError
