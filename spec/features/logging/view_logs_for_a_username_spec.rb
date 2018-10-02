@@ -5,7 +5,7 @@ describe "View logs for a username" do
 
   before do
     sign_in_user user
-    visit logs_search_path
+    visit logs_path
   end
 
   it "shows the page" do
