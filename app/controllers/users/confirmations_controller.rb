@@ -55,7 +55,7 @@ protected
   end
 
   def notify_support_of_new_user(user)
-    NotifySupportOfNewUser.new(
+    UseCases::Administrator::NotifySupportOfNewUser.new(
       notifications_gateway: EmailGateway.new
     ).execute(
       new_user_email: user.email,

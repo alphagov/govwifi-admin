@@ -1,4 +1,4 @@
-describe PublishWhitelist do
+describe UseCases::PublishWhitelist do
   let(:generate_whitelist) { double(execute: whitelist) }
   let(:s3_gateway) { double }
   let(:whitelist) do

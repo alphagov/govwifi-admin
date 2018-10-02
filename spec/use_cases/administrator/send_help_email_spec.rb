@@ -1,4 +1,4 @@
-describe SendHelpEmail do
+describe UseCases::Administrator::SendHelpEmail do
   class SendHelpEmailGatewayMock
     def send(opts)
       raise unless opts[:email] == 'test@localhost'

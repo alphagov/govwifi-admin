@@ -1,4 +1,4 @@
-describe ViewRadiusIPAddresses do
+describe UseCases::Organisation::ViewRadiusIPAddresses do
   subject { described_class.new(organisation_id: org_id) }
 
   context 'with RADIUS environment variables' do
