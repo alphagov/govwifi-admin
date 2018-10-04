@@ -1,1 +1,7 @@
-<h1>Enter username to view logs</h1>
+<h1>Displaying logs for...</h1>
+
+<ul>
+  <% @logs.each do |log| %>
+    <li><%= log["username"] %></li>
+  <% end %>
+</ul>

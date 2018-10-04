@@ -5,10 +5,13 @@ describe "View logs for a username" do
 
   before do
     sign_in_user user
-    visit logs_path
+    visit logs_search_path
+    fill_in "username", with: "AAAAA"
+    click_on "Submit"
   end
 
-  it "shows the page" do
-    expect(page).to have_content("Enter username to view logs")
+  it "submits the search form" do
+    expect(page).to have_content("Displaying logs for...")
+    expect(page).to have_content("AAAAA")
   end
 end
