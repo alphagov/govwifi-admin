@@ -1,30 +1,14 @@
 module Gateways
   class LoggingApi
     def search(username:)
-      [
-        {
-          "ap" => "",
-          "building_identifier" => "",
-          "id" => 1,
-          "mac" => "",
-          "siteIP" => "",
-          "start" => "2018-10-01 18:18:09 +0000",
-          "stop" => nil,
-          "success" => true,
-          "username" => username
-        },
-        {
-          "ap" => "",
-          "building_identifier" => "",
-          "id" => 1,
-          "mac" => "",
-          "siteIP" => "",
-          "start" => "2018-10-01 18:18:09 +0000",
-          "stop" => nil,
-          "success" => true,
-          "username" => username
-        }
-      ]
+      return [] if username.nil? || username.empty?
+      
+      uri = URI('http://govwifi-logging-api.com/authentication/events/search')
+      params = { username: "tom" }
+      uri.query = URI.encode_www_form(params)
+
+      response = Net::HTTP.get_response(uri)
+      response.body
     end
   end
 end
