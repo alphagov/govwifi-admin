@@ -40,7 +40,7 @@ describe Gateways::LoggingApi do
          	  'Host'=>'govwifi-logging-api.com',
          	  'User-Agent'=>'Ruby'
            }).
-          to_return(status: 200, body: logs, headers: {})
+          to_return(status: 200, body: logs.to_json, headers: {})
       end
 
       it "returns the correct logs" do

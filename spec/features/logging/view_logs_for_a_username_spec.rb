@@ -39,7 +39,7 @@ describe "View logs for a username" do
      	  'Host'=>'govwifi-logging-api.com',
      	  'User-Agent'=>'Ruby'
        }).
-      to_return(status: 200, body: logs, headers: {})
+      to_return(status: 200, body: logs.to_json, headers: {})
 
     sign_in_user user
     visit logs_search_path
