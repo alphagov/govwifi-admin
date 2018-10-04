@@ -31,7 +31,7 @@ describe "View logs for a username" do
   end
 
   before do
-    stub_request(:get, "http://govwifi-logging-api.com/authentication/events/search?username=tom").
+    stub_request(:get, "http://govwifi-logging-api.com/authentication/events/search?username=#{username}").
       with(
        headers: {
      	  'Accept'=>'*/*',
