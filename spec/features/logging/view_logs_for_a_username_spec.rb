@@ -42,7 +42,7 @@ describe "View logs for a username" do
       to_return(status: 200, body: logs.to_json, headers: {})
 
     sign_in_user user
-    visit logs_search_path
+    visit search_logs_path
     fill_in "username", with: "AAAAA"
     click_on "Submit"
   end
