@@ -18,7 +18,7 @@
         <p class="govuk-body"><strong>OR</strong></p>
 
         <%= form.fields_for :location, @ip.build_location do |location_form| %>
-          <div class="govuk-form-group">
+          <div class="govuk-form-group <%= field_error(@ip.build_location, :address) %>">
             <%= location_form.label :address, "Enter new location address", class: "govuk-label"  %><br />
             <%= location_form.text_field :address, autocomplete: "off", class: "govuk-input" %>
           </div>
