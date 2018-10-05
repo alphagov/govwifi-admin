@@ -4,6 +4,7 @@ default: &default
   organisation_docs_link: 'https://docs.wifi.service.gov.uk'
   product_page_link: 'https://wifi.service.gov.uk'
   organisation_troubleshooting_link: 'https://docs.wifi.service.gov.uk/troubleshooting.html#troubleshooting'
+  logging_api_search_endpoint: 'http://api-elb.london.wifi.service.gov.uk:8443/logging/authentication/events/search/'
 
 development:
   <<: *default
@@ -13,6 +14,7 @@ test:
 
 staging:
   <<: *default
+  logging_api_search_endpoint: 'http://api-elb.london.staging.wifi.service.gov.uk:8443/logging/authentication/events/search/'
 
 production:
   <<: *default

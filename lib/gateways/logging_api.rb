@@ -1,6 +1,6 @@
 module Gateways
   class LoggingApi
-    LOGGING_API_SEARCH_ENDPOINT = "http://govwifi-logging-api.com/authentication/events/search/".freeze
+    LOGGING_API_SEARCH_ENDPOINT = SITE_CONFIG['logging_api_search_endpoint'].freeze
 
     def search(username:)
       return [] if username.nil? || username.empty?

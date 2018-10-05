@@ -31,16 +31,15 @@ describe "View authentication requests for a username" do
   end
 
   before do
-    stub_request(:get, "http://govwifi-logging-api.com/authentication/events/search/#{username}").
-      with(
-        headers: {
+    endpoint = SITE_CONFIG['logging_api_search_endpoint'] + username
+    stub_request(:get, endpoint)
+      .with(headers: {
           'Accept' => '*/*',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Host' => 'govwifi-logging-api.com',
+          'Host' => 'api-elb.london.wifi.service.gov.uk:8443',
           'User-Agent' => 'Ruby'
-        }
-).
-      to_return(status: 200, body: logs.to_json, headers: {})
+        })
+      .to_return(status: 200, body: logs.to_json, headers: {})
 
     sign_in_user user
     visit search_logs_path
