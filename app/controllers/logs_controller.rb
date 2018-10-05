@@ -1,7 +1,7 @@
 class LogsController < ApplicationController
   def index
-    result = UseCases::Administrator::GetLogsForUsername.new(
-      gateway: Gateways::LoggingApi.new
+    result = UseCases::Administrator::GetAuthRequestsForUsername.new(
+      authentication_logs_gateway: Gateways::LoggingApi.new
     ).execute(username: params[:username])
 
     @logs = result

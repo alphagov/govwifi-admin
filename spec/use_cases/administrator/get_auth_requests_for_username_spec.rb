@@ -1,5 +1,5 @@
-describe UseCases::Administrator::GetLogsForUsername do
-  let(:logging_api_gateway) { Gateways::LoggingApi.new }
+describe UseCases::Administrator::GetAuthRequestsForUsername do
+  let(:authentication_logs_gateway) { Gateways::LoggingApi.new }
   let(:username) { "AAAAA" }
   let(:logs) do
     [
@@ -28,10 +28,10 @@ describe UseCases::Administrator::GetLogsForUsername do
     ]
   end
 
-  subject { described_class.new(gateway: logging_api_gateway ) }
+  subject { described_class.new(authentication_logs_gateway: authentication_logs_gateway) }
 
   before do
-    allow(logging_api_gateway).to receive(:search)
+    allow(authentication_logs_gateway).to receive(:search)
       .with(username: username)
       .and_return(logs)
   end

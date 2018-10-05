@@ -1,6 +1,6 @@
 require 'features/support/sign_up_helpers'
 
-describe "View logs for a username" do
+describe "View authentication requests for a username" do
   let(:user) { create(:user, :confirmed, :with_organisation) }
   let(:username) { "AAAAA" }
   let(:logs) do
@@ -31,14 +31,15 @@ describe "View logs for a username" do
   end
 
   before do
-    stub_request(:get, "http://govwifi-logging-api.com/authentication/events/search?username=#{username}").
+    stub_request(:get, "http://govwifi-logging-api.com/authentication/events/search/#{username}").
       with(
-       headers: {
-     	  'Accept'=>'*/*',
-     	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-     	  'Host'=>'govwifi-logging-api.com',
-     	  'User-Agent'=>'Ruby'
-       }).
+        headers: {
+          'Accept' => '*/*',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Host' => 'govwifi-logging-api.com',
+          'User-Agent' => 'Ruby'
+        }
+).
       to_return(status: 200, body: logs.to_json, headers: {})
 
     sign_in_user user
@@ -47,7 +48,7 @@ describe "View logs for a username" do
     click_on "Submit"
   end
 
-  it "submits the search form" do
+  it "displays the authentication requests" do
     expect(page).to have_content("Displaying logs for...")
     expect(page).to have_content("AAAAA")
   end
