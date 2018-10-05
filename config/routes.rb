@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  get 'list/show'
-  # get '/list', to: 'list#index', as: 'list_path'
+  get 'list/index'
   root 'home#index'
 
   devise_for :users, controllers: {
