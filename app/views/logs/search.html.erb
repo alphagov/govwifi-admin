@@ -1,10 +1,26 @@
-<%= form_with url: logs_path, method: :get do |form| %>
-    <div class="govuk-form-group">
-      <%= form.label :username, "Enter the username you wish to see logs for", class: "govuk-label" %><br />
-      <%= form.text_field :username, autofocus: true, class: "govuk-input", required: true %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h2 class="govuk-heading-l">Find authentication requests for a username</h2>
+
+    <div class="govuk-inset-text">
+      <h4 class="govuk-heading-s">Limited results</h4>
+      <p class="govuk-body">
+        End user logs are limited to the previous two weeks of logs.
+      </p>
+      <p class="govuk-body">
+        The system will only return logs for user activity on IP addresses you own. If you
+        need more info please <%= link_to "contact us.", help_index_path %>
+      </p>
     </div>
 
-    <div class="actions">
-      <%= form.submit "Submit", class: "govuk-button govuk-!-margin-top-2" %>
-    </div>
-<% end %>
+    <%= form_with url: logs_path, method: :get do |form| %>
+      <div class="govuk-form-group">
+        <%= form.label :username, "Enter the username you wish to see logs for", class: "govuk-label" %><br />
+        <%= form.text_field :username, autofocus: true, class: "govuk-input", required: true %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit "Submit", class: "govuk-button govuk-!-margin-top-2" %>
+      </div>
+    <% end %>
