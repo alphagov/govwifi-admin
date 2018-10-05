@@ -8,11 +8,11 @@
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-      <tr class="govuk-table__row">
-        <td class="govuk-table__cell one-quarter" scope="row">Parks & Recreation Dept</td>
-        <td class="govuk-table__cell one-quarter" scope="row">12/12/2019</td>
-        <td class="govuk-table__cell one-quarter" scope="row">12/11/2020</td>
-        <td class="govuk-table__cell one-quarter" scope="row">Parks@hotmail.com</td>
+        <tr class="govuk-table__row">
+  <% @all_organisations.each do | organisation| %>
+        <td class="govuk-table__cell half-column" scope="row"><%=  organisation.name %></td>
+        <% end %>
+      </tr>
       </tr>
   </tbody>
 </table>
