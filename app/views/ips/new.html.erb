@@ -11,7 +11,7 @@
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
       <%= form_with model: @ip do |form| %>
         <div class="govuk-form-group <%= field_error(@ip, :location_id) %>">
-          <%= form.label :location_id, "Select your location", class: "govuk-label"  %><br />
+          <%= form.label :location_id, "Add an IP to an existing location", class: "govuk-label"  %><br />
           <%= form.select :location_id, @locations, { prompt: '-- select --' }, { class: "govuk-select" } %>
         </div>
 
