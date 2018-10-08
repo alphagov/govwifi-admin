@@ -1,6 +1,6 @@
 describe UseCases::Administrator::GetAuthRequestsForUsername do
-  let(:authentication_logs_gateway) { Gateways::LoggingApi.new }
-  let(:username) { "AAAAA" }
+  let(:authentication_logs_gateway) { double }
+  let(:username) { "AAAAAA" }
   let(:logs) do
     [
       {

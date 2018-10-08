@@ -3,7 +3,7 @@ describe Gateways::LoggingApi do
     subject { described_class.new }
 
     context "with correct data" do
-      let(:username) { "AAAAA" }
+      let(:username) { "AAAAAA" }
       let(:logs) do
         [
           {
@@ -58,6 +58,20 @@ describe Gateways::LoggingApi do
       context "when username is nil" do
         it "returns an empty array" do
           expect(subject.search(username: nil)).to eq([])
+        end
+      end
+
+      context "with an incorrect username" do
+        context "with a username that is shorter than 6 characters" do
+          it "returns an empty array" do
+            expect(subject.search(username: "12")).to eq([])
+          end
+        end
+
+        context "with a username that is longer than 6 characters" do
+          it "returns an empty array" do
+            expect(subject.search(username: "1234567")).to eq([])
+          end
         end
       end
     end

@@ -1,7 +1,31 @@
-<h1>Displaying logs for...</h1>
+<% if @logs.empty? %>
+  <h3>No results found for that username, please try again</h3>
+<% else %>
 
-<ul>
-  <% @logs.each do |log| %>
-    <li><%= log["username"] %></li>
-  <% end %>
-</ul>
+  <h1>Displaying logs for <%= @logs.first.fetch("username") %></h1>
+  <table class="govuk-table">
+    <caption class="govuk-table__caption"><%= @logs.count %> results</caption>
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th class="govuk-table__header" scope="col">Username</th>
+        <th class="govuk-table__header" scope="col">AP</th>
+        <th class="govuk-table__header" scope="col">MAC</th>
+        <th class="govuk-table__header" scope="col">siteIP</th>
+        <th class="govuk-table__header" scope="col">Start</th>
+        <th class="govuk-table__header" scope="col">Success</th>
+      </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+      <% @logs.each do |log| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell "><%= log.fetch("username") %></td>
+          <td class="govuk-table__cell "><%= log.fetch("ap") %></td>
+          <td class="govuk-table__cell "><%= log.fetch("mac") %></td>
+          <td class="govuk-table__cell "><%= log.fetch("siteIP") %></td>
+          <td class="govuk-table__cell "><%= log.fetch("start") %></td>
+          <td class="govuk-table__cell "><%= log.fetch("success") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
