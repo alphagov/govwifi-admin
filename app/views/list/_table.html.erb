@@ -10,7 +10,10 @@
   <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
   <% @all_organisations.each do | organisation| %>
-        <td class="govuk-table__cell half-column" scope="row"><%=  organisation.name %></td>
+        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.name %></td>
+        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.created_at.strftime('%e %b %Y %H:%M %P') %></td>
+        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.updated_at.strftime('%e %b %Y %H:%M %P') %></td>
+        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.service_email %></td>
         <% end %>
       </tr>
       </tr>
