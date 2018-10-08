@@ -4,12 +4,6 @@
     <p class="govuk-body">
       <h2 class="govuk-heading-s">Issues</h2>
 
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            My end user is having problem connecting to GovWifi
-          </span>
-        </summary>
         <div class="govuk-details__text">
           <p class="govuk-body">
             If an end user is having trouble with GovWifi, we recommend directing them to
@@ -22,11 +16,9 @@
           <p class="govuk-body">
             If you're seeing systemic issues with GovWifi - lots of your end
             users are having trouble, but your access point is connecting to our
-            RADIUS servers correctly - then check our
-            <%= link_to 'guidance for resolving access point issues', SITE_CONFIG['organisation_troubleshooting_link'] %>.
+            RADIUS servers correctly.
           </p>
         </div>
-      </details>
     </p>
 
     <p class="govuk-body">
@@ -35,6 +27,7 @@
       <ul class="govuk-list govuk-list--bullet">
         <li><%= link_to 'Check servers status', status_index_path %></li>
         <li><%= link_to 'Browse technical documentation', SITE_CONFIG['organisation_docs_link'] %></li>
+        <li><%= link_to 'Guidance for resolving access point issues', SITE_CONFIG['organisation_troubleshooting_link'] %></li>
       </ul>
     <p>
   </div>
