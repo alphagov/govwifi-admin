@@ -32,12 +32,12 @@ describe Gateways::LoggingApi do
       end
 
       before do
-        endpoint = SITE_CONFIG['logging_api_search_endpoint'] + username
+        endpoint = ENV['LOGGING_API_SEARCH_ENDPOINT'] + username
         stub_request(:get, endpoint)
           .with(headers: {
               'Accept' => '*/*',
               'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-              'Host' => 'api-elb.london.wifi.service.gov.uk:8443',
+              'Host' => 'govwifi-logging-api.gov.uk',
               'User-Agent' => 'Ruby'
             })
           .to_return(status: 200, body: logs.to_json, headers: {})

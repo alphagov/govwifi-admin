@@ -1,6 +1,6 @@
 module Gateways
   class LoggingApi
-    LOGGING_API_SEARCH_ENDPOINT = SITE_CONFIG['logging_api_search_endpoint'].freeze
+    LOGGING_API_SEARCH_ENDPOINT = ENV['LOGGING_API_SEARCH_ENDPOINT'].freeze
 
     def search(username:)
       return [] if username_invalid?(username)
