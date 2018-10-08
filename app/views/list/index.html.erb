@@ -1,0 +1,9 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Signed Up Organisations</h1>
+  </div>
+  <%  @all_organisations.each do |organisation| %>
+    <%= render "list/table", organisation: organisation %>
+  <% end %>
+</div>
+

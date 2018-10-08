@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'list/index'
   root 'home#index'
 
   devise_for :users, controllers: {
