@@ -3,7 +3,7 @@ require 'features/support/sign_up_helpers'
 
 describe 'view list of signed up organisations' do
   context 'when logged out' do
-    before { visit list_index_path }
+    before { visit organisations_path }
 
     it_behaves_like 'not signed in'
   end
@@ -18,7 +18,7 @@ describe 'view list of signed up organisations' do
     context 'when admin navigates to the list page' do
       it 'renders the names of the signed up organisations' do
         sign_in_user user
-        visit list_index_path
+        visit organisations_path
 
         Organisation.all.each do |organisation|
           expect(page).to have_content(organisation.name)
