@@ -1,0 +1,26 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Signed Up Organisations</h1>
+  </div>
+  <table class="govuk-table">
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th class="govuk-table__header">Name</th>
+        <th class="govuk-table__header">Created At</th>
+        <th class="govuk-table__header">Updated At</th>
+        <th class="govuk-table__header">Service Email</th>
+      </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+      <% @all_organisations.each do | organisation| %>
+        <tr class="govuk-table__row">
+        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.name %></td>
+        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.created_at.strftime('%e %b %Y %H:%M %P') %></td>
+        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.updated_at.strftime('%e %b %Y %H:%M %P') %></td>
+        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.service_email %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
