@@ -1,7 +1,7 @@
 <div class="govuk-grid-row">
-<div class="govuk-grid-column-two-thirds">
-  <h1 class="govuk-heading-l">IP Addresses</h1>
-</div>
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">IP Addresses</h1>
+  </div>
   <div class="govuk-grid-column-one-third">
     <%= link_to "Add IP Address", new_ip_path, class: "govuk-button" %>
   </div>
@@ -18,18 +18,17 @@
     <%= render "ips/table", location: location %>
   <% end %>
 
-  <details class="govuk-details">
-    <summary class="govuk-details__summary">
-      <span class="govuk-details__summary-text">
-        What if I want to remove an IP?
-      </span>
-    </summary>
-    <div class="govuk-details__text">
-      <p> Contact us via our <%= link_to "support form", help_index_path %> and use this format: </p>
-      <ul class="govuk-list">
-        <li> Subject: Remove IP </li>
-        <li> Text: Name of organisation, IPs you want to remove </li>
-      </ul>
-    </div>
-  </details>
 <% end %>
+
+<div class="govuk-details">
+  <div class="govuk-details__text">
+    <h4 class="govuk-heading-s"> 
+      What if I want to remove an IP?
+    </h4>
+      <p class="govuk-body"> Contact us via our <%= link_to "support form", help_index_path %> and use this format:</p>
+        <ul class="govuk-list">
+          <li> Subject: Remove IP </li>
+          <li> Text: Name of organisation, IPs you want to remove </li>
+        </ul>
+  </div>
+</div>
