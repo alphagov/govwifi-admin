@@ -28,6 +28,6 @@ RUN ${BUNDLE_INSTALL_CMD}
 
 COPY . .
 
-RUN RAILS_ENV=production bundle exec rails assets:precompile
+RUN RAILS_ENV=production SECRET_KEY_BASE=hello bundle exec rails assets:precompile
 
 CMD ["bundle", "exec", "rails", "server"]

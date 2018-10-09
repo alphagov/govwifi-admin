@@ -1,0 +1,20 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-heading-l">Memorandum of Understanding</h2>
+      <hr class="govuk-section-break--m govuk-section-break--visible">
+    <h3 class="govuk-heading-m"> 1. Download MOU </h3>
+      <p class="govuk-body"> </p>
+      <p class="govuk-body"> </p>
+    <hr class="govuk-section-break--m govuk-section-break--visible">
+    <div>
+      <h3 class="govuk-heading-m"> 2. Upload a copy of the signed MOU </h3>
+      <%= form_for current_organisation, url: mou_path(id: 'stub'), method: :put, html: { multipart: true } do |f| %>
+        <%= f.file_field :signed_mou %>
+        <%= f.submit 'Upload' %>
+      <% end %>
+        <p class="govuk-body"> </p>
+        <p class="govuk-body"> </p>
+    </div>
+  </div>
+</div>
+<%= link_to "Getting help", help_index_path, class: 'govuk-link' %>
