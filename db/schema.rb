@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_12_135253) do
+ActiveRecord::Schema.define(version: 2018_10_09_090135) do
 
   create_table "ips", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "address"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2018_09_12_135253) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.string "mobile"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
