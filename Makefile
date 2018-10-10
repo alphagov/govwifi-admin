@@ -9,36 +9,41 @@ ifndef JENKINS_URL
   DOCKER_COMPOSE += -f docker-compose.development.yml
 endif
 
-DOCKER_BUILD_CMD = $(DOCKER_COMPOSE) build $(BUNDLE_FLAGS)
+.PHONY: build
+build: stop
+	$(DOCKER_COMPOSE) build $(BUNDLE_FLAGS)
 
-build:
-	$(MAKE) stop
-	$(DOCKER_BUILD_CMD)
+.PHONY: setup
+setup: build
+	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
 
-serve:
-	$(MAKE) build
+.PHONY: launch_db
+launch_db:
 	$(DOCKER_COMPOSE) up -d db
 	./mysql/bin/wait_for_mysql
-	$(DOCKER_COMPOSE) run --rm app rm -f tmp/pids/server.pid
-	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
-	$(DOCKER_COMPOSE) up -d app
 
-lint:
-	$(MAKE) build
+.PHONY: serve
+serve: stop build launch_db
+	$(DOCKER_COMPOSE) run --rm app rm -f tmp/pids/server.pid
+	$(DOCKER_COMPOSE) up
+
+.PHONY: lint
+lint: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-ruby app lib spec Gemfile*
 
-test:
-	$(MAKE) build
-	$(DOCKER_COMPOSE) up -d db
-	./mysql/bin/wait_for_mysql
+.PHONY: test
+test: build launch_db
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load db:migrate
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
+.PHONY: bash
 bash: serve
 	docker exec -it `docker-compose ps -q app | awk 'END{print}'` bash
 
+.PHONY: stop
 stop:
-	$(DOCKER_COMPOSE) kill
-	$(DOCKER_COMPOSE) rm -f
+	$(DOCKER_COMPOSE) stop
 
-.PHONY: build serve lint test stop bash
+.PHONY: clean
+clean: stop
+	$(DOCKER_COMPOSE) down
