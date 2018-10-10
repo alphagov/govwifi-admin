@@ -1,7 +1,7 @@
 require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
 
-describe 'the visibility of the organisation depending on user', focus: true do
+describe 'the visibility of the organisation depending on user' do
   context 'when logged out' do
     before { visit organisations_path }
 
