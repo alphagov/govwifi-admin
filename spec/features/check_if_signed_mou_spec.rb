@@ -11,7 +11,7 @@ describe 'when a user signs in it asks the users to go and sign their MoU' do
 
   context 'user doesnt have a signed MoU' do
     it 'shows the user a prompt to sign their MoU form' do
-      expect(page).to have_content("Please sign your Memorandum of Understanding (MoU)")
+      expect(page).to have_content("Please sign your MoU*")
     end
 
     context 'user has signed their MoU form' do
