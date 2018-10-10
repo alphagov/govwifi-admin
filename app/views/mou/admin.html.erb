@@ -2,7 +2,8 @@
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-l">Memorandum of Understanding</h2>
       <hr class="govuk-section-break--m govuk-section-break--visible">
-    <h3 class="govuk-heading-m"> Upload Unsigned MOU Template </h3>
+     <p class="govuk-body"><%= link_to "Download current template", rails_blob_path(Mou.first.unsigned_template, disposition: "attachment") %></p>
+    <h3 class="govuk-heading-m">Upload Unsigned MOU Template</h3>
       <p class="govuk-body"> </p>
       <p class="govuk-body"> </p>
       <%= form_with url: admin_upload_mou_index_path do |form| %>
