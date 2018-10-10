@@ -25,7 +25,7 @@ launch_db:
 .PHONY: serve
 serve: stop build launch_db
 	$(DOCKER_COMPOSE) run --rm app rm -f tmp/pids/server.pid
-	$(DOCKER_COMPOSE) up
+	$(DOCKER_COMPOSE) up -d
 
 .PHONY: lint
 lint: build
