@@ -8,9 +8,9 @@
     <hr class="govuk-section-break--m govuk-section-break--visible">
     <div>
       <h3 class="govuk-heading-m"> 2. Upload a copy of the signed MOU </h3>
-      <%= form_for current_organisation, url: mou_path(id: 'stub'), method: :put, html: { multipart: true } do |f| %>
-        <%= f.file_field :signed_mou %>
-        <%= f.submit 'Upload' %>
+      <%= form_with url: upload_mou_index_path do |form| %>
+        <%= form.file_field(:signed_mou) %>
+        <%= form.submit('Upload') %>
       <% end %>
         <p class="govuk-body"> </p>
         <p class="govuk-body"> </p>

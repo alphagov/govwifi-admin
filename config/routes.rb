@@ -20,5 +20,7 @@ Rails.application.routes.draw do
   resources :logs, only: %i[index] do
     get 'search', on: :collection
   end
-  resources :mou, only: [:index, :update]
+  resources :mou, only: [:index] do
+    post 'upload', on: :collection
+  end
 end
