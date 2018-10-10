@@ -14,5 +14,4 @@ class MouController < ApplicationController
     Mou.first.unsigned_template.attach(params[:unsigned_template])
     redirect_to admin_mou_index_path
   end
-  
-end 
+end
