@@ -2,7 +2,7 @@ class OrganisationsController < ApplicationController
   before_action :index, :authorise_admin
 
   def index
-    @all_organisations = Organisation.all
+    @all_organisations = Organisation.order('name ASC').all
   end
 
 private

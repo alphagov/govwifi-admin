@@ -1,7 +1,7 @@
 require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
 
-describe 'the visibility of the organisation depending on user' do
+describe 'the visibility of the organisation depending on user', focus: true do
   context 'when logged out' do
     before { visit organisations_path }
 
@@ -36,6 +36,20 @@ describe 'the visibility of the organisation depending on user' do
       visit organisations_path
 
       expect(page.current_path).to eq(root_path)
+    end
+  end
+
+  context 'comparing signed up organisations' do
+    let!(:organisation_def) { create(:organisation, name: "DEF") }
+    let!(:organisation_xyz) { create(:organisation, name: "XYZ") }
+    let!(:organisation_abc) { create(:organisation, name: "ABC") }
+    let(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation_abc, admin: true) }
+
+    it 'display list of organisations in alphabetical order' do
+      sign_in_user user
+      visit organisations_path
+
+      expect(page.body).to match(/ABC.*DEF.*XYZ/m)
     end
   end
 end
