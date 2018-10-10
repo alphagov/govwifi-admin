@@ -3,11 +3,17 @@
     <h2 class="govuk-heading-l">Memorandum of Understanding</h2>
       <hr class="govuk-section-break--m govuk-section-break--visible">
     <h3 class="govuk-heading-m"> 1. Download MOU </h3>
+    <% if Mou.first.unsigned_template.attached? %>
       <p class="govuk-body"><%= link_to "Download MOU", rails_blob_path(Mou.first.unsigned_template, disposition: "attachment") %></p>
+    <% else %>
+      <p class="govuk-body">Admin has not yet uploaded MOU template for your organisation to sign </p>
+    <% end %>
     <hr class="govuk-section-break--m govuk-section-break--visible">
     <div>
       <h3 class="govuk-heading-m"> 2. Upload a copy of the signed MOU </h3>
-      <p class="govuk-body"> Most recent upload: <%= link_to 'Download current MOU', rails_blob_path(Mou.first.unsigned_template, disposition: "attachment") %> </p>
+      <% if current_organisation.signed_mou.attached? %>
+        <p class="govuk-body"> Most recent upload: <%= link_to 'Download your signed MOU', rails_blob_path(current_organisation.signed_mou, disposition: "attachment") %> </p>
+      <% end %>
       <p class="govuk-body">
         <%= form_with url: upload_mou_index_path do |form| %>
           <%= form.file_field(:signed_mou) %>
