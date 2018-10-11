@@ -28,8 +28,8 @@ group :test do
   gem 'guard-rspec'
   gem 'nokogiri'
   gem 'rspec-rails', '~> 3'
-  gem 'simplecov', require: false
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'simplecov', require: false
   gem 'timecop', '~> 0.9.1'
   gem 'webmock', '~> 3.4.2'
 end
