@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
   resources :mou, only: %i[index update] do
     post 'upload', on: :collection
-    get 'admin', on: :collection
+    get 'admin_index', on: :collection, as: :admin
     post 'admin_upload', on: :collection
   end
 end
