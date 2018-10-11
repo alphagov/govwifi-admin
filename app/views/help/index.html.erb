@@ -2,31 +2,27 @@
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-l">Help</h2>
     <p class="govuk-body">
-      <h2 class="govuk-heading-s">Issues</h2>
 
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            My end user is having problem connecting to GovWifi
-          </span>
-        </summary>
+      <div class="govuk-details">
         <div class="govuk-details__text">
-          <p class="govuk-body">
-            If an end user is having trouble with GovWifi, we recommend directing them to
-            <%= link_to 'our guidance on common issues', SITE_CONFIG['end_user_troubleshooting_link'] %>.
-          </p>
-          <p class="govuk-body">
-            If this doesn't resolve the issue, we recommend they contact their
-            local support - we don't provide end user support directly
-          </p>
-          <p class="govuk-body">
-            If you're seeing systemic issues with GovWifi - lots of your end
-            users are having trouble, but your access point is connecting to our
-            RADIUS servers correctly - then check our
-            <%= link_to 'guidance for resolving access point issues', SITE_CONFIG['organisation_troubleshooting_link'] %>.
-          </p>
+          <h2 class="govuk-heading-s">
+            Issues
+          </h2>
+            <p class="govuk-body">
+              If an end user is having trouble with GovWifi, we recommend directing them to
+              <%= link_to 'our guidance on common issues', SITE_CONFIG['end_user_troubleshooting_link'] %>.
+            </p>
+            <p class="govuk-body">
+              If this doesn't resolve the issue, we recommend they contact their
+              local support - we don't provide end user support directly
+            </p>
+            <p class="govuk-body">
+              If you're seeing systemic issues with GovWifi - lots of your end
+              users are having trouble, but your access point is connecting to our
+              RADIUS servers correctly, please contact us below.
+            </p>
         </div>
-      </details>
+      </div>
     </p>
 
     <p class="govuk-body">
@@ -35,6 +31,7 @@
       <ul class="govuk-list govuk-list--bullet">
         <li><%= link_to 'Check servers status', status_index_path %></li>
         <li><%= link_to 'Browse technical documentation', SITE_CONFIG['organisation_docs_link'] %></li>
+        <li><%= link_to 'View guidance for resolving access point issues', SITE_CONFIG['organisation_troubleshooting_link'] %></li>
       </ul>
     <p>
   </div>

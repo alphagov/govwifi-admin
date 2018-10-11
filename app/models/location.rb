@@ -2,6 +2,8 @@ class Location < ApplicationRecord
   belongs_to :organisation
   has_many :ips
 
+  validates :address, presence: true
+
   before_create :set_radius_secret_key
 
 private

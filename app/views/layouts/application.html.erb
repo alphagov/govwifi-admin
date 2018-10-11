@@ -66,7 +66,7 @@
       </div>
 
       <div class="govuk-header__content main-nav">
-        <%= link_to "GovWifi", root_path, class: "govuk-header__link govuk-header__link--service-name" %>
+        <%= link_to "GovWifi Admin", root_path, class: "govuk-header__link govuk-header__link--service-name" %>
         <button role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
         <nav>
           <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
@@ -98,6 +98,15 @@
     <%= render "subnavigation" if user_signed_in? %>
 
     <main class="govuk-main-wrapper " id="main-content" role="main">
+
+      <div class="govuk-phase-banner feedback-banner">
+        <p class="govuk-phase-banner__content">
+         <span class="govuk-phase-banner__text">
+           This is a new service – your
+           <a class="govuk-link" href="mailto:govwifi-support@digital.cabinet-office.gov.uk?subject=User Feedback Suggestion">feedback</a> will help us to improve it.
+          </span>
+       </p>
+     </div>
       <%= render "layouts/flash_notices" %>
       <%= yield %>
     </main>
