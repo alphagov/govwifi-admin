@@ -18,7 +18,7 @@ private
 
   def filter_auth_requests(auth_requests)
     ips = current_organisation.ips.map(&:address)
-    auth_requests.select { |auth_request| ips.include? (auth_request["siteIP"]) }
+    auth_requests.select { |auth_request| ips.include?(auth_request["siteIP"]) }
   end
 
   def alert
