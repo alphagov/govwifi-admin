@@ -3,7 +3,7 @@ class LogsController < ApplicationController
     redirect_to :search_logs, alert: alert if invalid_username?
 
     auth_requests = UseCases::Administrator::GetAuthRequestsForUsername.new(
-      authentication_logs_gateway: Gateways::LoggingApi.new
+      authentication_logs_gateway: Gateways::Sessions.new
     ).execute(username: username)
 
     @logs = sort_and_filter_results(auth_requests)
@@ -18,7 +18,7 @@ private
 
   def filter_auth_requests(auth_requests)
     ips = current_organisation.ips.map(&:address)
-    auth_requests.select { |auth_request| ips.include?(auth_request["siteIP"]) }
+    auth_requests.select { |auth_request| ips.include?(auth_request[:site_ip]) }
   end
 
   def alert
@@ -30,10 +30,10 @@ private
   end
 
   def username
-    @username ||= params[:username]
+    @username ||= params.fetch(:username)
   end
 
   def sort_results_by_most_recent(results)
-    results.sort_by { |log| log["start"] }.reverse
+    results.sort_by { |log| log[:start] }.reverse
   end
 end
