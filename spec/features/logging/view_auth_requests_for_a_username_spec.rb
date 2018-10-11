@@ -71,7 +71,7 @@ describe "View authentication requests for a username" do
       expect(page).to have_content("Displaying logs for #{username}")
     end
 
-    it "displays the logs of the ip the organisation does own" do
+    it "displays the logs of the ip the organisation does not own" do
       expect(page).to have_content("1.1.1.1")
     end
 
