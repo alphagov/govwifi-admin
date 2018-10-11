@@ -8,7 +8,4 @@ test:
  
 amazon:
   service: S3
-  access_key_id: ""
-  secret_access_key: ""
-  bucket: ""
-  region: "" # e.g. 'us-east-1'
+  bucket: "<%= ENV.fetch('S3_PUBLISHED_LOCATIONS_IPS_BUCKET') %>"
