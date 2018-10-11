@@ -1,7 +1,7 @@
 require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
 
-describe 'the upload and download of MOUs', focus: true do
+describe 'the upload and download of MOUs' do
   before do
     Mou.create!
   end

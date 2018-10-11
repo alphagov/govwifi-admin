@@ -8,17 +8,17 @@
         <th class="govuk-table__header">Name</th>
         <th class="govuk-table__header">Created At</th>
         <th class="govuk-table__header">Service Email</th>
-        <th class="govuk-table__header">MOU</th>
+        <th class="govuk-table__header" colspan="2">MOU</th>
         <th class="govuk-table__header"></th>
       </tr>
     </thead>
     <tbody class="govuk-table__body">
       <% @all_organisations.each do | organisation| %>
         <tr class="govuk-table__row">
-        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.name %></td>
-        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.created_at.strftime('%e %b %Y %H:%M %P') %></td>
-        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.service_email %></td>
-        <td class="govuk-table__cell quarter-column" scope="row">
+        <td class="govuk-table__cell" scope="row"><%=  organisation.name %></td>
+        <td class="govuk-table__cell" scope="row"><%=  organisation.created_at.strftime('%e %b %Y %H:%M %P') %></td>
+        <td class="govuk-table__cell" scope="row"><%=  organisation.service_email %></td>
+        <td class="govuk-table__cell" scope="row">
           <% if organisation.signed_mou.attached? %>
             <%= link_to 'Download', rails_blob_path(organisation.signed_mou, disposition: "attachment") %> 
           <% end %>
