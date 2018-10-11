@@ -24,3 +24,6 @@
 
 # Ignore mac specific file that stores custom attributes
 .DS_Store
+
+# SimpleCov output
+coverage
