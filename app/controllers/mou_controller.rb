@@ -11,7 +11,7 @@ class MouController < ApplicationController
     redirect_to mou_index_path
   end
 
-  def admin
+  def admin_index
     render 'admin'
   end
 
