@@ -2,7 +2,10 @@ require 'features/support/sign_up_helpers'
 
 describe "View authentication requests for a username" do
   context "with results" do
-    let(:user) { create(:user, :confirmed, :with_organisation) }
+    let(:username) { "AAAAAA" }
+    let(:organisation) { create(:organisation) }
+    let(:admin_user) { create(:user, :confirmed, organisation_id: organisation.id) }
+    let(:location) { create(:location, organisation_id: organisation.id) }
     let(:logs) do
       [
         {
@@ -10,7 +13,7 @@ describe "View authentication requests for a username" do
           "building_identifier" => "",
           "id" => 1,
           "mac" => "",
-          "siteIP" => "",
+          "siteIP" => "1.1.1.1",
           "start" => "2018-10-01 18:18:09 +0000",
           "stop" => nil,
           "success" => true,
@@ -21,7 +24,18 @@ describe "View authentication requests for a username" do
           "building_identifier" => "",
           "id" => 1,
           "mac" => "",
-          "siteIP" => "",
+          "siteIP" => "1.1.1.1",
+          "start" => "2018-10-01 18:18:09 +0000",
+          "stop" => nil,
+          "success" => false,
+          "username" => username
+        },
+        {
+          "ap" => "",
+          "building_identifier" => "",
+          "id" => 1,
+          "mac" => "",
+          "siteIP" => "2.2.2.2",
           "start" => "2018-10-01 18:18:09 +0000",
           "stop" => nil,
           "success" => false,
@@ -41,7 +55,13 @@ describe "View authentication requests for a username" do
           })
         .to_return(status: 200, body: logs.to_json, headers: {})
 
-      sign_in_user user
+      organisation = create(:organisation)
+      location_two = create(:location, organisation: organisation)
+
+      create(:ip, location_id: location.id, address: "1.1.1.1")
+      create(:ip, location: location_two, address: "2.2.2.2")
+
+      sign_in_user admin_user
       visit search_logs_path
       fill_in "username", with: username
       click_on "Submit"
@@ -76,6 +96,14 @@ describe "View authentication requests for a username" do
         expect(page).to have_content("Username must be 6 characters in length")
         expect(page).to have_content("Find authentication requests for a username")
       end
+    end
+
+    it "displays the logs of the ip the organisation does not own" do
+      expect(page).to have_content("1.1.1.1")
+    end
+
+    it "does not display the logs of the ip the organisation does not own" do
+      expect(page).to_not have_content("2.2.2.2")
     end
   end
 
