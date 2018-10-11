@@ -55,11 +55,11 @@ describe "View authentication requests for a username" do
           })
         .to_return(status: 200, body: logs.to_json, headers: {})
 
-      organisation = create( :organisation )
-      location_two = create( :location, organisation: organisation )
+      organisation = create(:organisation)
+      location_two = create(:location, organisation: organisation)
 
-      create(:ip, location_id: location.id, address: "1.1.1.1" )
-      create(:ip, location: location_two, address: "2.2.2.2" )
+      create(:ip, location_id: location.id, address: "1.1.1.1")
+      create(:ip, location: location_two, address: "2.2.2.2")
 
       sign_in_user admin_user
       visit search_logs_path
@@ -71,7 +71,7 @@ describe "View authentication requests for a username" do
       expect(page).to have_content("Displaying logs for #{username}")
     end
 
-    it "displays the logs of the ips owned by the organisation location" do
+    it "displays the logs of the ip the organisation does own" do
       expect(page).to have_content("1.1.1.1")
     end
 
