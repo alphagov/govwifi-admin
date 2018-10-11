@@ -4,7 +4,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= link_to "Back to list", ips_path(anchor: :ips), class: "govuk-back-link" %>
 
-    <h2 class="govuk-heading-l">Add a new IP Address</h2>
+    <h2 class="govuk-heading-l">Add a new IP address</h2>
 
     <%= render "activation_notice" %>
 
@@ -33,12 +33,12 @@
         <p><hr></p>
 
         <div class="govuk-form-group <%= field_error(@ip, :address) %>">
-          <%= form.label :ip, "Enter IP Address (IPv4 only)", class: "govuk-label"  %><br />
+          <%= form.label :ip, "Enter IP address (IPv4 only)", class: "govuk-label"  %><br />
           <%= form.text_field :address, id: :address, autocomplete: "off", class: "govuk-input", required: true %>
         </div>
 
         <div class="actions">
-          <%= form.submit "Add new IP Address", class: "govuk-button" %>
+          <%= form.submit "Add new IP address", class: "govuk-button" %>
         </div>
       <% end %>
     </div>
