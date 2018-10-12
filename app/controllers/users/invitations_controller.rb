@@ -3,6 +3,10 @@ class Users::InvitationsController < Devise::InvitationsController
 
 private
 
+  def after_invite_path_for(resource)
+    team_members_path
+  end
+
   def add_organisation_to_params
     params[:user][:organisation_id] = current_user.organisation_id
   end
