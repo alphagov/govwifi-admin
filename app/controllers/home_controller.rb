@@ -3,6 +3,8 @@ class HomeController < ApplicationController
     @ips = current_organisation.ips
     @london_radius_ips = radius_ips[:london]
     @dublin_radius_ips = radius_ips[:dublin]
+
+    current_organisation.mou_signed?
   end
 
 private

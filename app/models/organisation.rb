@@ -4,4 +4,8 @@ class Organisation < ApplicationRecord
   has_many :ips, through: :locations
 
   validates :name, presence: true, uniqueness: true
+
+  def mou_signed?
+    false
+  end
 end
