@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.active_storage.service = :amazon
   config.cache_classes = true
   config.eager_load = true
   config.consider_all_requests_local       = false
