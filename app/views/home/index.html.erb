@@ -1,8 +1,21 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+
     <h2 class="govuk-heading-l">Get GovWifi Access in your Organisation</h2>
     <div>
+
+    <% unless current_organisation.mou_signed? %>
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+        In order to keep using our service, your organisation needs to <%= link_to "sign GovWifi's Memorandum of Understanding", new_ip_path %>.</p>
+      </strong></a>
+      </div>
+    <% end %>
+
       <h3 class="govuk-heading-m"> 1. Add IPs </h3>
+
         <% if @ips.empty? %>
           <p class="govuk-body">
             You need to <%= link_to "add the IPs", new_ip_path %> of your authenticator(s).</p>
