@@ -20,7 +20,9 @@ setup: build
 .PHONY: launch_db
 launch_db:
 	$(DOCKER_COMPOSE) up -d db
+	$(DOCKER_COMPOSE) up -d rr_db
 	./mysql/bin/wait_for_mysql
+  ./mysql/bin/wait_for_rr_db
 
 .PHONY: serve
 serve: stop build launch_db

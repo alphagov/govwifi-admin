@@ -4,25 +4,23 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Sign up your Organisation to GovWifi</h1>
 
-    <p class="govuk-body govuk-!-padding-bottom-1 govuk-!-font-size-19">
+    <p class="govuk-body">
       If you are trying to connect to GovWifi as an end user, see instructions <%= link_to "here", "", class: "govuk-link" %>
     </p>
 
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
-        <div class="govuk-form-group <%= field_error(resource, :email)  %>">
-          <%= f.label :email, "Enter your email address", class: "govuk-label"  %><br />
-          <div class="govuk-hint"> Must be a valid government email address </div>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input", required: true %>
-        </div>
-        
-        <div class="actions">
-          <%= f.submit "Sign up", class: "govuk-button govuk-!-margin-top-4" %>
-        </div>
-      <% end %>
+      <div class="govuk-form-group <%= field_error(resource, :email)  %>">
+        <%= f.label :email, "Enter your email address", class: "govuk-label"  %>
+        <div class="govuk-hint"> Must be a valid government email address </div>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input", required: true %>
+      </div>
 
-      <%= render "users/shared/links" %>
-    </div>
+      <div class="actions">
+        <%= f.submit "Sign up", class: "govuk-button" %>
+      </div>
+    <% end %>
+
+    <%= render "users/shared/links" %>
   </div>
 </div>

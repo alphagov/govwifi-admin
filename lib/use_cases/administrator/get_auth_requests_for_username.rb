@@ -6,7 +6,15 @@ module UseCases
       end
 
       def execute(username:)
+        return [] if username_invalid?(username)
+
         @authentication_logs_gateway.search(username: username)
+      end
+
+    private
+
+      def username_invalid?(username)
+        username.nil? || username.empty? || username.length != 6
       end
     end
   end

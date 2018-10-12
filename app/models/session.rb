@@ -1,0 +1,2 @@
+class Session < ReadReplicaBase
+end

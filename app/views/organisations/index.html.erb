@@ -7,8 +7,8 @@
       <tr class="govuk-table__row">
         <th class="govuk-table__header">Name</th>
         <th class="govuk-table__header">Created At</th>
-        <th class="govuk-table__header">Updated At</th>
         <th class="govuk-table__header">Service Email</th>
+        <th class="govuk-table__header"></th>
       </tr>
     </thead>
     <tbody class="govuk-table__body">
@@ -16,8 +16,8 @@
         <tr class="govuk-table__row">
         <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.name %></td>
         <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.created_at.strftime('%e %b %Y %H:%M %P') %></td>
-        <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.updated_at.strftime('%e %b %Y %H:%M %P') %></td>
         <td class="govuk-table__cell quarter-column" scope="row"><%=  organisation.service_email %></td>
+        <td class="govuk-table__cell quarter-column" scope="row"></td>
         </tr>
       <% end %>
     </tbody>

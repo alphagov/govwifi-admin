@@ -12,11 +12,11 @@ Rails.application.routes.draw do
   end
 
   get '/healthcheck', to: 'monitoring#healthcheck'
-  resources :status, only: [:index]
-  resources :organisations, only: [:index]
+  resources :status, only: %i[index]
+  resources :organisations, only: %i[index]
   resources :ips, only: %i[index new create]
   resources :help, only: %i[index create]
-  resources :team_members, only: [:index]
+  resources :team_members, only: %i[index]
   resources :logs, only: %i[index] do
     get 'search', on: :collection
   end

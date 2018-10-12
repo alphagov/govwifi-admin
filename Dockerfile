@@ -15,6 +15,11 @@ ENV S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY 'StubKey'
 ENV S3_WHITELIST_OBJECT_KEY 'WhitelistStubKey'
 ENV LOGGING_API_SEARCH_ENDPOINT 'https://govwifi-logging-api.gov.uk/search/'
 
+ENV RR_DB_USER root
+ENV RR_DB_PASS root
+ENV RR_DB_HOST rr_db
+ENV RR_DB_NAME rr_govwifi
+
 WORKDIR /usr/src/app
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \

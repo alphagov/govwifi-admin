@@ -9,8 +9,19 @@ services:
     ports:
       - "13306:3306"
 
+  rr_db:
+    build: ./mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: root
+      MYSQL_DATABASE: rr_govwifi
+    ports:
+      - "13307:3306"
+
   app:
     build: .
+    links:
+      - rr_db
     ports:
       - "8080:3000"
     depends_on:

@@ -2,7 +2,7 @@ describe UseCases::Administrator::CheckIfValidIp do
   subject { described_class.new }
 
   context 'invalid' do
-    context 'with an invalid IP Address' do
+    context 'with an invalid IP address' do
       let(:address) { "incorrectIP" }
 
       it 'returns false' do

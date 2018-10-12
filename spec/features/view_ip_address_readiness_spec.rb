@@ -15,7 +15,7 @@ describe 'with a stubbed notifications service' do
         visit new_ip_path
         fill_in 'address', with: '10.0.0.1'
         fill_in 'ip_location_attributes_address', with: 'Made Towers'
-        click_on 'Add new IP Address'
+        click_on 'Add new IP address'
       end
 
       context 'and I view it immediately' do
