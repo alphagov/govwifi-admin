@@ -15,7 +15,7 @@ describe 'Add an IP to my account' do
     before do
       sign_in_user user
       visit ips_path
-      click_on 'Add IP Address'
+      click_on 'Add IP address'
     end
 
     context 'the location field empty' do
@@ -23,7 +23,7 @@ describe 'Add an IP to my account' do
         fill_in 'address', with: '10.0.0.1'
         fill_in 'ip_location_attributes_address', with: ''
         fill_in 'ip_location_attributes_postcode', with: 'CC DDD'
-        click_on 'Add new IP Address'
+        click_on 'Add new IP address'
       end
 
       it_behaves_like 'errors in form'
@@ -45,20 +45,20 @@ describe 'Add an IP to my account' do
       before do
         sign_in_user user
         visit ips_path
-        click_on 'Add IP Address'
+        click_on 'Add IP address'
       end
 
       it_behaves_like 'shows activation notice'
 
       it 'asks me to enter an IP' do
-        expect(page).to have_content('Enter IP Address (IPv4 only)')
+        expect(page).to have_content('Enter IP address (IPv4 only)')
       end
 
       context 'and that IP is valid' do
         before do
           fill_in 'address', with: '10.0.0.1'
           select '10 Street, XX YYY'
-          click_on 'Add new IP Address'
+          click_on 'Add new IP address'
         end
 
         it 'shows me the IP was added' do
@@ -74,7 +74,7 @@ describe 'Add an IP to my account' do
             visit new_ip_path
             fill_in 'address', with: '10.0.0.2'
             select '50 Road, ZZ AAA'
-            click_on 'Add new IP Address'
+            click_on 'Add new IP address'
           end
 
           it 'shows both new IPs' do
@@ -92,13 +92,13 @@ describe 'Add an IP to my account' do
         before do
           fill_in 'address', with: '10.wrong.0.1'
           select '10 Street, XX YYY'
-          click_on 'Add new IP Address'
+          click_on 'Add new IP address'
         end
 
         it_behaves_like 'errors in form'
 
         it 'asks me to re-enter my IP' do
-          expect(page).to have_content('Enter IP Address')
+          expect(page).to have_content('Enter IP address')
         end
 
         it 'tells me what I entered was invalid' do
@@ -125,7 +125,7 @@ describe 'Add an IP to my account' do
         before do
           sign_in_user user
           visit ips_path
-          click_on 'Add IP Address'
+          click_on 'Add IP address'
         end
 
         context 'and that IP is invalid' do
@@ -134,7 +134,7 @@ describe 'Add an IP to my account' do
             fill_in 'ip_location_attributes_address', with: '30 Square'
             fill_in 'ip_location_attributes_postcode', with: 'CC DDD'
             select '10 Street, XX YYY'
-            click_on 'Add new IP Address'
+            click_on 'Add new IP address'
           end
 
           it 'shows me the IP was added' do
@@ -154,7 +154,7 @@ describe 'Add an IP to my account' do
               fill_in 'ip_location_attributes_address', with: '30 Square'
               fill_in 'ip_location_attributes_postcode', with: 'CC DDD'
               select '10 Street, XX YYY'
-              click_on 'Add new IP Address'
+              click_on 'Add new IP address'
             end
 
             it 'shows me the IP was added' do
@@ -172,7 +172,7 @@ describe 'Add an IP to my account' do
               fill_in 'address', with: '10.0.0.1'
               fill_in 'ip_location_attributes_address', with: '30 Square'
               fill_in 'ip_location_attributes_postcode', with: 'CC DDD'
-              click_on 'Add new IP Address'
+              click_on 'Add new IP address'
             end
 
             it 'shows me the IP was added' do
