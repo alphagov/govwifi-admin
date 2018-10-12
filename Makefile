@@ -10,7 +10,7 @@ ifndef JENKINS_URL
 endif
 
 .PHONY: build
-build: stop
+build:
 	$(DOCKER_COMPOSE) build $(BUNDLE_FLAGS)
 
 .PHONY: setup
@@ -25,7 +25,7 @@ launch_db:
 	./mysql/bin/wait_for_rr_db
 
 .PHONY: serve
-serve: stop build launch_db
+serve: build launch_db
 	$(DOCKER_COMPOSE) run --rm app rm -f tmp/pids/server.pid
 	$(DOCKER_COMPOSE) up -d
 
