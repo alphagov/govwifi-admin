@@ -16,6 +16,7 @@
 
         <div class="govuk-form-group <%= field_error(resource, :password) %>">
           <%= f.label :password, "Password", class: "govuk-label" %>
+          <div class="govuk-hint"> Must be at least 6 characters long</div>
           <%= f.password_field :password, class: "govuk-input", autocomplete: "off", required: true %>
         </div>
 
