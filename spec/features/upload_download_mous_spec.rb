@@ -2,11 +2,8 @@ require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
 
 describe 'the upload and download of MOUs' do
-  before do
-    Mou.create!
-  end
   context 'when logged out' do
-    before { visit mou_index_path }
+    before { visit organisations_mou_index_path }
 
     it_behaves_like 'not signed in'
   end
@@ -18,7 +15,7 @@ describe 'the upload and download of MOUs' do
 
       it 'can upload and download a version of the mou' do
         sign_in_user user
-        visit mou_index_path
+        visit organisations_mou_index_path
 
         attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
         click_on 'Upload'
@@ -36,9 +33,9 @@ describe 'the upload and download of MOUs' do
 
     it ' uploads and downloads the mou template' do
       sign_in_user user
-      visit admin_mou_index_path
+      visit admins_mou_index_path
 
-      attach_file("unsigned_template", Rails.root + "spec/fixtures/mou.pdf")
+      attach_file("unsigned_document", Rails.root + "spec/fixtures/mou.pdf")
       click_on 'Upload'
 
       click_on 'Download current template'

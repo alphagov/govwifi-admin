@@ -20,9 +20,11 @@ Rails.application.routes.draw do
   resources :logs, only: %i[index] do
     get 'search', on: :collection
   end
-  resources :mou, only: %i[index update] do
-    post 'upload', on: :collection
-    get 'admin_index', on: :collection, as: :admin
-    post 'admin_upload', on: :collection
+
+  namespace :admins do
+    resources :mou, only: %i[index update create]
+  end
+  namespace :organisations do
+    resources :mou, only: %i[index create]
   end
 end

@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_093638) do
     t.index ["organisation_id"], name: "index_locations_on_organisation_id"
   end
 
-  create_table "mous", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "mou_templates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
