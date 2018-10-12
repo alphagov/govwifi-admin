@@ -48,7 +48,7 @@ describe 'View IP addresses' do
         location_2 = create(:location,
           organisation: user.organisation ,
           address: address_2,
-          postcode: postcode_1
+          postcode: postcode_2
         )
 
         create(:ip, address: ip_1, location: location_1)
