@@ -21,6 +21,7 @@
 /yarn-error.log
 
 .byebug_history
+package-lock.json
 
 # Ignore mac specific file that stores custom attributes
 .DS_Store
