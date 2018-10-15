@@ -14,7 +14,7 @@ build:
 	$(DOCKER_COMPOSE) build $(BUNDLE_FLAGS)
 
 .PHONY: setup
-setup: buildxzc
+setup: build
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
 
 .PHONY: launch_db
