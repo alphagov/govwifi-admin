@@ -1,8 +1,21 @@
-<div>
-  <h2 class="govuk-heading-m"><%= region %></h2>
-  <ul class="govuk-list">
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th class="govuk-table__header" scope="col"><%= region %></th>
+      <th class="govuk-table__header"></th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
     <% health_checks.each do |health_check| %>
-      <li><div class="health-check-status health-check-<%= health_check.fetch(:status) %>">&nbsp;</div><%= health_check.fetch(:status).capitalize %> - <strong><%= health_check.fetch(:ip_address) %></strong></li>
+      <% status = health_check.fetch(:status) %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell half-column" scope="row">
+          <%= health_check.fetch(:ip_address) %>
+        </td>
+        <td class="govuk-table__cell half-column <%= "health-check-#{status}" %>" scope="row">
+          <strong><%= status.capitalize %></strong>
+        </td>
+      </tr>
     <% end %>
-  </ul>
-</div>
+  </tbody>
+</table>
