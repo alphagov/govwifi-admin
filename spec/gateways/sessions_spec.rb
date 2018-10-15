@@ -72,6 +72,19 @@ describe Gateways::Sessions do
         result = subject.search(username: username)
         expect(result.count).to eq(1)
       end
+
+      context 'Multiple IP addresses' do
+        let(:my_ips) { ['1.1.1.1', '2.2.2.2'] }
+
+        it 'only selects logs matching my IP addresses' do
+          Session.create(start: today_date, username: username, siteIP: '1.1.1.1')
+          Session.create(start: today_date, username: username, siteIP: '2.2.2.2')
+          Session.create(start: today_date, username: username, siteIP: '3.3.3.3')
+
+          result = subject.search(username: username)
+          expect(result.count).to eq(2)
+        end
+      end
     end
   end
 
