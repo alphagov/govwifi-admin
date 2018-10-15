@@ -5,9 +5,9 @@ module Gateways
     end
 
     def search(username:)
-      results = Session.where(
-        'username = ? and start >= ? and siteIP in (?)', username, 2.weeks.ago, ips.join(',')
-      ).order('start DESC').limit(100)
+      results = Session.where('username = ? and start >= ? and siteIP IN (?)', username, 2.weeks.ago, ips)
+        .order('start DESC')
+        .limit(100)
 
       results.map do |log|
         {
