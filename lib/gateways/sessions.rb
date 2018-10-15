@@ -4,9 +4,8 @@ module Gateways
       @ips = ips
     end
 
-    def search(username:, ip: nil)
-      query = { username: username }
-      query[:siteIP] = ip unless ip.nil?
+    def search(username: nil, ip: nil)
+      query = username.present? ? { username: username } : { siteIp: ip }
 
       results = Session.where(query).where(
         'start >= ? and siteIP IN (?)', 2.weeks.ago, ips

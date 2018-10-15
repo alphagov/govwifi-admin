@@ -90,21 +90,19 @@ describe Gateways::Sessions do
     context 'Searching by IP' do
       let(:my_ips) { ['1.1.1.1', '2.2.2.2'] }
 
-      it 'only selects logs matching my IP query' do
-        Session.create(start: today_date, username: username, siteIP: '1.1.1.1')
-        Session.create(start: today_date, username: username, siteIP: '2.2.2.2')
-        Session.create(start: today_date, username: username, siteIP: '3.3.3.3')
+      before do
+        ['1.1.1.1', '2.2.2.2', '3.3.3.3'].each do |ip|
+          Session.create(start: today_date, username: username, siteIP: ip)
+        end
+      end
 
-        result = subject.search(username: username, ip: '1.1.1.1')
+      it 'only selects logs matching my IP query' do
+        result = subject.search(username: nil, ip: '1.1.1.1')
         expect(result.count).to eq(1)
       end
 
       it 'doesn\'t allow searching by another organisations IP' do
-        Session.create(start: today_date, username: username, siteIP: '1.1.1.1')
-        Session.create(start: today_date, username: username, siteIP: '2.2.2.2')
-        Session.create(start: today_date, username: username, siteIP: '3.3.3.3')
-
-        result = subject.search(username: username, ip: '3.3.3.3')
+        result = subject.search(username: nil, ip: '3.3.3.3')
         expect(result).to be_empty
       end
     end
