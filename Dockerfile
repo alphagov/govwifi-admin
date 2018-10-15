@@ -1,4 +1,4 @@
-FROM ruby:2.5 as base
+FROM ruby:2.5
 ARG BUNDLE_INSTALL_CMD
 
 ENV RACK_ENV development
@@ -31,11 +31,8 @@ ENV PATH "$PATH:/root/.yarn/bin:/root/.config/yarn/global/node_modules/.bin"
 COPY Gemfile Gemfile.lock .ruby-version ./
 RUN ${BUNDLE_INSTALL_CMD}
 
-CMD ["bundle", "exec", "rails", "server"]
-
-
-FROM base as production
-
 COPY . .
 
 RUN RAILS_ENV=production bundle exec rails assets:precompile
+
+CMD ["bundle", "exec", "rails", "server"]
