@@ -6,6 +6,6 @@ class Organisation < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   def mou_signed?
-    false
+    true
   end
 end
