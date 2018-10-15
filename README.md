@@ -1,24 +1,31 @@
-# README
+# govwifi-admin
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Purpose
 
-Things you may want to cover:
+This is the User Admin UI for the [GovWiFi][link_govwifi] project.
 
-* Ruby version
+## How to install and use
 
-* System dependencies
+```shell
+make setup
+make serve
+```
 
-* Configuration
+Other useful Makefile targets are:
 
-* Database creation
+- `make bash` - run a shell in the docker composed application
+- `make stop` - stops the application
+- `make clean` - removes the application volumes
+- `make lint` - runs the linter
+- `make test` - runs the tests
 
-* Database initialization
+## How to contribute
 
-* How to run the test suite
+1. Fork the project
+1. Create a feature or fix branch
+1. Make your changes (with tests if possible)
+1. Run and linter `make lint`
+1. Run and pass tests `make test`
+1. Raise a pull request
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[link_govwifi]: https://www.gov.uk/government/publications/govwifi/govwifi
