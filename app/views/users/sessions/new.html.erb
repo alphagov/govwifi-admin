@@ -7,15 +7,15 @@
     </p>
 
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { novalidate: '' }) do |f| %>
 
         <div class="govuk-form-group">
           <%= f.label :email, class: "govuk-label" %>
-          <%= f.email_field :email, autofocus: true, class: "govuk-input", autocomplete: "email", required: true %>
+          <%= f.email_field :email, autofocus: true, class: "govuk-input" %>
         </div>
         <div class="govuk-form-group">
           <%= f.label :password, class: "govuk-label" %>
-          <%= f.password_field :password, class: "govuk-input", autocomplete: "off", required: true %>
+          <%= f.password_field :password, class: "govuk-input", autocomplete: "off" %>
         </div>
 
         <div>
