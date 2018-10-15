@@ -8,4 +8,4 @@ test:
  
 amazon:
   service: S3
-  bucket: "<%= ENV.fetch('S3_PUBLISHED_LOCATIONS_IPS_BUCKET') %>"
+  bucket: "<%= ENV.fetch('S3_MOUS_BUCKET') %>"
