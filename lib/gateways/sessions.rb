@@ -4,10 +4,12 @@ module Gateways
       @ips = ips
     end
 
-    def search(username:)
-      results = Session.where('username = ? and start >= ? and siteIP IN (?)', username, 2.weeks.ago, ips)
-        .order('start DESC')
-        .limit(100)
+    def search(username: nil, ip: nil)
+      query = username.present? ? { username: username } : { siteIp: ip }
+
+      results = Session.where(query).where(
+        'start >= ? and siteIP IN (?)', 2.weeks.ago, ips
+      ).order('start DESC').limit(100)
 
       results.map do |log|
         {

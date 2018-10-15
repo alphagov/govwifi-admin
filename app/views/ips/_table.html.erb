@@ -4,6 +4,7 @@
     <tr class="govuk-table__row">
       <th class="govuk-table__header" scope="col">IP Address</th>
       <th class="govuk-table__header"></th>
+      <th class="govuk-table__header"></th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
@@ -16,6 +17,7 @@
           <td class="govuk-table__cell half-column unavailable-ip">Not available until 6am tomorrow
           </td>
         <% end %>
+        <td class="govuk-table__cell half-column"><%= link_to 'Logs', logs_path(ip: ip.address) %></td>
       </tr>
     <% end %>
   </tbody>
