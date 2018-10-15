@@ -7,14 +7,15 @@ This is the User Admin UI for the [GovWiFi][link_govwifi] project.
 ## How to install and use
 
 ```shell
-make build
+make setup
 make serve
 ```
 
 Other useful Makefile targets are:
 
 - `make bash` - run a shell in the docker composed application
-- `make stop` - stops the application and docker removes volumes
+- `make stop` - stops the application
+- `make clean` - removes the application volumes
 - `make lint` - runs the linter
 - `make test` - runs the tests
 
