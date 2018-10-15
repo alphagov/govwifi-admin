@@ -91,7 +91,7 @@ describe "View authentication requests for a username" do
     end
 
     it 'displays the no results message' do
-      expect(page).to have_content("No results found for that username, please try again")
+      expect(page).to have_content('No results found')
     end
   end
 end
