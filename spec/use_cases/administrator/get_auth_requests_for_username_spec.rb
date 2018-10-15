@@ -21,7 +21,7 @@ describe UseCases::Administrator::GetAuthRequestsForUsername do
 
     it 'returns an empty result' do
       invalid_usernames.each do |username|
-        expect(subject.execute(username: username)).to eq([])
+        expect(subject.execute(username: username)).to eq(error: 'Username must be 6 characters in length.', results: [])
       end
     end
   end

@@ -1,7 +1,13 @@
 module Gateways
   class Sessions
+    def initialize(ips:)
+      @ips = ips
+    end
+
     def search(username:)
-      results = Session.where('username = ? and start >= ?', username, 2.weeks.ago)
+      results = Session.where(
+        'username = ? and start >= ? and siteIP in (?)', username, 2.weeks.ago, ips.join(',')
+      ).order('start DESC').limit(100)
 
       results.map do |log|
         {
@@ -14,5 +20,9 @@ module Gateways
         }
       end
     end
+
+  private
+
+    attr_reader :ips
   end
 end
