@@ -23,6 +23,4 @@ services:
     links:
       - rr_db
     ports:
-      - "8080:3000"
-    depends_on:
-      - db
+    - "8080:3000"
