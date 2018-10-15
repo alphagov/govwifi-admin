@@ -9,12 +9,15 @@ describe 'the upload and download of MOUs' do
   end
 
   context 'As normal user' do
-    context 'uploading the signed mou' do
-      let!(:organisation) { create(:organisation) }
-      let!(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation) }
+    let!(:organisation) { create(:organisation) }
+    let!(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation) }
 
+    before do
+      sign_in_user user
+    end
+
+    context 'uploading the signed mou' do
       it 'can upload and download a version of the mou' do
-        sign_in_user user
         visit organisations_mou_index_path
 
         attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
@@ -25,13 +28,21 @@ describe 'the upload and download of MOUs' do
         expect(page.body).to eq("12334567 signed mou with content\n")
       end
     end
+
+    context 'when trying to access MOU pages for admins' do
+      it 'redirects unauthorised access' do
+        visit admins_mou_index_path
+
+        expect(page.current_path).to eq(root_path)
+      end
+    end
   end
 
   context 'As a super admin' do
     let!(:organisation) { create(:organisation) }
     let!(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation, admin: true) }
 
-    it ' uploads and downloads the mou template' do
+    it 'uploads and downloads the mou template' do
       sign_in_user user
       visit admins_mou_index_path
 
