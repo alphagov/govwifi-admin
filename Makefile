@@ -14,7 +14,7 @@ build:
 	$(DOCKER_COMPOSE) build $(BUNDLE_FLAGS)
 
 .PHONY: setup
-setup: build
+setup: buildxzc
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
 
 .PHONY: launch_db
@@ -35,7 +35,7 @@ lint: build
 
 .PHONY: test
 test: build launch_db
-	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:environment:set RAILS_ENV=test db:create db:schema:load db:migrate
+	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:environment:set RAILS_ENV=test db:schema:load db:migrate
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
 .PHONY: bash
