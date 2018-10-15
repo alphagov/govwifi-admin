@@ -86,6 +86,26 @@ describe Gateways::Sessions do
         end
       end
     end
+
+    context 'Searching by IP' do
+      let(:my_ips) { ['1.1.1.1', '2.2.2.2'] }
+
+      before do
+        ['1.1.1.1', '2.2.2.2', '3.3.3.3'].each do |ip|
+          Session.create(start: today_date, username: username, siteIP: ip)
+        end
+      end
+
+      it 'only selects logs matching my IP query' do
+        result = subject.search(username: nil, ip: '1.1.1.1')
+        expect(result.count).to eq(1)
+      end
+
+      it 'doesn\'t allow searching by another organisations IP' do
+        result = subject.search(username: nil, ip: '3.3.3.3')
+        expect(result).to be_empty
+      end
+    end
   end
 
   context 'old log entries' do

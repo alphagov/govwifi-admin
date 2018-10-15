@@ -27,4 +27,4 @@ Ip.create!(address: '193.1.1.9', location: location_2)
 
 5.times { Organisation.create(name: Faker::Company.name) }
 
-Mou.create!
+MouTemplate.create!
