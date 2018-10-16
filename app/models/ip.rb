@@ -1,7 +1,7 @@
 class Ip < ApplicationRecord
   belongs_to :location
 
-  validates :address, presence: true
+  validates :address, presence: true, uniqueness: true
   validate :address_must_be_valid_ip
 
   accepts_nested_attributes_for :location

@@ -115,6 +115,22 @@ describe 'Add an IP to my account' do
           end
         end
       end
+
+      context 'and that IP is a duplicate' do
+        let!(:existing_ip) { create(:ip, :with_location_and_organisation, address: "1.1.1.1") }
+
+        before do
+          fill_in 'address', with: '1.1.1.1'
+          select '10 Street, XX YYY'
+          click_on 'Add new IP address'
+        end
+
+        it_behaves_like 'errors in form'
+
+        it 'tells me what I entered was invalid' do
+          expect(page).to have_content('Address has already been taken')
+        end
+      end
     end
 
     context 'to new location' do
