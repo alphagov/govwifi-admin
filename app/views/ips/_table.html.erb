@@ -5,14 +5,14 @@
   <tbody class="govuk-table__body" id="ips-table">
     <% location.ips.each do |ip| %>
       <tr class="govuk-table__row">
-        <td class="govuk-table__cell""><%= ip.address %></td>
+        <td class="govuk-table__cell column-third""><%= ip.address %></td>
         <% if ip.available? %>
-          <td class="govuk-table__cell">Available</td>
+          <td class="govuk-table__cell column-third">Available</td>
         <% else %>
-          <td class="govuk-table__cell unavailable-ip">Not available until 6am tomorrow
+          <td class="govuk-table__cell column-third unavailable-ip">Not available until 6am tomorrow
           </td>
         <% end %>
-        <td class="govuk-table__cell"><%= link_to 'View activity', logs_path(ip: ip.address) %></td>
+        <td class="govuk-table__cell column-third text-right"><%= link_to 'View activity', logs_path(ip: ip.address) %></td>
       </tr>
     <% end %>
   </tbody>
