@@ -8,24 +8,35 @@ describe 'the upload and download of MOUs' do
     it_behaves_like 'not signed in'
   end
 
-  context 'As normal user' do
-    let!(:organisation) { create(:organisation) }
-    let!(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation) }
+  context 'as a normal user' do
+    let(:organisation) { create(:organisation) }
+    let(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation) }
 
     before do
       sign_in_user user
     end
 
-    context 'uploading the signed mou' do
-      it 'can upload and download a version of the mou' do
+    context 'uploading an mou' do
+      before do
         visit organisations_mou_index_path
-
         attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
         click_on 'Upload'
+      end
 
+      it 'allows downloading the mou again' do
         click_on 'Download your signed MOU'
 
         expect(page.body).to eq("12334567 signed mou with content\n")
+      end
+
+      context 'and then visiting the homepage' do
+        before { visit root_path }
+
+        it 'does not prompt me to upload the MOU' do
+          expect(page).to_not have_content(
+            "sign GovWifi's Memorandum of Understanding"
+          )
+        end
       end
     end
 
@@ -38,7 +49,7 @@ describe 'the upload and download of MOUs' do
     end
   end
 
-  context 'As a super admin' do
+  context 'as a super admin' do
     let!(:organisation) { create(:organisation) }
     let!(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation, admin: true) }
 
