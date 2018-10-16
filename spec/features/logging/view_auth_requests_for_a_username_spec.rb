@@ -9,7 +9,7 @@ describe "View authentication requests for a username" do
 
     before do
       Session.create!(
-        start: "2018-10-01 18:18:09 +0000",
+        start: 3.days.ago,
         username: username,
         mac: '',
         ap: '',
@@ -19,7 +19,7 @@ describe "View authentication requests for a username" do
       )
 
       Session.create!(
-        start: "2018-10-01 18:18:09 +0000",
+        start: 3.days.ago,
         username: username,
         mac: '',
         ap: '',
@@ -29,7 +29,7 @@ describe "View authentication requests for a username" do
       )
 
       Session.create!(
-        start: "2018-10-01 18:18:09 +0000",
+        start: 3.days.ago,
         username: username,
         mac: '',
         ap: '',
