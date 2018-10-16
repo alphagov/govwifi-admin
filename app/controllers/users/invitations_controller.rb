@@ -3,7 +3,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
 private
 
-  def after_invite_path_for(resource)
+  def after_invite_path_for(_resource)
     team_members_path
   end
 
