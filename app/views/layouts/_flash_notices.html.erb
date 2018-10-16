@@ -1,4 +1,6 @@
 <% flash.each do |name, msg| -%>
+  <% next if msg.empty? %>
+
   <% if name == 'notice' %>
     <div class='flash-holder'>
       <%= content_tag :p, msg, class: "govuk-heading-m flash-message-notice" %>
