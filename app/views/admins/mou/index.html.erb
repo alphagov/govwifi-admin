@@ -10,9 +10,12 @@
     <h3 class="govuk-heading-m">Upload Template</h3>
     <p class="govuk-body"> </p>
     <p class="govuk-body"> </p>
-    <%= form_with url: admins_mou_index_path, method: 'post' do |form| %>
+    <%= form_with url: admins_mou_index_path, method: 'post', class: 'govuk-form-group' do |form| %>
+      <%= form.label :unsigned_mou, 'Select template file', class: 'govuk-label' %>
       <%= form.file_field(:unsigned_document) %>
-      <%= form.submit('Upload') %>
+      <p>
+        <%= form.submit('Upload', class: 'govuk-button') %>
+      </p>
     <% end %>
     <div class="govuk-inset-text">
       Any new uploads will overwrite the existing file.

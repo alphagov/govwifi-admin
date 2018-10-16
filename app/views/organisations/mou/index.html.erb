@@ -34,9 +34,12 @@
           <p class="govuk-body"> Most recent upload: <%= link_to 'Download your signed MOU', rails_blob_path(current_organisation.signed_mou, disposition: "attachment") %> </p>
         <% end %>
         <p class="govuk-body">
-          <%= form_with url: organisations_mou_index_path, method: 'post' do |form| %>
-            <%= form.file_field(:signed_mou) %>
-            <%= form.submit('Upload') %>
+          <%= form_with url: organisations_mou_index_path, method: 'post', class: 'govuk-form-group' do |form| %>
+            <%= form.label :signed_mou, 'Select signed MOU file', class: 'govuk-label' %>
+            <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
+            <p>
+              <%= form.submit('Upload', class: 'govuk-button') %>
+            </p>
           <% end %>
         </p>
         <div class="govuk-inset-text">
