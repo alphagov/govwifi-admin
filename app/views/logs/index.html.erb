@@ -1,9 +1,6 @@
 <%= link_to "Back to search", search_logs_path, class: "govuk-back-link" %>
 
-<% if @logs.empty? %>
-  <h3 class="govuk-heading-m">No results found for that username, please try again</h3>
-<% else %>
-
+<% if @logs.present? %>
   <h1>Displaying logs for <%= params[:username] || params[:ip] %></h1>
   <table class="govuk-table">
     <caption class="govuk-table__caption"><%= @logs.count %> results</caption>
@@ -30,4 +27,6 @@
       <% end %>
     </tbody>
   </table>
+<% else %>
+  <h3 class="govuk-heading-m">No results found</h3>
 <% end %>
