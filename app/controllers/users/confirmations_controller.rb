@@ -64,6 +64,6 @@ protected
   end
 
   def user_params
-    params.require(:user).permit(:name, :password, :password_confirmation, organisation_attributes: [:name])
+    params.require(:user).permit(:name, :password, :password_confirmation, organisation_attributes: %i[name service_email])
   end
 end
