@@ -2,21 +2,20 @@
   <tbody class="govuk-table__body">
     <% team_members.each do |member| %>
       <tr class="govuk-table__row">
-        <td class="govuk-table__cell "><%= member.email %></td>
         <% if member.invitation_pending? %>
-          <td class="govuk-table__cell" id="pending-invite">
-            Invitation pending
-          </td>
-          <td class="govuk-table__cell ">
+          <td class="govuk-table__cell"><strong>Invitation pending</strong></td>
+          <td class="govuk-table__cell text-light-grey"><%= member.email %></td>
+          <td class="govuk-table__cell text-right">
             <%= button_to("Resend invite",
               user_invitation_path({ user: { email: member.email }}),
               method: :post,
-              class: "govuk-button small-table-button")
+              class: "resend-invite-button")
             %>
           </td>
         <% else %>
-          <td class="govuk-table__cell " />
-          <td class="govuk-table__cell " />
+          <td class="govuk-table__cell"><strong><%= member.name %></strong></td>
+          <td class="govuk-table__cell text-light-grey"><%= member.email %></td>
+          <td class="govuk-table__cell"/>
         <% end %>
       </tr>
     <% end %>

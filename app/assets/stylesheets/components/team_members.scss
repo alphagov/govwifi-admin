@@ -1,9 +1,11 @@
-.small-table-button {
-  margin-bottom: 0px;
-}
+.resend-invite-button {
+  font: inherit;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  color: $govuk-link-colour;
 
-@media only screen and (max-width: 400px) {
-  #pending-invite {
-    display: none;
+  &:hover {
+    color: $govuk-link-hover-colour;
   }
 }
