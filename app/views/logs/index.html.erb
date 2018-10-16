@@ -1,7 +1,7 @@
 <%= link_to "Back to search", search_logs_path, class: "govuk-back-link" %>
 
 <% if @logs.present? %>
-  <h1>Displaying logs for <%= params[:username] || params[:ip] %></h1>
+  <h1 class="govuk-heading-l">Displaying logs for <%= params[:username] || params[:ip] %></h1>
   <table class="govuk-table">
     <caption class="govuk-table__caption"><%= @logs.count %> results</caption>
     <thead class="govuk-table__head">
