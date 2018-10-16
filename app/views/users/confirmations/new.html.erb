@@ -3,15 +3,14 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-l">Resend confirmation instructions</h2>
-    <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, novalidate: '' }) do |f| %>
       <div class="govuk-form-group <%= field_error(resource, :email) %>">
         <%= f.label :email, "Enter your email address", class: "govuk-label" %>
         <%= f.email_field :email,
           autofocus: true,
           autocomplete: "email",
           class: "govuk-input",
-          value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
-          required: true
+          value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
         %>
       </div>
       <div class="actions">
