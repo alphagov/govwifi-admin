@@ -4,43 +4,42 @@
   <div class="govuk-grid-column-two-thirds">
     <%= link_to "Back to list", ips_path(anchor: :ips), class: "govuk-back-link" %>
 
-    <h2 class="govuk-heading-l">Add a new IP Address</h2>
+    <h2 class="govuk-heading-l">Add a new IP address</h2>
 
     <%= render "activation_notice" %>
 
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <%= form_with model: @ip do |form| %>
+    <%= form_with model: @ip do |form| %>
+      <% if @locations.present? %>
         <div class="govuk-form-group <%= field_error(@ip, :location_id) %>">
-          <%= form.label :location_id, "Add an IP to an existing location", class: "govuk-label"  %><br />
+          <%= form.label :location_id, "Add an IP to an existing location", class: "govuk-label" %>
           <%= form.select :location_id, @locations, { prompt: '-- select --' }, { class: "govuk-select" } %>
         </div>
 
         <p class="govuk-body"><strong>OR</strong></p>
+      <% end %>
 
-        <%= form.fields_for :location, @ip.build_location do |location_form| %>
-          <div class="govuk-form-group <%= field_error(@ip.build_location, :address) %>">
-            <%= location_form.label :address, "Enter new location address", class: "govuk-label"  %><br />
-            <%= location_form.text_field :address, autocomplete: "off", class: "govuk-input" %>
-          </div>
-
-          <div class="govuk-form-group">
-            <%= location_form.label :postcode, "Enter new location postcode", class: "govuk-label"  %><br />
-            <%= location_form.text_field :postcode, autocomplete: "off", class: "govuk-input" %>
-          </div>
-        <% end %>
-
-
-        <p><hr></p>
-
-        <div class="govuk-form-group <%= field_error(@ip, :address) %>">
-          <%= form.label :ip, "Enter IP Address (IPv4 only)", class: "govuk-label"  %><br />
-          <%= form.text_field :address, id: :address, autocomplete: "off", class: "govuk-input", required: true %>
+      <%= form.fields_for :location, @ip.build_location do |location_form| %>
+        <div class="govuk-form-group">
+          <%= location_form.label :address, "Enter new location address", class: "govuk-label" %>
+          <%= location_form.text_field :address, autocomplete: "off", class: "govuk-input" %>
         </div>
 
-        <div class="actions">
-          <%= form.submit "Add new IP Address", class: "govuk-button" %>
+        <div class="govuk-form-group">
+          <%= location_form.label :postcode, "Enter new location postcode", class: "govuk-label" %>
+          <%= location_form.text_field :postcode, autocomplete: "off", class: "govuk-input" %>
         </div>
       <% end %>
-    </div>
+
+      <p><hr></p>
+
+      <div class="govuk-form-group <%= field_error(@ip, :address) %>">
+        <%= form.label :ip, "Enter IP address (IPv4 only)", class: "govuk-label" %>
+        <%= form.text_field :address, id: :address, autocomplete: "off", class: "govuk-input" %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit "Add new IP address", class: "govuk-button" %>
+      </div>
+    <% end %>
   </div>
 </div>

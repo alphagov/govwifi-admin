@@ -21,7 +21,7 @@ describe "Invite a team member" do
     before do
       sign_in_user user
       visit root_path
-      click_on "Team Members"
+      click_on "Team members"
       click_on "Invite team member"
     end
 

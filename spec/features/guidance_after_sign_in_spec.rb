@@ -43,7 +43,7 @@ describe 'guidance after sign in' do
     context 'and no IPs' do
       it 'shows me I can add new IPs' do
         click_on 'add the IPs'
-        expect(page).to have_content('Enter IP Address')
+        expect(page).to have_content('Enter IP address')
       end
     end
 

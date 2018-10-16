@@ -9,7 +9,7 @@ describe "View authentication requests for a username" do
 
     before do
       Session.create!(
-        start: "2018-10-01 18:18:09 +0000",
+        start: 3.days.ago,
         username: username,
         mac: '',
         ap: '',
@@ -19,7 +19,7 @@ describe "View authentication requests for a username" do
       )
 
       Session.create!(
-        start: "2018-10-01 18:18:09 +0000",
+        start: 3.days.ago,
         username: username,
         mac: '',
         ap: '',
@@ -29,7 +29,7 @@ describe "View authentication requests for a username" do
       )
 
       Session.create!(
-        start: "2018-10-01 18:18:09 +0000",
+        start: 3.days.ago,
         username: username,
         mac: '',
         ap: '',
@@ -59,7 +59,7 @@ describe "View authentication requests for a username" do
         expect(page).to have_content("failed")
       end
 
-      it "displays the logs of the ip the organisation does not own" do
+      it "displays the logs of the ip" do
         expect(page).to have_content("1.1.1.1")
       end
 
@@ -73,7 +73,7 @@ describe "View authentication requests for a username" do
 
       it "displays the search page with an error" do
         expect(page).to have_content("There is a problem")
-        expect(page).to have_content("Username must be 6 characters in length")
+        expect(page).to have_content('There was a problem with your search')
         expect(page).to have_content("Find authentication requests for a username")
       end
     end
@@ -91,7 +91,7 @@ describe "View authentication requests for a username" do
     end
 
     it 'displays the no results message' do
-      expect(page).to have_content("No results found for that username, please try again")
+      expect(page).to have_content('No results found')
     end
   end
 end
