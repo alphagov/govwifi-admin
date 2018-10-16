@@ -2,7 +2,7 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'faker'
 
-admin_organisation = Organisation.create(name: "Super Admins")
+admin_organisation = Organisation.create(name: "Super Admins", service_email: 'it@gds.com')
 admin_user = admin_organisation.users.create(email: "admin@gov.uk", password: "password", name: "Steve", admin: true)
 admin_user.confirm
 
