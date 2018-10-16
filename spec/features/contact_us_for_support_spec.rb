@@ -1,11 +1,8 @@
 require 'features/support/sign_up_helpers'
-require 'support/notifications_service'
-require 'support/send_help_email_use_case_spy'
-require 'support/send_help_email_use_case'
+require 'support/with_send_help_email_mocked'
 
-describe 'contact us page' do
-  include_examples 'notifications service'
-  include_examples 'send help email use case spy'
+describe 'contact us for support' do
+  include_context 'with SendHelpEmail mocked'
 
   let(:user) { create(:user, :confirmed, :with_organisation) }
 
