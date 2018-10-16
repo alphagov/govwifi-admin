@@ -1,20 +1,7 @@
 .resend-invite-button {
-  margin-bottom: 0px;
-  background: none !important;
-  color: inherit;
-  border: none;
-  padding: 0 !important;
   font: inherit;
   border: none;
   cursor: pointer;
-}
-
-@media only screen and (max-width: 400px) {
-  #pending-invite {
-    display: none;
-  }
-}
-
-.float-right {
-  float: right;
+  text-decoration: underline;
+  color: #005ea5;
 }

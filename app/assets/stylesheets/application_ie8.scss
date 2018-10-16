@@ -8,3 +8,13 @@ $govuk-font-url-function: "font-url";
 @import "./components/main_nav";
 @import "./components/sub_nav";
 @import "./components/team_members";
+@import "./utilities/layout";
+@import "./utilities/typography";
+
+.govuk-main-wrapper {
+  margin-top: -25px;
+}
+
+.govuk-phase-banner {
+  margin-bottom: 25px;
+}
