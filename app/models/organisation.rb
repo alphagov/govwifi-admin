@@ -5,4 +5,5 @@ class Organisation < ApplicationRecord
   has_many :ips, through: :locations
 
   validates :name, presence: true, uniqueness: true
+  validates :service_email, presence: true, on: :create
 end
