@@ -9,7 +9,7 @@ module Gateways
 
       results = Session.where(query).where(
         'start >= ? and siteIP IN (?)', 2.weeks.ago, ips
-      ).order('start DESC').limit(100)
+      ).order('start DESC').limit(500)
 
       results.map do |log|
         {
