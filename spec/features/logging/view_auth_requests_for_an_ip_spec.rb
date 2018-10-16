@@ -10,7 +10,7 @@ describe 'View authentication requests for an IP' do
 
     before do
       Session.create!(
-        start: "2018-10-01 18:18:09 +0000",
+        start: 3.days.ago,
         username: username,
         siteIP: '127.0.0.1',
         success: true
