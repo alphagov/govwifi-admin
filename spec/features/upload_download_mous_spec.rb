@@ -23,9 +23,12 @@ describe 'the upload and download of MOUs' do
         click_on 'Upload'
       end
 
+      it 'reports the upload worked' do
+        expect(page).to have_content("MOU uploaded successfully.")
+      end
+
       it 'allows downloading the mou again' do
         click_on 'Download your signed MOU'
-
         expect(page.body).to eq("12334567 signed mou with content\n")
       end
 
@@ -60,6 +63,8 @@ describe 'the upload and download of MOUs' do
       attach_file("unsigned_document", Rails.root + "spec/fixtures/mou.pdf")
       click_on 'Upload'
 
+      expect(page).to have_content("MOU template uploaded successfully.")
+
       click_on 'Download current template'
 
       expect(page.body).to eq("12334567 signed mou with content\n")
@@ -71,6 +76,8 @@ describe 'the upload and download of MOUs' do
 
       attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
       click_on 'Upload'
+
+      expect(page).to have_content("MOU uploaded successfully.")
 
       click_on 'Download'
 
