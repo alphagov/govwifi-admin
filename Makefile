@@ -23,6 +23,7 @@ serve:
 	./mysql/bin/wait_for_rr_db
 	$(DOCKER_COMPOSE) run --rm app rm -f tmp/pids/server.pid
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
+	$(DOCKER_COMPOSE) run --rm app cp -R --remove-destination /usr/src/.node_modules ./node_modules
 	$(DOCKER_COMPOSE) up -d app
 
 lint:
@@ -36,6 +37,7 @@ test:
 	./mysql/bin/wait_for_mysql
 	./mysql/bin/wait_for_rr_db
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load db:migrate
+	$(DOCKER_COMPOSE) run --rm app cp -R --remove-destination /usr/src/.node_modules ./node_modules
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
 bash: serve

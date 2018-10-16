@@ -35,5 +35,6 @@ RUN ${BUNDLE_INSTALL_CMD}
 COPY . .
 
 RUN ASSET_PRECOMPILATION_ONLY=true RAILS_ENV=production bundle exec rails assets:precompile
+RUN cp -R /usr/src/app/node_modules /usr/src/.node_modules
 
 CMD ["bundle", "exec", "rails", "server"]
