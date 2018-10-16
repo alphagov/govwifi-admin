@@ -3,5 +3,9 @@
   border: none;
   cursor: pointer;
   text-decoration: underline;
-  color: #005ea5;
+  color: $govuk-link-colour;
+
+  &:hover {
+    color: $govuk-link-hover-colour;
+  }
 }
