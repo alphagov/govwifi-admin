@@ -34,6 +34,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
+    Session.delete_all
   end
 
   # This block must be here, do not combine with the other `before(:each)` block.
@@ -44,6 +45,7 @@ RSpec.configure do |config|
   config.after(:each) do
     Warden.test_reset!
     DatabaseCleaner.clean
+    Session.delete_all
   end
 end
 

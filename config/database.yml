@@ -21,3 +21,12 @@ staging:
 production:
   <<: *mysql
   database: govwifi_admin_production
+
+read_replica:
+  adapter: mysql2
+  encoding: utf8
+  host: <%= ENV.fetch('RR_DB_HOST') %>
+  port: 3306
+  username: <%= ENV.fetch('RR_DB_USER') %>
+  password: <%= ENV.fetch('RR_DB_PASS') %>
+  database: <%= ENV.fetch('RR_DB_NAME') %>

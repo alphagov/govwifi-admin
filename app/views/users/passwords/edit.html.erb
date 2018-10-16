@@ -10,12 +10,12 @@
 
         <div class="govuk-form-group <%= field_error(resource, :password) %>">
           <%= f.label :password, "New password", class: "govuk-label" %>
-          <%= f.password_field :password, autofocus: true, class: "govuk-input", autocomplete: "off", required: true %>
+          <%= f.password_field :password, autofocus: true, class: "govuk-input", autocomplete: "off" %>
         </div>
 
         <div class="govuk-form-group <%= field_error(resource, :password_confirmation) %>">
           <%= f.label :password_confirmation, "Confirm new password", class: "govuk-label" %>
-          <%= f.password_field :password_confirmation, class: "govuk-input", autocomplete: "off", required: true %>
+          <%= f.password_field :password_confirmation, class: "govuk-input", autocomplete: "off" %>
         </div>
 
         <div class="actions">
