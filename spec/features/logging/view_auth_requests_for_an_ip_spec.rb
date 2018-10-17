@@ -22,7 +22,7 @@ describe 'View authentication requests for an IP' do
       visit ips_path
 
       within('#ips-table') do
-        click_on 'View activity'
+        click_on 'View logs'
       end
     end
 
