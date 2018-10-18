@@ -34,7 +34,7 @@ pipeline {
       }
 
       steps {
-        deploy('staging')
+        deploy('staging', false)
       }
     }
 
@@ -44,7 +44,7 @@ pipeline {
       }
 
       steps {
-        deploy('production')
+        deploy('production', true)
       }
     }
   }
@@ -57,7 +57,7 @@ pipeline {
 }
 
 
-def deploy(deploy_environment) {
+def deploy(deploy_environment, requires_confirmation) {
   if(deployCancelled()) {
     return
   }
@@ -65,7 +65,10 @@ def deploy(deploy_environment) {
   echo "${deploy_environment}"
   try {
     timeout(time: 5, unit: 'MINUTES') {
-      input "Do you want to deploy to ${deploy_environment}?"
+      if(requires_confirmation) {
+        input "Do you want to deploy to ${deploy_environment}?"
+      }
+
       // Jenkins does a fetch without tags during setup this means
       // we need to run git fetch again here before we can checkout stable
       sh('git fetch')
