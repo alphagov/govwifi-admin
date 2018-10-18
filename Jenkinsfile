@@ -34,7 +34,7 @@ pipeline {
       }
 
       steps {
-        deploy('staging')
+        deploy('staging', false, 1)
       }
     }
 
@@ -44,7 +44,7 @@ pipeline {
       }
 
       steps {
-        deploy('production')
+        deploy('production', true, 2)
       }
     }
   }
@@ -57,7 +57,7 @@ pipeline {
 }
 
 
-def deploy(deploy_environment) {
+def deploy(deploy_environment, requires_confirmation, desired_count) {
   if(deployCancelled()) {
     return
   }
@@ -65,7 +65,10 @@ def deploy(deploy_environment) {
   echo "${deploy_environment}"
   try {
     timeout(time: 5, unit: 'MINUTES') {
-      input "Do you want to deploy to ${deploy_environment}?"
+      if(requires_confirmation) {
+        input "Do you want to deploy to ${deploy_environment}?"
+      }
+
       // Jenkins does a fetch without tags during setup this means
       // we need to run git fetch again here before we can checkout stable
       sh('git fetch')
@@ -79,6 +82,12 @@ def deploy(deploy_environment) {
         )
         appImage.push()
         runMigrations(deploy_environment)
+
+        // Intall ecs-deploy
+        sh('curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy')
+        sh('sudo chmod +x /usr/bin/ecs-deploy')
+
+        sh("ecs-deploy --cluster ${deploy_environment}-api-cluster --task-definition  admin-task-${deploy_environment} --service-name admin-${deploy_environment} --desired-count ${desired_count} --image govwifi/admin:${deploy_environment}")
       }
     }
   } catch(err) { // timeout reached or input false
