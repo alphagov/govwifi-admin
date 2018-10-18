@@ -34,7 +34,7 @@ pipeline {
       }
 
       steps {
-        deploy('staging', false)
+        deploy('staging', false, 1)
       }
     }
 
@@ -44,7 +44,7 @@ pipeline {
       }
 
       steps {
-        deploy('production', true)
+        deploy('production', true, 2)
       }
     }
   }
@@ -57,7 +57,7 @@ pipeline {
 }
 
 
-def deploy(deploy_environment, requires_confirmation) {
+def deploy(deploy_environment, requires_confirmation, desired_count) {
   if(deployCancelled()) {
     return
   }
@@ -82,6 +82,12 @@ def deploy(deploy_environment, requires_confirmation) {
         )
         appImage.push()
         runMigrations(deploy_environment)
+
+        // Intall ecs-deploy
+        sh('curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy')
+        sh('sudo chmod +x /usr/bin/ecs-deploy')
+
+        sh("ecs-deploy --cluster ${deploy_environment}-api-cluster --task-definition  admin-task-${deploy_environment} --service-name admin-${deploy_environment} --desired-count ${desired_count} --image govwifi/admin:${deploy_environment}")
       }
     }
   } catch(err) { // timeout reached or input false
