@@ -84,7 +84,7 @@ def deploy(deploy_environment, requires_confirmation, desired_count) {
         runMigrations(deploy_environment)
 
         sh("chmod +x bin/ecs-deploy")
-        sh("bin/ecs-deploy --cluster ${deploy_environment}-admin-cluster --service-name admin-${deploy_environment} --desired-count ${desired_count} --image govwifi/admin:${deploy_environment}")
+        sh("bin/ecs-deploy --cluster ${deploy_environment}-admin-cluster --service-name admin-${deploy_environment} --desired-count ${desired_count} --image govwifi/admin:${deploy_environment} --timeout 300")
       }
     }
   } catch(err) { // timeout reached or input false
