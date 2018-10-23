@@ -82,9 +82,6 @@ def deploy(deploy_environment, requires_confirmation, desired_count) {
         )
         appImage.push()
         runMigrations(deploy_environment)
-
-        sh("chmod +x bin/ecs-deploy")
-        sh("bin/ecs-deploy --cluster ${deploy_environment}-admin-cluster --task-definition  admin-task-${deploy_environment}  --run-task --use-latest-task-def --desired-count ${desired_count} --image govwifi/admin:${deploy_environment} --timeout 300 --verbose")
       }
     }
   } catch(err) { // timeout reached or input false
