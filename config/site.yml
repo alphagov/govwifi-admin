@@ -6,13 +6,17 @@ default: &default
   organisation_troubleshooting_link: 'https://docs.wifi.service.gov.uk/troubleshooting.html#troubleshooting'
 
 development:
+  google_analytics_script_id: 'UA-127779891-3'
   <<: *default
 
 test:
   <<: *default
 
 staging:
+  google_analytics_script_id: 'UA-127779891-2'
+
   <<: *default
 
 production:
+  google_analytics_script_id: 'UA-127779891-1'
   <<: *default

@@ -30,6 +30,17 @@
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
   </head>
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= SITE_CONFIG['google_analytics_script_id'] %>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '<%= SITE_CONFIG['google_analytics_script_id'] %>');
+    </script>
+
+
   <body class="govuk-template__body ">
   <script>
       document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
