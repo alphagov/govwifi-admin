@@ -172,6 +172,8 @@ GEM
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.5)
+    rack-mini-profiler (1.0.0)
+      rack (>= 1.2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.1)
@@ -307,6 +309,7 @@ DEPENDENCIES
   notifications-ruby-client (~> 2.9.0)
   pry
   puma (~> 3.12)
+  rack-mini-profiler
   rails (~> 5.2.1)
   rspec-rails (~> 3)
   sass-rails (~> 5.0)
@@ -319,4 +322,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.5
+   1.16.6
