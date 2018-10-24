@@ -14,6 +14,12 @@ ENV S3_PUBLISHED_LOCATIONS_IPS_BUCKET 'StubBucket'
 ENV S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY 'StubKey'
 ENV S3_WHITELIST_OBJECT_KEY 'WhitelistStubKey'
 ENV LOGGING_API_SEARCH_ENDPOINT 'https://govwifi-logging-api.gov.uk/search/'
+ENV S3_MOU_BUCKET 'StubMouBucket'
+
+ENV RR_DB_USER root
+ENV RR_DB_PASS root
+ENV RR_DB_HOST rr_db
+ENV RR_DB_NAME rr_govwifi
 
 WORKDIR /usr/src/app
 
@@ -28,6 +34,7 @@ RUN ${BUNDLE_INSTALL_CMD}
 
 COPY . .
 
-RUN RAILS_ENV=production bundle exec rails assets:precompile
+RUN ASSET_PRECOMPILATION_ONLY=true RAILS_ENV=production bundle exec rails assets:precompile
+RUN cp -R /usr/src/app/node_modules /usr/src/.node_modules
 
 CMD ["bundle", "exec", "rails", "server"]

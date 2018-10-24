@@ -1,21 +1,18 @@
-<h3 class="govuk-heading-m"><%= location.address %></h2>
 <table class="govuk-table">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th class="govuk-table__header" scope="col">IP Address</th>
-      <th class="govuk-table__header"></th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
+  <caption class="govuk-table__caption">
+    <%= location.full_address %>
+  </caption>
+  <tbody class="govuk-table__body" id="ips-table">
     <% location.ips.each do |ip| %>
       <tr class="govuk-table__row">
-        <td class="govuk-table__cell half-column" scope="row"><%= ip.address %></td>
+        <td class="govuk-table__cell column-third"><%= ip.address %></td>
         <% if ip.available? %>
-          <td class="govuk-table__cell half-column">Available</td>
+          <td class="govuk-table__cell column-third">Available</td>
         <% else %>
-          <td class="govuk-table__cell half-column unavailable-ip">Not available until 6am tomorrow
+          <td class="govuk-table__cell column-third unavailable-ip">Not available until 6am tomorrow
           </td>
         <% end %>
+        <td class="govuk-table__cell column-third text-right"><%= link_to 'View logs', logs_path(ip: ip.address) %></td>
       </tr>
     <% end %>
   </tbody>

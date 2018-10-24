@@ -5,9 +5,9 @@
     <h2 class="govuk-heading-l">Reset your password</h2>
 
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, novalidate: '' }) do |f| %>
         <div class="govuk-form-group">
-          <%= f.label :email, "Provide your email address", class: "govuk-label" %><br />
+          <%= f.label :email, "Provide your email address", class: "govuk-label" %>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input" %>
         </div>
 

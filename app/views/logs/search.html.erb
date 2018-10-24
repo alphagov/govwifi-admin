@@ -1,8 +1,7 @@
 <div class="govuk-grid-row">
+  <h2 class="govuk-heading-l govuk-grid-column-full">Find authentication requests for a username</h2>
+
   <div class="govuk-grid-column-two-thirds">
-
-    <h2 class="govuk-heading-l">Find authentication requests for a username</h2>
-
     <div class="govuk-inset-text">
       <h4 class="govuk-heading-s">Limited results</h4>
       <p class="govuk-body">
@@ -17,7 +16,7 @@
     <%= form_with url: logs_path, method: :get do |form| %>
       <div class="govuk-form-group">
         <%= form.label :username, "Enter the username you wish to see logs for", class: "govuk-label" %><br />
-        <%= form.text_field :username, autofocus: true, class: "govuk-input", required: true %>
+        <%= form.text_field :username, autofocus: true, class: "govuk-input" %>
       </div>
 
       <div class="actions">

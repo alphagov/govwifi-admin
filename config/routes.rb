@@ -20,4 +20,11 @@ Rails.application.routes.draw do
   resources :logs, only: %i[index] do
     get 'search', on: :collection
   end
+
+  namespace :admins do
+    resources :mou, only: %i[index update create]
+  end
+  namespace :organisations do
+    resources :mou, only: %i[index create]
+  end
 end

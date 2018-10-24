@@ -109,6 +109,20 @@ describe 'Sign up as an organisation' do
     end
   end
 
+  context 'when service email is not filled in' do
+    before do
+      sign_up_for_account
+      update_user_details(service_email: "")
+      expect(page).to have_content 'Create your account'
+    end
+
+    it_behaves_like 'errors in form'
+
+    it 'tells the user that the service email must be present' do
+      expect(page).to have_content "Organisation service email can't be blank"
+    end
+  end
+
   context 'when password is too short' do
     before do
       sign_up_for_account

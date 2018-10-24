@@ -1,31 +1,32 @@
-<% if @logs.empty? %>
-  <h3>No results found for that username, please try again</h3>
-<% else %>
+<%= link_to "Back to search", search_logs_path, class: "govuk-back-link" %>
 
-  <h1>Displaying logs for <%= @logs.first.fetch("username") %></h1>
+<% if @logs.present? %>
+  <h1 class="govuk-heading-l">Displaying logs for <%= params[:username] || params[:ip] %></h1>
   <table class="govuk-table">
     <caption class="govuk-table__caption"><%= @logs.count %> results</caption>
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">
         <th class="govuk-table__header" scope="col">Username</th>
-        <th class="govuk-table__header" scope="col">AP</th>
-        <th class="govuk-table__header" scope="col">MAC</th>
-        <th class="govuk-table__header" scope="col">siteIP</th>
-        <th class="govuk-table__header" scope="col">Start</th>
-        <th class="govuk-table__header" scope="col">Success</th>
+        <th class="govuk-table__header" scope="col">Access Point</th>
+        <th class="govuk-table__header" scope="col">MAC Address</th>
+        <th class="govuk-table__header" scope="col">IP</th>
+        <th class="govuk-table__header" scope="col">Time</th>
+        <th class="govuk-table__header" scope="col">Status</th>
       </tr>
     </thead>
     <tbody class="govuk-table__body">
       <% @logs.each do |log| %>
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell "><%= log.fetch("username") %></td>
-          <td class="govuk-table__cell "><%= log.fetch("ap") %></td>
-          <td class="govuk-table__cell "><%= log.fetch("mac") %></td>
-          <td class="govuk-table__cell "><%= log.fetch("siteIP") %></td>
-          <td class="govuk-table__cell "><%= log.fetch("start") %></td>
-          <td class="govuk-table__cell "><%= log.fetch("success") %></td>
+          <td class="govuk-table__cell "><%= log.fetch(:username) %></td>
+          <td class="govuk-table__cell "><%= log.fetch(:ap) %></td>
+          <td class="govuk-table__cell "><%= log.fetch(:mac) %></td>
+          <td class="govuk-table__cell "><%= log.fetch(:site_ip) %></td>
+          <td class="govuk-table__cell "><%= log.fetch(:start) %></td>
+          <td class="govuk-table__cell "><%= log.fetch(:success) ? 'successful' : 'failed' %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
+<% else %>
+  <h3 class="govuk-heading-m">No results found</h3>
 <% end %>

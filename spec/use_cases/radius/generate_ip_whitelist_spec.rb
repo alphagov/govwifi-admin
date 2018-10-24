@@ -32,28 +32,6 @@ describe UseCases::Radius::GenerateRadiusIpWhitelist do
     end
   end
 
-  context 'with duplicates in the database' do
-    before do
-      create(:ip, address: '2.2.2.2', location: create(:location, organisation: create(:organisation)))
-    end
-
-    it 'removes duplicates' do
-      expect(configuration_result).to eq('client 1-1-1-1 {
-      ipaddr = 1.1.1.1
-      secret = radkey1
-    }
-    client 1-2-2-1 {
-      ipaddr = 1.2.2.1
-      secret = radkey1
-    }
-    client 2-2-2-2 {
-      ipaddr = 2.2.2.2
-      secret = radkey2
-    }
-    ')
-    end
-  end
-
   context 'with no location' do
     before do
       location1.destroy
