@@ -1,4 +1,4 @@
-FROM ruby:2.5
+FROM ruby:2.5.1
 ARG BUNDLE_INSTALL_CMD
 
 ENV RACK_ENV development
