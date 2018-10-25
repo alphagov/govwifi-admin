@@ -25,9 +25,6 @@ describe 'the upload and download of MOUs' do
 
         expect(page).to have_content("MOU uploaded successfully.")
 
-        click_on 'Download your signed MOU'
-
-        expect(page.body).to eq("12334567 signed mou with content\n")
       end
     end
 
