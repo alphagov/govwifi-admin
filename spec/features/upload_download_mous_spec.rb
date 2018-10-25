@@ -24,7 +24,6 @@ describe 'the upload and download of MOUs' do
         click_on 'Upload'
 
         expect(page).to have_content("MOU uploaded successfully.")
-
       end
     end
 
