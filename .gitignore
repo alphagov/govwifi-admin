@@ -28,3 +28,6 @@ package-lock.json
 
 # Ignore storage files
 storage/
+
+# SimpleCov output
+coverage
