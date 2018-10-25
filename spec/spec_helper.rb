@@ -1,6 +1,6 @@
 require 'simplecov'
-SimpleCov.start
 
+SimpleCov.start
 
 RSpec.configure do |config|
   config.filter_run focus: true
