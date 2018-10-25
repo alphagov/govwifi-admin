@@ -9,9 +9,13 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', '<%= SITE_CONFIG['google_analytics_script_id'] %>');
+      gtag('config', '<%= SITE_CONFIG['google_analytics_script_id'] %>', {
+        'linker': {
+          'domains': ['admin.wifi.service.gov.uk', 'docs.wifi.service.gov.uk', 'wifi.service.gov.uk']
+        }
+      });
     </script>
-
+    
     <title>Govwifi Admin</title>
 
     <meta charset="utf-8" />
