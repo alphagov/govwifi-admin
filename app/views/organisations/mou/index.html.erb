@@ -1,50 +1,22 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-l">Memorandum of Understanding</h2>
-    <div class="govuk-details">
-      <div class="govuk-details__text">
-        <p class='govuk-body'>
-          Owing to the new GDPR regulations - we are issuing Memorandums of Understanding (MOUs) to all organisations that want to use GovWifi.
-          This doesn't imply any contractual obligation on either side.
-          Instead, it sets out precisely what we - GDS - do and what we leave to the participating department/organisation.
-          The most important elements relate to data, namely what we do with data and what we leave to you.
-        </p>
-        <p class='govuk-body'>
-          The document requires a signature in two place: sections 4.2 and 16.2.
-          There's also a provision for you to add your escalation route in section 4.9.
-        </p>
-        <p class='govuk-body'>
-          The MOU has already been signed by GDS's behalf.
-          Please download the MOU and sign it.
-          Upload the signed copy in the section below.
-          Your organisation will then have access to GovWifi.
-        </p>
-      </div>
-    </div>
-    <h3 class="govuk-heading-m"> 1. Download MOU </h3>
+    <h2 class="govuk-heading-l">Sign your agreement</h2>
+    <p class="govuk-body">You must sign a memorandum of understanding (MOU) to use GovWifi </p>
     <% if @mou.unsigned_document.attached? %>
-      <p class="govuk-body"><%= link_to "Download MOU", rails_blob_path(@mou.unsigned_document, disposition: "attachment") %></p>
+      <ul class="govuk-list govuk-list">
+        <li>1. <%= link_to "Download a copy of the MOU", rails_blob_path(@mou.unsigned_document, disposition: "attachment") %></li>
+        <li>2. Sign the document at section 4.2 and 16.2</li>
+        <li>3. Upload your signed MOU</li>
+      </ul>
     <% else %>
       <p class="govuk-body">Admin has not yet uploaded MOU template for your organisation to sign. </p>
     <% end %>
-    <hr class="govuk-section-break--m govuk-section-break--visible">
     <div>
-      <h3 class="govuk-heading-m"> 2. Upload a copy of the signed MOU </h3>
-        <% if current_organisation.signed_mou.attached? %>
-          <p class="govuk-body"> Most recent upload: <%= link_to 'Download your signed MOU', rails_blob_path(current_organisation.signed_mou, disposition: "attachment") %> </p>
-        <% end %>
-        <p class="govuk-body">
-          <%= form_with url: organisations_mou_index_path, method: 'post', class: 'govuk-form-group' do |form| %>
-            <%= form.label :signed_mou, 'Select signed MOU file', class: 'govuk-label' %>
-            <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
-            <p>
-              <%= form.submit('Upload', class: 'govuk-button') %>
-            </p>
-          <% end %>
-        </p>
-        <div class="govuk-inset-text">
-          Any new uploads will overwrite the existing file.
-        </div>
+      <%= form_with url: organisations_mou_index_path, method: 'post', class: 'govuk-form-group' do |form| %>
+        <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
+        <hr class="govuk-section-break--xl govuk-section-break">
+        <%= form.submit('Upload', class: 'govuk-button') %>
+      <% end %>
     </div>
   </div>
 </div>
