@@ -13,7 +13,7 @@
     <% end %>
     <div>
       <%= form_with url: organisations_mou_index_path, method: 'post', class: 'govuk-form-group' do |form| %>
-        <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
+        <%= form.file_field(:signed_mou, class: 'govuk-file-upload', id: 'uploader') %>
         <hr class="govuk-section-break--xl govuk-section-break">
         <%= form.submit('Upload', class: 'govuk-button') %>
       <% end %>

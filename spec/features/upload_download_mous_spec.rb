@@ -16,6 +16,15 @@ describe 'the upload and download of MOUs' do
       sign_in_user user
     end
 
+    context 'no file uploaded' do
+      it 'should error' do
+        visit organisations_mou_index_path
+        click_on 'Upload'
+
+        expect(page).to have_content("Choose a file before uploading")
+      end
+    end
+
     context 'uploading the signed mou' do
       it 'can upload and download a version of the mou' do
         visit organisations_mou_index_path
