@@ -15,7 +15,7 @@
         }
       });
     </script>
-    
+
     <title>Govwifi Admin</title>
 
     <meta charset="utf-8" />
@@ -55,7 +55,7 @@
     <div class="govuk-header__container govuk-width-container">
 
       <div class="govuk-header__logo">
-        <%= link_to SITE_CONFIG['product_page_link'], class: "govuk-header__link govuk-header__link--homepage" do %>
+        <%= link_to root_path, class: "govuk-header__link govuk-header__link--homepage" do %>
           <span class="govuk-header__logotype">
             <svg
               role="presentation"
@@ -75,14 +75,14 @@
             </svg>
             <span class="govuk-header__logotype-text">
               GOV.UK
+              <span class="product-name">GovWifi</span>
             </span>
           </span>
         <% end %>
       </div>
 
       <div class="govuk-header__content main-nav">
-        <%= link_to "GovWifi Admin", root_path, class: "govuk-header__link govuk-header__link--service-name" %>
-        <button role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <span> </span>
         <nav>
           <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
