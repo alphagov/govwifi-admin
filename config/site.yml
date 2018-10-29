@@ -1,6 +1,6 @@
 default: &default
-  end_user_docs_link: 'https://wifi.service.gov.uk/connect.html'
-  end_user_troubleshooting_link: 'https://wifi.service.gov.uk/troubleshooting.html'
+  end_user_docs_link: 'https://wifi.service.gov.uk/connect'
+  end_user_troubleshooting_link: 'https://wifi.service.gov.uk/troubleshooting'
   organisation_docs_link: 'https://docs.wifi.service.gov.uk'
   product_page_link: 'https://wifi.service.gov.uk'
 
