@@ -18,7 +18,7 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TNHHHPZ');</script>
   <!-- End Google Tag Manager -->
-    
+
     <title>Govwifi Admin</title>
 
     <meta charset="utf-8" />
@@ -95,16 +95,16 @@
             <li class="govuk-header__navigation-item">
               <%= link_to 'Documentation', SITE_CONFIG['organisation_docs_link'], class: "govuk-header__link" %>
             </li>
+            <li class="govuk-header__navigation-item">
+              <%= link_to 'Support', help_index_path, class: "govuk-header__link #{active_tab(help_index_path)}" %>
+            </li>
             <% if user_signed_in? %>
-              <li class="govuk-header__navigation-item">
-                <%= link_to 'Support', help_index_path, class: "govuk-header__link" %>
-              </li>
               <li class="govuk-header__navigation-item">
                 <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "govuk-header__link" %>
               </li>
             <% else %>
               <li class="govuk-header__navigation-item">
-                <%= link_to 'Sign in', new_user_session_path, class: "govuk-header__link" %>
+                <%= link_to 'Sign in', new_user_session_path, class: "govuk-header__link #{active_tab(new_user_session_path)}" %>
               </li>
             <% end %>
           </ul>
