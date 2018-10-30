@@ -82,9 +82,13 @@ def deploy(deploy_environment, requires_confirmation, desired_count) {
         )
         appImage.push()
         runMigrations(deploy_environment)
-
-        sh("aws ecs update-service --cluster ${deploy_environment}-admin-cluster --service admin-${deploy_environment} --force-new-deployment")
       }
+
+      if(deploy_environment == 'production') {
+        deploy_environment = 'wifi'
+      }
+
+      sh("aws ecs update-service --cluster ${deploy_environment}-admin-cluster --service admin-${deploy_environment} --force-new-deployment")
     }
   } catch(err) { // timeout reached or input false
     def user = err.getCauses()[0].getUser()
