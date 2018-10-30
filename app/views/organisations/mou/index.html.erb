@@ -1,7 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-l">Sign your agreement</h2>
-    <p class="govuk-body">You must sign a memorandum of understanding (MOU) to use GovWifi </p>
+    <p class="govuk-body">You must sign a memorandum of understanding (MOU) to use GovWifi.</p>
     <% if @mou.unsigned_document.attached? %>
       <ul class="govuk-list govuk-list">
         <li>1. <%= link_to "Download a copy of the MOU", rails_blob_path(@mou.unsigned_document, disposition: "attachment") %></li>
@@ -9,13 +9,15 @@
         <li>3. Upload your signed MOU</li>
       </ul>
     <% else %>
-      <p class="govuk-body">Admin has not yet uploaded MOU template for your organisation to sign. </p>
+      <p class="govuk-body">The MOU template is not yet available for download. Contact us via our <%= link_to "support form", help_index_path %> if you need a copy.
+      </p>
     <% end %>
     <div>
-      <%= form_with url: organisations_mou_index_path, method: 'post', class: 'govuk-form-group' do |form| %>
-        <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
-        <hr class="govuk-section-break--xl govuk-section-break">
-        <%= form.submit('Upload', class: 'govuk-button') %>
+      <%= form_with url: organisations_mou_index_path, method: 'post' do |form| %>
+        <div class="govuk-form-group">
+          <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
+        </div>
+        <%= form.submit('Upload your MOU', class: 'govuk-button') %>
       <% end %>
     </div>
   </div>
