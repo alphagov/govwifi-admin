@@ -83,7 +83,7 @@ def deploy(deploy_environment, requires_confirmation, desired_count) {
         appImage.push()
         runMigrations(deploy_environment)
 
-        sh("aws ecs update-service --cluster ${deploy_environment}-admin-cluster --service admin-${deploy_environment} --force-new-deployment --deployment-configuration maximumPercent=200,minimumHealthyPercent=100")
+        sh('aws ecs update-service --cluster ${deploy_environment}-admin-cluster --service admin-${deploy_environment} --force-new-deployment')
       }
     }
   } catch(err) { // timeout reached or input false
