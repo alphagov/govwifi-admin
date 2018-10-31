@@ -40,11 +40,11 @@ test:
 	$(DOCKER_COMPOSE) run --rm app cp -R --remove-destination /usr/src/.node_modules ./node_modules
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
-bash: serve
-	docker exec -it `docker-compose ps -q app | awk 'END{print}'` bash
+shell: serve
+	docker exec -it app bash
 
 stop:
 	$(DOCKER_COMPOSE) kill
 	$(DOCKER_COMPOSE) rm -f
 
-.PHONY: build serve lint test stop bash
+.PHONY: build lint serve shell stop test
