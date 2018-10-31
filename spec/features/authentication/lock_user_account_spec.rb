@@ -21,38 +21,55 @@ describe "Locking a users account after too many failed login attempts" do
     click_on 'Sign out'
   end
 
-  it "warns the user they have one attmept left before locking the account" do
-    9.times do
-      fill_in 'Email', with: 'george@gov.uk'
-      fill_in 'Password', with: incorrect_password
-      click_on 'Continue'
+  context "before the user locks their accont" do
+    it "warns the user they have one attmept left before locking the account" do
+      9.times do
+        fill_in 'Email', with: 'george@gov.uk'
+        fill_in 'Password', with: incorrect_password
+        click_on 'Continue'
+      end
+      expect(page).to have_content 'You have one more attempt before your account is locked.'
     end
-    expect(page).to have_content 'You have one more attempt before your account is locked.'
+
+    it "locks the users account after ten failed attempts" do
+      10.times do
+        fill_in 'Email', with: 'george@gov.uk'
+        fill_in 'Password', with: incorrect_password
+        click_on 'Continue'
+      end
+      expect(page).to have_content 'Your account is locked.'
+    end
   end
 
-  it "locks the users account after ten failed attempts" do
-    10.times do
+  context "after the user locks their accont" do
+    it "unlocks the users account after one hour" do
+      10.times do
+        fill_in 'Email', with: 'george@gov.uk'
+        fill_in 'Password', with: incorrect_password
+        click_on 'Continue'
+      end
+
+      Timecop.freeze(Time.now + 1.hour)
+
       fill_in 'Email', with: 'george@gov.uk'
-      fill_in 'Password', with: incorrect_password
+      fill_in 'Password', with: correct_password
       click_on 'Continue'
+      expect(page).to have_content 'Signed in successfully.'
     end
-    expect(page).to have_content 'Your account is locked.'
-  end
 
-  it "unlocks the users account after one hour" do
-    10.times do
+    it "won't unlock their account if its under one hour" do
+      10.times do
+        fill_in 'Email', with: 'george@gov.uk'
+        fill_in 'Password', with: incorrect_password
+        click_on 'Continue'
+      end
+
+      Timecop.freeze(Time.now + 59.minutes)
+
       fill_in 'Email', with: 'george@gov.uk'
-      fill_in 'Password', with: incorrect_password
+      fill_in 'Password', with: correct_password
       click_on 'Continue'
+      expect(page).to have_content 'Your account is locked.'
     end
-
-    Timecop.freeze(Time.now + 1.hour)
-
-    fill_in 'Email', with: 'george@gov.uk'
-    fill_in 'Password', with: correct_password
-    click_on 'Continue'
-    expect(page).to have_content 'Signed in successfully.'
   end
 end
-
-
