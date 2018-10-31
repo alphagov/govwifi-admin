@@ -13,11 +13,11 @@ describe 'user sessions timeout ', focus: true do
   end
 
   context 'when user is signed in' do
-    context 'and they are inactive for 30 minutes' do
+    context 'and they are inactive for 60 minutes' do
       before do 
         sign_in_user user
         visit root_path
-        Timecop.freeze(Time.now + (30 * 60))
+        Timecop.freeze(Time.now + (60 * 60))
       end
     end
 
