@@ -29,6 +29,7 @@ describe 'with a stubbed notifications service' do
       context 'and I view it after a day has passed' do
         before do
           Timecop.freeze(Date.today + 1)
+          sign_in_user user
           visit ips_path
         end
 
