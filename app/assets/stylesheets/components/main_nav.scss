@@ -6,9 +6,24 @@
 .product-name{
   font-size: 24px;
   font-weight: 400;
-  padding-left: 5px;
+  padding-left: 9px;
 }
 
 .govuk-header__link.active {
   color: #1d8feb;
+}
+
+.govuk-header__navigation-item {
+  margin-right: 12px;
+  padding: 9px 0;
+}
+
+.govuk-header__container {
+  max-height: 40px;
+  padding-top: 11px;
+}
+
+.govuk-header__logotype-crown {
+  margin-left: 1px;
+  margin-right: 1px;
 }
