@@ -35,10 +35,9 @@ class AuthenticationMailer < ::Devise::Mailer
   def unlock_instructions(record, token, opts = {})
     confirmation_instructions(record, record.confirmation_token, opts) unless record.confirmed?
 
-    reset_link = edit_password_url(record, reset_password_token: token)
+    reset_link = edit_password_url(record, unlock_instructions: token)
     template_id = GOV_NOTIFY_CONFIG['reset_password_email']['template_id']
 
-    pp record.email
     pp reset_link
 
     UseCases::Administrator::SendResetPasswordEmail.new(
