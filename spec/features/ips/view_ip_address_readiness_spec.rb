@@ -8,7 +8,7 @@ describe 'with a stubbed notifications service' do
 
   describe 'Viewing IPs' do
     context 'when one has been added' do
-      let(:user) { create(:user, :with_organisation) }
+      let(:user) { create(:user, :confirmed, :with_organisation) }
 
       before do
         sign_in_user user
@@ -27,8 +27,8 @@ describe 'with a stubbed notifications service' do
       end
 
       context 'and I view it after a day has passed' do
+
         before do
-          Timecop.freeze(Date.today + 1)
           sign_in_user user
           visit ips_path
         end
