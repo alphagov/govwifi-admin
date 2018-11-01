@@ -5,16 +5,19 @@ require 'timecop'
 describe 'user sessions timeout' do
   after { Timecop.return }
 
-  let(:user) { create(:user, :confirmed, :with_organisation) }
-
   context 'when user has not signed in' do
     before { visit root_path }
 
     it_behaves_like 'not signed in'
   end
 
-  context 'when user has signed in' do
-    before { sign_in_user user }
+  context 'when user has signed in', focus: true do
+    let(:user) { create(:user, :confirmed, :with_organisation) }
+
+    before do
+      sign_in_user user
+      visit root_path
+    end
 
     context 'and they have been inactive for 60 minutes' do
       before do
