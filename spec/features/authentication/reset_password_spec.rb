@@ -53,7 +53,7 @@ describe "Resetting a password" do
     include_examples 'reset password use case spy'
     include_examples 'notifications service'
 
-    let(:user) { create(:user, :confirmed, :with_organisation) }
+    let(:user) { create(:user, :confirmed) }
 
     it "sends the reset password instructions" do
       expect {

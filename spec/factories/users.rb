@@ -6,13 +6,10 @@ FactoryBot.define do
     password { '123456' }
     password_confirmation { '123456' }
     name { "bob" }
+    association :organisation
 
     trait :confirmed do
       confirmed_at { Time.zone.now }
-    end
-
-    trait :with_organisation do
-      association :organisation
     end
   end
 end

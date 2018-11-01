@@ -80,7 +80,7 @@ describe "View authentication requests for a username" do
   end
 
   context 'without results' do
-    let(:user) { create(:user, :confirmed, :with_organisation) }
+    let(:user) { create(:user, :confirmed) }
     let(:username) { 'random' }
 
     before do
