@@ -27,7 +27,6 @@ describe 'with a stubbed notifications service' do
       end
 
       context 'and I view it after a day has passed' do
-
         before do
           Ip.all.each do |ip|
             ip.update_attributes(created_at: Date.yesterday)
