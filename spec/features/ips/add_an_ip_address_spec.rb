@@ -118,9 +118,7 @@ describe 'Add an IP to my account' do
 
       context 'and that IP is a duplicate' do
         before do
-          location = create(:location)
-          organisation = create(:organisation)
-          create(:ip, address: "1.1.1.1", location: location, organisation: organisation)
+          create(:ip, address: "1.1.1.1")
           fill_in 'address', with: '1.1.1.1'
           select '10 Street, XX YYY'
           click_on 'Add new IP address'
