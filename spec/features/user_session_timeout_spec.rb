@@ -16,7 +16,6 @@ describe 'logout users after specific period of inactivity' do
 
       expect(page).to have_content('Invite team member')
     end
-
   end
 
   context 'when a signed in user has been inactive for an hour' do
