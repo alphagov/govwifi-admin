@@ -23,6 +23,7 @@ class AuthenticationMailer < ::Devise::Mailer
     reset_link = edit_password_url(record, reset_password_token: token)
     template_id = GOV_NOTIFY_CONFIG['reset_password_email']['template_id']
 
+
     UseCases::Administrator::SendResetPasswordEmail.new(
       notifications_gateway: EmailGateway.new
     ).execute(
