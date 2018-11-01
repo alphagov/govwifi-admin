@@ -11,7 +11,7 @@ describe 'user sessions timeout' do
     it_behaves_like 'not signed in'
   end
 
-  context 'when user has signed in', focus: true do
+  context 'when user has signed in' do
     let(:user) { create(:user, :confirmed, :with_organisation) }
 
     before do
