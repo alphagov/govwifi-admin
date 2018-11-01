@@ -3,7 +3,6 @@ require 'features/support/not_signed_in'
 require 'timecop'
 
 describe 'with devise timeoutable enabled' do
-  after { Timecop.return }
 
   context 'when user has not signed in' do
     before { visit root_path }
@@ -21,10 +20,7 @@ describe 'with devise timeoutable enabled' do
       end
 
       context 'and they have been inactive for 60 minutes' do
-        before do
-          Timecop.travel(Time.now + (60 * 60))
-          visit root_path
-        end
+        before { Timecop.travel(Time.now + (60 * 60)) { visit root_path } }
 
         it_behaves_like 'not signed in'
 
