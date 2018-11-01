@@ -13,7 +13,7 @@ describe 'view list of signed up organisations' do
       3.times { create(:organisation) }
     end
 
-    let!(:user) { create(:user, :confirmed, :with_organisation, admin: true) }
+    let!(:user) { create(:user, :confirmed, admin: true) }
 
     context 'when admin navigates to the list page' do
       it 'renders the names of the signed up organisations' do

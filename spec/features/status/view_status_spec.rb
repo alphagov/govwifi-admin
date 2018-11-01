@@ -11,7 +11,7 @@ describe 'View GovWifi Status' do
   end
 
   context 'when logged in' do
-    let(:user) { create(:user, :confirmed, :with_organisation) }
+    let(:user) { create(:user, :confirmed) }
 
     before do
       allow_any_instance_of(

@@ -11,20 +11,14 @@ describe "Locking a users account after too many failed login attempts" do
 
   let(:correct_password) { 'password' }
   let(:incorrect_password) { 'incorrectpassword' }
+  let(:user) { create(:user, :confirmed, password: correct_password, password_confirmation: correct_password) }
 
-  before do
-    sign_up_for_account(email: 'george@gov.uk')
-    update_user_details(
-      password: correct_password,
-      confirmed_password: correct_password
-    )
-    click_on 'Sign out'
-  end
+  before { visit new_user_session_path }
 
-  context "before the user locks their accont" do
+  context "before the user locks their account" do
     it "warns the user they have one attmept left before locking the account" do
       9.times do
-        fill_in 'Email', with: 'george@gov.uk'
+        fill_in 'Email', with: user.email
         fill_in 'Password', with: incorrect_password
         click_on 'Continue'
       end
@@ -33,7 +27,7 @@ describe "Locking a users account after too many failed login attempts" do
 
     it "locks the users account after ten failed attempts" do
       10.times do
-        fill_in 'Email', with: 'george@gov.uk'
+        fill_in 'Email', with: user.email
         fill_in 'Password', with: incorrect_password
         click_on 'Continue'
       end
@@ -44,14 +38,14 @@ describe "Locking a users account after too many failed login attempts" do
   context "after the user locks their accont" do
     it "unlocks the users account after one hour" do
       10.times do
-        fill_in 'Email', with: 'george@gov.uk'
+        fill_in 'Email', with: user.email
         fill_in 'Password', with: incorrect_password
         click_on 'Continue'
       end
 
-      Timecop.freeze(Time.now + 1.hour)
+      Timecop.freeze(Time.now + 61.minutes)
 
-      fill_in 'Email', with: 'george@gov.uk'
+      fill_in 'Email', with: user.email
       fill_in 'Password', with: correct_password
       click_on 'Continue'
       expect(page).to have_content 'Signed in successfully.'
@@ -59,14 +53,14 @@ describe "Locking a users account after too many failed login attempts" do
 
     it "won't unlock their account if its under one hour" do
       10.times do
-        fill_in 'Email', with: 'george@gov.uk'
+        fill_in 'Email', with: user.email
         fill_in 'Password', with: incorrect_password
         click_on 'Continue'
       end
 
       Timecop.freeze(Time.now + 59.minutes)
 
-      fill_in 'Email', with: 'george@gov.uk'
+      fill_in 'Email', with: user.email
       fill_in 'Password', with: correct_password
       click_on 'Continue'
       expect(page).to have_content 'Your account is locked.'

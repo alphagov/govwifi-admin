@@ -16,7 +16,7 @@ describe 'View IP addresses' do
   end
 
   context 'when logged in' do
-    let(:user) { create(:user, :confirmed, :with_organisation) }
+    let(:user) { create(:user, :confirmed) }
 
     context 'with no IPs' do
       before do
