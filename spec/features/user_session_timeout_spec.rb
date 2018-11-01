@@ -27,6 +27,13 @@ describe 'with devise timeoutable enabled' do
         end
 
         it_behaves_like 'not signed in'
+
+        it 'and they navigate to a page' do
+          sign_in_user user
+
+          visit team_members_path
+          expect(page).to have_content('Invite team member')
+        end
       end
     end
   end
