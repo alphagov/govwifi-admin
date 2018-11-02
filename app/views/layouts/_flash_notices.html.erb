@@ -1,4 +1,5 @@
 <% flash.each do |name, msg| -%>
+  <% next if name == 'timedout' %>
   <% next if msg.empty? %>
 
   <% if name == 'notice' %>
