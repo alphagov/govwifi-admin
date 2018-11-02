@@ -35,7 +35,6 @@ class AuthenticationMailer < ::Devise::Mailer
 
   def unlock_instructions(record, token, opts={})
     @token = token
-    # devise_mail(record, :unlock_instructions, opts)
 
     unlock_link = unlock_url(record, unlock_instructions: token)
     pp token
@@ -50,7 +49,7 @@ class AuthenticationMailer < ::Devise::Mailer
       reset_url: unlock_link,
       template_id: template_id
     )
-
+    devise_mail(record, :unlock_instructions, opts)
   end
 
 
