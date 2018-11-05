@@ -1,6 +1,6 @@
 module UseCases
   module Administrator
-    class UnlockAccountEmail
+    class SendUnlockEmail
       REFERENCE = 'unlock_account'.freeze
 
       def initialize(notifications_gateway:)

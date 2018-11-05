@@ -37,7 +37,7 @@ class AuthenticationMailer < ::Devise::Mailer
     unlock_link = unlock_url(record, unlock_token: token)
     template_id = GOV_NOTIFY_CONFIG['unlock_account']['template_id']
 
-    UseCases::Administrator::UnlockAccountEmail.new(
+    UseCases::Administrator::SendUnlockEmail.new(
       notifications_gateway: EmailGateway.new
     ).execute(
       email: record.email,

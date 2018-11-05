@@ -1,3 +1,14 @@
+shared_context 'unlock account use case spy' do
+  before do
+    allow(UseCases::Administrator::SendUnlockEmail).to \
+      receive(:new).and_return(UnlockAccountUseCaseSpy.new)
+  end
+
+  after do
+    UnlockAccountUseCaseSpy.clear!
+  end
+end
+
 # rubocop:disable Style/ClassVars
 class UnlockAccountUseCaseSpy
   @@last_unlock_url = nil
