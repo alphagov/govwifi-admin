@@ -35,21 +35,21 @@ class AuthenticationMailer < ::Devise::Mailer
 
   def unlock_instructions(record, token, opts={})
     @token = token
-    # devise_mail(record, :unlock_instructions, opts)
+    devise_mail(record, :unlock_instructions, opts)
 
-    unlock_link = unlock_url(record, unlock_instructions: token)
-    pp token
-    template_id = GOV_NOTIFY_CONFIG['unlock_account']['template_id']
+    # unlock_link = unlock_url(record, unlock_instructions: token)
+    # pp token
+    # template_id = GOV_NOTIFY_CONFIG['unlock_account']['template_id']
 
-    pp unlock_link
+    # pp unlock_link
 
-    UseCases::Administrator::SendResetPasswordEmail.new(
-      notifications_gateway: EmailGateway.new
-    ).execute(
-      email: record.email,
-      reset_url: unlock_link,
-      template_id: template_id
-    )
+    # UseCases::Administrator::SendResetPasswordEmail.new(
+    #   notifications_gateway: EmailGateway.new
+    # ).execute(
+    #   email: record.email,
+    #   reset_url: unlock_link,
+    #   template_id: template_id
+    # )
 
   end
 
