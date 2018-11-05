@@ -1,3 +1,6 @@
+require 'support/unlock_account_use_case_spy'
+require 'support/unlock_account_use_case'
+
 describe "Locking a users account after too many failed login attempts" do
   include_examples 'notifications service'
 
@@ -23,18 +26,18 @@ describe "Locking a users account after too many failed login attempts" do
         fill_in 'Password', with: incorrect_password
         click_on 'Continue'
       end
-        expect(page).to have_content 'Your account has been locked. Reset your password'
-      end
+      expect(page).to have_content 'Your account has been locked. Reset your password'
+    end
 
     it "locks the users account after ten failed attempts and sends an email" do
-      allow(UseCases::Administrator::SendResetPasswordEmail).to receive(:new).and_return(ResetPasswordUseCaseSpy.new)
+      allow(UseCases::Administrator::UnlockAccountEmail).to receive(:new).and_return(UnlockAccountUseCaseSpy.new)
       expect {
         10.times do
           fill_in 'Email', with: user.email
           fill_in 'Password', with: incorrect_password
           click_on 'Continue'
         end
-      }.to change { ResetPasswordUseCaseSpy.reset_count }.by(1)
+      }.to change { UnlockAccountUseCaseSpy.unlock_count }.by(1)
       expect(page).to have_content 'Your account has been locked. Reset your password'
     end
   end
