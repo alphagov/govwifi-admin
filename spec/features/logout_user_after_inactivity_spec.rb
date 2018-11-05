@@ -2,7 +2,7 @@ require 'features/support/sign_up_helpers'
 require 'timecop'
 
 describe 'logout users after specific period of inactivity' do
-  let(:user) { create(:user, :confirmed, :with_organisation) }
+  let(:user) { create(:user, :confirmed) }
 
   context 'when a signed in user has been inactive for 59 minutes' do
     before do

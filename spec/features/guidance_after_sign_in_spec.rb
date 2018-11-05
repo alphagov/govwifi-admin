@@ -2,7 +2,7 @@ require 'features/support/sign_up_helpers'
 require 'support/notifications_service'
 
 describe 'guidance after sign in' do
-  let(:user) { create(:user, :confirmed, :with_organisation) }
+  let(:user) { create(:user, :confirmed) }
   before { sign_in_user user }
 
   context 'without locations' do

@@ -8,7 +8,7 @@ describe 'Resend invitation to team member' do
     include_examples 'invite use case spy'
     include_examples 'notifications service'
 
-    let(:user) { create(:user, :confirmed, :with_organisation) }
+    let(:user) { create(:user, :confirmed) }
     let(:invited_user_email) { 'invited@gov.uk' }
 
     before do

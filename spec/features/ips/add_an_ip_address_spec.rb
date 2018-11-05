@@ -10,7 +10,7 @@ describe 'Add an IP to my account' do
   include_examples 'notifications service'
 
   context 'and the new location is invalid' do
-    let!(:user) { create(:user, :confirmed, :with_organisation) }
+    let!(:user) { create(:user, :confirmed) }
 
     before do
       sign_in_user user
@@ -37,7 +37,7 @@ describe 'Add an IP to my account' do
   end
 
   context 'to an already existing location' do
-    let!(:user) { create(:user, :confirmed, :with_organisation) }
+    let!(:user) { create(:user, :confirmed) }
     let!(:location_1) { create(:location, address: '10 Street', postcode: 'XX YYY', organisation: user.organisation) }
     let!(:location_2) { create(:location, address: '50 Road', postcode: 'ZZ AAA', organisation: user.organisation) }
 
@@ -117,9 +117,8 @@ describe 'Add an IP to my account' do
       end
 
       context 'and that IP is a duplicate' do
-        let!(:existing_ip) { create(:ip, :with_location_and_organisation, address: "1.1.1.1") }
-
         before do
+          create(:ip, address: "1.1.1.1")
           fill_in 'address', with: '1.1.1.1'
           select '10 Street, XX YYY'
           click_on 'Add new IP address'
@@ -134,7 +133,7 @@ describe 'Add an IP to my account' do
     end
 
     context 'to new location' do
-      let!(:user) { create(:user, :confirmed, :with_organisation) }
+      let!(:user) { create(:user, :confirmed) }
       let!(:location_1) { create(:location, address: '10 Street', postcode: 'XX YYY', organisation: user.organisation) }
 
       context 'when logged in' do

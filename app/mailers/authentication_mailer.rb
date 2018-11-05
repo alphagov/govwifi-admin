@@ -23,11 +23,25 @@ class AuthenticationMailer < ::Devise::Mailer
     reset_link = edit_password_url(record, reset_password_token: token)
     template_id = GOV_NOTIFY_CONFIG['reset_password_email']['template_id']
 
+
     UseCases::Administrator::SendResetPasswordEmail.new(
       notifications_gateway: EmailGateway.new
     ).execute(
       email: record.email,
       reset_url: reset_link,
+      template_id: template_id
+    )
+  end
+
+  def unlock_instructions(record, token, _opts = {})
+    unlock_link = unlock_url(record, unlock_token: token)
+    template_id = GOV_NOTIFY_CONFIG['unlock_account']['template_id']
+
+    UseCases::Administrator::SendUnlockEmail.new(
+      notifications_gateway: EmailGateway.new
+    ).execute(
+      email: record.email,
+      unlock_url: unlock_link,
       template_id: template_id
     )
   end

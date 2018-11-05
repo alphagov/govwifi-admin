@@ -7,7 +7,7 @@ describe 'contact us page' do
   include_examples 'notifications service'
   include_examples 'send help email use case spy'
 
-  let(:user) { create(:user, :confirmed, :with_organisation) }
+  let(:user) { create(:user, :confirmed) }
 
   context 'with support ticket details filled in' do
     before do
