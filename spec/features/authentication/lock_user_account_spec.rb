@@ -1,7 +1,7 @@
 require 'support/unlock_account_use_case_spy'
 require 'support/unlock_account_use_case'
 
-describe "Locking a users account after too many failed login attempts" do
+describe "Locking a users account after ten failed login attempts" do
   include_examples 'notifications service'
 
   let(:correct_password) { 'password' }
@@ -11,7 +11,7 @@ describe "Locking a users account after too many failed login attempts" do
   before { visit new_user_session_path }
 
   context "before the user locks their account" do
-    it "warns the user they have one attmept left before locking the account" do
+    it "on the ninth failed attempt the user will be warned that their account will be locked" do
       9.times do
         fill_in 'Email', with: user.email
         fill_in 'Password', with: incorrect_password
@@ -29,7 +29,7 @@ describe "Locking a users account after too many failed login attempts" do
       expect(page).to have_content 'Your account has been locked. Reset your password'
     end
 
-    it "locks the users account after ten failed attempts and sends an email" do
+    it "locks the users account after ten failed attempts and sends an email to unlock the account" do
       allow(UseCases::Administrator::UnlockAccountEmail).to receive(:new).and_return(UnlockAccountUseCaseSpy.new)
       expect {
         10.times do
