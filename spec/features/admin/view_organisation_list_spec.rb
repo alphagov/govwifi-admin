@@ -1,7 +1,7 @@
 require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
 
-describe 'view list of signed up organisations', focus: true do
+describe 'view list of signed up organisations' do
   before do
     login_as user
     visit organisations_path
@@ -24,22 +24,32 @@ describe 'view list of signed up organisations', focus: true do
   context 'when logged in as an admin' do
     let(:user) { create(:user, :confirmed, admin: true) }
 
-    context 'and an organisation exists' do
+    context 'and one organisation exists' do
       before do
-        create(
-          :organisation,
-          name: "Bob's Burgers",
-          created_at: '1 Feb 2014'
-        )
+        org = create(:organisation, name: "Fake Org", created_at: '1 Feb 2014')
+        10.times { create(:location, organisation: org ) }
+        11.times { create(:ip, location: Location.first) }
         visit organisations_path
       end
 
       it 'shows their name' do
-        expect(page).to have_content "Bob's Burgers"
+        expect(page).to have_content 'Fake Org'
       end
 
       it 'shows when they signed up' do
         expect(page).to have_content('1 Feb 2014')
+      end
+
+      it 'shows they have 10 locations' do
+        expect(page).to have_content('10')
+      end
+
+      it 'shows they have 11 IPs' do
+        expect(page).to have_content('11')
+      end
+
+      xit 'shows they have an MOU' do
+        expect(page).to have_content('????')
       end
     end
 

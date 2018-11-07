@@ -1,6 +1,9 @@
 FactoryBot.define do
   factory :ip do
-    address { '10.0.0.1' }
+    sequence :address do |n|
+      "10.0.0.#{n}"
+    end
+
     association :location
   end
 end
