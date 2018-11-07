@@ -15,8 +15,7 @@ build:
 	$(MAKE) stop
 	$(DOCKER_BUILD_CMD)
 
-serve:
-	$(MAKE) build
+serve: build
 	$(DOCKER_COMPOSE) up -d db
 	$(DOCKER_COMPOSE) up -d rr_db
 	./mysql/bin/wait_for_mysql
@@ -40,8 +39,8 @@ test:
 	$(DOCKER_COMPOSE) run --rm app cp -R --remove-destination /usr/src/.node_modules ./node_modules
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
-shell: serve
-	docker exec -it app bash
+shell:
+	$(DOCKER_COMPOSE) exec app bash || ($(MAKE) build && $(DOCKER_COMPOSE) run --service-ports --rm app bash)
 
 stop:
 	$(DOCKER_COMPOSE) kill
