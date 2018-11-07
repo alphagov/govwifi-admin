@@ -5,7 +5,7 @@
     <% if @mou.unsigned_document.attached? %>
       <ul class="govuk-list govuk-list">
         <li>1. <%= link_to "Download a copy of the MOU", rails_blob_path(@mou.unsigned_document, disposition: "attachment") %></li>
-        <li>2. Sign the document at section 4.2 and 16.2</li>
+        <li>2. Sign the document</li>
         <li>3. Upload your signed MOU</li>
       </ul>
     <% else %>
@@ -13,7 +13,7 @@
       </p>
     <% end %>
     <div>
-      <%= form_with url: organisations_mou_index_path, method: 'post' do |form| %>
+      <%= form_with url: mou_index_path, method: 'post' do |form| %>
         <div class="govuk-form-group">
           <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
         </div>
