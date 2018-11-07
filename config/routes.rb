@@ -13,18 +13,16 @@ Rails.application.routes.draw do
 
   get '/healthcheck', to: 'monitoring#healthcheck'
   resources :status, only: %i[index]
-  resources :organisations, only: %i[index]
   resources :ips, only: %i[index new create]
   resources :help, only: %i[index create]
   resources :team_members, only: %i[index]
+  resources :mou, only: %i[index create]
   resources :logs, only: %i[index] do
     get 'search', on: :collection
   end
 
-  namespace :admins do
+  namespace :admin do
     resources :mou, only: %i[index update create]
-  end
-  namespace :organisations do
-    resources :mou, only: %i[index create]
+    resources :organisations, only: %i[index]
   end
 end

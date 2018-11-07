@@ -1,4 +1,4 @@
-class Organisations::MouController < ApplicationController
+class MouController < ApplicationController
   def index
     @mou = AdminConfig.mou
   end
@@ -10,6 +10,6 @@ class Organisations::MouController < ApplicationController
     else
       flash[:alert] = "Choose a file before uploading "
     end
-    redirect_to organisations_mou_index_path
+    redirect_to mou_index_path
   end
 end

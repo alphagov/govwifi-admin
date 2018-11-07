@@ -3,7 +3,7 @@ require 'features/support/sign_up_helpers'
 
 describe 'the visibility of the organisation depending on user' do
   context 'when logged out' do
-    before { visit organisations_path }
+    before { visit admin_organisations_path }
 
     it_behaves_like 'not signed in'
   end
@@ -16,7 +16,7 @@ describe 'the visibility of the organisation depending on user' do
       sign_in_user user
       visit root_path
 
-      expect(page).to have_link(nil, href: organisations_path)
+      expect(page).to have_link(nil, href: admin_organisations_path)
     end
   end
 
@@ -28,12 +28,12 @@ describe 'the visibility of the organisation depending on user' do
       sign_in_user user
       visit root_path
 
-      expect(page).to_not have_link(nil, href: organisations_path)
+      expect(page).to_not have_link(nil, href: admin_organisations_path)
     end
 
     it 'will redirect to root if users type address manually' do
       sign_in_user user
-      visit organisations_path
+      visit admin_organisations_path
 
       expect(page.current_path).to eq(root_path)
     end
@@ -47,7 +47,7 @@ describe 'the visibility of the organisation depending on user' do
 
     it 'display list of organisations in alphabetical order' do
       sign_in_user user
-      visit organisations_path
+      visit admin_organisations_path
 
       expect(page.body).to match(/ABC.*DEF.*XYZ/m)
     end

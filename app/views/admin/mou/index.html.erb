@@ -10,7 +10,7 @@
     <h3 class="govuk-heading-m">Upload Template</h3>
     <p class="govuk-body"> </p>
     <p class="govuk-body"> </p>
-    <%= form_with url: admins_mou_index_path, method: 'post', class: 'govuk-form-group' do |form| %>
+    <%= form_with url: admin_mou_index_path, method: 'post', class: 'govuk-form-group' do |form| %>
       <%= form.label :unsigned_mou, 'Select template file', class: 'govuk-label' %>
       <%= form.file_field(:unsigned_document) %>
       <p>
