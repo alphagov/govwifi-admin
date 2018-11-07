@@ -10,7 +10,7 @@
   <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-0 govuk-!-padding-right-0 flex-end">
     <nav class="govuk-body govuk-!-margin-bottom-0 ">
     <% if current_user.admin? %>
-      <%= link_to "Organisations", organisations_path, class: active_tab(organisations_path) %>
+      <%= link_to "Organisations", organisations_path, class: active_tab(organisations_path) %> 
       <%= link_to "MOU", admins_mou_index_path, class: active_tab(admins_mou_index_path) %>
     <% else %>
       <%= link_to "Overview", root_path, class: active_tab(root_path) %>
