@@ -12,7 +12,7 @@ describe 'the visibility of the organisation depending on user' do
     let(:organisation) { create(:organisation) }
     let(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation, admin: true) }
 
-    it 'displays not the organisation tab' do
+    it 'does not display the organisation tab' do
       sign_in_user user
       visit root_path
 
