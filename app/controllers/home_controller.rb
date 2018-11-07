@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+    redirect_to organisations_path if current_user.admin?
     @ips = current_organisation.ips
     @london_radius_ips = radius_ips[:london]
     @dublin_radius_ips = radius_ips[:dublin]
