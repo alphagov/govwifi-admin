@@ -12,9 +12,9 @@ private
     redirect_to root_path unless current_user.admin?
   end
 
-  # def sortable_columns
-  #   ["name", "created_at"]
-  # end
+  def sortable_columns
+    ["name"]
+  end
 
   # def sort_column
   #   sortable_columns.include?(params[:column]) ? params[:column] : "name"
