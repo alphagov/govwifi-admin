@@ -7,6 +7,7 @@ Rails.application.config.assets.precompile += %w(
   govuk-logotype-crown.png
   application_ie8.css
   html5shiv.js
+  googletagmanager.js
 )
 
 
