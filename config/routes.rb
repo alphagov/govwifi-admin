@@ -23,6 +23,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :mou, only: %i[index update create]
-    resources :organisations, only: %i[index]
+    resources :organisations, only: %i[index show]
   end
 end
