@@ -4,7 +4,6 @@ class Admin::OrganisationsController < AdminController
   end
 
   def show
-    organisation_id = params[:id]
-    @organisation = Organisation.find(organisation_id)
+    @organisation = Organisation.find(params[:id])
   end
 end

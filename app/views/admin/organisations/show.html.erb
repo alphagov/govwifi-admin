@@ -1,52 +1,55 @@
-<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= link_to "Back to list", admin_organisations_path, class: "govuk-back-link" %>
 
-  <%= link_to "Back to list", admin_organisations_path, class: "govuk-back-link" %>
-  <h1 class="govuk-heading-xl govuk-!-margin-bottom-2"><%= @organisation.name %></h1>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+      <%= @organisation.name %>
+    </h1>
 
-  <p class="govuk-body">
-    Created on <%= @organisation.created_at.strftime('%e %b %Y') %>
-  </p>
+    <p class="govuk-body">
+      Created on <%= @organisation.created_at.strftime('%e %b %Y') %>
+    </p>
 
-  <%= render 'section', heading: 'Usage' do %>
-    <%= render('usage', organisation: @organisation) %>
-  <% end %>
+    <%= render 'section', heading: 'Usage' do %>
+      <%= render 'usage', organisation: @organisation %>
+    <% end %>
 
-  <%= render 'section', heading: 'Service Email' do %>
-    <p class="govuk-body"><%= @organisation.service_email %></p>
-  <% end %>
+    <%= render 'section', heading: 'Service Email' do %>
+      <p class="govuk-body"><%= @organisation.service_email %></p>
+    <% end %>
 
-  <%= render 'section', heading: 'Team' do %>
-    <table class="govuk-table">
-      <thead class="govuk-table__head">
-      </thead>
-      <tbody class="govuk-table__body">
-        <% @organisation.users.each do |user| %>
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell" scope="row"><%= user.name %></td>
-            <td class="govuk-table__cell" scope="row"><%= user.email %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+    <%= render 'section', heading: 'Team' do %>
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+        </thead>
+        <tbody class="govuk-table__body">
+          <% @organisation.users.each do |user| %>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell" scope="row"><%= user.name %></td>
+              <td class="govuk-table__cell" scope="row"><%= user.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
 
-  <%= render 'section', heading: 'MoU' do %>
-    <%= render('mou_form', organisation: @organisation) %>
-  <% end %>
+    <%= render 'section', heading: 'MoU' do %>
+      <%= render 'mou_form', organisation: @organisation %>
+    <% end %>
 
-  <%= render 'section', heading: 'Locations' do %>
-    <table class="govuk-table">
-      <thead class="govuk-table__head">
-      </thead>
-      <tbody class="govuk-table__body">
-        <% @organisation.locations.each do |location| %>
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell" scope="row"><%= location.address %></td>
-            <td class="govuk-table__cell" scope="row"><%= location.postcode %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
-
-</div></div>
+    <%= render 'section', heading: 'Locations' do %>
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+        </thead>
+        <tbody class="govuk-table__body">
+          <% @organisation.locations.each do |location| %>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell" scope="row"><%= location.address %></td>
+              <td class="govuk-table__cell" scope="row"><%= location.postcode %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
