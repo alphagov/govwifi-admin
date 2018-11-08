@@ -1,0 +1,10 @@
+<h1 class="govuk-heading-xl"><%= @organisation.name %></h1>
+
+<%= @organisation.created_at.strftime('%e %b %Y') %>
+
+
+<h2 class="govuk-heading-l govuk-!-margin-bottom-1">Usage</h2>
+<hr class="govuk-section-break govuk-section-break--visible">
+
+<span id="location-count"><%= @organisation.locations.count %></span>
+<span id="team-count"></span>
