@@ -1,11 +1,11 @@
 <% heading ||= nil %>
-<div class="govuk-grid-row">
+<div class="govuk-grid-row govuk-!-margin-bottom-8">
   <div class="govuk-grid-column-full">
     <% if heading %>
       <h2 class="govuk-heading-l govuk-!-margin-bottom-0"><%= heading %></h2>
       <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m govuk-!-margin-top-0">
     <% end %>
-    
+
     <%= yield %>
   </div>
 </div>

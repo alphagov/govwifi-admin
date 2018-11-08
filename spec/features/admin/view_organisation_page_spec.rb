@@ -34,8 +34,12 @@ describe 'view details of a signed up organisations' do
       expect(page).to have_content(organisation.name)
     end
 
-    it 'has the creation date of the orgnisation' do
-      expect(page).to have_content(organisation.created_at.strftime("%-e %b %Y"))
+    it 'has the creation date of the organisation' do
+      expect(page).to have_content(
+        organisation.created_at.strftime(
+          "#{organisation.created_at.day.ordinalize} of %B, %Y"
+        )
+      )
     end
 
     it 'has a Usage section' do
@@ -80,11 +84,12 @@ describe 'view details of a signed up organisations' do
 
     context 'when an MoU does not exist' do
       it 'says no MoU exists' do
-        expect(page).to have_content('No MoU uploaded')
+        expect(page).to have_content('This organisation has not uploaded an MoU.')
       end
+
       it 'has an Upload MoU button' do
         within('#mou-upload-form') do
-          expect(find_button('Upload')).to be_present
+          expect(find_button('Upload MOU')).to be_present
         end
       end
     end
@@ -99,10 +104,14 @@ describe 'view details of a signed up organisations' do
       end
 
       it 'has a download button' do
-        expect(page).to have_content('Download MoU')
+        expect(page).to have_link('download and view the document.')
       end
+
       it 'has upload date' do
-        expect(page).to have_content('Uploaded on ' + organisation.signed_mou.attachment.created_at.strftime('%-e %b %Y'))
+        expect(page).to have_content(
+          'A signed MoU was uploaded on ' +
+            organisation.signed_mou.attachment.created_at.strftime('%-e %b %Y')
+        )
       end
 
       it 'has a replace MoU button' do
