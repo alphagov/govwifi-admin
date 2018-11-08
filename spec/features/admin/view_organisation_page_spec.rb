@@ -48,34 +48,70 @@ describe 'view details of a signed up organisations' do
       end
     end
 
-    context 'when an organisation has a location' do
-      it 'shows the number of locations' do
-        within('#location-count') do
-          expect(page).to have_content('1')
-        end
+    it 'lists the users' do
+      organisation.users.each do |user|
+        expect(page).to have_content(user.name)
+        expect(page).to have_content(user.email)
       end
 
-      it 'lists all locations'
     end
 
-    context 'when an organisation has an IP' do
-      it 'shows the number of IPs' do
-        within('#ip-count') do
-          expect(page).to have_content('1')
-        end
+    it 'shows the number of locations' do
+      within('#location-count') do
+        expect(page).to have_content('1')
       end
     end
 
+    it 'lists all locations' do
+      organisation.locations.each do |location|
+        expect(page).to have_content(location.address)
+        expect(page).to have_content(location.postcode)
+      end
+    end
+
+    it 'shows the number of IPs' do
+      within('#ip-count') do
+        expect(page).to have_content('1')
+      end
+    end
 
     it 'has a service email' do
       expect(page).to have_content(organisation.service_email)
     end
 
-    it 'has an MoU upload button'
+    context 'when an MoU does not exist' do
+      it 'says no MoU exists' do
+        expect(page).to have_content('No MoU uploaded')
+      end
+      it 'has an Upload MoU button' do
+        within('#mou-upload-form') do
+          expect(find_button('Upload')).to be_present
+        end
+
+      end
+    end
 
     context 'when an MoU exists' do
-      it 'has a download button'
-      it 'has upload date'
+      before do
+        organisation.signed_mou.attach(
+          io: File.open(Rails.root + 'spec/fixtures/mou.pdf'), filename: 'mou.pdf'
+        )
+        sign_in_user user
+        visit admin_organisation_path(organisation)
+      end
+
+      it 'has a download button' do
+        expect(page).to have_content('Download MoU')
+      end
+      it 'has upload date' do
+        expect(page).to have_content('Uploaded on ' + organisation.signed_mou.attachment.created_at.strftime('%-e %b %Y'))
+      end
+
+      it 'has a replace MoU button' do
+        within('#mou-upload-form') do
+          expect(find_button('Replace')).to be_present
+        end
+      end
     end
   end
 end
