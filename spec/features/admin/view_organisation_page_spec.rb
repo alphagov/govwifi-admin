@@ -4,6 +4,7 @@ require 'features/support/user_not_authorised'
 
 describe 'view details of a signed up organisations' do
   let(:organisation) { create(:organisation) }
+  let!(:team_member) { create(:user, :confirmed, organisation: organisation) }
   let!(:location) { create(:location, organisation: organisation) }
   let!(:ip) { create(:ip, location: location) }
 
@@ -41,21 +42,34 @@ describe 'view details of a signed up organisations' do
       expect(page).to have_content('Usage')
     end
 
+    it 'shows the number of users' do
+      within('#user-count') do
+        expect(page).to have_content('1')
+      end
+    end
+
     context 'when an organisation has a location' do
       it 'shows the number of locations' do
-        within('#location-id') do
+        within('#location-count') do
           expect(page).to have_content('1')
         end
       end
+
       it 'lists all locations'
     end
 
     context 'when an organisation has an IP' do
-      it 'shows the number of IPs'
+      it 'shows the number of IPs' do
+        within('#ip-count') do
+          expect(page).to have_content('1')
+        end
+      end
     end
 
-    it 'lists users with contact details'
-    it 'has a service email'
+
+    it 'has a service email' do
+      expect(page).to have_content(organisation.service_email)
+    end
 
     it 'has an MoU upload button'
 

@@ -1,10 +1,78 @@
-<h1 class="govuk-heading-xl"><%= @organisation.name %></h1>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-2"><%= @organisation.name %></h1>
 
-<%= @organisation.created_at.strftime('%e %b %Y') %>
+<p class="govuk-body">
+  Created on <%= @organisation.created_at.strftime('%e %b %Y') %>
+</p>
 
 
 <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Usage</h2>
 <hr class="govuk-section-break govuk-section-break--visible">
 
-<span id="location-count"><%= @organisation.locations.count %></span>
-<span id="team-count"></span>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <p class="govuk-body">
+      <strong class="govuk-!-font-size-36" id="location-count">
+        <%= @organisation.locations.count %>
+      </strong><br>
+      Locations
+    </p>
+  </div>
+
+  <div class="govuk-grid-column-one-half">
+    <p class="govuk-body">
+      <strong class="govuk-!-font-size-36" id="ip-count">
+        <%= @organisation.ips.count %>
+      </strong><br>
+      IPs
+    </p>
+  </div>
+
+  <div class="govuk-grid-column-one-half">
+    <p class="govuk-body">
+      <strong class="govuk-!-font-size-36" id="user-count">
+        <%= @organisation.users.count %>
+      </strong><br>
+      Users
+    </p>
+  </div>
+</div>
+
+<h2 class="govuk-heading-l govuk-!-margin-bottom-1">Service Email</h2>
+<hr class="govuk-section-break govuk-section-break--visible">
+<p class="govuk-body"><%= @organisation.service_email %></p>
+
+
+<h2 class="govuk-heading-l govuk-!-margin-bottom-1">Team</h2>
+<hr class="govuk-section-break govuk-section-break--visible">
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+  </thead>
+  <tbody class="govuk-table__body">
+    <% @organisation.users.each do |user| %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell" scope="row"><%= user.name %></td>
+        <td class="govuk-table__cell" scope="row"><%= user.email %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2 class="govuk-heading-l govuk-!-margin-bottom-1">MoU</h2>
+<hr class="govuk-section-break govuk-section-break--visible">
+<br>
+<br>
+
+<h2 class="govuk-heading-l govuk-!-margin-bottom-1">Locations</h2>
+<hr class="govuk-section-break govuk-section-break--visible">
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+  </thead>
+  <tbody class="govuk-table__body">
+    <% @organisation.locations.each do |location| %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell" scope="row"><%= location.address %></td>
+        <td class="govuk-table__cell" scope="row"><%= location.postcode %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
