@@ -62,19 +62,5 @@ describe 'the upload and download of MOUs' do
 
       expect(page.body).to eq("12334567 signed mou with content\n")
     end
-
-    it 'uploads signed mou for an organisation' do
-      sign_in_user user
-      visit admin_organisations_path
-
-      attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
-      click_on 'Upload'
-
-      expect(page).to have_content("MOU uploaded successfully.")
-
-      click_on 'Download'
-
-      expect(page.body).to eq("12334567 signed mou with content\n")
-    end
   end
 end
