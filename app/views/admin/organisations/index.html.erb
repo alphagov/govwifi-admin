@@ -1,6 +1,6 @@
 <h1 class="govuk-heading-l">All organisations</h1>
 <h3 class="govuk-heading-m">
-  <%= pluralize(@all_organisations.count, 'organisation') %> are signed up to GovWifi
+  <%= pluralize(@organisations.count, 'organisation') %> are signed up to GovWifi
 </h3>
 
 <table class="govuk-table">
@@ -14,7 +14,7 @@
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-    <% @all_organisations.each do | organisation| %>
+    <% @organisations.each do |organisation| %>
       <tr class="govuk-table__row">
         <td class="govuk-table__cell name-col" scope="row">
           <%= organisation.name %>

@@ -4,7 +4,7 @@ require 'features/support/sign_up_helpers'
 describe 'view list of signed up organisations' do
   before do
     login_as user
-    visit organisations_path
+    visit admin_organisations_path
   end
 
   context 'when not logged in' do
@@ -29,7 +29,7 @@ describe 'view list of signed up organisations' do
         org = create(:organisation, name: "Fake Org", created_at: '1 Feb 2014')
         10.times { create(:location, organisation: org ) }
         11.times { create(:ip, location: Location.first) }
-        visit organisations_path
+        visit admin_organisations_path
       end
 
       it 'shows their name' do
@@ -56,7 +56,7 @@ describe 'view list of signed up organisations' do
     context 'and three organisations exist' do
       before do
         3.times { create(:organisation) }
-        visit organisations_path
+        visit admin_organisations_path
       end
 
       it 'shows all three organisations' do
