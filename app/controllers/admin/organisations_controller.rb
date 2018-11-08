@@ -1,5 +1,5 @@
 class OrganisationsController < ApplicationController
-  # helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction
   before_action :index, :authorise_admin
 
   def index
