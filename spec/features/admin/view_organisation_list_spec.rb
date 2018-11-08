@@ -31,7 +31,7 @@ describe 'view list of signed up organisations' do
         org.signed_mou.attach(
           io: File.open(Rails.root + "spec/fixtures/mou.pdf"), filename: "mou.pdf"
         )
-        2.times { create(:location, organisation: org ) }
+        2.times { create(:location, organisation: org) }
         3.times { create(:ip, location: Location.first) }
         visit admin_organisations_path
       end
