@@ -1,107 +1,52 @@
-<%= link_to "Back to list", admin_organisations_path, class: "govuk-back-link" %>
-<h1 class="govuk-heading-xl govuk-!-margin-bottom-2"><%= @organisation.name %></h1>
+<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
 
-<p class="govuk-body">
-  Created on <%= @organisation.created_at.strftime('%e %b %Y') %>
-</p>
+  <%= link_to "Back to list", admin_organisations_path, class: "govuk-back-link" %>
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-2"><%= @organisation.name %></h1>
 
-
-<h2 class="govuk-heading-l govuk-!-margin-bottom-1">Usage</h2>
-<hr class="govuk-section-break govuk-section-break--visible">
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
-    <p class="govuk-body">
-      <strong class="govuk-!-font-size-36" id="location-count">
-        <%= @organisation.locations.count %>
-      </strong><br>
-      Locations
-    </p>
-  </div>
-
-  <div class="govuk-grid-column-one-half">
-    <p class="govuk-body">
-      <strong class="govuk-!-font-size-36" id="ip-count">
-        <%= @organisation.ips.count %>
-      </strong><br>
-      IPs
-    </p>
-  </div>
-
-  <div class="govuk-grid-column-one-half">
-    <p class="govuk-body">
-      <strong class="govuk-!-font-size-36" id="user-count">
-        <%= @organisation.users.count %>
-      </strong><br>
-      Users
-    </p>
-  </div>
-</div>
-
-<h2 class="govuk-heading-l govuk-!-margin-bottom-1">Service Email</h2>
-<hr class="govuk-section-break govuk-section-break--visible">
-<p class="govuk-body"><%= @organisation.service_email %></p>
-
-
-<h2 class="govuk-heading-l govuk-!-margin-bottom-1">Team</h2>
-<hr class="govuk-section-break govuk-section-break--visible">
-<table class="govuk-table">
-  <thead class="govuk-table__head">
-  </thead>
-  <tbody class="govuk-table__body">
-    <% @organisation.users.each do |user| %>
-      <tr class="govuk-table__row">
-        <td class="govuk-table__cell" scope="row"><%= user.name %></td>
-        <td class="govuk-table__cell" scope="row"><%= user.email %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<h2 class="govuk-heading-l govuk-!-margin-bottom-1">MoU</h2>
-<hr class="govuk-section-break govuk-section-break--visible">
-
-<% if @organisation.signed_mou.attached? %>
   <p class="govuk-body">
-    <%= link_to "Download MoU", rails_blob_path(@organisation.signed_mou, disposition: "attachment") %>
-    <br>Uploaded on <%= @organisation.signed_mou.attachment.created_at.strftime('%e %b %Y') %>
+    Created on <%= @organisation.created_at.strftime('%e %b %Y') %>
   </p>
 
-  <div id="mou-upload-form">
-  <h3 class="govuk-heading-m">Replace MoU</h3>
-  <%= form_with url: admin_mou_index_path(id: @organisation.id), method: 'post' do |form| %>
-    <div class="govuk-form-group">
-      <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
-    </div>
-    <%= form.submit('Replace', class: 'govuk-button') %>
+  <%= render 'section', heading: 'Usage' do %>
+    <%= render('usage', organisation: @organisation) %>
   <% end %>
-</div>
 
-<% else %>
-  <p class="govuk-body">No MoU uploaded</p>
-
-  <h3 class="govuk-heading-m">Upload MoU</h3>
-  <div id="mou-upload-form">
-  <%= form_with url: admin_mou_index_path(id: @organisation.id), method: 'post' do |form| %>
-    <div class="govuk-form-group">
-      <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
-    </div>
-    <%= form.submit('Upload', class: 'govuk-button') %>
+  <%= render 'section', heading: 'Service Email' do %>
+    <p class="govuk-body"><%= @organisation.service_email %></p>
   <% end %>
-</div>
-<% end %>
 
-<h2 class="govuk-heading-l govuk-!-margin-bottom-1">Locations</h2>
-<hr class="govuk-section-break govuk-section-break--visible">
-<table class="govuk-table">
-  <thead class="govuk-table__head">
-  </thead>
-  <tbody class="govuk-table__body">
-    <% @organisation.locations.each do |location| %>
-      <tr class="govuk-table__row">
-        <td class="govuk-table__cell" scope="row"><%= location.address %></td>
-        <td class="govuk-table__cell" scope="row"><%= location.postcode %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <%= render 'section', heading: 'Team' do %>
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+      </thead>
+      <tbody class="govuk-table__body">
+        <% @organisation.users.each do |user| %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell" scope="row"><%= user.name %></td>
+            <td class="govuk-table__cell" scope="row"><%= user.email %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <%= render 'section', heading: 'MoU' do %>
+    <%= render('mou_form', organisation: @organisation) %>
+  <% end %>
+
+  <%= render 'section', heading: 'Locations' do %>
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+      </thead>
+      <tbody class="govuk-table__body">
+        <% @organisation.locations.each do |location| %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell" scope="row"><%= location.address %></td>
+            <td class="govuk-table__cell" scope="row"><%= location.postcode %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+</div></div>

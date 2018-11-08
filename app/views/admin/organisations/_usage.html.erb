@@ -1,0 +1,29 @@
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <p class="govuk-body">
+      <strong class="govuk-!-font-size-36" id="location-count">
+        <%= organisation.locations.count %>
+      </strong><br>
+      Locations
+    </p>
+  </div>
+
+  <div class="govuk-grid-column-one-half">
+    <p class="govuk-body">
+      <strong class="govuk-!-font-size-36" id="ip-count">
+        <%= organisation.ips.count %>
+      </strong><br>
+      IPs
+    </p>
+  </div>
+
+  <div class="govuk-grid-column-one-half">
+    <p class="govuk-body">
+      <strong class="govuk-!-font-size-36" id="user-count">
+        <%= organisation.users.count %>
+      </strong><br>
+      Users
+    </p>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<% heading ||= nil %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= render('section_header', heading: heading) if heading %>
+    <%= yield %>
+  </div>
+</div>
