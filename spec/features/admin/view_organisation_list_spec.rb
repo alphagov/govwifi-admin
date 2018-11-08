@@ -31,29 +31,39 @@ describe 'view list of signed up organisations' do
         org.signed_mou.attach(
           io: File.open(Rails.root + "spec/fixtures/mou.pdf"), filename: "mou.pdf"
         )
-        10.times { create(:location, organisation: org ) }
-        11.times { create(:ip, location: Location.first) }
+        2.times { create(:location, organisation: org ) }
+        3.times { create(:ip, location: Location.first) }
         visit admin_organisations_path
       end
 
       it 'shows their name' do
-        expect(page).to have_content 'Fake Org'
+        within("table") do
+          expect(page).to have_content 'Fake Org'
+        end
       end
 
       it 'shows when they signed up' do
-        expect(page).to have_content('1 Feb 2014')
+        within("table") do
+          expect(page).to have_content('1 Feb 2014')
+        end
       end
 
       it 'shows they have 10 locations' do
-        expect(page).to have_content('10')
+        within("table") do
+          expect(page).to have_content('2')
+        end
       end
 
       it 'shows they have 11 IPs' do
-        expect(page).to have_content('11')
+        within("table") do
+          expect(page).to have_content('3')
+        end
       end
 
       it 'shows they have an MOU' do
-        expect(page).to have_content(org.signed_mou.attachment.created_at.strftime('%e %b %Y'))
+        within("table") do
+          expect(page).to have_content(org.signed_mou.attachment.created_at.strftime('%e %b %Y'))
+        end
       end
     end
 
