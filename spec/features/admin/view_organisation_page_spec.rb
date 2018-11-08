@@ -53,7 +53,6 @@ describe 'view details of a signed up organisations' do
         expect(page).to have_content(user.name)
         expect(page).to have_content(user.email)
       end
-
     end
 
     it 'shows the number of locations' do
@@ -87,7 +86,6 @@ describe 'view details of a signed up organisations' do
         within('#mou-upload-form') do
           expect(find_button('Upload')).to be_present
         end
-
       end
     end
 
