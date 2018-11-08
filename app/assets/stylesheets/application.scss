@@ -6,7 +6,6 @@ $govuk-font-url-function: "font-url";
 @import "./components/health_checks";
 @import "./components/ips";
 @import "./components/main_nav";
-@import "./components/organisations_table";
 @import "./components/sub_nav";
 @import "./components/team_members";
 @import "./utilities/layout";
@@ -19,4 +18,3 @@ $govuk-font-url-function: "font-url";
 .govuk-phase-banner {
   margin-bottom: 25px;
 }
-
