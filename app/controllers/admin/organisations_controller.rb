@@ -13,11 +13,11 @@ private
   end
 
   def sortable_columns
-    ["name"]
+    ["name", "created_at"]
   end
-
+  
   def sort_column
-    sortable_columns.include?(params[:column]) ? params[:column] : "name"
+    sortable_columns.include?(params[:sort]) ? params[:sort] : "name"
   end
 
   def sort_direction
