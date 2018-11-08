@@ -25,8 +25,12 @@ describe 'view list of signed up organisations' do
     let(:user) { create(:user, :confirmed, admin: true) }
 
     context 'and one organisation exists' do
+      let(:org) { create(:organisation, name: "Fake Org", created_at: '1 Feb 2014') }
+
       before do
-        org = create(:organisation, name: "Fake Org", created_at: '1 Feb 2014')
+        org.signed_mou.attach(
+          io: File.open(Rails.root + "spec/fixtures/mou.pdf"), filename: "mou.pdf"
+        )
         10.times { create(:location, organisation: org ) }
         11.times { create(:ip, location: Location.first) }
         visit admin_organisations_path
@@ -48,8 +52,8 @@ describe 'view list of signed up organisations' do
         expect(page).to have_content('11')
       end
 
-      xit 'shows they have an MOU' do
-        expect(page).to have_content('????')
+      it 'shows they have an MOU' do
+        expect(page).to have_content(org.signed_mou.attachment.created_at.strftime('%e %b %Y'))
       end
     end
 
