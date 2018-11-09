@@ -19,13 +19,13 @@ describe 'sorting the columns in the organisation list', focus: true do
 
     context 'can toggle the order of the dates' do
       it 'can sort the dates from oldest to newest' do
-        click_link 'Created At'
+        click_link 'Created on'
 
         expect(page.body).to match(/DEF.*ABC.*XYZ/m)
       end
 
       it 'can sort the dates from oldest to newest' do
-        2.times{ click_link 'Created At' }
+        2.times{ click_link 'Created on' }
 
         expect(page.body).to match(/XYZ.*ABC.*DEF/m)
       end
