@@ -9,6 +9,15 @@ admin_user.confirm
 organisation = Organisation.create(name: "Parks & Recreation Dept", service_email: 'it@parks.com')
 user = organisation.users.create(email: "test@gov.uk", password: "password", name: "Steve")
 user.confirm
+3.times do
+  User.create(
+    email: Faker::Name.first_name + "@gov.uk",
+    password: "password",
+    name: Faker::Name.name,
+    confirmed_at: Time.zone.now,
+    organisation: organisation
+  )
+end
 
 location_1 = Location.create!(
   address: 'Momentum Centre, London',

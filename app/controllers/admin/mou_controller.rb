@@ -4,15 +4,24 @@ class Admin::MouController < AdminController
   end
 
   def create
-    params[:id].present? ? attach_to_organisation : attach_to_template
+    if params[:id]
+      organisation = Organisation.find(params[:id])
+      attach_to_organisation(organisation)
+      redirect_to admin_organisation_path(organisation)
+    else
+      attach_to_template
+    end
   end
 
 private
 
-  def attach_to_organisation
-    Organisation.find(params[:id]).signed_mou.attach(params[:signed_mou])
-    flash[:notice] = "MOU uploaded successfully."
-    redirect_to admin_organisations_path
+  def attach_to_organisation(organisation)
+    if params[:signed_mou]
+      organisation.signed_mou.attach(params[:signed_mou])
+      flash[:notice] = "MOU uploaded successfully."
+    else
+      flash[:alert] = "No MoU file selected. Please select a file and try again."
+    end
   end
 
   def attach_to_template
