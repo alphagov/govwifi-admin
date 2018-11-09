@@ -6,8 +6,8 @@
 <table class="govuk-table">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th class="govuk-table__header">Name</th>
-      <th class="govuk-table__header">Created on</th>
+      <th class="govuk-table__header"><%= sort_link "name" %></th>
+      <th class="govuk-table__header"><%= sort_link "created_at", "Created on" %></th>
       <th class="govuk-table__header govuk-table__header">MoU Signed</th>
       <th class="govuk-table__header govuk-table__header--numeric">Locations</th>
       <th class="govuk-table__header govuk-table__header--numeric">IPs</th>
