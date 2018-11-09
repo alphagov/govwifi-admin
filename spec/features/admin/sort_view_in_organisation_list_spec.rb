@@ -10,7 +10,7 @@ describe 'sorting the columns in the organisation list' do
       sign_in_user user
       visit root_path
     end
-    
+
     it 'can sort the organisations by names in descending order' do
       click_link 'Name'
 
@@ -25,12 +25,10 @@ describe 'sorting the columns in the organisation list' do
       end
 
       it 'can sort the dates from oldest to newest' do
-        2.times{ click_link 'Created on' }
+        2.times { click_link 'Created on' }
 
         expect(page.body).to match(/XYZ.*ABC.*DEF/m)
       end
-
     end
-
   end
 end
