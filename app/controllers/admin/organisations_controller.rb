@@ -1,4 +1,4 @@
-class OrganisationsController < ApplicationController
+class Admin::OrganisationsController < AdminController
   helper_method :sort_column, :sort_direction
   before_action :index, :authorise_admin
 
