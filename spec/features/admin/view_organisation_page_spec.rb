@@ -2,11 +2,8 @@ require 'features/support/not_signed_in'
 require 'features/support/sign_up_helpers'
 require 'features/support/user_not_authorised'
 
-describe 'view details of a signed up organisations' do
+describe 'view details of a signed up organisation' do
   let(:organisation) { create(:organisation) }
-  let!(:team_member) { create(:user, :confirmed, organisation: organisation) }
-  let!(:location) { create(:location, organisation: organisation) }
-  let!(:ip) { create(:ip, location: location) }
 
   context 'when logged out' do
     before { visit admin_organisation_path(organisation) }
@@ -14,19 +11,23 @@ describe 'view details of a signed up organisations' do
     it_behaves_like 'not signed in'
   end
 
-  context 'when logged in as unpriviledged user' do
-    let!(:user) { create(:user, :confirmed) }
+  context 'when logged in as a normal user' do
     before do
-      sign_in_user user
+      sign_in_user create(:user, :confirmed)
       visit admin_organisation_path(organisation)
     end
+
     it_behaves_like 'user not authorised'
   end
 
-  context "when logged in" do
-    let(:user) { create(:user, :confirmed, admin: true) }
-    before(:each) do
-      sign_in_user user
+  context 'when logged in as a super-admin' do
+    let(:location) { create(:location, organisation: organisation) }
+
+    before do
+      create(:user, :confirmed, organisation: organisation)
+      create(:ip, location: location)
+
+      sign_in_user create(:user, :confirmed, admin: true)
       visit admin_organisation_path(organisation)
     end
 
@@ -99,7 +100,6 @@ describe 'view details of a signed up organisations' do
         organisation.signed_mou.attach(
           io: File.open(Rails.root + 'spec/fixtures/mou.pdf'), filename: 'mou.pdf'
         )
-        sign_in_user user
         visit admin_organisation_path(organisation)
       end
 
