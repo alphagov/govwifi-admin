@@ -1,16 +1,15 @@
 class Admin::OrganisationsController < AdminController
   helper_method :sort_column, :sort_direction
-  before_action :index, :authorise_admin
 
   def index
     @organisations = Organisation.order("#{sort_column} #{sort_direction}").all
   end
 
-private
-
-  def authorise_admin
-    redirect_to root_path unless current_user.admin?
+  def show
+    @organisation = Organisation.find(params[:id])
   end
+
+private
 
   def sortable_columns
     %w[name created_at]
@@ -22,9 +21,5 @@ private
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
-
-  def show
-    @organisation = Organisation.find(params[:id])
   end
 end
