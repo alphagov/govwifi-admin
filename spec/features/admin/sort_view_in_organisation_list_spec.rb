@@ -12,12 +12,11 @@ describe 'sorting the columns in the organisation list' do
     end
 
     context 'and wants to sort by organisation name' do
-
       it 'by default, sorts the names in alphabetical order' do
         expect(page.body).to match(/Apple Cakes.*Silly Hats.*Xylophones/m)
       end
 
-      it ' sorts the names in descending order when Name is clicked once' do
+      it 'sorts the names in descending alphabetical order when Name is clicked once' do
         click_link 'Name'
 
         expect(page.body).to match(/Xylophones.*Silly Hats.*Apple Cakes/m)
