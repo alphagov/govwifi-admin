@@ -1,5 +1,5 @@
 describe 'sorting the columns in the organisation list' do
-  context 'when admin views the names of organisations' do
+  context 'when admin views the table with organisation data' do
     let!(:user) { create(:user, :confirmed, admin: true) }
 
     before do
@@ -11,20 +11,27 @@ describe 'sorting the columns in the organisation list' do
       visit root_path
     end
 
-    it 'can sort the organisations by names in descending order' do
-      click_link 'Name'
+    context 'and wants to sort by organisation name' do
 
-      expect(page.body).to match(/Xylophones.*Silly Hats.*Apple Cakes/m)
+      it 'by default, sorts the names in alphabetical order' do
+        expect(page.body).to match(/Apple Cakes.*Silly Hats.*Xylophones/m)
+      end
+
+      it ' sorts the names in descending order when Name is clicked once' do
+        click_link 'Name'
+
+        expect(page.body).to match(/Xylophones.*Silly Hats.*Apple Cakes/m)
+      end
     end
 
-    context 'can toggle the order of the dates' do
-      it 'can sort the dates from oldest to newest' do
+    context 'and wants to sort by account creation date' do
+      it 'sorts the organistions from oldest to newest when Created on is clicked once' do
         click_link 'Created on'
 
         expect(page.body).to match(/Silly Hats.*Apple Cakes.*Xylophones/m)
       end
 
-      it 'can sort the dates from oldest to newest' do
+      it 'sorts the organistions from newest to oldest when Created on is clicked twice' do
         2.times { click_link 'Created on' }
 
         expect(page.body).to match(/Xylophones.*Apple Cakes.*Silly Hats/m)
