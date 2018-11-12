@@ -1,6 +1,6 @@
 require 'features/support/sign_up_helpers'
 
-describe 'sorting the columns in the organisation list', focus: true do
+describe 'sorting the columns in the organisation list' do
   context 'when admin views the table with organisation data' do
     let(:user) { create(:user, :confirmed, admin: true) }
 
@@ -53,6 +53,12 @@ describe 'sorting the columns in the organisation list', focus: true do
         click_link 'MoU Signed'
 
         expect(page.body).to match(/Apple Cakes.*Xylophones.*Silly Hats/m)
+      end
+
+      it 'sorts the organistions from newest to oldest when MoU signed is clicked twice' do
+        2.times { click_link 'MoU Signed' }
+
+        expect(page.body).to match(/Silly Hats.*Xylophones.*Apple Cakes/m)
       end
     end
   end
