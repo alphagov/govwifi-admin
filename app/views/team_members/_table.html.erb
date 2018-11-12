@@ -6,11 +6,12 @@
           <td class="govuk-table__cell"><strong>Invitation pending</strong></td>
           <td class="govuk-table__cell text-light-grey"><%= member.email %></td>
           <td class="govuk-table__cell text-right">
-            <%= button_to("Resend invite",
-              user_invitation_path({ user: { email: member.email }}),
-              method: :post,
-              class: "resend-invite-button")
-            %>
+            <% if current_user.can_manage_team? %>
+              <%= button_to('Resend invite',
+                user_invitation_path({ user: { email: member.email }}),
+                method: :post,
+                class: 'resend-invite-button') %>
+            <% end %>
           </td>
         <% else %>
           <td class="govuk-table__cell"><strong><%= member.name %></strong></td>
