@@ -2,7 +2,7 @@ class Admin::OrganisationsController < AdminController
   helper_method :sort_column, :sort_direction
 
   def index
-    @organisations = Organisation.order("#{sort_column} #{sort_direction}").all
+    @organisations = Organisation.includes(:signed_mou_attachment).order("#{sort_column} #{sort_direction}").all
   end
 
   def show
@@ -12,7 +12,7 @@ class Admin::OrganisationsController < AdminController
 private
 
   def sortable_columns
-    %w[name created_at]
+    %w[name created_at active_storage_attachments.created_at]
   end
 
   def sort_column
