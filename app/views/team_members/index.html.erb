@@ -8,7 +8,40 @@
   </div>
 </div>
 
-<%= render "team_members/table", team_members: @team_members %>
+<%#= render "team_members/table", team_members: @team_members %>
+
+<ul>
+  <li>
+    <h3>Kyle Chapman</h3>
+    <h3>kyle@madetech.com</h3>
+
+    <ul>
+      <li>
+        <icon>tick</icon>
+        <span>View logs</span>
+      </li>
+      <li>
+        <span>View team members</span>
+      </li>
+      <li>
+        <span>Add and remove team members</span>
+      </li>
+      <li>
+        <span>View IPs and locations</span>
+      </li>
+      <li>
+        <span>Add and remove IPs and location</span>
+      </li>
+    </ul>
+
+    <%= link_to("Edit permissions", team_members_path(1)) %>
+    <%#= button_to("Resend invite",
+      user_invitation_path({ user: { email: member.email }}),
+      method: :post,
+      class: "resend-invite-button")
+    %>
+  </li>
+</ul>
 
 <div class="govuk-details">
   <div class="govuk-details__text">
