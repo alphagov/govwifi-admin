@@ -2,6 +2,10 @@ class User < ApplicationRecord
   belongs_to :organisation, inverse_of: :users, optional: true
   accepts_nested_attributes_for :organisation
 
+  has_one :permission
+
+  delegate :can_manage_locations?, :can_manage_team?, to: :permission
+
   devise :invitable, :confirmable, :database_authenticatable, :registerable, :recoverable,
     :rememberable, :trackable, :timeoutable, :validatable, :lockable
 
@@ -11,6 +15,8 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, on: :update
 
   validate :email_on_whitelist, on: :create
+
+  after_create :create_default_permissions
 
   def only_if_unconfirmed
     pending_any_confirmation { yield }
@@ -26,6 +32,14 @@ class User < ApplicationRecord
   end
 
 private
+
+  def create_default_permissions
+    Permission.create(
+      user: self,
+      can_manage_team: true,
+      can_manage_locations: true
+    )
+  end
 
   def email_on_whitelist
     checker = UseCases::Administrator::CheckIfWhitelistedEmail.new
