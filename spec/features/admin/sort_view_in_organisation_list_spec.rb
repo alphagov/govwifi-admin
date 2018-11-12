@@ -1,6 +1,8 @@
+require 'features/support/sign_up_helpers'
+
 describe 'sorting the columns in the organisation list' do
   context 'when admin views the table with organisation data' do
-    let!(:user) { create(:user, :confirmed, admin: true) }
+    let(:user) { create(:user, :confirmed, admin: true) }
 
     before do
       create(:organisation, name: "Department of Apple Cakes", created_at: Date.yesterday)
