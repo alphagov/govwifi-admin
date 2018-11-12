@@ -1,4 +1,4 @@
-describe User do
+describe User, focus: true do
   context 'associations' do
     it { should belong_to(:organisation) }
   end
@@ -89,6 +89,53 @@ describe User do
         end
 
         it { is_expected.to be_valid }
+      end
+    end
+  end
+
+  context 'permissions' do
+    context 'a new user' do
+      subject { create(:user, :confirmed) }
+
+      it 'can view logs' do
+        expect(subject.can_view_logs?).to be_truthy
+      end
+
+      it 'can view team members' do
+        expect(subject.can_view_team?).to be_truthy
+      end
+
+      it 'can view locations' do
+        expect(subject.can_view_locations?).to be_truthy
+      end
+
+      it 'can manage team members' do
+        expect(subject.can_manage_team?).to be_truthy
+      end
+
+      it 'can manage locations' do
+        expect(subject.can_manage_locations?).to be_truthy
+      end
+
+      context 'after removing "manage team"' do
+        before { subject.remove_manage_team_permission! }
+
+        it 'cannot manage team' do
+          expect(subject.can_manage_team?).to be_falsey
+        end
+
+        context 'after save and load' do
+          # let(:reloaded_user) do
+          #   subject.save!
+          #   User.find(subject.id)
+          # end
+
+          let(:reloaded_user) { subject.reload }
+
+          it 'cannot manage team' do
+            expect(reloaded_user.can_manage_team?).to be_falsey
+          end
+        end
       end
     end
   end
