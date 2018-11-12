@@ -104,21 +104,6 @@ describe User do
       it 'can manage locations' do
         expect(subject.can_manage_locations?).to be_truthy
       end
-
-      context 'after reload' do
-        let(:reloaded_user) do
-          subject.save!
-          User.find(subject.id)
-        end
-
-        it 'can manage team members' do
-          expect(reloaded_user.can_manage_team?).to be_truthy
-        end
-
-        it 'can manage locations' do
-          expect(reloaded_user.can_manage_locations?).to be_truthy
-        end
-      end
     end
   end
 end
