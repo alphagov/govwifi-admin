@@ -1,24 +1,61 @@
-<table class="govuk-table govuk-!-margin-top-7">
-  <tbody class="govuk-table__body">
-    <% team_members.each do |member| %>
-      <tr class="govuk-table__row">
-        <% if member.invitation_pending? %>
-          <td class="govuk-table__cell"><strong>Invitation pending</strong></td>
-          <td class="govuk-table__cell text-light-grey"><%= member.email %></td>
-          <td class="govuk-table__cell text-right">
-            <% if current_user.can_manage_team? %>
-              <%= button_to('Resend invite',
-                user_invitation_path({ user: { email: member.email }}),
-                method: :post,
-                class: 'resend-invite-button') %>
-            <% end %>
-          </td>
-        <% else %>
-          <td class="govuk-table__cell"><strong><%= member.name %></strong></td>
-          <td class="govuk-table__cell text-light-grey"><%= member.email %></td>
-          <td class="govuk-table__cell"/>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<ul class='govuk-list govuk-width-container govuk-!-margin-left-0'>
+  <% team_members.each do |member| %>
+    <li>
+      <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+
+          <% if member.invitation_pending? %>
+            <h3 class='govuk-heading-m govuk-!-margin-bottom-0 text-light-grey'>Invitation pending</h3>
+          <% else %>
+            <h3 class='govuk-heading-m govuk-!-margin-bottom-0'><%= member.name %></h3>
+          <% end %>
+
+          <p class='govuk-hint govuk-!-margin-top-0'><%= member.email %></p>
+
+          <ul class='govuk-list'>
+            <li>
+              <%= image_tag 'tick', height: '20', alt: 'allowed' %>
+              <span class='govuk-!-padding-left-1'>View logs</span>
+            </li>
+            <li>
+              <%= image_tag 'tick', height: '20', alt: 'allowed' %>
+              <span class='govuk-!-padding-left-1'>View team members</span>
+            </li>
+            <li>
+              <% if member.can_manage_team? %>
+                <%= image_tag 'tick', height: '20', alt: 'allowed' %>
+                <span class='govuk-!-padding-left-1'>Add and remove team members</span>
+              <% else %>
+                <%= image_tag 'cross', height: '20', alt: 'not allowed' %>
+                <span class='govuk-!-padding-left-1 text-light-grey'>Add and remove team members</span>
+              <% end %>
+            </li>
+            <li>
+              <%= image_tag 'tick', height: '20', alt: 'allowed' %>
+              <span class='govuk-!-padding-left-1'>View locations and IPs</span>
+            </li>
+            <li>
+              <% if member.can_manage_locations? %>
+                <%= image_tag 'tick', height: '20', alt: 'allowed' %>
+                <span class='govuk-!-padding-left-1'>Add and remove locations and IPs</span>
+              <% else %>
+                <%= image_tag 'cross', height: '20', alt: 'not allowed' %>
+                <span class='govuk-!-padding-left-1 text-light-grey'>Add and remove locations and IPs</span>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+
+        <div class='govuk-grid-column-one-third govuk-list'>
+          <% if member.invitation_pending? && current_user.can_manage_team? %>
+            <%= button_to("Resend invite",
+              user_invitation_path({ user: { email: member.email }}),
+              method: :post, class: 'govuk-button')
+            %>
+          <% end %>
+        </div>
+      </div>
+    </li>
+    <hr class='govuk-section-break--l govuk-!-margin-top-0'>
+  <% end %>
+</ul>
