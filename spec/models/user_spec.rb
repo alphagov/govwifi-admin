@@ -1,43 +1,61 @@
 describe User do
   context 'associations' do
-    it { should belong_to(:organisation) }
+    it { is_expected.to belong_to(:organisation) }
   end
 
   context 'validations' do
-    it { should validate_presence_of(:name).on(:update) }
+    it { is_expected.to validate_presence_of(:name).on(:update) }
 
-    describe "password and password confirmation must match" do
-      let(:user) { create(:user, :confirmed, name: "Old name") }
+    describe 'password confirmation' do
+      subject { create(:user, :confirmed) }
+
       before do
-        user.update(params)
+        subject.update(
+          name: 'new name',
+          password: 'new_password',
+          password_confirmation: password_confirmation
+        )
       end
 
-      context 'when passwords match' do
-        let(:params) { { password: 'new_password', password_confirmation: 'new_password', name: "New name" } }
+      context 'matches password' do
+        let(:password_confirmation) { 'new_password' }
 
-        it 'should set the users password' do
-          expect(user.errors.empty?).to eq(true)
-          expect(user.name).to eq("New name")
+        it { is_expected.to be_valid }
+
+        it 'updates the name' do
+          expect(subject.reload.name).to eq('new name')
         end
       end
 
-      context 'when passwords do not match' do
-        let(:params) { { password: 'new_password', password_confirmation: 'other_password', name: "New name" } }
+      context 'does not match password' do
+        let(:password_confirmation) { 'other_password' }
 
-        it 'should not set the users password' do
-          expect(user.reload.name).to eq("Old name")
-          expect(user.errors.empty?).to eq(false)
-          expect(user.errors.full_messages).to eq(["Password confirmation doesn't match Password"])
+        it { is_expected.to_not be_valid }
+
+        it 'does not update the name' do
+          expect(subject.reload.name).to_not eq('new name')
+        end
+
+        it 'explains the error' do
+          expect(subject.errors.full_messages).to include(
+            "Password confirmation doesn't match Password"
+          )
         end
       end
 
-      context 'when password confirmation is missing' do
-        let(:params) { { password: 'new_password', name: "New name" } }
+      context 'is blank' do
+        let(:password_confirmation) { '' }
 
-        it 'should not set the users password' do
-          expect(user.reload.name).to eq("Old name")
-          expect(user.errors.empty?).to eq(false)
-          expect(user.errors.full_messages).to eq(["Password confirmation doesn't match Password"])
+        it { is_expected.to_not be_valid }
+
+        it 'does not update the name' do
+          expect(subject.reload.name).to_not eq('new name')
+        end
+
+        it 'explains the error' do
+          expect(subject.errors.full_messages).to include(
+            "Password confirmation can't be blank"
+          )
         end
       end
     end

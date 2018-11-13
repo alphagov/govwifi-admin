@@ -4,8 +4,11 @@
     <div>
       <h3 class="govuk-heading-m"> 1. Add IPs </h3>
         <% if @ips.empty? %>
-          <p class="govuk-body">
-            You need to <%= link_to "add the IPs", new_ip_path %> of your authenticator(s).</p>
+          <% if current_user.can_manage_locations? %>
+            <p class="govuk-body">
+              You need to <%= link_to "add the IPs", new_ip_path %> of your authenticator(s).
+            </p>
+          <% end %>
         <% else %>
           <p class="govuk-body">
             You have <%= link_to "#{pluralize(@ips.count, "IP")} configured.", ips_path  %></p>
