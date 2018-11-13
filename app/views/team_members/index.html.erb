@@ -8,41 +8,7 @@
   </div>
 </div>
 
-<%#= render "team_members/table", team_members: @team_members %>
-
-<ul class='govuk-list'>
-  <li>
-    <h3 class='govuk-heading-m govuk-!-margin-bottom-0'>Kyle Chapman</h3>
-    <p class='govuk-hint govuk-!-margin-top-0'>kyle@madetech.com</p>
-
-    <ul class='govuk-list'>
-      <li>
-        <%= image_tag 'tick.svg', height: '20' %>
-        <!-- TODO: represent can/can't for screenreaders-->
-        <span>View logs</span>
-      </li>
-      <li>
-        <span>View team members</span>
-      </li>
-      <li>
-        <span>Add and remove team members</span>
-      </li>
-      <li>
-        <span>View IPs and locations</span>
-      </li>
-      <li>
-        <span>Add and remove IPs and location</span>
-      </li>
-    </ul>
-
-    <%= link_to("Edit permissions", team_members_path(1)) %>
-    <%#= button_to("Resend invite",
-      user_invitation_path({ user: { email: member.email }}),
-      method: :post,
-      class: "resend-invite-button")
-    %>
-  </li>
-</ul>
+<%= render "team_members/table", team_members: @team_members %>
 
 <div class="govuk-details">
   <div class="govuk-details__text">

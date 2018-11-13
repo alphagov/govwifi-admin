@@ -22,7 +22,7 @@ describe 'Resend invitation to team member' do
     end
 
     it 'sends an invitation' do
-      expect { click_button('Resend invite') }.to \
+      expect { click_on 'Resend invite' }.to \
         change { InviteUseCaseSpy.invite_count }.by(1)
     end
 
