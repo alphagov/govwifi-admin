@@ -10,14 +10,15 @@
 
 <%#= render "team_members/table", team_members: @team_members %>
 
-<ul>
+<ul class='govuk-list'>
   <li>
-    <h3>Kyle Chapman</h3>
-    <h3>kyle@madetech.com</h3>
+    <h3 class='govuk-heading-m govuk-!-margin-bottom-0'>Kyle Chapman</h3>
+    <p class='govuk-hint govuk-!-margin-top-0'>kyle@madetech.com</p>
 
-    <ul>
+    <ul class='govuk-list'>
       <li>
-        <icon>tick</icon>
+        <%= image_tag 'tick.svg', height: '20' %>
+        <!-- TODO: represent can/can't for screenreaders-->
         <span>View logs</span>
       </li>
       <li>
