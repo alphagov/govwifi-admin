@@ -1,53 +1,51 @@
-<ul class='govuk-list'>
+<ul class='govuk-list govuk-width-container govuk-!-margin-left-0'>
   <% team_members.each do |member| %>
     <li>
-      <div class='govuk-width-container govuk-!-margin-left-0'>
-        <div class='govuk-grid-row'>
-          <div class='govuk-grid-column-two-thirds'>
+      <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
 
-            <% if member.invitation_pending? %>
-              <h3 class='govuk-heading-m govuk-!-margin-bottom-0 text-light-grey'>Invitation pending</h3>
-            <% else %>
-              <h3 class='govuk-heading-m govuk-!-margin-bottom-0'><%= member.name %></h3>
-            <% end %>
+          <% if member.invitation_pending? %>
+            <h3 class='govuk-heading-m govuk-!-margin-bottom-0 text-light-grey'>Invitation pending</h3>
+          <% else %>
+            <h3 class='govuk-heading-m govuk-!-margin-bottom-0'><%= member.name %></h3>
+          <% end %>
 
-            <p class='govuk-hint govuk-!-margin-top-0'><%= member.email %></p>
+          <p class='govuk-hint govuk-!-margin-top-0'><%= member.email %></p>
 
-            <ul class='govuk-list'>
-              <li>
-                <%= image_tag 'tick', height: '20', alt: 'allowed' %>
-                <span class='govuk-!-padding-left-1'>View logs</span>
-              </li>
-              <li>
-                <%= image_tag 'tick', height: '20', alt: 'allowed' %>
-                <span class='govuk-!-padding-left-1'>View team members</span>
-              </li>
-              <li>
-                <%= image_tag 'tick', height: '20', alt: 'allowed' %>
-                <span class='govuk-!-padding-left-1'>Add and remove team members</span>
-              </li>
-              <li>
-                <%= image_tag 'tick', height: '20', alt: 'allowed' %>
-                <span class='govuk-!-padding-left-1'>View locations and IPs</span>
-              </li>
-              <li>
-                <%= image_tag 'tick', height: '20', alt: 'allowed' %>
-                <span class='govuk-!-padding-left-1'>Add and remove locations and IPs</span>
-              </li>
-            </ul>
-          </div>
-
-          <ul class='govuk-grid-column-one-third govuk-list'>
-            <li><%#= link_to("Edit permissions", team_members_path(1)) %></li>
-
-            <% if member.invitation_pending? && current_user.can_manage_team? %>
-              <li><%= button_to("Resend invite",
-                user_invitation_path({ user: { email: member.email }}),
-                method: :post, class: 'govuk-button')
-              %></li>
-            <% end %>
+          <ul class='govuk-list'>
+            <li>
+              <%= image_tag 'tick', height: '20', alt: 'allowed' %>
+              <span class='govuk-!-padding-left-1'>View logs</span>
+            </li>
+            <li>
+              <%= image_tag 'tick', height: '20', alt: 'allowed' %>
+              <span class='govuk-!-padding-left-1'>View team members</span>
+            </li>
+            <li>
+              <%= image_tag 'tick', height: '20', alt: 'allowed' %>
+              <span class='govuk-!-padding-left-1'>Add and remove team members</span>
+            </li>
+            <li>
+              <%= image_tag 'tick', height: '20', alt: 'allowed' %>
+              <span class='govuk-!-padding-left-1'>View locations and IPs</span>
+            </li>
+            <li>
+              <%= image_tag 'tick', height: '20', alt: 'allowed' %>
+              <span class='govuk-!-padding-left-1'>Add and remove locations and IPs</span>
+            </li>
           </ul>
         </div>
+
+        <ul class='govuk-grid-column-one-third govuk-list'>
+          <li><%#= link_to("Edit permissions", team_members_path(1)) %></li>
+
+          <% if member.invitation_pending? && current_user.can_manage_team? %>
+            <li><%= button_to("Resend invite",
+              user_invitation_path({ user: { email: member.email }}),
+              method: :post, class: 'govuk-button')
+            %></li>
+          <% end %>
+        </ul>
       </div>
     </li>
     <hr class='govuk-section-break--l govuk-!-margin-top-0'>
