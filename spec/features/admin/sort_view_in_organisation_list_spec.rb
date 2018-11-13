@@ -1,6 +1,6 @@
 require 'features/support/sign_up_helpers'
 
-describe 'sorting the values in the organisation list', focus: true do
+describe 'sorting the values in the organisation list' do
   context 'when super admin views the list' do
     let(:super_admin) { create(:user, :confirmed, admin: true) }
 
@@ -40,7 +40,7 @@ describe 'sorting the values in the organisation list', focus: true do
     end
 
     context 'and sorts by signed MoU uploads' do
-      before do 
+      before do
         create(:organisation, name: "Has No MoU Company")
 
         create(:organisation, name: "Has Newer MoU Company").signed_mou.attach(
