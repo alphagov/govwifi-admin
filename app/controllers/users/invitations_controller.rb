@@ -1,4 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
+  before_action :authorise_manage_team, only: %i(create new)
   before_action :add_organisation_to_params, :validate_invited_user, only: :create
 
 private
@@ -32,5 +33,9 @@ private
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105
   def invite_params
     params.require(:user).permit(:email, :organisation_id)
+  end
+
+  def authorise_manage_team
+    redirect_to(root_path) unless current_user.can_manage_team?
   end
 end
