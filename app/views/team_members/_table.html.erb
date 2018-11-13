@@ -37,8 +37,6 @@
         </div>
 
         <ul class='govuk-grid-column-one-third govuk-list'>
-          <li><%#= link_to("Edit permissions", team_members_path(1)) %></li>
-
           <% if member.invitation_pending? && current_user.can_manage_team? %>
             <li><%= button_to("Resend invite",
               user_invitation_path({ user: { email: member.email }}),
