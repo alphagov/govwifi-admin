@@ -1,4 +1,6 @@
 class IpsController < ApplicationController
+  before_action :authorise_manage_locations, only: %i(create new)
+
   def new
     @ip = Ip.new
     @locations = available_locations
@@ -74,5 +76,9 @@ private
 
   def params_with_existing_location
     ip_params.except(:location_attributes)
+  end
+
+  def authorise_manage_locations
+    redirect_to(root_path) unless current_user.can_manage_locations?
   end
 end

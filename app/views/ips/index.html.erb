@@ -3,7 +3,9 @@
     <h1 class="govuk-heading-l">IP addresses</h1>
   </div>
   <div class="govuk-grid-column-one-third text-right">
-    <%= link_to "Add IP address", new_ip_path, class: "govuk-button" %>
+    <% if current_user.can_manage_locations? %>
+      <%= link_to 'Add IP address', new_ip_path, class: 'govuk-button' %>
+    <% end %>
   </div>
 </div>
 
