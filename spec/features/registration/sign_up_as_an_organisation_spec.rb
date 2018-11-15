@@ -139,9 +139,6 @@ describe 'Sign up as an organisation' do
 
   context 'when account is already confirmed' do
     before do
-      expect_any_instance_of(UseCases::Administrator::NotifySupportOfNewUser).to \
-        receive(:execute)
-
       sign_up_for_account
       update_user_details
       visit confirmation_email_link
