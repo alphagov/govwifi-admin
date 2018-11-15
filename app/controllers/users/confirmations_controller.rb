@@ -49,18 +49,8 @@ protected
 
   def confirm_user
     @confirmable.confirm
-    notify_support_of_new_user(@confirmable)
     set_flash_message :notice, :confirmed
     sign_in_and_redirect(resource_name, @confirmable)
-  end
-
-  def notify_support_of_new_user(user)
-    UseCases::Administrator::NotifySupportOfNewUser.new(
-      notifications_gateway: EmailGateway.new
-    ).execute(
-      new_user_email: user.email,
-      template_id: GOV_NOTIFY_CONFIG['notify_support_of_new_user']['template_id']
-    )
   end
 
   def user_params
