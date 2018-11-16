@@ -27,6 +27,17 @@ class IpsController < ApplicationController
     @locations = Location.includes(:ips).where(organisation: current_organisation).order(:address)
   end
 
+  def destroy
+    ip = Ip.find(params[:id])
+    location = ip.location
+
+      redirect_to(
+        ips_path,
+        anchor: 'location-id-#{location.id}',
+        notice: "IP removed"
+      )
+  end
+
 private
 
   def available_locations
