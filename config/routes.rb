@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :ips, only: %i[index new create]
   resources :help, only: %i[index create]
   resources :team_members, only: %i[index]
+
+  resources :permission, only: %i[edit update]
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index] do
     get 'search', on: :collection
