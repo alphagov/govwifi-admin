@@ -13,7 +13,9 @@
           </td>
         <% end %>
         <td class="govuk-table__cell text-right">
-          <%= link_to 'Remove', ip_remove_path(ip) %>
+          <% if current_user.can_manage_locations? %>
+            <%= link_to 'Remove', ip_remove_path(ip) %>
+          <% end %>
         </td>
         <td class="govuk-table__cell text-right">
           <%= link_to 'View logs', logs_path(ip: ip.address) %>

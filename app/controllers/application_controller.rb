@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
 
 protected
 
+  def authorise_manage_locations
+    redirect_to(root_path) unless current_user.can_manage_locations?
+  end
+
   def configure_devise_permitted_parameters
     devise_parameter_sanitizer.permit(:accept_invitation, keys: [:name])
   end
