@@ -1,9 +1,7 @@
 <table class="govuk-table">
-  <%= link_to "#location-id-#{location.id}" do %>
-    <caption class="govuk-table__caption">
-      <%= location.full_address %>
-    </caption>
-  <% end %>
+  <caption class="govuk-table__caption">
+    <%= location.full_address %>
+  </caption>
   <tbody class="govuk-table__body" id="ips-table">
     <% location.ips.each do |ip| %>
       <tr class="govuk-table__row">
@@ -15,7 +13,7 @@
           </td>
         <% end %>
         <td class="govuk-table__cell govuk-!-width-one-third text-right">
-          <%= button_to 'Remove', ip_path(ip), method: :delete %>
+          <%= link_to 'Remove', ip_remove_path(ip) %>
         </td>
         <td class="govuk-table__cell govuk-!-width-one-third text-right">
           <%= link_to 'View logs', logs_path(ip: ip.address) %>

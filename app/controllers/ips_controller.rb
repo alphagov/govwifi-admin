@@ -29,13 +29,9 @@ class IpsController < ApplicationController
 
   def destroy
     ip = Ip.find(params[:id])
-    location = ip.location
+    ip.destroy
 
-      redirect_to(
-        ips_path,
-        anchor: 'location-id-#{location.id}',
-        notice: "IP removed"
-      )
+    redirect_to ips_path, notice: "Successfully removed IP address #{ip.address}"
   end
 
 private
