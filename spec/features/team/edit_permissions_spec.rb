@@ -30,7 +30,6 @@ describe 'Edit user permissions' do
 
   context 'When I have the .can_manage_team permission' do
     context 'User belongs to my organisation' do
-
       before do
         visit team_members_path
       end

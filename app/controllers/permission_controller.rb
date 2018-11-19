@@ -12,7 +12,7 @@ class PermissionController < ApplicationController
     redirect_to team_members_path
   end
 
-  private
+private
 
   def validate_can_manage_team
     permission = Permission.find(params.fetch(:id))
