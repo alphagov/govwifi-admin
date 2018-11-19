@@ -56,6 +56,13 @@
         </div>
       </div>
     </li>
+
+    <li>
+      <% if current_user.can_manage_team? && member.id != current_user.id %>
+        <%= link_to 'Edit permissions', edit_permission_path(id: member.permission.id) %>
+      <% end %>
+    </li>
+
     <hr class='govuk-section-break--l govuk-!-margin-top-0'>
   <% end %>
 </ul>
