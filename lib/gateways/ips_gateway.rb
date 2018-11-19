@@ -1,5 +1,5 @@
 module Gateways
-  class Ips
+  class IpsGateway
     def fetch_ips
       Ip.all.map do |ip|
         {
