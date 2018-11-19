@@ -12,10 +12,10 @@
           <td class="govuk-table__cell govuk-!-width-one-third unavailable-ip">Not available until 6am tomorrow
           </td>
         <% end %>
-        <td class="govuk-table__cell govuk-!-width-one-third text-right">
+        <td class="govuk-table__cell text-right">
           <%= link_to 'Remove', ip_remove_path(ip) %>
         </td>
-        <td class="govuk-table__cell govuk-!-width-one-third text-right">
+        <td class="govuk-table__cell text-right">
           <%= link_to 'View logs', logs_path(ip: ip.address) %>
         </td>
       </tr>
