@@ -1,6 +1,5 @@
+<%= render "confirm_remove_team_member" if @show_remove_partial %>
 <h1 class="govuk-heading-m"><%= @permission.user.name %> - <%= @permission.user.email %></h1>
-  <%= render "confirm_remove_team_member" if @show_remove_partial %>
-
 <div class="actions">
   <div class="govuk-form-group">
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
