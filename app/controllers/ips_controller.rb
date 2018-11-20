@@ -52,7 +52,7 @@ private
         bucket: ENV.fetch('S3_PUBLISHED_LOCATIONS_IPS_BUCKET'),
         key: ENV.fetch('S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY')
       ),
-      source_gateway: Gateways::IpsGateway.new
+      source_gateway: Gateways::Ips.new
     ).execute
   end
 

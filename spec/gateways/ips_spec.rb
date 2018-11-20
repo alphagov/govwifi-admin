@@ -1,4 +1,4 @@
-describe Gateways::IpsGateway do
+describe Gateways::Ips do
   let(:location_1) { create(:location, organisation: create(:organisation)) }
   let(:location_2) { create(:location, organisation: create(:organisation)) }
   let(:result) do
