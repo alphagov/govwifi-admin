@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get '/healthcheck', to: 'monitoring#healthcheck'
   resources :status, only: %i[index]
   resources :ips, only: %i[index new create destroy] do
-    resource :remove, only: %i[show], controller: 'ips/remove'
+    get 'remove', to: 'ips#index'
   end
   resources :help, only: %i[index create]
   resources :team_members, only: %i[index]

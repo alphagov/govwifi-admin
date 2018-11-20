@@ -24,6 +24,7 @@ class IpsController < ApplicationController
   end
 
   def index
+    set_ip_to_delete if ip_removal_requested?
     @locations = Location.includes(:ips).where(organisation: current_organisation).order(:address)
   end
 
@@ -35,6 +36,14 @@ class IpsController < ApplicationController
   end
 
 private
+
+  def set_ip_to_delete
+    @ip_to_delete = Ip.find(params[:ip_id])
+  end
+
+  def ip_removal_requested?
+    params[:ip_id].present?
+  end
 
   def available_locations
     current_organisation.locations.order('address ASC').map do |loc|
