@@ -25,6 +25,10 @@ describe "Remove a team member" do
     it 'does not have delete user link when already clicked' do
       expect(page).to_not have_content("Remove user from service")
     end
+
+    it 'can delete a user' do
+      expect { click_on "Yes, remove this team member" }.to change { User.count }.by(-1)
+    end
   end
 end
 

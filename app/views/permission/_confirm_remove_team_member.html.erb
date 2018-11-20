@@ -1,14 +1,8 @@
 <div class="govuk-error-summary">
    <h2 class="govuk-error-summary__title">
-     Are you sure you want to remove this team member
+     Are you sure you want to remove <%= @permission.user.name %>?
    </h2>
-
-   <div class="govuk-error-summary__body">
-     <table class="govuk-table">
-       <tbody class="govuk-table__body">
-       </tbody>
-     </table>
-
-     <%= button_to 'Yes, remove this team member', team_members_path(@ip_to_delete), method: :delete, class: "govuk-button background-red" %>
+		<div class="govuk-error-summary__body">
+     <%= button_to 'Yes, remove this team member', team_member_path(@permission.user.id), method: :delete, class: "govuk-button background-red" %>
    </div>
  </div>

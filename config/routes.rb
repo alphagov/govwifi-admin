@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :status, only: %i[index]
   resources :ips, only: %i[index new create]
   resources :help, only: %i[index create]
-  resources :team_members, only: %i[index]
+  resources :team_members, only: %i[index destroy]
   get '/permission/:id/remove', to: 'permission#edit', as: :remove_team_member
   resources :permission, only: %i[edit update]
 
