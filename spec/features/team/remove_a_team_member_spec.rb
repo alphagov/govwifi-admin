@@ -31,4 +31,3 @@ describe "Remove a team member" do
     end
   end
 end
-
