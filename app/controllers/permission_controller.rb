@@ -3,6 +3,7 @@ class PermissionController < ApplicationController
 
   def edit
     @permission = Permission.find(params.fetch(:id))
+    @show_remove_partial = request.path.include?("remove")
   end
 
   def update

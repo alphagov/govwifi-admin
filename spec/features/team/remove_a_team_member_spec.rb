@@ -10,15 +10,20 @@ describe "Remove a team member" do
 
   context "when logged in" do
     let(:user) { create(:user, :confirmed) }
+    let!(:another_user) { create(:user, organisation: user.organisation) }
+
     before do
       sign_in_user user
-      visit root_path
-      click_on "Edit permissions"
-      click_on "Remove team member"
+      visit edit_permission_path(user)
+      click_on "Remove user from service"
     end
 
     it "shows an alert when removing a team member" do
       expect(page).to have_content("Are you sure you want to remove")
+    end
+
+    it 'does not have delete user link when already clicked' do
+      expect(page).to_not have_content("Remove user from service")
     end
   end
 end
