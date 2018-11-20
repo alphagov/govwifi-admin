@@ -31,8 +31,8 @@ location_2 = Location.create!(
   organisation_id: organisation.id
 )
 
-Ip.create!(address: '127.3.3.1', location: location_1)
-Ip.create!(address: '193.1.1.9', location: location_2)
+20.times { Ip.create!(address: Faker::Internet.ip_v4_address, location: location_1) }
+20.times { Ip.create!(address: Faker::Internet.ip_v4_address, location: location_2) }
 
 5.times { Organisation.create(name: Faker::Company.name, service_email: 'some-service@email.com') }
 

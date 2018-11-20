@@ -1,0 +1,7 @@
+.red-button {
+  background-color: $govuk-error-colour;
+
+  &:hover {
+    background-color: darken($govuk-error-colour, 10%);
+  }
+}
