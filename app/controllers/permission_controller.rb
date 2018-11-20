@@ -8,7 +8,6 @@ class PermissionController < ApplicationController
 
   def update
     Permission.find(params.fetch(:id)).update!(permission_params)
-
     flash[:notice] = 'Permissions updated'
     redirect_to team_members_path
   end

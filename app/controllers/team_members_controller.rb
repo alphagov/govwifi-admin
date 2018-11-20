@@ -4,6 +4,7 @@ class TeamMembersController < ApplicationController
   end
 
   def destroy
+    if org.id != current_user.organisation_id
     user = User.find(params[:id])
     user.destroy
     redirect_to team_members_path, notice: "Team member has been successfully removed"

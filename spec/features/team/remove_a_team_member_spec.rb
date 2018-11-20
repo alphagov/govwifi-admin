@@ -1,7 +1,7 @@
 require 'features/support/sign_up_helpers'
 
 describe "Remove a team member" do
-  context "when logged in" do
+  context "with the correct permissions" do
     let(:user) { create(:user, :confirmed) }
     let!(:another_user) { create(:user, :confirmed, organisation: user.organisation) }
 
@@ -21,6 +21,17 @@ describe "Remove a team member" do
 
     it 'can delete a user' do
       expect { click_on "Yes, remove this team member" }.to change { User.count }.by(-1)
+    end
+
+    context "when you do not own the correct permissions to remove a team member" do
+      let(:other_team_member) { create(:user, :confirmed, organisation: user.organisation) }
+      before do
+        visit remove_team_member_path(other_team_member)
+      end
+
+      it 'should not allow a user to remove a member when accessing the link directly' do
+        expect(page).to_not have_content("Yes, remove this team member")
+      end
     end
   end
 end
