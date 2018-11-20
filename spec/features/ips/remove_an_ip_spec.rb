@@ -15,9 +15,11 @@ describe 'Remove an IP' do
       click_on "Remove"
     end
 
-    it "shows the remove IP page" do
-      expect(page).to have_content("Remove an IP address")
-      expect(page).to have_content(ip.address)
+    it "shows the remove IP partial" do
+      within(".govuk-error-summary") do
+        expect(page).to have_content(ip.address)
+        expect(page).to have_button("Yes, remove this IP")
+      end
     end
 
     it "removes the IP" do
@@ -46,9 +48,21 @@ describe 'Remove an IP' do
         visit ip_remove_path(ip)
       end
 
-      it "does not show the page" do
-        expect(page).to_not have_content("Remove an IP address")
+      it "does not show the partial" do
+        expect(page).to_not have_content("Are you sure you want to remove this IP")
       end
+    end
+  end
+
+  context "when you do not own the IP" do
+    let!(:other_ip) { create(:ip, location: create(:location)) }
+    before do
+      visit ip_remove_path(other_ip)
+    end
+
+    it "does not show the partial" do
+      expect(page).to_not have_content("Are you sure you want to remove this IP")
+      expect(page).to_not have_content(other_ip.address)
     end
   end
 end

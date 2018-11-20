@@ -30,20 +30,15 @@ class IpsController < ApplicationController
 
   def destroy
     ip = Ip.find(params[:id])
-    ip.destroy
-
-    redirect_to ips_path, notice: "Successfully removed IP address #{ip.address}"
+    if ip_belongs_to_user?(ip)
+      ip.destroy
+      redirect_to ips_path, notice: "Successfully removed IP address #{ip.address}"
+    else
+      redirect_to ips_path, alert: "You are not authorised to do that"
+    end
   end
 
 private
-
-  def set_ip_to_delete
-    @ip_to_delete = Ip.find(params[:ip_id])
-  end
-
-  def ip_removal_requested?
-    params[:ip_id].present?
-  end
 
   def available_locations
     current_organisation.locations.order('address ASC').map do |loc|
@@ -92,5 +87,18 @@ private
 
   def params_with_existing_location
     ip_params.except(:location_attributes)
+  end
+
+  def set_ip_to_delete
+    ip = Ip.find(params[:ip_id])
+    @ip_to_delete = ip if ip_belongs_to_user?(ip)
+  end
+
+  def ip_removal_requested?
+    params[:ip_id].present?
+  end
+
+  def ip_belongs_to_user?(ip)
+    current_organisation == ip.location.organisation
   end
 end
