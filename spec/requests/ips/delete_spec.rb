@@ -23,7 +23,6 @@ describe "DELETE /ips/:id", type: :request do
       expect {
         delete ip_path(other_ip)
       }.to change { Ip.count }.by(0)
-      expect(request.flash[:alert]).to eq("You are not authorised to do that")
     end
   end
 end

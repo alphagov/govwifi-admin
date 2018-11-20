@@ -29,13 +29,11 @@ class IpsController < ApplicationController
   end
 
   def destroy
-    ip = Ip.find(params[:id])
-    if ip_belongs_to_user?(ip)
-      ip.destroy
-      redirect_to ips_path, notice: "Successfully removed IP address #{ip.address}"
-    else
-      redirect_to ips_path, alert: "You are not authorised to do that"
-    end
+    ip = current_organisation.ips.find_by(id: params.fetch(:id))
+    redirect_to(ips_path) && return unless ip
+
+    ip.destroy
+    redirect_to ips_path, notice: "Successfully removed IP address #{ip.address}"
   end
 
 private
@@ -90,15 +88,10 @@ private
   end
 
   def set_ip_to_delete
-    ip = Ip.find(params[:ip_id])
-    @ip_to_delete = ip if ip_belongs_to_user?(ip)
+    @ip_to_delete = current_organisation.ips.find_by(id: params.fetch(:ip_id))
   end
 
   def ip_removal_requested?
     params[:ip_id].present?
-  end
-
-  def ip_belongs_to_user?(ip)
-    current_organisation == ip.location.organisation
   end
 end

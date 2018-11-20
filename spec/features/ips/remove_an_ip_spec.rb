@@ -2,7 +2,7 @@ require 'features/support/sign_up_helpers'
 
 describe 'Remove an IP' do
   let(:user) { create(:user, :confirmed) }
-  let!(:location) { create(:location, organisation: user.organisation) }
+  let(:location) { create(:location, organisation: user.organisation) }
   let!(:ip) { create(:ip, location: location) }
 
   before do
@@ -55,7 +55,7 @@ describe 'Remove an IP' do
   end
 
   context "when you do not own the IP" do
-    let!(:other_ip) { create(:ip, location: create(:location)) }
+    let(:other_ip) { create(:ip, location: create(:location)) }
     before do
       visit ip_remove_path(other_ip)
     end
