@@ -1,3 +1,7 @@
 .text-light-grey {
   color: govuk-colour("grey-1");
 }
+
+.text-red {
+  color: $govuk-error-colour;
+}

@@ -19,10 +19,15 @@
             </div>
           <% end %>
 
-          <%= form.submit 'Save', class: "govuk-button govuk-!-margin-top-4" %>
-        <% end %>
-        <% unless params[:remove_team_member] %>
-          <%= link_to 'Remove user from service', edit_team_member_path(@user, remove_team_member: true), class: 'govuk-link' %>
+          <div class="govuk-!-margin-top-8">
+            <%= form.submit 'Save', class: "govuk-button govuk-!-margin-0 govuk-!-margin-right-8 inline-block" %>
+
+            <% unless params[:remove_team_member] %>
+              <div class="govuk-body govuk-!-margin-top-2 inline-block">
+                <%= link_to 'Remove user from service', edit_team_member_path(@user, remove_team_member: true), class: 'govuk-link red-link' %>
+              </div>
+            <% end %>
+          </div>
         <% end %>
       </div>
     </fieldset>
