@@ -1,5 +1,37 @@
 class TeamMembersController < ApplicationController
+  before_action :set_user, only: %i[edit update]
+  before_action :validate_can_manage_team, only: %i[edit update]
+
   def index
     @team_members = current_user&.organisation&.users || []
+  end
+
+  def edit; end
+
+  def update
+    @user.permission.update!(permission_params[:permission_attributes])
+
+    flash[:notice] = 'Permissions updated'
+    redirect_to team_members_path
+  end
+
+private
+
+  def set_user
+    @user = User.find(params.fetch(:id))
+  end
+
+  def validate_can_manage_team
+    unless users_belong_to_same_org && current_user.can_manage_team?
+      raise ActionController::RoutingError.new('Not Found')
+    end
+  end
+
+  def users_belong_to_same_org
+    current_user.organisation == @user.organisation
+  end
+
+  def permission_params
+    params.require(:user).permit(permission_attributes: %i[can_manage_team can_manage_locations])
   end
 end
