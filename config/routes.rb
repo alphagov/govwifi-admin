@@ -17,9 +17,8 @@ Rails.application.routes.draw do
     get 'remove', to: 'ips#index'
   end
   resources :help, only: %i[index create]
-  resources :team_members, only: %i[index]
+  resources :team_members, only: %i[index edit update]
 
-  resources :permission, only: %i[edit update]
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index] do
     get 'search', on: :collection
