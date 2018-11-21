@@ -24,7 +24,16 @@ class IpsController < ApplicationController
   end
 
   def index
+    set_ip_to_delete if ip_removal_requested?
     @locations = Location.includes(:ips).where(organisation: current_organisation).order(:address)
+  end
+
+  def destroy
+    ip = current_organisation.ips.find_by(id: params.fetch(:id))
+    redirect_to(ips_path) && return unless ip
+
+    ip.destroy
+    redirect_to ips_path, notice: "Successfully removed IP address #{ip.address}"
   end
 
 private
@@ -78,7 +87,11 @@ private
     ip_params.except(:location_attributes)
   end
 
-  def authorise_manage_locations
-    redirect_to(root_path) unless current_user.can_manage_locations?
+  def set_ip_to_delete
+    @ip_to_delete = current_organisation.ips.find_by(id: params.fetch(:ip_id))
+  end
+
+  def ip_removal_requested?
+    params[:ip_id].present?
   end
 end

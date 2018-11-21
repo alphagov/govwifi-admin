@@ -28,6 +28,27 @@
         </div>
 
         <div class="actions">
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m"><span class="govuk-label">Permissions </span></legend>
+              <div class="govuk-checkboxes">
+                <%= f.fields_for :permission, resource.permission || resource.build_permission(can_manage_team: true, can_manage_locations: true) do |p| %>
+                  <div class="govuk-checkboxes__item">
+                    <%= p.check_box :can_manage_team, class: 'govuk-checkboxes__input' %>
+                    <label class="govuk-label govuk-checkboxes__label"><%= p.label :can_manage_team, 'Manage team' %></label>
+                  </div>
+
+                  <div class="govuk-checkboxes__item">
+                    <%= p.check_box :can_manage_locations, class: 'govuk-checkboxes__input' %>
+                    <label class="govuk-label govuk-checkboxes__label"><%= p.label :can_manage_locations, 'Manage locations' %></label>
+                  </div>
+                <% end %>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="actions">
           <%= f.submit "Send invitation email", class: "govuk-button govuk-!-margin-top-4" %>
         </div>
       <% end %>
