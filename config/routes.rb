@@ -17,7 +17,6 @@ Rails.application.routes.draw do
     get 'remove', to: 'ips#index'
   end
   resources :help, only: %i[index create]
-  get '/team_members/:id/remove', to: 'team_members#edit', as: :remove_team_member
   resources :team_members, only: %i[index edit update destroy]
 
   resources :mou, only: %i[index create]

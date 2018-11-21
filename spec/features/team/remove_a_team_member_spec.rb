@@ -10,7 +10,7 @@ describe "Remove a team member" do
 
   context "with the correct permissions" do
     before do
-      visit edit_permission_path(another_user.permission)
+      visit edit_team_member_path(another_user)
       click_on "Remove user from service"
     end
 
@@ -35,7 +35,7 @@ describe "Remove a team member" do
     context "when visiting remove team member url directly" do
       it 'should not show the page' do
         expect {
-          visit remove_team_member_path(another_user)
+          visit edit_team_member_path(another_user, remove_team_member: true)
         }.to raise_error(ActionController::RoutingError)
       end
     end
