@@ -10,7 +10,7 @@ describe 'View team members of my organisation' do
 
   context 'when logged in' do
     let(:organisation) { create(:organisation) }
-    let(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation) }
+    let(:user) { create(:user, email: 'me@example.gov.uk', organisation: organisation) }
 
     before do
       ENV['LONDON_RADIUS_IPS'] = "1.1.1.1,2.2.2.2"
@@ -38,7 +38,7 @@ describe 'View team members of my organisation' do
 
     context 'when there are many users in my organisation' do
       before do
-        create(:user, :confirmed, email: 'friend@example.gov.uk', organisation: organisation)
+        create(:user, email: 'friend@example.gov.uk', organisation: organisation)
       end
 
       it 'renders all users within my organisation' do
@@ -53,7 +53,7 @@ describe 'View team members of my organisation' do
     context 'when there are users outside of my organisation' do
       before do
         other_organisation = create(:organisation, name: 'Org 2')
-        create(:user, :confirmed, email: 'stranger@example.gov.uk', organisation: other_organisation)
+        create(:user, email: 'stranger@example.gov.uk', organisation: other_organisation)
       end
 
       it 'does not include users from other organisations' do

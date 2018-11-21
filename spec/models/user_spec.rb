@@ -7,7 +7,7 @@ describe User do
     it { is_expected.to validate_presence_of(:name).on(:update) }
 
     describe 'password confirmation' do
-      subject { create(:user, :confirmed) }
+      subject { create(:user) }
 
       before do
         subject.update(
@@ -62,14 +62,14 @@ describe User do
   end
 
   describe '#save' do
-    subject { build(:user, :confirmed) }
+    subject { build(:user) }
 
     context 'with the factory-built model' do
       it { is_expected.to be_valid }
     end
 
     context 'with valid data' do
-      subject { build(:user, :confirmed, email: 'name@gov.uk') }
+      subject { build(:user, email: 'name@gov.uk') }
 
       it { is_expected.to be_valid }
 
@@ -84,7 +84,7 @@ describe User do
 
     context 'with a non-gov.uk email' do
       context 'for a new record' do
-        subject { build(:user, :confirmed, email: 'name@arbitrary-domain.com') }
+        subject { build(:user, email: 'name@arbitrary-domain.com') }
 
         it { is_expected.to_not be_valid }
 
@@ -101,7 +101,7 @@ describe User do
 
       context 'for an existing record' do
         subject do
-          user = create(:user, :confirmed)
+          user = create(:user)
           user.email = 'name@arbitrary-domain.com'
           user
         end
@@ -113,7 +113,7 @@ describe User do
 
   context 'permissions' do
     context 'a new user' do
-      subject { create(:user, :confirmed) }
+      subject { create(:user) }
 
       it 'can manage team members' do
         expect(subject.can_manage_team?).to be_truthy

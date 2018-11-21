@@ -1,13 +1,13 @@
 require 'features/support/sign_up_helpers'
 
 describe 'Edit user permissions' do
-  let(:user) { create(:user, :confirmed) }
+  let(:user) { create(:user) }
   let(:invited_user_other_org) { User.find_by(email: 'invited_other_org@gov.uk') }
   let(:invited_user_same_org) { User.find_by(email: 'invited_same_org@gov.uk') }
 
   before do
-    create(:user, :confirmed, email: 'invited_other_org@gov.uk')
-    create(:user, :confirmed, email: 'invited_same_org@gov.uk', organisation: user.organisation)
+    create(:user, email: 'invited_other_org@gov.uk')
+    create(:user, email: 'invited_same_org@gov.uk', organisation: user.organisation)
     sign_in_user user
   end
 

@@ -13,7 +13,7 @@ describe 'view details of a signed up organisation' do
 
   context 'when logged in as a normal user' do
     before do
-      sign_in_user create(:user, :confirmed)
+      sign_in_user create(:user)
       visit admin_organisation_path(organisation)
     end
 
@@ -24,10 +24,10 @@ describe 'view details of a signed up organisation' do
     let(:location) { create(:location, organisation: organisation) }
 
     before do
-      create(:user, :confirmed, organisation: organisation)
+      create(:user, organisation: organisation)
       create(:ip, location: location)
 
-      sign_in_user create(:user, :confirmed, admin: true)
+      sign_in_user create(:user, admin: true)
       visit admin_organisation_path(organisation)
     end
 

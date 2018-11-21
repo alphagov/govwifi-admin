@@ -1,7 +1,7 @@
 require 'features/support/sign_up_helpers'
 
 describe 'Remove an IP' do
-  let(:user) { create(:user, :confirmed) }
+  let(:user) { create(:user) }
   let(:location) { create(:location, organisation: user.organisation) }
   let!(:ip) { create(:ip, location: location) }
 

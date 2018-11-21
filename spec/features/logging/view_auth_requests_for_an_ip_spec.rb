@@ -5,7 +5,7 @@ describe 'View authentication requests for an IP' do
     let(:ip) { '127.0.0.1' }
     let(:username) { 'ABCDEF' }
     let(:organisation) { create(:organisation) }
-    let(:admin_user) { create(:user, :confirmed, organisation_id: organisation.id) }
+    let(:admin_user) { create(:user, organisation_id: organisation.id) }
     let(:location) { create(:location, organisation_id: organisation.id) }
 
     before do

@@ -8,7 +8,7 @@ describe 'with a stubbed notifications service' do
 
   describe 'Viewing IPs' do
     context 'when one has been added' do
-      let(:user) { create(:user, :confirmed) }
+      let(:user) { create(:user) }
 
       before do
         sign_in_user user

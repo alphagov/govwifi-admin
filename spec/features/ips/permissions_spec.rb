@@ -1,7 +1,7 @@
 require 'features/support/sign_up_helpers'
 
 describe 'Add an IP' do
-  let!(:user) { create(:user, :confirmed) }
+  let!(:user) { create(:user) }
 
   before do
     sign_in_user user

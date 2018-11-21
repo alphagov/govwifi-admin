@@ -5,7 +5,7 @@ describe 'Locking a users account' do
 
   let(:correct_password) { 'password' }
   let(:incorrect_password) { 'incorrectpassword' }
-  let(:user) { create(:user, :confirmed, password: correct_password, password_confirmation: correct_password) }
+  let(:user) { create(:user, password: correct_password, password_confirmation: correct_password) }
 
   before { visit new_user_session_path }
 

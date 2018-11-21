@@ -3,7 +3,7 @@ require 'support/notifications_service'
 
 describe 'Invite a team member' do
   include_examples 'notifications service'
-  let(:user) { create(:user, :confirmed) }
+  let(:user) { create(:user) }
 
   before do
     sign_in_user user
