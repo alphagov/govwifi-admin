@@ -6,7 +6,7 @@
   </summary>
   <div class="govuk-details__text">
     <% if current_organisation.locations.empty? %>
-      <p>Your RADIUS secret keys will be generated when you <%=link_to('add your first IP address', new_ip_path, class: "govuk-link")%></p>
+      <p>Your RADIUS secret keys will be generated when you <%= link_to 'add your first IP address', new_ip_path, class: "govuk-link" %></p>
     <% else %>
       <p> Your RADIUS secrets are:</p>
       <ul class="govuk-list">

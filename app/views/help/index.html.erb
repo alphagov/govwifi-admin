@@ -10,7 +10,7 @@
           </h2>
             <p class="govuk-body">
               If an end user is having trouble with GovWifi, we recommend directing them to
-              <%= link_to 'our guidance on common issues', SITE_CONFIG['end_user_troubleshooting_link'] %>.
+              <%= link_to 'our guidance on common issues', SITE_CONFIG['end_user_troubleshooting_link'], class: "govuk-link" %>.
             </p>
             <p class="govuk-body">
               If this doesn't resolve the issue, we recommend they contact their
@@ -29,11 +29,11 @@
       <h2 class="govuk-heading-s">Before you contact us</h2>
 
       <ul class="govuk-list govuk-list--bullet">
-        <li><%= link_to 'Check the GovWifi service status', status_index_path %></li>
-        <li>Check your <%= link_to 'configured IP addresses', ips_path %> match your authenticator IPs </li>
+        <li><%= link_to 'Check the GovWifi service status', status_index_path, class: "govuk-link" %></li>
+        <li>Check your <%= link_to 'configured IP addresses', ips_path, class: "govuk-link" %> match your authenticator IPs </li>
         <li>Check your authenticators have the right RADIUS secret keys</li>
-        <li>Try logging in as an end user, then <%= link_to 'search our logs', search_logs_path %></li>
-        <li><%= link_to 'Browse the technical documentation', SITE_CONFIG['organisation_docs_link'] %></li>
+        <li>Try logging in as an end user, then <%= link_to 'search our logs', search_logs_path, class: "govuk-link" %></li>
+        <li><%= link_to 'Browse the technical documentation', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %></li>
       </ul>
     <p>
   </div>

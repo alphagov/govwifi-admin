@@ -3,7 +3,7 @@
 <% if mou_attached %>
   <p class="govuk-body">
     A signed MoU was uploaded on <%= organisation.signed_mou.attachment.created_at.strftime('%e %b %Y') %>,
-    <%= link_to "download and view the document.", rails_blob_path(organisation.signed_mou, disposition: "attachment") %>
+    <%= link_to "download and view the document.", rails_blob_path(organisation.signed_mou, disposition: "attachment"), class: "govuk-link" %>
   </p>
 
   <h3 class="govuk-heading-m">Replace MoU</h3>

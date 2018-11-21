@@ -14,11 +14,11 @@
         <% end %>
         <td class="govuk-table__cell text-right">
           <% if current_user.can_manage_locations? %>
-            <%= link_to 'Remove', ip_remove_path(ip) %>
+            <%= link_to 'Remove', ip_remove_path(ip), class: "govuk-link" %>
           <% end %>
         </td>
         <td class="govuk-table__cell text-right">
-          <%= link_to 'View logs', logs_path(ip: ip.address) %>
+          <%= link_to 'View logs', logs_path(ip: ip.address), class: "govuk-link" %>
         </td>
       </tr>
     <% end %>

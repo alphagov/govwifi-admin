@@ -23,7 +23,7 @@ describe 'Edit user permissions' do
 
     it 'Prevents visiting the edit permissions page directly' do
       expect {
-        visit edit_permission_path(invited_user_same_org.permission)
+        visit edit_team_member_path(invited_user_same_org)
       }.to raise_error(ActionController::RoutingError)
     end
   end
@@ -32,11 +32,10 @@ describe 'Edit user permissions' do
     context 'User belongs to my organisation' do
       before do
         visit team_members_path
+        click_link 'Edit permissions'
       end
 
       it 'allows me to edit the user permissions' do
-        visit team_members_path
-        click_link 'Edit permissions'
         uncheck 'Manage team'
         uncheck 'Manage locations'
 
@@ -51,7 +50,7 @@ describe 'Edit user permissions' do
     context 'User does not belong to my organisation' do
       it 'Restricts editing to only users in my organisation' do
         expect {
-          visit edit_permission_path(invited_user_other_org.permission)
+          visit edit_team_member_path(invited_user_other_org)
         }.to raise_error(ActionController::RoutingError)
       end
     end
