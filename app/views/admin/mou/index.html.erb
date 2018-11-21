@@ -5,7 +5,7 @@
     <p class="govuk-body">Be aware that any version of the MOU template that is uploaded will be visible to all organisations requesting to sign up to GovWifi.</p>
     <hr class="govuk-section-break--m govuk-section-break--visible">
     <% if @mou.unsigned_document.attached? %>
-      <p class="govuk-body"><%= link_to "Download current template", rails_blob_path(@mou.unsigned_document, disposition: "attachment") %></p>
+      <%= link_to "Download current template", rails_blob_path(@mou.unsigned_document, disposition: "attachment"), class: "govuk-link" %>
     <% end %>
     <h3 class="govuk-heading-m">Upload Template</h3>
     <p class="govuk-body"> </p>
