@@ -1,0 +1,8 @@
+<div class="govuk-error-summary">
+   <h2 class="govuk-error-summary__title">
+     Are you sure you want to remove <%= @user.name %>?
+   </h2>
+		<div class="govuk-error-summary__body">
+     <%= button_to 'Yes, remove this team member', team_member_path(@user), method: :delete, class: "govuk-button red-button" %>
+   </div>
+ </div>

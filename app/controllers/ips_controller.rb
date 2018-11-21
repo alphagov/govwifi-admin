@@ -30,7 +30,7 @@ class IpsController < ApplicationController
 
   def destroy
     ip = current_organisation.ips.find_by(id: params.fetch(:id))
-    redirect_to(ips_path) && return unless ip
+    redirect_to ips_path && return unless ip
 
     ip.destroy
     redirect_to ips_path, notice: "Successfully removed IP address #{ip.address}"

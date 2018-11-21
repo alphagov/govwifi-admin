@@ -5,11 +5,11 @@ $govuk-font-url-function: "font-url";
 @import "./components/flash_messages";
 @import "./components/health_checks";
 @import "./components/ips";
+@import "./utilities/layout";
 @import "./components/main_nav";
 @import "./components/red_button";
 @import "./components/sub_nav";
 @import "./components/team_members";
-@import "./utilities/layout";
 @import "./utilities/typography";
 
 .govuk-main-wrapper {
