@@ -7,7 +7,7 @@ describe "Sign up from invitation" do
   include_examples 'invite use case spy'
   include_examples 'notifications service'
 
-  let(:user) { create(:user, :confirmed) }
+  let(:user) { create(:user) }
   let(:invited_user_email) { "invited@gov.uk" }
 
   before do

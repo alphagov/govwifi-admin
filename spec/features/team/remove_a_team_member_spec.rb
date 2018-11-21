@@ -1,8 +1,8 @@
 require 'features/support/sign_up_helpers'
 
 describe "Remove a team member" do
-  let(:user) { create(:user, :confirmed) }
-  let(:another_user) { create(:user, :confirmed, organisation: user.organisation) }
+  let(:user) { create(:user) }
+  let(:another_user) { create(:user, organisation: user.organisation) }
 
   before do
     sign_in_user user

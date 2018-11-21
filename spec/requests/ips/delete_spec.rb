@@ -1,5 +1,5 @@
 describe "DELETE /ips/:id", type: :request do
-  let(:user) { create(:user, :confirmed) }
+  let(:user) { create(:user) }
   let(:location) { create(:location, organisation: user.organisation) }
   let!(:ip) { create(:ip, location: location) }
 

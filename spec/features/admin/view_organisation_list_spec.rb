@@ -13,7 +13,7 @@ describe 'view list of signed up organisations' do
   end
 
   context 'when logged in as a normal user' do
-    let(:user) { create(:user, :confirmed) }
+    let(:user) { create(:user) }
 
     it 'redirects me to the landing guidance' do
       expect(page).to have_content 'Get GovWifi'
@@ -22,7 +22,7 @@ describe 'view list of signed up organisations' do
   end
 
   context 'when logged in as an admin' do
-    let(:user) { create(:user, :confirmed, admin: true) }
+    let(:user) { create(:user, admin: true) }
 
     context 'and one organisation exists' do
       let(:org) { create(:organisation, name: "Fake Org", created_at: '1 Feb 2014') }

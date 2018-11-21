@@ -4,7 +4,7 @@ require 'support/notifications_service'
 describe 'Set user permissions on invite' do
   include_examples 'notifications service'
 
-  let(:user) { create(:user, :confirmed) }
+  let(:user) { create(:user) }
   let(:invited_email) { 'invited@gov.uk' }
   let(:invited_user) { User.find_by(email: invited_email) }
 

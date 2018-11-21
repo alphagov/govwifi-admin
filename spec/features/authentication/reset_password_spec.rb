@@ -35,7 +35,7 @@ describe "Resetting a password" do
     include_examples 'confirmation use case spy'
     include_examples 'notifications service'
 
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :unconfirmed) }
 
     it "sends the confirmation instructions instead of reset password" do
       visit new_user_password_path
@@ -53,7 +53,7 @@ describe "Resetting a password" do
     include_examples 'reset password use case spy'
     include_examples 'notifications service'
 
-    let(:user) { create(:user, :confirmed) }
+    let(:user) { create(:user) }
 
     it "sends the reset password instructions" do
       expect {

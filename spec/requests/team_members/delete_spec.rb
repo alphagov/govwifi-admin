@@ -1,6 +1,6 @@
 describe "DELETE /team_members/:id", type: :request do
-  let(:user) { create(:user, :confirmed) }
-  let!(:team_member) { create(:user, :confirmed, organisation: user.organisation) }
+  let(:user) { create(:user) }
+  let!(:team_member) { create(:user, organisation: user.organisation) }
 
   before do
     https!
@@ -16,7 +16,7 @@ describe "DELETE /team_members/:id", type: :request do
   end
 
   context "when the team member belongs to another team" do
-    let!(:other_team_member) { create(:user, :confirmed) }
+    let!(:other_team_member) { create(:user) }
     it "does not delete the user" do
       expect {
         delete team_member_path(other_team_member)

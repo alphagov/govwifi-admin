@@ -4,7 +4,7 @@ describe "View authentication requests for a username" do
   context "with results" do
     let(:username) { "AAAAAA" }
     let(:organisation) { create(:organisation) }
-    let(:admin_user) { create(:user, :confirmed, organisation_id: organisation.id) }
+    let(:admin_user) { create(:user, organisation_id: organisation.id) }
     let(:location) { create(:location, organisation_id: organisation.id) }
 
     before do
@@ -80,7 +80,7 @@ describe "View authentication requests for a username" do
   end
 
   context 'without results' do
-    let(:user) { create(:user, :confirmed) }
+    let(:user) { create(:user) }
     let(:username) { 'random' }
 
     before do

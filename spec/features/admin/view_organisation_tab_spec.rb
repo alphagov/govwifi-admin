@@ -10,7 +10,7 @@ describe 'the visibility of the organisation depending on user' do
 
   context 'when logged in as Admin' do
     let(:organisation) { create(:organisation) }
-    let(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation, admin: true) }
+    let(:user) { create(:user, email: 'me@example.gov.uk', organisation: organisation, admin: true) }
 
     it 'displays the organisation tab' do
       sign_in_user user
@@ -22,7 +22,7 @@ describe 'the visibility of the organisation depending on user' do
 
   context 'when logged in as normal user' do
     let(:organisation) { create(:organisation) }
-    let(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation) }
+    let(:user) { create(:user, email: 'me@example.gov.uk', organisation: organisation) }
 
     it 'will not display the organisation tab' do
       sign_in_user user
@@ -43,7 +43,7 @@ describe 'the visibility of the organisation depending on user' do
     let!(:organisation_def) { create(:organisation, name: "DEF") }
     let!(:organisation_xyz) { create(:organisation, name: "XYZ") }
     let!(:organisation_abc) { create(:organisation, name: "ABC") }
-    let(:user) { create(:user, :confirmed, email: 'me@example.gov.uk', organisation: organisation_abc, admin: true) }
+    let(:user) { create(:user, email: 'me@example.gov.uk', organisation: organisation_abc, admin: true) }
 
     it 'display list of organisations in alphabetical order' do
       sign_in_user user

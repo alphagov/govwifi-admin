@@ -17,7 +17,7 @@ describe "Invite a team member" do
   end
 
   context "when logged in" do
-    let(:user) { create(:user, :confirmed) }
+    let(:user) { create(:user) }
     before do
       sign_in_user user
       visit root_path
