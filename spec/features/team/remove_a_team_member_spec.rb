@@ -1,36 +1,42 @@
 require 'features/support/sign_up_helpers'
 
 describe "Remove a team member" do
-  context "with the correct permissions" do
-    let(:user) { create(:user, :confirmed) }
-    let!(:another_user) { create(:user, :confirmed, organisation: user.organisation) }
+  let(:user) { create(:user, :confirmed) }
+  let(:another_user) { create(:user, :confirmed, organisation: user.organisation) }
 
+  before do
+    sign_in_user user
+  end
+
+  context "with the correct permissions" do
     before do
-      sign_in_user user
-      visit edit_permission_path(user)
+      visit edit_permission_path(another_user.permission)
       click_on "Remove user from service"
     end
 
-    it "shows an alert when removing a team member" do
+    it "shows the remove a team member confirmation box" do
       expect(page).to have_content("Are you sure you want to remove")
     end
 
-    it 'does not have delete user link when already clicked' do
+    it "hides the delete user link when already clicked" do
       expect(page).to_not have_content("Remove user from service")
     end
 
-    it 'can delete a user' do
+    it "deletes the user" do
       expect { click_on "Yes, remove this team member" }.to change { User.count }.by(-1)
     end
+  end
 
-    context "when you do not own the correct permissions to remove a team member" do
-      let(:other_team_member) { create(:user, :confirmed, organisation: user.organisation) }
-      before do
-        visit remove_team_member_path(other_team_member)
-      end
+  context "without correct permissions" do
+    before do
+      user.permission.update!(can_manage_team: false)
+    end
 
-      it 'should not allow a user to remove a member when accessing the link directly' do
-        expect(page).to_not have_content("Yes, remove this team member")
+    context "when visiting remove team member url directly" do
+      it 'should not show the page' do
+        expect {
+          visit remove_team_member_path(another_user)
+        }.to raise_error(ActionController::RoutingError)
       end
     end
   end
