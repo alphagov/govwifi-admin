@@ -105,7 +105,7 @@ describe 'Sign up as an organisation' do
     it_behaves_like 'errors in form'
 
     it 'tells the user that the organisation name must be unique' do
-      expect(page).to have_content 'Organisation name has already been taken'
+      expect(page).to have_content 'Organisation name is already registered'
     end
   end
 

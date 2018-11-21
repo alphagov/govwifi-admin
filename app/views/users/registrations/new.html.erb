@@ -5,7 +5,7 @@
     <h1 class="govuk-heading-l">Sign up your Organisation to GovWifi</h1>
 
     <p class="govuk-body">
-      If you are trying to connect to GovWifi as an end user, see instructions <%= link_to "here", "", class: "govuk-link" %>
+      If you are trying to connect to GovWifi as an end user, see the <%= link_to "instructions.", SITE_CONFIG['end_user_docs_link'], class: "govuk-link" %>
     </p>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { novalidate: '' }) do |f| %>
