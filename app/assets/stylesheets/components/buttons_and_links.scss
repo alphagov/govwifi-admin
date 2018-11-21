@@ -5,3 +5,11 @@
     background-color: darken($govuk-error-colour, 10%);
   }
 }
+
+.red-link {
+  color: $govuk-error-colour !important;
+
+  &:hover {
+    color: lighten($govuk-error-colour, 10%) !important;
+  }
+}
