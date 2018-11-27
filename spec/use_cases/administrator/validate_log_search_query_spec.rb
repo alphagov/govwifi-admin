@@ -5,6 +5,7 @@ describe UseCases::Administrator::ValidateLogSearchQuery do
     context 'valid username' do
       it 'returns true' do
         valid_params = [
+          { username: 'ABCDE', ip: nil },
           { username: 'ABCDEF', ip: nil },
           { username: nil, ip: '127.0.0.1' }
         ]
