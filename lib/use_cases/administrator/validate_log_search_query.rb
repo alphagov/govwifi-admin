@@ -12,6 +12,7 @@ module UseCases
       end
 
       def valid_username?(username)
+        username.strip unless username.nil?
         username.present? && username.length > 4
       end
 
