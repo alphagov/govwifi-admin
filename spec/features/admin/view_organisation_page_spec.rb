@@ -27,7 +27,7 @@ describe 'view details of a signed up organisation' do
       create(:user, organisation: organisation)
       create(:ip, location: location)
 
-      sign_in_user create(:user, admin: true)
+      sign_in_user create(:user, super_admin: true)
       visit admin_organisation_path(organisation)
     end
 

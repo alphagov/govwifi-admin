@@ -2,7 +2,7 @@ require 'features/support/sign_up_helpers'
 
 describe 'sorting the values in the organisation list' do
   context 'when super admin views the list' do
-    let(:super_admin) { create(:user, admin: true) }
+    let(:super_admin) { create(:user, super_admin: true) }
 
     before do
       create(:organisation, name: "Department of Silly Hats", created_at: '10 Dec 2013')
