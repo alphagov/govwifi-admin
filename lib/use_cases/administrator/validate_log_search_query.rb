@@ -12,7 +12,7 @@ module UseCases
       end
 
       def valid_username?(username)
-        username.present? && username.length > 5
+        username.present? && username.length > 4
       end
 
       def valid_ip?(ip)
