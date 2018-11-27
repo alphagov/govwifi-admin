@@ -9,7 +9,7 @@ admin_user = admin_organisation.users.create(
   email: "admin@gov.uk",
   password: "password",
   name: "Steve",
-  admin: true,
+  super_admin: true,
   confirmed_at: Time.zone.now
 )
 

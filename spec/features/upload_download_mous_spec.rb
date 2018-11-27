@@ -47,7 +47,7 @@ describe 'the upload and download of MOUs' do
 
   context 'As a super admin' do
     let!(:organisation) { create(:organisation) }
-    let!(:user) { create(:user, email: 'me@example.gov.uk', organisation: organisation, admin: true) }
+    let!(:user) { create(:user, email: 'me@example.gov.uk', organisation: organisation, super_admin: true) }
 
     it 'uploads and downloads the mou template' do
       sign_in_user user
