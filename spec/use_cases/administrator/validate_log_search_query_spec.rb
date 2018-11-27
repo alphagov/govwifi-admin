@@ -3,23 +3,11 @@ describe UseCases::Administrator::ValidateLogSearchQuery do
 
   context 'Valid search params' do
       context 'valid username' do
-        it 'will trim the trailing whitespaces' do
-          valid_params_trailing_whitespaces = [
-            { username: 'ABCDE ', ip: nil },
-            { username: 'ABCDEF ', ip: nil },
-            { username: nil, ip: '127.0.0.1 ' }
-          ]
-
-          valid_params_trailing_whitespaces.each do |valid_param|
-            expect(subject.execute(valid_param)).to eq(success: true)
-          end
-        end
-
         it 'returns true' do
           valid_params = [
             { username: 'ABCDE', ip: nil },
             { username: 'ABCDEF', ip: nil },
-            { username: nil, ip: '127.0.0.1' }
+            { username: nil, ip: '127.0.0.1' },
           ]
 
           valid_params.each do |valid_param|

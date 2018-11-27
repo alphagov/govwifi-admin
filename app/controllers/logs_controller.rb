@@ -7,8 +7,8 @@ class LogsController < ApplicationController
           ips: current_organisation.ips.map(&:address)
         )
       ).execute(
-        username: params[:username],
-        ip: params[:ip]
+        username: strip_username_trailing_whitespace,
+        ip: strip_ip_trailing_whitespace
       )
 
       if logs.fetch(:error).present?
@@ -17,5 +17,13 @@ class LogsController < ApplicationController
 
       @logs = logs.fetch(:results)
     end
+  end
+
+  def strip_username_trailing_whitespace
+    params[:username].strip unless params[:username].nil?
+  end
+
+  def strip_ip_trailing_whitespace
+    params[:ip].strip unless params[:ip].nil?
   end
 end

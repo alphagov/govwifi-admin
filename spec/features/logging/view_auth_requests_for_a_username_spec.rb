@@ -49,7 +49,6 @@ describe "View authentication requests for a username" do
       fill_in "username", with: username
       click_on "Submit"
     end
-
     context "when username is correct" do
       let(:username) { "AAAAAA" }
 
