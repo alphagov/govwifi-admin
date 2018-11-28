@@ -1,5 +1,5 @@
 default: &default
-  end_user_docs_link: 'https://wifi.service.gov.uk/connect'
+  end_user_docs_link: 'https://www.gov.uk/government/collections/connect-to-govwifi'
   end_user_troubleshooting_link: 'https://www.gov.uk/government/collections/connect-to-govwifi'
   organisation_docs_link: 'https://docs.wifi.service.gov.uk'
   product_page_link: 'https://wifi.service.gov.uk'
