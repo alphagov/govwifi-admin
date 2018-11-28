@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :error
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
 
   helper_method :current_organisation
@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def error
-    render status_code.to_s, status: (params[:code] || 500)
+    render "404", code: params[:code]
   end
 
 protected

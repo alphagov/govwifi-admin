@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :team_members, only: %i[index edit update destroy]
 
   %w( 404 422 500 ).each do |code|
-    get code, controller: :application, action: :error, code: code
+    get code, to: 'application#error', code: code
   end
 
   resources :mou, only: %i[index create]
