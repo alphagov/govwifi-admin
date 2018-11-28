@@ -4,7 +4,6 @@ FactoryBot.define do
       "test#{n}@gov.uk"
     end
     password { '123456' }
-    password_confirmation { '123456' }
     name { "bob" }
     confirmed_at { Time.zone.now }
 

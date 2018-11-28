@@ -32,11 +32,6 @@
           <%= f.password_field :password, class: "govuk-input", autocomplete: "off" %>
         </div>
 
-        <div class="govuk-form-group <%= field_error(resource, :password_confirmation) %>">
-          <%= f.label :password_confirmation, "Confirm password", class: "govuk-label" %>
-          <%= f.password_field :password_confirmation, class: "govuk-input", autocomplete: "off" %>
-        </div>
-
         <div class="actions">
           <%= f.submit "Create my account", class: "govuk-button govuk-!-margin-top-2" %>
         </div>

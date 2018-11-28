@@ -5,60 +5,6 @@ describe User do
 
   context 'validations' do
     it { is_expected.to validate_presence_of(:name).on(:update) }
-
-    describe 'password confirmation' do
-      subject { create(:user) }
-
-      before do
-        subject.update(
-          name: 'new name',
-          password: 'new_password',
-          password_confirmation: password_confirmation
-        )
-      end
-
-      context 'matches password' do
-        let(:password_confirmation) { 'new_password' }
-
-        it { is_expected.to be_valid }
-
-        it 'updates the name' do
-          expect(subject.reload.name).to eq('new name')
-        end
-      end
-
-      context 'does not match password' do
-        let(:password_confirmation) { 'other_password' }
-
-        it { is_expected.to_not be_valid }
-
-        it 'does not update the name' do
-          expect(subject.reload.name).to_not eq('new name')
-        end
-
-        it 'explains the error' do
-          expect(subject.errors.full_messages).to include(
-            "Password confirmation doesn't match Password"
-          )
-        end
-      end
-
-      context 'is blank' do
-        let(:password_confirmation) { '' }
-
-        it { is_expected.to_not be_valid }
-
-        it 'does not update the name' do
-          expect(subject.reload.name).to_not eq('new name')
-        end
-
-        it 'explains the error' do
-          expect(subject.errors.full_messages).to include(
-            "Password confirmation can't be blank"
-          )
-        end
-      end
-    end
   end
 
   describe '#save' do

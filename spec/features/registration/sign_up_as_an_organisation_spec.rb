@@ -65,24 +65,11 @@ describe 'Sign up as an organisation' do
     end
   end
 
-  context 'when password does not match password confirmation' do
-    before do
-      sign_up_for_account
-      update_user_details(password: 'password', confirmed_password: 'password1')
-      expect(page).to have_content 'Create your account'
-    end
-
-    it_behaves_like 'errors in form'
-
-    it 'tells the user that the passwords do not match' do
-      expect(page).to have_content "Password confirmation doesn't match Password"
-    end
-  end
 
   context 'when password is too short' do
     before do
       sign_up_for_account
-      update_user_details(password: '1', confirmed_password: '1')
+      update_user_details(password: '1')
       expect(page).to have_content 'Create your account'
     end
 
@@ -126,7 +113,7 @@ describe 'Sign up as an organisation' do
   context 'when password is too short' do
     before do
       sign_up_for_account
-      update_user_details(password: '1', confirmed_password: '1')
+      update_user_details(password: '1')
       expect(page).to have_content 'Create your account'
     end
 
@@ -148,25 +135,6 @@ describe 'Sign up as an organisation' do
 
     it 'tells the user the email is already confirmed' do
       expect(page).to have_content 'Email was already confirmed'
-    end
-  end
-
-  context 'when making two errors in a row' do
-    before do
-      sign_up_for_account
-      update_user_details(password: '1', confirmed_password: '1')
-      expect(page).to have_content 'Password is too short (minimum is 6 characters)'
-      expect(page).to have_content 'Create your account'
-
-      fill_in 'Password', with: "password"
-      fill_in 'Confirm password', with: "password1"
-      click_on 'Create my account'
-    end
-
-    it_behaves_like 'errors in form'
-
-    it 'correctly sets the second error' do
-      expect(page).to have_content "Password confirmation doesn't match Password"
     end
   end
 end

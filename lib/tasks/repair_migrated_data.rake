@@ -14,7 +14,6 @@ namespace :repair_migrated_data do
       random_password = Devise.friendly_token.first(16)
       user.update!(
         password: random_password,
-        password_confirmation: random_password,
         confirmed_at: user.created_at
       )
     end
