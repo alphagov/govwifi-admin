@@ -19,6 +19,10 @@ Rails.application.routes.draw do
   resources :help, only: %i[index create]
   resources :team_members, only: %i[index edit update destroy]
 
+  %w( 404 422 500 ).each do |code|
+    get code, controller: :application, action: :error, code: code
+  end
+
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index] do
     get 'search', on: :collection

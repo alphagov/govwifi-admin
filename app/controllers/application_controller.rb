@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     @current_organisation ||= current_user.organisation
   end
 
+  def error
+    render status_code.to_s, status: (params[:code] || 500)
+  end
+
 protected
 
   def authorise_manage_locations
