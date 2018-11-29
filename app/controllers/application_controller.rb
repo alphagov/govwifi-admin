@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def error
-    render "404", code: params[:code]
+    render :error, code: params[:code]
   end
 
 protected
