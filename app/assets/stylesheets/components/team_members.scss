@@ -4,6 +4,7 @@
   cursor: pointer;
   text-decoration: underline;
   color: $govuk-link-colour;
+  background-color: transparent;
 
   &:hover {
     color: $govuk-link-hover-colour;
