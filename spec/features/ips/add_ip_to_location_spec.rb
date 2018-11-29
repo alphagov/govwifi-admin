@@ -3,14 +3,14 @@ require 'features/support/errors_in_form'
 
 describe 'Add an IP to my account' do
   context 'and the new location is invalid' do
-    let!(:user) { create(:user) }
+    let(:user) { create(:user) }
     let(:location) { create(:location, address: '10 Street', postcode: 'XX YYY', organisation: user.organisation) }
     let!(:ip) { create(:ip, location: location) }
 
     before do
       sign_in_user user
       visit ips_path
-      click_on 'add IP to this location'
+      click_on '+ add IP'
     end
 
     context 'when logged in' do
