@@ -41,8 +41,10 @@ describe 'Add an IP to my account' do
 
         it_behaves_like 'errors in form'
 
-        it 'asks me to re-enter my IP' do
-          expect(page).to have_content('Enter IP address')
+        it 'renders the add ip to location form' do
+          within("h2#title") do
+            expect(page).to have_content("Add an IP address to #{location.address}")
+          end
         end
 
         it 'tells me what I entered was invalid' do

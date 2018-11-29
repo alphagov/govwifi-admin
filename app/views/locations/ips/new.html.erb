@@ -4,7 +4,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= link_to "Back to list", ips_path, class: "govuk-back-link" %>
 
-    <h2 class="govuk-heading-l">Add an IP address to <%= @location.address %></h2>
+    <h2 class="govuk-heading-l" id="title">Add an IP address to <%= @location.address %></h2>
 
     <%= render "ips/activation_notice" %>
 
