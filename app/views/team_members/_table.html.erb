@@ -6,11 +6,12 @@
 
           <% if member.invitation_pending? %>
             <h3 class='govuk-heading-m govuk-!-margin-bottom-0 text-light-grey'>Invitation pending</h3>
-          <% else %>
-            <h3 class='govuk-heading-m govuk-!-margin-bottom-0'><%= member.name %></h3>
-          <% end %>
 
-          <p class='govuk-hint govuk-!-margin-top-0'><%= member.email %></p>
+          <% else %>
+            <h3 class='govuk-heading-m govuk-!-margin-bottom-0'><%= member.name%>
+              <span class='govuk-body text-light-grey'><%= member.email %></span>
+            </h3>
+          <% end %>
 
           <ul class='govuk-list'>
             <li>
@@ -59,7 +60,7 @@
             method: :post, class: 'resend-invite-button')
           %>
         <% end %>
-      </li>
+        </li>
 
     <hr class='govuk-section-break--l govuk-!-margin-top-0'>
   <% end %>
