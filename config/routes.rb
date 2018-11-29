@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   end
   resources :help, only: %i[index create]
   resources :team_members, only: %i[index edit update destroy]
-
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index] do
     get 'search', on: :collection
@@ -27,5 +26,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :mou, only: %i[index update create]
     resources :organisations, only: %i[index show]
+  end
+
+  %w( 404 422 500 ).each do |code|
+    get code, to: 'application#error', code: code
   end
 end
