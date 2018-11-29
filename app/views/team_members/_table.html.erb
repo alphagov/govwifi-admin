@@ -46,7 +46,7 @@
           </ul>
         </div>
 
-        <div class='govuk-grid-column-one-third govuk-list govuk-!-padding-right-4'style="text-align:right">
+        <div class='govuk-grid-column-one-third govuk-list govuk-!-padding-right-4' style="text-align:right">
           <% if current_user.can_manage_team? && member.id != current_user.id %>
             <%= link_to 'Edit permissions', edit_team_member_path(member), class: "govuk-link" %>
 

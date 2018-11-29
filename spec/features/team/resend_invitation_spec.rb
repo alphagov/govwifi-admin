@@ -18,7 +18,7 @@ describe 'Resend invitation to team member' do
     end
 
     it 'shows that the invitation is pending' do
-      expect(page).to have_content('Invitation pending')
+      expect(page).to have_content('invited')
     end
 
     it 'sends an invitation' do
