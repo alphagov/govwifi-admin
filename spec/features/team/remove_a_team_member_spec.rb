@@ -11,7 +11,7 @@ describe "Remove a team member" do
   context "with the correct permissions" do
     before do
       visit edit_team_member_path(another_user)
-      click_on "Remove user from service"
+      click_on "Remove user from GovWifi admin"
     end
 
     it "shows the remove a team member confirmation box" do
