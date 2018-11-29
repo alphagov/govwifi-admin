@@ -86,7 +86,6 @@ describe "Resetting a password" do
       context "when entering correct passwords" do
         before do
           fill_in "user_password", with: "password"
-          fill_in "user_password_confirmation", with: "password"
           click_on "Change my password"
         end
 
@@ -99,7 +98,6 @@ describe "Resetting a password" do
       context "when entering a password that is too short" do
         before do
           fill_in "user_password", with: "1"
-          fill_in "user_password_confirmation", with: "1"
           click_on "Change my password"
         end
 
@@ -107,20 +105,6 @@ describe "Resetting a password" do
 
         it "tells the user the password is too short" do
           expect(page).to have_content("Password is too short")
-        end
-      end
-
-      context "when password confirmation does not match" do
-        before do
-          fill_in "user_password", with: "password"
-          fill_in "user_password_confirmation", with: "password1"
-          click_on "Change my password"
-        end
-
-        it_behaves_like "errors in form"
-
-        it "tells the user the passwords must match" do
-          expect(page).to have_content("Password confirmation doesn't match Password")
         end
       end
     end

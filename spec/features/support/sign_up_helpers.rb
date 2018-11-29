@@ -8,7 +8,6 @@ end
 
 def update_user_details(
   password: 'supersecret',
-  confirmed_password: 'supersecret',
   name: 'bob',
   organisation_name: 'Parks and Recreation',
   service_email: 'admin@gov.uk'
@@ -19,7 +18,6 @@ def update_user_details(
   fill_in 'Service email', with: service_email
   fill_in 'Your name', with: name
   fill_in 'Password', with: password
-  fill_in 'Confirm password', with: confirmed_password
   click_on 'Create my account'
 end
 

@@ -42,7 +42,6 @@ describe 'Resend invitation to team member' do
         before do
           fill_in 'Your name', with: 'Ron Swanson'
           fill_in 'Password', with: 'password'
-          fill_in 'Confirm password', with: 'password'
           click_on 'Create my account'
         end
 

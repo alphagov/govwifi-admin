@@ -12,9 +12,6 @@ class User < ApplicationRecord
 
   validates :name, presence: true, on: :update
 
-  validates :password, confirmation: true, on: :update
-  validates :password_confirmation, presence: true, on: :update
-
   validate :email_on_whitelist, on: :create
 
   after_create :create_default_permissions
