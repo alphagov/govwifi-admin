@@ -6,13 +6,10 @@ describe 'Add an IP to a location' do
   let(:location) { create(:location, address: '10 Street', postcode: 'XX YYY', organisation: user.organisation) }
   let!(:ip) { create(:ip, location: location) }
 
-  before do
-    sign_in_user user
-    visit ips_path
-  end
-
   context 'with permissions' do
     before do
+      sign_in_user user
+      visit ips_path
       click_on '+ add IP'
     end
 
@@ -60,7 +57,6 @@ describe 'Add an IP to a location' do
   context 'without permissions' do
     before do
       user.permission.update(can_manage_locations: false)
-      sign_out
       sign_in_user user
       visit ips_path
     end
