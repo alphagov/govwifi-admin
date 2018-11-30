@@ -65,7 +65,6 @@ describe 'Sign up as an organisation' do
     end
   end
 
-
   context 'when password is too short' do
     before do
       sign_up_for_account
@@ -77,6 +76,21 @@ describe 'Sign up as an organisation' do
 
     it 'tells the user that the password is too short' do
       expect(page).to have_content 'Password is too short (minimum is 6 characters)'
+    end
+  end
+
+  context 'without a password' do
+    let(:email) { 'someone@gov.uk' }
+
+    before do
+      sign_up_for_account
+      update_user_details(password: '')
+    end
+
+    it_behaves_like 'errors in form'
+
+    it 'tells me my password is not valid' do
+      expect(page).to have_content("Password can't be blank")
     end
   end
 
