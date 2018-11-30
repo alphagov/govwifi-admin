@@ -6,7 +6,7 @@
   </div>
   <div class="govuk-grid-column-one-third text-right">
     <% if current_user.can_manage_locations? %>
-      <%= link_to 'Add IP address', new_ip_path, class: "govuk-button govuk-link #{active_tab(new_ip_path)}" %>
+      <%= link_to 'Add IP address', new_ip_path, class: "govuk-button" %>
     <% end %>
   </div>
 </div>
