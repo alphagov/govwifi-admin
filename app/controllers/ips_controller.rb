@@ -6,6 +6,7 @@ class IpsController < ApplicationController
     @locations = available_locations
   end
 
+  # rubocop:disable Style/IfInsideElse
   def create
     @ip = Ip.new(create_params)
 
@@ -27,6 +28,7 @@ class IpsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Style/IfInsideElse
 
   def index
     set_ip_to_delete if ip_removal_requested?
