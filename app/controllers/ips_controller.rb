@@ -6,6 +6,7 @@ class IpsController < ApplicationController
     @locations = available_locations
   end
 
+  # rubocop:disable Style/IfInsideElse
   def create
     @ip = Ip.new(create_params)
 
@@ -18,10 +19,16 @@ class IpsController < ApplicationController
         notice: "#{@ip.address} added, it will be active starting tomorrow"
       )
     else
-      @locations = available_locations
-      render :new
+      if adding_ip_to_location?
+        @location = Location.find_by(id: ip_params[:location_id])
+        render "locations/ips/new"
+      else
+        @locations = available_locations
+        render :new
+      end
     end
   end
+  # rubocop:enable Style/IfInsideElse
 
   def index
     set_ip_to_delete if ip_removal_requested?
@@ -75,6 +82,10 @@ private
 
   def user_creates_new_location?
     ip_params[:location_id].blank?
+  end
+
+  def adding_ip_to_location?
+    !ip_params.has_key?(:location_attributes)
   end
 
   def params_with_new_location
