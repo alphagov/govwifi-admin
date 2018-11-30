@@ -5,9 +5,9 @@ module ApplicationHelper
 
   def active_tab(identifier)
     if (request.path == root_path) && (request.path == identifier)
-      return "active"
+      "active"
     elsif request.path.include?(identifier) && identifier != root_path
-      return "active"
+      "active"
     else
       ""
     end
