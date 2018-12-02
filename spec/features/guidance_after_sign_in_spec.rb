@@ -22,10 +22,6 @@ describe 'guidance after sign in' do
       expect(page).to have_content 'Getting help'
     end
 
-    it 'displays radius connection details' do
-      expect(page).to have_content(location.radius_secret_key)
-    end
-
     context 'and an IP, clicking on that IP' do
       let(:ip_address) { '10.0.0.1' }
 

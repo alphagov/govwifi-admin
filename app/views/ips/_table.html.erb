@@ -1,6 +1,16 @@
 <table class="govuk-table">
   <caption class="govuk-table__caption">
     <%= location.full_address %>
+  <details class="govuk-details govuk-!-margin-bottom-0 govuk-!-margin-top-2">
+    <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      View radius secret key
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+  <%= location.radius_secret_key %>
+  </div>
+</details>
   </caption>
   <tbody class="govuk-table__body" id="ips-table">
     <% location.ips.each do |ip| %>
