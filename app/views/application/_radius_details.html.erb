@@ -8,12 +8,7 @@
     <% if current_organisation.locations.empty? %>
       <p>Your RADIUS secret keys will be generated when you <%= link_to 'add your first IP address', new_ip_path, class: "govuk-link" %></p>
     <% else %>
-      <p> Your RADIUS secrets are:</p>
-      <ul class="govuk-list">
-      <% current_organisation.locations.each do |loc| %>
-        <li><%= "#{loc.address}, #{loc.postcode}" %> - <strong><%= loc.radius_secret_key %></strong></li>
-      <% end %>
-      </ul>
+    <p> Your RADIUS secret keys are shown under <%= link_to "your organisation's locations", ips_path, class: "govuk-link" %></p>
     <% end %>
     <p> We recommend connecting to one RADIUS server from each region: </p>
     <h3> London: </h3>

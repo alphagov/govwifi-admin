@@ -37,12 +37,15 @@ describe 'View IP addresses' do
       let(:address_two) { '123 Northern Street, Whitechapel' }
       let(:postcode_one) { 'SE4 4BK' }
       let(:postcode_two) { 'NE7 3UP' }
+      let(:radius_secret_key) { 'E1EAB12AD10B8' }
 
       before do
         location_one = create(:location,
           organisation: user.organisation,
           address: address_one,
           postcode: postcode_one)
+
+        location_one.update(radius_secret_key: radius_secret_key)
 
         location_two = create(:location,
           organisation: user.organisation,
@@ -54,6 +57,10 @@ describe 'View IP addresses' do
 
         sign_in_user user
         visit ips_path
+      end
+
+      it 'shows the RADIUS secret key' do
+        expect(page).to have_content(radius_secret_key)
       end
 
       it 'shows those IPs' do

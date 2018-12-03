@@ -10,7 +10,7 @@ describe 'Add an IP to a location' do
     before do
       sign_in_user user
       visit ips_path
-      click_on '+ add IP'
+      click_on 'Add IP to this location'
     end
 
     it 'asks me to enter an IP' do

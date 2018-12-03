@@ -1,13 +1,19 @@
 <table class="govuk-table govuk-!-margin-bottom-8">
-  <caption class="govuk-table__caption">
+  <caption class="govuk-table__caption text-left govuk-!-font-size-24">
     <%= location.full_address %>
+    <div class="govuk-body govuk-!-margin-bottom-2">
+      RADIUS secret key:
+      <div class="inline-block">
+        <%= location.radius_secret_key %>
+      </div>
+    </div>
     <% if current_user.can_manage_locations? %>
-      <p class="govuk-body govuk-!-margin-bottom-2">
-        <%= link_to "+ add IP", new_location_ip_path(location), class: "govuk-link" %>
+      <p class="govuk-body govuk-!-margin-bottom-1 inline-block">
+        <%= link_to "Add IP to this location", new_location_ip_path(location), class: "govuk-link" %>
       </p>
     <% end %>
   </caption>
-  
+
   <tbody class="govuk-table__body" id="ips-table">
     <% location.ips.each do |ip| %>
       <tr class="govuk-table__row">
