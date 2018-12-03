@@ -8,7 +8,7 @@ class Locations::IpsController < ApplicationController
   def create
     @ip = @location.ips.new(ip_params)
     if @ip.save
-      Facades::Ips::AfterCreate.new(ip: @ip).execute
+      Facades::Ips::AfterCreate.new.execute
       redirect_to(
         ips_path,
         notice: "#{@ip.address} added, it will be active starting tomorrow"
