@@ -7,11 +7,11 @@
       <%= location.radius_secret_key %>
       </div>
     </div>
-     <% if current_user.can_manage_locations? %>
+    <% if current_user.can_manage_locations? %>
       <p class="govuk-body govuk-!-margin-bottom-1 inline-block">
-        <%= link_to "Add IP to this location", new_location_ip_path(location), class: "govuk-link" %>
+      <%= link_to "Add IP to this location", new_location_ip_path(location), class: "govuk-link" %>
       </p>
-    <% end %>
+      <% end %>
   </caption>
 
   <tbody class="govuk-table__body" id="ips-table">
