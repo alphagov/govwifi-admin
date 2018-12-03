@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     get 'remove', to: 'ips#index'
   end
   resources :locations, only: [] do
-    resources :ips, only: :new, controller: "locations/ips"
+    resources :ips, only: %i[new create], controller: "locations/ips"
   end
   resources :help, only: %i[index create]
   resources :team_members, only: %i[index edit update destroy]
