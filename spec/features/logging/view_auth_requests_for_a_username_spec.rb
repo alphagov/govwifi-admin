@@ -50,6 +50,14 @@ describe "View authentication requests for a username" do
       click_on "Submit"
     end
 
+    context "When username has a traling whitespace" do
+      let(:username) { "George " }
+
+      it "displays the username WITHOUT the trailing whitespace" do
+        expect(page).to have_content("Displaying logs for George")
+      end
+    end
+
     context "when username is correct" do
       let(:username) { "AAAAAA" }
 
