@@ -8,12 +8,11 @@
 
     <%= render "ips/activation_notice" %>
 
-    <%= form_with model: @ip do |form| %>
+    <%= form_with model: @ip, url: location_ips_path do |form| %>
       <div class="govuk-form-group <%= field_error(@ip, :address) %>">
         <%= form.label :ip, "Enter IP address (IPv4 only)", class: "govuk-label" %>
         <%= form.text_field :address, id: :address, autocomplete: "off", class: "govuk-input" %>
       </div>
-      <%= form.hidden_field :location_id, value: @location.id %>
 
       <div class="actions">
         <%= form.submit "Add new IP address", class: "govuk-button" %>
