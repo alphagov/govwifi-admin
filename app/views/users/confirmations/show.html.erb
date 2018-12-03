@@ -11,19 +11,24 @@
         <%= f.fields_for :organisation, resource.build_organisation do |organisation_form| %>
           <div class="govuk-form-group <%= field_error(resource, "organisation.name") %>">
             <%= organisation_form.label :name, "Organisation name", class: "govuk-label" %>
-            <%= organisation_form.text_field :name, autofocus: true, class: "govuk-input" %>
+            <%= organisation_form.text_field :name,
+              autofocus: true,
+              class: 'govuk-input',
+              value: (params || {}).dig(:user, :organisation_attributes, :name) %>
           </div>
 
           <div class="govuk-form-group <%= field_error(resource, "organisation.service_email") %>">
             <%= organisation_form.label :service_email, "Service email", class: "govuk-label" %>
             <div class="govuk-hint">A shared and monitored email so we can contact your organisation about GovWifi</div>
-            <%= organisation_form.text_field :service_email, class: "govuk-input" %>
+            <%= organisation_form.text_field :service_email,
+              class: 'govuk-input',
+              value: (params || {}).dig(:user, :organisation_attributes, :service_email) %>
           </div>
         <% end %>
 
         <div class="govuk-form-group">
           <%= f.label :name, "Your name", class: "govuk-label" %>
-          <%= f.text_field :name, class: "govuk-input" %>
+          <%= f.text_field :name, class: "govuk-input", value: (params || {}).dig(:user, :name) %>
         </div>
 
         <div class="govuk-form-group <%= field_error(resource, :password) %>">

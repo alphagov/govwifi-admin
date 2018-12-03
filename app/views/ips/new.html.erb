@@ -2,7 +2,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= link_to "Back to list", ips_path(anchor: :ips), class: "govuk-back-link" %>
+    <%= link_to "Back to list", ips_path, class: "govuk-back-link" %>
 
     <h2 class="govuk-heading-l">Add a new IP address</h2>
 
@@ -21,12 +21,18 @@
       <%= form.fields_for :location, @ip.build_location do |location_form| %>
         <div class="govuk-form-group">
           <%= location_form.label :address, "Enter new location address", class: "govuk-label" %>
-          <%= location_form.text_field :address, autocomplete: "off", class: "govuk-input" %>
+          <%= location_form.text_field :address,
+            autocomplete: 'off',
+            class: 'govuk-input',
+            value: (params || {}).dig(:ip, :location_attributes, :address) %>
         </div>
 
         <div class="govuk-form-group">
           <%= location_form.label :postcode, "Enter new location postcode", class: "govuk-label" %>
-          <%= location_form.text_field :postcode, autocomplete: "off", class: "govuk-input" %>
+          <%= location_form.text_field :postcode,
+            autocomplete: 'off',
+            class: 'govuk-input',
+            value: (params || {}).dig(:ip, :location_attributes, :postcode) %>
         </div>
       <% end %>
 

@@ -11,6 +11,9 @@ class User < ApplicationRecord
     :rememberable, :trackable, :timeoutable, :validatable, :lockable
 
   validates :name, presence: true, on: :update
+  validates :password, presence: true,
+    length: { within: 6..80 },
+    on: :update
 
   validate :email_on_whitelist, on: :create
 
