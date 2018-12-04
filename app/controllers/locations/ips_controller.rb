@@ -6,12 +6,13 @@ class Locations::IpsController < ApplicationController
   end
 
   def create
-    @ip = @location.ips.new(ip_params)
-    if @ip.save
+    if ips.all?(&:valid?)
+      ips.each{|ip| ip.save}
+
       Facades::Ips::AfterCreate.new.execute
       redirect_to(
         ips_path,
-        notice: "#{@ip.address} added, it will be active starting tomorrow"
+        notice: "Ips added"
       )
     else
       render :new
@@ -26,7 +27,9 @@ private
       .find_by(id: params[:location_id])
   end
 
-  def ip_params
-    params.require(:ip).permit(:address)
+  def ips
+    params.dig(:ip, :address).map do |address|
+      Ip.new(address: address, location: @location)
+    end
   end
 end

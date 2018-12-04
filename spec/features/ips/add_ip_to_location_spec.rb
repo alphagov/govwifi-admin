@@ -35,14 +35,15 @@ describe 'Add an IP to a location' do
     context 'with multiple IPs' do
       before do
         fill_in 'address', with: '10.0.0.1'
-        click_on 'add another IP'
+        click_on 'Add another IP'
         fill_in 'address2', with: '10.0.0.2'
       end
 
+      # todo: less internals
       it 'works' do
-        click_on 'Add new IP address'
-        expect(page).to have_content('10.0.0.1 added')
-        expect(page).to have_content('10.0.0.2 added')
+        expect {
+          click_on 'Add new IP address'
+        }.to change { Ip.count }.by(2)
       end
     end
 
