@@ -2,6 +2,11 @@ en:
   activerecord:
     errors:
       models:
+        user:
+          attributes:
+            email:
+              taken: " is already invited, or already registered with \n
+              another organisation."
         organisation:
           attributes:
             name:
