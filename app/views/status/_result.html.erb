@@ -9,10 +9,10 @@
     <% health_checks.each do |health_check| %>
       <% status = health_check.fetch(:status) %>
       <tr class="govuk-table__row">
-        <td class="govuk-table__cell half-column" scope="row">
+        <td class="govuk-table__cell govuk-!-width-one-half" scope="row">
           <%= health_check.fetch(:ip_address) %>
         </td>
-        <td class="govuk-table__cell half-column <%= "health-check-#{status}" %>" scope="row">
+        <td class="govuk-table__cell <%= "health-check-#{status}" %>" scope="row">
           <strong><%= status.capitalize %></strong>
         </td>
       </tr>
