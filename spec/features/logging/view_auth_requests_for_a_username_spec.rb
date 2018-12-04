@@ -3,6 +3,7 @@ require 'features/support/sign_up_helpers'
 describe "View authentication requests for a username" do
   context "with results" do
     let(:username) { "AAAAAA" }
+    let(:other_username) { "Garry" }
     let(:organisation) { create(:organisation) }
     let(:admin_user) { create(:user, organisation_id: organisation.id) }
     let(:location) { create(:location, organisation_id: organisation.id) }
@@ -38,6 +39,16 @@ describe "View authentication requests for a username" do
         building_identifier: ''
       )
 
+      Session.create!(
+        start: 3.days.ago,
+        username: other_username,
+        mac: '',
+        ap: '',
+        siteIP: '1.1.1.1',
+        success: true,
+        building_identifier: ''
+      )
+
       organisation = create(:organisation)
       location_two = create(:location, organisation: organisation)
 
@@ -51,20 +62,9 @@ describe "View authentication requests for a username" do
     end
 
     context "When username has trailing whitespace" do
-      let(:username) { "Garry" }
       let(:trailing_username) { "Garry " }
 
       before do
-        Session.create!(
-          start: 3.days.ago,
-          username: username,
-          mac: '',
-          ap: '',
-          siteIP: '1.1.1.1',
-          success: true,
-          building_identifier: ''
-        )
-
         sign_in_user admin_user
         visit search_logs_path
         fill_in "username", with: trailing_username
@@ -77,20 +77,9 @@ describe "View authentication requests for a username" do
     end
 
     context "When username has leading whitespace" do
-      let(:username) { "Garry" }
       let(:leading_username) { " Garry" }
 
       before do
-        Session.create!(
-          start: 3.days.ago,
-          username: username,
-          mac: '',
-          ap: '',
-          siteIP: '1.1.1.1',
-          success: true,
-          building_identifier: ''
-        )
-
         sign_in_user admin_user
         visit search_logs_path
         fill_in "username", with: leading_username
