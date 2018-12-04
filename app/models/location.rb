@@ -4,6 +4,8 @@ class Location < ApplicationRecord
 
   validates :address, presence: true
 
+  accepts_nested_attributes_for :ips
+
   before_create :set_radius_secret_key
 
   def full_address
