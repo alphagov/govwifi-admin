@@ -51,14 +51,20 @@ location_2 = Location.create!(
   organisation_id: organisation.id
 )
 
-Ip.create(address: '31.242.140.103', location: location_2)
-
 20.times do
   Ip.create!(address: Faker::Internet.ip_v4_address, location: location_1)
 end
 
 20.times do
   Ip.create!(address: Faker::Internet.ip_v4_address, location: location_2)
+end
+
+location_2.ips.each_with_index do |ip, index|
+  Session.create(start: (Time.now - index.day).to_s,
+    success: index.even?,
+    username: "Garry",
+    siteIP: ip.address
+  )
 end
 
 5.times do
