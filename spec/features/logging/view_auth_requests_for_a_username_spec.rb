@@ -50,11 +50,29 @@ describe "View authentication requests for a username" do
       click_on "Submit"
     end
 
-    context "When username has a traling whitespace" do
-      let(:username) { "George " }
+    context "When username has a leading or trailing whitespace" do
+      let(:username) { "Garry" }
+      let(:searched_username) { "Garry " }
 
-      it "displays the username WITHOUT the trailing whitespace" do
-        expect(page).to have_content("Displaying logs for George")
+      before do
+        Session.create!(
+          start: 3.days.ago,
+          username: username,
+          mac: '',
+          ap: '',
+          siteIP: '1.1.1.1',
+          success: true,
+          building_identifier: ''
+        )
+
+        sign_in_user admin_user
+        visit search_logs_path
+        fill_in "username", with: searched_username
+        click_on "Submit"
+      end
+
+      it "displays the search results of the username after stripping it" do
+        expect(page).to have_content("1.1.1.1")
       end
     end
 
