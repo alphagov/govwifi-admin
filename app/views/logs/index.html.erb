@@ -2,6 +2,18 @@
 
 <% if @logs.present? %>
   <h1 class="govuk-heading-l">Displaying logs for <%= params[:username] || params[:ip] %></h1>
+
+  <% if @logs.count >= Gateways::Sessions::MAXIMUM_RESULTS_COUNT %>
+    <div class="govuk-details">
+      <div class="govuk-details__text">
+        <p class="govuk-body">
+          Logs are limited to 500 results. If you require more logs than this, please
+          <%= link_to "contact us", help_index_path, class: "govuk-link" %>.
+        </p>
+      </div>
+    </div>
+  <% end %>
+
   <table class="govuk-table">
     <caption class="govuk-table__caption"><%= @logs.count %> results</caption>
     <thead class="govuk-table__head">
