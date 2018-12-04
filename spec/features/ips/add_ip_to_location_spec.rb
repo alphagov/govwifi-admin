@@ -32,6 +32,21 @@ describe 'Add an IP to a location' do
       end
     end
 
+    context 'with multiple IPs' do
+      before do
+        fill_in 'address', with: '10.0.0.1'
+        click_on 'add another IP'
+        fill_in 'address2', with: '10.0.0.2'
+      end
+
+      it 'works' do
+        click_on 'Add new IP address'
+        expect(page).to have_content('10.0.0.1 added')
+        expect(page).to have_content('10.0.0.2 added')
+      end
+    end
+
+
     context 'with invalid data' do
       before do
         fill_in 'address', with: '10.wrong.0.1'
