@@ -33,12 +33,6 @@ user = organisation.users.create(
   )
 end
 
-Session.create(start: (Time.now - 1.day).to_s,
-  success: true,
-  username: "Garry",
-  siteIP: '31.242.140.103'
-  )
-
 location_1 = Location.create!(
   address: 'Momentum Centre, London',
   postcode: 'SE10SX',
