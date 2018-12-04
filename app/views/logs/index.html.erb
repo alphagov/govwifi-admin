@@ -28,5 +28,8 @@
     </tbody>
   </table>
 <% else %>
-  <h3 class="govuk-heading-m">No results found</h3>
+  <h3 class="govuk-heading-m">No authentication requests found for username: <%= params[:username] %></h3>
+    <p class="govuk-body">
+      If this user has tried to connect GovWifi, there is likely a problem with the local network forwarding authentication requests.
+    </p>
 <% end %>
