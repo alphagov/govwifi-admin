@@ -3,7 +3,7 @@ require 'features/support/sign_up_helpers'
 describe "View authentication requests for a username" do
   context "with results" do
     let(:username) { "AAAAAA" }
-    let(:other_username) { "Garry" }
+    let(:search_string) { "AAAAAA" }
     let(:organisation) { create(:organisation) }
     let(:admin_user) { create(:user, organisation_id: organisation.id) }
     let(:location) { create(:location, organisation_id: organisation.id) }
@@ -39,16 +39,6 @@ describe "View authentication requests for a username" do
         building_identifier: ''
       )
 
-      Session.create!(
-        start: 3.days.ago,
-        username: other_username,
-        mac: '',
-        ap: '',
-        siteIP: '1.1.1.1',
-        success: true,
-        building_identifier: ''
-      )
-
       organisation = create(:organisation)
       location_two = create(:location, organisation: organisation)
 
@@ -57,42 +47,12 @@ describe "View authentication requests for a username" do
 
       sign_in_user admin_user
       visit search_logs_path
-      fill_in "username", with: username
+      fill_in "username", with: search_string
       click_on "Submit"
     end
 
-    context "When username has trailing whitespace" do
-      let(:trailing_username) { "Garry " }
-
-      before do
-        sign_in_user admin_user
-        visit search_logs_path
-        fill_in "username", with: trailing_username
-        click_on "Submit"
-      end
-
-      it "displays the search results of the username after stripping its trailing whitespace" do
-        expect(page).to have_content("1.1.1.1")
-      end
-    end
-
-    context "When username has leading whitespace" do
-      let(:leading_username) { " Garry" }
-
-      before do
-        sign_in_user admin_user
-        visit search_logs_path
-        fill_in "username", with: leading_username
-        click_on "Submit"
-      end
-
-      it "displays the search results of the username after stripping its leading whitespace" do
-        expect(page).to have_content("1.1.1.1")
-      end
-    end
-
     context "when username is correct" do
-      let(:username) { "AAAAAA" }
+      let(:search_string) { "AAAAAA" }
 
       it "displays the authentication requests" do
         expect(page).to have_content("Displaying logs for #{username}")
@@ -109,8 +69,29 @@ describe "View authentication requests for a username" do
       end
     end
 
+    context "When search input has whitespace" do
+      let(:username) { "Garry" }
+
+      context "with trailing whitespace" do
+        let(:search_string) { "Garry " }
+
+        it "displays the search results of the username after stripping its trailing whitespace" do
+          expect(page).to have_content("1.1.1.1")
+        end
+      end
+
+      context "with leading whitespace" do
+        let(:search_string) { " Garry" }
+
+        it "displays the search results of the username after stripping its leading whitespace" do
+          expect(page).to have_content("1.1.1.1")
+        end
+      end
+    end
+
+
     context "when username is too short" do
-      let(:username) { "1" }
+      let(:search_string) { "1" }
 
       it "displays the search page with an error" do
         expect(page).to have_content("There is a problem")
