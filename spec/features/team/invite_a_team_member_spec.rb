@@ -55,13 +55,13 @@ describe "Invite a team member" do
         let(:invited_user_email) { "incorrect@gmail.com" }
         let(:invited_user) { User.find_by(email: invited_user_email) }
 
-        it "tells user that email must be a valid gov.uk email" do
+        it "creates an unconfirmed user" do
           expect {
             click_on "Send invitation email"
-          }.to change { User.count }.by(0)
-          expect(InviteUseCaseSpy.invite_count).to eq(0)
-          expect(invited_user).to eq(nil)
-          expect(page).to have_content("Email must be from a government domain")
+          }.to change { User.count }.by(1)
+          expect(InviteUseCaseSpy.invite_count).to eq(1)
+          expect(invited_user.confirmed?).to eq(false)
+          expect(invited_user.organisation).to eq(user.organisation)
         end
       end
 
@@ -80,16 +80,16 @@ describe "Invite a team member" do
       context "without an email" do
         let(:invited_user_email) { "" }
 
-        it "tells the user that email cannot be blank" do
+        it "tells the user that email must be a valid email address" do
           expect {
             click_on "Send invitation email"
           }.to change { User.count }.by(0)
           expect(InviteUseCaseSpy.invite_count).to eq(0)
-          expect(page).to have_content("Email can't be blank")
+          expect(page).to have_content("Email must be a valid email address")
         end
       end
 
-      context "tells user that email must be a valid gov.uk email" do
+      context "tells user that email must be a valid email address" do
         let(:invited_user_email) { "hello" }
 
         it "tells the user " do
@@ -97,7 +97,7 @@ describe "Invite a team member" do
             click_on "Send invitation email"
           }.to change { User.count }.by(0)
           expect(InviteUseCaseSpy.invite_count).to eq(0)
-          expect(page).to have_content("Email must be from a government domain")
+          expect(page).to have_content("Email must be a valid email address")
         end
       end
     end
