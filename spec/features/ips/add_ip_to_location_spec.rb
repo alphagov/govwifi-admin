@@ -6,6 +6,8 @@ describe 'Add an IP to a location' do
   let(:location) { create(:location, address: '10 Street', postcode: 'XX YYY', organisation: user.organisation) }
   let!(:ip) { create(:ip, location: location) }
 
+  let(:first_location) { 'location_ips_attributes_0_address' }
+
   context 'with permissions' do
     before do
       sign_in_user user
@@ -19,7 +21,7 @@ describe 'Add an IP to a location' do
 
     context 'with valid data' do
       before do
-        fill_in 'address', with: '10.0.0.1'
+        fill_in first_location, with: '10.0.0.1'
       end
 
       it 'adds the IP' do
@@ -27,14 +29,14 @@ describe 'Add an IP to a location' do
           click_on 'Add new IP address'
         }.to change { Ip.count }.by(1)
 
-        expect(page).to have_content('10.0.0.1 added')
+        expect(page).to have_content('IP added to 10 Street, XX YYY')
         expect(Ip.last.location).to eq(location)
       end
     end
 
     context 'with invalid data' do
       before do
-        fill_in 'address', with: '10.wrong.0.1'
+        fill_in first_location, with: '10.wrong.0.1'
         click_on 'Add new IP address'
       end
 

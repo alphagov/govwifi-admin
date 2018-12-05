@@ -9,7 +9,7 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
 
     if @location.update(location_params)
-      redirect_to ips_path
+      redirect_to ips_path, notice: "IP added to #{@location.full_address}"
     else
       @ips = @location.ips.reject{ |ip| ip.persisted? }
       render :edit
@@ -17,6 +17,15 @@ class LocationsController < ApplicationController
   end
 
   def location_params
-    params.require(:location).permit(ips_attributes: [:address])
+    h_version = params
+      .require(:location)
+      .permit(ips_attributes: [:address])
+      .to_h
+
+    {
+      ips_attributes: h_version[:ips_attributes].reject do |_,a|
+        a['address'].blank?
+      end
+    }
   end
 end

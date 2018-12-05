@@ -2,17 +2,17 @@
   <div class='govuk-grid-column-two-thirds'>
     <%= link_to 'Back to list', ips_path, class: 'govuk-back-link' %>
 
-    <h2 class='govuk-heading-l' id='title'><%= @location.address %></h2>
-
+    <h2 class='govuk-heading-l' id='title'>Add an IP address to <%= @location.address %></h2>
 
     <% @location.errors.full_messages.each do |message| %>
+      There is a problem
       <p class='govuk-body'><%= message %></p>
     <% end %>
 
     <%= form_for @location do |f| %>
-      <%= f.label 'Enter IP address (IPv4 only)', class: 'govuk-label' %>
-      <%= f.fields_for :ips, @ips do |ip| %>
-        <%= ip.text_field :address, class: 'govuk-input' %>
+      <h3 class='govuk-heading-s'>Enter IP address (IPv4 only)</h3>
+      <%= f.fields_for(:ips, @ips) do |ip| %>
+        <%= ip.text_field :address, autocomplete: 'off',class: 'govuk-input' %>
       <% end %>
 
       <%= f.submit 'Add new IP address', class: 'govuk-button' %>
