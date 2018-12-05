@@ -1,5 +1,7 @@
 module Gateways
   class Sessions
+    MAXIMUM_RESULTS_COUNT = 500
+
     def initialize(ips:)
       @ips = ips
     end
@@ -9,7 +11,7 @@ module Gateways
 
       results = Session.where(query).where(
         'start >= ? and siteIP IN (?)', 2.weeks.ago, ips
-      ).order('start DESC').limit(500)
+      ).order('start DESC').limit(MAXIMUM_RESULTS_COUNT)
 
       results.map do |log|
         {
