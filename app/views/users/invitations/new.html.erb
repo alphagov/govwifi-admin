@@ -20,7 +20,6 @@
 
         <div class="govuk-form-group <%= field_error(resource, :email) %>">
           <%= f.label :email, "Email address", class: "govuk-label"  %>
-          <div class="govuk-hint">Must be a valid government email address</div>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input" %>
         </div>
 
