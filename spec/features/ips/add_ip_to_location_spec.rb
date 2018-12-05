@@ -50,7 +50,7 @@ describe 'Add an IP to a location' do
 
       it 'tells me what I entered was invalid' do
         expect(page).to have_content(
-          'Address must be a valid IPv4 address (without subnet)'
+          "'10.wrong.0.1' is not valid"
         )
       end
     end

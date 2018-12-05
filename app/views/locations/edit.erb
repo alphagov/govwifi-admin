@@ -4,18 +4,44 @@
 
     <h2 class='govuk-heading-l' id='title'>Add an IP address to <%= @location.address %></h2>
 
-    <% @location.errors.full_messages.each do |message| %>
-      There is a problem
-      <p class='govuk-body'><%= message %></p>
+    <% @ips.each do |ip| %>
+      <% ip.errors.each do |errors, value| %>
+        <p class='govuk-body'><%= value %></p>
+      <% end %>
     <% end %>
 
     <%= form_for @location do |f| %>
       <h3 class='govuk-heading-s'>Enter IP address (IPv4 only)</h3>
+
       <%= f.fields_for(:ips, @ips) do |ip| %>
-        <%= ip.text_field :address, autocomplete: 'off',class: 'govuk-input' %>
+        <div class='ip-row'>
+          <%= ip.text_field :address, autocomplete: 'off',class: 'govuk-input' %>
+        </div>
       <% end %>
 
-      <%= f.submit 'Add new IP address', class: 'govuk-button' %>
+      <%= button_tag 'Add another IP address', type: :button, onclick: 'showExtraIpRow()', id: 'add-row-button', class: 'govuk-button' %>
+
+      <div>
+        <%= f.submit 'Add new IP address', class: 'govuk-button' %>
+      </div>
     <% end %>
   </div>
 </div>
+
+<script>
+  window.counter = 2;
+
+  function showExtraIpRow(event, target) {
+    var max_rows = 5
+
+    rows = document.getElementsByClassName('ip-row');
+    rows[window.counter].style.display = 'block';
+
+    window.counter++;
+
+    if(window.counter == max_rows) {
+      btn = document.getElementById('add-row-button')
+      btn.style.display = 'none';
+    }
+  }
+</script>
