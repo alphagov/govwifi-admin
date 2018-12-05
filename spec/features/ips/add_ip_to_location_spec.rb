@@ -40,8 +40,6 @@ describe 'Add an IP to a location' do
         click_on 'Add new IP address'
       end
 
-      it_behaves_like 'errors in form'
-
       it 'renders the add ip to location form' do
         within("h2#title") do
           expect(page).to have_content("Add an IP address to #{location.address}")

@@ -12,6 +12,9 @@ class LocationsController < ApplicationController
       redirect_to ips_path, notice: "IP added to #{@location.full_address}"
     else
       @ips = @location.ips.reject{ |ip| ip.persisted? }
+
+      (5 - @ips.count).times { @ips << @location.ips.build }
+
       render :edit
     end
   end

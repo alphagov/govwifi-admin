@@ -4,18 +4,20 @@
 
     <h2 class='govuk-heading-l' id='title'>Add an IP address to <%= @location.address %></h2>
 
-    <% @ips.each do |ip| %>
-      <% ip.errors.each do |errors, value| %>
-        <p class='govuk-body'><%= value %></p>
-      <% end %>
-    <% end %>
-
     <%= form_for @location do |f| %>
       <h3 class='govuk-heading-s'>Enter IP address (IPv4 only)</h3>
 
       <%= f.fields_for(:ips, @ips) do |ip| %>
-        <div class='ip-row'>
-          <%= ip.text_field :address, autocomplete: 'off',class: 'govuk-input' %>
+        <% errors = ip.object.errors %>
+          <div class='ip-row <%= errors.any? ? 'ip-row-error' : ''%>' >
+
+          <% if errors.any? %>
+            <p class='govuk-error-message'>
+              <%= ip.object.errors.full_messages.first %>
+            </p>
+          <% end %>
+
+          <%= ip.text_field :address, autocomplete: 'off',class: "govuk-input #{'govuk-input--error' if errors.any?}" %>
         </div>
       <% end %>
 
@@ -29,7 +31,25 @@
 </div>
 
 <script>
-  window.counter = 2;
+  window.onload = function() {
+    rows = document.getElementsByClassName('ip-row');
+    error_rows = document.getElementsByClassName('ip-row-error');
+
+    window.counter = 1;
+
+    btn = document.getElementById('add-row-button')
+    btn.style.display = 'block';
+
+    for (var i = 1; i < rows.length; i++) {
+      rows[i].style.display = 'none';
+    }
+
+    for (var i = 0; i < error_rows.length; i++) {
+      rows[i].style.display = 'block';
+      btn = document.getElementById('add-row-button')
+      btn.style.display = 'none';
+    }
+  }
 
   function showExtraIpRow(event, target) {
     var max_rows = 5
