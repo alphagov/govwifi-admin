@@ -2,35 +2,35 @@
   <div class='govuk-grid-column-two-thirds'>
     <%= link_to 'Back to list', ips_path, class: 'govuk-back-link' %>
 
-    <h2 class='govuk-heading-l' id='title'>Add an IP address to <%= @location.address %></h2>
+    <h2 class='govuk-heading-l'>Add an IP address to <%= @location.address %></h2>
 
-    <%= form_for @location do |f| %>
-      <h3 class='govuk-heading-s'>Enter IP address (IPv4 only)</h3>
+      <%= label_tag :ip, "Enter IP address (IPv4 only)", class: "govuk-label" %>
 
-      <%= f.fields_for(:ips, @ips) do |ip| %>
-        <% errors = ip.object.errors %>
-          <div class='ip-row <%= errors.any? ? 'ip-row-error' : ''%>' >
+      <%= form_for @location do |f| %>
+        <%= f.fields_for(:ips, @ips) do |ip| %>
+          <div class="govuk-form-group">
+            <% errors = ip.object.errors %>
+              <div class='ip-row <%= errors.any? ? 'ip-row-error' : '' %>' >
 
-          <% if errors.any? %>
-            <p class='govuk-error-message'>
-              <%= ip.object.errors.full_messages.first %>
-            </p>
-          <% end %>
+              <% if errors.any? %>
+                <p class='govuk-error-message'>
+                  <%= ip.object.errors.full_messages.first %>
+                </p>
+              <% end %>
 
-          <%= ip.text_field :address, autocomplete: 'off',class: "govuk-input #{'govuk-input--error' if errors.any?}" %>
+              <%= ip.text_field :address, autocomplete: 'off',class: "govuk-input #{'govuk-input--error' if errors.any?}" %>
+            </div>
+          </div>
+        <% end %>
+        <div>
+          <%= f.submit 'Add new IP addresses', class: 'govuk-button' %>
         </div>
       <% end %>
-
-      <%= button_tag 'Add another IP address', type: :button, onclick: 'showExtraIpRow()', id: 'add-row-button', class: 'govuk-button' %>
-
-      <div>
-        <%= f.submit 'Add new IP address', class: 'govuk-button' %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>
 
-<script>
+<!-- script>
   window.onload = function() {
     rows = document.getElementsByClassName('ip-row');
     error_rows = document.getElementsByClassName('ip-row-error');
@@ -65,3 +65,4 @@
     }
   }
 </script>
+ -->
