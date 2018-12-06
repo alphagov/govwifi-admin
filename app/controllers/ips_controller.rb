@@ -37,9 +37,7 @@ class IpsController < ApplicationController
 private
 
   def available_locations
-    current_organisation.locations.order('address ASC').map do |loc|
-      ["#{loc.address}, #{loc.postcode}", loc.id]
-    end
+    current_organisation.locations.order(:address)
   end
 
   def ip_params
@@ -47,22 +45,11 @@ private
   end
 
   def create_params
-    return params_with_new_location if user_creates_new_location?
-    params_with_existing_location
+    ip_params.except(:location_attributes)
   end
 
   def user_creates_new_location?
     ip_params[:location_id].blank?
-  end
-
-  def params_with_new_location
-    p = ip_params.except(:location_id)
-    p[:location_attributes][:organisation] = current_organisation
-    p
-  end
-
-  def params_with_existing_location
-    ip_params.except(:location_attributes)
   end
 
   def set_ip_to_delete

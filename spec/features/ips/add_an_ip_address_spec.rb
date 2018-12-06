@@ -5,36 +5,9 @@ require 'features/support/activation_notice'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
-describe 'Add an IP to my account' do
+describe 'Add an IP to my account', focus: true do
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
-
-  context 'and the new location is invalid' do
-    let!(:user) { create(:user) }
-
-    before do
-      sign_in_user user
-      visit ips_path
-      click_on 'Add IP address'
-    end
-
-    context 'the location field empty' do
-      before do
-        fill_in 'address', with: '10.0.0.1'
-        fill_in 'ip_location_attributes_address', with: ''
-        fill_in 'ip_location_attributes_postcode', with: 'CC DDD'
-        click_on 'Add new IP address'
-      end
-
-      it_behaves_like 'errors in form'
-
-      it 'tells me what I entered was invalid' do
-        expect(page).to have_content(
-          "Location address can't be blank"
-        )
-      end
-    end
-  end
 
   context 'to an already existing location' do
     let!(:user) { create(:user) }
@@ -95,7 +68,7 @@ describe 'Add an IP to my account' do
           click_on 'Add new IP address'
         end
 
-        it_behaves_like 'errors in form'
+        it_behaves_like "errors in form"
 
         it 'asks me to re-enter my IP' do
           expect(page).to have_content('Enter IP address')
@@ -131,82 +104,82 @@ describe 'Add an IP to my account' do
         end
       end
     end
+  end
 
-    context 'to new location' do
-      let!(:user) { create(:user) }
-      let!(:location_1) { create(:location, address: '10 Street', postcode: 'XX YYY', organisation: user.organisation) }
+  # TODO: pull this out into separate spec
+  # TODO: add 'not logged in' context
+  context 'to new location' do
+    let(:user) { create(:user) }
 
-      context 'when logged in' do
+    context 'when logged in' do
+      before do
+        sign_in_user user
+        visit ips_path
+        click_on 'Add IP address'
+        click_on 'Add a new location'
+      end
+
+      context 'and that IP is valid' do
         before do
-          sign_in_user user
-          visit ips_path
-          click_on 'Add IP address'
+          fill_in 'address', with: '30 Square'
+          fill_in 'postcode', with: 'CC DDD'
+          fill_in 'ip', with: '10.0.0.1'
+          click_on 'Add new location'
         end
 
-        context 'and that IP is invalid' do
-          before do
-            fill_in 'address', with: '10.0.0.1'
-            fill_in 'ip_location_attributes_address', with: '30 Square'
-            fill_in 'ip_location_attributes_postcode', with: 'CC DDD'
-            select '10 Street, XX YYY'
-            click_on 'Add new IP address'
-          end
-
-          it 'shows me the IP was added' do
-            expect(page).to have_content('10.0.0.1 added')
-          end
-
-          it 'adds IP to the selected location instead of creating a new one' do
-            expect(Ip.last.location.address).to eq('10 Street')
-            expect(Ip.last.location.postcode).to eq('XX YYY')
-          end
+        it 'shows me the IP was added' do
+          expect(page).to have_content('10.0.0.1 added')
         end
 
-        context 'and that IP is valid' do
-          context 'when new location provided BUT old one was selected' do
-            before do
-              fill_in 'address', with: '10.0.0.1'
-              fill_in 'ip_location_attributes_address', with: '30 Square'
-              fill_in 'ip_location_attributes_postcode', with: 'CC DDD'
-              select '10 Street, XX YYY'
-              click_on 'Add new IP address'
-            end
+        it 'adds the location and IPs' do
+          # check the location, split specs
+          expect(Ip.last.location.address).to eq('30 Square')
+          expect(Ip.last.location.postcode).to eq('CC DDD')
+        end
+      end
 
-            it 'shows me the IP was added' do
-              expect(page).to have_content('10.0.0.1 added')
-            end
+      context 'and that IP is invalid' do
+        before do
+          fill_in 'address', with: '30 Square'
+          fill_in 'postcode', with: 'CC DDD'
+          fill_in 'ip', with: '10.wrong.0.1'
+          click_on 'Add new location'
+        end
 
-            it 'adds IP to the selected location instead of creating a new one' do
-              expect(Ip.last.location.address).to eq('10 Street')
-              expect(Ip.last.location.postcode).to eq('XX YYY')
-            end
-          end
+        it 'asks me to re-enter my IP' do
+          expect(page).to have_content('Enter IP address')
+        end
 
-          context 'when new location provided' do
-            before do
-              fill_in 'address', with: '10.0.0.1'
-              fill_in 'ip_location_attributes_address', with: '30 Square'
-              fill_in 'ip_location_attributes_postcode', with: 'CC DDD'
-              click_on 'Add new IP address'
-            end
+        it 'tells me what I entered was invalid' do
+          expect(page).to have_content(
+            "Address '10.wrong.0.1' is not valid"
+          )
+        end
 
-            it 'shows me the IP was added' do
-              expect(page).to have_content('10.0.0.1 added')
-            end
+        context 'when looking back at the list' do
+          before { visit ips_path }
 
-            it 'adds IP to a newly created location' do
-              expect(Ip.last.location.address).to eq('30 Square')
-              expect(Ip.last.location.postcode).to eq('CC DDD')
-            end
+          it 'has not added the invalid IP' do
+            expect(page).to_not have_content('10.wrong.0.1')
           end
         end
       end
-    end
 
-    context 'when logged out' do
-      before { visit new_ip_path }
+      context 'and the address is blank' do
+        before do
+          fill_in 'postcode', with: 'CC DDD'
+          fill_in 'ip', with: '10.wrong.0.1'
+          click_on 'Add new location'
+        end
 
-      it_behaves_like 'not signed in'
+        it_behaves_like "errors in form"
+      end
     end
+  end
+
+  context 'when logged out' do
+    before { visit new_ip_path }
+
+    it_behaves_like 'not signed in'
   end
 end

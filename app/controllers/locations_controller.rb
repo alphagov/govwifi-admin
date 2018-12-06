@@ -1,26 +1,33 @@
 class LocationsController < ApplicationController
-  def edit
-    @location = Location.find(params[:id])
-    @ips = []
-    5.times { @ips << @location.ips.build }
+  def new
+    @location = Location.new
+    add_blank_ips!
   end
 
-  def update
-    @location = Location.find(params[:id])
+  def create
+    @location = Location.create(location_params)
+    p @location
 
-    if @location.update(location_params)
-      redirect_to ips_path, notice: "IP added to #{@location.full_address}"
+    if @location.save
+      redirect_to ips_path, notice: "#{location.full_address} added"
     else
-      @ips = @location.ips.reject{ |ip| ip.persisted? }
-
-      (5 - @ips.count).times { @ips << @location.ips.build }
-
-      render :edit
+      add_blank_ips!
+      render :new
     end
   end
 
+  private
+
+  def add_blank_ips!
+    desired_count = 6
+    desired_count = desired_count - @location.ips.length
+    desired_count.times { @location.ips.build }
+  end
+
   def location_params
-    ips = params.require(:location).permit(ips_attributes: [:address])
+    ips = params.require(:location)
+      .permit(:address, :postcode, ips_attributes: [:address])
+
     ips = ips.to_h[:ips_attributes]
     present_ips = ips.reject {|_,a| a['address'].blank?}
 
