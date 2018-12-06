@@ -20,15 +20,10 @@ class LocationsController < ApplicationController
   end
 
   def location_params
-    h_version = params
-      .require(:location)
-      .permit(ips_attributes: [:address])
-      .to_h
+    ips = params.require(:location).permit(ips_attributes: [:address])
+    ips = ips.to_h[:ips_attributes]
+    present_ips = ips.reject {|_,a| a['address'].blank?}
 
-    {
-      ips_attributes: h_version[:ips_attributes].reject do |_,a|
-        a['address'].blank?
-      end
-    }
+    { ips_attributes: present_ips }
   end
 end
