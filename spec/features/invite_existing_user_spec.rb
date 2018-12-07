@@ -11,9 +11,10 @@ describe 'inviting a user that has already signed up', focus: true do
   include_examples 'notifications service'
 
   let(:alice) { create(:user) }
-  let(:betty) { create(:user) }
 
-  context 'when invitee has confirmed their account before invitation' do
+  context 'when invitee has a confirmed account before invitation' do
+    let(:betty) { create(:user) }
+
     before do
       sign_in_user alice
       visit root_path
@@ -41,7 +42,7 @@ describe 'inviting a user that has already signed up', focus: true do
       end
 
       it 'has no errors upon signing in' do
-        expect(page).to_not have_content('Something went wrong while processing the request')
+        expect(page).to_not have_content('An error occurred')
       end
     end
   end
@@ -49,9 +50,9 @@ describe 'inviting a user that has already signed up', focus: true do
   context 'when invitee has already signed up but has NOT yet confirmed their account' do
     include_examples 'confirmation use case spy'
 
-    before { sign_up_for_account(email: claires_email) }
-
     let(:claires_email) { 'notconfirmedyet@gov.uk' }
+
+    before { sign_up_for_account(email: claires_email) }
 
     it 'sends a confirmation link to the new user' do
       expect(ConfirmationUseCaseSpy.confirmations_count).to eq(1)
@@ -87,9 +88,16 @@ describe 'inviting a user that has already signed up', focus: true do
           expect(page).to have_content("Create your account")
         end
 
-        it 'signs them in but has an error on the page' do
+        # This is broken behaviour
+        xit 'signs them in but has an error on the page' do
           update_user_details(name: 'claire')
           expect(page).to have_content('Something went wrong while processing the request')
+        end
+
+        # This is desired behaviour
+        xit 'signs them in' do
+          update_user_details(name: 'claire')
+          expect(page).to have_content 'Sign out'
         end
       end
     end
