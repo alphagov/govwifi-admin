@@ -6,14 +6,14 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case_spy'
 require 'support/confirmation_use_case'
 
-describe 'inviting a user that has already signed up' do
+describe 'inviting a user that has already signed up', focus: true do
+  include_examples 'invite use case spy'
+  include_examples 'notifications service'
+
   let(:alice) { create(:user) }
   let(:betty) { create(:user) }
 
   context 'when invitee has confirmed their account before invitation' do
-    include_examples 'invite use case spy'
-    include_examples 'notifications service'
-
     before do
       sign_in_user alice
       visit root_path
@@ -48,38 +48,34 @@ describe 'inviting a user that has already signed up' do
 
   context 'when invitee has already signed up but has NOT yet confirmed their account' do
     include_examples 'confirmation use case spy'
-    include_examples 'invite use case spy'
-    include_examples 'notifications service'
+
+    before { sign_up_for_account(email: claires_email) }
 
     let(:claires_email) { 'notconfirmedyet@gov.uk' }
 
     it 'sends a confirmation link to the new user' do
-      expect {
-        sign_up_for_account(email: claires_email)
-      }.to change { ConfirmationUseCaseSpy.confirmations_count }.by(1)
+      expect(ConfirmationUseCaseSpy.confirmations_count).to eq(1)
       expect(URI(confirmation_email_link).scheme).to eq("https")
     end
 
     context 'and a confirmed user invites them' do
       before do
-        sign_up_for_account(email: claires_email)
         sign_in_user alice
         visit root_path
         click_on "Team members"
         click_on "Invite team member"
         fill_in "Email", with: claires_email
+        click_on "Send invitation email"
       end
 
       it "does not send an invitation" do
-        expect {
-          click_on "Send invitation email"
-        }.to change { User.count }.by(0)
         expect(InviteUseCaseSpy.invite_count).to eq(0)
         expect(page).to have_content("Email is already invited, or already registered with another organisation")
       end
 
       context 'when unconfirmed invitee clicks on the confirmation link after failed invitation' do
         before do
+          sign_out
           visit confirmation_email_link
         end
 
@@ -92,7 +88,7 @@ describe 'inviting a user that has already signed up' do
         end
 
         it 'signs them in but has an error on the page' do
-          update_user_details
+          update_user_details(name: 'claire')
           expect(page).to have_content('Something went wrong while processing the request')
         end
       end
