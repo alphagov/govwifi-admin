@@ -6,10 +6,9 @@ class LocationsController < ApplicationController
 
   def create
     @location = Location.create(location_params)
-    p @location
 
     if @location.save
-      redirect_to ips_path, notice: "#{location.full_address} added"
+      redirect_to ips_path, notice: "#{@location.full_address} added"
     else
       add_blank_ips!
       render :new
@@ -29,8 +28,13 @@ class LocationsController < ApplicationController
       .permit(:address, :postcode, ips_attributes: [:address])
 
     ips = ips.to_h[:ips_attributes]
-    present_ips = ips.reject {|_,a| a['address'].blank?}
+    present_ips = ips.reject{ |_,a| a['address'].blank? }
 
-    { ips_attributes: present_ips }
+    {
+      address: params[:location][:address],
+      postcode: params[:location][:postcode],
+      organisation_id: current_organisation.id,
+      ips_attributes: present_ips
+    }
   end
 end

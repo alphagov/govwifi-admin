@@ -1,10 +1,11 @@
 class Location < ApplicationRecord
   belongs_to :organisation
+
   has_many :ips
+  validates_associated :ips
+  accepts_nested_attributes_for :ips
 
   validates :address, presence: true
-
-  accepts_nested_attributes_for :ips
 
   before_create :set_radius_secret_key
 
