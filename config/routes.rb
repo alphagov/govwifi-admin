@@ -28,7 +28,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :mou, only: %i[index update create]
-    resources :organisations, only: %i[index show]
+    resources :organisations, only: %i[index show destroy]
+    get '/remove/:id', to: 'organisations#remove', as: :organisation_remove
   end
 
   %w( 404 422 500 ).each do |code|

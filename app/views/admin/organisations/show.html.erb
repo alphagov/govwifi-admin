@@ -1,4 +1,6 @@
 <div class="govuk-grid-row">
+  <%= render "confirm_remove_organisation" if @show_delete_org_prompt %>
+
   <div class="govuk-grid-column-two-thirds">
     <%= link_to "Back to list", admin_organisations_path, class: "govuk-back-link" %>
 
@@ -31,5 +33,7 @@
     <%= render 'section', heading: 'Locations' do %>
       <%= render 'locations', organisation: @organisation %>
     <% end %>
+
+    <%= link_to 'Delete organisation', admin_organisation_remove_path(@organisation), class: "govuk-button red-button" %>
   </div>
 </div>

@@ -9,6 +9,16 @@ class Admin::OrganisationsController < AdminController
     @organisation = Organisation.find(params[:id])
   end
 
+  def destroy
+
+  end
+
+  def remove
+    @show_delete_org_prompt = true
+    @organisation = Organisation.find(params[:id])
+    render :show
+  end
+
 private
 
   def sortable_columns
