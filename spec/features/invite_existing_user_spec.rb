@@ -6,7 +6,7 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case_spy'
 require 'support/confirmation_use_case'
 
-describe 'inviting a user that has already signed up', focus: true do
+describe 'inviting a user that has already signed up' do
   let(:alice) { create(:user) }
   let(:betty) { create(:user) }
 
@@ -91,7 +91,7 @@ describe 'inviting a user that has already signed up', focus: true do
           expect(page).to have_content("Create your account")
         end
 
-        xit 'signs them in but has an error on the page' do
+        it 'signs them in but has an error on the page' do
           update_user_details
           expect(page).to have_content('Something went wrong while processing the request')
         end
