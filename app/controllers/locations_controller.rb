@@ -19,7 +19,7 @@ class LocationsController < ApplicationController
 private
 
   def add_blank_ips!
-    desired_count = 6
+    desired_count = 5
     desired_count = desired_count - @location.ips.length
     desired_count.times { @location.ips.build }
   end
