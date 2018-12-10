@@ -12,9 +12,6 @@
         <p class="govuk-body">
           Team members will receive an email invitation to join your organisation's GovWifi Admin dashboard.
         </p>
-        <p class="govuk-body">
-          New team members will be able to add locations, IP addresses and invite new team members.
-        </p>
       </div>
     </div>
 
@@ -23,7 +20,6 @@
 
         <div class="govuk-form-group <%= field_error(resource, :email) %>">
           <%= f.label :email, "Email address", class: "govuk-label"  %>
-          <div class="govuk-hint">Must be a valid government email address</div>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input" %>
         </div>
 
@@ -45,6 +41,8 @@
                 <% end %>
               </div>
             </fieldset>
+
+            <p class="govuk-body govuk-!-margin-top-5"> All team members can view logs </p>
           </div>
         </div>
 

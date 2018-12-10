@@ -53,6 +53,14 @@ end
   Ip.create!(address: Faker::Internet.ip_v4_address, location: location_2)
 end
 
+location_2.ips.each_with_index do |ip, index|
+  Session.create(start: (Time.now - index.day).to_s,
+    success: index.even?,
+    username: "Garry",
+    siteIP: ip.address
+  )
+end
+
 5.times do
   Organisation.create(
     name: Faker::Company.name, service_email: 'some-service@email.com'

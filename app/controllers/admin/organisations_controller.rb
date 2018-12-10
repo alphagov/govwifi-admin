@@ -9,6 +9,12 @@ class Admin::OrganisationsController < AdminController
     @organisation = Organisation.find(params[:id])
   end
 
+  def destroy
+    organisation = Organisation.find(params[:id])
+    organisation.destroy
+    redirect_to admin_organisations_path, notice: "Organisation has been removed"
+  end
+
 private
 
   def sortable_columns

@@ -14,15 +14,25 @@ private
 
   def validate_invited_user
     return if invited_user_already_exists?
-    render_invite_user_page if user_is_invalid?
+    return_user_to_invite_page unless email_is_valid?
   end
 
-  def user_is_invalid?
+  def email_is_valid?
+    return true if email_passes_validation?
+    set_user_object_with_errors
+    false
+  end
+
+  def email_passes_validation?
+    invite_params[:email].match(URI::MailTo::EMAIL_REGEXP).present?
+  end
+
+  def set_user_object_with_errors
     @user = User.new(invite_params)
-    !@user.validate
+    @user.errors.add(:email, " must be a valid email address")
   end
 
-  def render_invite_user_page
+  def return_user_to_invite_page
     render :new, resource: @user
   end
 

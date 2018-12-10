@@ -1,7 +1,7 @@
 class Location < ApplicationRecord
   belongs_to :organisation
 
-  has_many :ips
+  has_many :ips, dependent: :destroy
   validates_associated :ips
   accepts_nested_attributes_for :ips
 

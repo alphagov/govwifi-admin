@@ -1,0 +1,16 @@
+<div class="govuk-error-summary">
+  <h2 class="govuk-error-summary__title">
+    Are you sure you want to delete <%= @organisation.name %>?
+  </h2>
+
+  <div class="govuk-error-summary__body">
+    <table class="govuk-table">
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+        </tr>
+      </tbody>
+    </table>
+
+     <%= button_to 'Yes, remove this organisation', admin_organisation_path(@organisation), method: :delete, class: "govuk-button red-button" %>
+  </div>
+</div>

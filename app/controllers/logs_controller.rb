@@ -7,7 +7,7 @@ class LogsController < ApplicationController
           ips: current_organisation.ips.map(&:address)
         )
       ).execute(
-        username: params[:username],
+        username: params[:username]&.strip,
         ip: params[:ip]
       )
 
