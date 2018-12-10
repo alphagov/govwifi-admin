@@ -44,6 +44,11 @@ describe 'inviting a user that has already signed up', focus: true do
       it 'has no errors upon signing in' do
         expect(page).to_not have_content('An error occurred')
       end
+
+      it 'should not change their default permissions from signing up' do
+        expect(betty.permission.can_manage_team?).to eq(true)
+        expect(betty.permission.can_manage_locations?).to eq(true)
+      end
     end
   end
 
@@ -75,6 +80,8 @@ describe 'inviting a user that has already signed up', focus: true do
       end
 
       context 'when unconfirmed invitee clicks on the confirmation link after failed invitation' do
+        let(:claire) { User.find_by(email: claires_email) }
+
         before do
           sign_out
           visit confirmation_email_link
@@ -86,6 +93,12 @@ describe 'inviting a user that has already signed up', focus: true do
           expect(page).to have_content("Your name")
           expect(page).to have_content("Password")
           expect(page).to have_content("Create your account")
+        end
+
+        # Broken behaviour seems to be due to the unconfirmed user's permmissions
+        it 'should not change the default permissions from signing up' do
+          expect(claire.permission.can_manage_team?).to eq(true)
+          expect(claire.permission.can_manage_locations?).to eq(true)
         end
 
         # This is broken behaviour
