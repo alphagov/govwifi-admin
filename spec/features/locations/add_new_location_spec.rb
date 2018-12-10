@@ -47,7 +47,7 @@ describe 'Add new location' do
       end
 
       it 'asks me to re-enter IPs' do
-        expect(page).to have_content('Enter up to six IP addresses')
+        expect(page).to have_content('enter up to five IP addresses')
       end
 
       it 'tells me an IP is invalid' do
