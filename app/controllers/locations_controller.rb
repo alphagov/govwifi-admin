@@ -5,7 +5,7 @@ class LocationsController < ApplicationController
   end
 
   def create
-    @location = Location.create(location_params)
+    @location = Location.create(location_params_without_blank_ips)
 
     if @location.save
       Facades::Ips::AfterCreate.new.execute
@@ -24,16 +24,18 @@ class LocationsController < ApplicationController
     desired_count.times { @location.ips.build }
   end
 
-  def location_params
-    ips = params.require(:location)
-      .permit(:address, :postcode, ips_attributes: [:address])
+  def location_params_without_blank_ips
+    location_params = params
+      .require(:location)
+      .permit(ips_attributes: [:address])
 
-    ips = ips.to_h[:ips_attributes]
-    present_ips = ips.reject{ |_,a| a['address'].blank? }
+    present_ips = location_params[:ips_attributes].reject do |_,a|
+      a['address'].blank?
+    end
 
     {
-      address: params[:location][:address],
-      postcode: params[:location][:postcode],
+      address: params.dig(:location, :address),
+      postcode: params.dig(:location, :postcode),
       organisation_id: current_organisation.id,
       ips_attributes: present_ips
     }
