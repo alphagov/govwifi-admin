@@ -1,7 +1,7 @@
 require 'features/support/sign_up_helpers'
 require 'features/support/errors_in_form'
 
-describe 'Add an IP to a location (from location)' do
+describe 'Add an IP to existing location' do
   let(:user) { create(:user) }
   let(:location) { create(:location, address: '10 Street', postcode: 'XX YYY', organisation: user.organisation) }
   let!(:ip) { create(:ip, location: location) }
@@ -60,5 +60,11 @@ describe 'Add an IP to a location (from location)' do
     it 'does not show the add IP link' do
       expect(page).to_not have_link('+ add IP')
     end
+  end
+
+  xcontext 'when not logged in' do
+  end
+
+  xcontext 'from add IP -> selecting a different location' do
   end
 end
