@@ -10,13 +10,9 @@ class Admin::OrganisationsController < AdminController
   end
 
   def destroy
-
-  end
-
-  def remove
-    @show_delete_org_prompt = true
-    @organisation = Organisation.find(params[:id])
-    render :show
+    organisation = Organisation.find(params[:id])
+    organisation.destroy
+    redirect_to admin_organisations_path, notice: "Organisation has been removed"
   end
 
 private

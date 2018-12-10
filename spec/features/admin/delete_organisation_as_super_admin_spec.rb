@@ -1,6 +1,6 @@
 require 'features/support/sign_up_helpers'
 
-describe 'deleting an organisation', focus: true do
+describe 'deleting an organisation' do
   let!(:admin_user) { create(:user, super_admin: true) }
   let!(:organisation) { create(:organisation, name: "TestMe & Company") }
 
@@ -20,8 +20,17 @@ describe 'deleting an organisation', focus: true do
     end
 
     it 'should prompt with a flash message to delete the organisation' do
-      expect(page).to have_content("Are you sure you want to delete this organisation?")
+      expect(page).to have_content("Are you sure you want to delete")
     end
 
+    it 'should notify the user when a organsiation has been deleted' do
+      click_on 'Yes, remove this organisation'
+      expect(page).to have_content("Organisation has been removed")
+    end
+
+    it 'should remove the organisation from the index list of orgs' do
+      click_on 'Yes, remove this organisation'
+      expect(page).to_not have_content("TestMe & Company")
+    end
   end
 end
