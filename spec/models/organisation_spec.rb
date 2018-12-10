@@ -18,7 +18,7 @@ describe Organisation do
       let!(:location1) { create(:location, organisation: org) }
       let!(:ip1) { Ip.create(address: "1.1.1.1", location: location1) }
 
-      it 'it removes all of its children ' do
+      it 'removes all of its children ' do
         org.destroy
         expect { user1.reload }.to raise_error ActiveRecord::RecordNotFound
         expect { location1.reload }.to raise_error ActiveRecord::RecordNotFound
