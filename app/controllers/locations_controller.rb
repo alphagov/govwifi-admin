@@ -16,7 +16,7 @@ class LocationsController < ApplicationController
     end
   end
 
-  private
+private
 
   def add_blank_ips!
     desired_count = 6
@@ -29,7 +29,7 @@ class LocationsController < ApplicationController
       .require(:location)
       .permit(ips_attributes: [:address])
 
-    present_ips = location_params[:ips_attributes].reject do |_,a|
+    present_ips = location_params[:ips_attributes].reject do |_, a|
       a['address'].blank?
     end
 

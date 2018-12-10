@@ -33,7 +33,6 @@ describe 'Add new location' do
       end
 
       it 'adds the location and IPs' do
-        # check the location, split specs
         expect(Ip.last.location.address).to eq('30 Square')
         expect(Ip.last.location.postcode).to eq('CC DDD')
       end
