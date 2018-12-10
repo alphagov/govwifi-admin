@@ -6,7 +6,7 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case_spy'
 require 'support/confirmation_use_case'
 
-describe 'inviting a user that has already signed up', focus: true do
+describe 'inviting a user that has already signed up' do
   include_examples 'invite use case spy'
   include_examples 'notifications service'
 
@@ -101,14 +101,8 @@ describe 'inviting a user that has already signed up', focus: true do
           expect(claire.permission.can_manage_locations?).to eq(true)
         end
 
-        # This is broken behaviour
-        xit 'signs them in but has an error on the page' do
-          update_user_details(name: 'claire')
-          expect(page).to have_content('Something went wrong while processing the request')
-        end
 
-        # This is desired behaviour
-        xit 'signs them in' do
+        it 'signs them in' do
           update_user_details(name: 'claire')
           expect(page).to have_content 'Sign out'
         end

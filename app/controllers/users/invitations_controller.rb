@@ -13,7 +13,6 @@ private
   end
 
   def validate_invited_user
-    return if invited_user_already_exists?
     render_invite_user_page if user_is_invalid?
   end
 
