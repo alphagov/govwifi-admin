@@ -2,7 +2,8 @@ class IpsController < ApplicationController
   before_action :authorise_manage_locations, only: %i(create new)
 
   def new
-    @ip = Ip.new
+    selected_location = Location.find_by(id: params[:location])
+    @ip = Ip.new(location: selected_location)
     @locations = available_locations
   end
 

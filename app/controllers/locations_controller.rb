@@ -8,6 +8,7 @@ class LocationsController < ApplicationController
     @location = Location.create(location_params)
 
     if @location.save
+      # Facades::Ips::AfterCreate.new.execute
       redirect_to ips_path, notice: "#{@location.full_address} added"
     else
       add_blank_ips!
