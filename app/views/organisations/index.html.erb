@@ -1,0 +1,12 @@
+  <h1 class="govuk-heading-l"> Organisation Settings</h1>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-form-group govuk-body-m" >
+        <p>Organisation Name: <b><%= current_organisation.name%></b></p>
+        <p>Service Email: <b><%= current_organisation.service_email%></b></p>
+      </div>
+    </div>
+    <div class="govuk-grid-column-one-third text-right govuk-body-m">
+      <%= link_to "Edit organisation", edit_organisation_path(:id), class: "govuk-link" %>
+    </div>
+  </div>
