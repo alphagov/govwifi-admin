@@ -52,7 +52,7 @@
 
             <% if member.invitation_pending? && current_user.can_manage_team? %>
             <%= button_to("Resend invite",
-              user_invitation_path({ user: { email: member.email }}),
+              user_invitation_path({ user: { email: member.email }, resend: true}),
               method: :post, class: 'resend-invite-button')
             %>
             <% end %>
