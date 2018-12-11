@@ -1,0 +1,10 @@
+.label-inside-input span {
+  position: absolute;
+  color: govuk-colour("grey-1");
+  margin-left: 0.5em;
+  margin-top: 0.4em;
+}
+
+.label-inside-input input {
+  padding-left: 1.6em;
+}
