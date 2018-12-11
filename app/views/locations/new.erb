@@ -6,7 +6,7 @@
         <% @location.errors.full_messages_for(:address).each do |message| %>
           <li><%= message %></li>
         <% end %>
-        <% if @location.errors.keys.include?(:ips) %>
+        <% if @location.errors.keys.include?(:"ips.address") %>
           <li>One or more IPs are incorrect</li>
         <% end %>
       </ul>
