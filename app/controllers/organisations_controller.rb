@@ -8,14 +8,14 @@ class OrganisationsController < ApplicationController
   def update
     organisation = Organisation.find_by(id: params.fetch(:id))
 
-    organisation.update(organisartion_params)
+    organisation.update(organisation_params)
     flash[:notice] = 'Organisation updated'
     redirect_to organisation_path
   end
 
 private
 
-  def organisartion_params
+  def organisation_params
     params.require(:organisation).permit(:name, :service_email)
   end
 end
