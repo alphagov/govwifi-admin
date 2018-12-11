@@ -10,7 +10,7 @@ describe 'editing an organisations details' do
       visit organisations_path(organisation)
     end
 
-    it 'has the current compnay name and service email before any chances' do
+    it 'has the current compnay name and service email' do
       expect(page).to have_content("Organisation Name: TestMe & Company")
       expect(page).to have_content("Service Email: testme@gov.uk")
     end
