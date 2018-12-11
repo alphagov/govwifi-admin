@@ -1,13 +1,13 @@
 require 'features/support/sign_up_helpers'
 
 describe 'editing an organisations details' do
-  let!(:admin_user) { create(:user, super_admin: true, organisation: organisation) }
+  let!(:admin_user) { create(:user, organisation: organisation) }
   let!(:organisation) { create(:organisation, name: "TestMe & Company", service_email: "testme@gov.uk") }
 
   context 'when visiting the organisations settings page before any changes' do
     before do
       sign_in_user admin_user
-      visit organisations_path(organisation)
+      visit organisation_path(organisation)
     end
 
     it 'has the current compnay name and service email' do
@@ -23,7 +23,7 @@ describe 'editing an organisations details' do
     end
 
     it 'allows the user to change their company name and service email' do
-      fill_in 'org-name', with: "New Company Name"
+      fill_in 'Organisation name', with: "New Company Name"
       fill_in 'org-service-email', with: "NewServiceEmail@gov.uk"
       click_on 'Save'
       expect(page).to have_content("Organisation Name: New Company Name")

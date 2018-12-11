@@ -7,12 +7,10 @@ class OrganisationsController < ApplicationController
 
   def update
     organisation = Organisation.find_by(id: params.fetch(:id))
-    if organisation.update_attributes(organisartion_params)
-      flash[:notice] = 'Organisation updated'
-      redirect_to organisations_path
-    else
-      flash[:alert] = 'Update failed'
-    end
+
+    organisation.update(organisartion_params)
+    flash[:notice] = 'Organisation updated'
+    redirect_to organisation_path
   end
 
 private
