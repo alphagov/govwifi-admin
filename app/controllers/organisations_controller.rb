@@ -6,11 +6,14 @@ class OrganisationsController < ApplicationController
   end
 
   def update
-    organisation = Organisation.find_by(id: params.fetch(:id))
+    @organisation = Organisation.find_by(id: params.fetch(:id))
 
-    organisation.update(organisation_params)
-    flash[:notice] = 'Organisation updated'
-    redirect_to organisation_path
+    if @organisation.update(organisation_params)
+      redirect_to organisation_path
+      flash[:notice] = 'Organisation updated'
+    else
+      render :edit
+    end
   end
 
 private
