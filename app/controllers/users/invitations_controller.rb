@@ -1,8 +1,17 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :authorise_manage_team, only: %i(create new)
+  before_action :delete_original_invite, if: :resending_invite?, only: :create
   before_action :add_organisation_to_params, :validate_invited_user, only: :create
 
 private
+
+  def delete_original_invite
+    User.find_by(email: invite_params[:email]).destroy!
+  end
+
+  def resending_invite?
+    !!params[:resend]
+  end
 
   def after_invite_path_for(_resource)
     team_members_path
@@ -13,7 +22,6 @@ private
   end
 
   def validate_invited_user
-    return if invited_user_already_exists?
     return_user_to_invite_page if user_is_invalid?
   end
 
