@@ -8,7 +8,7 @@ class IpsController < ApplicationController
   end
 
   def create
-    @ip = Ip.new(create_params)
+    @ip = Ip.new(ip_params)
 
     if @ip.save
       Facades::Ips::AfterCreate.new.execute
@@ -42,15 +42,7 @@ private
   end
 
   def ip_params
-    params.require(:ip).permit(:address, :location_id, location_attributes: %i[address postcode])
-  end
-
-  def create_params
-    ip_params.except(:location_attributes)
-  end
-
-  def user_creates_new_location?
-    ip_params[:location_id].blank?
+    params.require(:ip).permit(:address, :location_id)
   end
 
   def set_ip_to_delete
