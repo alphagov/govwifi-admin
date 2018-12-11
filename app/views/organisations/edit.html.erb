@@ -2,16 +2,16 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <div class="govuk-form-group govuk-body-m" >
-        <label class="govuk-label" for="name">
-          Organisation Name
-        </label>
-        <input class="govuk-input" id="name" name="name" type="text">
 
-        <label class="govuk-label" for="servie-email">
-          Service Email
-        </label>
-        <input class="govuk-input" id="name" name="name" type="text">
+        <%= form_for @organisation do |edit_org| %>
+          <%= edit_org.label "Organisation name", class: "govuk-label" %>
+          <%= edit_org.text_field :name, class: "govuk-input" %><br />
+
+          <%= edit_org.label "Service email", class: "govuk-label govuk-!-padding-top-4" %>
+          <%= edit_org.text_field :service_email, class: "govuk-input govuk-!-margin-bottom-8" %><br />
+
+          <%= edit_org.submit 'Save', class: 'govuk-button' %>
+        <% end %>
       </div>
     </div>
   </div>
-
