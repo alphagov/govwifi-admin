@@ -6,9 +6,18 @@ class OrganisationsController < ApplicationController
   end
 
   def update
-    # @user.permission.update!(permission_params[:permission_attributes])
+    organisation = Organisation.find_by(id: params.fetch(:id))
+    if organisation.update_attributes(organisartion_params)
+      flash[:notice] = 'Organisation updated'
+      redirect_to organisations_path
+    else
+      flash[:alert] = 'Update failed'
+    end
+  end
 
-    flash[:notice] = 'Organisation updated'
-    redirect_to organisations_path
+private
+
+  def organisartion_params
+    params.require(:organisation).permit(:name, :service_email)
   end
 end

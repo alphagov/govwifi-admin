@@ -5,10 +5,10 @@
 
         <%= form_for @organisation do |edit_org| %>
           <%= edit_org.label "Organisation name", class: "govuk-label" %>
-          <%= edit_org.text_field :name, class: "govuk-input" %><br />
+          <%= edit_org.text_field :name, class: "govuk-input", id: "org-name" %><br />
 
           <%= edit_org.label "Service email", class: "govuk-label govuk-!-padding-top-4" %>
-          <%= edit_org.text_field :service_email, class: "govuk-input govuk-!-margin-bottom-8" %><br />
+          <%= edit_org.text_field :service_email, class: "govuk-input govuk-!-margin-bottom-8", id: "org-service-email" %><br />
 
           <%= edit_org.submit 'Save', class: 'govuk-button' %>
         <% end %>
