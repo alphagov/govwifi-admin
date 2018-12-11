@@ -80,12 +80,12 @@ describe "Invite a team member" do
       context "without an email" do
         let(:invited_user_email) { "" }
 
-        it "tells the user that email must be a valid email address" do
+        it "tells the user that email cannot be blank" do
           expect {
             click_on "Send invitation email"
           }.to change { User.count }.by(0)
           expect(InviteUseCaseSpy.invite_count).to eq(0)
-          expect(page).to have_content("Email must be a valid email address")
+          expect(page).to have_content("Email can't be blank")
         end
       end
 

@@ -7,6 +7,7 @@ en:
             email:
               taken: " is already invited, or already registered with \n
               another organisation."
+              invalid: " must be a valid email address"
         organisation:
           attributes:
             name:
