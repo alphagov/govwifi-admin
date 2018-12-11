@@ -1,0 +1,22 @@
+<%= render "layouts/form_errors", resource: @ip %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= link_to "Back to list", ips_path, class: "govuk-back-link" %>
+
+    <h2 class="govuk-heading-l" id="title">Add an IP address to <%= @location.address %></h2>
+
+    <%= render "ips/activation_notice" %>
+
+    <%= form_with model: @ip, url: location_ips_path do |form| %>
+      <div class="govuk-form-group <%= field_error(@ip, :address) %>">
+        <%= form.label :ip, "Enter IP address (IPv4 only)", class: "govuk-label" %>
+        <%= form.text_field :address, id: :address, autocomplete: "off", class: "govuk-input" %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit "Add new IP address", class: "govuk-button" %>
+      </div>
+    <% end %>
+  </div>
+</div>

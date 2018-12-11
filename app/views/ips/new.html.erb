@@ -9,10 +9,34 @@
     <%= render "activation_notice" %>
 
     <%= form_with model: @ip do |form| %>
-      <div class="govuk-form-group <%= field_error(@ip, :location_id) %>">
-        <%= form.label :location, "Select an existing location", class: "govuk-label" %>
-        <%= collection_select :ip, :location_id, @locations, :id, :full_address, {}, { class: "govuk-select" } %>
-      </div>
+      <% if @locations.present? %>
+        <div class="govuk-form-group <%= field_error(@ip, :location_id) %>">
+          <%= form.label :location_id, "Add an IP to an existing location", class: "govuk-label" %>
+          <%= form.select :location_id, @locations, { prompt: '-- select --' }, { class: "govuk-select" } %>
+        </div>
+
+        <p class="govuk-body"><strong>OR</strong></p>
+      <% end %>
+
+      <%= form.fields_for :location, @ip.build_location do |location_form| %>
+        <div class="govuk-form-group">
+          <%= location_form.label :address, "Enter new location address", class: "govuk-label" %>
+          <%= location_form.text_field :address,
+            autocomplete: 'off',
+            class: 'govuk-input',
+            value: (params || {}).dig(:ip, :location_attributes, :address) %>
+        </div>
+
+        <div class="govuk-form-group">
+          <%= location_form.label :postcode, "Enter new location postcode", class: "govuk-label" %>
+          <%= location_form.text_field :postcode,
+            autocomplete: 'off',
+            class: 'govuk-input',
+            value: (params || {}).dig(:ip, :location_attributes, :postcode) %>
+        </div>
+      <% end %>
+
+      <p><hr></p>
 
       <div class="govuk-form-group <%= field_error(@ip, :address) %>">
         <%= form.label :ip, "Enter IP address (IPv4 only)", class: "govuk-label" %>
@@ -22,13 +46,6 @@
       <div class="actions">
         <%= form.submit "Add new IP address", class: "govuk-button" %>
       </div>
-
-      <p class="govuk-body"><strong>OR</strong></p>
-
-      <p class='govuk-body'>
-        <%= link_to "Add a new location", new_location_path, class: "govuk-link" %>
-      </p>
-
     <% end %>
   </div>
 </div>
