@@ -15,8 +15,6 @@ class User < ApplicationRecord
     length: { within: 6..80 },
     on: :update
 
-  validate :email_on_whitelist, on: :create
-
   after_create :create_default_permissions
 
   def only_if_unconfirmed
@@ -40,11 +38,5 @@ private
       can_manage_team: true,
       can_manage_locations: true
     )
-  end
-
-  def email_on_whitelist
-    checker = UseCases::Administrator::CheckIfWhitelistedEmail.new
-    whitelisted = checker.execute(self.email)[:success]
-    errors.add(:email, 'must be from a government domain') unless whitelisted
   end
 end

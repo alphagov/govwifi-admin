@@ -22,7 +22,7 @@ private
   end
 
   def validate_invited_user
-    render_invite_user_page if user_is_invalid?
+    return_user_to_invite_page if user_is_invalid?
   end
 
   def user_is_invalid?
@@ -30,7 +30,7 @@ private
     !@user.validate
   end
 
-  def render_invite_user_page
+  def return_user_to_invite_page
     render :new, resource: @user
   end
 

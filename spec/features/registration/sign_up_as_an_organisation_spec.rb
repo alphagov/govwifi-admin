@@ -50,7 +50,7 @@ describe 'Sign up as an organisation' do
 
       it 'tells me my email is not valid' do
         expect(page).to have_content(
-          "Email can't be blank"
+          "Email must be from a government domain"
         )
       end
     end
