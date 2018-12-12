@@ -1,0 +1,59 @@
+<% if @location.errors.any? %>
+  <div class="govuk-error-summary">
+    <h2 class="govuk-error-summary__title">There is a problem</h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <% @location.errors.full_messages_for(:address).each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        <% if @location.errors.keys.include?(:"ips.address") %>
+          <li>One or more IPs are incorrect</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<div class='govuk-grid-row'>
+  <div class='govuk-grid-column-two-thirds'>
+    <%= link_to 'Back to list', ips_path, class: 'govuk-back-link' %>
+
+    <h2 class='govuk-heading-l'>Add a new location</h2>
+
+    <%= form_for @location, html: { autocomplete: "off" } do |f| %>
+      <div class="govuk-form-group">
+        <%= f.label :address, class: 'govuk-label' %>
+        <% if @location.errors.keys.include?(:address) %>
+          <%= f.text_field :address, placeholder: "10 Example Street, London", class: 'govuk-input govuk-input--error' %>
+        <% else %>
+          <%= f.text_field :address, placeholder: "10 Example Street, London", class: 'govuk-input' %>
+        <% end %>
+      </div>
+
+      <div class="govuk-form-group">
+        <%= f.label :postcode, class: 'govuk-label' %>
+        <%= f.text_field :postcode, class: 'govuk-input govuk-input--width-10' %>
+      </div>
+
+      <%= label_tag :ip, 'Enter IP addresses (IPv4 only)', class: 'govuk-label' %>
+      <span class="govuk-hint">
+        You can enter up to five IP addresses now, and add more later.
+      </span>
+
+      <%= f.fields_for(:ips, @location.ips) do |ip| %>
+        <div class='govuk-form-group govuk-!-margin-bottom-2'>
+          <% style = "govuk-input govuk-input--width-10" + (ip.object.errors.has_key?(:address) ? " govuk-input--error" : "") %>
+
+          <label class='label-inside-input'>
+            <span class='govuk-body'><%= "#{ip.index + 1}."%></span>
+            <%= ip.text_field :address, class: style %>
+          </label>
+        </div>
+      <% end %>
+
+      <div class='govuk-form-group govuk-!-margin-top-6'>
+        <%= f.submit 'Add new location', class: 'govuk-button' %>
+      </div>
+    <% end %>
+  </div>
+</div>
