@@ -32,6 +32,7 @@ describe "Resetting a password" do
   end
 
   context "when user is not yet confirmed" do
+    include_examples 'reset password use case spy'
     include_examples 'confirmation use case spy'
     include_examples 'notifications service'
 
@@ -46,6 +47,15 @@ describe "Resetting a password" do
       }.to change { ConfirmationUseCaseSpy.confirmations_count }.by(1)
 
       expect(page).to have_content("You will receive an email with instructions")
+    end
+
+    it 'does not send a reset password link' do
+      visit new_user_password_path
+      fill_in "user_email", with: user.email
+
+      expect {
+        click_on "Send me reset password instructions"
+      }.to change { ResetPasswordUseCaseSpy.reset_count }.by(0)
     end
   end
 
