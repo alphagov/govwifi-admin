@@ -17,8 +17,8 @@ class AuthenticationMailer < ::Devise::Mailer
   end
 
   # Overrides https://github.com/plataformatec/devise/blob/master/app/mailers/devise/mailer.rb#L12
-  def reset_password_instructions(record, token, opts = {})
-    return confirmation_instructions(record, record.confirmation_token, opts) unless record.confirmed?
+  def reset_password_instructions(record, token, _opts = {})
+    # return confirmation_instructions(record, record.confirmation_token, opts) unless record.confirmed?
 
     reset_link = edit_password_url(record, reset_password_token: token)
     template_id = GOV_NOTIFY_CONFIG['reset_password_email']['template_id']
