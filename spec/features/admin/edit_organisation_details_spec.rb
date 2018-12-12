@@ -23,8 +23,8 @@ describe 'editing an organisations details' do
     end
 
     it 'allows the user to change their company name and service email' do
-      fill_in 'org-name', with: "New Company Name"
-      fill_in 'org-service-email', with: "NewServiceEmail@gov.uk"
+      fill_in 'Organisation name', with: "New Company Name"
+      fill_in 'Service email', with: "NewServiceEmail@gov.uk"
       click_on 'Save'
       expect(page).to have_content("Organisation Name: New Company Name")
       expect(page).to have_content("Service Email: NewServiceEmail@gov.uk")
