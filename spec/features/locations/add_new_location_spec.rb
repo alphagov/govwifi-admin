@@ -11,6 +11,7 @@ describe 'Add new location' do
 
   let(:user) { create(:user) }
   let(:ip_input) { "location_ips_attributes_0_address" }
+  let(:second_ip_input) { "location_ips_attributes_1_address" }
 
   context 'when logged in' do
     before do
@@ -43,6 +44,7 @@ describe 'Add new location' do
         fill_in 'Address', with: '30 Square'
         fill_in 'Postcode', with: 'CC DDD'
         fill_in ip_input, with: '10.wrong.0.1'
+        fill_in second_ip_input, with: '10.0.0.3'
         click_on 'Add new location'
       end
 

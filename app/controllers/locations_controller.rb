@@ -5,7 +5,7 @@ class LocationsController < ApplicationController
   end
 
   def create
-    @location = Location.create(location_params_without_blank_ips)
+    @location = Location.new(location_params_without_blank_ips)
 
     if @location.save
       Facades::Ips::AfterCreate.new.execute
