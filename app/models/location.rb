@@ -3,6 +3,9 @@ class Location < ApplicationRecord
 
   has_many :ips, dependent: :destroy
   accepts_nested_attributes_for :ips
+
+  # When present, this breaks ip_spec.rb:54
+  # When absent, this breaks location_spec.rb:42
   # validates_associated :ips
 
   validates :address, presence: true
