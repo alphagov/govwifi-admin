@@ -1,4 +1,6 @@
 class HelpController < ApplicationController
+  skip_before_action :authenticate_user!
+
   def index; end
 
   def create
@@ -18,4 +20,9 @@ class HelpController < ApplicationController
     )
     redirect_to root_path, notice: 'Your support request has been submitted.'
   end
+
+  def new
+
+  end
+
 end

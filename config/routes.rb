@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :locations, only: [] do
     resources :ips, only: %i[new create], controller: "locations/ips"
   end
-  resources :help, only: %i[index create]
+  resources :help, only: %i[index create new]
   resources :team_members, only: %i[index edit update destroy]
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index] do
