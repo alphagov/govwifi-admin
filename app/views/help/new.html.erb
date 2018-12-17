@@ -3,47 +3,25 @@
     <h2 class="govuk-heading-l">Support</h2>
     <p class="govuk-body">
       <div class="govuk-details">
-        <h2 class="govuk-body-m">
-          How can we help?
-        </h2>
-      </div>
-      <div class="govuk-radios">
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" name="support-choice" type="radio" value="yes">
-          <label class="govuk-label govuk-radios__label">
-           I’m having trouble signing up
-          </label>
+        <h2 class="govuk-body-m">How can we help?</h2>
+
+      <%= form_with url: admin_mou_index_path, class: 'govuk-radios', method: 'post' do |form| %>
+      <div class="govuk-radio">
+        <div class="govuk-radios__item ">
+          <%= form.radio_button(:choice, "choice", class: "govuk-radios__input") %>
+          <%= form.label(:choice_child, "I’m having trouble signing up", class: 'govuk-label govuk-radios__label') %>
         </div>
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" name="support-choice" type="radio" value="no">
-          <label class="govuk-label govuk-radios__label" >
-            Something’s wrong with my admin account
-          </label>
+          <%= form.radio_button(:choice, "choice", class: "govuk-radios__input") %>
+          <%= form.label(:choice_child, "Something’s wrong with my admin account", class: 'govuk-label govuk-radios__label') %>
         </div>
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" name="support-choice" type="radio" value="no">
-          <label class="govuk-label govuk-radios__label" >
-            Ask a question or leave feedback
-          </label>
+          <%= form.radio_button(:choice, "choice", class: "govuk-radios__input") %>
+          <%= form.label(:choice_child, "Ask a question or leave feedback", class: 'govuk-label govuk-radios__label govuk-!-margin-bottom-4') %>
         </div>
-      </div>
-        <p class="govuk-body govuk-!-padding-top-8"> If you are having trouble connecting to GovWifi in your organisation, please use our guidance on common issues.</p>
-        <p class="govuk-body"> If this doesn't resolve the issue, we recommend you contact your organisation’s IT support team.</p>
-    </div>
-  </p>
-      <%= form_with url: admin_mou_index_path, method: 'post', class: 'govuk-radios' do |form| %>
-      <div class="govuk-radios__item ">
-        <%= radio_button_tag(:choice, "choice", class: "govuk-radios__input") %>
-        <%= label_tag(:choice_child, "I’m having trouble signing up", class: 'govuk-label govuk-radios__label') %>
-      </div>
-      <div class="govuk-radios__item">
-        <%= radio_button_tag(:choice, "choice", class: "govuk-radios__input") %>
-        <%= label_tag(:choice_child, "Something’s wrong with my admin account", class: 'govuk-label govuk-radios__label') %>
-      </div>
-      <div class="govuk-radios__item">
-        <%= radio_button_tag(:choice, "choice", class: "govuk-radios__input") %>
-        <%= label_tag(:choice_child, "Ask a question or leave feedback", class: 'govuk-label govuk-radios__label') %>
-      </div>
-      <p><%= form.submit('Submit', class: 'govuk-button') %></p>
+        </div>
+      <p><%= form.submit('Continue', class: 'govuk-button') %></p>
     <% end %>
+  <p class="govuk-body"> If you are having trouble connecting to GovWifi in your organisation, please use our guidance on common issues.</p>
+  <p class="govuk-body"> If this doesn't resolve the issue, we recommend you contact your organisation’s IT support team.</p>
 </div>
