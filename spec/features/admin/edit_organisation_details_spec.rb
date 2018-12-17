@@ -1,9 +1,8 @@
 require 'features/support/sign_up_helpers'
 
 describe 'editing an organisations details' do
-  let!(:admin_user1) { create(:user, organisation: organisation) }
-  let!(:admin_user2) { create(:user) }
-  let!(:organisation) { create(:organisation, name: "TestMe & Company", service_email: "testme@gov.uk") }
+  let(:admin_user1) { create(:user, organisation: organisation) }
+  let(:organisation) { create(:organisation, name: "TestMe & Company", service_email: "testme@gov.uk") }
 
   context 'when visiting the organisations settings page before any changes' do
     before do
@@ -33,6 +32,7 @@ describe 'editing an organisations details' do
   end
 
   context 'a user from an organisation tries to change another organisations details' do
+    let(:admin_user2) { create(:user) }
     before do
       sign_in_user admin_user1
     end

@@ -1,19 +1,41 @@
-<%= render "layouts/form_errors", resource: @organisation %>
+<% if @organisation.errors.any? %>
+   <div class="govuk-error-summary">
+     <h2 class="govuk-error-summary__title">There is a problem</h2>
+     <div class="govuk-error-summary__body">
+       <ul class="govuk-list govuk-error-summary__list">
+         <% @organisation.errors.full_messages_for(:name).each do |message| %>
+          <li><%= message %></li>
+         <% end %>
+         <% @organisation.errors.full_messages_for(:service_email).each do |message| %>
+          <li><%= message %></li>
+         <% end %>
+       </ul>
+     </div>
+   </div>
+ <% end %>
+
   <%= link_to "Back to settings", organisation_path, class: "govuk-back-link" %>
   <h1 class="govuk-heading-l">Edit Organisation Settings</h1>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <div class="govuk-form-group govuk-body-m" >
-
         <%= form_for @organisation do |form| %>
-          <%= form.label :name, "Organisation name", class: "govuk-label" %>
-          <%= form.text_field :name, class: "govuk-input" %><br />
-
-          <%= form.label :service_email, "Service email", class: "govuk-label govuk-!-padding-top-4" %>
-          <%= form.text_field :service_email, class: "govuk-input govuk-!-margin-bottom-8"%><br />
-
-          <%= form.submit 'Save', class: 'govuk-button' %>
+          <div class="govuk-form-group govuk-body-m" >
+            <%= form.label :name, "Organisation name", class: "govuk-label govuk-label govuk-form-group" %>
+            <% if @organisation.errors.keys.include?(:name) %>
+              <%= form.text_field :name, class: "govuk-input govuk-input--error govuk-form-group" %><br />
+            <% else %>
+            <%= form.text_field :name, class: "govuk-input" %>
+          <% end %>
+        </div>
+          <div class="govuk-form-group govuk-body-m" >
+            <%= form.label :service_email, "Service email", class: "govuk-label govuk-label govuk-form-group" %>
+            <% if @organisation.errors.keys.include?(:service_email) %>
+              <%= form.text_field :service_email, class: "govuk-input govuk-input--error govuk-form-group" %><br />
+            <% else %>
+            <%= form.text_field :service_email, class: "govuk-input" %><br />
+          <% end %>
+          <%= form.submit 'Save', class: 'govuk-button govuk-!-margin-top-5' %>
         <% end %>
       </div>
-    </div>
   </div>
+</div>
