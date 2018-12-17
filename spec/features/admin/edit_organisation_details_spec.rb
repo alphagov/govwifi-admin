@@ -28,6 +28,8 @@ describe 'editing an organisations details' do
       click_on 'Save'
       expect(page).to have_content("New Company Name")
       expect(page).to have_content("NewServiceEmail@gov.uk")
+      expect(page).to have_content("Organisation updated")
+      expect(page).to have_content("Organisation Settings")
     end
   end
 
