@@ -2,9 +2,8 @@ require 'features/support/sign_up_helpers'
 
 describe 'editing an organisations details' do
   let!(:admin_user1) { create(:user, organisation: organisation) }
-  let!(:admin_user2) { create(:user, organisation: organisation2) }
+  let!(:admin_user2) { create(:user) }
   let!(:organisation) { create(:organisation, name: "TestMe & Company", service_email: "testme@gov.uk") }
-  let!(:organisation2) { create(:organisation, name: "Another Company", service_email: "testmeagain@gov.uk") }
 
   context 'when visiting the organisations settings page before any changes' do
     before do
@@ -12,7 +11,7 @@ describe 'editing an organisations details' do
       visit organisation_path(organisation)
     end
 
-    it 'has the current compnay name and service email' do
+    it 'has the current company name and service email' do
       expect(page).to have_content("Organisation Name: TestMe & Company")
       expect(page).to have_content("Service Email: testme@gov.uk")
     end
@@ -40,7 +39,7 @@ describe 'editing an organisations details' do
 
     it 'will display a routing error' do
       expect {
-        visit edit_organisation_path(organisation2)
+        visit edit_organisation_path(admin_user2.organisation)
       }.to raise_error(ActionController::RoutingError)
     end
   end

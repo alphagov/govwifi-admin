@@ -8,7 +8,7 @@ class OrganisationsController < ApplicationController
 
   def update
     if @organisation.update(organisation_params)
-      redirect_to organisation_path
+      redirect_to organisation_path(@organisation)
       flash[:notice] = 'Organisation updated'
     else
       render :edit
@@ -22,12 +22,12 @@ private
   end
 
   def validate_user_is_part_of_organisation
-    unless users_belong_to_same_org
+    unless user_belongs_to_same_org
       raise ActionController::RoutingError.new('Not Found')
     end
   end
 
-  def users_belong_to_same_org
+  def user_belongs_to_same_org
     current_organisation == @organisation
   end
 
