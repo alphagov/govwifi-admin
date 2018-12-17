@@ -4,8 +4,6 @@ class Ip < ApplicationRecord
   validates :address, presence: true, uniqueness: true
   validate :address_must_be_valid_ip
 
-  accepts_nested_attributes_for :location
-
   def available?
     created_at < Date.today.beginning_of_day + 2.hour
   end

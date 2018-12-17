@@ -73,22 +73,6 @@ describe Ip do
       end
     end
 
-    context 'with 2 IPs' do
-      let(:ip_count) { 2 }
-
-      it 'does not timeout' do
-        Timeout::timeout(2) do
-          expect {
-            ip.save
-          }.to_not raise_error
-        end
-      end
-
-      it 'is valid' do
-        expect(ip.valid?).to eq true
-      end
-    end
-
     context 'with 20 IPs' do
       let(:ip_count) { 20 }
 
@@ -100,8 +84,7 @@ describe Ip do
         end
       end
 
-      # this would a while to check!
-      xit 'is valid' do
+      it 'is valid' do
         expect(ip.valid?).to eq true
       end
     end
