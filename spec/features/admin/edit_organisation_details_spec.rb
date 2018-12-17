@@ -12,8 +12,8 @@ describe 'editing an organisations details' do
     end
 
     it 'has the current company name and service email' do
-      expect(page).to have_content("Organisation Name: TestMe & Company")
-      expect(page).to have_content("Service Email: testme@gov.uk")
+      expect(page).to have_content("TestMe & Company")
+      expect(page).to have_content("testme@gov.uk")
     end
   end
 
@@ -27,8 +27,8 @@ describe 'editing an organisations details' do
       fill_in 'Organisation name', with: "New Company Name"
       fill_in 'Service email', with: "NewServiceEmail@gov.uk"
       click_on 'Save'
-      expect(page).to have_content("Organisation Name: New Company Name")
-      expect(page).to have_content("Service Email: NewServiceEmail@gov.uk")
+      expect(page).to have_content("New Company Name")
+      expect(page).to have_content("NewServiceEmail@gov.uk")
     end
   end
 
