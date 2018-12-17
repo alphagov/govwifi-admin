@@ -32,20 +32,28 @@ describe "Resetting a password" do
   end
 
   context "when user is not yet confirmed" do
+    include_examples 'reset password use case spy'
     include_examples 'confirmation use case spy'
     include_examples 'notifications service'
 
     let(:user) { create(:user, :unconfirmed) }
 
-    it "sends the confirmation instructions instead of reset password" do
+    it "tells them to confirm their account first" do
+      visit new_user_password_path
+      fill_in "user_email", with: user.email
+      click_on "Send me reset password instructions"
+
+      expect(page).to have_content("Resend confirmation instructions")
+      expect(page.current_path).to eq(new_user_confirmation_path)
+    end
+
+    it 'does not send a reset password link' do
       visit new_user_password_path
       fill_in "user_email", with: user.email
 
       expect {
         click_on "Send me reset password instructions"
-      }.to change { ConfirmationUseCaseSpy.confirmations_count }.by(1)
-
-      expect(page).to have_content("You will receive an email with instructions")
+      }.to change { ResetPasswordUseCaseSpy.reset_count }.by(0)
     end
   end
 
