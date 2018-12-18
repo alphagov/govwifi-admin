@@ -1,5 +1,3 @@
-require 'features/support/sign_up_helpers'
-
 describe 'Edit user permissions' do
   let(:user) { create(:user) }
   let(:invited_user_other_org) { User.find_by(email: 'invited_other_org@gov.uk') }

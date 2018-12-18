@@ -1,4 +1,3 @@
-require 'features/support/sign_up_helpers'
 require 'timecop'
 
 describe 'with a stubbed notifications service' do

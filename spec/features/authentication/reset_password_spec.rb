@@ -3,7 +3,6 @@ require 'support/reset_password_use_case_spy'
 require 'support/reset_password_use_case'
 require 'support/confirmation_use_case_spy'
 require 'support/confirmation_use_case'
-require 'features/support/errors_in_form'
 
 describe "Resetting a password" do
   it "displays the forgot password link at login" do

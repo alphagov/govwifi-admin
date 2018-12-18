@@ -1,4 +1,3 @@
-require 'features/support/sign_up_helpers'
 require 'support/notifications_service'
 require 'support/send_help_email_use_case_spy'
 require 'support/send_help_email_use_case'

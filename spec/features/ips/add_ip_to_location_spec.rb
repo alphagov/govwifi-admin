@@ -1,6 +1,3 @@
-require 'features/support/sign_up_helpers'
-require 'features/support/errors_in_form'
-
 describe 'Add an IP to a location' do
   let(:user) { create(:user) }
   let(:location) { create(:location, address: '10 Street', postcode: 'XX YYY', organisation: user.organisation) }
