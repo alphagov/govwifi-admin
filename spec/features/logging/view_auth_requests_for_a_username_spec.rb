@@ -1,5 +1,3 @@
-require 'features/support/sign_up_helpers'
-
 describe "View authentication requests for a username" do
   context "with results" do
     let(:username) { "AAAAAA" }

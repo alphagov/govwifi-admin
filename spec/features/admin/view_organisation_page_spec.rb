@@ -1,7 +1,3 @@
-require 'features/support/not_signed_in'
-require 'features/support/sign_up_helpers'
-require 'features/support/user_not_authorised'
-
 describe 'view details of a signed up organisation' do
   let(:organisation) { create(:organisation) }
 

@@ -1,4 +1,3 @@
-require 'features/support/sign_up_helpers'
 require 'support/notifications_service'
 
 describe 'Invite a team member' do

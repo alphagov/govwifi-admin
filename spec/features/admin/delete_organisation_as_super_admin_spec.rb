@@ -1,5 +1,3 @@
-require 'features/support/sign_up_helpers'
-
 describe 'deleting an organisation' do
   let!(:admin_user) { create(:user, super_admin: true) }
   let!(:organisation) { create(:organisation, name: "TestMe & Company") }

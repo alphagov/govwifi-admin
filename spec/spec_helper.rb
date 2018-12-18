@@ -13,6 +13,8 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  Dir["./spec/features/support/*.rb"].sort.each { |f| require f }
+
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
   config.before { ActionMailer::Base.deliveries.clear }
