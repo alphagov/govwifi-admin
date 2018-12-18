@@ -13,15 +13,7 @@ describe 'Sign up as an organisation' do
     let(:email) { 'newuser@gov.uk' }
     before { sign_up_for_account(email: email) }
 
-    # Current behaviour
-    it 'directs the user to check their confirmation email' do
-      expect(page).to have_content(
-        "A confirmation email has been sent"
-        )
-    end
-
-    # Desired behaviour
-    xit 'directs the user to check their confirmation email' do
+    it 'instructs the user to check their confirmation email' do
       expect(page).to have_content(
         "A confirmation email has been sent to #{email}"
         )
