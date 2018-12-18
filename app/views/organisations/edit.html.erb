@@ -1,18 +1,15 @@
 <% if @organisation.errors.any? %>
-   <div class="govuk-error-summary">
-     <h2 class="govuk-error-summary__title">There is a problem</h2>
-     <div class="govuk-error-summary__body">
-       <ul class="govuk-list govuk-error-summary__list">
-         <% @organisation.errors.full_messages_for(:name).each do |message| %>
+  <div class="govuk-error-summary">
+    <h2 class="govuk-error-summary__title">There is a problem</h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <% @organisation.errors.full_messages.each do |message| %>
           <li><%= message %></li>
-         <% end %>
-         <% @organisation.errors.full_messages_for(:service_email).each do |message| %>
-          <li><%= message %></li>
-         <% end %>
-       </ul>
-     </div>
-   </div>
- <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
 
 <%= link_to "Back to settings", organisation_path, class: "govuk-back-link" %>
 <h1 class="govuk-heading-l">Edit Organisation Settings</h1>

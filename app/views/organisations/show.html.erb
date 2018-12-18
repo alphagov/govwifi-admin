@@ -1,10 +1,8 @@
-  <h1 class="govuk-heading-l"> Organisation Settings</h1>
-    <p class="govuk-body">
-      Your organisation is named <b><%= current_organisation.name %></b>
-    </p>
-    <p class="govuk-body">
-      Your service email is <b><%= current_organisation.service_email%></b>
-    </p>
-    <%= link_to "Change my organisation's name or email", edit_organisation_path(current_organisation.id), class: "govuk-button" %>
-    </div>
-  </div>
+<h1 class="govuk-heading-l"> Organisation Settings</h1>
+<p class="govuk-body">
+  Your organisation is named <b><%= current_organisation.name %></b>
+</p>
+<p class="govuk-body">
+  Your service email is <b><%= current_organisation.service_email%></b>
+</p>
+<%= link_to "Change my organisation's name or email", edit_organisation_path(current_organisation.id), class: "govuk-button" %>
