@@ -1,6 +1,3 @@
-require 'features/support/not_signed_in'
-require 'features/support/sign_up_helpers'
-
 describe 'view list of signed up organisations' do
   before do
     login_as user

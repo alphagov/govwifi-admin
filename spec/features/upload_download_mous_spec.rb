@@ -1,6 +1,3 @@
-require 'features/support/not_signed_in'
-require 'features/support/sign_up_helpers'
-
 describe 'the upload and download of MOUs' do
   context 'when logged out' do
     before { visit mou_index_path }

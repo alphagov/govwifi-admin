@@ -1,6 +1,3 @@
-require 'features/support/not_signed_in'
-require 'features/support/sign_up_helpers'
-
 describe 'View GovWifi Status' do
   context 'when logged out' do
     before do

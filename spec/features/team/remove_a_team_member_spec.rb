@@ -1,5 +1,3 @@
-require 'features/support/sign_up_helpers'
-
 describe "Remove a team member" do
   let(:user) { create(:user) }
   let(:another_user) { create(:user, organisation: user.organisation) }

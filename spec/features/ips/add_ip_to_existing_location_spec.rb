@@ -1,5 +1,3 @@
-require 'features/support/not_signed_in'
-
 describe 'add an IP to an existing location' do
   let!(:location) { create(:location, organisation: user.organisation) }
   let(:user) { create(:user) }

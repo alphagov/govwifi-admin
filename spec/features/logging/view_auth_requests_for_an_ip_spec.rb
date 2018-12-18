@@ -1,5 +1,3 @@
-require 'features/support/sign_up_helpers'
-
 describe 'View authentication requests for an IP' do
   context 'with results' do
     let(:ip) { '127.0.0.1' }

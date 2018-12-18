@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     confirmations: 'users/confirmations',
     registrations: 'users/registrations',
-    invitations: 'users/invitations'
+    invitations: 'users/invitations',
+    passwords: 'users/passwords'
   }
   devise_scope :user do
     put 'users/confirmations', to: 'users/confirmations#update'
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
   resources :logs, only: %i[index] do
     get 'search', on: :collection
   end
+  resources :organisations, only: %i[show edit update]
 
   namespace :admin do
     resources :mou, only: %i[index update create]

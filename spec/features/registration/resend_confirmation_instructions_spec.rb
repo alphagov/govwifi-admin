@@ -1,5 +1,3 @@
-require 'features/support/sign_up_helpers'
-require 'features/support/errors_in_form'
 require 'support/notifications_service'
 require 'support/confirmation_use_case_spy'
 require 'support/confirmation_use_case'

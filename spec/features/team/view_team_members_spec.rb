@@ -1,6 +1,3 @@
-require 'features/support/not_signed_in'
-require 'features/support/sign_up_helpers'
-
 describe 'View team members of my organisation' do
   context 'when logged out' do
     before { visit team_members_path }

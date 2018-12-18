@@ -1,6 +1,3 @@
-require 'features/support/sign_up_helpers'
-require 'features/support/not_signed_in'
-
 describe 'signing in as a super admin' do
   let!(:user) { create(:user, super_admin: true) }
 

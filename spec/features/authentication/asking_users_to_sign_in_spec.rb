@@ -1,5 +1,3 @@
-require 'features/support/sign_up_helpers'
-require 'features/support/not_signed_in'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
