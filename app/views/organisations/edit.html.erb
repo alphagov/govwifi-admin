@@ -15,27 +15,28 @@
  <% end %>
 
 <%= link_to "Back to settings", organisation_path, class: "govuk-back-link" %>
-  <h1 class="govuk-heading-l">Edit Organisation Settings</h1>
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <%= form_for @organisation do |form| %>
-          <div class="govuk-form-group govuk-body-m" >
-            <%= form.label :name, "Organisation name", class: "govuk-label govuk-label govuk-form-group" %>
-            <% if @organisation.errors.keys.include?(:name) %>
-              <%= form.text_field :name, class: "govuk-input govuk-input--error govuk-form-group" %><br />
-            <% else %>
-            <%= form.text_field :name, class: "govuk-input" %>
-          <% end %>
-        </div>
-          <div class="govuk-form-group govuk-body-m" >
-            <%= form.label :service_email, "Service email", class: "govuk-label govuk-label govuk-form-group" %>
-            <% if @organisation.errors.keys.include?(:service_email) %>
-              <%= form.text_field :service_email, class: "govuk-input govuk-input--error govuk-form-group" %><br />
-            <% else %>
-            <%= form.text_field :service_email, class: "govuk-input" %><br />
-          <% end %>
-          <%= form.submit 'Save', class: 'govuk-button govuk-!-margin-top-5' %>
+<h1 class="govuk-heading-l">Edit Organisation Settings</h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @organisation do |form| %>
+      <div class="govuk-form-group" >
+        <%= form.label :name, "Organisation name", class: "govuk-label" %>
+        <% if @organisation.errors.keys.include?(:name) %>
+          <%= form.text_field :name, class: "govuk-input govuk-input--error" %>
+        <% else %>
+          <%= form.text_field :name, class: "govuk-input" %>
         <% end %>
       </div>
+      <div class="govuk-form-group" >
+        <%= form.label :service_email, "Service email", class: "govuk-label" %>
+        <div class="govuk-hint">A shared and monitored email, so we can contact your organisation</div>
+        <% if @organisation.errors.keys.include?(:service_email) %>
+          <%= form.text_field :service_email, class: "govuk-input govuk-input--error" %><br />
+        <% else %>
+          <%= form.text_field :service_email, class: "govuk-input" %><br />
+        <% end %>
+      </div>
+      <%= form.submit 'Save', class: 'govuk-button' %>
+    <% end %>
   </div>
 </div>
