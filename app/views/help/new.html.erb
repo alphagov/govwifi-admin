@@ -8,16 +8,16 @@
       <%= form_tag new_help_path, class: 'govuk-radios', method: 'get' do %>
       <div class="govuk-radio">
         <div class="govuk-radios__item ">
-          <%= radio_button_tag(:choice_id, 1, class: "govuk-radios__input") %>
-          <%= label_tag("I’m having trouble signing up", class: 'govuk-label govuk-radios__label') %>
+          <%= radio_button_tag(:choice_id, 1, nil, class: "govuk-radios__input") %>
+          <%= label_tag("I’m having trouble signing up", nil, class: 'govuk-label govuk-radios__label') %>
         </div>
         <div class="govuk-radios__item">
-          <%= radio_button_tag(:choice_id, 2, class: "govuk-radios__input") %>
-          <%= label_tag("Something’s wrong with my admin account", class: 'govuk-label govuk-radios__label') %>
+          <%= radio_button_tag(:choice_id, 2, nil, class: "govuk-radios__input") %>
+          <%= label_tag("Something’s wrong with my admin account", nil, class: 'govuk-label govuk-radios__label') %>
         </div>
         <div class="govuk-radios__item">
-          <%= radio_button_tag(:choice_id, 3, class: "govuk-radios__input") %>
-          <%= label_tag("Ask a question or leave feedback", class: 'govuk-label govuk-radios__label govuk-!-margin-bottom-4') %>
+          <%= radio_button_tag(:choice_id, 3, nil, class: "govuk-radios__input") %>
+          <%= label_tag("Ask a question or leave feedback", nil, class: 'govuk-label govuk-radios__label govuk-!-margin-bottom-4') %>
         </div>
       </div>
       <p><%= submit_tag('Continue', class: 'govuk-button') %></p>

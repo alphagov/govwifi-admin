@@ -16,6 +16,7 @@ describe 'user not signed in' do
 
     it "redirects the user to the 'Im having trouble signing up page'" do
 
+      expect(page).to have_content 'I’m having trouble signing up'
     end
 
     it "redirects the user to the 'Somethings wrong with my admin account'" do
