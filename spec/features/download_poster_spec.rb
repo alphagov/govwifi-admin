@@ -7,7 +7,7 @@ describe 'Allowing a user to download the GovWifi poster' do
       visit root_path
     end
 
-    it 'shows a link to download the GovWifi poster' do
+    it 'allows the user to click on link and download the poster' do
       expect(page).to have_content("Download a poster to advertise GovWifi is available in your building(s)")
     end
   end
