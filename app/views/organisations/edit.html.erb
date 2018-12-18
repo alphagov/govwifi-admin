@@ -18,22 +18,19 @@
     <%= form_for @organisation do |form| %>
       <div class="govuk-form-group" >
         <%= form.label :name, "Organisation name", class: "govuk-label" %>
-        <% if @organisation.errors.keys.include?(:name) %>
-          <%= form.text_field :name, class: "govuk-input govuk-input--error" %>
-        <% else %>
-          <%= form.text_field :name, class: "govuk-input" %>
-        <% end %>
+        <% error_class = @organisation.errors.keys.include?(:name) ? "govuk-input--error" : "" %>
+        <%= form.text_field :name, class: "govuk-input #{error_class}" %>
       </div>
       <div class="govuk-form-group" >
         <%= form.label :service_email, "Service email", class: "govuk-label" %>
         <div class="govuk-hint">A shared and monitored email, so we can contact your organisation</div>
-        <% if @organisation.errors.keys.include?(:service_email) %>
-          <%= form.text_field :service_email, class: "govuk-input govuk-input--error" %><br />
-        <% else %>
-          <%= form.text_field :service_email, class: "govuk-input" %><br />
-        <% end %>
+        <% error_class = @organisation.errors.keys.include?(:service_email) ? "govuk-input--error" : "" %>
+        <%= form.text_field :service_email, class: "govuk-input #{error_class}" %>
       </div>
       <%= form.submit 'Save', class: 'govuk-button' %>
     <% end %>
   </div>
 </div>
+
+
+
