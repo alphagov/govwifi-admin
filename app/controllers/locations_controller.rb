@@ -1,7 +1,7 @@
 class LocationsController < ApplicationController
   def new
     @location = Location.new
-    add_blank_ips!
+    add_blank_ips_to_location
   end
 
   def create
@@ -11,14 +11,14 @@ class LocationsController < ApplicationController
       Facades::Ips::AfterCreate.new.execute
       redirect_to ips_path, notice: "#{@location.full_address} added"
     else
-      add_blank_ips!
+      add_blank_ips_to_location
       render :new
     end
   end
 
 private
 
-  def add_blank_ips!
+  def add_blank_ips_to_location
     desired_count = 5
     desired_count = desired_count - @location.ips.length
     desired_count.times { @location.ips.build }

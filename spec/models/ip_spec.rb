@@ -50,32 +50,4 @@ describe Ip do
       it { is_expected.to be_available }
     end
   end
-
-  context 'when many IPs already exist for the same location' do
-    let(:location_1) do
-      Location.create!(
-        address: 'Momentum Centre, London',
-        postcode: 'SE10SX',
-        organisation_id: create(:organisation).id
-      )
-    end
-
-    let(:ip) do
-      Ip.new(location_id: location_1.id, address: "127.0.2.1")
-    end
-
-    before { 20.times { create(:ip, location: location_1) } }
-
-    it 'saves without timing out' do
-      Timeout::timeout(2) do
-        expect {
-          ip.save
-        }.to_not raise_error
-      end
-    end
-
-    it 'reports validity correctly' do
-      expect(ip.valid?).to eq true
-    end
-  end
 end
