@@ -22,7 +22,13 @@ class HelpController < ApplicationController
   end
 
   def new
-
+    if params[:choice_id] == "1"
+      redirect_to help_choice1_path(:id)
+    elsif params[:choice_id] == "2"
+      redirect_to help_choice2_path(:id)
+    elsif params[:choice_id] == "3"
+      redirect_to help_choice3_path(:id)
+    end
   end
 
 end
