@@ -15,8 +15,8 @@
 
     <%= form_with url: logs_path, method: :get do |form| %>
       <div class="govuk-form-group">
-        <%= form.label :username, "Enter the username you wish to see logs for", class: "govuk-label" %><br />
-        <%= form.text_field :username, autofocus: true, class: "govuk-input" %>
+        <%= form.label :username, "Enter the username you wish to see logs for", class: "govuk-label", for: "width-10" %><br />
+        <%= form.text_field :username, autofocus: true, class: "govuk-input govuk-input--width-10" %>
       </div>
 
       <div class="actions">
