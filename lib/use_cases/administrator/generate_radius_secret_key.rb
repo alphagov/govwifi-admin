@@ -1,4 +1,4 @@
-class RadiusSecretKeyGenerator
+class UseCases::Administrator::GenerateRadiusSecretKey
   BYTES = 10
 
   def execute
