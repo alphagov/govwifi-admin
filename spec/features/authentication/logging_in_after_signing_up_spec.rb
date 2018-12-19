@@ -1,9 +1,5 @@
-require 'support/notifications_service'
-require 'support/confirmation_use_case'
-
-describe 'logging in after signing up' do
-  include_examples 'confirmation use case spy'
-  include_examples 'notifications service'
+describe 'logging in after signing up', focus: true do
+  include_context 'with a mocked notifications client'
 
   let(:correct_password) { 'f1uffy-bu44ies' }
 
