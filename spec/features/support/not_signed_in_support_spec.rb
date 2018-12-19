@@ -31,46 +31,50 @@ describe 'user not signed in' do
     end
 
     context "allows the user to submit a support ticket request'" do
+      let(:email) { 'george@gov.uk' }
+      let(:name) { 'George' }
+      let(:organisation) { 'George Tech' }
+      let(:details) { 'Some random text for the details section' }
+
       before do
         visit new_help_path
       end
 
       it "when a user is 'having trouble signing up'" do
         choose('choice_id_1')
-        click_button('Continue')
+        click_on('Continue')
         expect(page).to have_content "I'm having trouble signing up"
-        fill_in('name', :with => 'George')
-        fill_in('email', :with => 'George@gov.uk')
-        fill_in('organisation', :with => 'George Tech')
-        fill_in('details', :with => "My laptop won't turn on... help please ")
-        click_button('Submit')
+        fill_in 'name', with: name
+        fill_in 'email', with: email
+        fill_in 'organisation', with: organisation
+        fill_in 'details', with: details
+        click_on('Submit')
         expect(page).to have_content 'Your support request has been submitted.'
       end
 
       it "when a user has 'something wrong with their admin account'" do
         choose('choice_id_2')
-        click_button('Continue')
+        click_on('Continue')
         expect(page).to have_content 'Something’s wrong with my admin account'
-        fill_in('name', :with => 'George')
-        fill_in('email', :with => 'George@gov.uk')
-        fill_in('organisation', :with => 'George Tech')
-        fill_in('details', :with => "I can't log into my admin account... help")
-        click_button('Submit')
+        fill_in 'name', with: name
+        fill_in 'email', with: email
+        fill_in 'organisation', with: organisation
+        fill_in 'details', with: details
+        click_on('Submit')
         expect(page).to have_content 'Your support request has been submitted.'
       end
 
       it "when a user has 'a question or wants to leave feedback'" do
         choose('choice_id_3')
-        click_button('Continue')
+        click_on('Continue')
         expect(page).to have_content 'Ask a question or leave feedback'
-        fill_in('details', :with => 'I would like to leave feedback about how amazing GovWidi is!')
-        fill_in('name', :with => 'George')
-        fill_in('email', :with => 'George@gov.uk')
+        fill_in 'details', with: details
+        fill_in 'name', with: name
+        fill_in 'email', with: email
 
-        click_button('Send')
+        click_on('Send')
         expect(page).to have_content 'Your support request has been submitted.'
       end
-
     end
   end
 end

@@ -18,22 +18,16 @@ class HelpController < ApplicationController
       subject: params[:subject] || "",
       template_id: template_id
     )
-
-    unless current_user.nil?
-      redirect_to root_path, notice: 'Your support request has been submitted.'
-    else
-      redirect_to new_user_session_path, notice: 'Your support request has been submitted.'
-    end
+    redirect_user
   end
 
   def new
-
-    case
-    when params[:choice_id] == "1"
+    case params[:choice_id]
+    when "1"
       redirect_to choice1_new_help_path
-    when params[:choice_id] == "2"
+    when "2"
       redirect_to choice2_new_help_path
-    when params[:choice_id] == "3"
+    when "3"
       redirect_to choice3_new_help_path
     end
   end
@@ -45,6 +39,14 @@ class HelpController < ApplicationController
   def choice3; end
 
 private
+
+  def redirect_user
+    if current_user.nil?
+      redirect_to new_user_session_path, notice: 'Your support request has been submitted.'
+    else
+      redirect_to root_path, notice: 'Your support request has been submitted.'
+    end
+  end
 
   def sender_email
     params[:sender_email] || current_user&.email || ""
