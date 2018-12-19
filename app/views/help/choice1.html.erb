@@ -6,12 +6,11 @@
       <%= link_to 'documentation.', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %>
     </div>
 
-
-    <%= form_tag('/choice1_path') do %>
+    <%= form_tag('/help') do %>
     <div class="govuk-two-thirds">
       <div class="govuk-form-group">
         <label class="govuk-label" for="name">Your name</label>
-        <%= text_field_tag 'contact_number', nil, class: 'govuk-input', type: 'text' %>
+        <%= text_field_tag 'name', nil, class: 'govuk-input', type: 'text' %>
       </div>
 
       <div class="govuk-form-group">
@@ -20,13 +19,13 @@
       </div>
 
       <div class="govuk-form-group">
-        <label class="govuk-label" for="affected-org"> Name of the organisation affected</label>
-        <%= text_field_tag 'affected-org', nil, class: 'govuk-input' %>
+        <label class="govuk-label" for="organisation"> Name of the organisation affected</label>
+        <%= text_field_tag 'organisation', nil, class: 'govuk-input' %>
       </div>
 
       <div class="govuk-form-group">
-        <label class="govuk-label" for="issue">Tell us a bit more about your issue</label>
-        <%= text_area_tag 'issue', nil, rows: 9, class: 'govuk-textarea' %>
+        <label class="govuk-label" for="details">Tell us a bit more about your issue</label>
+        <%= text_area_tag 'details', nil, rows: 9, class: 'govuk-textarea' %>
       </div>
 
       <%= submit_tag 'Submit', class: 'govuk-button' %>

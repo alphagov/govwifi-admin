@@ -20,9 +20,9 @@ Rails.application.routes.draw do
     resources :ips, only: %i[new create], controller: "locations/ips"
   end
   resources :help, only: %i[index create new] do
-    get 'choice1', to: 'help#choice1'
-    get 'choice2', to: 'help#choice2'
-    get 'choice3', to: 'help#choice3'
+    get 'choice1', on: :new
+    get 'choice2', on: :new
+    get 'choice3', on: :new
   end
 
   resources :team_members, only: %i[index edit update destroy]
