@@ -28,10 +28,10 @@
         </div>
 
         <div class="govuk-form-group">
-          <%= location_form.label :postcode, "Enter new location postcode", class: "govuk-label" %>
+          <%= location_form.label :postcode, "Enter new location postcode", class: "govuk-label govuk-!-width-one-quarter", for: "one-quarter" %>
           <%= location_form.text_field :postcode,
             autocomplete: 'off',
-            class: 'govuk-input',
+            class: 'govuk-input govuk-!-width-one-quarter',
             value: (params || {}).dig(:ip, :location_attributes, :postcode) %>
         </div>
       <% end %>
