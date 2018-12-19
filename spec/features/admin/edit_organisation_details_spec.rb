@@ -1,5 +1,3 @@
-require 'features/support/sign_up_helpers'
-
 describe 'editing an organisations details' do
   let(:admin_user1) { create(:user, organisation: organisation) }
   let(:organisation) { create(:organisation, name: "TestMe & Company", service_email: "testme@gov.uk") }

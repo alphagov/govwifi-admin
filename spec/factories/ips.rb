@@ -1,7 +1,9 @@
 FactoryBot.define do
   factory :ip do
     sequence :address do |n|
-      "10.0.0.#{n}"
+      fourth = n % 255
+      third = n / 255
+      "10.0.#{third}.#{fourth}"
     end
 
     association :location

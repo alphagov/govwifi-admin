@@ -14,14 +14,14 @@ describe Ip do
         it "does not save when address is an invalid IP" do
           expect(Ip.count).to eq(0)
           expect(ip.errors.full_messages).to eq([
-            "Address must be a valid IPv4 address (without subnet)"
+            "Address 'invalidIP' is not valid"
           ])
         end
 
         it 'prevents 0.0.0.0' do
           ip = Ip.create(address: '0.0.0.0', location: location)
           expect(ip.errors.full_messages).to eq([
-            "Address must be a valid IPv4 address (without subnet)"
+            "Address '0.0.0.0' is not valid"
           ])
         end
       end
