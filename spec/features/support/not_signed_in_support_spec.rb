@@ -2,6 +2,10 @@ require  'support/notifications_service'
 
 describe 'user not signed in' do
   include_examples 'notifications service'
+  let(:email) { 'george@gov.uk' }
+  let(:name) { 'George' }
+  let(:organisation) { 'George Tech' }
+  let(:details) { 'Some random text for the details section' }
 
   context 'user goes to the support selection page' do
     before do
@@ -12,68 +16,71 @@ describe 'user not signed in' do
       expect(page).to have_content 'How can we help?'
     end
 
-    it 'shows the user three options to choose from' do
-      expect(page).to have_content 'I’m having trouble signing up'
-      expect(page).to have_content 'Something’s wrong with my admin account'
-      expect(page).to have_content 'Ask a question or leave feedback'
-    end
-
-    it "redirects the user to the 'Im having trouble signing up page'" do
-      expect(page).to have_content 'I’m having trouble signing up'
-    end
-
-    it "redirects the user to the 'Somethings wrong with my admin account'" do
-      expect(page).to have_content 'Something’s wrong with my admin account'
-    end
-
-    it "redirects the user to the 'Ask a question or leave feedback'" do
-      expect(page).to have_content 'Ask a question or leave feedback'
-    end
-
     context "allows the user to submit a support ticket request'" do
-      let(:email) { 'george@gov.uk' }
-      let(:name) { 'George' }
-      let(:organisation) { 'George Tech' }
-      let(:details) { 'Some random text for the details section' }
-
       before do
         visit new_help_path
       end
 
       it "when a user is 'having trouble signing up'" do
-        choose('choice_id_1')
+        choose "I'm having trouble signing up"
         click_on('Continue')
-        expect(page).to have_content "I'm having trouble signing up"
-        fill_in 'name', with: name
-        fill_in 'email', with: email
-        fill_in 'organisation', with: organisation
-        fill_in 'details', with: details
+        fill_in 'Your name', with: name
+        fill_in 'Your email address', with: email
+        fill_in 'Name of the organisation affected', with: organisation
+        fill_in 'Tell us a bit more about your issue', with: details
         click_on('Submit')
         expect(page).to have_content 'Your support request has been submitted.'
       end
 
       it "when a user has 'something wrong with their admin account'" do
-        choose('choice_id_2')
+        choose "Something's wrong with my admin account"
         click_on('Continue')
         expect(page).to have_content 'Something’s wrong with my admin account'
-        fill_in 'name', with: name
-        fill_in 'email', with: email
-        fill_in 'organisation', with: organisation
-        fill_in 'details', with: details
+        fill_in 'Your name', with: name
+        fill_in 'Your email address', with: email
+        fill_in 'Name of the organisation affected', with: organisation
+        fill_in 'Tell us a bit more about your issue', with: details
         click_on('Submit')
         expect(page).to have_content 'Your support request has been submitted.'
       end
 
       it "when a user has 'a question or wants to leave feedback'" do
-        choose('choice_id_3')
+        choose "Ask a question or leave feedback"
         click_on('Continue')
-        expect(page).to have_content 'Ask a question or leave feedback'
-        fill_in 'details', with: details
-        fill_in 'name', with: name
-        fill_in 'email', with: email
+        fill_in 'Your message', with: details
+        fill_in 'Your name', with: name
+        fill_in 'Your email address', with: email
 
-        click_on('Send')
+        click_on('Submit')
         expect(page).to have_content 'Your support request has been submitted.'
+      end
+    end
+
+    context "when a user leaves the details field blank " do
+      it 'having trouble signing up' do
+        visit signing_up_new_help_path
+        fill_in 'Your name', with: name
+        fill_in 'Your email address', with: email
+        fill_in 'Name of the organisation affected', with: organisation
+        click_on('Submit')
+        expect(page).to have_content "Details can't be blank"
+      end
+
+      it 'something wrong with their admin account' do
+        visit existing_account_new_help_path
+        fill_in 'Your name', with: name
+        fill_in 'Your email address', with: email
+        fill_in 'Name of the organisation affected', with: organisation
+        click_on('Submit')
+        expect(page).to have_content "Details can't be blank"
+      end
+
+      it 'leaving feedback' do
+        visit signing_up_new_help_path
+        fill_in 'Your name', with: email
+        fill_in 'Your email address', with: organisation
+        click_on('Submit')
+        expect(page).to have_content "Details can't be blank"
       end
     end
   end

@@ -12,25 +12,24 @@ describe 'contact us page' do
   context 'with support ticket details filled in' do
     before do
       sign_in_user user
-      visit help_index_path
-      fill_in 'contact_number', with: '11111111112'
-      fill_in 'subject', with: 'Subject'
-      fill_in 'details', with: 'Details'
+      visit signed_in_new_help_path
+      fill_in 'Tell us about your issue', with: 'Help me barry.. im a duck too'
+      fill_in 'Your email address', with: 'barry@gov.uk'
     end
 
     it 'submitting request explains a support request has been submitted' do
-      click_on 'Submit'
+      click_on 'Send support request'
       expect(page).to have_content('Your support request has been submitted')
     end
 
     it 'redirects to the home page' do
-      click_on 'Submit'
+      click_on 'Send support request'
       expect(page.current_path).to eq(root_path)
     end
 
     it 'submitting request sends an email to support' do
       expect {
-        click_on 'Submit'
+        click_on 'Send support request'
       }.to change {
         SendHelpEmailSpy.support_emails_sent_count
       }.by(1)
