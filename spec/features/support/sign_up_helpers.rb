@@ -13,6 +13,7 @@ def update_user_details(
   service_email: 'admin@gov.uk'
 )
   return unless confirmation_email_received?
+
   visit confirmation_email_link
   fill_in 'Organisation name', with: organisation_name
   fill_in 'Service email', with: service_email
