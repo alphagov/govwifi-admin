@@ -44,4 +44,21 @@ describe Location do
       end
     end
   end
+
+  describe 'saving invalid IPs with mix of hash and strong parameters' do
+    it 'does not save invalid IPs' do
+      location = Location.create(
+        address: '6-8 HEMMING ST',
+        postcode: '',
+        organisation_id: create(:organisation).id,
+        ips_attributes: ActionController::Parameters.new(
+          "0" => ActionController::Parameters.new(address: '34.3.4.3'),
+          "1" => ActionController::Parameters.new(address: 'wrong')
+        ).permit!
+      )
+
+      expect(location.save).to be_falsey
+      expect(location).to_not be_valid
+    end
+  end
 end

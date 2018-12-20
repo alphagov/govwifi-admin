@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     confirmations: 'users/confirmations',
     registrations: 'users/registrations',
-    invitations: 'users/invitations'
+    invitations: 'users/invitations',
+    passwords: 'users/passwords'
   }
   devise_scope :user do
     put 'users/confirmations', to: 'users/confirmations#update'
@@ -16,9 +17,7 @@ Rails.application.routes.draw do
   resources :ips, only: %i[index new create destroy] do
     get 'remove', to: 'ips#index'
   end
-  resources :locations, only: [] do
-    resources :ips, only: %i[new create], controller: "locations/ips"
-  end
+
   resources :help, only: %i[create new] do
     get 'signed_in', on: :new
     get 'signing_up', on: :new
@@ -26,12 +25,14 @@ Rails.application.routes.draw do
     get 'feedback', on: :new
   end
 
+  resources :locations, only: [:new, :create]
   resources :team_members, only: %i[index edit update destroy]
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index] do
     get 'search', on: :collection
   end
 
+  resources :organisations, only: %i[show edit update]
   namespace :admin do
     resources :mou, only: %i[index update create]
     resources :organisations, only: %i[index show destroy]

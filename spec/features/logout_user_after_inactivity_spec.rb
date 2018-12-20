@@ -1,4 +1,3 @@
-require 'features/support/sign_up_helpers'
 require 'timecop'
 
 describe 'logout users after specific period of inactivity' do

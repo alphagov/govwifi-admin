@@ -1,5 +1,3 @@
-require 'features/support/sign_up_helpers'
-
 describe 'Add an IP' do
   let!(:user) { create(:user) }
 

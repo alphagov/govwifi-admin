@@ -1,4 +1,3 @@
-require 'features/support/sign_up_helpers'
 require 'support/invite_use_case'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'

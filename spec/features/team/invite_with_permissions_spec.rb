@@ -1,4 +1,3 @@
-require 'features/support/sign_up_helpers'
 require 'support/notifications_service'
 
 describe 'Set user permissions on invite' do

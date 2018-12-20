@@ -1,5 +1,3 @@
-require 'features/support/sign_up_helpers'
-require 'features/support/errors_in_form'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
@@ -8,6 +6,17 @@ describe 'Sign up as an organisation' do
   include_examples 'notifications service'
 
   let(:name) { 'Sally' }
+
+  context 'with a valid email' do
+    let(:email) { 'newuser@gov.uk' }
+    before { sign_up_for_account(email: email) }
+
+    it 'instructs the user to check their confirmation email' do
+      expect(page).to have_content(
+        "A confirmation email has been sent to #{email}"
+        )
+    end
+  end
 
   context 'with correct data' do
     before do
