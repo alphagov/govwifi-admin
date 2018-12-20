@@ -1,48 +1,47 @@
 describe UseCases::Administrator::SendHelpEmail do
-  class SendHelpEmailGatewayMock
-    def send(opts)
-      raise unless opts[:email] == 'test@localhost'
-      raise unless opts[:locals][:details] == 'some problem'
-      raise unless opts[:locals][:subject] == 'my problem'
-      raise unless opts[:locals][:sender_email] == 'sender@example.com'
-      raise unless opts[:locals][:organisation] == 'organisation'
-      raise unless opts[:locals][:name] == 'Name'
-      raise unless opts[:locals][:phone] == '01234567890'
-      raise unless opts[:template_id] == 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee'
-      raise unless opts[:reference] == 'help_email'
-      {}
-    end
-  end
+  subject { described_class.new(notifications_gateway: gateway_spy) }
 
-  let(:email) { GOV_NOTIFY_CONFIG['support_email'] }
-  let(:confirmation_url) { 'https://example.com' }
-  let(:template_id) { GOV_NOTIFY_CONFIG['help_email']['template_id'] }
+  let(:gateway_spy) { spy(send: nil) }
+
+  let(:email) { 'example_support@email.com' }
+  let(:template_id) { 'aaa-bbb-ccc' }
   let(:details) { 'some problem' }
+  let(:name) { 'Mr Example' }
   let(:email_subject) { 'my problem' }
   let(:sender_email) { 'sender@example.com' }
-  let(:organisation) { 'organisation' }
-  let(:name) { 'Name' }
   let(:phone) { '01234567890' }
+  let(:organisation) { 'Example Organisation' }
 
-  subject do
-    described_class.new(
-      notifications_gateway: SendHelpEmailGatewayMock.new
+  before do
+    subject.execute(
+      email: email,
+      template_id: template_id,
+      details: details,
+      name: name,
+      subject: email_subject,
+      sender_email: sender_email,
+      phone: phone,
+      organisation: organisation
     )
   end
 
+  let(:expected_locals) do
+    {
+      details: details,
+      subject: email_subject,
+      sender_email: sender_email,
+      organisation: organisation,
+      name: name,
+      phone: phone
+    }
+  end
+
   it 'calls notifications gateway with valid data' do
-    expect {
-      subject
-        .execute(
-          email: email,
-          template_id: template_id,
-          details: details,
-          name: name,
-          subject: email_subject,
-          sender_email: sender_email,
-          phone: phone,
-          organisation: organisation
-        )
-    }.to_not raise_error
+    expect(gateway_spy).to have_received(:send) do |args|
+      expect(args[:email]).to eq(email)
+      expect(args[:locals]).to eq(expected_locals)
+      expect(args[:template_id]).to eq(template_id)
+      expect(args[:reference]).to eq('help_email')
+    end
   end
 end

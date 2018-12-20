@@ -1,33 +1,26 @@
 describe UseCases::Administrator::SendConfirmationEmail do
-  class SendConfirmationEmailGatewayMock
-    def send(opts)
-      raise unless opts[:email] == 'test@example.com'
-      raise unless opts[:locals][:confirmation_url] == 'https://example.com'
-      raise unless opts[:template_id] == 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
-      raise unless opts[:reference] == 'confirmation_email'
+  subject { described_class.new(notifications_gateway: gateway_spy) }
 
-      {}
-    end
-  end
+  let(:gateway_spy) { spy(send: nil) }
 
   let(:email) { 'test@example.com' }
   let(:confirmation_url) { 'https://example.com' }
   let(:template_id) { GOV_NOTIFY_CONFIG['confirmation_email']['template_id'] }
 
-  subject do
-    described_class.new(
-      notifications_gateway: SendConfirmationEmailGatewayMock.new
+  before do
+    subject.execute(
+      email: email,
+      confirmation_url: confirmation_url,
+      template_id: template_id
     )
   end
 
   it 'calls notifications gateway with valid data' do
-    expect {
-      subject
-        .execute(
-          email: email,
-          confirmation_url: confirmation_url,
-          template_id: template_id
-        )
-    }.to_not raise_error
+    expect(gateway_spy).to have_received(:send) do |args|
+      expect(args[:email]).to eq(email)
+      expect(args.dig(:locals, :confirmation_url)).to eq(confirmation_url)
+      expect(args[:template_id]).to eq(template_id)
+      expect(args[:reference]).to eq('confirmation_email')
+    end
   end
 end
