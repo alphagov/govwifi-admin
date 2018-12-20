@@ -1,10 +1,6 @@
-require 'support/notifications_service'
-require 'support/reset_password_use_case_spy'
-require 'support/reset_password_use_case'
-require 'support/confirmation_use_case_spy'
-require 'support/confirmation_use_case'
-
 describe "Resetting a password" do
+  include_context 'with a mocked notifications client'
+
   it "displays the forgot password link at login" do
     visit root_path
     expect(page).to have_content("Forgot your password?")
@@ -28,62 +24,52 @@ describe "Resetting a password" do
     it "tells the user the email cannot be found" do
       expect(page).to have_content("Email not found")
     end
+
+    it 'sends no email' do
+      expect(notifications).to be_empty
+    end
   end
 
   context "when user is not yet confirmed" do
-    include_examples 'reset password use case spy'
-    include_examples 'confirmation use case spy'
-    include_examples 'notifications service'
-
     let(:user) { create(:user, :unconfirmed) }
 
-    it "tells them to confirm their account first" do
+    before do
       visit new_user_password_path
       fill_in "user_email", with: user.email
       click_on "Send me reset password instructions"
+    end
 
+    it "tells them to confirm their account first" do
       expect(page).to have_content("Resend confirmation instructions")
       expect(page.current_path).to eq(new_user_confirmation_path)
     end
 
-    it 'does not send a reset password link' do
-      visit new_user_password_path
-      fill_in "user_email", with: user.email
-
-      expect {
-        click_on "Send me reset password instructions"
-      }.to change { ResetPasswordUseCaseSpy.reset_count }.by(0)
+    it "resends the confirm email" do
+      expect(last_notification_type).to eq "confirm"
     end
   end
 
   context "when the user does exist" do
-    include_examples 'reset password use case spy'
-    include_examples 'notifications service'
-
     let(:user) { create(:user) }
 
-    it "sends the reset password instructions" do
-      expect {
-        visit new_user_password_path
-        fill_in "user_email", with: user.email
-        click_on "Send me reset password instructions"
-      }.to change { ResetPasswordUseCaseSpy.reset_count }.by(1)
+    it "sends a reset password email" do
+      visit new_user_password_path
+      fill_in "user_email", with: user.email
+      click_on "Send me reset password instructions"
+      expect(last_notification_type).to eq "reset"
       expect(page).to have_content("You will receive an email with instructions")
     end
 
     context "when clicking on reset link" do
-      let(:reset_link) { ResetPasswordUseCaseSpy.last_reset_url }
-      let(:reset_path) { ResetPasswordUseCaseSpy.last_reset_path_with_query }
-
       before do
         visit new_user_password_path
         fill_in "user_email", with: user.email
         click_on "Send me reset password instructions"
-        visit(reset_path)
+        visit(last_notification_link)
       end
 
       it "sends an https link" do
-        expect(URI(reset_link).scheme).to eq("https")
+        expect(URI(last_notification_link).scheme).to eq("https")
       end
 
       it "redirects user to edit password page" do
@@ -100,7 +86,6 @@ describe "Resetting a password" do
           expect(page).to have_content("Sign out")
         end
       end
-
 
       context "when entering a password that is too short" do
         before do

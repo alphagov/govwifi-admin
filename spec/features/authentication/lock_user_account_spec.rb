@@ -41,7 +41,11 @@ describe 'Locking a users account' do
     end
 
     it 'sends the right type of email' do
-      expect(notifications.last).to eq 'unlock'
+      expect(last_notification_type).to eq 'unlock'
+    end
+
+    it 'sends an unlock link' do
+      expect(last_notification_link).to include(user_unlock_path)
     end
 
     it 'tells me my account is locked' do
