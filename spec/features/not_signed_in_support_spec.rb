@@ -1,10 +1,5 @@
-require 'support/notifications_service'
-require 'support/send_help_email_use_case_spy'
-require 'support/send_help_email_use_case'
-
 describe 'Get support when not signed in' do
-  include_examples 'notifications service'
-  include_examples 'send help email use case spy'
+  include_context 'with a mocked notifications client'
 
   let(:email) { 'george@gov.uk' }
   let(:name) { 'George' }
@@ -74,7 +69,7 @@ describe 'Get support when not signed in' do
           fill_in 'Tell us a bit more about your issue', with: details
           click_on 'Submit'
         }.to change {
-          SendHelpEmailSpy.support_emails_sent_count
+          notifications.count
         }.by(1)
       end
 
@@ -85,7 +80,7 @@ describe 'Get support when not signed in' do
           fill_in 'Tell us a bit more about your issue', with: details
           click_on 'Submit'
         }.to change {
-          SendHelpEmailSpy.support_emails_sent_count
+          notifications.count
         }.by(1)
       end
 
@@ -96,14 +91,23 @@ describe 'Get support when not signed in' do
           fill_in 'Your message', with: details
           click_on 'Submit'
         }.to change {
-          SendHelpEmailSpy.support_emails_sent_count
+          notifications.count
         }.by(1)
       end
 
       it 'does not send an email if the details and or email is blank' do
         visit signing_up_new_help_path
         click_on 'Submit'
-        expect(SendHelpEmailSpy.support_emails_sent_count).to eq(0)
+        expect(notifications.count).to eq(0)
+      end
+
+      it 'records the email' do
+        visit signing_up_new_help_path
+        fill_in 'Your email address', with: email
+        fill_in 'Tell us a bit more about your issue', with: details
+        click_on 'Submit'
+
+        expect(last_notification_sender).to eq email
       end
     end
   end
