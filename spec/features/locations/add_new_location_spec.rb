@@ -1,9 +1,5 @@
-require 'support/notifications_service'
-require 'support/confirmation_use_case'
-
 describe 'Add new location' do
-  include_examples 'confirmation use case spy'
-  include_examples 'notifications service'
+  include_context 'with a mocked notifications client'
 
   let(:user) { create(:user) }
   let(:ip_input) { "location_ips_attributes_0_address" }

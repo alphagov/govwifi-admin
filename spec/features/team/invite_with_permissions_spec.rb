@@ -1,7 +1,5 @@
-require 'support/notifications_service'
-
 describe 'Set user permissions on invite' do
-  include_examples 'notifications service'
+  include_context 'with a mocked notifications client'
 
   let(:user) { create(:user) }
   let(:invited_email) { 'invited@gov.uk' }
