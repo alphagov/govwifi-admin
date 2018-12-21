@@ -8,7 +8,13 @@ class HomeController < ApplicationController
     @dublin_radius_ips = radius_ips[:dublin]
   end
 
-  def setup; end
+  def setup
+    @ips = current_organisation.ips
+    @locations = current_organisation.locations
+    @team_members = current_organisation.users
+    @london_radius_ips = radius_ips[:london]
+    @dublin_radius_ips = radius_ips[:dublin]
+  end
 
 private
 
