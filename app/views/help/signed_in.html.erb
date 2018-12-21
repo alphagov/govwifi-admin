@@ -1,0 +1,43 @@
+<%= render "layouts/form_errors", resource: @support_form %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= link_to 'Back', root_path, class: "govuk-back-link" %>
+    <h2 class="govuk-heading-l">Get support</h2>
+    <div class="govuk-details">
+      <h2 class="govuk-heading-s">
+        End user connection issues
+      </h2>
+      <p class="govuk-body">
+        If an end user is having trouble with GovWifi, we recommend directing them to
+        <%= link_to 'our guidance on common issues', SITE_CONFIG['end_user_troubleshooting_link'], class: "govuk-link" %>.
+      </p>
+    </div>
+
+    <h2 class="govuk-heading-s">Before you contact us</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li><%= link_to 'Check the GovWifi service status', status_index_path, class: "govuk-link" %></li>
+      <li>Check your <%= link_to 'configured IP addresses', ips_path, class: "govuk-link" %> match your authenticator IPs </li>
+      <li>Check your authenticators have the right RADIUS secret keys</li>
+      <li>Try logging in as an end user, then <%= link_to 'search our logs', search_logs_path, class: "govuk-link" %></li>
+      <li><%= link_to 'Browse the technical documentation', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %></li>
+    </ul>
+
+    <%= form_for @support_form, url: {action: "create"}  do |f| %>
+      <div class="govuk-form-group <%= field_error(@support_form, :email) %>">
+        <%= f.label :email, "Your email address", class: "govuk-label" %>
+        <%= f.text_field :email, class: "govuk-input" %>
+      </div>
+      <div class="govuk-form-group <%= field_error(@support_form, :details) %>">
+        <%= f.label :details, "Tell us about your issue", class: "govuk-label" %>
+        <%= f.text_area :details, class: "govuk-textarea", size: "30x10"  %>
+      </div>
+      <div class="govuk-form-group">
+        <%= f.hidden_field :choice %>
+      </div>
+      <%= f.submit 'Send support request', class: 'govuk-button' %>
+    <% end %>
+  </div>
+</div>
+
+
