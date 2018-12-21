@@ -1,7 +1,5 @@
-require 'support/unlock_account_use_case_spy'
-
 describe 'Locking a users account' do
-  include_examples 'notifications service'
+  include_context 'with a mocked notifications client'
 
   let(:correct_password) { 'password' }
   let(:incorrect_password) { 'incorrectpassword' }
@@ -29,15 +27,29 @@ describe 'Locking a users account' do
     expect(page).to have_content 'Your account is locked.'
   end
 
-  it 'when they have tried to login ten times with the wrong password sends an unlock email' do
-    allow(UseCases::Administrator::SendUnlockEmail).to receive(:new).and_return(UnlockAccountUseCaseSpy.new)
-    expect {
+  context 'when they have tried to login ten times with the wrong password' do
+    before do
       10.times do
         fill_in 'Email', with: user.email
         fill_in 'Password', with: incorrect_password
         click_on 'Continue'
       end
-    }.to change { UnlockAccountUseCaseSpy.unlock_count }.by(1)
-    expect(page).to have_content 'Your account is locked.'
+    end
+
+    it 'sends one email' do
+      expect(notifications.count).to eq 1
+    end
+
+    it 'sends the right type of email' do
+      expect(last_notification_type).to eq 'unlock'
+    end
+
+    it 'sends an unlock link' do
+      expect(last_notification_link).to include(user_unlock_path)
+    end
+
+    it 'tells me my account is locked' do
+      expect(page).to have_content 'Your account is locked.'
+    end
   end
 end

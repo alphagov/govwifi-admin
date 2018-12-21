@@ -27,15 +27,15 @@ development:
 test:
   support_email: 'test@localhost'
   confirmation_email:
-    template_id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+    template_id: 'confirm'
   reset_password_email:
-    template_id: 'zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz'
+    template_id: 'reset'
   invite_email:
-    template_id: 'wwwwwwww-wwww-wwww-wwww-wwwwwwwwwwww'
+    template_id: 'invite'
   help_email:
-    template_id: 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee'
+    template_id: 'help'
   unlock_account:
-    template_id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+    template_id: 'unlock'
 
 production:
   support_email: 'govwifi-support@digital.cabinet-office.gov.uk'
