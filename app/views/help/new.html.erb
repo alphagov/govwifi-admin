@@ -1,28 +1,29 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-l">Support</h2>
-    <p class="govuk-body">
-      <div class="govuk-details">
-        <h2 class="govuk-body-m">How can we help?</h2>
+    <div class="govuk-details">
+      <h2 class="govuk-body-m">How can we help?</h2>
 
       <%= form_tag new_help_path, class: 'govuk-radios', method: 'get' do %>
-      <div class="govuk-radio">
-        <div class="govuk-radios__item">
-          <%= radio_button_tag(:choice, :signing_up, nil, class: "govuk-radios__input") %>
-          <%= label_tag(:choice_signing_up, "I'm having trouble signing up", class: 'govuk-label govuk-radios__label') %>
+        <div class="govuk-radio">
+          <div class="govuk-radios__item">
+            <%= radio_button_tag(:choice, :signing_up, nil, class: "govuk-radios__input") %>
+            <%= label_tag(:choice_signing_up, "I'm having trouble signing up", class: 'govuk-label govuk-radios__label') %>
+          </div>
+          <div class="govuk-radios__item">
+            <%= radio_button_tag(:choice, :existing_account, nil, class: "govuk-radios__input") %>
+            <%= label_tag(:choice_existing_account, "Something's wrong with my admin account", class: 'govuk-label govuk-radios__label') %>
+          </div>
+          <div class="govuk-radios__item">
+            <%= radio_button_tag(:choice, :feedback, nil, class: "govuk-radios__input") %>
+            <%= label_tag(:choice_feedback, "Ask a question or leave feedback", class: 'govuk-label govuk-radios__label govuk-!-margin-bottom-4') %>
+          </div>
         </div>
-        <div class="govuk-radios__item">
-          <%= radio_button_tag(:choice, :existing_account, nil, class: "govuk-radios__input") %>
-          <%= label_tag(:choice_existing_account, "Something's wrong with my admin account", class: 'govuk-label govuk-radios__label') %>
-        </div>
-        <div class="govuk-radios__item">
-          <%= radio_button_tag(:choice, :feedback, nil, class: "govuk-radios__input") %>
-          <%= label_tag(:choice_feedback, "Ask a question or leave feedback", class: 'govuk-label govuk-radios__label govuk-!-margin-bottom-4') %>
-        </div>
-      </div>
-      <p><%= submit_tag('Continue', class: 'govuk-button') %></p>
-    <% end %>
+        <%= submit_tag('Continue', class: 'govuk-button') %>
+      <% end %>
 
-  <p class="govuk-body"> If you are having trouble connecting to GovWifi in your organisation, please use our guidance on common issues.</p>
-  <p class="govuk-body"> If this doesn't resolve the issue, we recommend you contact your organisation’s IT support team.</p>
+      <p class="govuk-body"> If you are having trouble connecting to GovWifi in your organisation, please use our guidance on common issues.</p>
+      <p class="govuk-body"> If this doesn't resolve the issue, we recommend you contact your organisation’s IT support team.</p>
+    </div>
+  </div>
 </div>

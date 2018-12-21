@@ -1,15 +1,15 @@
-<%= render "layouts/form_errors", resource: @support_form%>
+<%= render "layouts/form_errors", resource: @support_form %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-  <%= link_to 'Back', new_help_path, class: "govuk-back-link" %>
+    <%= link_to 'Back', new_help_path, class: "govuk-back-link" %>
     <h2 class="govuk-heading-l" >I'm having trouble signing up</h2>
-    <div class="govuk-inset-text">
-      We publish our guidance on how to setup and manage the service in our
+    <p class="govuk-inset-text">
+      We publish guidance on how to setup and manage the service in our
       <%= link_to 'documentation.', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %>
-    </div>
+    </p>
 
-  <%= form_for @support_form, url: {action: "create"}  do |f| %>
-    <div class="govuk-two-thirds">
+    <%= form_for @support_form, url: {action: "create"}  do |f| %>
       <div class="govuk-form-group">
         <%= f.label :name, "Your name", class: "govuk-label" %>
         <%= f.text_field :name, class: "govuk-input" %>
@@ -32,4 +32,5 @@
       <%= f.submit 'Submit', class: 'govuk-button' %>
     <% end %>
   </div>
+</div>
 

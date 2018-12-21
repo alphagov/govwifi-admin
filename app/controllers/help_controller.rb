@@ -1,31 +1,6 @@
 class HelpController < ApplicationController
   skip_before_action :authenticate_user!
 
-  def create
-    @support_form = SupportForm.new(support_form_params)
-
-    if @support_form.valid?
-      redirect_user
-    else
-      render @support_form.choice
-    end
-
-    template_id = GOV_NOTIFY_CONFIG['help_email']['template_id']
-
-    UseCases::Administrator::SendHelpEmail.new(
-      notifications_gateway: EmailGateway.new
-    ).execute(
-      email: GOV_NOTIFY_CONFIG['support_email'],
-      sender_email: sender_email,
-      name: params[:support_form][:name] || current_user&.name,
-      organisation: sender_organisation_name,
-      details: params[:support_form][:details],
-      phone: params[:phone] || "",
-      subject: params[:subject] || "",
-      template_id: template_id
-    )
-  end
-
   def new
     case params[:choice]
     when "signing_up"
@@ -57,13 +32,37 @@ class HelpController < ApplicationController
     @support_form.choice = :signed_in
   end
 
+  def create
+    @support_form = SupportForm.new(support_form_params)
+
+    if @support_form.valid?
+      template_id = GOV_NOTIFY_CONFIG['help_email']['template_id']
+
+      UseCases::Administrator::SendHelpEmail.new(
+        notifications_gateway: EmailGateway.new
+      ).execute(
+        email: GOV_NOTIFY_CONFIG['support_email'],
+        sender_email: sender_email,
+        name: params[:support_form][:name] || current_user&.name,
+        organisation: sender_organisation_name,
+        details: params[:support_form][:details],
+        phone: params[:phone] || "",
+        subject: params[:subject] || "",
+        template_id: template_id
+      )
+      redirect_to_homepage
+    else
+      render @support_form.choice
+    end
+  end
+
 private
 
   def support_form_params
     params.require(:support_form).permit(:name, :details, :email, :organisation, :choice)
   end
 
-  def redirect_user
+  def redirect_to_homepage
     if current_user.nil?
       redirect_to new_user_session_path, notice: 'Your support request has been submitted.'
     else

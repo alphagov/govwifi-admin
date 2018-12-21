@@ -95,11 +95,11 @@
               <%= link_to 'Documentation', SITE_CONFIG['organisation_docs_link'], class: "govuk-header__link" %>
             </li>
             <li class="govuk-header__navigation-item">
-            <% if user_signed_in? %>
-              <%= link_to 'Support', signed_in_new_help_path, class: "govuk-header__link #{active_tab(signed_in_new_help_path)}" %>
-            <%else %>
-              <%= link_to 'Support', new_help_path, class: "govuk-header__link #{active_tab(new_help_path)}" %>
-            <% end %>
+              <% if user_signed_in? %>
+                <%= link_to 'Support', signed_in_new_help_path, class: "govuk-header__link #{active_tab(signed_in_new_help_path)}" %>
+              <% else %>
+                <%= link_to 'Support', new_help_path, class: "govuk-header__link #{active_tab(new_help_path)}" %>
+              <% end %>
             </li>
             <% if user_signed_in? %>
               <li class="govuk-header__navigation-item">
