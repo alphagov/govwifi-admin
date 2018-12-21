@@ -14,6 +14,7 @@
       <%= link_to "MOU", admin_mou_index_path, class: active_tab(admin_mou_index_path) %>
     <% else %>
       <%= link_to "Overview", root_path, class: active_tab(root_path) %>
+      <%= link_to "Setting Up", setup_path, class: active_tab(setup_path) %>
       <%= link_to 'Organisation', organisation_path(current_organisation), class: active_tab("organisation") %>
       <%= link_to "Team members", team_members_path, class: "#{active_tab("team")}" + "#{active_tab("user")}"%>
       <%= link_to "Settings", ips_path, class: active_tab("ips") %>
