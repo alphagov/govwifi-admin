@@ -1,6 +1,6 @@
-require 'support/notifications_service'
-
 describe 'guidance after sign in' do
+  include_context 'with a mocked notifications client'
+
   let(:user) { create(:user) }
   before { sign_in_user user }
 

@@ -1,7 +1,7 @@
 require 'timecop'
 
-describe 'with a stubbed notifications service' do
-  include_examples 'notifications service'
+describe 'view whether IPs are ready' do
+  include_context 'with a mocked notifications client'
 
   after { Timecop.return }
 
