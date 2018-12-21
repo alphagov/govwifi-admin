@@ -8,6 +8,8 @@ class HomeController < ApplicationController
     @dublin_radius_ips = radius_ips[:dublin]
   end
 
+  def setup; end
+
 private
 
   def radius_ips
