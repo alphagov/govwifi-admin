@@ -31,7 +31,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
   gem 'timecop', '~> 0.9.1'
-  gem 'webmock', '~> 3.4.2'
+  gem 'webmock', '~> 3.5.1'
 end
 
 group :development, :test do
