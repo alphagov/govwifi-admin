@@ -3,7 +3,6 @@ describe 'Get support when not signed in' do
 
   let(:email) { 'george@gov.uk' }
   let(:name) { 'George' }
-  let(:organisation) { 'George Tech' }
   let(:details) { 'I have an issue' }
 
   before { visit new_help_path }
