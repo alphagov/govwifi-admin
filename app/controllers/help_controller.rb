@@ -74,6 +74,6 @@ private
   end
 
   def sender_organisation_name
-    support_form_params[:organisation] || current_user&.name || ""
+    support_form_params[:organisation] || current_user&.organisation&.name || ""
   end
 end

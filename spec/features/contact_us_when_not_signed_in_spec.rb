@@ -1,4 +1,4 @@
-describe 'Get support when not signed in' do
+describe 'Contact us when not signed in' do
   include_context 'with a mocked notifications client'
 
   let(:email) { 'george@gov.uk' }
@@ -106,7 +106,8 @@ describe 'Get support when not signed in' do
         fill_in 'Tell us a bit more about your issue', with: details
         click_on 'Submit'
 
-        expect(last_notification_sender).to eq email
+        expect(last_notification_personalisation[:sender_email])
+          .to eq email
       end
     end
   end
