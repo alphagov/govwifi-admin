@@ -9,7 +9,6 @@ describe UseCases::Administrator::SendHelpEmail do
   let(:name) { 'Mr Example' }
   let(:email_subject) { 'my problem' }
   let(:sender_email) { 'sender@example.com' }
-  let(:phone) { '01234567890' }
   let(:organisation) { 'Example Organisation' }
 
   before do
@@ -20,7 +19,6 @@ describe UseCases::Administrator::SendHelpEmail do
       name: name,
       subject: email_subject,
       sender_email: sender_email,
-      phone: phone,
       organisation: organisation
     )
   end
@@ -31,8 +29,7 @@ describe UseCases::Administrator::SendHelpEmail do
       subject: email_subject,
       sender_email: sender_email,
       organisation: organisation,
-      name: name,
-      phone: phone
+      name: name
     }
   end
 

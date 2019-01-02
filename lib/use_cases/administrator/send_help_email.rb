@@ -7,7 +7,7 @@ module UseCases
         @notifications_gateway = notifications_gateway
       end
 
-      def execute(email:, sender_email:, name:, organisation:, details:, phone:, subject:, template_id:)
+      def execute(email:, sender_email:, name:, organisation:, details:, subject:, template_id:)
         opts = {
           email: email,
           locals: {
@@ -15,7 +15,6 @@ module UseCases
             name: name,
             subject: subject,
             sender_email: sender_email,
-            phone: phone,
             organisation: organisation
           },
           template_id: template_id,
