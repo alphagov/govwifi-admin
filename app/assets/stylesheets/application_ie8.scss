@@ -3,6 +3,7 @@ $govuk-font-url-function: "font-url";
 
 @import "../../../node_modules/govuk-frontend/all-ie8";
 @import "./components/buttons_and_links";
+@import "./components/fake_radio";
 @import "./components/flash_messages";
 @import "./components/health_checks";
 @import "./components/label_inside_input";
