@@ -46,7 +46,6 @@ class HelpController < ApplicationController
         name: params[:support_form][:name] || current_user&.name,
         organisation: sender_organisation_name,
         details: params[:support_form][:details],
-        phone: params[:phone] || "",
         subject: params[:subject] || "",
         template_id: template_id
       )
@@ -75,6 +74,6 @@ private
   end
 
   def sender_organisation_name
-    support_form_params[:organisation] || current_user&.name || ""
+    support_form_params[:organisation] || current_user&.organisation&.name || ""
   end
 end
