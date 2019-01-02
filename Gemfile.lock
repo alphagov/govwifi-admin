@@ -286,7 +286,7 @@ GEM
     unicode-display_width (1.4.0)
     warden (1.2.7)
       rack (>= 1.0)
-    webmock (3.4.2)
+    webmock (3.5.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
@@ -326,7 +326,7 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   simplecov
   timecop (~> 0.9.1)
-  webmock (~> 3.4.2)
+  webmock (~> 3.5.1)
 
 RUBY VERSION
    ruby 2.5.1p57
