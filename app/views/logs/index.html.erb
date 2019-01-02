@@ -1,7 +1,17 @@
-<%= link_to "Back to search", search_logs_path, class: "govuk-back-link" %>
+<%= link_to "Back to search", new_logs_search_path, class: "govuk-back-link" %>
 
 <% if @logs.present? %>
   <h1 class="govuk-heading-l">Displaying logs for <%= params[:username] || params[:ip] %></h1>
+
+  <div class="govuk-inset-text">
+    <h4 class="govuk-heading-s">Some user activity is not shown</h4>
+    <p class="govuk-body">
+      Only requests from your organisation's IPs are shown.
+
+    <p class="govuk-body govuk-!-padding-top-0">
+      Results older than two weeks are not shown.
+    </p>
+  </div>
 
   <% if @logs.count >= Gateways::Sessions::MAXIMUM_RESULTS_COUNT %>
     <div class="govuk-details">

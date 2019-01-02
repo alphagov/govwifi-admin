@@ -1,0 +1,42 @@
+<div class='govuk-grid-row'>
+  <h1 class='govuk-heading-l govuk-grid-column-full'>Logs</h1>
+
+  <div class='govuk-grid-column-two-thirds'>
+    <h2 class='govuk-heading-m'>
+      Find logs by
+    </h2>
+
+    <ul class='govuk-list'>
+      <li>
+        <a class='fake-radio' href='<%=new_logs_search_path(by: 'username') %>'>
+          <% if @search_type == 'username' %>
+            <%= image_tag 'radio-button-selected'%>
+          <% else %>
+            <%= image_tag 'radio-button'%>
+          <% end %>
+          <label class='fake-radio-label'>Username</label>
+        </a>
+      </li>
+      <li>
+        <a class='fake-radio' href='<%= new_logs_search_path(by: 'ip') %>'>
+          <% if @search_type == 'ip' %>
+            <%= image_tag 'radio-button-selected'%>
+          <% else %>
+            <%= image_tag 'radio-button'%>
+          <% end %>
+          <label class='fake-radio-label'>IP</label>
+        </a>
+      </li>
+    </ul>
+
+    <%= form_with url: logs_search_index_path(by: @search_type), method: :post do |form| %>
+      <div class='govuk-form-group'>
+        <%= form.text_field :term, autofocus: true, class: 'govuk-input govuk-input--width-10' %>
+      </div>
+
+      <div class='actions'>
+        <%= form.submit 'Show logs', class: 'govuk-button' %>
+      </div>
+    <% end %>
+  </div>
+</div>
