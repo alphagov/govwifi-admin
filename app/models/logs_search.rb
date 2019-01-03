@@ -6,15 +6,19 @@ class LogsSearch
   validates :term, presence: true
   validate :validate_term
 
-  def initialize
-    @by = 'username'
+  def by
+    @by || 'username'
   end
 
 private
 
   def validate_term
-    validate_username if @by == 'username'
-    validate_ip if @by == 'ip'
+    case @by
+    when 'username'
+      validate_username
+    when 'ip'
+      validate_ip
+    end
   end
 
   def validate_username

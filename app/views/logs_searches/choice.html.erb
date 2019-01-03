@@ -1,0 +1,32 @@
+<div class='govuk-grid-row'>
+  <h1 class='govuk-heading-l govuk-grid-column-full'>Logs</h1>
+
+  <div class='govuk-grid-column-full'>
+    <p class='govuk-body'>
+      We log requests from your organisation to the GovWifi service.
+    </p>
+
+    <%= form_with url: new_logs_search_path, method: :get do |form| %>
+      <div class="govuk-form-group">
+        <span id="changed-name-hint" class="govuk-hint">
+          Search these logs by
+        </span>
+        <div class="govuk-radios govuk-radios--inline">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="choice-ip" name="choice" type="radio" value="ip">
+            <label class="govuk-label govuk-radios__label" for="choice-ip">
+              IP address
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="choice-username" name="choice" type="radio" value="username">
+            <label class="govuk-label govuk-radios__label" for="choice-username">
+              Username
+            </label>
+          </div>
+        </div>
+      </div>
+      <%= form.submit 'Go to search', class: 'govuk-button' %>
+    <% end %>
+  </div>
+</div>

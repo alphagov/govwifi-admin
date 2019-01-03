@@ -1,4 +1,4 @@
-describe LogsSearch, focus: true do
+describe LogsSearch do
   context 'with no type specified' do
     it 'searches by username' do
       expect(subject.by).to eq 'username'

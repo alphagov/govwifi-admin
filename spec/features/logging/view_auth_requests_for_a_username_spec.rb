@@ -10,31 +10,31 @@ describe "View authentication requests for a username" do
       Session.create!(
         start: 3.days.ago,
         username: username,
-        mac: '',
-        ap: '',
-        siteIP: '1.1.1.1',
+        mac: "",
+        ap: "",
+        siteIP: "1.1.1.1",
         success: true,
-        building_identifier: ''
+        building_identifier: ""
       )
 
       Session.create!(
         start: 3.days.ago,
         username: username,
-        mac: '',
-        ap: '',
-        siteIP: '1.1.1.1',
+        mac: "",
+        ap: "",
+        siteIP: "1.1.1.1",
         success: false,
-        building_identifier: ''
+        building_identifier: ""
       )
 
       Session.create!(
         start: 3.days.ago,
         username: username,
-        mac: '',
-        ap: '',
-        siteIP: '2.2.2.2',
+        mac: "",
+        ap: "",
+        siteIP: "2.2.2.2",
         success: false,
-        building_identifier: ''
+        building_identifier: ""
       )
 
       organisation = create(:organisation)
@@ -44,9 +44,11 @@ describe "View authentication requests for a username" do
       create(:ip, location: location_two, address: "2.2.2.2")
 
       sign_in_user admin_user
-      visit search_logs_path
-      fill_in "username", with: search_string
-      click_on "Submit"
+      visit new_logs_search_path
+      choose "Username"
+      click_on "Go to search"
+      fill_in "Username", with: search_string
+      click_on "Show logs"
     end
 
     context "when username is correct" do
@@ -93,24 +95,25 @@ describe "View authentication requests for a username" do
 
       it "displays the search page with an error" do
         expect(page).to have_content("There is a problem")
-        expect(page).to have_content('There was a problem with your search')
+        expect(page).to have_content("There was a problem with your search")
         expect(page).to have_content("Find authentication requests for a username")
       end
     end
   end
 
-  context 'without results' do
-    let(:user) { create(:user) }
-    let(:username) { 'random' }
+  context "without results" do
+    let(:username) { "random" }
 
     before do
-      sign_in_user user
-      visit search_logs_path
-      fill_in 'username', with: username
-      click_on 'Submit'
+      sign_in_user create(:user)
+      visit new_logs_search_path
+      choose "Username"
+      click_on "Go to search"
+      fill_in "Username", with: username
+      click_on "Show logs"
     end
 
-    it 'displays the no results message' do
+    it "displays the no results message" do
       expect(page).to have_content("No authentication requests found for username: #{username}")
     end
   end

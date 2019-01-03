@@ -29,7 +29,12 @@ Rails.application.routes.draw do
   resources :team_members, only: %i[index edit update destroy]
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index]
-  resources :logs_search, path: 'logs/search', only: %i[new index create]
+
+  resources :logs_searches, path: 'logs/search', only: %i[new index create] do
+    get 'ip', on: :new
+    get 'username', on: :new
+  end
+
   resources :organisations, only: %i[show edit update]
 
   namespace :admin do

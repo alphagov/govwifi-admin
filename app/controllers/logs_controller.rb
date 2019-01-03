@@ -1,21 +1,24 @@
 class LogsController < ApplicationController
   def index
-    if params[:username].present? || params[:ip].present?
-      logs = UseCases::Administrator::GetAuthRequests.new(
-        search_validator: UseCases::Administrator::ValidateLogSearchQuery.new,
-        authentication_logs_gateway: Gateways::Sessions.new(
-          ips: current_organisation.ips.map(&:address)
-        )
-      ).execute(
-        username: params[:username]&.strip,
-        ip: params[:ip]
+    logs = UseCases::Administrator::GetAuthRequests.new(
+      authentication_logs_gateway: Gateways::Sessions.new(
+        ips: current_organisation.ips.map(&:address)
       )
+    ).execute(
+      username: username,
+      ip: ip
+    )
 
-      if logs.fetch(:error).present?
-        redirect_to :search_logs, alert: logs.fetch(:error)
-      end
+    @logs = logs.fetch(:results)
+  end
 
-      @logs = logs.fetch(:results)
-    end
+private
+
+  def username
+    params[:username] if params[:by] == 'username'
+  end
+
+  def ip
+    params[:ip] if params[:by] == 'ip'
   end
 end
