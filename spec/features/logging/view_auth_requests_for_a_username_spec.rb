@@ -1,4 +1,4 @@
-describe "View authentication requests a username" do
+describe "View authentication requests for a username" do
   context "with results" do
     let(:username) { "AAAAAA" }
     let(:search_string) { "AAAAAA" }
