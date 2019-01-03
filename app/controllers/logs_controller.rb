@@ -5,20 +5,10 @@ class LogsController < ApplicationController
         ips: current_organisation.ips.map(&:address)
       )
     ).execute(
-      username: username,
-      ip: ip
+      username: params[:username],
+      ip: params[:ip]
     )
 
     @logs = logs.fetch(:results)
-  end
-
-private
-
-  def username
-    params[:username] if params[:by] == 'username'
-  end
-
-  def ip
-    params[:ip] if params[:by] == 'ip'
   end
 end

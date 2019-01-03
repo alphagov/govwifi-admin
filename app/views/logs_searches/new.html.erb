@@ -3,29 +3,30 @@
 
   <div class='govuk-grid-column-full'>
     <p class='govuk-body'>
-      We log requests from your organisation to the GovWifi service.
+      We record recent requests made to the GovWifi service.
     </p>
 
-    <%= form_with url: new_logs_search_path, method: :get do |form| %>
+    <%= form_with url: logs_searches_path, method: :post do |form| %>
       <div class="govuk-form-group">
-        <span id="changed-name-hint" class="govuk-hint">
-          Search these logs by
-        </span>
-        <div class="govuk-radios govuk-radios--inline">
+        <p class="govuk-body">
+          How do you want to filter these logs?
+        </p>
+        <div class="govuk-radios">
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="choice-ip" name="choice" type="radio" value="ip">
+            <input class="govuk-radios__input" id="choice-ip" name="logs_search[by]" type="radio" value="ip">
             <label class="govuk-label govuk-radios__label" for="choice-ip">
               IP address
             </label>
           </div>
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="choice-username" name="choice" type="radio" value="username">
+            <input class="govuk-radios__input" id="choice-username" name="logs_search[by]" type="radio" value="username">
             <label class="govuk-label govuk-radios__label" for="choice-username">
               Username
             </label>
           </div>
         </div>
       </div>
+      <input type='hidden' name='logs_search[first_step]' value='true'>
       <%= form.submit 'Go to search', class: 'govuk-button' %>
     <% end %>
   </div>

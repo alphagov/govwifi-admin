@@ -1,10 +1,4 @@
 describe LogsSearch do
-  context 'with no type specified' do
-    it 'searches by username' do
-      expect(subject.by).to eq 'username'
-    end
-  end
-
   context 'searching by username' do
     before { subject.by = 'username' }
 

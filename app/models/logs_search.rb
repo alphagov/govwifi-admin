@@ -1,19 +1,19 @@
 class LogsSearch
   include ActiveModel::Model
 
-  attr_accessor :by, :term
+  attr_accessor :by, :term, :first_step
 
   validates :term, presence: true
   validate :validate_term
 
-  def by
-    @by || 'username'
+  def term
+    @term&.strip
   end
 
 private
 
   def validate_term
-    case @by
+    case by
     when 'username'
       validate_username
     when 'ip'
@@ -22,7 +22,7 @@ private
   end
 
   def validate_username
-    unless @term.length == 5 || @term.length == 6
+    unless term.length == 5 || term.length == 6
       self.errors.add(:term, 'must be 5 or 6 characters')
     end
   end

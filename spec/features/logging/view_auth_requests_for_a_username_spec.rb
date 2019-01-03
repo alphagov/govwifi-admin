@@ -1,4 +1,4 @@
-describe "View authentication requests for a username" do
+describe "View authentication requests a username" do
   context "with results" do
     let(:username) { "AAAAAA" }
     let(:search_string) { "AAAAAA" }
@@ -55,7 +55,7 @@ describe "View authentication requests for a username" do
       let(:search_string) { "AAAAAA" }
 
       it "displays the authentication requests" do
-        expect(page).to have_content("Displaying logs for #{username}")
+        expect(page).to have_content("Found 2 results for \"#{username}\"")
         expect(page).to have_content("successful")
         expect(page).to have_content("failed")
       end
@@ -93,11 +93,7 @@ describe "View authentication requests for a username" do
     context "when username is too short" do
       let(:search_string) { "1" }
 
-      it "displays the search page with an error" do
-        expect(page).to have_content("There is a problem")
-        expect(page).to have_content("There was a problem with your search")
-        expect(page).to have_content("Find authentication requests for a username")
-      end
+      it_behaves_like "errors in form"
     end
   end
 
@@ -114,7 +110,7 @@ describe "View authentication requests for a username" do
     end
 
     it "displays the no results message" do
-      expect(page).to have_content("No authentication requests found for username: #{username}")
+      expect(page).to have_content("\"#{username}\" isn't reaching the GovWifi service")
     end
   end
 end

@@ -26,7 +26,7 @@ describe 'View authentication requests for an IP' do
 
     context 'searching by IP address' do
       it 'displays the authentication requests' do
-        expect(page).to have_content("Displaying logs for #{ip}")
+        expect(page).to have_content("Found 1 result for \"#{ip}\"")
         expect(page).to have_content(username)
       end
     end

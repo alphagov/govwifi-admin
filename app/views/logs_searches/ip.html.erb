@@ -1,3 +1,5 @@
+<%= render "layouts/form_errors", resource: @search %>
+
 <div class='govuk-grid-row'>
   <div class='govuk-grid-column-two-thirds'>
     <%= link_to "Back to search options", new_logs_search_path, class: "govuk-back-link" %>
@@ -9,10 +11,12 @@
     <%= form_for @search do |f| %>
       <div class='govuk-form-group'>
         <%= f.label :term, 'IP address', class: 'govuk-label' %>
-        <%= f.text_field :term, class: 'govuk-input' %>
+        <%= f.text_field :term, class: 'govuk-input govuk-input--width-10' %>
       </div>
       <%= f.hidden_field :by %>
       <%= f.submit 'Show logs', class: 'govuk-button' %>
     <% end %>
+
+    <p class='govuk-body'> Or, click "view logs" from <%= link_to 'your list of IP addresses', ips_path %></p>
   </div>
 </div>
