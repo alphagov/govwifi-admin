@@ -95,7 +95,11 @@
               <%= link_to 'Documentation', SITE_CONFIG['organisation_docs_link'], class: "govuk-header__link" %>
             </li>
             <li class="govuk-header__navigation-item">
-              <%= link_to 'Support', help_index_path, class: "govuk-header__link #{active_tab(help_index_path)}" %>
+              <% if user_signed_in? %>
+                <%= link_to 'Support', signed_in_new_help_path, class: "govuk-header__link #{active_tab(signed_in_new_help_path)}" %>
+              <% else %>
+                <%= link_to 'Support', new_help_path, class: "govuk-header__link #{active_tab(new_help_path)}" %>
+              <% end %>
             </li>
             <% if user_signed_in? %>
               <li class="govuk-header__navigation-item">
@@ -120,7 +124,7 @@
       <div class="govuk-phase-banner feedback-banner">
         <p class="govuk-phase-banner__content">
          <span class="govuk-phase-banner__text">
-           This is a new service – your <%= link_to "feedback", help_index_path, class: "govuk-link" %>
+           This is a new service – your <%= link_to "feedback", feedback_new_help_path, class: "govuk-link" %>
             will help us to improve it.
           </span>
        </p>

@@ -19,8 +19,15 @@ Rails.application.routes.draw do
   resources :ips, only: %i[index new create destroy] do
     get 'remove', to: 'ips#index'
   end
+
+  resources :help, only: %i[create new] do
+    get 'signed_in', on: :new
+    get 'signing_up', on: :new
+    get 'existing_account', on: :new
+    get 'feedback', on: :new
+  end
+
   resources :locations, only: [:new, :create]
-  resources :help, only: %i[index create]
   resources :team_members, only: %i[index edit update destroy]
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index] do

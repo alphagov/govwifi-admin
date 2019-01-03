@@ -1,14 +1,14 @@
 <div class="govuk-grid-row">
   <h2 class="govuk-heading-l govuk-grid-column-full">Overview</h2>
-  <div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
     <div class="govuk-grid-column-one-third">
       <div class="govuk-panel govuk-panel--confirmation dashboard-colour">
         <h1 class="govuk-panel__title text-left">
           <%= @team_members.count %>
         </h1>
-        <div class="govuk-panel__body text-left dashboard-font-size">
+        <p class="govuk-panel__body text-left govuk-!-font-size-27">
           Team Members
-        </div>
+        </p>
       </div>
     </div>
     <div class="govuk-grid-column-one-third">
@@ -16,9 +16,9 @@
         <h1 class="govuk-panel__title text-left">
           <%= @locations.count %>
         </h1>
-        <div class="govuk-panel__body text-left dashboard-font-size">
+        <p class="govuk-panel__body text-left govuk-!-font-size-27">
           Locations
-        </div>
+        </p>
       </div>
     </div>
     <div class="govuk-grid-column-one-third">
@@ -26,13 +26,13 @@
         <h1 class="govuk-panel__title text-left">
           <%= @ips.count %>
         </h1>
-        <div class="govuk-panel__body text-left dashboard-font-size">
+        <p class="govuk-panel__body text-left govuk-!-font-size-27">
           Active IPs
-        </div>
+        </p>
       </div>
     </div>
+    <hr class="govuk-section-break--m govuk-section-break--visible">
   </div>
-  <hr class="govuk-section-break--m govuk-section-break--visible">
   <h2 class="govuk-heading-l govuk-grid-column-full">Get GovWifi Access in your Organisation</h2>
   <div class="govuk-grid-column-two-thirds">
     <div>

@@ -1,14 +1,8 @@
-require 'support/notifications_service'
-require 'support/confirmation_use_case'
-
 describe 'View IP addresses' do
-  include_examples 'confirmation use case spy'
-  include_examples 'notifications service'
+  include_context 'with a mocked notifications client'
 
   context 'when logged out' do
-    before do
-      visit ips_path
-    end
+    before { visit ips_path }
 
     it_behaves_like 'not signed in'
   end

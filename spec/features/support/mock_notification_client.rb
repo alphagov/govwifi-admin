@@ -12,7 +12,8 @@ shared_context 'with a mocked notifications client' do
     def send_email(args)
       self.class.notifications << {
         type: args[:template_id],
-        link: find_link(args)
+        link: find_link(args),
+        personalisation: args[:personalisation]
       }
     end
 
@@ -36,4 +37,7 @@ shared_context 'with a mocked notifications client' do
   let(:notifications) { NotificationsMock.notifications }
   let(:last_notification_type) { NotificationsMock.notifications.last[:type] }
   let(:last_notification_link) { NotificationsMock.notifications.last[:link] }
+  let(:last_notification_personalisation) do
+    NotificationsMock.notifications.last[:personalisation]
+  end
 end
