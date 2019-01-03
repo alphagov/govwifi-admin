@@ -5,7 +5,7 @@
 <% end %>
 
 <% if @logs.present? %>
-  <h1 class="govuk-heading-l">Found <%= pluralize(@logs.count,"result") %> for "<%= params[:username] || params[:ip] %>"</h1>
+  <h1 class="govuk-heading-l">Found <%= pluralize(@logs.count, "result") %> for "<%= params[:username] || params[:ip] %>"</h1>
 
   <div class="govuk-inset-text">
     <h4 class="govuk-heading-s">Filtered results</h4>
