@@ -1,7 +1,8 @@
 class LogsSearch
   include ActiveModel::Model
 
-  attr_accessor :by, :term, :first_step
+  attr_accessor :by, :first_step
+  attr_writer :term
 
   validates :term, presence: true
   validate :validate_term
