@@ -1,4 +1,4 @@
-describe 'viewing the overview dashboard', focus: true do
+describe 'viewing the overview dashboard' do
   include_context 'with a mocked notifications client'
 
   context 'when logged in' do
@@ -44,7 +44,7 @@ describe 'viewing the overview dashboard', focus: true do
       it 'shows the dashboard' do
         expect(page).to have_link("Admins")
         expect(page).to have_content("Locations")
-        expect(page).to have_link("Active IPs")
+        expect(page).to have_link("Added IPs")
       end
 
       it 'redirects to the team members page when Admins is clicked on' do
@@ -53,8 +53,8 @@ describe 'viewing the overview dashboard', focus: true do
         expect(page.current_path).to eq(team_members_path)
       end
 
-      it 'redirects to the IPs page when Active IPs is clicked on' do
-        click_link 'Active IPs'
+      it 'redirects to the IPs page when Added IPs is clicked on' do
+        click_link 'Added IPs'
 
         expect(page.current_path).to eq(ips_path)
       end
