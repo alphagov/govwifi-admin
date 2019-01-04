@@ -1,3 +1,5 @@
+<%= render "layouts/form_errors", resource: @search %>
+
 <div class='govuk-grid-row'>
   <h1 class='govuk-heading-l govuk-grid-column-full'>Logs</h1>
 
@@ -13,13 +15,13 @@
         </p>
         <div class="govuk-radios">
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="choice-ip" name="logs_search[by]" type="radio" value="ip">
+            <input class="govuk-radios__input" id="choice-ip" name="logs_search[filter]" type="radio" value="ip">
             <label class="govuk-label govuk-radios__label" for="choice-ip">
               IP address
             </label>
           </div>
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="choice-username" name="logs_search[by]" type="radio" value="username">
+            <input class="govuk-radios__input" id="choice-username" name="logs_search[filter]" type="radio" value="username">
             <label class="govuk-label govuk-radios__label" for="choice-username">
               Username
             </label>

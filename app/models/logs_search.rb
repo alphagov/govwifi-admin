@@ -1,7 +1,7 @@
 class LogsSearch
   include ActiveModel::Model
 
-  attr_accessor :by, :first_step
+  attr_accessor :filter, :first_step
   attr_writer :term
 
   validates :term, presence: true
@@ -14,7 +14,7 @@ class LogsSearch
 private
 
   def validate_term
-    case by
+    case filter
     when 'username'
       validate_username
     when 'ip'
