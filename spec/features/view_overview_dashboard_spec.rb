@@ -1,4 +1,4 @@
-describe 'viewing the overview dashboard' do
+describe 'viewing the overview dashboard', focus: true do
   include_context 'with a mocked notifications client'
 
   context 'when logged in' do
@@ -12,6 +12,10 @@ describe 'viewing the overview dashboard' do
 
       it 'redirects the user to the setting up page' do
         expect(page.current_path).to eq(setup_index_path)
+      end
+
+      it 'does not show overview in the navigation' do
+        expect(page).to_not have_link('Overview')
       end
     end
 
