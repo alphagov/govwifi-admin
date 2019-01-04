@@ -2,24 +2,37 @@ class LogsSearchesController < ApplicationController
   def create
     @search = LogsSearch.new(search_params)
 
-    if !@search.first_step && @search.valid?
-      redirect_to logs_path(@search.by.to_sym => @search.term)
+    @search.first_step ? filter_choice : term_choice
+  end
+
+  def filter_choice
+    if @search.filter.present?
+      render @search.filter
     else
-      render @search.by
+      @search.errors.add(:filter, "can't be blank")
+      render 'new'
+    end
+  end
+
+  def term_choice
+    if @search.valid?
+      redirect_to logs_path(@search.filter.to_sym => @search.term)
+    else
+      render @search.filter
     end
   end
 
   def ip
-    @search = LogsSearch.new(by: 'ip')
+    @search = LogsSearch.new(filter: 'ip')
   end
 
   def username
-    @search = LogsSearch.new(by: 'username')
+    @search = LogsSearch.new(filter: 'username')
   end
 
 private
 
   def search_params
-    params.require(:logs_search).permit(:by, :term, :first_step)
+    params.require(:logs_search).permit(:filter, :term, :first_step)
   end
 end

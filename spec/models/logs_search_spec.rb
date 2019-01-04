@@ -1,6 +1,6 @@
 describe LogsSearch do
   context 'searching by username' do
-    before { subject.by = 'username' }
+    before { subject.filter = 'username' }
 
     context 'with blank term' do
       before { subject.term = '' }
@@ -49,7 +49,7 @@ describe LogsSearch do
   end
 
   context 'searching by IP' do
-    before { subject.by = 'ip' }
+    before { subject.filter = 'ip' }
 
     context 'with blank term' do
       before { subject.term = '' }
