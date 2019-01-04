@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   end
 
   resources :help, only: %i[create new] do
+    get '/', on: :collection, to: 'help#new'
     get 'signed_in', on: :new
     get 'signing_up', on: :new
     get 'existing_account', on: :new

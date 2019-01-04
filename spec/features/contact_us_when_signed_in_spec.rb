@@ -43,4 +43,12 @@ describe 'Contact us when signed in' do
       expect(notifications).to be_empty
     end
   end
+
+  context 'from root/help path' do
+    before { visit '/help' }
+
+    it 'shows the user the not signed in support page' do
+      expect(page).to have_content 'How can we help?'
+    end
+  end
 end
