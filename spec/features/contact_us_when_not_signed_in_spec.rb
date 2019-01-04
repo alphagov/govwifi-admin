@@ -111,4 +111,12 @@ describe 'Contact us when not signed in' do
       end
     end
   end
+
+  context 'from root/help path' do
+    before { visit '/help' }
+
+    it 'shows the user the not signed in support page' do
+      expect(page).to have_content 'How can we help?'
+    end
+  end
 end
