@@ -45,7 +45,7 @@ describe 'Invite a team member' do
     it 'prevents visiting the invites page directly' do
       visit new_user_invitation_path
 
-      expect(page.current_path).to eq(root_path)
+      expect(page.current_path).to eq(setup_index_path)
     end
 
     it 'does not allow re-sending invites' do

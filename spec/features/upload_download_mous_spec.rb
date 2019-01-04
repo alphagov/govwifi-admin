@@ -37,7 +37,7 @@ describe 'the upload and download of MOUs' do
       it 'redirects unauthorised access' do
         visit admin_mou_index_path
 
-        expect(page.current_path).to eq(root_path)
+        expect(page.current_path).to eq(setup_index_path)
       end
     end
   end
