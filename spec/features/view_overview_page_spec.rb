@@ -1,4 +1,4 @@
-describe 'viewing the overview dashboard' do
+describe 'viewing the overview page' do
   include_context 'with a mocked notifications client'
 
   context 'when logged in' do
@@ -41,7 +41,7 @@ describe 'viewing the overview dashboard' do
         visit root_path
       end
 
-      it 'shows the dashboard' do
+      it 'shows a summary section in Overview' do
         expect(page).to have_link("Admins")
         expect(page).to have_content("Locations")
         expect(page).to have_link("Added IPs")
