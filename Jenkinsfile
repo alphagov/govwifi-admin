@@ -54,6 +54,10 @@ pipeline {
     }
 
     stage('Confirm deploy to production') {
+      when {
+        branch 'master'
+        beforeAgent true
+      }
       agent none
       steps {
         wait_for_input('production')
