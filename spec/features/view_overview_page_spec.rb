@@ -96,7 +96,6 @@ describe 'viewing the overview page' do
           expect(page).to have_content("IPs")
         end
       end
-
     end
   end
 end
