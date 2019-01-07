@@ -1,33 +1,33 @@
 <div class="govuk-grid-row">
   <h2 class="govuk-heading-l govuk-grid-column-full">Overview</h2>
-  <div class="govuk-grid-column-full">
-    <div class="govuk-grid-column-one-third">
+  <div class="govuk-grid-column-full" id="summary">
+    <div class="govuk-grid-column-one-third" id="team-members">
       <div class="govuk-panel govuk-panel--confirmation summary-background">
         <h1 class="govuk-panel__title text-left">
           <%= @team_members.count %>
         </h1>
         <p class="govuk-panel__body text-left govuk-!-font-size-27">
-          <%= link_to "Admins", team_members_path, class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
+          <%= link_to "#{"Team Member".pluralize(@team_members.count)}", team_members_path, class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
         </p>
       </div>
     </div>
-    <div class="govuk-grid-column-one-third">
+    <div class="govuk-grid-column-one-third" id="locations">
       <div class="govuk-panel govuk-panel--confirmation summary-background">
         <h1 class="govuk-panel__title text-left">
           <%= @locations.count %>
         </h1>
         <p class="govuk-panel__body text-left govuk-!-font-size-27">
-          Locations
+          <%= link_to "#{"Location".pluralize(@locations.count)}", ips_path, class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
         </p>
       </div>
     </div>
-    <div class="govuk-grid-column-one-third">
+    <div class="govuk-grid-column-one-third" id="ips">
       <div class="govuk-panel govuk-panel--confirmation summary-background">
         <h1 class="govuk-panel__title text-left">
           <%= @ips.count %>
         </h1>
         <p class="govuk-panel__body text-left govuk-!-font-size-27">
-          <%= link_to "Added IPs", ips_path, class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
+          <%= link_to "#{"IP".pluralize(@ips.count)}", ips_path, class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
         </p>
       </div>
     </div>
