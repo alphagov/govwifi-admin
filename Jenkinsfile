@@ -4,21 +4,24 @@ class Globals {
 }
 
 pipeline {
-  agent any
+  agent none
   stages {
     stage('Linting') {
+      agent any
       steps {
         sh 'make lint'
       }
     }
 
     stage('Test') {
+      agent any
       steps {
         sh 'make test'
       }
     }
 
     stage('Publish stable tag') {
+      agent any
       when{
         branch 'master'
       }
@@ -29,6 +32,7 @@ pipeline {
     }
 
     stage('Deploy to staging') {
+      agent any
       when{
         branch 'master'
       }
@@ -46,6 +50,7 @@ pipeline {
     }
 
     stage('Deploy to production') {
+      agent any
       when{
         branch 'master'
       }
