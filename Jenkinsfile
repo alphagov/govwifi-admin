@@ -63,6 +63,7 @@ pipeline {
 
   post {
     always {
+      agent any
       sh 'make stop'
     }
   }
