@@ -1,6 +1,4 @@
 describe 'viewing the overview page' do
-  include_context 'with a mocked notifications client'
-
   context 'when logged in' do
     let(:user) { create(:user) }
 
@@ -15,7 +13,7 @@ describe 'viewing the overview page' do
       end
 
       it 'does not show overview in the navigation' do
-        expect(page).to_not have_link('Overview')
+        expect(page).to_not have_link("Overview")
       end
     end
 
@@ -50,11 +48,12 @@ describe 'viewing the overview page' do
         visit root_path
       end
 
-      it 'shows a summary section in Overview' do
-        within('div#summary') do
+      it 'shows an Overview' do
+        within('div#overview') do
+          expect(page).to have_content("Overview")
           expect(page).to have_link("Team Member")
-          expect(page).to have_link("Locations")
-          expect(page).to have_link("IPs")
+          expect(page).to have_link("Location")
+          expect(page).to have_link("IP")
         end
       end
 
