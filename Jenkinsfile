@@ -11,6 +11,12 @@ pipeline {
       steps {
         sh 'make lint'
       }
+      post {
+        always {
+          sh 'make stop'
+        }
+      }
+
     }
 
     stage('Test') {
