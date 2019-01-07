@@ -2,12 +2,13 @@ class HomeController < ApplicationController
   def index
     return redirect_to admin_organisations_path if current_user.super_admin?
 
+    redirect_to setup_instructions_path unless current_organisation.ips.present?
+
     @ips = current_organisation.ips
     @locations = current_organisation.locations
     @team_members = current_organisation.users
     @london_radius_ips = radius_ips[:london]
     @dublin_radius_ips = radius_ips[:dublin]
-    return redirect_to setup_index_path unless current_organisation.ips.present?
   end
 
 private
