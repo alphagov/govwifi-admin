@@ -34,7 +34,18 @@ pipeline {
       }
 
       steps {
-        deploy('staging', false, 1)
+        deploy('staging')
+      }
+    }
+
+    stage('Confirm deploy to production') {
+      when {
+        branch 'master'
+        beforeAgent true
+      }
+      agent none
+      steps {
+        wait_for_input('production')
       }
     }
 
@@ -44,7 +55,7 @@ pipeline {
       }
 
       steps {
-        deploy('production', true, 2)
+        deploy('production')
       }
     }
   }
@@ -57,40 +68,15 @@ pipeline {
 }
 
 
-def deploy(deploy_environment, requires_confirmation, desired_count) {
-  if(deployCancelled()) {
-    return
+def wait_for_input(deploy_environment) {
+  if (deployCancelled()) {
+    return;
   }
-
-  echo "${deploy_environment}"
   try {
     timeout(time: 5, unit: 'MINUTES') {
-      if(requires_confirmation) {
-        input "Do you want to deploy to ${deploy_environment}?"
-      }
-
-      // Jenkins does a fetch without tags during setup this means
-      // we need to run git fetch again here before we can checkout stable
-      sh('git fetch')
-      sh('git checkout stable')
-
-      docker.withRegistry(env.AWS_ECS_API_REGISTRY) {
-        sh("eval \$(aws ecr get-login --no-include-email)")
-        def appImage = docker.build(
-          "govwifi/admin:${deploy_environment}",
-          "--build-arg BUNDLE_INSTALL_CMD='bundle install --without test' ."
-        )
-        appImage.push()
-        runMigrations(deploy_environment)
-      }
-
-      if(deploy_environment == 'production') {
-        deploy_environment = 'wifi'
-      }
-
-      sh("aws ecs update-service --cluster ${deploy_environment}-admin-cluster --service admin-${deploy_environment} --force-new-deployment")
+      input "Do you want to deploy to ${deploy_environment}?"
     }
-  } catch(err) { // timeout reached or input false
+  } catch (err) {
     def user = err.getCauses()[0].getUser()
 
     if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
@@ -101,6 +87,34 @@ def deploy(deploy_environment, requires_confirmation, desired_count) {
       echo "Aborted by: [${user}]"
     }
   }
+}
+
+def deploy(deploy_environment) {
+  if(deployCancelled()) {
+    return
+  }
+
+  echo "${deploy_environment}"
+  // Jenkins does a fetch without tags during setup this means
+  // we need to run git fetch again here before we can checkout stable
+  sh('git fetch')
+  sh('git checkout stable')
+
+  docker.withRegistry(env.AWS_ECS_API_REGISTRY) {
+    sh("eval \$(aws ecr get-login --no-include-email)")
+    def appImage = docker.build(
+      "govwifi/admin:${deploy_environment}",
+      "--build-arg BUNDLE_INSTALL_CMD='bundle install --without test' ."
+    )
+    appImage.push()
+    runMigrations(deploy_environment)
+  }
+
+  if(deploy_environment == 'production') {
+    deploy_environment = 'wifi'
+  }
+
+  sh("aws ecs update-service --cluster ${deploy_environment}-admin-cluster --service admin-${deploy_environment} --force-new-deployment")
 }
 
 def runMigrations(deploy_environment) {
