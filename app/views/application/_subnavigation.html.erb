@@ -13,7 +13,7 @@
       <%= link_to "Organisations", admin_organisations_path, class: active_tab(admin_organisations_path) %>
       <%= link_to "MOU", admin_mou_index_path, class: active_tab(admin_mou_index_path) %>
     <% else %>
-      <% if current_organisation.ips.count != 0 %>
+      <% if current_organisation.ips.present? %>
         <%= link_to "Overview", root_path, class: active_tab(root_path) %>
       <% end %>
       <%= link_to "Setting Up", setup_instructions_path, class: active_tab(setup_instructions_path) %>
