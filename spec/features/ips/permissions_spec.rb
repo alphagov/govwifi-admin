@@ -53,7 +53,7 @@ describe 'Add an IP' do
       end
 
       it 'redirects them to the homepage' do
-        expect(page.current_path).to eq(root_path)
+        expect(page.current_path).to eq(setup_instructions_path)
       end
     end
 

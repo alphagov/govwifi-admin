@@ -13,12 +13,17 @@ describe 'View IP addresses' do
     context 'with no IPs' do
       before do
         sign_in_user user
-        visit ips_path
       end
 
       it 'shows no IPs' do
+        visit ips_path
         expect(page).to have_content 'Add IP'
         expect(page).to have_content 'You need to add the IPs of your authenticator(s)'
+      end
+
+      it 'redirects the user to the setting up page' do
+        visit root_path
+        expect(page.current_path).to eq(setup_instructions_path)
       end
     end
 

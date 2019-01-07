@@ -20,7 +20,7 @@ describe 'Contact us when signed in' do
     end
 
     it 'redirects to the home page' do
-      expect(page.current_path).to eq(root_path)
+      expect(page.current_path).to eq(setup_instructions_path)
     end
 
     it 'sends a help email' do

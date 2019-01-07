@@ -1,9 +1,5 @@
-class HomeController < ApplicationController
+class SetupInstructionsController < ApplicationController
   def index
-    return redirect_to admin_organisations_path if current_user.super_admin?
-
-    redirect_to setup_instructions_path unless current_organisation.ips.present?
-
     @ips = current_organisation.ips
     @locations = current_organisation.locations
     @team_members = current_organisation.users
