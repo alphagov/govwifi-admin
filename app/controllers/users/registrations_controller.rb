@@ -18,7 +18,7 @@ protected
 
   def set_user_object_with_errors
     @user = User.new(sign_up_params)
-    @user.errors.add(:email, 'must be from a government domain')
+    @user.errors.add(:email, "Only government organisations can sign up to GovWifi. If you're having trouble signing up, contact us.")
   end
 
   def return_user_to_registration_page

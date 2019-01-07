@@ -48,9 +48,14 @@ describe 'Sign up as an organisation' do
       let(:email) { 'someone@google.com' }
 
       it 'tells me my email is not valid' do
-        expect(page).to have_content(
-          'Email must be from a government domain'
-        )
+        expect(page).to have_content("Only government organisations can sign up to GovWifi. If you're having trouble signing up, contact us.")
+      end
+
+      it 'provides a link to a support form' do
+        visit new_user_registration_path
+        click_on "Sign up"
+        click_on "contact us"
+        expect(page).to have_content("I'm having trouble signing up")
       end
     end
 
@@ -58,9 +63,7 @@ describe 'Sign up as an organisation' do
       let(:email) { '' }
 
       it 'tells me my email is not valid' do
-        expect(page).to have_content(
-          "Email must be from a government domain"
-        )
+        expect(page).to have_content("Only government organisations can sign up to GovWifi. If you're having trouble signing up, contact us.")
       end
     end
 
