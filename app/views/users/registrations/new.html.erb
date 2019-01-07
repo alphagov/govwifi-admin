@@ -1,4 +1,13 @@
-<%= render "layouts/form_errors" %>
+<% if resource.errors.any? %>
+  <div class="govuk-error-summary">
+    <h2 class="govuk-error-summary__title">There is a problem</h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <li>Only government organisations can sign up to GovWifi. If you're having trouble signing up, <%= link_to "contact us", signing_up_new_help_path, class: 'govuk-link' %>.</li>
+      </ul>
+    </div>
+  </div>
+<% end %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
