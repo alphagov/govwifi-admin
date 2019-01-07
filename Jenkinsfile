@@ -18,6 +18,11 @@ pipeline {
       steps {
         sh 'make test'
       }
+      post {
+        always {
+          sh 'make stop'
+        }
+      }
     }
 
     stage('Publish stable tag') {
@@ -58,13 +63,6 @@ pipeline {
       steps {
         deploy('production')
       }
-    }
-  }
-
-  post {
-    always {
-      agent any
-      sh 'make stop'
     }
   }
 }
