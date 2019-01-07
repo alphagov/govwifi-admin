@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'setup/index'
   root 'home#index'
 
   devise_for :users, controllers: {
@@ -37,6 +36,7 @@ Rails.application.routes.draw do
   end
 
   resources :organisations, only: %i[show edit update]
+  resources :setup_instructions, only: %i[index]
 
   namespace :admin do
     resources :mou, only: %i[index update create]

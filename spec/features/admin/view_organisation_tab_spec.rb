@@ -32,7 +32,7 @@ describe 'the visibility of the organisation depending on user' do
       sign_in_user user
       visit admin_organisations_path
 
-      expect(page.current_path).to eq(setup_index_path)
+      expect(page.current_path).to eq(setup_instructions_path)
     end
   end
 

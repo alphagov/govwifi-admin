@@ -11,7 +11,7 @@ describe 'viewing the overview dashboard' do
       end
 
       it 'redirects the user to the setting up page' do
-        expect(page.current_path).to eq(setup_index_path)
+        expect(page.current_path).to eq(setup_instructions_path)
       end
 
       it 'does not show overview in the navigation' do

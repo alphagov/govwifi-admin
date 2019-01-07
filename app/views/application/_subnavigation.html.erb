@@ -16,7 +16,7 @@
       <% if current_organisation.ips.count != 0 %>
         <%= link_to "Overview", root_path, class: active_tab(root_path) %>
       <% end %>
-      <%= link_to "Setting Up", setup_index_path, class: active_tab(setup_index_path) %>
+      <%= link_to "Setting Up", setup_instructions_path, class: active_tab(setup_instructions_path) %>
       <%= link_to 'Organisation', organisation_path(current_organisation), class: active_tab("organisation") %>
       <%= link_to "Team members", team_members_path, class: "#{active_tab("team")}" + "#{active_tab("user")}"%>
       <%= link_to "Settings", ips_path, class: active_tab("ips") %>

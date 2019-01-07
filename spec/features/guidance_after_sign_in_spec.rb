@@ -26,7 +26,7 @@ describe 'guidance after sign in' do
 
       before do
         create(:ip, address: ip_address, location: location)
-        visit setup_index_path
+        visit setup_instructions_path
         click_on '1 IP'
       end
 

@@ -23,7 +23,7 @@ describe 'View IP addresses' do
 
       it 'redirects the user to the setting up page' do
         visit root_path
-        expect(page.current_path).to eq(setup_index_path)
+        expect(page.current_path).to eq(setup_instructions_path)
       end
     end
 

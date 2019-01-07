@@ -1,4 +1,4 @@
-class SetupController < ApplicationController
+class SetupInstructionsController < ApplicationController
   def index
     @ips = current_organisation.ips
     @locations = current_organisation.locations
