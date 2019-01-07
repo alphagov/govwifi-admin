@@ -18,7 +18,8 @@ protected
 
   def set_user_object_with_errors
     @user = User.new(sign_up_params)
-    @user.errors.add(:email, 'must be from a government domain')  end
+    @user.errors.add(:email, 'must be from a government domain')
+  end
 
   def return_user_to_registration_page
     render :new, resource: @user
