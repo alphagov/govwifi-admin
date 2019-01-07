@@ -51,14 +51,14 @@ describe 'viewing the overview page' do
       it 'shows an Overview' do
         within('div#overview') do
           expect(page).to have_content("Overview")
-          expect(page).to have_link("Team Member")
-          expect(page).to have_link("Location")
-          expect(page).to have_link("IP")
+          expect(page).to have_link("Team Members")
+          expect(page).to have_link("Locations")
+          expect(page).to have_link("IPs")
         end
       end
 
       it 'redirects to the team members page when Team Members is clicked on' do
-        click_link 'Team Member'
+        click_link 'Team Members'
 
         expect(page.current_path).to eq(team_members_path)
       end
@@ -66,12 +66,12 @@ describe 'viewing the overview page' do
       it 'describes the number of Team members' do
         within('div#team-members') do
           expect(page).to have_content(1)
-          expect(page).to have_content("Team Member")
+          expect(page).to have_content("Team Members")
         end
       end
 
       it 'redirects to the IPs page when Locations is clicked on' do
-        click_link 'Location'
+        click_link 'Locations'
 
         expect(page.current_path).to eq(ips_path)
       end
@@ -84,7 +84,7 @@ describe 'viewing the overview page' do
       end
 
       it 'redirects to the IPs page when IPs is clicked on' do
-        click_link 'IP'
+        click_link 'IPs'
 
         expect(page.current_path).to eq(ips_path)
       end
