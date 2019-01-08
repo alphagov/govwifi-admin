@@ -10,5 +10,8 @@ class LogsController < ApplicationController
     )
 
     @logs = logs.fetch(:results)
+
+    # TODO: don't allow locations outside the org
+    @location = Location.find(params[:location]).address
   end
 end

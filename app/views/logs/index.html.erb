@@ -54,6 +54,8 @@
     <h1 class="govuk-heading-l govuk-grid-column-full">
       <% if params[:username].present? %>
         "<%= params[:username] %>" <strong>isn't reaching the GovWifi service</strong>
+      <% elsif params[:location] %>
+        Traffic from <%= @location %> <strong>isn't reaching the GovWifi service</strong>
       <% else %>
         Traffic from <%= params[:ip] %> <strong>isn't reaching the GovWifi service</strong>
       <% end %>
