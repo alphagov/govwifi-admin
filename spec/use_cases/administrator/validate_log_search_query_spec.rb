@@ -7,7 +7,7 @@ describe UseCases::Administrator::ValidateLogSearchQuery do
         valid_params = [
           { username: 'ABCDE', ip: nil },
           { username: 'ABCDEF', ip: nil },
-          { username: nil, ip: '127.0.0.1' }
+          { username: nil, ip: '1.2.3.4' }
         ]
 
         valid_params.each do |valid_param|
