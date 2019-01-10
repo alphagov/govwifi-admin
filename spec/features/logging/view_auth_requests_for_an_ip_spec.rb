@@ -1,6 +1,6 @@
 describe 'View authentication requests for an IP' do
   context 'with results' do
-    let(:ip) { '127.0.0.1' }
+    let(:ip) { '1.2.3.4' }
     let(:username) { 'ABCDEF' }
     let(:organisation) { create(:organisation) }
     let(:admin_user) { create(:user, organisation_id: organisation.id) }
@@ -10,7 +10,7 @@ describe 'View authentication requests for an IP' do
       Session.create!(
         start: 3.days.ago,
         username: username,
-        siteIP: '127.0.0.1',
+        siteIP: ip,
         success: true
       )
 
