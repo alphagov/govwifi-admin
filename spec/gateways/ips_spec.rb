@@ -4,7 +4,7 @@ describe Gateways::Ips do
   let(:result) do
     [
       {
-        ip: "127.0.0.1",
+        ip: "186.3.1.2",
         location_id: location_1.id
       }, {
         ip: "186.3.1.1",
@@ -14,7 +14,7 @@ describe Gateways::Ips do
   end
 
   before do
-    create(:ip, address: "127.0.0.1", location: location_1)
+    create(:ip, address: "186.3.1.2", location: location_1)
     create(:ip, address: "186.3.1.1", location: location_2)
   end
 

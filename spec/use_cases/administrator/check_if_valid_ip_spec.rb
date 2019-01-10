@@ -55,6 +55,15 @@ describe UseCases::Administrator::CheckIfValidIp do
         expect(result).to eq(success: false)
       end
     end
+
+    context 'with a loopback IP address' do
+      let(:address) { '127.0.0.1' }
+
+      it 'returns false' do
+        result = subject.execute(address)
+        expect(result).to eq(success: false)
+      end
+    end
   end
 
   context 'not IPv4' do
