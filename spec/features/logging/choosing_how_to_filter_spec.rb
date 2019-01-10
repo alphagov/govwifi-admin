@@ -10,13 +10,34 @@ describe 'Choosing how to filter' do
     it_behaves_like 'errors in form'
   end
 
-  xcontext 'with no locations' do
+  # this'll add setup to the other tests too, if implemented
+  xcontext 'with no IPs' do
     it 'does not offer to go to search' do
       expect(page).to_not have_content('Go to search')
     end
 
-    it 'offers to add locations first' do
-      expect(page).to have_content('Add an IP address')
+    it 'offers to add IPs first' do
+      expect(page).to have_content('add at least one IP address')
+    end
+  end
+
+  context 'hacking urls' do
+    context 'to results link with no filter' do
+      before { visit logs_path }
+
+      it 'redirects me to choosing a filter' do
+        expect(page).to have_content('How do you want to filter these logs?')
+      end
+    end
+
+    context 'to location not in my organisation' do
+      let(:other_location) { create(:location) }
+
+      before { visit logs_path(location: other_location.id )}
+
+      it 'redirects me to choosing a location' do
+        expect(page).to have_content('Search logs by location')
+      end
     end
   end
 end

@@ -1,4 +1,4 @@
-describe 'View authentication requests for a location', focus: true do
+describe 'View authentication requests for a location' do
   context 'when signed in' do
     let(:user) { create(:user, organisation: organisation) }
     let(:organisation) { create(:organisation, :with_locations) }

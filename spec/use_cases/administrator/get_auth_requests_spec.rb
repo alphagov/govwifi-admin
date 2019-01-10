@@ -15,7 +15,7 @@ describe UseCases::Administrator::GetAuthRequests do
         subject.execute(username: username)
 
         expect(authentication_logs_gateway).to have_received(:search)
-          .with(username: username, ip: nil)
+          .with(username: username)
       end
     end
 
@@ -23,10 +23,21 @@ describe UseCases::Administrator::GetAuthRequests do
       let(:ip) { '1.1.1.1' }
 
       it 'calls search on the gateway' do
-        subject.execute(ip: ip)
+        subject.execute(ips: [ip])
 
         expect(authentication_logs_gateway).to have_received(:search)
-          .with(username: nil, ip: ip)
+          .with(ips: [ip])
+      end
+    end
+
+    context 'search by many ip addresses' do
+      let(:ips) { ['1.1.1.1', '1.1.1.2', '1.1.1.3'] }
+
+      it 'calls search on the gateway' do
+        subject.execute(ips: ips)
+
+        expect(authentication_logs_gateway).to have_received(:search)
+          .with(ips: ips)
       end
     end
   end
