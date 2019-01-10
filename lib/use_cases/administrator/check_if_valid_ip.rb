@@ -13,17 +13,17 @@ module UseCases
       def valid_address?
         address.present? &&
           address_is_ipv4? &&
-          !address_is_subnet? &&
-          !address_allows_all? &&
-          !address_is_loopback?
+          address_is_not_subnet? &&
+          address_does_not_allows_all? &&
+          address_is_not_loopback?
       end
 
-      def address_allows_all?
-        address.match?('0.0.0.0')
+      def address_does_not_allows_all?
+        !address.match?('0.0.0.0')
       end
 
-      def address_is_subnet?
-        address.include?("/")
+      def address_is_not_subnet?
+        !address.include?("/")
       end
 
       def address_is_ipv4?
@@ -34,8 +34,8 @@ module UseCases
         end
       end
 
-      def address_is_loopback?
-        IPAddr.new(address).loopback?
+      def address_is_not_loopback?
+        !IPAddr.new(address).loopback?
       end
     end
   end
