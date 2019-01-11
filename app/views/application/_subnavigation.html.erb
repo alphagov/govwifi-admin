@@ -19,7 +19,7 @@
       <%= link_to "Setting Up", setup_instructions_path, class: active_tab(setup_instructions_path) %>
       <%= link_to 'Organisation', organisation_path(current_organisation), class: active_tab("organisation") %>
       <%= link_to "Team members", team_members_path, class: "#{active_tab("team")}" + "#{active_tab("user")}"%>
-      <%= link_to "IPs", ips_path, class: active_tab("ips") %>
+      <%= link_to "IPs", ips_path, id:"nav-ips", class: active_tab("ips") %>
       <%= link_to 'Logs', new_logs_search_path, class: active_tab("logs") %>
     <% end %>
     </nav>
