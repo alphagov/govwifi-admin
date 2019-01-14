@@ -6,10 +6,7 @@ module UseCases
       end
 
       def execute(username: nil, ip: nil)
-        {
-          results: @authentication_logs_gateway
-            .search(username: username, ip: ip)
-        }
+        { results: @authentication_logs_gateway.search(username: username, ip: ip), connection_count: @authentication_logs_gateway.count_distinct_users(ips: ip) }
       end
     end
   end
