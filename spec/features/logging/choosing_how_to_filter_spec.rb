@@ -23,7 +23,7 @@ describe 'Choosing how to filter' do
       let(:other_location) { create(:location) }
 
       it 'does not find the location' do
-        expect{
+        expect {
           visit logs_path(location: other_location.id)
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
