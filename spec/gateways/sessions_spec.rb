@@ -125,7 +125,6 @@ describe Gateways::Sessions do
       let(:username_3) { 'CCCCCC' }
 
       it 'counts the number of successful connections' do
-
         Session.create(start: today_date, success: true, username: username_1, siteIP: '127.0.0.1')
         Session.create(start: today_date, success: false, username: username_1, siteIP: '127.0.0.2')
         Session.create(start: today_date, success: true, username: username_2, siteIP: '127.0.0.3')
@@ -137,7 +136,6 @@ describe Gateways::Sessions do
       end
 
       it 'counts the number of successful connections' do
-
         Session.create(start: yesterday, success: true, username: username_1, siteIP: '127.0.0.1')
         Session.create(start: yesterday, success: true, username: username_2, siteIP: '127.0.0.2')
         Session.create(start: yesterday, success: true, username: username_3, siteIP: '127.0.0.3')
