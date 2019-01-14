@@ -1,6 +1,6 @@
 describe Gateways::Sessions do
-  let(:my_ips) { ['127.0.0.1', '127.0.0.2', '127.0.0.3', '127.0.0.4', '127.0.0.5'] }
   subject { described_class.new(ips: my_ips) }
+  let(:my_ips) { ['127.0.0.1', '127.0.0.2', '127.0.0.3', '127.0.0.4', '127.0.0.5'] }
   let(:today_date) { Time.now.to_s }
   let(:yesterday) { (Time.now - 1.day).to_s }
   let(:two_days_ago) { (Time.now - 2.days).to_s }
@@ -96,24 +96,29 @@ describe Gateways::Sessions do
         end
       end
 
-      it 'only selects logs matching my IP query' do
-        result = subject.search(username: nil, ip: '1.1.1.1')
+      it 'finds logs for that IP' do
+        result = subject.search(username: nil, ips: '1.1.1.1')
         expect(result.count).to eq(1)
       end
 
+      it 'finds logs for any of those IPs' do
+        result = subject.search(username: nil, ips: ['1.1.1.1', '2.2.2.2'])
+        expect(result.count).to eq(2)
+      end
+
       it 'doesn\'t allow searching by another organisations IP' do
-        result = subject.search(username: nil, ip: '3.3.3.3')
+        result = subject.search(username: nil, ips: '3.3.3.3')
         expect(result).to be_empty
       end
     end
   end
 
-  context 'old log entries' do
+  context 'logs older than two weeks' do
     before do
       Session.create(start: three_weeks_ago, success: true, username: 'FOOBAR', siteIP: '127.0.0.1')
     end
 
-    it 'excludes results' do
+    it 'are not returned' do
       expect(subject.search(username: 'FOOBAR').count).to eq(0)
     end
   end

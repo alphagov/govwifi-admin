@@ -84,7 +84,7 @@ describe 'viewing the overview page' do
       end
 
       it 'redirects to the IPs page when IPs is clicked on' do
-        click_link 'IPs'
+        click_link 'nav-ips'
 
         expect(page.current_path).to eq(ips_path)
       end

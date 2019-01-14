@@ -14,7 +14,7 @@ describe 'view list of signed up organisations' do
 
     it 'redirects me to the landing guidance' do
       expect(page).to have_content 'Get GovWifi'
-      expect(page).to have_content 'Getting help'
+      expect(page).to have_content 'If you have trouble setting up GovWifi'
     end
   end
 

@@ -28,7 +28,6 @@
         <%= f.submit "Sign up", class: "govuk-button" %>
       </div>
     <% end %>
-
-    <%= render "users/shared/links" %>
+    <%= link_to "Sign in", new_session_path(resource_name), class: "govuk-link govuk-body" %>
   </div>
 </div>

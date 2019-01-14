@@ -10,7 +10,7 @@ class HomeController < ApplicationController
       )
     ).execute(
       username: nil,
-      ip: @ips
+      ips: @ips
     )
 
     @ips = current_organisation.ips

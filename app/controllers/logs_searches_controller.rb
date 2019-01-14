@@ -30,6 +30,10 @@ class LogsSearchesController < ApplicationController
     @search = LogsSearch.new(filter: 'username')
   end
 
+  def location
+    @search = LogsSearch.new(filter: 'location')
+  end
+
 private
 
   def search_params

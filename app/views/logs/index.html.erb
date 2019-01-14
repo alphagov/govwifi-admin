@@ -1,11 +1,13 @@
 <% if params[:username].present? %>
   <%= link_to "Search by a different username", username_new_logs_search_path, class: "govuk-back-link" %>
-<% else %>
+<% elsif params[:ip].present? %>
   <%= link_to "Search by a different IP", ip_new_logs_search_path, class: "govuk-back-link" %>
+<% else %>
+  <%= link_to "Search by a different location", location_new_logs_search_path, class: "govuk-back-link" %>
 <% end %>
 
 <% if @logs.present? %>
-  <h1 class="govuk-heading-l">Found <%= pluralize(@logs.count, "result") %> for "<%= params[:username] || params[:ip] %>"</h1>
+  <h1 class="govuk-heading-l">Found <%= pluralize(@logs.count, "result") %> for "<%= params[:username] || params[:ip] || @location_address %>"</h1>
 
   <div class="govuk-inset-text">
     <h4 class="govuk-heading-s">Filtered results</h4>
@@ -51,9 +53,11 @@
   </table>
 <% else %>
   <div class="govuk-grid-row">
-    <h1 class="govuk-heading-l govuk-grid-column-full">
+    <h1 class="govuk-heading-l govuk-grid-column-three-quarters">
       <% if params[:username].present? %>
         "<%= params[:username] %>" <strong>isn't reaching the GovWifi service</strong>
+      <% elsif params[:location] %>
+        Traffic from <%= @location_address %> <strong>isn't reaching the GovWifi service</strong>
       <% else %>
         Traffic from <%= params[:ip] %> <strong>isn't reaching the GovWifi service</strong>
       <% end %>

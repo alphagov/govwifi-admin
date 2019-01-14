@@ -14,32 +14,32 @@
 
           <ul class='govuk-list'>
             <li>
-              <%= image_tag 'tick.svg', height: '20', alt: 'allowed' %>
+              <%= image_tag 'tick.svg', height: '17', alt: 'allowed' %>
               <span class='govuk-!-padding-left-1'>View logs</span>
             </li>
             <li>
-              <%= image_tag 'tick.svg', height: '20', alt: 'allowed' %>
+              <%= image_tag 'tick.svg', height: '17', alt: 'allowed' %>
               <span class='govuk-!-padding-left-1'>View team members</span>
             </li>
             <li>
               <% if member.can_manage_team? %>
-                <%= image_tag 'tick.svg', height: '20', alt: 'allowed' %>
+                <%= image_tag 'tick.svg', height: '17', alt: 'allowed' %>
                 <span class='govuk-!-padding-left-1'>Add and remove team members</span>
               <% else %>
-                <%= image_tag 'cross.svg', height: '20', alt: 'not allowed' %>
+                <%= image_tag 'cross.svg', height: '17', alt: 'not allowed' %>
                 <span class='govuk-!-padding-left-1 text-light-grey'>Add and remove team members</span>
               <% end %>
             </li>
             <li>
-              <%= image_tag 'tick.svg', height: '20', alt: 'allowed' %>
+              <%= image_tag 'tick.svg', height: '17', alt: 'allowed' %>
               <span class='govuk-!-padding-left-1'>View locations and IPs</span>
             </li>
             <li>
               <% if member.can_manage_locations? %>
-                <%= image_tag 'tick.svg', height: '20', alt: 'allowed' %>
+                <%= image_tag 'tick.svg', height: '17', alt: 'allowed' %>
                 <span class='govuk-!-padding-left-1'>Add and remove locations and IPs</span>
               <% else %>
-                <%= image_tag 'cross.svg', height: '20', alt: 'not allowed' %>
+                <%= image_tag 'cross.svg', height: '17', alt: 'not allowed' %>
                 <span class='govuk-!-padding-left-1 text-light-grey'>Add and remove locations and IPs</span>
               <% end %>
             </li>
