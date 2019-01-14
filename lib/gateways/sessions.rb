@@ -25,6 +25,10 @@ module Gateways
       end
     end
 
+    def count_distinct_users(ips:)
+      Session.where(siteIP: ips).where(success: true).count
+    end
+
   private
 
     attr_reader :ips
