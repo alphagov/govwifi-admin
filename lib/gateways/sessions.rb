@@ -13,11 +13,8 @@ module Gateways
         .order(start: :desc)
         .limit(MAXIMUM_RESULTS_COUNT)
 
-      if username.present?
-        results = results.where(username: username)
-      else
-        results = results.where(siteIP: ips)
-      end
+      results = results.where(username: username) if username.present?
+      results = results.where(siteIP: ips) if ips.present?
 
       results.map do |log|
         {
