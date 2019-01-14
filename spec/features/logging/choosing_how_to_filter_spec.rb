@@ -22,10 +22,10 @@ describe 'Choosing how to filter' do
     context 'to location not in my organisation' do
       let(:other_location) { create(:location) }
 
-      before { visit logs_path(location: other_location.id) }
-
-      it 'redirects me to choosing a location' do
-        expect(page).to have_content('Search logs by location')
+      it 'does not find the location' do
+        expect{
+          visit logs_path(location: other_location.id)
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

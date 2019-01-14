@@ -33,7 +33,6 @@ describe 'View authentication requests for a location' do
       let(:ip) { create(:ip, location: location) }
       let(:other_ip) { create(:ip) }
 
-      # TODO: session factory?
       before do
         Session.create!(
           start: 3.days.ago,
@@ -69,7 +68,5 @@ describe 'View authentication requests for a location' do
         expect(page).to_not have_content('bbbbb')
       end
     end
-
-    # TODO: test going back
   end
 end
