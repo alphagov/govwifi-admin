@@ -15,7 +15,7 @@ describe 'viewing the activity of GovWifi in an organisation' do
       visit root_path
     end
 
-    xit 'displays the number of successful connections' do
+    it 'displays the number of successful connections' do
       within('div#user-statistics') do
         expect(page).to have_content("There have been 1 connections")
       end
