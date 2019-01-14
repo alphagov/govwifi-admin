@@ -1,4 +1,4 @@
-describe 'viewing the activity of GovWifi in an organisation' do
+describe 'viewing the activity of GovWifi in an organisation', focus: true do
   context 'within the last 24 hours' do
     let(:ip) { '1.2.3.4' }
     let(:username_1) { 'AAAAAA' }
@@ -15,9 +15,15 @@ describe 'viewing the activity of GovWifi in an organisation' do
       visit root_path
     end
 
-    it 'displays the number of successful connections' do
+    xit 'displays the number of successful connections' do
       within('div#user-statistics') do
         expect(page).to have_content("There have been 1 connections")
+      end
+    end
+
+    it 'displays a message if there are no successful connections' do
+      within('div#user-statistics') do
+        expect(page).to have_content("There have been no connections")
       end
     end
   end

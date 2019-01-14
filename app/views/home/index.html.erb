@@ -36,7 +36,11 @@
     <hr class="govuk-section-break--m govuk-section-break--visible">
     <h2 class="govuk-heading-l govuk-grid-column-full">Activity</h2>
     <div class="govuk-grid-column-full" id="unique-users">
-      <p class="govuk-body">There have been <strong><%= @connections %> </strong> connections to GovWifi in your organisation, in the last 24 hours.</p>
+      <% if @connections.zero? %>
+        <p class="govuk-body">There have been <strong>no connections</strong> to GovWifi within your organisation, in the last 24 hours.</p>
+      <% else %>
+        <p class="govuk-body">There have been <strong><%= @connections %> </strong> connections to GovWifi in your organisation, in the last 24 hours.</p>
+      <% end %>
     </div>
   </div>
 </div>
