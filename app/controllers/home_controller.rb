@@ -4,11 +4,22 @@ class HomeController < ApplicationController
 
     redirect_to setup_instructions_path unless current_organisation.ips.present?
 
+    connections = UseCases::Administrator::GetAuthRequests.new(
+      authentication_logs_gateway: Gateways::Sessions.new(
+        ips: current_organisation.ips.map(&:address)
+      )
+    ).execute(
+      username: nil,
+      ip: @ips
+    )
+
     @ips = current_organisation.ips
     @locations = current_organisation.locations
     @team_members = current_organisation.users
     @london_radius_ips = radius_ips[:london]
     @dublin_radius_ips = radius_ips[:dublin]
+
+    @connections = connections.fetch(:connection_count)
   end
 
 private
