@@ -7,7 +7,7 @@
 <% end %>
 
 <% if @logs.present? %>
-  <h1 class="govuk-heading-l">Found <%= pluralize(@logs.count, "result") %> for "<%= params[:username] || params[:ip] || @location_name %>"</h1>
+  <h1 class="govuk-heading-l">Found <%= pluralize(@logs.count, "result") %> for "<%= params[:username] || params[:ip] || @location_address %>"</h1>
 
   <div class="govuk-inset-text">
     <h4 class="govuk-heading-s">Filtered results</h4>
@@ -57,7 +57,7 @@
       <% if params[:username].present? %>
         "<%= params[:username] %>" <strong>isn't reaching the GovWifi service</strong>
       <% elsif params[:location] %>
-        Traffic from <%= @location_name %> <strong>isn't reaching the GovWifi service</strong>
+        Traffic from <%= @location_address %> <strong>isn't reaching the GovWifi service</strong>
       <% else %>
         Traffic from <%= params[:ip] %> <strong>isn't reaching the GovWifi service</strong>
       <% end %>

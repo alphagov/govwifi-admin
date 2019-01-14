@@ -6,18 +6,14 @@ class LogsController < ApplicationController
 
     if params[:location].present?
       location = current_organisation.locations.find(params[:location])
-      @location_name = location.address
+      location_ips = location.ips.map(&:address)
+      @location_address = location.address
     end
 
-    use_case = UseCases::Administrator::GetAuthRequests.new(
-      authentication_logs_gateway: Gateways::Sessions.new(
-        ips: current_organisation.ips.map(&:address)
-      )
-    )
-
-    @logs = use_case
-      .execute(ips: ip_params, username: params[:username])
-      .fetch(:results)
+    @logs = get_auth_requests.execute(
+      ips: location_ips || params[:ip],
+      username: params[:username]
+    ).fetch(:results)
   end
 
 private
@@ -26,11 +22,11 @@ private
     params.keys & %w[ip username location]
   end
 
-  def ip_params
-    if params[:location].present?
-      Location.find(params[:location]).ips.map(&:address)
-    else
-      params[:ip] ? [params[:ip]] : nil
-    end
+  def get_auth_requests
+    UseCases::Administrator::GetAuthRequests.new(
+      authentication_logs_gateway: Gateways::Sessions.new(
+        ips: current_organisation.ips.map(&:address)
+      )
+    )
   end
 end

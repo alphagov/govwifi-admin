@@ -23,10 +23,10 @@ describe UseCases::Administrator::GetAuthRequests do
       let(:ip) { '1.1.1.1' }
 
       it 'calls search on the gateway' do
-        subject.execute(ips: [ip])
+        subject.execute(ips: ip)
 
         expect(authentication_logs_gateway).to have_received(:search)
-          .with(ips: [ip])
+          .with(ips: ip)
       end
     end
 

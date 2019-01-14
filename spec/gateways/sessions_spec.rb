@@ -98,7 +98,7 @@ describe Gateways::Sessions do
       end
 
       it 'finds logs for that IP' do
-        result = subject.search(username: nil, ips: ['1.1.1.1'])
+        result = subject.search(username: nil, ips: '1.1.1.1')
         expect(result.count).to eq(1)
       end
 
@@ -108,7 +108,7 @@ describe Gateways::Sessions do
       end
 
       it 'doesn\'t allow searching by another organisations IP' do
-        result = subject.search(username: nil, ips: ['3.3.3.3'])
+        result = subject.search(username: nil, ips: '3.3.3.3')
         expect(result).to be_empty
       end
     end
