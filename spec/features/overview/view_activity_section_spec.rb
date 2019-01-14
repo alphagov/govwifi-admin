@@ -1,4 +1,4 @@
-describe 'viewing the activity of GovWifi in an organisation', focus: true do
+describe 'viewing the activity of GovWifi in an organisation' do
   context 'within the last 24 hours' do
     let(:ip) { '1.2.3.4' }
     let(:username_1) { 'AAAAAA' }
