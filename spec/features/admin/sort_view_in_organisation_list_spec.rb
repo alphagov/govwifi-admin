@@ -11,29 +11,29 @@ describe 'sorting the values in the organisation list' do
       visit root_path
     end
 
-    context 'and sorts by organisation name' do
-      it 'sorts the list from A -Z, by default' do
-        expect(page.body).to match(/Apple Cakes.*Silly Hats.*Xylophones/m)
-      end
-
-      it 'sorts the list in reverse, when Name is clicked once' do
-        click_link 'Name'
-
-        expect(page.body).to match(/Xylophones.*Silly Hats.*Apple Cakes/m)
-      end
-    end
-
     context 'and sorts by account creation date' do
+      it 'sorts the list from newest to oldest, by default' do
+        expect(page.body).to match(/Xylophones.*Apple Cakes.*Silly Hats/m)
+      end
+
       it 'sorts the list from oldest to newest, when Created on is clicked once' do
         click_link 'Created on'
 
         expect(page.body).to match(/Silly Hats.*Apple Cakes.*Xylophones/m)
       end
+    end
 
-      it 'sorts the list from newest to oldest, when Created on is clicked twice' do
-        2.times { click_link 'Created on' }
+    context 'and sorts by organisation name' do
+      it 'sorts the list from A -Z, when Name is clicked once' do
+        click_link 'Name'
 
-        expect(page.body).to match(/Xylophones.*Apple Cakes.*Silly Hats/m)
+        expect(page.body).to match(/Apple Cakes.*Silly Hats.*Xylophones/m)
+      end
+
+      it 'sorts the list in reverse alphabetical order, when Name is clicked twice' do
+        2.times { click_link 'Name' }
+
+        expect(page.body).to match(/Xylophones.*Silly Hats.*Apple Cakes/m)
       end
     end
 
