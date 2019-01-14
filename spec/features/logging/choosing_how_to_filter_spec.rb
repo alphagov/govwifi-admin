@@ -10,17 +10,6 @@ describe 'Choosing how to filter' do
     it_behaves_like 'errors in form'
   end
 
-  # this'll add setup to the other tests too, if implemented
-  xcontext 'with no IPs' do
-    it 'does not offer to go to search' do
-      expect(page).to_not have_content('Go to search')
-    end
-
-    it 'offers to add IPs first' do
-      expect(page).to have_content('add at least one IP address')
-    end
-  end
-
   context 'hacking urls' do
     context 'to results link with no filter' do
       before { visit logs_path }
