@@ -14,7 +14,6 @@ class HomeController < ApplicationController
       ips: @ips.map(&:address),
       username: nil
     ).fetch(:connection_count)
-
   end
 
 private
