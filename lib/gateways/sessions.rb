@@ -29,7 +29,7 @@ module Gateways
     end
 
     def count_distinct_users(ips:)
-      Session.where(siteIP: ips).where(success: true).count
+      Session.where(siteIP: organisation_ips).where(success: true).count
     end
 
   private
