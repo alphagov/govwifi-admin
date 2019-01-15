@@ -1,4 +1,26 @@
 # frozen_string_literal: true
+require 'net/http'
+require 'json'
+
+class Users::RegistrationsController < Devise::RegistrationsController
+  before_action :validate_email_on_whitelist, only: :create
+
+  def new
+    @register_org_names = parse_register
+    super
+  end
+
+  def parse_register
+    url = "https://government-organisation.register.gov.uk/records.json?page-size=5000"
+    uri = URI(url)
+    response = Net::HTTP.get(uri)
+    parsed_json = JSON.parse(response)
+
+    mapped_json = parsed_json.map { |_, v| v.dig('item',  0, 'name')}
+    searched_json = mapped_json.lazy.select { |word| word.start_with?('n', 'N') }.first(5000)
+
+  end
+end
 
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :validate_email_on_whitelist, only: :create
