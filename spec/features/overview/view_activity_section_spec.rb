@@ -25,7 +25,7 @@ describe 'viewing the activity of GovWifi in an organisation' do
       end
     end
 
-    context 'with at least one successful connection' do
+    context 'with one successful connection' do
       before do
         Session.create!(start: 3.hours.ago, success: false, username: username_1, siteIP: ip)
         Session.create!(start: 5.hours.ago, success: true, username: username_2, siteIP: ip)
@@ -37,6 +37,26 @@ describe 'viewing the activity of GovWifi in an organisation' do
       end
 
       it 'displays the number of successful connections' do
+        within('div#user-statistics') do
+          expect(page).to have_content("1 connection")
+        end
+      end
+    end
+
+    context 'with multiple successful connections' do
+      before do
+        Session.create!(start: 2.days.ago, success: true, username: username_1, siteIP: ip)
+        Session.create!(start: 3.hours.ago, success: false, username: username_1, siteIP: ip)
+        Session.create!(start: 5.hours.ago, success: true, username: username_2, siteIP: ip)
+        Session.create!(start: 10.hours.ago, success: true, username: username_2, siteIP: ip)
+
+        create(:ip, location: location, address: ip)
+
+        sign_in_user admin_user
+        visit root_path
+      end
+
+      it 'displays the number of successful unique connections' do
         within('div#user-statistics') do
           expect(page).to have_content("1 connection")
         end

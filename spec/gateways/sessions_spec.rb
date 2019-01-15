@@ -124,7 +124,7 @@ describe Gateways::Sessions do
   end
 
   context 'recent connections' do
-    context 'within an organisation' do
+    context 'within 24 hours' do
       let(:username_1) { 'AAAAAA' }
       let(:username_2) { 'BBBBBB' }
       let(:username_3) { 'CCCCCC' }
@@ -140,14 +140,25 @@ describe Gateways::Sessions do
         expect(result).to eq(2)
       end
 
-      it 'counts the number of successful connections' do
-        Session.create(start: yesterday, success: true, username: username_1, siteIP: '127.0.0.1')
-        Session.create(start: yesterday, success: true, username: username_2, siteIP: '127.0.0.2')
-        Session.create(start: yesterday, success: true, username: username_3, siteIP: '127.0.0.3')
-        Session.create(start: yesterday, success: false, username: username_2, siteIP: '127.0.0.4')
+      it 'counts the number of unique successful connections' do
+        Session.create(start: today_date, success: true, username: username_1, siteIP: '127.0.0.1')
+        Session.create(start: today_date, success: true, username: username_1, siteIP: '127.0.0.2')
+        Session.create(start: today_date, success: true, username: username_3, siteIP: '127.0.0.3')
+        Session.create(start: today_date, success: true, username: username_3, siteIP: '127.0.0.4')
 
         result = subject.count_distinct_users
-        expect(result).to eq(3)
+        expect(result).to eq(2)
+      end
+
+      it 'counts the number of unique successful connections' do
+        Session.create(start: two_days_ago, success: true, username: username_1, siteIP: '127.0.0.1')
+        Session.create(start: yesterday, success: true, username: username_1, siteIP: '127.0.0.2')
+        Session.create(start: yesterday, success: true, username: username_2, siteIP: '127.0.0.4')
+        Session.create(start: today_date, success: true, username: username_3, siteIP: '127.0.0.3')
+        Session.create(start: today_date, success: true, username: username_3, siteIP: '127.0.0.4')
+
+        result = subject.count_distinct_users
+        expect(result).to eq(1)
       end
     end
   end
