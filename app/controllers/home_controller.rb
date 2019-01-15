@@ -11,7 +11,7 @@ class HomeController < ApplicationController
     @dublin_radius_ips = radius_ips[:dublin]
 
     @connections = get_auth_requests.execute(
-      ips: @ips.map(&:address),
+      ips: nil,
       username: nil
     ).fetch(:connection_count)
   end

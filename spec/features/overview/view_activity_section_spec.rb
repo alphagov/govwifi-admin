@@ -19,7 +19,7 @@ describe 'viewing the activity of GovWifi in an organisation' do
       end
     end
 
-    xit 'displays the number of successful connections' do
+    it 'displays the number of successful connections' do
       Session.create(start: 3.hours.ago, success: true, username: username_1, siteIP: ip)
       Session.create(start: 5.hours.ago, success: true, username: username_2, siteIP: ip)
       Session.create(start: 10.hours.ago, success: false, username: username_1, siteIP: ip)
