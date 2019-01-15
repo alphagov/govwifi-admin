@@ -136,7 +136,7 @@ describe Gateways::Sessions do
         Session.create(start: today_date, success: false, username: username_2, siteIP: '127.0.0.4')
         Session.create(start: today_date, success: false, username: username_2, siteIP: '127.0.0.5')
 
-        result = subject.count_distinct_users(ips: my_ips)
+        result = subject.count_distinct_users
         expect(result).to eq(2)
       end
 
@@ -146,7 +146,7 @@ describe Gateways::Sessions do
         Session.create(start: yesterday, success: true, username: username_3, siteIP: '127.0.0.3')
         Session.create(start: yesterday, success: false, username: username_2, siteIP: '127.0.0.4')
 
-        result = subject.count_distinct_users(ips: my_ips)
+        result = subject.count_distinct_users
         expect(result).to eq(3)
       end
     end

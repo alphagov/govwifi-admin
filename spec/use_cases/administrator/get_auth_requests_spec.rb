@@ -50,7 +50,7 @@ describe UseCases::Administrator::GetAuthRequests do
         subject.execute(ips: ip)
 
         expect(authentication_logs_gateway).to have_received(:count_distinct_users)
-          .with(ips: ip)
+          .with(no_args)
       end
     end
   end

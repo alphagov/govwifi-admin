@@ -7,7 +7,7 @@ module UseCases
 
       def execute(username: nil, ips: nil)
         params = username.present? ? { username: username } : { ips: ips }
-        { results: @authentication_logs_gateway.search(params), connection_count: @authentication_logs_gateway.count_distinct_users(ips: ips) }
+        { results: @authentication_logs_gateway.search(params), connection_count: @authentication_logs_gateway.count_distinct_users }
       end
     end
   end

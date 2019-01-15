@@ -28,7 +28,7 @@ module Gateways
       end
     end
 
-    def count_distinct_users(ips:)
+    def count_distinct_users
       Session.where(siteIP: organisation_ips).where(success: true).count
     end
 
