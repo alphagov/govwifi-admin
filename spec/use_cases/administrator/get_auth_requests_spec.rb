@@ -41,13 +41,4 @@ describe UseCases::Administrator::GetAuthRequests do
       end
     end
   end
-
-  context 'count unique connections' do
-    it 'calls count distinct users on the gateway' do
-      subject.execute(ips: nil)
-
-      expect(authentication_logs_gateway).to have_received(:count_distinct_users)
-        .with(no_args)
-    end
-  end
 end
