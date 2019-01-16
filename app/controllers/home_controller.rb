@@ -10,10 +10,7 @@ class HomeController < ApplicationController
     @london_radius_ips = radius_ips[:london]
     @dublin_radius_ips = radius_ips[:dublin]
 
-    @connections = get_auth_requests.execute(
-      ips: nil,
-      username: nil
-    ).fetch(:connection_count)
+    @connections = get_unique_user_requests.execute(date_range: 1.day.ago).fetch(:connection_count)
   end
 
 private
@@ -23,9 +20,9 @@ private
     view_radius.execute
   end
 
-  def get_auth_requests
-    UseCases::Administrator::GetAuthRequests.new(
-      authentication_logs_gateway: Gateways::Sessions.new(
+  def get_unique_user_requests
+    UseCases::Administrator::GetUniqueUserRequests.new(
+      authentication_logs_gateway: Gateways::UniqueConnections.new(
         ips: current_organisation.ips.map(&:address)
       )
     )
