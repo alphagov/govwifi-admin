@@ -7,6 +7,7 @@ class HomeController < ApplicationController
     @ips = current_organisation.ips
     @locations = current_organisation.locations
     @team_members = current_organisation.users
+
     @london_radius_ips = radius_ips[:london]
     @dublin_radius_ips = radius_ips[:dublin]
 
