@@ -28,10 +28,6 @@ module Gateways
       end
     end
 
-    def count_distinct_users
-      Session.where(siteIP: organisation_ips).where('start >= ?', 1.day.ago).where(success: true).distinct.count(:username)
-    end
-
   private
 
     attr_reader :organisation_ips
