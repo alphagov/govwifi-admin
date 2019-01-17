@@ -5,7 +5,7 @@
 
   <div class='govuk-grid-column-full'>
     <p class='govuk-body'>
-      We record recent requests made to the GovWifi service.
+      Logs are kept for recent authentication requests made to the GovWifi service.
     </p>
 
     <%= form_with url: logs_searches_path, method: :post do |form| %>
@@ -13,7 +13,10 @@
         <p class="govuk-body">
           How do you want to filter these logs?
         </p>
-        <div class="govuk-radios">
+        <div class="govuk-radios <%= field_error(@search, :filter) %>">
+          <% if field_error(@search, :filter).present? %>
+            <p class="govuk-body govuk-error-message">Please select an option</p>
+          <% end %>
           <div class="govuk-radios__item">
             <input class="govuk-radios__input" id="choice-location" name="logs_search[filter]" type="radio" value="location">
             <label class="govuk-label govuk-radios__label" for="choice-location">

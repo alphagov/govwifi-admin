@@ -9,11 +9,15 @@
 
   <div class='govuk-grid-column-two-thirds'>
     <%= form_for @search do |f| %>
-      <div class='govuk-form-group'>
+      <div class='govuk-form-group <%= field_error(@search, :search_term) %>'>
         <%= f.label :term, 'Username', class: 'govuk-label' %>
         <span class='govuk-hint'>
           This is an end user's 5- or 6-character username, like 'abcdef'
         </span>
+
+        <% if field_error(@search, :search_term).present? %>
+          <p class="govuk-body govuk-error-message">Please enter a valid username</p>
+        <% end %>
         <%= f.text_field :term, class: 'govuk-input govuk-input--width-10' %>
       </div>
       <%= f.hidden_field :filter %>

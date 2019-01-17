@@ -94,6 +94,11 @@ describe "View authentication requests for a username" do
       let(:search_string) { "1" }
 
       it_behaves_like "errors in form"
+
+      it "should display an error summary to the user" do
+        expect(page).to have_content("Search term must be 5 or 6 characters")
+        expect(page).to have_content("Please enter a valid username")
+      end
     end
   end
 
