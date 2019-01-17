@@ -13,12 +13,10 @@ describe 'Add new location' do
     end
 
     it 'explains that a location needs to be added first' do
-      expect(page).to have_content('You have no locations')
+      expect(page).to have_content('You have no existing locations')
     end
 
-    context 'and adding a new location' do
-      before { click_on 'add a new location' }
-
+    context 'and adding the first location' do
       context 'and that IP is valid' do
         before do
           fill_in 'Address', with: '30 Square'
