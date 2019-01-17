@@ -8,30 +8,26 @@
 
     <%= render "activation_notice" %>
 
-    <% if current_organisation.locations.empty? %>
-      <p class="govuk-body"><strong>You have no locations to add a new IP address to, click here to <%= link_to "add a new location", new_location_path, class: "govuk-link" %>.</strong></p>
-    <% else %>
-      <%= form_with model: @ip do |form| %>
-        <div class="govuk-form-group <%= field_error(@ip, :location_id) %>">
-          <%= form.label :location, "Select an existing location", class: "govuk-label" %>
-          <%= collection_select :ip, :location_id, @locations, :id, :full_address, {}, { class: "govuk-select" } %>
-        </div>
+    <%= form_with model: @ip do |form| %>
+      <div class="govuk-form-group <%= field_error(@ip, :location_id) %>">
+        <%= form.label :location, "Select an existing location", class: "govuk-label" %>
+        <%= collection_select :ip, :location_id, @locations, :id, :full_address, {}, { class: "govuk-select" } %>
+      </div>
 
-        <div class="govuk-form-group <%= field_error(@ip, :address) %>">
-          <%= form.label :ip, "Enter IP address (IPv4 only)", class: "govuk-label" %>
-          <%= form.text_field :address, id: :address, autocomplete: "off", class: "govuk-input govuk-input--width-10" %>
-        </div>
+      <div class="govuk-form-group <%= field_error(@ip, :address) %>">
+        <%= form.label :ip, "Enter IP address (IPv4 only)", class: "govuk-label" %>
+        <%= form.text_field :address, id: :address, autocomplete: "off", class: "govuk-input govuk-input--width-10" %>
+      </div>
 
-        <div class="actions">
-          <%= form.submit "Add new IP address", class: "govuk-button" %>
-        </div>
+      <div class="actions">
+        <%= form.submit "Add new IP address", class: "govuk-button" %>
+      </div>
 
-        <p class="govuk-body"><strong>OR</strong></p>
+      <p class="govuk-body"><strong>OR</strong></p>
 
-        <p class='govuk-body'>
-          <%= link_to "Add a new location", new_location_path, class: "govuk-link" %>
-        </p>
-      <% end %>
+      <p class='govuk-body'>
+        <%= link_to "Add a new location", new_location_path, class: "govuk-link" %>
+      </p>
     <% end %>
   </div>
 </div>
