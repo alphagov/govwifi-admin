@@ -1,5 +1,5 @@
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-full" id="overview">
+  <div class="govuk-grid-column-full overview-section-allignment" id="overview">
     <h2 class="govuk-heading-l govuk-grid-column-full">Overview</h2>
     <div class="govuk-grid-column-one-third" id="team-members">
       <div class="govuk-panel govuk-panel--confirmation summary-background">
@@ -34,8 +34,8 @@
   </div>
   <div class="govuk-grid-column-full" id="user-statistics">
     <hr class="govuk-section-break--m govuk-section-break--visible">
-    <h2 class="govuk-heading-l govuk-grid-column-full">Activity</h2>
-    <div class="govuk-grid-column-full" id="unique-users">
+    <h2 class="govuk-heading-l govuk-grid-column-full  activity-section-allignment">Activity</h2>
+    <div class="govuk-grid-column-full activity-section-allignment" id="unique-users">
       <% if @connections.zero? %>
         <p class="govuk-body"><strong>No connections</strong> to GovWifi within your organisation, in the last 24 hours.</p>
       <% else %>
