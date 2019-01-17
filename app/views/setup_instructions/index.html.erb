@@ -3,7 +3,13 @@
   <div class="govuk-grid-column-two-thirds">
     <div>
       <h3 class="govuk-heading-m"> 1. Add IPs </h3>
-      <% if @ips.empty? %>
+      <% if @locations.empty? %>
+        <% if current_user.can_manage_locations? %>
+          <p class="govuk-body">
+            You need to <%= link_to "add the IPs", new_location_path, class: "govuk-link" %> of your authenticator(s).
+          </p>
+        <% end %>
+      <% elsif @ips.empty? %>
         <% if current_user.can_manage_locations? %>
           <p class="govuk-body">
             You need to <%= link_to "add the IPs", new_ip_path, class: "govuk-link" %> of your authenticator(s).
