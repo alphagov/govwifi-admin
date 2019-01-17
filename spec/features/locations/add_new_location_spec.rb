@@ -12,8 +12,8 @@ describe 'Add new location' do
       click_on 'Add IP address'
     end
 
-    it 'explains that a location needs to be added first' do
-      expect(page).to have_content('You have no existing locations')
+    it 'displays an instruction to add the first location' do
+      expect(page).to have_content('Add your first location')
     end
 
     context 'and adding the first location' do
