@@ -2,16 +2,16 @@ describe 'Contact us when signed in' do
   include_context 'with a mocked notifications client'
 
   let(:organisation) { create :organisation }
+  let(:user) { create(:user, organisation: organisation) }
 
   before do
-    sign_in_user create(:user, organisation: organisation)
+    sign_in_user user
     visit signed_in_new_help_path
   end
 
   context 'with details filled in' do
     before do
       fill_in 'Tell us about your issue', with: 'Help me barry.. im a duck too'
-      fill_in 'Your email address', with: 'barry@gov.uk'
       click_on 'Send support request'
     end
 
@@ -31,6 +31,10 @@ describe 'Contact us when signed in' do
     it 'records the organisation' do
       expect(last_notification_personalisation[:organisation])
         .to eq organisation.name
+    end
+
+    it 'records the sender' do
+      expect(last_notification_personalisation[:sender_email]).to eq user.email
     end
   end
 

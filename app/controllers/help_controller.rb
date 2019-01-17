@@ -35,6 +35,10 @@ class HelpController < ApplicationController
   def create
     @support_form = SupportForm.new(support_form_params)
 
+    if @support_form.email.blank?
+      @support_form.email = current_user&.email
+    end
+
     if @support_form.valid?
       template_id = GOV_NOTIFY_CONFIG['help_email']['template_id']
 
