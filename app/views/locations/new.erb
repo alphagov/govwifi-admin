@@ -18,7 +18,14 @@
   <div class='govuk-grid-column-two-thirds'>
     <%= link_to 'Back to list', ips_path, class: 'govuk-back-link' %>
 
-    <h2 class='govuk-heading-l'>Add a new location</h2>
+    <% if current_organisation.locations.empty? %>
+      <h2 class='govuk-heading-l'>Add a new location</h2>
+      <div class="govuk-inset-text">
+        <strong>You have no existing locations to add a new IP address to.</strong>
+      </div>
+    <% else %>
+      <h2 class='govuk-heading-l'>Add a new location</h2>
+    <% end %>
 
     <%= form_for @location, html: { autocomplete: "off" } do |f| %>
       <div class="govuk-form-group">
