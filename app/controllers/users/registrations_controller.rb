@@ -17,7 +17,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     parsed_json = JSON.parse(response)
 
     mapped_json = parsed_json.map { |_, v| v.dig('item',  0, 'name')}
-    searched_json = mapped_json.lazy.select { |word| word.start_with?('n', 'N') }.first(5000)
+    # searched_json = mapped_json.lazy.select { |word| word.start_with?('d', 'D') }.first(5000)
 
   end
 end
