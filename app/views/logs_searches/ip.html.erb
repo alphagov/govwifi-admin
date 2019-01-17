@@ -12,9 +12,7 @@
       <div class='govuk-form-group <%= field_error(@search, :search_term) %>'>
         <%= f.label :term, 'IP address', class: 'govuk-label' %>
 
-        <% if field_error(@search, :search_term).present? %>
-          <p class="govuk-body govuk-error-message">Please enter a valid IP address</p>
-        <% end %>
+        <%= render 'error_message', key: :search_term, message: 'enter a valid IP address' %>
 
         <%= f.text_field :term, class: 'govuk-input govuk-input--width-10' %>
       </div>

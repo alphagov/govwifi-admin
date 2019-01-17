@@ -14,10 +14,7 @@
         <span class='govuk-hint'>
           This is an end user's 5- or 6-character username, like 'abcdef'
         </span>
-
-        <% if field_error(@search, :search_term).present? %>
-          <p class="govuk-body govuk-error-message">Please enter a valid username</p>
-        <% end %>
+        <%= render 'error_message', key: :search_term, message: 'enter a valid username' %>
         <%= f.text_field :term, class: 'govuk-input govuk-input--width-10' %>
       </div>
       <%= f.hidden_field :filter %>
