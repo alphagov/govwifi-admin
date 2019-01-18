@@ -18,7 +18,7 @@ describe 'guidance after sign in' do
 
     it 'shows me the landing guidance' do
       expect(page).to have_content 'Get GovWifi'
-      expect(page).to have_content 'If you are having trouble setting up GovWifi'
+      expect(page).to have_content 'If you have trouble setting up GovWifi,'
     end
 
     context 'and an IP, clicking on that IP' do
