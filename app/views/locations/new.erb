@@ -15,11 +15,16 @@
 <% end %>
 
 <div class='govuk-grid-row'>
-  <div class='govuk-grid-column-two-thirds'>
+  <div class='govuk-grid-column-full'>
     <%= link_to 'Back to list', ips_path, class: 'govuk-back-link' %>
 
-    <h2 class='govuk-heading-l'>Add a new location</h2>
-
+    <% if current_organisation.locations.empty? %>
+      <h2 class='govuk-heading-l'>Add your first location and IP addresses</h2>
+    <% else %>
+      <h2 class='govuk-heading-l'>Add a new location</h2>
+    <% end %>
+  </div>
+  <div class='govuk-grid-column-two-thirds'>
     <%= form_for @location, html: { autocomplete: "off" } do |f| %>
       <div class="govuk-form-group">
         <%= f.label :address, class: 'govuk-label' %>
