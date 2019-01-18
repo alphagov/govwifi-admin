@@ -2,21 +2,27 @@
   <h2 class="govuk-heading-l govuk-grid-column-full">Get GovWifi access in your organisation</h2>
   <div class="govuk-grid-column-two-thirds">
     <h3 class="govuk-heading-m"> 1. Add IPs </h3>
-    <% if @ips.empty? %>
-      <% if current_user.can_manage_locations? %>
+      <% if @locations.empty? %>
+        <% if current_user.can_manage_locations? %>
+          <p class="govuk-body">
+            You need to <%= link_to "add the IPs", new_location_path, class: "govuk-link" %> of your authenticator(s).
+          </p>
+        <% end %>
+      <% elsif @ips.empty? %>
+        <% if current_user.can_manage_locations? %>
+          <p class="govuk-body">
+            You need to <%= link_to "add the IPs", new_ip_path, class: "govuk-link" %> of your authenticator(s).
+          </p>
+        <% end %>
+      <% else %>
         <p class="govuk-body">
-          You need to <%= link_to "add the IPs", new_ip_path, class: "govuk-link" %> of your authenticator(s).
+          You have <%= link_to "#{pluralize(@ips.count, "IP")} configured.", ips_path, class: "govuk-link"  %>
         </p>
       <% end %>
-    <% else %>
+      <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
       <p class="govuk-body">
-        You have <%= link_to "#{pluralize(@ips.count, "IP")} configured.", ips_path, class: "govuk-link"  %>
+        New IPs will not be activated until<strong class="govuk-!-font-weight-bold"> the next day. </strong>
       </p>
-    <% end %>
-    <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
-    <p class="govuk-body">
-      New IPs will not be activated until<strong class="govuk-!-font-weight-bold"> the next day. </strong>
-    </p>
 
     <hr class="govuk-section-break--m govuk-section-break--visible">
 
