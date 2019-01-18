@@ -10,79 +10,84 @@ describe 'Add new location' do
       sign_in_user user
       visit ips_path
       click_on 'Add IP address'
-      click_on 'Add a new location'
     end
 
-    context 'and that IP is valid' do
-      before do
-        fill_in 'Address', with: '30 Square'
-        fill_in 'Postcode', with: 'CC DDD'
-        fill_in ip_input, with: '10.0.0.1'
-        click_on 'Add new location'
-      end
-
-      it 'shows me the location was added' do
-        expect(page).to have_content('30 Square, CC DDD added')
-      end
-
-      it 'adds the location and IPs' do
-        expect(Ip.last.location.address).to eq('30 Square')
-        expect(Ip.last.location.postcode).to eq('CC DDD')
-      end
+    it 'displays an instruction to add the first location' do
+      expect(page).to have_content('Add your first location')
     end
 
-    context 'and that IP is invalid' do
-      before do
-        fill_in 'Address', with: '30 Square'
-        fill_in 'Postcode', with: 'CC DDD'
-        fill_in ip_input, with: '10.wrong.0.1'
-        fill_in second_ip_input, with: '10.0.0.3'
-        click_on 'Add new location'
-      end
+    context 'and adding the first location' do
+      context 'and that IP is valid' do
+        before do
+          fill_in 'Address', with: '30 Square'
+          fill_in 'Postcode', with: 'CC DDD'
+          fill_in ip_input, with: '10.0.0.1'
+          click_on 'Add new location'
+        end
 
-      it 'asks me to re-enter IPs' do
-        expect(page).to have_content('enter up to five IP addresses')
-      end
+        it 'shows me the location was added' do
+          expect(page).to have_content('30 Square, CC DDD added')
+        end
 
-      it 'tells me an IP is invalid' do
-        expect(page).to have_content(
-          "One or more IPs are incorrect"
-        )
-      end
-
-      context 'when looking back at the list' do
-        before { visit ips_path }
-
-        it 'has not added the invalid IP' do
-          expect(page).to_not have_content('10.wrong.0.1')
+        it 'adds the location and IPs' do
+          expect(Ip.last.location.address).to eq('30 Square')
+          expect(Ip.last.location.postcode).to eq('CC DDD')
         end
       end
-    end
 
-    context 'and that IP is blank' do
-      before do
-        fill_in 'Address', with: '30 Square'
-        fill_in 'Postcode', with: 'CC DDD'
-        click_on 'Add new location'
-      end
+      context 'and that IP is invalid' do
+        before do
+          fill_in 'Address', with: '30 Square'
+          fill_in 'Postcode', with: 'CC DDD'
+          fill_in ip_input, with: '10.wrong.0.1'
+          fill_in second_ip_input, with: '10.0.0.3'
+          click_on 'Add new location'
+        end
 
-      context 'when looking back at the list' do
-        before { visit ips_path }
+        it 'asks me to re-enter IPs' do
+          expect(page).to have_content('enter up to five IP addresses')
+        end
 
-        it 'has added the location' do
-          expect(page).to have_content('30 Square')
+        it 'tells me an IP is invalid' do
+          expect(page).to have_content(
+            "One or more IPs are incorrect"
+          )
+        end
+
+        context 'when looking back at the list' do
+          before { visit ips_path }
+
+          it 'has not added the invalid IP' do
+            expect(page).to_not have_content('10.wrong.0.1')
+          end
         end
       end
-    end
 
-    context 'and the address is blank' do
-      before do
-        fill_in 'Postcode', with: 'CC DDD'
-        fill_in ip_input, with: '10.wrong.0.1'
-        click_on 'Add new location'
+      context 'and that IP is blank' do
+        before do
+          fill_in 'Address', with: '30 Square'
+          fill_in 'Postcode', with: 'CC DDD'
+          click_on 'Add new location'
+        end
+
+        context 'when looking back at the list' do
+          before { visit ips_path }
+
+          it 'has added the location' do
+            expect(page).to have_content('30 Square')
+          end
+        end
       end
 
-      it_behaves_like "errors in form"
+      context 'and the address is blank' do
+        before do
+          fill_in 'Postcode', with: 'CC DDD'
+          fill_in ip_input, with: '10.wrong.0.1'
+          click_on 'Add new location'
+        end
+
+        it_behaves_like "errors in form"
+      end
     end
   end
 
