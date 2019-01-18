@@ -1,0 +1,41 @@
+describe "DELETE /locations/:id", type: :request do
+  let(:user) { create(:user) }
+  let!(:location) { create(:location, organisation: user.organisation) }
+
+  before do
+    https!
+    login_as(user, scope: :user)
+  end
+
+  context "when the user owns the location" do
+    context "when the location has no IPs" do
+      it "deletes the location" do
+        expect {
+          delete location_path(location)
+        }.to change { Location.count }.by(-1)
+      end
+    end
+
+    context "when the location has an IP" do
+      before do
+        create(:ip, location: location)
+      end
+
+      it "does not delete the location" do
+        expect {
+          delete location_path(location)
+        }.to change { Location.count }.by(0)
+      end
+    end
+  end
+
+  context "when the user does not own the location" do
+    let!(:other_location) { create(:location) }
+
+    it "does not delete the location" do
+      expect {
+        delete location_path(other_location)
+      }.to change { Location.count }.by(0)
+    end
+  end
+end

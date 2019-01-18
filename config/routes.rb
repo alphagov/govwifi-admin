@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     get 'feedback', on: :new
   end
 
-  resources :locations, only: [:new, :create]
+  resources :locations, only: %i[new create destroy]
   resources :team_members, only: %i[index edit update destroy]
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index]
