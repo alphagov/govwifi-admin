@@ -26,7 +26,9 @@ Rails.application.routes.draw do
     get 'feedback', on: :new
   end
 
-  resources :locations, only: %i[new create destroy]
+  resources :locations, only: %i[new create destroy] do
+    get 'remove', to: 'ips#index'
+  end
   resources :team_members, only: %i[index edit update destroy]
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index]

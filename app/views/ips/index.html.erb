@@ -1,5 +1,6 @@
 <div class="govuk-grid-row">
   <%= render "confirm_remove_ip" if @ip_to_delete && current_user.can_manage_locations? %>
+  <%= render "confirm_remove_location" if @location_to_delete && current_user.can_manage_locations? %>
 
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">IP addresses</h1>
