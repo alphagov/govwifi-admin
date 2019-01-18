@@ -97,7 +97,7 @@ describe "View authentication requests for a username" do
 
       it "should display an error summary to the user" do
         expect(page).to have_content("Search term must be 5 or 6 characters")
-        expect(page).to have_content("Please enter a valid username")
+        expect(page).to have_content("Enter a valid username")
       end
     end
   end

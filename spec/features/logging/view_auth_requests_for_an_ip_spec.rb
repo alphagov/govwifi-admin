@@ -56,7 +56,7 @@ describe 'View authentication requests for an IP' do
 
         it "should display an error summary and prompt to the user" do
           expect(page).to have_content("Search term must be a valid IP address")
-          expect(page).to have_content("Please enter a valid IP address")
+          expect(page).to have_content("Enter a valid IP address")
         end
       end
     end
