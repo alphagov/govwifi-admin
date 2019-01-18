@@ -9,8 +9,10 @@
 
   <div class='govuk-grid-column-two-thirds'>
     <%= form_for @search do |f| %>
-      <div class='govuk-form-group'>
+      <div class='govuk-form-group <%= field_error(@search, :search_term) %>'>
         <%= f.label :term, 'IP address', class: 'govuk-label' %>
+        <%= render 'error_message', key: :search_term, message: 'Enter a valid IP address' %>
+
         <%= f.text_field :term, class: 'govuk-input govuk-input--width-10' %>
       </div>
       <%= f.hidden_field :filter %>
