@@ -1,3 +1,6 @@
+require 'net/http'
+require 'json'
+
 module Gateways
   class OrganisationRegisterGateway
     def fetch_organisations

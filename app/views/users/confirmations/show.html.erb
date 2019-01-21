@@ -15,7 +15,9 @@
               autofocus: true,
               class: 'govuk-input',
               value: (params || {}).dig(:user, :organisation_attributes, :name) %>
+
               <%= select :name, :org_dropdown, @register %>
+
           </div>
 
           <div class="govuk-form-group <%= field_error(resource, "organisation.service_email") %>">

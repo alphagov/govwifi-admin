@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'net/http'
-require 'json'
 
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :validate_email_on_whitelist, only: :create
