@@ -18,9 +18,11 @@
   padding: 9px 0;
 }
 
-.govuk-header__container {
-  max-height: 40px;
-  padding-top: 11px;
+@media only screen and (min-width: 1024px) {
+  .govuk-header__container {
+    max-height: 40px;
+    padding-top: 11px;
+  }
 }
 
 .govuk-header__logotype-crown {
