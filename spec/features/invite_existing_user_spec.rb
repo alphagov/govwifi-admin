@@ -11,6 +11,42 @@ describe 'inviting a user that has already signed up' do
     let(:betty) { create(:user) }
 
     before do
+      stub_request(:get, "https://government-organisation.register.gov.uk/records.json?page-size=5000").
+      with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+      to_return(
+        status: 200,
+      body: '{
+        "OT1067": {
+          "index-entry-number":"1007",
+          "entry-number":"1007",
+          "entry-timestamp":"2018-10-18T09:50:55Z",
+          "key":"OT1067",
+          "item":[
+            {
+              "end-date":"2016-07-13",
+              "website":"https://www.gov.uk/government/organisations/ukti-education",
+              "name":"UKTI Education",
+              "government-organisation":"OT1067"
+            }
+          ]
+        },
+        "OT7837":{
+          "index-entry-number":"2332",
+          "entry-number":"2332",
+          "entry-timestamp":"2018-10-18T09:50:55Z",
+          "key":"OT7837",
+          "item":[
+            {
+              "end-date":"2016-07-13",
+              "website":"https://www.gov.uk/government/organisations/ministry-of-justice",
+              "name":"Ministry of Justice",
+              "government-organisation":"OT7837"
+            }
+          ]
+        }
+      }',
+        headers: {})
+
       sign_in_user confirmed_user
       visit new_user_invitation_path
       fill_in "Email", with: betty.email
@@ -73,7 +109,45 @@ describe 'inviting a user that has already signed up' do
       context 'when claire visits the confirmation link after the confirmed user tried to invite them' do
         let(:claire) { User.find_by(email: claires_email) }
 
-        before { visit confirmation_email_link }
+        before do
+          stub_request(:get, "https://government-organisation.register.gov.uk/records.json?page-size=5000").
+          with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+          to_return(
+            status: 200,
+          body: '{
+            "OT1067": {
+              "index-entry-number":"1007",
+              "entry-number":"1007",
+              "entry-timestamp":"2018-10-18T09:50:55Z",
+              "key":"OT1067",
+              "item":[
+                {
+                  "end-date":"2016-07-13",
+                  "website":"https://www.gov.uk/government/organisations/ukti-education",
+                  "name":"UKTI Education",
+                  "government-organisation":"OT1067"
+                }
+              ]
+            },
+            "OT7837":{
+              "index-entry-number":"2332",
+              "entry-number":"2332",
+              "entry-timestamp":"2018-10-18T09:50:55Z",
+              "key":"OT7837",
+              "item":[
+                {
+                  "end-date":"2016-07-13",
+                  "website":"https://www.gov.uk/government/organisations/ministry-of-justice",
+                  "name":"Ministry of Justice",
+                  "government-organisation":"OT7837"
+                }
+              ]
+            }
+          }',
+            headers: {})
+
+          visit confirmation_email_link
+        end
 
         it 'redirects them to a page to finish creating their account' do
           expect(page).to have_content("Your name")

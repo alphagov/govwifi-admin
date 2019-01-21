@@ -18,12 +18,12 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     with_unconfirmed_confirmable do
       gateway = Gateways::OrganisationRegisterGateway.new
       register = UseCases::Organisation::FetchOrganisationRegister.new(organisations_gateway: gateway)
+      binding.pry
+
       @register = register.execute.sort
       render_show_page
     end
     if @confirmable.errors.present?
-
-
       render_new_page
     end
   end

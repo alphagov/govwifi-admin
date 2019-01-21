@@ -15,7 +15,10 @@ def update_user_details(
   return unless confirmation_email_received?
 
   visit confirmation_email_link
-  fill_in 'Organisation name', with: organisation_name
+
+  # find(:select, "dropdown_name").first(:option, 'Academy for Justice Commissioning').select_option
+  select 'UKTI Education', from: 'dropdown_name'
+
   fill_in 'Service email', with: service_email
   fill_in 'Your name', with: name
   fill_in 'Password', with: password

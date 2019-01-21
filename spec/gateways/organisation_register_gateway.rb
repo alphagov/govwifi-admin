@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'net/http'
 require 'json'
 

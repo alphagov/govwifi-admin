@@ -11,13 +11,7 @@
         <%= f.fields_for :organisation, resource.build_organisation do |organisation_form| %>
           <div class="govuk-form-group <%= field_error(resource, "organisation.name") %>">
             <%= organisation_form.label :name, "Organisation name", class: "govuk-label" %>
-            <%= organisation_form.text_field :name,
-              autofocus: true,
-              class: 'govuk-input',
-              value: (params || {}).dig(:user, :organisation_attributes, :name) %>
-
-              <%= select :name, :org_dropdown, @register %>
-
+            <%= f.select :name, @register %>
           </div>
 
           <div class="govuk-form-group <%= field_error(resource, "organisation.service_email") %>">
