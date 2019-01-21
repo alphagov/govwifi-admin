@@ -1,5 +1,4 @@
 
-
 shared_examples 'organisations register' do
   let(:organisations_register_payload) { double }
 

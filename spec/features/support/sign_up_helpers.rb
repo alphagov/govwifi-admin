@@ -16,8 +16,8 @@ def update_user_details(
 
   visit confirmation_email_link
 
-  # find(:select, "dropdown_name").first(:option, 'Academy for Justice Commissioning').select_option
-  select 'UKTI Education', from: 'dropdown_name'
+  find(:select, "#dropdown_name").first(:option, 'Academy for Justice Commissioning').select_option
+  # select 'UKTI Education', from: 'dropdown_name'
 
   fill_in 'Service email', with: service_email
   fill_in 'Your name', with: name
