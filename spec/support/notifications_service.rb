@@ -7,6 +7,6 @@ shared_examples 'notifications service' do
     ENV['NOTIFY_API_KEY'] = 'dummy_key-00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000'
 
     allow_any_instance_of(Notifications::Client).to \
-    receive(:send_email).and_return({})
+      receive(:send_email).and_return({})
   end
 end

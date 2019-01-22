@@ -1,13 +1,11 @@
 
 shared_examples 'organisations register' do
-  let(:organisations_register_payload) { double }
-
   before do
     stub_request(:get, "https://government-organisation.register.gov.uk/records.json?page-size=5000").
     with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
     to_return(
       status: 200,
-    body: '{
+      body: '{
       "OT1067": {
         "index-entry-number":"1007",
         "entry-number":"1007",
@@ -37,6 +35,6 @@ shared_examples 'organisations register' do
         ]
       }
     }',
-      headers: {})
+    headers: {})
   end
 end

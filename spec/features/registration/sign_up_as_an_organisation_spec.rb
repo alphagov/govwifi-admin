@@ -1,49 +1,11 @@
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
-require 'support/fetch_organsiations'
+require 'support/fetch_organisations'
 
 describe 'Sign up as an organisation' do
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
   include_examples 'organisations register'
-
-  before do
-    stub_request(:get, "https://government-organisation.register.gov.uk/records.json?page-size=5000").
-    with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-    to_return(
-      status: 200,
-    body: '{
-      "OT1067": {
-        "index-entry-number":"1007",
-        "entry-number":"1007",
-        "entry-timestamp":"2018-10-18T09:50:55Z",
-        "key":"OT1067",
-        "item":[
-          {
-            "end-date":"2016-07-13",
-            "website":"https://www.gov.uk/government/organisations/ukti-education",
-            "name":"UKTI Education",
-            "government-organisation":"OT1067"
-          }
-        ]
-      },
-      "OT7837":{
-        "index-entry-number":"2332",
-        "entry-number":"2332",
-        "entry-timestamp":"2018-10-18T09:50:55Z",
-        "key":"OT7837",
-        "item":[
-          {
-            "end-date":"2016-07-13",
-            "website":"https://www.gov.uk/government/organisations/ministry-of-justice",
-            "name":"Ministry of Justice",
-            "government-organisation":"OT7837"
-          }
-        ]
-      }
-    }',
-      headers: {})
-    end
 
   let(:name) { 'Sally' }
 
@@ -72,7 +34,7 @@ describe 'Sign up as an organisation' do
       end
 
       it 'creates an organisation for the user' do
-        expect(User.last.organisation.name).to eq("Parks & Recreation")
+        expect(User.last.organisation.name).to eq('UKTI Education')
       end
     end
 
@@ -143,22 +105,6 @@ describe 'Sign up as an organisation' do
 
     it 'tells me my password is not valid' do
       expect(page).to have_content("Password can't be blank")
-    end
-  end
-
-  context 'when Organisation name is taken' do
-    let!(:existing_org) { create(:organisation) }
-
-    before do
-      sign_up_for_account
-      update_user_details(organisation_name: existing_org.name)
-      expect(page).to have_content 'Create your account'
-    end
-
-    it_behaves_like 'errors in form'
-
-    it 'tells the user that the organisation name must be unique' do
-      expect(page).to have_content 'Organisation name is already registered'
     end
   end
 
