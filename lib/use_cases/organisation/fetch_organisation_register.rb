@@ -9,7 +9,7 @@ module UseCases
         organisations_gateway.fetch_organisations
       end
 
-      private
+    private
 
       attr_reader :organisations_gateway
     end

@@ -23,7 +23,7 @@ describe 'Sign up as an organisation' do
   context 'with correct data' do
     before do
       sign_up_for_account(email: email)
-      update_user_details(name: name, organisation_name: "Parks & Recreation")
+      update_user_details(name: name)
     end
 
     context 'with a gov.uk email' do

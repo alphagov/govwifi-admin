@@ -6,12 +6,7 @@ def sign_up_for_account(email: 'default@gov.uk')
   click_on 'Sign up'
 end
 
-def update_user_details(
-  password: 'supersecret',
-  name: 'bob',
-  organisation_name: 'Parks and Recreation',
-  service_email: 'admin@gov.uk'
-)
+def update_user_details(password: 'supersecret', name: 'bob', service_email: 'admin@gov.uk')
   return unless confirmation_email_received?
 
   visit confirmation_email_link
