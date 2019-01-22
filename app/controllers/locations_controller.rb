@@ -16,6 +16,14 @@ class LocationsController < ApplicationController
     end
   end
 
+  def destroy
+    location = current_organisation.locations.find_by(id: params.fetch(:id))
+    redirect_to ips_path && return unless location && location.ips.empty?
+
+    location.destroy
+    redirect_to ips_path, notice: "Successfully removed location #{location.address}"
+  end
+
 private
 
   def add_blank_ips_to_location
