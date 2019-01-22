@@ -15,6 +15,10 @@ class OrganisationsController < ApplicationController
     end
   end
 
+  def show
+    @team_members = current_user&.organisation&.users || []
+  end
+
 private
 
   def set_organisation
