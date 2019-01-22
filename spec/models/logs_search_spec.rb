@@ -9,7 +9,7 @@ describe LogsSearch do
 
       it 'explains it is blank' do
         subject.valid?
-        expect(subject.errors.full_messages.first).to eq "Term can't be blank"
+        expect(subject.errors.full_messages.first).to eq "Search term cannot be empty"
       end
     end
 
@@ -20,7 +20,7 @@ describe LogsSearch do
 
       it 'explains the required length' do
         subject.valid?
-        expect(subject.errors.full_messages.first).to eq 'Term must be 5 or 6 characters'
+        expect(subject.errors.full_messages.first).to eq 'Search term must be 5 or 6 characters'
       end
     end
 
@@ -43,7 +43,7 @@ describe LogsSearch do
 
       it 'explains the required length' do
         subject.valid?
-        expect(subject.errors.full_messages.first).to eq 'Term must be 5 or 6 characters'
+        expect(subject.errors.full_messages.first).to eq 'Search term must be 5 or 6 characters'
       end
     end
   end
@@ -58,7 +58,7 @@ describe LogsSearch do
 
       it 'explains it is blank' do
         subject.valid?
-        expect(subject.errors.full_messages.first).to eq "Term can't be blank"
+        expect(subject.errors.full_messages.first).to eq "Search term cannot be empty"
       end
     end
 
@@ -69,7 +69,7 @@ describe LogsSearch do
 
       it 'explains it is invalid' do
         subject.valid?
-        expect(subject.errors.full_messages.first).to eq "Term must be a valid IP"
+        expect(subject.errors.full_messages.first).to eq "Search term must be a valid IP address"
       end
     end
 
@@ -80,7 +80,7 @@ describe LogsSearch do
 
       it 'explains it is invalid' do
         subject.valid?
-        expect(subject.errors.full_messages.first).to eq "Term must be a valid IP"
+        expect(subject.errors.full_messages.first).to eq "Search term must be a valid IP address"
       end
     end
 
