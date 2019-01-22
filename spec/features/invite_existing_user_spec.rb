@@ -75,9 +75,7 @@ describe 'inviting a user that has already signed up' do
       context 'when claire visits the confirmation link after the confirmed user tried to invite them' do
         let(:claire) { User.find_by(email: claires_email) }
 
-        before do
-          visit confirmation_email_link
-        end
+        before { visit confirmation_email_link }
 
         it 'redirects them to a page to finish creating their account' do
           expect(page).to have_content("Your name")

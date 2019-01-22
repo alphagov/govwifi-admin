@@ -6,12 +6,12 @@ def sign_up_for_account(email: 'default@gov.uk')
   click_on 'Sign up'
 end
 
-def update_user_details(password: 'supersecret', name: 'bob', service_email: 'admin@gov.uk')
+def update_user_details(password: 'supersecret', name: 'bob', service_email: 'admin@gov.uk', organisation: 'UKTI Education')
   return unless confirmation_email_received?
 
   visit confirmation_email_link
 
-  select 'UKTI Education', from: 'Organisation name'
+  select organisation, from: 'Organisation name'
 
   fill_in 'Service email', with: service_email
   fill_in 'Your name', with: name

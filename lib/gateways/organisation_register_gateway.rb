@@ -3,9 +3,10 @@ require 'json'
 
 module Gateways
   class OrganisationRegisterGateway
+    REGISTER_URL = 'https://government-organisation.register.gov.uk/records.json?page-size=5000'.freeze
+
     def fetch_organisations
-      url = "https://government-organisation.register.gov.uk/records.json?page-size=5000"
-      uri = URI(url)
+      uri = URI(REGISTER_URL)
       response = Net::HTTP.get(uri)
       parsed_json = JSON.parse(response)
 
