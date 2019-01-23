@@ -3,7 +3,7 @@ class TeamMembersController < ApplicationController
   before_action :validate_can_manage_team, only: %i[edit update]
 
   def index
-    @team_members = current_user&.organisation&.users || []
+    redirect_to organisation_path(current_organisation)
   end
 
   def destroy
