@@ -16,9 +16,9 @@
         <% if current_organisation.ips.present? %>
           <%= link_to "Overview", root_path, class: active_tab(root_path) %>
         <% end %>
-        <%= link_to "Setting Up", setup_instructions_path, class: active_tab(setup_instructions_path) %>
-        <%= link_to 'Organisation', organisation_path(current_organisation), class: "#{active_tab("organisation")}"+"#{active_tab("team")}" + "#{active_tab("user")}" %>
+        <%= link_to "Setup Instructions", setup_instructions_path, class: active_tab(setup_instructions_path) %>
         <%= link_to "IPs", ips_path, id:"nav-ips", class: active_tab("ips") %>
+        <%= link_to 'Organisation Settings', organisation_path(current_organisation), class: "#{active_tab("organisation")}"+"#{active_tab("team")}" + "#{active_tab("user")}" %>
         <% if current_organisation.ips.present? %>
           <%= link_to 'Logs', new_logs_search_path, class: active_tab("logs") %>
         <% end %>
