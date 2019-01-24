@@ -5,7 +5,7 @@ class Ip < ApplicationRecord
   validate :address_must_be_valid_ip
 
   def available?
-    created_at < Date.today.beginning_of_day + 2.hour
+    created_at < Date.today.beginning_of_day
   end
 
 private
