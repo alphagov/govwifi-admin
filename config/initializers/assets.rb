@@ -8,6 +8,8 @@ Rails.application.config.assets.precompile += %w(
   application_ie8.css
   html5shiv.js
   googletagmanager.js
+  accessible-autocomplete.min.js
+  accessible-autocomplete.min.css
   tick.svg
   cross.svg
 )

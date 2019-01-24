@@ -43,3 +43,13 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag 'accessible-autocomplete.min.js' %>
+<%= stylesheet_link_tag 'accessible-autocomplete.min.css' %>
+
+<script>
+  accessibleAutocomplete.enhanceSelectElement({
+    selectElement: document.querySelector('#user_organisation_attributes_name'),
+    required: true
+  })
+</script>

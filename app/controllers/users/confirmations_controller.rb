@@ -3,7 +3,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # in order to set user passwords after they have confirmed their email. This is
   # based largely on recommendations here: 'https://github.com/plataformatec/devise/wiki/How-To:-Override-confirmations-so-users-can-pick-their-own-passwords-as-part-of-confirmation-activation'
   before_action :set_resource, only: %i[update show]
-  before_action :set_orgs, only: %i[update show]
+  before_action :fetch_organisations_from_register, only: %i[update show]
 
   def update
     with_unconfirmed_confirmable do
@@ -28,10 +28,12 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
 protected
 
-  def set_orgs
-    gateway = Gateways::OrganisationRegisterGateway.new
-    register = UseCases::Organisation::FetchOrganisationRegister.new(organisations_gateway: gateway)
-    @register = register.execute.sort
+  def fetch_organisations_from_register
+    @register = cache(:register_organisations, expires_in: 5.minutes) do
+      gateway = Gateways::OrganisationRegisterGateway.new
+      register = UseCases::Organisation::FetchOrganisationRegister.new(organisations_gateway: gateway)
+      register.execute.sort
+    end
   end
 
   def set_resource
