@@ -8,8 +8,10 @@ describe 'view whether IPs are ready' do
   describe 'Viewing IPs' do
     context 'when one has been added' do
       let(:user) { create(:user) }
+      let(:t) { DateTime.now.midnight }
 
       before do
+        Timecop.travel(t)
         create :location, organisation: user.organisation
         sign_in_user user
         visit new_ip_path
@@ -18,7 +20,9 @@ describe 'view whether IPs are ready' do
       end
 
       context 'and I view it immediately' do
-        before { visit ips_path }
+        before do
+          visit ips_path
+        end
 
         it 'shows it is activating tomorrow' do
           expect(page).to have_content('Not available until 6am tomorrow')
