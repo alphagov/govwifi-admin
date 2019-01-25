@@ -5,11 +5,11 @@
         <div class='govuk-grid-column-two-thirds'>
 
           <% if member.invitation_pending? %>
-            <h3 class='govuk-heading-m govuk-!-margin-bottom-0 text-light-grey'><%= member.email %> (invited)</h3>
+            <h4 class='govuk-heading-s govuk-!-margin-bottom-0 text-light-grey'><%= member.email %> (invited)</h4>
           <% else %>
-            <h3 class='govuk-heading-m govuk-!-margin-bottom-0'><%= member.name %>
+            <h4 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
               <span class='govuk-!-padding-left-1 govuk-body text-light-grey'><%= member.email %></span>
-            </h3>
+            </h4>
           <% end %>
 
           <ul class='govuk-list'>
