@@ -11,6 +11,15 @@ describe UseCases::Administrator::CheckIfValidIp do
       end
     end
 
+    context 'with a private IP address' do
+      let(:address) { "10.0.0.0" }
+
+      it 'returns false' do
+        result = subject.execute(address)
+        expect(result).to eq(success: false)
+      end
+    end
+
     context 'with an empty string' do
       let(:address) { '' }
 
