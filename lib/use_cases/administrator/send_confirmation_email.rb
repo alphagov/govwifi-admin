@@ -17,6 +17,7 @@ module UseCases
         }
 
         notifications_gateway.send(opts)
+        pp opts
       end
 
     private

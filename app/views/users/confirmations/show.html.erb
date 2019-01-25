@@ -11,7 +11,7 @@
         <%= f.fields_for :organisation, resource.build_organisation do |organisation_form| %>
           <div class="govuk-form-group <%= field_error(resource, "organisation.name") %>">
             <%= organisation_form.label :name, "Organisation name", class: "govuk-label" %>
-            <%= organisation_form.select :name, @register %>
+            <%= organisation_form.select :name, options_for_select(@register), html_options = {}, class: "govuk-select"  %>
           </div>
 
           <div class="govuk-form-group <%= field_error(resource, "organisation.service_email") %>">
