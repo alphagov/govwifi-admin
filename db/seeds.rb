@@ -2,8 +2,8 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'faker'
 
-admin_organisation = Organisation.create(
-  name: "Super Admins", service_email: 'it@gds.com'
+admin_organisation = Organisation.create!(
+  name: "Government Digital Service", service_email: 'it@gds.com'
 )
 admin_user = admin_organisation.users.create(
   email: "admin@gov.uk",
@@ -14,7 +14,7 @@ admin_user = admin_organisation.users.create(
 )
 
 organisation = Organisation.create(
-  name: "Parks & Recreation Dept", service_email: 'it@parks.com'
+  name: "UKTI Education", service_email: 'it@parks.com'
 )
 user = organisation.users.create(
   email: "test@gov.uk",
@@ -45,12 +45,21 @@ location_2 = Location.create!(
   organisation_id: organisation.id
 )
 
+<<<<<<< HEAD
 20.times do
   Ip.create!(address: Faker::Internet.unique.ip_v4_address, location: location_1)
 end
 
 20.times do
   Ip.create!(address: Faker::Internet.unique.ip_v4_address, location: location_2)
+=======
+20.times do |i|
+  Ip.create!(address: "141.168.1.#{i}", location: location_1)
+end
+
+20.times do |i|
+  Ip.create!(address: "141.168.3.#{i}", location: location_2)
+>>>>>>> Add docker instance for fake
 end
 
 location_2.ips.each_with_index do |ip, index|
@@ -58,12 +67,6 @@ location_2.ips.each_with_index do |ip, index|
     success: index.even?,
     username: "Garry",
     siteIP: ip.address
-  )
-end
-
-5.times do
-  Organisation.create(
-    name: Faker::Company.name, service_email: 'some-service@email.com'
   )
 end
 

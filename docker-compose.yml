@@ -18,9 +18,17 @@ services:
     ports:
       - "13307:3306"
 
+  fake-registers:
+    build:
+      context: fake_register
+    ports:
+      - "7000:7000"
+
   app:
     build: .
     links:
       - rr_db
     ports:
     - "8080:3000"
+    depends_on:
+      - 'fake-registers'

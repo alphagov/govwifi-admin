@@ -3,7 +3,8 @@ require 'json'
 
 module Gateways
   class OrganisationRegisterGateway
-    REGISTER_URL = 'https://government-organisation.register.gov.uk/records.json?page-size=5000'.freeze
+    REGISTER_URL = "#{SITE_CONFIG['registers_url']}/records.json?page-size=5000".freeze
+    p REGISTER_URL
 
     def fetch_organisations
       uri = URI(REGISTER_URL)
