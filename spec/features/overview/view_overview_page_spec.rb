@@ -18,9 +18,9 @@ describe 'viewing the overview page' do
     end
 
     context 'with at least one IP' do
-      let(:ip_one) { '10.0.0.1' }
-      let(:ip_two) { '10.0.0.2' }
-      let(:ip_three) { '10.0.0.3' }
+      let(:ip_one) { '141.0.149.130' }
+      let(:ip_two) { '141.0.149.131' }
+      let(:ip_three) { '141.0.149.132' }
       let(:address_one) { '100 Eastern Street, Southwark' }
       let(:address_two) { '200 Western Street, Whitechapel' }
       let(:postcode_one) { 'SE4 4BK' }

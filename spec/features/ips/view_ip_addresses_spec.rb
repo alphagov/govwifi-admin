@@ -28,8 +28,8 @@ describe 'View IP addresses' do
     end
 
     context 'with IPs' do
-      let(:ip_one) { '10.0.0.1' }
-      let(:ip_two) { '10.0.0.2' }
+      let(:ip_one) { '141.0.149.130' }
+      let(:ip_two) { '141.0.149.131' }
       let(:address_one) { '179 Southern Street, Southwark' }
       let(:address_two) { '123 Northern Street, Whitechapel' }
       let(:postcode_one) { 'SE4 4BK' }

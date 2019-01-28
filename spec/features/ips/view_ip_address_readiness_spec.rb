@@ -13,7 +13,7 @@ describe 'view whether IPs are ready' do
         create :location, organisation: user.organisation
         sign_in_user user
         visit new_ip_path
-        fill_in 'address', with: '10.0.0.1'
+        fill_in 'address', with: '141.0.149.130'
         click_on 'Add new IP address'
       end
 

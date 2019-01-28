@@ -13,14 +13,14 @@ describe 'add an IP to an existing location' do
       end
 
       context 'and enter valid data' do
-        let(:ip_address) { '10.0.0.1' }
+        let(:ip_address) { '141.0.149.130' }
 
         it 'adds the IP' do
-          expect(page).to have_content("10.0.0.1 added")
+          expect(page).to have_content("141.0.149.130 added")
         end
 
         it 'adds to the correct location' do
-          expect(location.reload.ips.map(&:address)).to include("10.0.0.1")
+          expect(location.reload.ips.map(&:address)).to include("141.0.149.130")
         end
       end
 
@@ -44,16 +44,16 @@ describe 'add an IP to an existing location' do
 
       before do
         visit new_ip_path(location: other_location)
-        fill_in 'address', with: "10.0.0.2"
+        fill_in 'address', with: "141.0.149.130"
         click_on 'Add new IP address'
       end
 
       it 'adds the IP' do
-        expect(page).to have_content("10.0.0.2 added")
+        expect(page).to have_content("141.0.149.130 added")
       end
 
       it 'adds to that location' do
-        expect(other_location.reload.ips.map(&:address)).to include("10.0.0.2")
+        expect(other_location.reload.ips.map(&:address)).to include("141.0.149.130")
       end
     end
   end
