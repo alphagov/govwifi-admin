@@ -42,7 +42,6 @@ module UseCases
       def address_is_not_private?
         !IPAddr.new(address).private?
       end
-
     end
   end
 end
