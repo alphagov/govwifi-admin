@@ -1,6 +1,6 @@
 module Facades
   module Ips
-    class AfterCreate
+    class Publish
       def execute
         publish_for_performance_platform
         publish_radius_whitelist
