@@ -1,5 +1,3 @@
-require "ipaddr"
-
 module UseCases
   module Administrator
     class CheckIfValidIp
