@@ -27,7 +27,7 @@ describe Ip do
       end
 
       context "when valid" do
-        let!(:ip) { Ip.create(address: "10.0.0.1", location: location) }
+        let!(:ip) { Ip.create(address: "141.0.149.130", location: location) }
 
         it "saves when address is a valid IP" do
           expect(Ip.count).to eq(1)
