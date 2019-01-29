@@ -3,7 +3,7 @@ FactoryBot.define do
     sequence :address do |n|
       fourth = n % 255
       third = n / 255
-      "10.0.#{third}.#{fourth}"
+      "141.0.#{third}.#{fourth}"
     end
 
     association :location

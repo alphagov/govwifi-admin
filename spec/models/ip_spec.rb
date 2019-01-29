@@ -27,7 +27,7 @@ describe Ip do
       end
 
       context "when valid" do
-        let!(:ip) { Ip.create(address: "10.0.0.1", location: location) }
+        let!(:ip) { Ip.create(address: "141.0.149.130", location: location) }
 
         it "saves when address is a valid IP" do
           expect(Ip.count).to eq(1)
@@ -38,14 +38,14 @@ describe Ip do
   end
 
   context '#available' do
-    context 'with a created date at 2am today' do
-      before { subject.created_at = Date.today.beginning_of_day + 2.hour }
+    context 'with a created date at 12am today' do
+      before { subject.created_at = Date.today.beginning_of_day }
 
       it { is_expected.to_not be_available }
     end
 
-    context 'with a created date before 2am today' do
-      before { subject.created_at = Date.today.beginning_of_day + 119.minutes }
+    context 'with a created date before 12am today' do
+      before { subject.created_at = Date.today.beginning_of_day - 1.second }
 
       it { is_expected.to be_available }
     end

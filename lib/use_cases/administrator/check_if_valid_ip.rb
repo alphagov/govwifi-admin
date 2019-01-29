@@ -15,7 +15,8 @@ module UseCases
           address_is_ipv4? &&
           address_is_not_subnet? &&
           address_does_not_allows_all? &&
-          address_is_not_loopback?
+          address_is_not_loopback? &&
+          address_is_not_private?
       end
 
       def address_does_not_allows_all?
@@ -36,6 +37,10 @@ module UseCases
 
       def address_is_not_loopback?
         !IPAddr.new(address).loopback?
+      end
+
+      def address_is_not_private?
+        !IPAddr.new(address).private?
       end
     end
   end

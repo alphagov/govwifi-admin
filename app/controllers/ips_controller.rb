@@ -11,7 +11,7 @@ class IpsController < ApplicationController
     @ip = Ip.new(ip_params)
 
     if @ip.save
-      Facades::Ips::AfterCreate.new.execute
+      Facades::Ips::Publish.new.execute
       redirect_to(
         ips_path,
         notice: "#{@ip.address} added, it will be active starting tomorrow"
@@ -23,8 +23,10 @@ class IpsController < ApplicationController
   end
 
   def index
-    set_ip_to_delete if ip_removal_requested?
-    @locations = Location.includes(:ips).where(organisation: current_organisation).order(:address)
+    set_ip_or_location_to_delete
+    @locations = Location.includes(:ips)
+      .where(organisation: current_organisation)
+      .order(:address)
   end
 
   def destroy
@@ -32,6 +34,7 @@ class IpsController < ApplicationController
     redirect_to ips_path && return unless ip
 
     ip.destroy
+    Facades::Ips::Publish.new.execute
     redirect_to ips_path, notice: "Successfully removed IP address #{ip.address}"
   end
 
@@ -45,11 +48,21 @@ private
     params.require(:ip).permit(:address, :location_id)
   end
 
-  def set_ip_to_delete
-    @ip_to_delete = current_organisation.ips.find_by(id: params.fetch(:ip_id))
+  def set_ip_or_location_to_delete
+    if ip_removal_requested?
+      @ip_to_delete = current_organisation.ips.find_by(id: params.fetch(:ip_id))
+    elsif location_removal_requested?
+      @location_to_delete = current_organisation
+        .locations
+        .find_by(id: params.fetch(:location_id))
+    end
   end
 
   def ip_removal_requested?
     params[:ip_id].present?
+  end
+
+  def location_removal_requested?
+    params[:location_id].present?
   end
 end

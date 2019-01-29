@@ -22,7 +22,7 @@ describe 'guidance after sign in' do
     end
 
     context 'and an IP, clicking on that IP' do
-      let(:ip_address) { '10.0.0.1' }
+      let(:ip_address) { '141.0.149.130' }
 
       before do
         create(:ip, address: ip_address, location: location)

@@ -21,7 +21,7 @@ describe 'Add new location' do
         before do
           fill_in 'Address', with: '30 Square'
           fill_in 'Postcode', with: 'CC DDD'
-          fill_in ip_input, with: '10.0.0.1'
+          fill_in ip_input, with: '141.0.149.130'
           click_on 'Add new location'
         end
 
