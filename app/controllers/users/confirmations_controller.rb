@@ -6,8 +6,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   before_action :fetch_organisations_from_register, only: %i[update show]
 
   def update
-    # @org_name_param = Organisation.new(params.fetch(:organisation_attributes).fetch(:name))
-
     with_unconfirmed_confirmable do
       if @confirmable.update(user_params)
         confirm_user
@@ -29,15 +27,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   def pending; end
 
 protected
-
-def fetch_organisations_from_register
-  @register = cache(:register_organisations, expires_in: 5.minutes) do
-    gateway = Gateways::OrganisationRegisterGateway.new
-      register = UseCases::Organisation::FetchOrganisationRegister.new(organisations_gateway: gateway)
-      result = register.execute
-      result.sort
-  end
-end
 
   def set_resource
     token = params[:confirmation_token] || params[:user][:confirmation_token]
@@ -67,5 +56,15 @@ end
 
   def user_params
     params.require(:user).permit(:name, :password, organisation_attributes: %i[name service_email])
+  end
+
+private
+
+  def fetch_organisations_from_register
+    @register_organisations = cache(:register_organisations, expires_in: 1.day) do
+      UseCases::Organisation::FetchOrganisationRegister.new(
+        organisations_gateway: Gateways::OrganisationRegisterGateway.new
+      ).execute.sort
+    end
   end
 end

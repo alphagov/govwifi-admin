@@ -4,7 +4,6 @@ Rails.application.configure do
   unless ENV['ASSET_PRECOMPILATION_ONLY']
     config.active_storage.service = :amazon
   end
-
   # Code is not reloaded between requests.
   config.cache_classes = true
 

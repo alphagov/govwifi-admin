@@ -3,7 +3,7 @@
 require 'faker'
 
 admin_organisation = Organisation.create!(
-  name: "Government Digital Service", service_email: 'it@gds.com'
+  name: 'Government Digital Service', service_email: 'it@gds.com'
 )
 admin_user = admin_organisation.users.create(
   email: "admin@gov.uk",
@@ -14,7 +14,7 @@ admin_user = admin_organisation.users.create(
 )
 
 organisation = Organisation.create(
-  name: "UKTI Education", service_email: 'it@parks.com'
+  name: 'UKTI Education', service_email: 'it@parks.com'
 )
 user = organisation.users.create(
   email: "test@gov.uk",

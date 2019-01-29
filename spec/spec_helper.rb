@@ -18,9 +18,9 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
   config.before do
-     ActionMailer::Base.deliveries.clear
+    ActionMailer::Base.deliveries.clear
 
-     stub_request(:get, "https://government-organisation.register.gov.uk/records.json?page-size=5000").
+    stub_request(:get, "https://government-organisation.register.gov.uk/records.json?page-size=5000").
      to_return(
        status: 200,
        body: '{

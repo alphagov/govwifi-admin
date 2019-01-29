@@ -14,7 +14,6 @@ Rails.application.config.assets.precompile += %w(
   cross.svg
 )
 
-
 Rails.application.config.assets.paths += [
   Rails.root.join('node_modules/govuk-frontend/assets/images'),
   Rails.root.join('node_modules/govuk-frontend/assets/fonts'),
