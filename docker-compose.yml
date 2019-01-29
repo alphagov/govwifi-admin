@@ -18,9 +18,9 @@ services:
     ports:
       - "13307:3306"
 
-  fake-registers:
+  govuk-fake-registers:
     build:
-      context: fake_register
+      context: govuk_fake_register
     ports:
       - "7000:7000"
 
@@ -31,4 +31,4 @@ services:
     ports:
     - "8080:3000"
     depends_on:
-      - 'fake-registers'
+      - 'govuk-fake-registers'

@@ -1,13 +1,10 @@
 require 'support/notifications_service'
 require 'support/confirmation_use_case_spy'
 require 'support/confirmation_use_case'
-require 'features/support/fetch_organisations'
-
 
 describe 'Resending confirmation instructions' do
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
-  include_examples 'organisations register'
 
   let(:correct_email) { 'user@gov.uk' }
 

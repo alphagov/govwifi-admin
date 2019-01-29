@@ -8,7 +8,7 @@ default: &default
 
 development:
   <<: *default
-  registers_url: 'http://fake-registers:7000'
+  registers_url: 'http://govuk-fake-registers:7000'
 
 test:
   <<: *default

@@ -16,7 +16,7 @@ build:
 	$(DOCKER_BUILD_CMD)
 
 serve: build
-	$(DOCKER_COMPOSE) up -d fake-registers
+	$(DOCKER_COMPOSE) up -d govuk-fake-registers
 	$(DOCKER_COMPOSE) up -d db
 	$(DOCKER_COMPOSE) up -d rr_db
 	./mysql/bin/wait_for_mysql

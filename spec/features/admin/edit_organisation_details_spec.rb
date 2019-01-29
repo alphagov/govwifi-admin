@@ -1,6 +1,4 @@
 describe 'editing an organisations details' do
-  require 'features/support/fetch_organisations'
-
   let(:admin_user1) { create(:user, organisation: organisation) }
   let(:organisation) { create(:organisation, name: "TestMe & Company", service_email: "testme@gov.uk") }
 

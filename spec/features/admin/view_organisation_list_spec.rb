@@ -1,6 +1,4 @@
 describe 'view list of signed up organisations' do
-  require 'features/support/fetch_organisations'
-
   before do
     login_as user
     visit admin_organisations_path

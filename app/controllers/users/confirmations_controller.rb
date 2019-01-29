@@ -35,7 +35,6 @@ def fetch_organisations_from_register
     gateway = Gateways::OrganisationRegisterGateway.new
       register = UseCases::Organisation::FetchOrganisationRegister.new(organisations_gateway: gateway)
       result = register.execute
-      result << ''
       result.sort
   end
 end
