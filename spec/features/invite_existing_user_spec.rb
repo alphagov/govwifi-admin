@@ -1,7 +1,7 @@
 require 'support/invite_use_case'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
-require 'support/fetch_organisations'
+require 'features/support/fetch_organisations'
 
 describe 'inviting a user that has already signed up' do
   include_examples 'invite use case spy'

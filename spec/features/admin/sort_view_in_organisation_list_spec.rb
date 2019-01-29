@@ -1,4 +1,6 @@
 describe 'sorting the values in the organisation list' do
+  require 'features/support/fetch_organisations'
+
   context 'when super admin views the list' do
     let(:super_admin) { create(:user, super_admin: true) }
 

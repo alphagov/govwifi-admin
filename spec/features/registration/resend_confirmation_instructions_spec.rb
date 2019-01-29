@@ -1,7 +1,7 @@
 require 'support/notifications_service'
 require 'support/confirmation_use_case_spy'
 require 'support/confirmation_use_case'
-require 'support/fetch_organisations'
+require 'features/support/fetch_organisations'
 
 
 describe 'Resending confirmation instructions' do

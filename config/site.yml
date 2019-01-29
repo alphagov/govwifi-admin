@@ -8,13 +8,14 @@ default: &default
 
 development:
   <<: *default
-  registers_url: 'fake-registers:7000'
+  registers_url: 'http://fake-registers:7000'
 
 test:
   <<: *default
 
 staging:
   google_analytics_script_id: 'UA-127779891-2'
+
   <<: *default
 
 production:

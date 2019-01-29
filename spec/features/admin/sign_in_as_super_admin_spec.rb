@@ -1,4 +1,6 @@
 describe 'signing in as a super admin' do
+  require 'features/support/fetch_organisations'
+
   let!(:user) { create(:user, super_admin: true) }
 
   context 'when visiting the home page' do

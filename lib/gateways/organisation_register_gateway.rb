@@ -1,15 +1,13 @@
-require 'net/http'
+require 'httparty'
 require 'json'
 
 module Gateways
   class OrganisationRegisterGateway
     REGISTER_URL = "#{SITE_CONFIG['registers_url']}/records.json?page-size=5000".freeze
-    p REGISTER_URL
 
     def fetch_organisations
-      uri = URI(REGISTER_URL)
-      response = Net::HTTP.get(uri)
-      parsed_json = JSON.parse(response)
+      response = HTTParty.get(REGISTER_URL)
+      parsed_json = JSON.parse(response.body)
 
       parsed_json.map do |_, value|
         value['item'].first['name']

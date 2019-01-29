@@ -1,4 +1,6 @@
 describe 'deleting an organisation' do
+  require 'features/support/fetch_organisations'
+
   let!(:admin_user) { create(:user, super_admin: true) }
   let!(:organisation) { create(:organisation, name: "TestMe & Company") }
 

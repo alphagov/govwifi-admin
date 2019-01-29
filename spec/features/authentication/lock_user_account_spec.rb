@@ -1,5 +1,6 @@
 describe 'Locking a users account' do
   include_context 'with a mocked notifications client'
+  include_examples 'organisations register'
 
   let(:correct_password) { 'password' }
   let(:incorrect_password) { 'incorrectpassword' }
