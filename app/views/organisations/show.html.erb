@@ -1,11 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l">Settings</h1>
-  </div>
-</div>
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <h2 class="govuk-heading-m">Organisation</h2>
+    <h2 class="govuk-heading-l">Settings</h2>
   </div>
 </div>
 <div class="govuk-grid-row">
@@ -18,17 +13,17 @@
     </p>
   </div>
   <div class="govuk-grid-column-one-third govuk-list govuk-!-padding-right-4 text-right">
-    <%= link_to "Change", edit_organisation_path(current_organisation.id), class: "govuk-link" %>
+    <%= link_to "Edit organisation", edit_organisation_path(current_organisation.id), class: "govuk-link" %>
   </div>
 </div>
-<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-0">
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-m">Team members</h2>
   </div>
   <div class="govuk-grid-column-one-third text-right">
     <% if current_user.can_manage_team? %>
-      <%= link_to 'Invite team member', new_user_invitation_path, class: 'govuk-button' %>
+      <%= link_to 'Invite team member', new_user_invitation_path, class: 'govuk-button govuk-!-margin-bottom-0' %>
     <% end %>
   </div>
 </div>
