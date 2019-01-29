@@ -46,11 +46,11 @@ location_2 = Location.create!(
 )
 
 20.times do
-  Ip.create!(address: Faker::Internet.unique.ip_v4_address, location: location_1)
+  Ip.create!(address: Faker::Internet.unique.public_ip_v4_address, location: location_1)
 end
 
 20.times do
-  Ip.create!(address: Faker::Internet.unique.ip_v4_address, location: location_2)
+  Ip.create!(address: Faker::Internet.unique.public_ip_v4_address, location: location_2)
 end
 
 location_2.ips.each_with_index do |ip, index|
