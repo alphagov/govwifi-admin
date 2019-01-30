@@ -1,4 +1,4 @@
-describe Facades::Ips::AfterCreate do
+describe Facades::Ips::Publish do
   before do
     expect_any_instance_of(
       UseCases::PerformancePlatform::PublishLocationsIps

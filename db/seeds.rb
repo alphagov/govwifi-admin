@@ -45,30 +45,12 @@ location_2 = Location.create!(
   organisation_id: organisation.id
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-20.times do
-  Ip.create!(address: Faker::Internet.unique.ip_v4_address, location: location_1)
-end
-
-20.times do
-  Ip.create!(address: Faker::Internet.unique.ip_v4_address, location: location_2)
-=======
-20.times do |i|
-  Ip.create!(address: "141.168.1.#{i}", location: location_1)
-end
-
-20.times do |i|
-  Ip.create!(address: "141.168.3.#{i}", location: location_2)
->>>>>>> Add docker instance for fake
-=======
 20.times do
   Ip.create!(address: Faker::Internet.unique.public_ip_v4_address, location: location_1)
 end
 
 20.times do
   Ip.create!(address: Faker::Internet.unique.public_ip_v4_address, location: location_2)
->>>>>>> Resolve merge conflicts
 end
 
 location_2.ips.each_with_index do |ip, index|
