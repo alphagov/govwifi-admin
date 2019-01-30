@@ -7,11 +7,11 @@ def sign_up_for_account(email: 'default@gov.uk')
 end
 
 def update_user_details(
-    password: 'supersecret',
-    name: 'bob',
-    service_email: 'admin@gov.uk',
-    organisation_name: 'UKTI Education'
-  )
+  password: 'supersecret',
+  name: 'bob',
+  service_email: 'admin@gov.uk',
+  organisation_name: 'UKTI Education'
+)
   return unless confirmation_email_received?
 
   visit confirmation_email_link
