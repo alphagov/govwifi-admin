@@ -5,13 +5,6 @@ describe Organisation do
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name).case_insensitive }
 
-    it "requires a unique name regardless of case" do
-      Organisation.create(name: "Parks & Rec Dept")
-      expect {
-        Organisation.create(name: "parks & rec dept")
-      }.to change { Organisation.count }.by(0)
-    end
-
     context 'when deleting an organisation as an admin' do
       let(:org) { create(:organisation) }
 
@@ -29,15 +22,14 @@ describe Organisation do
 
     context 'Given my organisation is in the GovUk register' do
       it 'is valid' do
-        organisation = create(:organisation, name: 'UKTI Education')
+        organisation = build(:organisation, name: 'Org 1')
         expect(organisation).to be_valid
       end
     end
 
     context 'Given my organisation is not in the GovUk register' do
       it 'is not valid' do
-        organisation = create(:organisation, name: 'Some invalid organisation name')
-        expect(organisation.errors.full_messages).to include('Some invalid organisation name isn\'t a whitelisted organisation')
+        expect { create(:organisation, name: 'Some invalid organisation name') }.to raise_error ActiveRecord::RecordInvalid
       end
     end
   end

@@ -6,7 +6,7 @@ class Organisation < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :service_email, presence: true
-  before_save :validate_in_register?
+  validate :validate_in_register?
 
   def validate_in_register?
     unless Organisation.fetch_organisations_from_register.include?(name)

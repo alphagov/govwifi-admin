@@ -1,6 +1,6 @@
 describe 'editing an organisations details' do
   let(:admin_user1) { create(:user, organisation: organisation) }
-  let(:organisation) { create(:organisation, name: "TestMe & Company", service_email: "testme@gov.uk") }
+  let(:organisation) { create(:organisation, name: "Org 2", service_email: "testme@gov.uk") }
 
   context 'when visiting the organisations settings page before any changes' do
     before do
@@ -9,7 +9,7 @@ describe 'editing an organisations details' do
     end
 
     it 'has the current company name and service email' do
-      expect(page).to have_content("TestMe & Company")
+      expect(page).to have_content("Org 2")
       expect(page).to have_content("testme@gov.uk")
     end
   end

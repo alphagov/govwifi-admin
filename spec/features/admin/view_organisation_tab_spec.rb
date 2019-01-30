@@ -37,16 +37,19 @@ describe 'the visibility of the organisation depending on user' do
   end
 
   context 'comparing signed up organisations' do
-    let!(:organisation_def) { create(:organisation, name: "DEF", created_at: '10 Oct 2013') }
-    let!(:organisation_xyz) { create(:organisation, name: "XYZ", created_at: '10 Nov 2013') }
-    let!(:organisation_abc) { create(:organisation, name: "ABC", created_at: '10 Jan 2014') }
-    let(:user) { create(:user, email: 'me@example.gov.uk', organisation: organisation_abc, super_admin: true) }
+    before do
+      create(:organisation, name: "Org 3", created_at: '10 Oct 2013')
+      create(:organisation, name: "Org 1", created_at: '10 Nov 2013')
+      create(:organisation, name: "Org 2", created_at: '10 Jan 2014')
+    end
+
+    let(:user) { create(:user, email: 'me@example.gov.uk', organisation: Organisation.first, super_admin: true) }
 
     it 'displays list of organisations in order of most recent' do
       sign_in_user user
       visit admin_organisations_path
 
-      expect(page.body).to match(/ABC.*XYZ.*DEF/m)
+      expect(page.body).to match(/Org 2.*Org 1.*Org 3/m)
     end
   end
 end

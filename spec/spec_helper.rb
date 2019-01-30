@@ -18,6 +18,7 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
   config.before do
+    FactoryBot.reload
     ActionMailer::Base.deliveries.clear
 
     stub_request(:get, 'https://government-organisation.register.gov.uk/records.json').
