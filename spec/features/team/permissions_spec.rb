@@ -10,7 +10,7 @@ describe 'Invite a team member' do
   context 'With the .manage_team permission' do
     before do
       user.permission.update!(can_manage_team: true)
-      visit team_members_path
+      visit settings_path
     end
 
     it 'shows the invite team member link' do
@@ -24,7 +24,7 @@ describe 'Invite a team member' do
 
     it 'allows re-sending invites' do
       create(:user, organisation: user.organisation, invitation_sent_at: Date.today)
-      visit team_members_path
+      visit settings_path
 
       expect(page).to have_button('Resend invite')
     end
@@ -37,7 +37,7 @@ describe 'Invite a team member' do
     end
 
     it 'hides the invite team member link' do
-      visit team_members_path
+      visit settings_path
 
       expect(page).to_not have_link('Invite team member')
     end
@@ -50,7 +50,7 @@ describe 'Invite a team member' do
 
     it 'does not allow re-sending invites' do
       create(:user, organisation: user.organisation, invitation_sent_at: Date.today)
-      visit team_members_path
+      visit settings_path
 
       expect(page).to_not have_button('Resend invite')
     end

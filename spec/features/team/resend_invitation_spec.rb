@@ -13,7 +13,7 @@ describe 'Resend invitation to team member' do
     before do
       sign_in_user user
       invite_user(invited_user_email)
-      visit team_members_path
+      visit settings_path
     end
 
     it 'shows that the invitation is pending' do

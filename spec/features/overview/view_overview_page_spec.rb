@@ -69,7 +69,7 @@ describe 'viewing the overview page' do
         it 'redirects to the team members page when organisations settings page' do
           click_link 'Team Members'
 
-          expect(page.current_path).to eq(organisation_path(user.organisation))
+          expect(page.current_path).to eq(settings_path)
         end
 
         it 'displays the number of Locations' do

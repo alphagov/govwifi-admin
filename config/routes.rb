@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :locations, only: %i[new create destroy] do
     get 'remove', to: 'ips#index'
   end
-  resources :team_members, only: %i[index edit update destroy]
+  resources :team_members, only: %i[edit update destroy]
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index]
 
@@ -39,8 +39,9 @@ Rails.application.routes.draw do
     get 'location', on: :new
   end
 
-  resources :organisations, only: %i[show edit update]
-  resources :setup_instructions, only: %i[index]
+  resources :organisations, only: %i[edit update]
+  resources :setup_instructions, only: :index
+  resources :settings, only: :index
 
   namespace :admin do
     resources :mou, only: %i[index update create]

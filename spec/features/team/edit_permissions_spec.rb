@@ -15,7 +15,7 @@ describe 'Edit user permissions' do
     end
 
     it 'does not show the edit team member link' do
-      visit team_members_path
+      visit settings_path
       expect(page).to_not have_link('Edit permissions')
     end
 
@@ -29,7 +29,7 @@ describe 'Edit user permissions' do
   context 'When I have the .can_manage_team permission' do
     context 'User belongs to my organisation' do
       before do
-        visit team_members_path
+        visit settings_path
         click_link 'Edit permissions'
       end
 

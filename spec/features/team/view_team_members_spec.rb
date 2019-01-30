@@ -1,6 +1,6 @@
 describe 'View team members of my organisation' do
   context 'when logged out' do
-    before { visit team_members_path }
+    before { visit settings_path }
 
     it_behaves_like 'not signed in'
   end
@@ -17,7 +17,7 @@ describe 'View team members of my organisation' do
     context 'as the only user in my organisation' do
       before do
         sign_in_user user
-        visit team_members_path
+        visit settings_path
       end
 
       it 'shows my email' do
@@ -40,7 +40,7 @@ describe 'View team members of my organisation' do
 
       it 'renders all users within my organisation' do
         sign_in_user user
-        visit team_members_path
+        visit settings_path
 
         expect(page).to have_content('me@example.gov.uk')
         expect(page).to have_content('friend@example.gov.uk')
@@ -55,7 +55,7 @@ describe 'View team members of my organisation' do
 
       it 'does not include users from other organisations' do
         sign_in_user user
-        visit team_members_path
+        visit settings_path
 
         expect(page).to_not have_content('stranger@example.gov.uk')
       end

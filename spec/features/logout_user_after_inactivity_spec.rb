@@ -11,7 +11,7 @@ describe 'logout users after specific period of inactivity' do
     end
 
     it 'and they navigate to a page' do
-      visit team_members_path
+      visit settings_path
 
       expect(page).to have_content('Invite team member')
     end
@@ -28,7 +28,7 @@ describe 'logout users after specific period of inactivity' do
 
     it 'and they navigate to a page after signing in again' do
       sign_in_user user
-      visit team_members_path
+      visit settings_path
 
       expect(page).to have_content('Invite team member')
     end

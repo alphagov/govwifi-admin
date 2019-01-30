@@ -14,7 +14,7 @@ private
   end
 
   def after_invite_path_for(_resource)
-    team_members_path
+    settings_path
   end
 
   def add_organisation_to_params

@@ -2,23 +2,15 @@ class OrganisationsController < ApplicationController
   before_action :set_organisation, only: %i[edit update]
   before_action :validate_user_is_part_of_organisation, only: %i[edit update]
 
-  def index
-    render :show
-  end
-
   def edit; end
 
   def update
     if @organisation.update(organisation_params)
-      redirect_to organisation_path(@organisation)
+      redirect_to settings_path
       flash[:notice] = 'Organisation updated'
     else
       render :edit
     end
-  end
-
-  def show
-    @team_members = current_user&.organisation&.users || []
   end
 
 private
