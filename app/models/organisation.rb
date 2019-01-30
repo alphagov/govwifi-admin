@@ -15,10 +15,8 @@ class Organisation < ApplicationRecord
   end
 
   def self.fetch_organisations_from_register
-    Rails.cache.fetch(:register_organisations, expires_in: 1.day) do
-      UseCases::Organisation::FetchOrganisationRegister.new(
-        organisations_gateway: Gateways::OrganisationRegisterGateway.new
-      ).execute.sort
-    end
+    UseCases::Organisation::FetchOrganisationRegister.new(
+      organisations_gateway: Gateways::OrganisationRegisterGateway.new
+    ).execute.sort
   end
 end
