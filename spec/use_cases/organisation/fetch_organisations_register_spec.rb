@@ -1,8 +1,4 @@
-require 'net/http'
-require 'json'
-
 describe UseCases::Organisation::FetchOrganisationRegister do
-  subject { described_class.new }
   let(:organisation_register_gateway) { double(fetch_organisations: nil) }
 
   it 'calls fetch_organisations on the gateway' do

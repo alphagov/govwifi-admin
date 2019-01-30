@@ -1,5 +1,4 @@
 describe UseCases::Radius::GenerateRadiusIpWhitelist do
-
   let(:organisation) { create(:organisation) }
   let(:location1) { create(:location, organisation: organisation) }
   let(:location2) { create(:location, organisation: organisation) }
