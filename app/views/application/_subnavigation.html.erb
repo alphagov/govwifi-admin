@@ -1,26 +1,26 @@
-<div class="govuk-grid-row subnav">
-  <div class="govuk-grid-column-one-third govuk-!-padding-left-0">
-    <p class="govuk-body organisation-name">
+<div class='govuk-grid-row subnav'>
+  <div class='govuk-grid-column-one-third govuk-!-padding-left-0'>
+    <p class='govuk-body organisation-name'>
       <% unless current_user.super_admin? %>
         <strong><%= current_organisation.name %></strong>
       <% end %>
     </p>
   </div>
 
-  <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-0 govuk-!-padding-right-0 flex-end">
-    <nav class="govuk-body govuk-!-margin-bottom-0 ">
+  <div class='govuk-grid-column-two-thirds govuk-!-margin-bottom-0 govuk-!-padding-right-0 flex-end'>
+    <nav class='govuk-body govuk-!-margin-bottom-0 '>
       <% if current_user.super_admin? %>
-        <%= link_to "Organisations", admin_organisations_path, class: active_tab(admin_organisations_path) %>
-        <%= link_to "MOU", admin_mou_index_path, class: active_tab(admin_mou_index_path) %>
+        <%= link_to 'Organisations', admin_organisations_path, class: active_tab(admin_organisations_path) %>
+        <%= link_to 'MOU', admin_mou_index_path, class: active_tab(admin_mou_index_path) %>
       <% else %>
         <% if current_organisation.ips.present? %>
-          <%= link_to "Overview", root_path, class: active_tab(root_path) %>
+          <%= link_to 'Overview', root_path, class: active_tab(root_path) %>
         <% end %>
-        <%= link_to "Setup Instructions", setup_instructions_path, class: active_tab(setup_instructions_path) %>
-        <%= link_to "IPs", ips_path, id:"nav-ips", class: active_tab("ips") %>
-        <%= link_to 'Settings', organisation_path(current_organisation), class: "#{active_tab("organisation")}"+"#{active_tab("team")}" + "#{active_tab("user")}" %>
+        <%= link_to 'Setup Instructions', setup_instructions_path, class: active_tab(setup_instructions_path) %>
+        <%= link_to 'IPs', ips_path, id:'nav-ips', class: active_tab('ips') %>
+        <%= link_to 'Settings', organisation_path(current_organisation), class: "#{active_tab('organisation')}'+'#{active_tab('team')}' + '#{active_tab('user')}" %>
         <% if current_organisation.ips.present? %>
-          <%= link_to 'Logs', new_logs_search_path, class: active_tab("logs") %>
+          <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
         <% end %>
       <% end %>
     </nav>
