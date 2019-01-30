@@ -1,5 +1,4 @@
 describe UseCases::Radius::GenerateRadiusIpWhitelist do
-  include_examples 'organisations register'
 
   let(:organisation) { create(:organisation) }
   let(:location1) { create(:location, organisation: organisation) }

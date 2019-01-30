@@ -1,6 +1,5 @@
 describe 'view details of a signed up organisation' do
   let(:organisation) { create(:organisation) }
-  include_examples 'organisations register'
 
   context 'when logged out' do
     before { visit admin_organisation_path(organisation) }

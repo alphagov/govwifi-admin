@@ -1,9 +1,4 @@
-require 'net/http'
-require 'json'
-require 'support/fetch_organisations'
-
 describe Gateways::OrganisationRegisterGateway do
-  include_examples 'organisations register'
 
   subject { described_class.new }
 

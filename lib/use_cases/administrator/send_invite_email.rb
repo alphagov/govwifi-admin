@@ -15,6 +15,7 @@ module UseCases
           reference: REFERENCE,
           email_reply_to_id: nil
         }
+
         notifications_gateway.send(opts)
       end
 

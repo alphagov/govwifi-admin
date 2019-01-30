@@ -1,11 +1,9 @@
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
-require 'features/support/fetch_organisations'
 
 describe 'Sign up as an organisation' do
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
-  include_examples 'organisations register'
 
   let(:name) { 'Sally' }
 

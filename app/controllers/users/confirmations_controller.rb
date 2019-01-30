@@ -61,10 +61,6 @@ protected
 private
 
   def fetch_organisations_from_register
-    @register_organisations = cache(:register_organisations, expires_in: 1.day) do
-      UseCases::Organisation::FetchOrganisationRegister.new(
-        organisations_gateway: Gateways::OrganisationRegisterGateway.new
-      ).execute.sort
-    end
+    @register_organisations = Organisation.fetch_organisations_from_register
   end
 end

@@ -9,16 +9,16 @@ class Organisation < ApplicationRecord
   before_save :validate_in_register?
 
   def validate_in_register?
-    unless fetch_organisations_from_register.include?(name)
+    unless Organisation.fetch_organisations_from_register.include?(name)
       errors.add(:name, "#{name} isn't a whitelisted organisation")
     end
   end
 
-  def fetch_organisations_from_register
+  def self.fetch_organisations_from_register
     Rails.cache.fetch(:register_organisations, expires_in: 1.day) do
       UseCases::Organisation::FetchOrganisationRegister.new(
         organisations_gateway: Gateways::OrganisationRegisterGateway.new
-      ).execute
+      ).execute.sort
     end
   end
 end
