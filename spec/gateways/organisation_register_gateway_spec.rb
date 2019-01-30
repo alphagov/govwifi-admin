@@ -1,14 +1,13 @@
 describe Gateways::OrganisationRegisterGateway do
-
-  subject { described_class.new }
-
   it 'fetches the organisations' do
     result = subject.fetch_organisations
 
     expect(result).to eq(
       [
         'UKTI Education',
-        'Ministry of Justice'
+        'Government Digital Service',
+        'Academy for Social Justice Commissioning',
+        'Administrative Justice and Tribunals Council'
       ]
     )
   end

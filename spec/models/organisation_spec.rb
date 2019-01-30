@@ -26,5 +26,19 @@ describe Organisation do
         expect { ip.reload }.to raise_error ActiveRecord::RecordNotFound
       end
     end
+
+    context 'Given my organisation is in the GovUk register' do
+      it 'is valid' do
+        organisation = create(:organisation, name: 'UKTI Education')
+        expect(organisation).to be_valid
+      end
+    end
+
+    context 'Given my organisation is not in the GovUk register' do
+      it 'is not valid' do
+        organisation = create(:organisation, name: 'Some invalid organisation name')
+        expect(organisation.errors.full_messages).to include('Some invalid organisation name isn\'t a whitelisted organisation')
+      end
+    end
   end
 end

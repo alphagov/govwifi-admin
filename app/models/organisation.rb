@@ -10,7 +10,7 @@ class Organisation < ApplicationRecord
 
   def validate_in_register?
     unless Organisation.fetch_organisations_from_register.include?(name)
-      errors.add(:name, "#{name} isn't a whitelisted organisation")
+      errors.add(:base, "#{name} isn't a whitelisted organisation")
     end
   end
 
