@@ -10,7 +10,7 @@ def update_user_details(
   password: 'supersecret',
   name: 'bob',
   service_email: 'admin@gov.uk',
-  organisation_name: 'UKTI Education'
+  organisation_name: 'Org 1'
 )
   return unless confirmation_email_received?
 

@@ -32,7 +32,7 @@ describe 'Sign up as an organisation' do
       end
 
       it 'creates an organisation for the user' do
-        expect(User.last.organisation.name).to eq('UKTI Education')
+        expect(User.last.organisation.name).to eq('Org 1')
       end
     end
 

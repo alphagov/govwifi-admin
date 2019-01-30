@@ -4,10 +4,10 @@ describe Gateways::OrganisationRegisterGateway do
 
     expect(result).to eq(
       [
-        'UKTI Education',
-        'Government Digital Service',
-        'Academy for Social Justice Commissioning',
-        'Administrative Justice and Tribunals Council'
+        'Org 1',
+        'Org 2',
+        'Org 3',
+        'Org 4'
       ]
     )
   end
