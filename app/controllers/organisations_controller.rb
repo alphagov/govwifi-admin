@@ -30,6 +30,6 @@ private
   end
 
   def organisation_params
-    params.require(:organisation).permit(:name, :service_email)
+    params.require(:organisation).permit(:service_email)
   end
 end
