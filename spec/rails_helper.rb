@@ -41,13 +41,11 @@ RSpec.configure do |config|
   # This makes it so Capybara can see the database.
   config.before(:each) do
     DatabaseCleaner.start
-    FactoryBot.reload
   end
   config.after(:each) do
     Warden.test_reset!
     DatabaseCleaner.clean
     Session.delete_all
-    FactoryBot.reload
   end
 end
 
