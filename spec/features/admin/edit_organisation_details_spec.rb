@@ -2,18 +2,6 @@ describe 'editing an organisations details' do
   let(:admin_user1) { create(:user, organisation: organisation) }
   let(:organisation) { create(:organisation, name: "Org 2", service_email: "testme@gov.uk") }
 
-  context 'when visiting the organisations settings page before any changes' do
-    before do
-      sign_in_user admin_user1
-      visit organisation_path(organisation)
-    end
-
-    it 'has the current company name and service email' do
-      expect(page).to have_content("Org 2")
-      expect(page).to have_content("testme@gov.uk")
-    end
-  end
-
   context 'when visiting the edit organisations settings page' do
     before do
       sign_in_user admin_user1
@@ -24,8 +12,7 @@ describe 'editing an organisations details' do
       fill_in 'Service email', with: "NewServiceEmail@gov.uk"
       click_on 'Save'
       expect(page).to have_content("NewServiceEmail@gov.uk")
-      expect(page).to have_content("Organisation updated")
-      expect(page).to have_content("Organisation Settings")
+      expect(page).to have_content("Service email updated")
     end
   end
 

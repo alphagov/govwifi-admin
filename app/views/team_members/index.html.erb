@@ -1,6 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l"> Team members </h1>
+    <h1 class="govuk-heading-l">Team settings</h1>
   </div>
 
   <div class="govuk-grid-column-one-third text-right">
@@ -10,4 +10,5 @@
   </div>
 </div>
 
+<%= render "team_members/service_email" %>
 <%= render "team_members/table", team_members: @team_members %>
