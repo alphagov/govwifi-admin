@@ -12,7 +12,7 @@ describe 'editing an organisations details' do
       fill_in 'Service email', with: "NewServiceEmail@gov.uk"
       click_on 'Save'
       expect(page).to have_content("NewServiceEmail@gov.uk")
-      expect(page).to have_content("Organisation updated")
+      expect(page).to have_content("Service email updated")
     end
   end
 
