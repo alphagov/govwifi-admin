@@ -21,7 +21,7 @@ describe 'Sign up as an organisation' do
   context 'with correct data' do
     before do
       sign_up_for_account(email: email)
-      update_user_details(name: name, organisation_name: "Parks & Recreation")
+      update_user_details(name: name)
     end
 
     context 'with a gov.uk email' do
@@ -32,7 +32,7 @@ describe 'Sign up as an organisation' do
       end
 
       it 'creates an organisation for the user' do
-        expect(User.last.organisation.name).to eq("Parks & Recreation")
+        expect(User.last.organisation.name).to eq('Org 1')
       end
     end
 
@@ -103,22 +103,6 @@ describe 'Sign up as an organisation' do
 
     it 'tells me my password is not valid' do
       expect(page).to have_content("Password can't be blank")
-    end
-  end
-
-  context 'when Organisation name is taken' do
-    let!(:existing_org) { create(:organisation) }
-
-    before do
-      sign_up_for_account
-      update_user_details(organisation_name: existing_org.name)
-      expect(page).to have_content 'Create your account'
-    end
-
-    it_behaves_like 'errors in form'
-
-    it 'tells the user that the organisation name must be unique' do
-      expect(page).to have_content 'Organisation name is already registered'
     end
   end
 

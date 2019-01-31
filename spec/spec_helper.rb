@@ -17,7 +17,13 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
-  config.before { ActionMailer::Base.deliveries.clear }
+  config.before do
+    FactoryBot.reload
+    ActionMailer::Base.deliveries.clear
+
+    stub_request(:get, 'https://government-organisation.register.gov.uk/records.json').
+     to_return(status: 200, body: File.read("#{Rails.root}/spec/fixtures/registers_payload.json"))
+  end
 
   ENV['AUTHORISED_EMAIL_DOMAINS_REGEX'] = '.*gov\.uk'
 end

@@ -1,6 +1,9 @@
 FactoryBot.define do
   factory :organisation do
-    name { Faker::Company.unique.name }
+    sequence :name do |n|
+      "Org #{n}"
+    end
+
     service_email { Faker::Internet.email }
 
     trait :with_locations do

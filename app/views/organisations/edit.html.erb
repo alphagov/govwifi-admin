@@ -17,11 +17,6 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @organisation do |form| %>
       <div class="govuk-form-group" >
-        <%= form.label :name, "Organisation name", class: "govuk-label" %>
-        <% error_class = @organisation.errors.keys.include?(:name) ? "govuk-input--error" : "" %>
-        <%= form.text_field :name, class: "govuk-input #{error_class}" %>
-      </div>
-      <div class="govuk-form-group" >
         <%= form.label :service_email, "Service email", class: "govuk-label" %>
         <div class="govuk-hint">A shared and monitored email, so we can contact your organisation</div>
         <% error_class = @organisation.errors.keys.include?(:service_email) ? "govuk-input--error" : "" %>

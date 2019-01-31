@@ -86,7 +86,7 @@ describe 'inviting a user that has already signed up' do
         end
 
         it 'signs them in successfully after they have completed creating their account' do
-          update_user_details(name: 'claire')
+          update_user_details(name: 'claire', organisation_name: 'Org 2')
           expect(page).to have_content 'Sign out'
         end
 

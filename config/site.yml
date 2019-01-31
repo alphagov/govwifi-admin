@@ -4,9 +4,11 @@ default: &default
   organisation_docs_link: 'https://docs.wifi.service.gov.uk'
   product_page_link: 'https://wifi.service.gov.uk'
   google_tag_container_ID: 'GTM-TNHHHPZ'
+  registers_url: 'https://government-organisation.register.gov.uk'
 
 development:
   <<: *default
+  registers_url: 'http://govuk-fake-registers:7000'
 
 test:
   <<: *default

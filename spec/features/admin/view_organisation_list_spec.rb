@@ -22,7 +22,7 @@ describe 'view list of signed up organisations' do
     let(:user) { create(:user, super_admin: true) }
 
     context 'and one organisation exists' do
-      let(:org) { create(:organisation, name: "Fake Org", created_at: '1 Feb 2014') }
+      let(:org) { create(:organisation, created_at: '1 Feb 2014') }
 
       before do
         org.signed_mou.attach(
@@ -35,7 +35,7 @@ describe 'view list of signed up organisations' do
 
       it 'shows their name' do
         within("table") do
-          expect(page).to have_content 'Fake Org'
+          expect(page).to have_content 'Org 1'
         end
       end
 

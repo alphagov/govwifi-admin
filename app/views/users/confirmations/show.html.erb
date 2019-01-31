@@ -1,5 +1,4 @@
 <%= render "layouts/form_errors" %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-l">Create your account</h2>
@@ -11,10 +10,8 @@
         <%= f.fields_for :organisation, resource.build_organisation do |organisation_form| %>
           <div class="govuk-form-group <%= field_error(resource, "organisation.name") %>">
             <%= organisation_form.label :name, "Organisation name", class: "govuk-label" %>
-            <%= organisation_form.text_field :name,
-              autofocus: true,
-              class: 'govuk-input',
-              value: (params || {}).dig(:user, :organisation_attributes, :name) %>
+            <div class="govuk-hint">If your organisation name does not appear below <%= link_to "contact us", signing_up_new_help_path, class: "govuk-link" %></div>
+            <%= organisation_form.select :name, options_for_select(@register_organisations << '', ''), {}, class: "govuk-select"  %>
           </div>
 
           <div class="govuk-form-group <%= field_error(resource, "organisation.service_email") %>">
@@ -46,3 +43,18 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag 'accessible-autocomplete.min.js' %>
+<%= stylesheet_link_tag 'accessible-autocomplete.min.css' %>
+
+<script>
+  accessibleAutocomplete.enhanceSelectElement({
+    selectElement: document.querySelector('#user_organisation_attributes_name'),
+    required: true,
+    displayMenu: 'overlay',
+    defaultValue: '',
+    showNoOptionsFound: true,
+    showAllValues: true,
+    confirmOnBlur: true
+  })
+</script>

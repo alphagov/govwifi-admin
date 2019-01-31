@@ -9,13 +9,15 @@ end
 def update_user_details(
   password: 'supersecret',
   name: 'bob',
-  organisation_name: 'Parks and Recreation',
-  service_email: 'admin@gov.uk'
+  service_email: 'admin@gov.uk',
+  organisation_name: 'Org 1'
 )
   return unless confirmation_email_received?
 
   visit confirmation_email_link
-  fill_in 'Organisation name', with: organisation_name
+
+  select organisation_name, from: 'Organisation name'
+
   fill_in 'Service email', with: service_email
   fill_in 'Your name', with: name
   fill_in 'Password', with: password

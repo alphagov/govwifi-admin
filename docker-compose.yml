@@ -18,9 +18,17 @@ services:
     ports:
       - "13307:3306"
 
+  govuk-fake-registers:
+    build:
+      context: govuk_fake_register
+    ports:
+      - "7000:7000"
+
   app:
     build: .
     links:
       - rr_db
     ports:
     - "8080:3000"
+    depends_on:
+      - 'govuk-fake-registers'
