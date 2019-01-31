@@ -2,8 +2,6 @@ class OrganisationsController < ApplicationController
   before_action :set_organisation, only: %i[edit update]
   before_action :validate_user_is_part_of_organisation, only: %i[edit update]
 
-  def index; end
-
   def edit; end
 
   def update

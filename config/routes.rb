@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     get 'location', on: :new
   end
 
-  resources :organisations, only: %i[show edit update]
+  resources :organisations, only: %i[edit update]
   resources :setup_instructions, only: %i[index]
 
   namespace :admin do

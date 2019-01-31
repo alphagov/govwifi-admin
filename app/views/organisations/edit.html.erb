@@ -11,8 +11,8 @@
   </div>
 <% end %>
 
-<%= link_to "Back to settings", organisation_path, class: "govuk-back-link" %>
-<h1 class="govuk-heading-l">Edit Organisation Settings</h1>
+<%= link_to "Back to list", team_members_path, class: "govuk-back-link" %>
+<h1 class="govuk-heading-l">Edit service email</h1>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @organisation do |form| %>
@@ -26,6 +26,3 @@
     <% end %>
   </div>
 </div>
-
-
-

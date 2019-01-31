@@ -16,13 +16,12 @@
         <% if current_organisation.ips.present? %>
           <%= link_to "Overview", root_path, class: active_tab(root_path) %>
         <% end %>
-        <%= link_to "Setting Up", setup_instructions_path, class: active_tab(setup_instructions_path) %>
-        <%= link_to 'Organisation', organisation_path(current_organisation), class: active_tab("organisation") %>
-        <%= link_to "Team members", team_members_path, class: "#{active_tab("team")}" + "#{active_tab("user")}"%>
+        <%= link_to "Setup", setup_instructions_path, class: active_tab(setup_instructions_path) %>
         <%= link_to "IPs", ips_path, id:"nav-ips", class: active_tab("ips") %>
         <% if current_organisation.ips.present? %>
           <%= link_to 'Logs', new_logs_search_path, class: active_tab("logs") %>
         <% end %>
+        <%= link_to "Team", team_members_path, class: "#{active_tab("team")}" + "#{active_tab("user")}"%>
       <% end %>
     </nav>
   </div>
