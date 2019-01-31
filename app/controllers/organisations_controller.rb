@@ -6,7 +6,7 @@ class OrganisationsController < ApplicationController
 
   def update
     if @organisation.update(organisation_params)
-      redirect_to organisation_path(@organisation)
+      redirect_to team_members_path
       flash[:notice] = 'Organisation updated'
     else
       render :edit
