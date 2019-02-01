@@ -21,7 +21,7 @@ describe Organisation do
       let!(:organisation) { create(:organisation) }
 
       it 'does not validate the organisations name' do
-        organisation = create(:organisation, service_email: 'newserviceemail@gov.uk')
+        organisation.service_email = 'newserviceemail@gov.uk'
         expect(organisation).to be_valid
       end
     end
