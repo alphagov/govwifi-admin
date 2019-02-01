@@ -17,6 +17,15 @@ describe Organisation do
       end
     end
 
+    context 'When an organisation signs up under the same name as another organisation' do
+      before { create(:organisation, name: 'Org 1') }
+
+      it 'is not valid' do
+        organisation = build(:organisation, name: 'Org 1')
+        expect(organisation).to_not be_valid
+      end
+    end
+
     context 'When updating the organisations service email' do
       let!(:organisation) { create(:organisation) }
 
