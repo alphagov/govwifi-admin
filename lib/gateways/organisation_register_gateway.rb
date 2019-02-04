@@ -3,13 +3,18 @@ require 'json'
 
 module Gateways
   class OrganisationRegisterGateway
-    REGISTER_URL = "#{SITE_CONFIG['registers_url']}/records.json?page-size=5000".freeze
+    GOVERNMENT_ORGS_URL = "#{SITE_CONFIG['organisation_register_url']}/records.json?page-size=5000".freeze
+    LOCAL_AUTH_URL = "#{SITE_CONFIG['local_auth_url']}/records.json?page-size=5000".freeze
 
     def fetch_organisations
-      response = HTTParty.get(REGISTER_URL)
-      parsed_json = JSON.parse(response.body)
+      government_register_response = HTTParty.get(GOVERNMENT_ORGS_URL
+      local_auth_register_response = HTTParty.get(LOCAL_AUTH_URL)
 
-      parsed_json.map do |_, value|
+      parsed_government_register = JSON.parse(government_register_response.body)
+      parsed_local_auth_register= JSON.parse(local_auth_register_response.body)
+
+
+      parsed_government_register.map do |_, value|
         value['item'].first['name']
       end
     end
