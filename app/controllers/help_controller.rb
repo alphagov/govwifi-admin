@@ -53,6 +53,23 @@ class HelpController < ApplicationController
         subject: params[:subject] || "",
         template_id: template_id
       )
+
+      tickets_gateway = Gateways::SupportTickets.new(
+        email: '',
+        token: ''
+      )
+
+      UseCases::Administrator::CreateSupportTicket.new(
+        tickets_gateway: tickets_gateway
+      ).execute(
+        requester: {
+          email: sender_email,
+          name: params[:support_form][:name] || current_user&.name,
+          organisation: sender_organisation_name
+        },
+        details: params[:support_form][:details]
+      )
+
       redirect_to_homepage
     else
       render @support_form.choice
