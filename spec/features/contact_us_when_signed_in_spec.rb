@@ -1,5 +1,4 @@
 describe 'Contact us when signed in' do
-  include_context 'with a mocked notifications client'
   include_context 'with a mocked support tickets client'
 
   let(:organisation) { create :organisation }
@@ -37,30 +36,12 @@ describe 'Contact us when signed in' do
         'Help me, Barry!'
       )
     end
-
-    xit 'sends a help email - through notify' do
-      expect(notifications.count).to eq(1)
-      expect(last_notification_type).to eq 'help'
-    end
-
-    xit 'records the organisation' do
-      expect(last_notification_personalisation[:organisation])
-        .to eq organisation.name
-    end
-
-    xit 'records the sender' do
-      expect(last_notification_personalisation[:sender_email]).to eq user.email
-    end
   end
 
   context 'with no details filled' do
     before { click_on 'Send support request' }
 
     it_behaves_like 'errors in form'
-
-    xit 'sends no emails' do
-      expect(notifications).to be_empty
-    end
 
     it 'opens no support tickets' do
       expect(support_tickets).to be_empty
