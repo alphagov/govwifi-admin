@@ -7,7 +7,11 @@ describe Gateways::OrganisationRegisterGateway do
         'Org 1',
         'Org 2',
         'Org 3',
-        'Org 4'
+        'Org 4',
+        'Org 5',
+        'Org 6',
+        'Org 7',
+        'Org 8'
       ]
     )
   end

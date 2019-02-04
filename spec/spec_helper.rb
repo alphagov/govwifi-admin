@@ -26,7 +26,6 @@ RSpec.configure do |config|
 
     stub_request(:get, 'https://local-authority-eng.register.gov.uk/records.json?page-size=5000').
     to_return(status: 200, body: File.read("#{Rails.root}/spec/fixtures/local_auths_payload.json"))
-
   end
 
   ENV['AUTHORISED_EMAIL_DOMAINS_REGEX'] = '.*gov\.uk'

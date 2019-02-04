@@ -7,7 +7,7 @@
     "item":[
       {
         "local-authority-type":"NMD",
-        "official-name":"Stafford Borough Council",
+        "official-name":"Org 5",
         "local-authority-eng":"STA",
         "name":"Stafford"}
         ]
@@ -20,7 +20,7 @@
         "item":[
       {
           "local-authority-type":"COMB",
-          "official-name":"Sheffield City Region",
+          "official-name":"Org 6",
           "local-authority-eng":"SCR",
           "name":"Sheffield City Region",
           "start-date":"2014-04-01"}
@@ -34,7 +34,20 @@
         "item":[
       {
           "local-authority-type":"NMD",
-          "official-name":"East Hertfordshire District Council",
+          "official-name":"Org 7",
+          "local-authority-eng":"EHE",
+          "name":"East Hertfordshire"}
+        ]
+      },
+      "GMS": {
+        "index-entry-number":"211",
+        "entry-number":"211",
+        "entry-timestamp":"2016-10-21T16:11:20Z",
+        "key":"EHE",
+        "item":[
+      {
+          "local-authority-type":"NMD",
+          "official-name":"Org 8",
           "local-authority-eng":"EHE",
           "name":"East Hertfordshire"}
         ]
