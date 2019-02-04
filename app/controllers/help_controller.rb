@@ -28,6 +28,7 @@ class HelpController < ApplicationController
   end
 
   def signed_in
+    redirect_to new_help_path if current_user.nil?
     @support_form = SupportForm.new
     @support_form.choice = :signed_in
   end
