@@ -54,7 +54,7 @@ class HelpController < ApplicationController
         template_id: template_id
       )
 
-      tickets_gateway = Gateways::SupportTickets.new(
+      tickets_gateway = Gateways::ZendeskSupportTickets.new(
         email: '',
         token: ''
       )

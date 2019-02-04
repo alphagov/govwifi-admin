@@ -1,4 +1,4 @@
-describe 'Contact us when signed in', focus: true do
+xdescribe 'Contact us when signed in' do
   include_context 'with a mocked notifications client'
   include_context 'with a mocked support tickets client'
 
@@ -25,13 +25,14 @@ describe 'Contact us when signed in', focus: true do
     end
 
     it 'opens a support ticket' do
-      expect(support_ticket_url).to eq ''
-      expect(support_ticket_credentials).to eq(
-        { username: '', password: ''}
+      expect(support_tickets).to have_count 1
+
+      # pull this stuff a level of abstraction up on the mock?
+      # skip it as it's covered in the gateway specs?
+      expect(support_tickets.last[:requester][:email]).to eq(
+        'example@email.com'
       )
 
-      expect(support_tickets).to have_count 1
-      expect(support_tickets.last.sender).to eq ''
       expect(support_tickets.last.body).to eq ''
     end
 
