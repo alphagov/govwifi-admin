@@ -1,5 +1,6 @@
-describe 'Contact us when signed in' do
+describe 'Contact us when signed in', focus: true do
   include_context 'with a mocked notifications client'
+  include_context 'with a mocked support tickets client'
 
   let(:organisation) { create :organisation }
   let(:user) { create(:user, organisation: organisation) }
@@ -23,17 +24,28 @@ describe 'Contact us when signed in' do
       expect(page.current_path).to eq(setup_instructions_path)
     end
 
-    it 'sends a help email' do
+    it 'opens a support ticket' do
+      expect(support_ticket_url).to eq ''
+      expect(support_ticket_credentials).to eq(
+        { username: '', password: ''}
+      )
+
+      expect(support_tickets).to have_count 1
+      expect(support_tickets.last.sender).to eq ''
+      expect(support_tickets.last.body).to eq ''
+    end
+
+    xit 'sends a help email - through notify' do
       expect(notifications.count).to eq(1)
       expect(last_notification_type).to eq 'help'
     end
 
-    it 'records the organisation' do
+    xit 'records the organisation' do
       expect(last_notification_personalisation[:organisation])
         .to eq organisation.name
     end
 
-    it 'records the sender' do
+    xit 'records the sender' do
       expect(last_notification_personalisation[:sender_email]).to eq user.email
     end
   end
@@ -43,8 +55,12 @@ describe 'Contact us when signed in' do
 
     it_behaves_like 'errors in form'
 
-    it 'sends no emails' do
+    xit 'sends no emails' do
       expect(notifications).to be_empty
+    end
+
+    it 'opens no support tickets' do
+      expect(support_tickets).to be_empty
     end
   end
 
