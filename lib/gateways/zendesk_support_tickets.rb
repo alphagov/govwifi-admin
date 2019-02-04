@@ -1,14 +1,14 @@
 class Gateways::ZendeskSupportTickets
-  def initialize(username:, token:)
+  def initialize
     @client = ZendeskAPI::Client.new do |config|
-      config.url = 'zendesk-example.api.com'
-      config.username = username
-      config.token = token
+      config.url = ENV['ZENDESK_API_ENDPOINT']
+      config.username = ENV['ZENDESK_API_USER']
+      config.token = ENV['ZENDESK_API_TOKEN']
     end
   end
 
-  def create(subject: '', email: '', name: '', body: '')
-    @client.tickets.create(
+  def create(subject:, email:, name:, body:)
+    @client.tickets.create!(
       subject: subject,
       requester: {
         email: email,

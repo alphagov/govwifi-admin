@@ -1,4 +1,4 @@
-xdescribe 'Contact us when signed in' do
+describe 'Contact us when signed in' do
   include_context 'with a mocked notifications client'
   include_context 'with a mocked support tickets client'
 
@@ -8,11 +8,14 @@ xdescribe 'Contact us when signed in' do
   before do
     sign_in_user user
     visit signed_in_new_help_path
+    ENV['ZENDESK_API_ENDPOINT'] = 'https://example-company.zendesk.com/api/v2/'
+    ENV['ZENDESK_API_USER'] = 'zd-api-user@example-company.co.uk'
+    ENV['ZENDESK_API_TOKEN'] = 'abcdefggfedcba'
   end
 
   context 'with details filled in' do
     before do
-      fill_in 'Tell us about your issue', with: 'Help me barry.. im a duck too'
+      fill_in 'Tell us about your issue', with: 'Help me, Barry!'
       click_on 'Send support request'
     end
 
@@ -25,15 +28,14 @@ xdescribe 'Contact us when signed in' do
     end
 
     it 'opens a support ticket' do
-      expect(support_tickets).to have_count 1
+      expect(support_tickets.count).to eq 1
+    end
 
-      # pull this stuff a level of abstraction up on the mock?
-      # skip it as it's covered in the gateway specs?
-      expect(support_tickets.last[:requester][:email]).to eq(
-        'example@email.com'
+    it 'some details of support ticket?' do
+      expect(support_tickets.last[:requester][:email]).to eq(user.email)
+      expect(support_tickets.last[:comment][:value]).to eq(
+        'Help me, Barry!'
       )
-
-      expect(support_tickets.last.body).to eq ''
     end
 
     xit 'sends a help email - through notify' do

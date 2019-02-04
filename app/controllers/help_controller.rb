@@ -54,21 +54,18 @@ class HelpController < ApplicationController
         template_id: template_id
       )
 
-      tickets_gateway = Gateways::ZendeskSupportTickets.new(
-        email: '',
-        token: ''
-      )
-
-      UseCases::Administrator::CreateSupportTicket.new(
-        tickets_gateway: tickets_gateway
-      ).execute(
-        requester: {
-          email: sender_email,
-          name: params[:support_form][:name] || current_user&.name,
-          organisation: sender_organisation_name
-        },
-        details: params[:support_form][:details]
-      )
+      if ENV['ZENDESK_API_ENDPOINT'].present?
+        UseCases::Administrator::CreateSupportTicket.new(
+          tickets_gateway: Gateways::ZendeskSupportTickets.new
+        ).execute(
+          requester: {
+            email: sender_email,
+            name: params[:support_form][:name] || current_user&.name,
+            organisation: sender_organisation_name
+          },
+          details: params[:support_form][:details]
+        )
+      end
 
       redirect_to_homepage
     else

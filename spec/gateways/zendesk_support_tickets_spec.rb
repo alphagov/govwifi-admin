@@ -1,13 +1,12 @@
-describe Gateways::ZendeskSupportTickets, focus: true do
+describe Gateways::ZendeskSupportTickets do
   include_context 'with a mocked support tickets client'
-
-  subject do
-    described_class.new(username: 'bob', token: 'oa2PkQAGkF4iMWw1MQ')
-  end
 
   context 'creating a ticket' do
     before do
-      ENV['ZENDESK_API_ENDPOINT'] = 'zendesk-example.api.com'
+      ENV['ZENDESK_API_ENDPOINT'] = 'https://zendesk-example.api.com'
+      ENV['ZENDESK_API_USER'] = 'example-zendesk-admin@user.com'
+      ENV['ZENDESK_API_TOKEN'] = 'abcdefghihgfedcba'
+
       subject.create(
         subject: 'example subject',
         email: 'alice@company.com',
@@ -21,14 +20,14 @@ describe Gateways::ZendeskSupportTickets, focus: true do
     end
 
     it 'sets the url on the client config' do
-      expect(support_ticket_url).to eq('zendesk-example.api.com')
+      expect(support_ticket_url).to eq('https://zendesk-example.api.com')
     end
 
     it 'sets the credentials on the client config' do
       expect(support_ticket_credentials).to eq(
         {
-          username: 'bob',
-          token: 'oa2PkQAGkF4iMWw1MQ'
+          username: 'example-zendesk-admin@user.com',
+          token: 'abcdefghihgfedcba'
         }
       )
     end
@@ -56,7 +55,16 @@ describe Gateways::ZendeskSupportTickets, focus: true do
   end
 
   context 'creating multiple tickets' do
-    before { 3.times { subject.create }}
+    before do
+      3.times do
+        subject.create(
+          subject: 'example subject',
+          email: 'alice@company.com',
+          name: 'alice',
+          body: 'some user-provided details about the issue'
+        )
+      end
+    end
 
     it 'creates three tickets' do
       expect(support_tickets.count).to eq(3)

@@ -18,6 +18,7 @@ gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.2.2'
 gem 'sass-rails', '~> 5.0'
 gem 'sentry-raven'
+gem 'zendesk_api'
 
 group :test do
   gem 'capybara'
