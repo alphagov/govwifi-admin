@@ -16,7 +16,7 @@ class Organisation < ApplicationRecord
 
   def self.fetch_organisations_from_register
     UseCases::Organisation::FetchOrganisationRegister.new(
-      govuk_organisations_register_gateway: Gateways::GovukOrganisationsRegisterGateway.new
+      organisations_gateway: Gateways::GovukOrganisationsRegisterGateway.new
     ).execute.sort
   end
 end
