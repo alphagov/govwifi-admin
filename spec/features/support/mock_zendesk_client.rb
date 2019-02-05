@@ -7,6 +7,7 @@ shared_context 'with a mocked support tickets client' do
 
     def initialize
       raise ArgumentError, "block not given" unless block_given?
+
       yield self.class.config
     end
 

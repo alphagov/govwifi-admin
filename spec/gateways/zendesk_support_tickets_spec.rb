@@ -25,10 +25,8 @@ describe Gateways::ZendeskSupportTickets do
 
     it 'sets the credentials on the client config' do
       expect(support_ticket_credentials).to eq(
-        {
-          username: 'example-zendesk-admin@user.com',
-          token: 'abcdefghihgfedcba'
-        }
+        username: 'example-zendesk-admin@user.com',
+        token: 'abcdefghihgfedcba'
       )
     end
 
@@ -38,18 +36,14 @@ describe Gateways::ZendeskSupportTickets do
 
     it 'passes the requester to the client' do
       expect(support_tickets.last[:requester]).to eq(
-        {
-          email: 'alice@company.com',
-          name: 'alice'
-        }
+        email: 'alice@company.com',
+        name: 'alice'
       )
     end
 
     it 'passes the body to the client' do
       expect(support_tickets.last[:comment]).to eq(
-        {
-          value: 'some user-provided details about the issue'
-        }
+        value: 'some user-provided details about the issue'
       )
     end
   end
