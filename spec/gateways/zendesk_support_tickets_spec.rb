@@ -51,7 +51,7 @@ describe Gateways::ZendeskSupportTickets do
       end
 
       it 'passes the right tag to the client' do
-        expect(support_tickets.last[:tags]).to eq(['gov_wifi'])
+        expect(support_tickets.last[:tags]).to eq(%w[gov_wifi])
       end
     end
 

@@ -15,7 +15,7 @@ class Gateways::ZendeskSupportTickets
       subject: subject,
       requester: requester,
       comment: { value: body },
-      tags: ['gov_wifi']
+      tags: %w[gov_wifi]
     )
   end
 end
