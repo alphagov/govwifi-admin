@@ -6,7 +6,9 @@ module UseCases
       end
 
       def execute
-        organisations_gateway.fetch_organisations
+        government_orgs = organisations_gateway.government_orgs
+        local_authorities = organisations_gateway.local_authorities
+        government_orgs + local_authorities
       end
 
     private

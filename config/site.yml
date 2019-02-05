@@ -4,11 +4,13 @@ default: &default
   organisation_docs_link: 'https://docs.wifi.service.gov.uk'
   product_page_link: 'https://wifi.service.gov.uk'
   google_tag_container_ID: 'GTM-TNHHHPZ'
-  registers_url: 'https://government-organisation.register.gov.uk'
+  organisation_register_url: 'https://government-organisation.register.gov.uk/records.json?page-size=5000'
+  local_auth_register_url: 'https://local-authority-eng.register.gov.uk/records.json?page-size=5000'
 
 development:
   <<: *default
-  registers_url: 'http://govuk-fake-registers:7000'
+  organisation_register_url: 'http://govuk-fake-registers:7000/organisation_records.json'
+  local_auth_register_url: 'http://govuk-fake-registers:7000/local_auths_records.json'
 
 test:
   <<: *default
