@@ -51,6 +51,10 @@ class HelpController < ApplicationController
           },
           details: params[:support_form][:details]
         )
+      else
+        logger.info 'ZENDESK_API_ENDPOINT not set. Creating fake support ticket:'
+        logger.info "Requester: #{sender_email}"
+        logger.info "Details: #{params[:support_form][:details]}"
       end
 
       redirect_to_homepage
