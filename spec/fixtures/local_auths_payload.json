@@ -10,42 +10,41 @@
         "official-name":"Org 5",
         "local-authority-eng":"STA",
         "name":"Stafford"}
-        ]
-      },
-      "SCR": {
+      ]
+      },"SCR": {
         "index-entry-number":"361",
         "entry-number":"361",
         "entry-timestamp":"2018-10-09T13:49:00Z",
         "key":"SCR",
         "item":[
       {
-          "local-authority-type":"COMB",
-          "official-name":"Org 6",
-          "local-authority-eng":"SCR",
-          "name":"Sheffield City Region",
-          "start-date":"2014-04-01"}
-          ]
-        },
-      "EHE": {
+        "local-authority-type":"COMB",
+        "official-name":"Org 6",
+        "local-authority-eng":"SCR",
+        "name":"Sheffield City Region",
+        "start-date":"2014-04-01"}
+      ]
+    },
+    "EHE": {
         "index-entry-number":"211",
         "entry-number":"211",
         "entry-timestamp":"2016-10-21T16:11:20Z",
         "key":"EHE",
         "item":[
       {
-          "local-authority-type":"NMD",
-          "official-name":"Org 7",
-          "local-authority-eng":"EHE",
-          "name":"East Hertfordshire"}
-        ]
-      },
-      "GMS": {
-        "index-entry-number":"211",
-        "entry-number":"211",
-        "entry-timestamp":"2016-10-21T16:11:20Z",
-        "key":"EHE",
-        "item":[
-      {
+        "local-authority-type":"NMD",
+        "official-name":"Org 7",
+        "local-authority-eng":"EHE",
+        "name":"East Hertfordshire"}
+      ]
+    },
+    "GMS": {
+      "index-entry-number":"211",
+      "entry-number":"211",
+      "entry-timestamp":"2016-10-21T16:11:20Z",
+      "key":"EHE",
+      "item":[
+        {
           "local-authority-type":"NMD",
           "official-name":"Org 8",
           "local-authority-eng":"EHE",

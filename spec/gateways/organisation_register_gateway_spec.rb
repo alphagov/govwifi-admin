@@ -1,6 +1,6 @@
-describe Gateways::OrganisationRegisterGateway do
+describe Gateways::OrganisationsGateway do
   it 'fetches the organisations' do
-    result = subject.fetch_organisations
+    result = subject.all_organisations
 
     expect(result).to eq(
       [
