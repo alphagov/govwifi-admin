@@ -1,9 +1,9 @@
 class Gateways::ZendeskSupportTickets
   def initialize
     @client = ZendeskAPI::Client.new do |config|
-      config.url = ENV['ZENDESK_API_ENDPOINT']
-      config.username = ENV['ZENDESK_API_USER']
-      config.token = ENV['ZENDESK_API_TOKEN']
+      config.url = ENV.fetch('ZENDESK_API_ENDPOINT')
+      config.username = ENV.fetch('ZENDESK_API_USER')
+      config.token = ENV.fetch('ZENDESK_API_TOKEN')
     end
   end
 
