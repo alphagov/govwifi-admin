@@ -62,8 +62,8 @@ describe Gateways::ZendeskSupportTickets do
         expect(support_tickets).to_not be_empty
       end
 
-      it 'does not pass an empty name' do
-        expect(support_tickets.last[:requester].keys).to_not include(:name)
+      it 'marks the requester name as unknown' do
+        expect(support_tickets.last[:requester][:name]).to eq('Unknown')
       end
     end
   end
