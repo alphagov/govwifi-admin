@@ -41,19 +41,19 @@ class HelpController < ApplicationController
     end
 
     if @support_form.valid?
-      template_id = GOV_NOTIFY_CONFIG['help_email']['template_id']
+      if ENV['ZENDESK_API_ENDPOINT'].present?
+        UseCases::Administrator::CreateSupportTicket.new(
+          tickets_gateway: Gateways::ZendeskSupportTickets.new
+        ).execute(
+          requester: {
+            email: sender_email,
+            name: params[:support_form][:name] || current_user&.name,
+            organisation: sender_organisation_name
+          },
+          details: params[:support_form][:details]
+        )
+      end
 
-      UseCases::Administrator::SendHelpEmail.new(
-        notifications_gateway: EmailGateway.new
-      ).execute(
-        email: GOV_NOTIFY_CONFIG['support_email'],
-        sender_email: sender_email,
-        name: params[:support_form][:name] || current_user&.name,
-        organisation: sender_organisation_name,
-        details: params[:support_form][:details],
-        subject: params[:subject] || "",
-        template_id: template_id
-      )
       redirect_to_homepage
     else
       render @support_form.choice

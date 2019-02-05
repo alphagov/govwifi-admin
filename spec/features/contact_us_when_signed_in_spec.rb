@@ -1,5 +1,5 @@
 describe 'Contact us when signed in' do
-  include_context 'with a mocked notifications client'
+  include_context 'with a mocked support tickets client'
 
   let(:organisation) { create :organisation }
   let(:user) { create(:user, organisation: organisation) }
@@ -7,11 +7,14 @@ describe 'Contact us when signed in' do
   before do
     sign_in_user user
     visit signed_in_new_help_path
+    ENV['ZENDESK_API_ENDPOINT'] = 'https://example-company.zendesk.com/api/v2/'
+    ENV['ZENDESK_API_USER'] = 'zd-api-user@example-company.co.uk'
+    ENV['ZENDESK_API_TOKEN'] = 'abcdefggfedcba'
   end
 
   context 'with details filled in' do
     before do
-      fill_in 'Tell us about your issue', with: 'Help me barry.. im a duck too'
+      fill_in 'Tell us about your issue', with: 'Help me, Barry!'
       click_on 'Send support request'
     end
 
@@ -23,18 +26,15 @@ describe 'Contact us when signed in' do
       expect(page.current_path).to eq(setup_instructions_path)
     end
 
-    it 'sends a help email' do
-      expect(notifications.count).to eq(1)
-      expect(last_notification_type).to eq 'help'
+    it 'opens a support ticket' do
+      expect(support_tickets.count).to eq 1
     end
 
-    it 'records the organisation' do
-      expect(last_notification_personalisation[:organisation])
-        .to eq organisation.name
-    end
-
-    it 'records the sender' do
-      expect(last_notification_personalisation[:sender_email]).to eq user.email
+    it 'sets the right information on the ticket' do
+      expect(support_tickets.last[:requester][:email]).to eq(user.email)
+      expect(support_tickets.last[:comment][:value]).to eq(
+        'Help me, Barry!'
+      )
     end
   end
 
@@ -43,8 +43,8 @@ describe 'Contact us when signed in' do
 
     it_behaves_like 'errors in form'
 
-    it 'sends no emails' do
-      expect(notifications).to be_empty
+    it 'opens no support tickets' do
+      expect(support_tickets).to be_empty
     end
   end
 
