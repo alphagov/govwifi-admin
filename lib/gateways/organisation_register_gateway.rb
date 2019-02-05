@@ -3,7 +3,7 @@ require 'json'
 
 module Gateways
   class OrganisationRegisterGateway
-    REGISTER_URL = "#{SITE_CONFIG['registers_url']}/records.json".freeze
+    REGISTER_URL = "#{SITE_CONFIG['registers_url']}/records.json?page-size=5000".freeze
 
     def fetch_organisations
       response = HTTParty.get(REGISTER_URL)
