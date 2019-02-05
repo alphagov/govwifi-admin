@@ -30,7 +30,7 @@ describe 'Contact us when signed in' do
       expect(support_tickets.count).to eq 1
     end
 
-    it 'some details of support ticket?' do
+    it 'sets the right information on the ticket' do
       expect(support_tickets.last[:requester][:email]).to eq(user.email)
       expect(support_tickets.last[:comment][:value]).to eq(
         'Help me, Barry!'

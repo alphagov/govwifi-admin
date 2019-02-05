@@ -10,41 +10,61 @@ describe Gateways::ZendeskSupportTickets do
       subject.create(
         subject: 'example subject',
         email: 'alice@company.com',
-        name: 'alice',
+        name: requester_name,
         body: 'some user-provided details about the issue'
       )
     end
 
-    it 'creates a ticket' do
-      expect(support_tickets).to_not be_empty
+    context 'with a name provided' do
+      let(:requester_name) { 'alice' }
+
+      it 'creates a ticket' do
+        expect(support_tickets).to_not be_empty
+      end
+
+      it 'sets the url on the client config' do
+        expect(support_ticket_url).to eq('https://zendesk-example.api.com')
+      end
+
+      it 'sets the credentials on the client config' do
+        expect(support_ticket_credentials).to eq(
+          username: 'example-zendesk-admin@user.com',
+          token: 'abcdefghihgfedcba'
+        )
+      end
+
+      it 'passes the subject to the client' do
+        expect(support_tickets.last[:subject]).to eq 'example subject'
+      end
+
+      it 'passes the requester to the client' do
+        expect(support_tickets.last[:requester]).to eq(
+          email: 'alice@company.com',
+          name: requester_name
+        )
+      end
+
+      it 'passes the body to the client' do
+        expect(support_tickets.last[:comment]).to eq(
+          value: 'some user-provided details about the issue'
+        )
+      end
+
+      it 'passes the right tag to the client' do
+        expect(support_tickets.last[:tags]).to eq(['gov_wifi'])
+      end
     end
 
-    it 'sets the url on the client config' do
-      expect(support_ticket_url).to eq('https://zendesk-example.api.com')
-    end
+    context 'with no name provided' do
+      let(:requester_name) { '' }
 
-    it 'sets the credentials on the client config' do
-      expect(support_ticket_credentials).to eq(
-        username: 'example-zendesk-admin@user.com',
-        token: 'abcdefghihgfedcba'
-      )
-    end
+      it 'creates a ticket' do
+        expect(support_tickets).to_not be_empty
+      end
 
-    it 'passes the subject to the client' do
-      expect(support_tickets.last[:subject]).to eq 'example subject'
-    end
-
-    it 'passes the requester to the client' do
-      expect(support_tickets.last[:requester]).to eq(
-        email: 'alice@company.com',
-        name: 'alice'
-      )
-    end
-
-    it 'passes the body to the client' do
-      expect(support_tickets.last[:comment]).to eq(
-        value: 'some user-provided details about the issue'
-      )
+      it 'does not pass an empty name' do
+        expect(support_tickets.last[:requester].keys).to_not include(:name)
+      end
     end
   end
 

@@ -21,11 +21,12 @@ shared_context 'with a mocked support tickets client' do
       self
     end
 
-    def create!(subject: nil, requester: nil, comment: nil)
+    def create!(subject: nil, requester: nil, comment: nil, tags: nil)
       self.class.support_tickets << {
         subject: subject,
         requester: requester,
-        comment: comment
+        comment: comment,
+        tags: tags
       }
     end
   end
