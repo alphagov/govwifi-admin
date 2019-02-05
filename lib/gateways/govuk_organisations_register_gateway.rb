@@ -2,13 +2,7 @@ require 'httparty'
 require 'json'
 
 module Gateways
-  class OrganisationsGateway
-    def all_organisations
-      final_register = government_orgs << local_authorities
-      flattened_register = final_register.flatten
-      flattened_register
-    end
-
+  class GovukOrganisationsRegisterGateway
     def government_orgs
       government_orgs_url = SITE_CONFIG['organisation_register_url']
       government_register_response = HTTParty.get(government_orgs_url)

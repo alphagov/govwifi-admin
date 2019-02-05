@@ -1,8 +1,13 @@
 describe UseCases::Organisation::FetchOrganisationRegister do
-  let(:organisation_register_gateway) { double(all_organisations: nil) }
+  let(:gateway_spy) { spy(government_orgs: [], local_authorities: []) }
 
-  it 'calls fetch_organisations on the gateway' do
-    described_class.new(organisations_gateway: organisation_register_gateway).execute
-    expect(organisation_register_gateway).to have_received(:all_organisations)
+  it 'calls government_orgs on the gateway' do
+    described_class.new(govuk_organisations_register_gateway: gateway_spy).execute
+    expect(gateway_spy).to have_received(:government_orgs)
+  end
+
+  it 'calls local_authorities on the gateway' do
+    described_class.new(govuk_organisations_register_gateway: gateway_spy).execute
+    expect(gateway_spy).to have_received(:local_authorities)
   end
 end
