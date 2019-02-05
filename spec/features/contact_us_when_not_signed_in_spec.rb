@@ -1,11 +1,16 @@
 describe 'Contact us when not signed in' do
-  include_context 'with a mocked notifications client'
+  include_context 'with a mocked support tickets client'
 
   let(:email) { 'george@gov.uk' }
   let(:name) { 'George' }
   let(:details) { 'I have an issue' }
 
-  before { visit new_help_path }
+  before do
+    ENV['ZENDESK_API_ENDPOINT'] = 'https://example-company.zendesk.com/api/v2/'
+    ENV['ZENDESK_API_USER'] = 'zd-api-user@example-company.co.uk'
+    ENV['ZENDESK_API_TOKEN'] = 'abcdefggfedcba'
+    visit new_help_path
+  end
 
   it 'shows the user the not signed in support page' do
     expect(page).to have_content 'How can we help?'
@@ -60,7 +65,7 @@ describe 'Contact us when not signed in' do
       expect(page).to have_content "Details can't be blank"
     end
 
-    context "checks the email is actually sent " do
+    context "checks the email is actually sent" do
       it 'signing up email sent' do
         expect {
           visit signing_up_new_help_path
@@ -68,7 +73,7 @@ describe 'Contact us when not signed in' do
           fill_in 'Tell us a bit more about your issue', with: details
           click_on 'Submit'
         }.to change {
-          notifications.count
+          support_tickets.count
         }.by(1)
       end
 
@@ -79,7 +84,7 @@ describe 'Contact us when not signed in' do
           fill_in 'Tell us a bit more about your issue', with: details
           click_on 'Submit'
         }.to change {
-          notifications.count
+          support_tickets.count
         }.by(1)
       end
 
@@ -90,14 +95,14 @@ describe 'Contact us when not signed in' do
           fill_in 'Your message', with: details
           click_on 'Submit'
         }.to change {
-          notifications.count
+          support_tickets.count
         }.by(1)
       end
 
       it 'does not send an email if the details and or email is blank' do
         visit signing_up_new_help_path
         click_on 'Submit'
-        expect(notifications.count).to eq(0)
+        expect(support_tickets).to be_empty
       end
 
       it 'records the email' do
@@ -106,7 +111,7 @@ describe 'Contact us when not signed in' do
         fill_in 'Tell us a bit more about your issue', with: details
         click_on 'Submit'
 
-        expect(last_notification_personalisation[:sender_email])
+        expect(support_tickets.last[:requester][:email])
           .to eq email
       end
     end
