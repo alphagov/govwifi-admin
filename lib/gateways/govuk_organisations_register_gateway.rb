@@ -22,5 +22,10 @@ module Gateways
         value['item'].first['official-name']
       end
     end
+
+    def custom_orgs
+      []
+    end
+
   end
 end

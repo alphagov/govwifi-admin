@@ -8,7 +8,9 @@ module UseCases
       def execute
         government_orgs = organisations_gateway.government_orgs
         local_authorities = organisations_gateway.local_authorities
-        government_orgs + local_authorities
+        custom_orgs = organisations_gateway.custom_orgs
+
+        government_orgs + local_authorities + custom_orgs
       end
 
     private
