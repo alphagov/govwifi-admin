@@ -2,7 +2,8 @@
 
 ## Purpose
 
-This is the User Admin UI for the [GovWiFi][link_govwifi] project.
+This is the admin platform, a website where organisations can create and manage their GovWifi installation within their organisation.
+The Govwifi page can be found [here][link_govwifi].
 
 ## How to install and use
 
@@ -11,9 +12,9 @@ make setup
 make serve
 ```
 
-Other useful Makefile targets are:
+Other useful Make commands are:
 
-- `make bash` - run a shell in the docker composed application
+- `make bash` - runs a shell in the docker composed application
 - `make stop` - stops the application
 - `make clean` - removes the application volumes
 - `make lint` - runs the linter
