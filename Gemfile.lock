@@ -129,7 +129,7 @@ GEM
       rspec (>= 2.99.0, < 4.0)
     hashdiff (0.3.7)
     hashie (3.6.0)
-    httparty (0.16.3)
+    httparty (0.16.4)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
     i18n (1.5.3)
@@ -327,7 +327,7 @@ DEPENDENCIES
   faker
   govuk-lint (~> 3)
   guard-rspec
-  httparty (~> 0.16.3)
+  httparty (~> 0.16.4)
   listen (~> 3)
   mysql2 (~> 0.5.2)
   nokogiri
