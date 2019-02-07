@@ -60,7 +60,7 @@ describe 'view details of a signed up organisation' do
       end
     end
 
-    context 'with five recent unique connections' do
+    context 'with five recent sessions with different usernames' do
       before do
         ('A'..'E').each do |char|
           Session.create(
@@ -72,7 +72,7 @@ describe 'view details of a signed up organisation' do
         end
       end
 
-      it 'shows that count' do
+      it 'shows five unique connections' do
         visit admin_organisation_path(organisation)
 
         within('#unique-connections') do
