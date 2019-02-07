@@ -1,21 +1,39 @@
-# Govwifi Admin API
+# Govwifi Admin Application
 
 This is the admin platform, a website where organisations can create and manage their GovWifi installation within their organisation.
-The private GovWifi [build repository][build-repo] contains instructions on how to build GovWifi end-to-end - the sites, services and infrastructure.
+N.B. The private GovWifi [build repository][build-repo] contains information on how to build GovWifi end-to-end - the sites, services and infrastructure.
 
 ## Overview
 
-The API contains files and test suites that describe and maintain the desired functionality of the admin platform. It is primarily a Ruby-on-Rails Project.
+The application allows users to perform the following tasks:
 
-The API uses some GovUK Services to implement some the desired functions, including:
+- Create an admin account.
+- Invite team members to their account.
+- View instructions on how to setup and configure GovWifi on their local network.
+- Add IP addresses of their access points to the GovWifi system.
+- View logs of authentication requests to GovWifi by IP and username.
+- Make support ticket requests.
 
-* [GOV.UK Registers][registers] as a resource for Government organisations to select their names from a predetermined list of registered organisations as they create their accounts.
+The application also includes a "Super Admin" login feature that allows a GDS administrator to:
 
-* [GOV.UK Notify][notify] to handle sending out situational emails to users.
+- View all organisations signed up to GovWifi
+- See specific information on each of these organisations
+- Add custom organisation names to the allowed register
 
-* [GOV.UK Zendesk][zendesk] to handle forms submitted by the user within the app.
+The application uses a few third party services, including:
 
-## Developping
+- [GOV.UK Registers][registers] as a resource for Government organisations to select their names from a predetermined list of registered organisations as they create their accounts.
+
+- [GOV.UK Notify][notify] to handle sending out situational emails to users.
+
+- [GOV.UK Zendesk][zendesk] to handle forms submitted by the user within the app.
+
+The application also provides the following data for the RADIUS configuration via an S3 bucket:
+
+- IP addresses.
+- RADIUS secret keys
+
+## Developing
 
 ### Setup and serve the app locally
 
