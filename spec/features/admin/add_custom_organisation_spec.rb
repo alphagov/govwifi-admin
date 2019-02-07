@@ -1,4 +1,8 @@
+require 'support/confirmation_use_case'
+
 describe 'adding a custom organisation name', focus: true do
+  include_examples 'confirmation use case spy'
+
   let!(:admin_user) { create(:user, super_admin: true) }
 
   context 'when visiting the custom organisations page' do
@@ -22,8 +26,13 @@ describe 'adding a custom organisation name', focus: true do
         fill_in 'custom_organisations[name]', with: 'Custom Org name'
         click_on 'Confirm'
         sign_out
+        sign_up_for_account(email: 'default@gov.uk')
         visit confirmation_email_link
         select 'Custom Org name', from: 'Organisation name'
+        fill_in 'Service email', with: 'bob@gov.uk'
+        fill_in 'Your name', with: 'bob'
+        fill_in 'Password', with: 'bobpassword'
+        click_on 'Create my account'
         expect(page).to have_content('Custom Org name')
       end
     end
