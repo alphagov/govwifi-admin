@@ -1,14 +1,17 @@
 class Admin::CustomOrganisationsController < AdminController
 
-  def index
-    @number_of_custom_orgs = CustomOrganisationName.count
-  end
+  def index; end
 
   def create
-    # Add whatever is in that text field into the database
-    add_custom_organiastion = CustomOrganisationName.create(params[:name])
+    CustomOrganisationName.create(custom_org_params)
 
     flash[:notice] = 'Successfully added a custom organisation'
     redirect_to root_path
+  end
+
+private
+
+  def custom_org_params
+    params.require(:custom_organisations).permit(:name)
   end
 end
