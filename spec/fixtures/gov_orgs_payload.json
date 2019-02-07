@@ -8,7 +8,7 @@
       {
         "end-date":"2016-07-13",
         "website":"https://www.gov.uk/government/organisations/org1",
-        "name":"Org 1",
+        "name":"Gov Org 1",
         "government-organisation":"OT1067"
       }
     ]
@@ -21,7 +21,7 @@
       {
         "end-date":"2016-07-13",
         "website":"https://www.gov.uk/government/organisations/org2",
-        "name":"Org 2",
+        "name":"Gov Org 2",
         "government-organisation":"OT1099"
       }
     ]
@@ -34,7 +34,7 @@
       {
         "end-date":"2016-07-13",
         "website":"https://www.gov.uk/government/organisations/org3",
-        "name":"Org 3",
+        "name":"Gov Org 3",
         "government-organisation":"OT1068"
       }
     ]
@@ -47,7 +47,7 @@
       {
         "end-date":"2016-07-13",
         "website":"https://www.gov.uk/government/organisations/org4",
-        "name":"Org 4",
+        "name":"Gov Org 4",
         "government-organisation":"OT1069"
       }
     ]

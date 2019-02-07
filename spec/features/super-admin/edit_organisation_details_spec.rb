@@ -1,6 +1,6 @@
 describe 'editing an organisations details' do
   let(:admin_user1) { create(:user, organisation: organisation) }
-  let(:organisation) { create(:organisation, name: "Org 2", service_email: "testme@gov.uk") }
+  let(:organisation) { create(:organisation, name: "Gov Org 2", service_email: "testme@gov.uk") }
 
   context 'when visiting the edit organisations settings page' do
     before do
