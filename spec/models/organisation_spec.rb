@@ -18,10 +18,10 @@ describe Organisation do
     end
 
     context 'When an organisation signs up under the same name as another organisation' do
-      before { create(:organisation, name: 'Org 1') }
+      before { create(:organisation, name: 'Gov Org 1') }
 
       it 'is not valid' do
-        organisation = build(:organisation, name: 'Org 1')
+        organisation = build(:organisation, name: 'Gov Org 1')
         expect(organisation).to_not be_valid
       end
     end
@@ -36,7 +36,7 @@ describe Organisation do
 
     context 'Given my organisation is in the GovUk register' do
       it 'is valid' do
-        organisation = build(:organisation, name: 'Org 1')
+        organisation = build(:organisation, name: 'Gov Org 1')
         expect(organisation).to be_valid
       end
     end

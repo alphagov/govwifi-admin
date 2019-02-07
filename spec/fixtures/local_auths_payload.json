@@ -7,7 +7,7 @@
     "item":[
       {
         "local-authority-type":"NMD",
-        "official-name":"Org 5",
+        "official-name":"Local Auth 1",
         "local-authority-eng":"STA",
         "name":"Stafford"}
       ]
@@ -19,7 +19,7 @@
         "item":[
       {
         "local-authority-type":"COMB",
-        "official-name":"Org 6",
+        "official-name":"Local Auth 2",
         "local-authority-eng":"SCR",
         "name":"Sheffield City Region",
         "start-date":"2014-04-01"}
@@ -33,7 +33,7 @@
         "item":[
       {
         "local-authority-type":"NMD",
-        "official-name":"Org 7",
+        "official-name":"Local Auth 3",
         "local-authority-eng":"EHE",
         "name":"East Hertfordshire"}
       ]
@@ -46,7 +46,7 @@
       "item":[
         {
           "local-authority-type":"NMD",
-          "official-name":"Org 8",
+          "official-name":"Local Auth 4",
           "local-authority-eng":"EHE",
           "name":"East Hertfordshire"}
         ]
