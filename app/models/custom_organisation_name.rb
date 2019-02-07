@@ -1,0 +1,3 @@
+class CustomOrganisationName < ApplicationRecord
+
+end

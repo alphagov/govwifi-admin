@@ -22,4 +22,22 @@ describe Gateways::GovukOrganisationsRegisterGateway do
       ]
     )
   end
+
+context 'with custom oranisations' do
+
+  before do
+    CustomOrganisationName.create(name:'Org1')
+    CustomOrganisationName.create(name:'Org2')
+  end
+
+  it 'fetches the custom orgs' do
+    result = subject.custom_orgs
+    expect(result).to eq(
+      [
+       'Org1',
+       'Org2'
+      ]
+    )
+    end
+  end
 end

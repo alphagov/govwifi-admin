@@ -24,7 +24,7 @@ module Gateways
     end
 
     def custom_orgs
-      []
+      CustomOrganisationName.all.map(&:name)
     end
 
   end
