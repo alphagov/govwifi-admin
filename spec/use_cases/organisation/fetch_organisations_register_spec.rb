@@ -18,16 +18,16 @@ describe UseCases::Organisation::FetchOrganisationRegister do
     end
   end
 
-  context 'get the custom orgs' do
+  context 'with custom organisations' do
     let(:custom_orgs_list_gateway) { double(government_orgs: [], local_authorities: [], custom_orgs: ['Custom Org 1', 'Custom Org 2', 'Custom Org 3']) }
 
-    it 'returns the custom orgs' do
+    it 'returns the custom organisations' do
       response = described_class.new(organisations_gateway: custom_orgs_list_gateway).execute
       expect(response).to eq(['Custom Org 1', 'Custom Org 2', 'Custom Org 3'])
     end
   end
 
-  context 'with gov, local and custom orgs' do
+  context 'with government, local and custom organisations' do
     before do
       CustomOrganisationName.create(name: 'Custom Org 1')
       CustomOrganisationName.create(name: 'Custom Org 2')
