@@ -1,27 +1,12 @@
 describe 'view details of a signed up organisation' do
   let(:organisation) { create(:organisation) }
 
-  context 'when logged out' do
-    before { visit admin_organisation_path(organisation) }
-
-    it_behaves_like 'not signed in'
-  end
-
-  context 'when logged in as a normal user' do
-    before do
-      sign_in_user create(:user)
-      visit admin_organisation_path(organisation)
-    end
-
-    it_behaves_like 'user not authorised'
-  end
-
   context 'when logged in as a super-admin' do
     let(:location) { create(:location, organisation: organisation) }
+    let!(:ip) { create(:ip, location: location) }
 
     before do
       create(:user, organisation: organisation)
-      create(:ip, location: location)
 
       sign_in_user create(:user, super_admin: true)
       visit admin_organisation_path(organisation)
@@ -75,6 +60,27 @@ describe 'view details of a signed up organisation' do
       end
     end
 
+    context 'with five recent unique connections' do
+      before do
+        ('A'..'E').each do |char|
+          Session.create(
+            siteIP: ip.address,
+            success: true,
+            username: char * 6,
+            start: Time.now.to_s
+          )
+        end
+      end
+
+      it 'shows that count' do
+        visit admin_organisation_path(organisation)
+
+        within('#unique-connections') do
+          expect(page).to have_content('5')
+        end
+      end
+    end
+
     it 'has a service email' do
       expect(page).to have_content(organisation.service_email)
     end
@@ -116,5 +122,20 @@ describe 'view details of a signed up organisation' do
         end
       end
     end
+  end
+
+  context 'when logged out' do
+    before { visit admin_organisation_path(organisation) }
+
+    it_behaves_like 'not signed in'
+  end
+
+  context 'when logged in as a normal user' do
+    before do
+      sign_in_user create(:user)
+      visit admin_organisation_path(organisation)
+    end
+
+    it_behaves_like 'user not authorised'
   end
 end

@@ -7,6 +7,7 @@ class Admin::OrganisationsController < AdminController
 
   def show
     @organisation = Organisation.find(params[:id])
+    @unique_connections = unique_connections(organisation: @organisation)
   end
 
   def destroy
@@ -27,5 +28,13 @@ private
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
+  def unique_connections(organisation:)
+    UseCases::Administrator::GetUniqueUserRequests.new(
+      authentication_logs_gateway: Gateways::UniqueConnections.new(
+        ips: organisation.ips.map(&:address)
+      )
+    ).execute(date_range: 1.day.ago).fetch(:connection_count)
   end
 end

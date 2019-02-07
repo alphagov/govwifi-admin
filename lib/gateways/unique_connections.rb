@@ -6,9 +6,9 @@ module Gateways
 
     def unique_user_count(date_range: nil)
       query = Session
-        .where(siteIP: organisation_ips)
         .where(success: true)
         .distinct
+        .where(siteIP: organisation_ips)
 
       query = query.where('start >= ?', date_range) if date_range.present?
 
