@@ -21,7 +21,7 @@ describe 'adding a custom organisation name' do
       expect(page).to have_content('Successfully added a custom organisation')
     end
 
-    context 'signout and find custom organisation' do
+    context 'sign out and find custom organisation' do
       before do
         fill_in 'custom_organisations[name]', with: 'Custom Org name'
         click_on 'Confirm'
@@ -36,6 +36,27 @@ describe 'adding a custom organisation name' do
         fill_in 'Password', with: 'bobpassword'
         click_on 'Create my account'
         expect(page).to have_content('Custom Org name')
+      end
+    end
+
+    context 'if the organisation name is blank' do
+      it 'will error with the reason' do
+        fill_in 'custom_organisations[name]', with: ' '
+        click_on 'Confirm'
+        expect(page).to have_content("Organisation name can't be blank")
+      end
+    end
+    context 'after addding a custom organisation' do
+      let!(:org1) { CustomOrganisationName.create(name: 'Custom Org 1') }
+      let!(:org2) { CustomOrganisationName.create(name: 'Custom Org 2') }
+      before do
+        sign_in_user admin_user
+        visit admin_custom_organisations_path
+      end
+
+      it 'lists all of the custom organisation names' do
+        expect(page).to have_content('Custom Org 1')
+        expect(page).to have_content('Custom Org 2')
       end
     end
   end
