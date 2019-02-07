@@ -1,6 +1,6 @@
 describe 'deleting an organisation' do
   let!(:admin_user) { create(:user, super_admin: true) }
-  let!(:organisation) { create(:organisation, name: 'Org 2') }
+  let!(:organisation) { create(:organisation, name: 'Gov Org 2') }
 
   context 'when visiting the organisations page' do
     before do
@@ -10,7 +10,7 @@ describe 'deleting an organisation' do
     end
 
     it 'shows the organisations page I am on' do
-      expect(page).to have_content("Org 2")
+      expect(page).to have_content("Gov Org 2")
     end
 
     it 'should show a delete organisation button on the page' do
@@ -28,7 +28,7 @@ describe 'deleting an organisation' do
 
     it 'should remove the organisation from the index list of orgs' do
       click_on 'Yes, remove this organisation'
-      expect(page).to_not have_content("Org 2")
+      expect(page).to_not have_content("Gov Org 2")
     end
   end
 end

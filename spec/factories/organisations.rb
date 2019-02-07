@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :organisation do
     sequence :name do |n|
-      "Org #{n}"
+      "Gov Org #{n}"
     end
 
     service_email { Faker::Internet.email }

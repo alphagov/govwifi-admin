@@ -1,19 +1,21 @@
 describe UseCases::Organisation::FetchOrganisationRegister do
   let(:gateway_spy) { spy(government_orgs: [], local_authorities: [], custom_orgs: []) }
 
-  it 'calls government_orgs on the gateway' do
-    described_class.new(organisations_gateway: gateway_spy).execute
-    expect(gateway_spy).to have_received(:government_orgs)
-  end
+  context 'On the gateway' do
+    it 'calls government_orgs ' do
+      described_class.new(organisations_gateway: gateway_spy).execute
+      expect(gateway_spy).to have_received(:government_orgs)
+    end
 
-  it 'calls local_authorities on the gateway' do
-    described_class.new(organisations_gateway: gateway_spy).execute
-    expect(gateway_spy).to have_received(:local_authorities)
-  end
+    it 'calls local_authorities' do
+      described_class.new(organisations_gateway: gateway_spy).execute
+      expect(gateway_spy).to have_received(:local_authorities)
+    end
 
-  it 'calls custom_orgs on the gateway' do
-    described_class.new(organisations_gateway: gateway_spy).execute
-    expect(gateway_spy).to have_received(:custom_orgs)
+    it 'calls custom_orgs' do
+      described_class.new(organisations_gateway: gateway_spy).execute
+      expect(gateway_spy).to have_received(:custom_orgs)
+    end
   end
 
   context 'get the custom orgs' do
@@ -25,17 +27,19 @@ describe UseCases::Organisation::FetchOrganisationRegister do
     end
   end
 
-  context 'appends the custom orgs to the govuk registers' do
-    let(:custom_orgs_list_gateway) { double(government_orgs: ['Custom Org 1', 'Custom Org 2', 'Custom Org 3'],
-      local_authorities: ['Custom Org 4', 'Custom Org 5', 'Custom Org 6'],
-      custom_orgs: ['Custom Org 7', 'Custom Org 8', 'Custom Org 9']) }
+  context 'with gov, local and custom orgs' do
+    before do
+      CustomOrganisationName.create(name: 'Custom Org 1')
+      CustomOrganisationName.create(name: 'Custom Org 2')
+    end
 
-    it 'returns the combined list of orgs' do
-      response = described_class.new(organisations_gateway: custom_orgs_list_gateway).execute
+    it 'returns the combined register of all orgs' do
+      response = described_class.new(organisations_gateway: Gateways::GovukOrganisationsRegisterGateway.new).execute
       expect(response).to eq([
-        'Custom Org 1', 'Custom Org 2', 'Custom Org 3',
-        'Custom Org 4', 'Custom Org 5', 'Custom Org 6',
-        'Custom Org 7', 'Custom Org 8', 'Custom Org 9', ])
+        "Gov Org 1", "Gov Org 2", "Gov Org 3", "Gov Org 4",
+        "Local Auth 1", "Local Auth 2", "Local Auth 3", "Local Auth 4",
+        'Custom Org 1', 'Custom Org 2'
+      ])
     end
   end
 end
