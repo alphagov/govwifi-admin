@@ -3,6 +3,19 @@
 This is the admin platform, a website where organisations can create and manage their GovWifi installation within their organisation.
 N.B. The private GovWifi [build repository][build-repo] contains information on how to build GovWifi end-to-end - the sites, services and infrastructure.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Developing](#developing)
+  - [Setup and serve the app locally](#setup-and-serve-the-app-locally)
+  - [Running the tests](#running-the-tests)
+  - [Using the linter](#using-the-linter)
+  - [Run a shell in the docker composed application](#run-a-shell-in-the-docker-composed-application)
+  - [Stop the application](#stop-the-application)
+  - [Remove the application volumes](#remove-the-application-volumes)
+- [How to contribute](#how-to-contribute)
+- [Licence](#licence)
+
 ## Overview
 
 The application allows users to perform the following tasks:
