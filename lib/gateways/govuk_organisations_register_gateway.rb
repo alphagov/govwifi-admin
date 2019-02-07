@@ -22,5 +22,9 @@ module Gateways
         value['item'].first['official-name']
       end
     end
+
+    def custom_orgs
+      CustomOrganisationName.all.map(&:name)
+    end
   end
 end

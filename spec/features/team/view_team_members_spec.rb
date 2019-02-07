@@ -49,7 +49,7 @@ describe 'View team members of my organisation' do
 
     context 'when there are users outside of my organisation' do
       before do
-        other_organisation = create(:organisation, name: 'Org 2')
+        other_organisation = create(:organisation, name: 'Gov Org 2')
         create(:user, email: 'stranger@example.gov.uk', organisation: other_organisation)
       end
 
