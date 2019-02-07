@@ -1,6 +1,7 @@
 # Govwifi Admin API
 
 This is the admin platform, a website where organisations can create and manage their GovWifi installation within their organisation.
+The private GovWifi [build repository][build-repo] contains instructions on how to build GovWifi end-to-end - the sites, services and infrastructure.
 
 ## Overview
 
@@ -71,3 +72,4 @@ This codebase is released under [the MIT License][mit].
 [registers]:https://www.registers.service.gov.uk
 [notify]:https://www.notifications.service.gov.uk
 [zendesk]:https://govuk.zendesk.com/hc/en-us
+[build-repo]:https://github.com/alphagov/govwifi-build
