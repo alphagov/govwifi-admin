@@ -3,10 +3,10 @@ describe 'view details of a signed up organisation' do
 
   context 'when logged in as a super-admin' do
     let(:location) { create(:location, organisation: organisation) }
-    let!(:ip) { create(:ip, location: location) }
 
     before do
       create(:user, organisation: organisation)
+      create(:ip, location: location)
 
       sign_in_user create(:user, super_admin: true)
       visit admin_organisation_path(organisation)
@@ -64,7 +64,7 @@ describe 'view details of a signed up organisation' do
       before do
         ('A'..'E').each do |char|
           Session.create(
-            siteIP: ip.address,
+            siteIP: create(:ip, location: location).address,
             success: true,
             username: char * 6,
             start: Time.now.to_s
