@@ -7,11 +7,11 @@ class Admin::OrganisationsController < AdminController
 
   def show
     @organisation = Organisation.find(params[:id])
-    @unique_connections = UseCases::Administrator::GetUniqueUserRequests.new(
+    @unique_connections = UseCases::Administrator::GetRecentUniqueUserRequests.new(
       authentication_logs_gateway: Gateways::UniqueConnections.new(
         ips: @organisation.ips.map(&:address)
       )
-    ).execute(date_range: 1.day.ago).fetch(:connection_count)
+    ).execute.fetch(:connection_count)
   end
 
   def destroy
