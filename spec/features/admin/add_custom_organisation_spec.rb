@@ -17,10 +17,9 @@ describe 'adding a custom organisation name' do
 
     it 'will redirect you to organisations page once a custom org is added' do
       fill_in "Enter the organisation's full name", with: 'Custom Org name'
-      expect do
+      expect {
         click_on 'Allow organisation'
-        .to change { CustomOrganisationName.count }.by(1)
-      end
+      }.to change { CustomOrganisationName.count }.by(1)
     end
 
     context 'when the organisation name is blank' do
