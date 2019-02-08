@@ -11,6 +11,7 @@
     <nav class='govuk-body govuk-!-margin-bottom-0 '>
       <% if current_user.super_admin? %>
         <%= link_to 'Organisations', admin_organisations_path, class: active_tab(admin_organisations_path) %>
+        <%= link_to 'Allow Organisations', admin_custom_organisations_path, class: active_tab(admin_custom_organisations_path) %>
         <%= link_to 'MOU', admin_mou_index_path, class: active_tab(admin_mou_index_path) %>
       <% else %>
         <% if current_organisation.ips.present? %>
