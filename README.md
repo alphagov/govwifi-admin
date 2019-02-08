@@ -1,23 +1,91 @@
-# govwifi-admin
+# Govwifi Admin Application
 
-## Purpose
+This is the admin platform, a website where organisations can create and manage their GovWifi installation within their organisation.
 
-This is the User Admin UI for the [GovWiFi][link_govwifi] project.
+N.B. The private GovWifi [build repository][build-repo] contains information on how to build GovWifi end-to-end - the sites, services and infrastructure.
 
-## How to install and use
+## Table of Contents
+
+- [Overview](#overview)
+- [Developing](#developing)
+  - [Setup and serve the app locally](#setup-and-serve-the-app-locally)
+  - [Running the tests](#running-the-tests)
+  - [Using the linter](#using-the-linter)
+  - [Run a shell in the docker composed application](#run-a-shell-in-the-docker-composed-application)
+  - [Stop the application](#stop-the-application)
+  - [Remove the application volumes](#remove-the-application-volumes)
+- [How to contribute](#how-to-contribute)
+- [Licence](#licence)
+
+## Overview
+
+The application allows users to perform the following tasks:
+
+- Create an admin account.
+- Invite team members to their account.
+- View instructions on how to setup and configure GovWifi on their local network.
+- Add IP addresses of their access points to the GovWifi system.
+- View logs of authentication requests to GovWifi by IP and username.
+- Make support ticket requests.
+
+The application also includes a "Super Admin" login feature that allows a GDS administrator to:
+
+- View all organisations signed up to GovWifi
+- See specific information on each of these organisations
+- Add custom organisation names to the allowed register
+
+The application uses a few third party services, including:
+
+- [GOV.UK Registers][registers] as a resource for Government organisations to select their names from a predetermined list of registered organisations as they create their accounts.
+
+- [GOV.UK Notify][notify] to handle sending out situational emails to users.
+
+- [GOV.UK Zendesk][zendesk] to handle forms submitted by the user within the app.
+
+The application also provides the following data for the RADIUS configuration via an S3 bucket:
+
+- IP addresses.
+- RADIUS secret keys
+
+## Developing
+
+### Setup and serve the app locally
 
 ```shell
 make setup
 make serve
 ```
 
-Other useful Makefile targets are:
+### Running the tests
 
-- `make bash` - run a shell in the docker composed application
-- `make stop` - stops the application
-- `make clean` - removes the application volumes
-- `make lint` - runs the linter
-- `make test` - runs the tests
+```shell
+make test
+```
+
+### Using the Linter
+
+```shell
+make lint
+```
+
+### Run a shell in the docker composed application
+
+```shell
+make serve
+make shell
+```
+
+### Stop the application
+
+```shell
+make stop
+```
+
+### Remove the application volumes
+
+```shell
+make clean
+```
 
 ## How to contribute
 
@@ -28,4 +96,12 @@ Other useful Makefile targets are:
 1. Run and pass tests `make test`
 1. Raise a pull request
 
-[link_govwifi]: https://www.gov.uk/government/publications/govwifi/govwifi
+## Licence
+
+This codebase is released under [the MIT License][mit].
+
+[mit]: LICENCE
+[registers]:https://www.registers.service.gov.uk
+[notify]:https://www.notifications.service.gov.uk
+[zendesk]:https://govuk.zendesk.com/hc/en-us
+[build-repo]:https://github.com/alphagov/govwifi-build
