@@ -25,8 +25,8 @@ describe 'adding a custom organisation name' do
 
     context 'sign out and find custom organisations' do
       before do
-        CustomOrganisationName.create(name: 'Custom Org name')
         sign_out
+        CustomOrganisationName.create(name: 'Custom Org name')
         sign_up_for_account(email: 'default@gov.uk')
         visit confirmation_email_link
       end
