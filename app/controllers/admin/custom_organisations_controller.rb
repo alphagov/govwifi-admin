@@ -1,11 +1,11 @@
 class Admin::CustomOrganisationsController < AdminController
   def index
-    @all_orgs = CustomOrganisationName.all
+    @custom_organisation_names = CustomOrganisationName.all
     @custom_organisation = CustomOrganisationName.new
   end
 
   def create
-    @all_orgs = CustomOrganisationName.all
+    @custom_organisation_names = CustomOrganisationName.all
     @custom_organisation = CustomOrganisationName.new(custom_org_params)
 
     if @custom_organisation.save
