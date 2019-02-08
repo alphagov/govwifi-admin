@@ -23,24 +23,6 @@ describe 'adding a custom organisation name' do
       end
     end
 
-    context 'sign out and find custom organisations' do
-      before do
-        sign_out
-        CustomOrganisationName.create(name: 'Custom Org name')
-        sign_up_for_account(email: 'default@gov.uk')
-        visit confirmation_email_link
-      end
-
-      it 'displays the custom organisation name in the list` would be better for instance' do
-        select 'Custom Org name', from: 'Organisation name'
-        fill_in 'Service email', with: 'bob@gov.uk'
-        fill_in 'Your name', with: 'bob'
-        fill_in 'Password', with: 'bobpassword'
-        click_on 'Create my account'
-        expect(page).to have_content('Custom Org name')
-      end
-    end
-
     context 'when the organisation name is blank' do
       it 'will error with the reason' do
         fill_in 'custom_organisations[name]', with: ' '
@@ -48,19 +30,37 @@ describe 'adding a custom organisation name' do
         expect(page).to have_content("Name can't be blank")
       end
     end
+  end
 
-    context 'after addding a custom organisation' do
-      let!(:org1) { CustomOrganisationName.create(name: 'Custom Org 1') }
-      let!(:org2) { CustomOrganisationName.create(name: 'Custom Org 2') }
-      before do
-        sign_in_user admin_user
-        visit admin_custom_organisations_path
-      end
+  context 'sign out and find custom organisations' do
+    before do
+      CustomOrganisationName.create(name: 'Custom Org name')
+      sign_up_for_account(email: 'default@gov.uk')
+      visit confirmation_email_link
+    end
 
-      it 'lists all of the custom organisation names' do
-        expect(page).to have_content('Custom Org 1')
-        expect(page).to have_content('Custom Org 2')
-      end
+    it 'displays the custom organisation name in the list' do
+      CustomOrganisationName.create(name: 'Custom Org name')
+      select 'Custom Org name', from: 'Organisation name'
+      fill_in 'Service email', with: 'bob@gov.uk'
+      fill_in 'Your name', with: 'bob'
+      fill_in 'Password', with: 'bobpassword'
+      click_on 'Create my account'
+      expect(page).to have_content('Custom Org name')
+    end
+  end
+
+  context 'after addding a custom organisation' do
+    let!(:org1) { CustomOrganisationName.create(name: 'Custom Org 1') }
+    let!(:org2) { CustomOrganisationName.create(name: 'Custom Org 2') }
+    before do
+      sign_in_user admin_user
+      visit admin_custom_organisations_path
+    end
+
+    it 'lists all of the custom organisation names' do
+      expect(page).to have_content('Custom Org 1')
+      expect(page).to have_content('Custom Org 2')
     end
   end
 end
