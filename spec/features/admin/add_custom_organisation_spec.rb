@@ -12,19 +12,19 @@ describe 'adding a custom organisation name' do
     end
 
     it 'will show the add custom organisations page' do
-      expect(page.body).to have_content('Add Organistions to the Register')
+      expect(page.body).to have_content('Allow an organisation access to the admin platform')
     end
 
     it 'will redirect you to organiastions page once a custom org is added' do
       fill_in 'custom_organisations[name]', with: 'Custom Org name'
-      click_on 'Confirm'
-      expect(page).to have_content('Successfully added a custom organisation')
+      click_on 'Allow organisation'
+      expect(page).to have_content('Custom organisation has been successfully added')
     end
 
     context 'sign out and find custom organisation' do
       before do
         fill_in 'custom_organisations[name]', with: 'Custom Org name'
-        click_on 'Confirm'
+        click_on 'Allow organisation'
         sign_out
         sign_up_for_account(email: 'default@gov.uk')
         visit confirmation_email_link
@@ -42,8 +42,8 @@ describe 'adding a custom organisation name' do
     context 'if the organisation name is blank' do
       it 'will error with the reason' do
         fill_in 'custom_organisations[name]', with: ' '
-        click_on 'Confirm'
-        expect(page).to have_content("Organisation name can't be blank")
+        click_on 'Allow organisation'
+        expect(page).to have_content("Name can't be blank")
       end
     end
     context 'after addding a custom organisation' do
