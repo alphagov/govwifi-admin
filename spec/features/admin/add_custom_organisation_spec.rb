@@ -15,22 +15,23 @@ describe 'adding a custom organisation name' do
       expect(page.body).to have_content('Allow an organisation access to the admin platform')
     end
 
-    it 'will redirect you to organiastions page once a custom org is added' do
+    it 'will redirect you to organisations page once a custom org is added' do
       fill_in "Enter the organisation's full name", with: 'Custom Org name'
-      click_on 'Allow organisation'
-      expect(page).to have_content('Custom organisation has been successfully added')
+      expect do
+        click_on 'Allow organisation'
+        .to change { CustomOrganisationName.count }.by(1)
+      end
     end
 
-    context 'sign out and find custom organisation' do
+    context 'sign out and find custom organisations' do
       before do
-        fill_in "Enter the organisation's full name", with: 'Custom Org name'
-        click_on 'Allow organisation'
+        CustomOrganisationName.create(name: 'Custom Org name')
         sign_out
         sign_up_for_account(email: 'default@gov.uk')
         visit confirmation_email_link
       end
 
-      it 'the custom organisation will appear when creating an account' do
+      it 'displays the custom organisation name in the list` would be better for instance' do
         select 'Custom Org name', from: 'Organisation name'
         fill_in 'Service email', with: 'bob@gov.uk'
         fill_in 'Your name', with: 'bob'
@@ -40,7 +41,7 @@ describe 'adding a custom organisation name' do
       end
     end
 
-    context 'if the organisation name is blank' do
+    context 'when the organisation name is blank' do
       it 'will error with the reason' do
         fill_in 'custom_organisations[name]', with: ' '
         click_on 'Allow organisation'

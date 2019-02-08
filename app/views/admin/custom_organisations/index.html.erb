@@ -5,7 +5,7 @@
     <h2 class="govuk-heading-l">Allow an organisation access to the admin platform</h2>
 
     <%= form_for(:custom_organisations, url: admin_custom_organisations_path, html: { novalidate: '' }) do |f| %>
-      <div class='govuk-form-group'>
+      <div class="govuk-form-group <%= field_error(@custom_organisation, :name) %>">
         <%= f.label :name, "Enter the organisation's full name", class: "govuk-label"  %>
         <%= f.text_field :name, autofocus: true, class: "govuk-input" %>
       </div>
@@ -20,7 +20,7 @@
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
           <th class="govuk-table__header" scope="col">Name</th>
-          <th class="govuk-table__header" scope="col">Date Created</th>
+          <th class="govuk-table__header" scope="col">Allowed on</th>
         </tr>
       </thead>
       <tbody class="govuk-table__body">
