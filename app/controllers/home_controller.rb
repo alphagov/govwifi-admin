@@ -11,7 +11,7 @@ class HomeController < ApplicationController
     @london_radius_ips = radius_ips[:london]
     @dublin_radius_ips = radius_ips[:dublin]
 
-    @connections = get_unique_user_requests.execute(date_range: 1.day.ago).fetch(:connection_count)
+    @connections = get_unique_user_requests.execute.fetch(:connection_count)
   end
 
 private
@@ -22,7 +22,7 @@ private
   end
 
   def get_unique_user_requests
-    UseCases::Administrator::GetUniqueUserRequests.new(
+    UseCases::Administrator::GetRecentUniqueUserRequests.new(
       authentication_logs_gateway: Gateways::UniqueConnections.new(
         ips: current_organisation.ips.map(&:address)
       )
