@@ -22,7 +22,16 @@
       <strong class="govuk-!-font-size-36" id="user-count">
         <%= organisation.users.count %>
       </strong><br>
-      Users
+      Team members
+    </p>
+  </div>
+
+  <div class="govuk-grid-column-one-half">
+    <p class="govuk-body">
+      <strong class="govuk-!-font-size-36" id="unique-connections">
+        <%= @unique_connections %>
+      </strong><br>
+      Unique connections (in last 24h)
     </p>
   </div>
 </div>
