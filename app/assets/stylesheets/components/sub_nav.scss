@@ -19,8 +19,9 @@
       padding:0;
 
       li {
-        display:inline-block;
-        // float: left;
+        @media only screen and (min-width: 600px) {
+          display: inline-block;
+        }
         margin-right: 1px;
       }
     }
