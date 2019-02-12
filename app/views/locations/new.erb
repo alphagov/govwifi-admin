@@ -9,6 +9,11 @@
         <% if @location.errors.keys.include?(:"ips.address") %>
           <li>One or more IPs are incorrect</li>
         <% end %>
+
+        <% @location.errors.full_messages_for(:postcode).each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+
       </ul>
     </div>
   </div>
@@ -37,7 +42,11 @@
 
       <div class="govuk-form-group">
         <%= f.label :postcode, class: 'govuk-label' %>
-        <%= f.text_field :postcode, class: 'govuk-input govuk-input--width-10' %>
+        <% if @location.errors.keys.include?(:postcode) %>
+          <%= f.text_field :postcode, class: 'govuk-input govuk-input--error' %>
+        <% else %>
+          <%= f.text_field :postcode, class: 'govuk-input govuk-input--width-10' %>
+        <% end %>
       </div>
 
       <%= label_tag :ip, 'Enter IP addresses (IPv4 only)', class: 'govuk-label' %>
