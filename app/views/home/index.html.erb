@@ -2,7 +2,7 @@
   <div class="govuk-grid-column-full overview-section-alignment" id="overview">
     <h2 class="govuk-heading-l govuk-grid-column-full">Overview</h2>
     <div class="govuk-grid-column-one-third" id="team-members">
-      <div class="govuk-panel govuk-panel--confirmation summary-background">
+      <div class="overview-stats-panel govuk-panel--confirmation summary-background">
         <h1 class="govuk-panel__title text-left">
           <%= @team_members.count %>
         </h1>
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="govuk-grid-column-one-third" id="locations">
-      <div class="govuk-panel govuk-panel--confirmation summary-background">
+      <div class="overview-stats-panel govuk-panel--confirmation summary-background">
         <h1 class="govuk-panel__title text-left">
           <%= @locations.count %>
         </h1>
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="govuk-grid-column-one-third" id="ips">
-      <div class="govuk-panel govuk-panel--confirmation summary-background">
+      <div class="overview-stats-panel govuk-panel--confirmation summary-background">
         <h1 class="govuk-panel__title text-left">
           <%= @ips.count %>
         </h1>
@@ -33,7 +33,7 @@
     </div>
   </div>
   <div class="govuk-grid-column-full" id="user-statistics">
-    <hr class="govuk-section-break--m govuk-section-break--visible">
+    <hr class="govuk-section-break--l govuk-section-break--visible">
     <h2 class="govuk-heading-l govuk-grid-column-full activity-section-alignment">Activity</h2>
     <div class="govuk-grid-column-full activity-section-alignment" id="unique-users">
       <% if @connections.zero? %>
