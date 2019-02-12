@@ -13,6 +13,18 @@
   nav {
     text-align: right;
 
+    ul {
+      list-style-type:none;
+      margin:0;
+      padding:0;
+
+      li {
+        display:inline-block;
+        // float: left;
+        margin-right: 1px;
+      }
+    }
+
     a {
       margin-left: 15px;
       padding-top: 10px;
