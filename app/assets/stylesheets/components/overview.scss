@@ -1,5 +1,5 @@
 .summary-background {
-  background: govuk-colour("light-blue");
+  background: #005ea5;
 }
 
 .summary-link-colour:link {
@@ -21,4 +21,14 @@
 
 .activity-section-alignment {
   margin-left: -15px;
+}
+
+.overview-stats-pannel {
+  padding-left: 20px;
+  padding-top: 28px;
+  height: 150px;
+}
+
+.overview-stats-pannel:hover {
+  background-color: #2b8cc4;
 }
