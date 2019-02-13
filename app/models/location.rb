@@ -20,8 +20,8 @@ class Location < ApplicationRecord
 private
 
   def validate_postcode
-    if postcode.nil? || !UKPostcode.parse(postcode).valid?
-      errors.add(:postcode, "must be valid")
+    unless UKPostcode.parse(postcode.to_s).valid?
+      errors.add(:postcode, 'must be valid')
     end
   end
 
