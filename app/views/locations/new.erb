@@ -44,7 +44,7 @@
         <% if @location.errors.keys.include?(:postcode) %>
           <%= f.text_field :postcode, class: 'govuk-input govuk-input--error' %>
         <% else %>
-          <%= f.text_field :postcode, class: 'govuk-input' %>
+          <%= f.text_field :postcode, class: 'govuk-input govuk-input--width-10' %>
         <% end %>
       </div>
       <%= label_tag :ip, 'Enter IP addresses (IPv4 only)', class: 'govuk-label' %>

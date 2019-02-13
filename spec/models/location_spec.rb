@@ -1,6 +1,5 @@
 describe Location do
   it { is_expected.to validate_presence_of(:address) }
-  it { is_expected.to validate_presence_of(:postcode) }
 
   context 'associations' do
     it { is_expected.to belong_to(:organisation) }
@@ -33,14 +32,6 @@ describe Location do
 
         it 'combines the two' do
           expect(subject.full_address).to eq('121 Fictional Street, FI5 S67')
-        end
-      end
-
-      context 'but a blank postcode' do
-        let(:postcode) { nil }
-
-        it 'will error as postcode is nil' do
-          expect(subject.full_address).to eq('121 Fictional Street')
         end
       end
     end

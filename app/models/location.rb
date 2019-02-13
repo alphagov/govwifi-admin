@@ -15,7 +15,7 @@ class Location < ApplicationRecord
   before_create :set_radius_secret_key
 
   def full_address
-    postcode.blank? ? address : "#{address}, #{postcode.upcase}"
+    "#{address}, #{postcode}"
   end
 
 private
