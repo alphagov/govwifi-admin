@@ -8,8 +8,7 @@ class Location < ApplicationRecord
 
   validates_associated :ips
 
-  validates :address, presence: true
-  validates :postcode, presence: true
+  validates :address, :postcode, presence: true
   validate :validate_postcode
 
   before_create :set_radius_secret_key
