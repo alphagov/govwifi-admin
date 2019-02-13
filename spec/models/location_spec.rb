@@ -40,7 +40,7 @@ describe Location do
 
   describe 'Entering a postcode' do
     context 'which is in the incorrect format' do
-      it 'errors as the postcode dosent match the correct format' do
+      it 'errors as the postcode does not match the correct format' do
         subject.postcode = 'WHATEVER POSTCODE'
         expect(subject).to_not be_valid
       end
