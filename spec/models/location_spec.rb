@@ -38,14 +38,19 @@ describe Location do
     end
   end
 
-  describe 'invalid postcode entry' do
-    context 'with an invalid postcode' do
-      it "errors if the postcode is not valid" do
-        subject.postcode = "WHATEVER POSTCODE"
+  describe 'Entering a postcode' do
+    context 'which is in the incorrect format' do
+      it 'errors as the postcode dosent match the correct format' do
+        subject.postcode = 'WHATEVER POSTCODE'
         expect(subject).to_not be_valid
       end
 
-      it "errors if the postcode is nil" do
+      it 'errors as the postcode is empty' do
+        subject.postcode = ''
+        expect(subject).to_not be_valid
+      end
+
+      it 'errors as the postcode is nil' do
         subject.postcode = nil
         expect(subject).to_not be_valid
       end
