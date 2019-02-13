@@ -55,14 +55,12 @@
       <%= f.fields_for(:ips, @location.ips) do |ip| %>
         <div class='govuk-form-group govuk-!-margin-bottom-2'>
           <% style = "govuk-input govuk-input--width-10" + (ip.object.errors.has_key?(:address) ? " govuk-input--error" : "") %>
-
           <label class='label-inside-input'>
             <span class='govuk-body'><%= "#{ip.index + 1}."%></span>
             <%= ip.text_field :address, class: style %>
           </label>
         </div>
       <% end %>
-
       <div class='govuk-form-group govuk-!-margin-top-6'>
         <%= f.submit 'Add new location', class: 'govuk-button' %>
       </div>
