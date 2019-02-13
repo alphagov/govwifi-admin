@@ -34,6 +34,8 @@ RUN ${BUNDLE_INSTALL_CMD}
 
 COPY . .
 
-RUN ASSET_PRECOMPILATION_ONLY=true RAILS_ENV=production bundle exec rails assets:precompile
-
+ARG RUN_PRECOMPILATION=true
+RUN if [ ${RUN_PRECOMPILATION} = 'true' ]; then \
+  ASSET_PRECOMPILATION_ONLY=true RAILS_ENV=production bundle exec rails assets:precompile; \
+  fi
 CMD ["bundle", "exec", "rails", "server"]
