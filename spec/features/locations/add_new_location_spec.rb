@@ -97,7 +97,7 @@ describe 'Add new location' do
           click_on 'Add new location'
         end
 
-        it_behaves_like "errors in form"
+        it_behaves_like 'errors in form'
       end
 
       context 'the postcode is not valid' do
