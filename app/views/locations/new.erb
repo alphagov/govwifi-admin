@@ -9,11 +9,9 @@
         <% if @location.errors.keys.include?(:"ips.address") %>
           <li>One or more IPs are incorrect</li>
         <% end %>
-
         <% @location.errors.full_messages_for(:postcode).each do |message| %>
           <li><%= message %></li>
         <% end %>
-
       </ul>
     </div>
   </div>

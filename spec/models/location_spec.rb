@@ -40,7 +40,6 @@ describe Location do
 
   describe 'invalid postcode entry' do
     context 'with an invalid postcode' do
-
       it "errors if the postcode is not valid" do
         subject.postcode = "WHATEVER POSTCODE"
         expect(subject).to_not be_valid
