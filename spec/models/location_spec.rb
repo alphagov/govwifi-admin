@@ -1,5 +1,6 @@
 describe Location do
   it { is_expected.to validate_presence_of(:address) }
+  it { is_expected.to validate_presence_of(:postcode) }
 
   context 'associations' do
     it { is_expected.to belong_to(:organisation) }
@@ -34,13 +35,24 @@ describe Location do
           expect(subject.full_address).to eq('121 Fictional Street, FI5 S67')
         end
       end
+    end
+  end
 
-      context 'but a blank postcode' do
-        let(:postcode) { '' }
+  describe 'Entering a postcode' do
+    context 'which is in the incorrect format' do
+      it 'errors as the postcode does not match the correct format' do
+        subject.postcode = 'WHATEVER POSTCODE'
+        expect(subject).to_not be_valid
+      end
 
-        it 'only returns address' do
-          expect(subject.full_address).to eq('121 Fictional Street')
-        end
+      it 'errors as the postcode is empty' do
+        subject.postcode = ''
+        expect(subject).to_not be_valid
+      end
+
+      it 'errors as the postcode is nil' do
+        subject.postcode = nil
+        expect(subject).to_not be_valid
       end
     end
   end

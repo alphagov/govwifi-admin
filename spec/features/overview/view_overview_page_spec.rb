@@ -23,8 +23,8 @@ describe 'viewing the overview page' do
       let(:ip_three) { '141.0.149.132' }
       let(:address_one) { '100 Eastern Street, Southwark' }
       let(:address_two) { '200 Western Street, Whitechapel' }
-      let(:postcode_one) { 'SE4 4BK' }
-      let(:postcode_two) { 'NE7 3UP' }
+      let(:postcode_one) { 'HA7 3BL' }
+      let(:postcode_two) { 'HA7 2BL' }
       let(:radius_secret_key) { 'E1EAB12AD10B8' }
 
       before do
