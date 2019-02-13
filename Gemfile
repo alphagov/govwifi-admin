@@ -18,8 +18,8 @@ gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.2.2'
 gem 'sass-rails', '~> 5.0'
 gem 'sentry-raven'
-gem 'zendesk_api'
 gem 'uk_postcode', '~> 2.1', '>= 2.1.3'
+gem 'zendesk_api'
 
 group :test do
   gem 'capybara'

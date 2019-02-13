@@ -36,9 +36,9 @@ describe Location do
       end
 
       context 'but a blank postcode' do
-        let(:postcode) { '' }
+        let(:postcode) { nil }
 
-        it 'only returns address' do
+        it 'will error as postcode is nil' do
           expect(subject.full_address).to eq('121 Fictional Street')
         end
       end

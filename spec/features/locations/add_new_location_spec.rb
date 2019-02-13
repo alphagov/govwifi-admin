@@ -112,7 +112,6 @@ describe 'Add new location' do
           expect(page).to have_content('Postcode must be valid')
         end
       end
-
     end
   end
 
