@@ -40,7 +40,7 @@
       <div class="govuk-form-group">
         <%= f.label :postcode, class: 'govuk-label' %>
         <% if @location.errors.keys.include?(:postcode) %>
-          <%= f.text_field :postcode, class: 'govuk-input govuk-input--error' %>
+          <%= f.text_field :postcode, class: 'govuk-input govuk-input--width-10 govuk-input--error' %>
         <% else %>
           <%= f.text_field :postcode, class: 'govuk-input govuk-input--width-10' %>
         <% end %>
