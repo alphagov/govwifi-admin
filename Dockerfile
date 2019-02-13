@@ -32,6 +32,9 @@ ENV PATH "$PATH:/root/.yarn/bin:/root/.config/yarn/global/node_modules/.bin"
 COPY Gemfile Gemfile.lock .ruby-version ./
 RUN ${BUNDLE_INSTALL_CMD}
 
+COPY package.json yarn.lock ./
+RUN yarn
+
 COPY . .
 
 ARG RUN_PRECOMPILATION=true

@@ -41,7 +41,6 @@ shell:
 	$(DOCKER_COMPOSE) exec app bash || ($(MAKE) build && $(DOCKER_COMPOSE) run --service-ports --rm app bash)
 
 stop:
-	$(DOCKER_COMPOSE) kill
-	$(DOCKER_COMPOSE) rm -f
+	$(DOCKER_COMPOSE) down -v
 
 .PHONY: build lint serve shell stop test

@@ -7,3 +7,11 @@ services:
         RUN_PRECOMPILATION: 'false'
     volumes:
       - ".:/usr/src/app"
+      - "tmp:/usr/src/app/tmp"
+      - "storage:/usr/src/app/storage"
+      - "node_modules:/usr/src/app/node_modules"
+
+volumes:
+  tmp:
+  storage:
+  node_modules:
