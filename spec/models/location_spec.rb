@@ -1,4 +1,4 @@
-describe Location do
+describe Location, focus: true do
   it { is_expected.to validate_presence_of(:address) }
 
   context 'associations' do

@@ -26,9 +26,7 @@ private
       return
     end
 
-    pc = UKPostcode.parse(postcode)
-
-    unless pc.valid?
+    unless UKPostcode.parse(postcode).valid?
       errors.add(:postcode, "must be valid")
     end
   end
