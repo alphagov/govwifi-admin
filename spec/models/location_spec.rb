@@ -1,5 +1,6 @@
-describe Location, focus: true do
+describe Location do
   it { is_expected.to validate_presence_of(:address) }
+  it { is_expected.to validate_presence_of(:postcode) }
 
   context 'associations' do
     it { is_expected.to belong_to(:organisation) }
