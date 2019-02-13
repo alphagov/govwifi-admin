@@ -27,6 +27,7 @@ services:
   app:
     build: .
     links:
+      - db
       - rr_db
     ports:
     - "8080:3000"
