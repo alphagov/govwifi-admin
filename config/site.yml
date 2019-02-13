@@ -3,7 +3,6 @@ default: &default
   end_user_troubleshooting_link: 'https://www.gov.uk/guidance/solve-problems-with-connecting-to-govwifi'
   organisation_docs_link: 'https://docs.wifi.service.gov.uk'
   product_page_link: 'https://wifi.service.gov.uk'
-  google_tag_container_ID: 'GTM-TNHHHPZ'
   organisation_register_url: 'https://government-organisation.register.gov.uk/records.json?page-size=5000'
   local_auth_register_url: 'https://local-authority-eng.register.gov.uk/records.json?page-size=5000'
 
