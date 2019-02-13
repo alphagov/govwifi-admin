@@ -16,9 +16,7 @@ build:
 	$(DOCKER_BUILD_CMD)
 
 serve: build
-	$(DOCKER_COMPOSE) up -d govuk-fake-registers
-	$(DOCKER_COMPOSE) up -d db
-	$(DOCKER_COMPOSE) up -d rr_db
+	$(DOCKER_COMPOSE) up -d govuk-fake-registers db rr_db
 	./mysql/bin/wait_for_mysql
 	./mysql/bin/wait_for_rr_db
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
@@ -30,8 +28,7 @@ lint:
 
 test:
 	$(MAKE) build
-	$(DOCKER_COMPOSE) up -d db
-	$(DOCKER_COMPOSE) up -d rr_db
+	$(DOCKER_COMPOSE) up -d db rr_db
 	./mysql/bin/wait_for_mysql
 	./mysql/bin/wait_for_rr_db
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load db:migrate
