@@ -4,13 +4,10 @@ module Gateways
       @organisation_ips = ips
     end
 
-    def unique_user_count
-      Session
-        .where(success: true)
-        .distinct
-        .where(siteIP: organisation_ips)
-        .where('start >= ?', 1.day.ago)
-        .count(:username)
+    def unique_user_count(date_range: nil)
+      return Session.where(siteIP: organisation_ips).where('start >= ?', date_range).where(success: true).distinct.count(:username) if date_range.present?
+
+      Session.where(siteIP: organisation_ips).where(success: true).distinct.count(:username)
     end
 
   private
