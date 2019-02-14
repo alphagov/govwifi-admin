@@ -9,7 +9,7 @@ class Admin::CustomOrganisationsController < AdminController
     @custom_organisation = CustomOrganisationName.new(custom_org_params)
 
     if @custom_organisation.save
-      flash[:notice] = "Custom organisation has been successfully added"
+      flash.now[:notice] = "Custom organisation has been successfully added"
     end
     render :index
   end
