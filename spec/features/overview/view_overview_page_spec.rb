@@ -99,48 +99,6 @@ describe 'viewing the overview page' do
           expect(page.current_path).to eq(ips_path)
         end
       end
-
-      context 'within activity section' do
-        let(:username_1) { 'AAAAAA' }
-        let(:username_2) { 'BBBBBB' }
-        let(:username_3) { 'CCCCCC' }
-
-        context 'with no successful connections' do
-          before do
-            Session.create!(start: 3.hours.ago, success: false, username: username_1, siteIP: ip_one)
-            Session.create!(start: 5.hours.ago, success: false, username: username_1, siteIP: ip_one)
-
-            sign_in_user user
-            visit root_path
-          end
-
-          it 'displays a message if there are no successful connections' do
-            within('div#user-statistics') do
-              expect(page).to have_content("No connections")
-            end
-          end
-        end
-
-        context 'with successful connections' do
-          before do
-            Session.create!(start: 1.hour.ago, success: true, username: username_1, siteIP: ip_one)
-            Session.create!(start: 6.hours.ago, success: true, username: username_1, siteIP: ip_two)
-            Session.create!(start: 9.hours.ago, success: true, username: username_1, siteIP: ip_three)
-            Session.create!(start: 12.hours.ago, success: true, username: username_2, siteIP: ip_one)
-            Session.create!(start: 1.day.ago, success: true, username: username_2, siteIP: ip_two)
-            Session.create!(start: 2.weeks.ago, success: true, username: username_3, siteIP: ip_three)
-
-            sign_in_user user
-            visit root_path
-          end
-
-          it 'displays the number of unique connections within 24 hours' do
-            within('div#user-statistics') do
-              expect(page).to have_content("2 connections")
-            end
-          end
-        end
-      end
     end
   end
 end
