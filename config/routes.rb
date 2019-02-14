@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :mou, only: %i[index update create]
     resources :organisations, only: %i[index show destroy]
-    resources :custom_organisations, only: %i[index create]
+    resources :custom_organisations, only: %i[index create destroy]
   end
 
   %w( 404 422 500 ).each do |code|

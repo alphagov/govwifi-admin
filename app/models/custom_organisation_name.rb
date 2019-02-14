@@ -3,7 +3,7 @@ class CustomOrganisationName < ApplicationRecord
   validates :name, presence: true
 
   def validate_in_register?
-    unless Organisation.fetch_organisations_from_register.exclude?(name)
+    unless Organisation.fetch_organisations_from_register.exclude?(name.strip)
       errors.add(:name, "is already in our register")
     end
   end
