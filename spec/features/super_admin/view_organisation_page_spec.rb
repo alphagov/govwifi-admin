@@ -1,21 +1,6 @@
 describe 'view details of a signed up organisation' do
   let(:organisation) { create(:organisation) }
 
-  context 'when logged out' do
-    before { visit admin_organisation_path(organisation) }
-
-    it_behaves_like 'not signed in'
-  end
-
-  context 'when logged in as a normal user' do
-    before do
-      sign_in_user create(:user)
-      visit admin_organisation_path(organisation)
-    end
-
-    it_behaves_like 'user not authorised'
-  end
-
   context 'when logged in as a super-admin' do
     let(:location) { create(:location, organisation: organisation) }
 
@@ -116,5 +101,20 @@ describe 'view details of a signed up organisation' do
         end
       end
     end
+  end
+
+  context 'when logged out' do
+    before { visit admin_organisation_path(organisation) }
+
+    it_behaves_like 'not signed in'
+  end
+
+  context 'when logged in as a normal user' do
+    before do
+      sign_in_user create(:user)
+      visit admin_organisation_path(organisation)
+    end
+
+    it_behaves_like 'user not authorised'
   end
 end
