@@ -23,10 +23,17 @@ describe 'adding a custom organisation name' do
     end
 
     context 'when the organisation name is blank' do
-      it 'will error with the reason' do
+      it 'will error if its blank' do
         fill_in 'custom_organisations[name]', with: ' '
         click_on 'Allow organisation'
         expect(page).to have_content("Name can't be blank")
+      end
+
+      it 'will error if its already in our register' do
+        CustomOrganisationName.create(name: 'Custom Org name')
+        fill_in 'custom_organisations[name]', with: 'Custom Org name'
+        click_on 'Allow organisation'
+        expect(page).to have_content("Name is already in our register")
       end
     end
   end
