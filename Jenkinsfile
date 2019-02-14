@@ -132,7 +132,7 @@ def runMigrations(deploy_environment) {
     deploy_environment = 'wifi'
   }
 
-  sh("aws ecs run-task --cluster ${deploy_environment}-api-cluster --task-definition  admin-task-${deploy_environment} --count 1 --overrides \"{ \\\"containerOverrides\\\": [{ \\\"name\\\": \\\"admin\\\", \\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\"] }] }\"")
+  sh("aws ecs run-task --cluster ${deploy_environment}-admin-cluster --task-definition  admin-task-${deploy_environment} --count 1 --overrides \"{ \\\"containerOverrides\\\": [{ \\\"name\\\": \\\"admin\\\", \\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\"] }] }\"")
 }
 
 def publishStableTag() {
