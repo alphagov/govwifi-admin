@@ -1,1 +1,19 @@
 coverage
+
+# Ignore all hidden files
+.*
+**/.*
+
+# Allow hidden ruby files
+!.rspec
+!.ruby-version
+
+# Ignore host node_modules
+node_modules
+
+# ignore rails files
+
+public/assets
+storage
+tmp
+log

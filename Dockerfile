@@ -32,9 +32,13 @@ ENV PATH "$PATH:/root/.yarn/bin:/root/.config/yarn/global/node_modules/.bin"
 COPY Gemfile Gemfile.lock .ruby-version ./
 RUN ${BUNDLE_INSTALL_CMD}
 
+COPY package.json yarn.lock ./
+RUN yarn
+
 COPY . .
 
-RUN ASSET_PRECOMPILATION_ONLY=true RAILS_ENV=production bundle exec rails assets:precompile
-RUN cp -R /usr/src/app/node_modules /usr/src/.node_modules
-
+ARG RUN_PRECOMPILATION=true
+RUN if [ ${RUN_PRECOMPILATION} = 'true' ]; then \
+  ASSET_PRECOMPILATION_ONLY=true RAILS_ENV=production bundle exec rails assets:precompile; \
+  fi
 CMD ["bundle", "exec", "rails", "server"]
