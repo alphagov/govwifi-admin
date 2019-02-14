@@ -27,11 +27,10 @@
       </thead>
       <tbody class="govuk-table__body">
         <% @custom_organisation_names.each do |organisation| %>
-        <tbody class="govuk-table__body">
-          <tr class="govuk-table__row">
+          <tr class="govuk-table__row" id="data-id-<%= organisation.id %>">
             <td class="govuk-table__cell"><%= organisation.name %></td>
             <td class="govuk-table__cell"><%= organisation.created_at.strftime('%e %b %Y') %></td>
-            <td class="govuk-table__cell"><%= link_to 'Remove', admin_custom_organisations_path(@custom_org, remove_custom_org: true), class: 'govuk-link red-link' %></td>
+            <td class="govuk-table__cell"><%= link_to 'Remove', admin_custom_organisations_path(id: organisation.id, remove_custom_org: true), class: 'govuk-link red-link' %></td>
           </tr>
         <% end %>
       </tbody>
