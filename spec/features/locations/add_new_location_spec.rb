@@ -20,25 +20,25 @@ describe 'Add new location' do
       context 'and that IP is valid' do
         before do
           fill_in 'Address', with: '30 Square'
-          fill_in 'Postcode', with: 'CC DDD'
+          fill_in 'Postcode', with: 'W1A 2AB'
           fill_in ip_input, with: '141.0.149.130'
           click_on 'Add new location'
         end
 
         it 'shows me the location was added' do
-          expect(page).to have_content('30 Square, CC DDD added')
+          expect(page).to have_content('30 Square, W1A 2AB added')
         end
 
         it 'adds the location and IPs' do
           expect(Ip.last.location.address).to eq('30 Square')
-          expect(Ip.last.location.postcode).to eq('CC DDD')
+          expect(Ip.last.location.postcode).to eq('W1A 2AB')
         end
       end
 
       context 'and that IP is invalid' do
         before do
           fill_in 'Address', with: '30 Square'
-          fill_in 'Postcode', with: 'CC DDD'
+          fill_in 'Postcode', with: 'W1A 2AB'
           fill_in ip_input, with: '10.wrong.0.1'
           fill_in second_ip_input, with: '10.0.0.3'
           click_on 'Add new location'
@@ -66,7 +66,7 @@ describe 'Add new location' do
       context 'and that IP is blank' do
         before do
           fill_in 'Address', with: '30 Square'
-          fill_in 'Postcode', with: 'CC DDD'
+          fill_in 'Postcode', with: 'W1A 2AB'
           click_on 'Add new location'
         end
 
@@ -81,12 +81,36 @@ describe 'Add new location' do
 
       context 'and the address is blank' do
         before do
-          fill_in 'Postcode', with: 'CC DDD'
+          fill_in 'Postcode', with: 'W1A 2AB'
           fill_in ip_input, with: '10.wrong.0.1'
           click_on 'Add new location'
         end
 
         it_behaves_like "errors in form"
+      end
+
+      context 'the postcode is blank' do
+        before do
+          fill_in 'Address', with: '30 Square'
+          fill_in 'Postcode', with: ''
+          fill_in ip_input, with: '10.0.0.3'
+          click_on 'Add new location'
+        end
+
+        it_behaves_like 'errors in form'
+      end
+
+      context 'the postcode is not valid' do
+        before do
+          fill_in 'Address', with: '30 Square'
+          fill_in 'Postcode', with: 'WHATEVER'
+          fill_in ip_input, with: '10.0.0.3'
+          click_on 'Add new location'
+        end
+
+        it 'errors about an invalid postcode' do
+          expect(page).to have_content('Postcode must be valid')
+        end
       end
     end
   end

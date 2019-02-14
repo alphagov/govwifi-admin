@@ -32,8 +32,8 @@ describe 'View IP addresses' do
       let(:ip_two) { '141.0.149.131' }
       let(:address_one) { '179 Southern Street, Southwark' }
       let(:address_two) { '123 Northern Street, Whitechapel' }
-      let(:postcode_one) { 'SE4 4BK' }
-      let(:postcode_two) { 'NE7 3UP' }
+      let(:postcode_one) { 'HA7 4BL' }
+      let(:postcode_two) { 'HA7 5BL' }
       let(:radius_secret_key) { 'E1EAB12AD10B8' }
 
       before do

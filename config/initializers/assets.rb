@@ -7,7 +7,6 @@ Rails.application.config.assets.precompile += %w(
   govuk-logotype-crown.png
   application_ie8.css
   html5shiv.js
-  googletagmanager.js
   accessible-autocomplete.min.js
   accessible-autocomplete.min.css
   tick.svg

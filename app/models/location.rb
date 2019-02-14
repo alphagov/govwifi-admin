@@ -1,3 +1,5 @@
+require "uk_postcode"
+
 class Location < ApplicationRecord
   belongs_to :organisation
 
@@ -6,15 +8,22 @@ class Location < ApplicationRecord
 
   validates_associated :ips
 
-  validates :address, presence: true
+  validates :address, :postcode, presence: true
+  validate :validate_postcode
 
   before_create :set_radius_secret_key
 
   def full_address
-    postcode.blank? ? address : "#{address}, #{postcode}"
+    "#{address}, #{postcode}"
   end
 
 private
+
+  def validate_postcode
+    unless UKPostcode.parse(postcode.to_s).valid?
+      errors.add(:postcode, 'must be valid')
+    end
+  end
 
   def set_radius_secret_key
     use_case = UseCases::Administrator::GenerateRadiusSecretKey.new
