@@ -5,10 +5,14 @@
     </span>
   </summary>
   <div class="govuk-details__text">
+    <p class="govuk-body">
+      We recommend using all of our RADIUS servers, so that you'll be protected from a single server being unavailable. If you can't use them all, try to use at least one from each region.
+    </p>
+
     <% if current_organisation.locations.empty? %>
       <p>Your RADIUS secret keys will be generated when you <%= link_to 'add your first IP address', new_ip_path, class: "govuk-link" %></p>
     <% else %>
-      <p> Your RADIUS secret keys are shown under <%= link_to "your organisation's locations", ips_path, class: "govuk-link" %></p>
+      <p> Your RADIUS secret keys are shown under <%= link_to "your organisation's locations", ips_path, class: "govuk-link" %>.</p>
     <% end %>
 
     <h3> London: </h3>

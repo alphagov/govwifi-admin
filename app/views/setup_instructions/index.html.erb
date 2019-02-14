@@ -36,10 +36,6 @@
       Authenticators can usually be configured to connect to more than one RADIUS server. The extras are commonly known as "backups" or "failovers".
     </p>
 
-    <p class="govuk-body">
-      We recommend using all of our RADIUS servers. If you can't use them all, try to use at least one from each region.
-    </p>
-
     <%= render "radius_details", london_ips: @london_radius_ips, dublin_ips: @dublin_radius_ips  %>
 
     <hr class="govuk-section-break--m govuk-section-break--visible">
