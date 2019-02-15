@@ -15,7 +15,7 @@ class Admin::CustomOrganisationsController < AdminController
   end
 
   def destroy
-    custom_org = CustomOrganisationName.find_by(params.fetch(:id))
+    custom_org = CustomOrganisationName.find(params.fetch(:id))
     custom_org.destroy
     redirect_to admin_custom_organisations_path, notice: "Successfully removed #{custom_org.name}"
   end
