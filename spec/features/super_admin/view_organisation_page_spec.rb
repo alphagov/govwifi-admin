@@ -60,27 +60,6 @@ describe 'view details of a signed up organisation' do
       end
     end
 
-    context 'with five recent sessions with different usernames' do
-      before do
-        ('A'..'E').each do |char|
-          Session.create(
-            siteIP: create(:ip, location: location).address,
-            success: true,
-            username: char * 6,
-            start: Time.now.to_s
-          )
-        end
-      end
-
-      it 'shows five unique connections' do
-        visit admin_organisation_path(organisation)
-
-        within('#unique-connections') do
-          expect(page).to have_content('5')
-        end
-      end
-    end
-
     it 'has a service email' do
       expect(page).to have_content(organisation.service_email)
     end

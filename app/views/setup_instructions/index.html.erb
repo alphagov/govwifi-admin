@@ -27,9 +27,16 @@
     <hr class="govuk-section-break--m govuk-section-break--visible">
 
     <h3 class="govuk-heading-m"> 2. Configure your authenticator(s) </h3>
-    <p class="govuk-body"> Configure your authenticator(s) to connect to our RADIUS servers with these details: </p>
+
+    <p class="govuk-body">
+      Typically, your authenticators are wireless access points or network switches.
+    </p>
+
+    <p class="govuk-body">
+      Authenticators can usually be configured to connect to more than one RADIUS server. The extras are commonly known as "backups" or "failovers".
+    </p>
+
     <%= render "radius_details", london_ips: @london_radius_ips, dublin_ips: @dublin_radius_ips  %>
-    <p class="govuk-body"> You'll need one or more authenticators on your network - typically wireless access points or network switches. </p>
 
     <hr class="govuk-section-break--m govuk-section-break--visible">
 
