@@ -1,7 +1,4 @@
-require 'support/confirmation_use_case'
-
 describe 'deleting a custom organisation name' do
-  include_examples 'confirmation use case spy'
   let!(:custom_org_name1) { CustomOrganisationName.create(name: 'DummyOrg1') }
   let!(:custom_org_name2) { CustomOrganisationName.create(name: 'DummyOrg2') }
   let!(:custom_org_name3) { CustomOrganisationName.create(name: 'DummyOrg3') }
