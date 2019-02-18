@@ -1,14 +1,18 @@
 .subnav {
   border-bottom: 1px solid black;
 
+  // Flexbox used at desktop widths to keep the subnav links anchored to the
+  // bottom of their div.
   @media (min-width: 640px) {
     display: flex;
   }
 
   .organisation-name {
+    // Organisation name centred on mobile
     text-align: center;
     margin-top: 14px;
 
+    // Organisation name aligned left on desktop and top margin reduced.
     @media (min-width: 640px) {
       text-align: left;
       margin: 10px 0px;
@@ -16,9 +20,11 @@
   }
 
   .nav-links {
+    // Subnav links centred on mobile
     display: flex;
     justify-content: space-around;
 
+    // Subnav links aligned right on desktop
     @media (min-width: 640px) {
       justify-content: flex-end;
       align-self: flex-end;
@@ -29,17 +35,24 @@
     text-align: right;
     margin-top: 4px;
 
+    // Margin that separates subnav links is not required on first link
     > :first-child {
       margin-left: 0px;
     }
 
     a {
-      margin: 0px 0px 5px 15px;
-      padding: 10px 0px 5px 0px;
+      // Margin bottom replaced by bottom border when active
+      margin-bottom: 5px;
+      // Spacing between subnav links
+      margin-left: 15px;
+      padding-top: 10px;
+      padding-bottom: 5px;
       display: inline-block;
       text-decoration: none;
       font-size: 16px;
 
+      // Active state conveys the current page to the user. Bottom margin is
+      // replaced with a thick black bottom border
       &.active {
         border-bottom: 5px solid black;
         margin-bottom: 0px;
