@@ -14,7 +14,7 @@
         <%= link_to 'Allow Organisations', admin_custom_organisations_path, class: active_tab(admin_custom_organisations_path) %>
         <%= link_to 'MOU', admin_mou_index_path, class: active_tab(admin_mou_index_path) %>
       <% else %>
-        <%= link_to 'Overview', overview_path, class: active_tab(root_path) %>
+        <%= link_to 'Overview', overview_path, class: active_tab(overview_path) %>
         <%= link_to 'Setup', setup_instructions_path, class: active_tab(setup_instructions_path) %>
         <%= link_to 'IPs', ips_path, id:'nav-ips', class: active_tab('ips') %>
         <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
