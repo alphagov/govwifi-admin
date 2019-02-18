@@ -1,3 +1,10 @@
 class CustomOrganisationName < ApplicationRecord
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validate :custom_org_in_register?
+  validates :name, presence: true
+
+  def custom_org_in_register?
+    if Organisation.fetch_organisations_from_register.include?(name.strip)
+      errors.add(:name, "is already in our register")
+    end
+  end
 end

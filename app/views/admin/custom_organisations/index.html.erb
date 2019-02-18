@@ -1,4 +1,5 @@
 <%= render "layouts/form_errors", resource: @custom_organisation %>
+<%= render "confirm_remove_custom_organisation" if params[:remove_custom_org] %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -16,19 +17,20 @@
       <% end %>
 
     <table class="govuk-table">
-    <h2 class="govuk-heading-m">Custom Organistions</h2>
+    <h2 class="govuk-heading-m">Custom Organisations that are already in our register</h2>
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
           <th class="govuk-table__header" scope="col">Name</th>
           <th class="govuk-table__header" scope="col">Allowed on</th>
+          <th class="govuk-table__header" scope="col"> </th>
         </tr>
       </thead>
       <tbody class="govuk-table__body">
         <% @custom_organisation_names.each do |organisation| %>
-        <tbody class="govuk-table__body">
           <tr class="govuk-table__row">
             <td class="govuk-table__cell"><%= organisation.name %></td>
             <td class="govuk-table__cell"><%= organisation.created_at.strftime('%e %b %Y') %></td>
+            <td class="govuk-table__cell"><%= link_to 'Remove', admin_custom_organisations_path(id: organisation.id, remove_custom_org: true), class: 'govuk-link red-link', id: "custom-organisation-#{organisation.id}" %></td>
           </tr>
         <% end %>
       </tbody>

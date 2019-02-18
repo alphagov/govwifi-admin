@@ -9,9 +9,20 @@ class Admin::CustomOrganisationsController < AdminController
     @custom_organisation = CustomOrganisationName.new(custom_org_params)
 
     if @custom_organisation.save
-      flash[:notice] = "Custom organisation has been successfully added"
+      flash.now[:notice] = "Custom organisation has been successfully added"
     end
     render :index
+  end
+
+  def destroy
+    custom_org = CustomOrganisationName.find(params.fetch(:id))
+
+    if custom_org.destroy
+      notice = "Successfully removed #{custom_org.name}"
+    else
+      redirect_to admin_custom_organisations_path, notice: custom_org.errors.full_messages
+    end
+    redirect_to admin_custom_organisations_path, notice: notice
   end
 
 private
