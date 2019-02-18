@@ -34,8 +34,8 @@ test:
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load db:migrate
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
-shell:
-	$(DOCKER_COMPOSE) exec app bash || ($(MAKE) build && $(DOCKER_COMPOSE) run --service-ports --rm app bash)
+shell: serve
+	$(DOCKER_COMPOSE) exec app bash
 
 stop:
 	$(DOCKER_COMPOSE) down -v
