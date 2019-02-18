@@ -1,5 +1,4 @@
 .subnav {
-  display: flex;
   margin-left: 0px;
   margin-right: 0px;
   border-bottom: 1px solid black;
@@ -10,21 +9,36 @@
     padding-bottom: 10px;
   }
 
+  .nav-links {
+    display: flex;
+    justify-content: space-around;
+
+    @media (min-width: 640px) {
+      justify-content: flex-end;
+    }
+  }
+
   nav {
     text-align: right;
+    margin-top: 4px;
+
+    > :first-child {
+      margin-left: 0px;
+    }
 
     a {
       margin-left: 15px;
+      margin-bottom: 5px;
       padding-top: 10px;
       padding-bottom: 5px;
       display: inline-block;
       text-decoration: none;
-      border-bottom: 5px solid white;
       font-size: 16px;
     }
 
     .active {
       border-bottom: 5px solid black;
+      margin-bottom: 0px !important;
     }
   }
 }
