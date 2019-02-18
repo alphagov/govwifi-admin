@@ -19,7 +19,7 @@ serve: build
 	$(DOCKER_COMPOSE) up -d govuk-fake-registers db rr_db
 	./mysql/bin/wait_for_mysql
 	./mysql/bin/wait_for_rr_db
-	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
+	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:migrate db:schema:load db:seed
 	$(DOCKER_COMPOSE) up -d app
 
 lint:
