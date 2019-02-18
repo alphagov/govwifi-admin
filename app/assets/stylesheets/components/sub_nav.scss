@@ -1,6 +1,4 @@
 .subnav {
-  margin-left: 0px;
-  margin-right: 0px;
   border-bottom: 1px solid black;
 
   @media (min-width: 640px) {
@@ -36,10 +34,8 @@
     }
 
     a {
-      margin-left: 15px;
-      margin-bottom: 5px;
-      padding-top: 10px;
-      padding-bottom: 5px;
+      margin: 0px 0px 5px 15px;
+      padding: 10px 0px 5px 0px;
       display: inline-block;
       text-decoration: none;
       font-size: 16px;
