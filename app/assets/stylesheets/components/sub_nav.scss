@@ -33,6 +33,8 @@
 
   nav {
     text-align: right;
+    // This margin is required to keep the left and right columns the same height.
+    // Flexbox cannot be used on mobile as it breaks the design system styles.
     margin-top: 4px;
 
     // Margin that separates subnav links is not required on first link
