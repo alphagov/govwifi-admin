@@ -38,7 +38,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'byebug', '~> 10'
+  gem 'byebug', '~> 11'
   gem 'listen', '~> 3'
   gem 'pry'
   gem 'rack-mini-profiler', require: false
