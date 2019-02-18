@@ -3,10 +3,18 @@
   margin-right: 0px;
   border-bottom: 1px solid black;
 
+  @media (min-width: 640px) {
+    display: flex;
+  }
+
   .organisation-name {
-    margin-bottom: 0px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    text-align: center;
+    margin-top: 14px;
+
+    @media (min-width: 640px) {
+      text-align: left;
+      margin: 10px 0px;
+    }
   }
 
   .nav-links {
@@ -15,6 +23,7 @@
 
     @media (min-width: 640px) {
       justify-content: flex-end;
+      align-self: flex-end;
     }
   }
 
