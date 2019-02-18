@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
+  get '/overview', to: 'home#index'
 
   devise_for :users, controllers: {
     confirmations: 'users/confirmations',
