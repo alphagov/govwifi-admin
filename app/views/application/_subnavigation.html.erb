@@ -14,14 +14,10 @@
         <%= link_to 'Allow Organisations', admin_custom_organisations_path, class: active_tab(admin_custom_organisations_path) %>
         <%= link_to 'MOU', admin_mou_index_path, class: active_tab(admin_mou_index_path) %>
       <% else %>
-        <% if current_organisation.ips.present? %>
-          <%= link_to 'Overview', root_path, class: active_tab(root_path) %>
-        <% end %>
+        <%= link_to 'Overview', overview_index_path, class: active_tab(overview_index_path)%>
         <%= link_to 'Setup', setup_instructions_path, class: active_tab(setup_instructions_path) %>
         <%= link_to 'IPs', ips_path, id:'nav-ips', class: active_tab('ips') %>
-        <% if current_organisation.ips.present? %>
-          <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
-        <% end %>
+        <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
         <%= link_to 'Team', team_members_path, class: active_tab('team') + active_tab('user') %>
       <% end %>
     </nav>

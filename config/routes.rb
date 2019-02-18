@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
   resources :organisations, only: %i[edit update]
   resources :setup_instructions, only: %i[index]
+  resources :overview, only: %i[index]
 
   namespace :admin do
     resources :mou, only: %i[index update create]

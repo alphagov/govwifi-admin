@@ -11,10 +11,6 @@ describe 'viewing the overview page' do
       it 'redirects the user to the setting up page' do
         expect(page.current_path).to eq(setup_instructions_path)
       end
-
-      it 'does not show overview in the navigation' do
-        expect(page).to_not have_link("Overview")
-      end
     end
 
     context 'with at least one IP' do
