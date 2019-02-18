@@ -1,7 +1,7 @@
 describe 'deleting a custom organisation name' do
-  let!(:custom_org_name1) { CustomOrganisationName.create(name: 'DummyOrg1') }
-  let!(:custom_org_name2) { CustomOrganisationName.create(name: 'DummyOrg2') }
-  let!(:custom_org_name3) { CustomOrganisationName.create(name: 'DummyOrg3') }
+  let!(:custom_org_name1) { create(:custom_organisation_name, name: 'DummyOrg1') }
+  let!(:custom_org_name2) { create(:custom_organisation_name, name: 'DummyOrg2') }
+  let!(:custom_org_name3) { create(:custom_organisation_name, name: 'DummyOrg3') }
 
   let!(:admin_user) { create(:user, super_admin: true) }
 
@@ -12,11 +12,7 @@ describe 'deleting a custom organisation name' do
     end
 
     it 'allows the user to delete a custom organisation' do
-      html_selector = "tr#" + custom_org_name1.id.to_s
-      within(html_selector) do
-        click_link 'Remove'
-      end
-
+      click_link "custom-organisation-#{custom_org_name1.id}"
       click_on 'Yes, remove this organisation'
       visit admin_custom_organisations_path
       expect(page).to_not have_content("DummyOrg1")
@@ -30,10 +26,7 @@ describe 'deleting a custom organisation name' do
     end
 
     it 'will remove the custom org from the register' do
-      html_selector = "tr#" + custom_org_name3.id.to_s
-      within(html_selector) do
-        click_link 'Remove'
-      end
+      click_link "custom-organisation-#{custom_org_name3.id}"
 
       expect {
         click_on 'Yes, remove this organisation'
