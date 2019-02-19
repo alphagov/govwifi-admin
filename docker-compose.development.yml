@@ -10,6 +10,8 @@ services:
       - "tmp:/usr/src/app/tmp"
       - "storage:/usr/src/app/storage"
       - "node_modules:/usr/src/app/node_modules"
+    ports:
+      - "8080:3000"
 
 volumes:
   tmp:
