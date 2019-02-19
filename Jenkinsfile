@@ -132,7 +132,11 @@ def runMigrations(deploy_environment) {
     deploy_environment = 'wifi'
   }
 
-  sh("aws ecs run-task --cluster ${deploy_environment}-admin-cluster --task-definition  admin-task-${deploy_environment} --count 1 --overrides \"{ \\\"containerOverrides\\\": [{ \\\"name\\\": \\\"admin\\\", \\\"command\\\": [\\\"bundle\\\", \\\"exec\\\", \\\"rake\\\", \\\"db:migrate\\\"] }] }\"")
+  // we need to get the network config from our main service
+  aws_service_cmd = "aws ecs describe-services --cluster '${deploy_environment}-admin-cluster' --service 'admin-${deploy_environment}' --output json"
+  network_config = sh(returnStdout: true, script: "${aws_service_cmd} --query 'services[0].networkConfiguration'").trim()
+  launch_type = sh(returnStdout: true, script: "${aws_service_cmd} --query 'services[0].launchType'").trim()
+  sh("aws ecs run-task --cluster '${deploy_environment}-admin-cluster' --task-definition  'admin-task-${deploy_environment}' --count 1 --overrides '{ \"containerOverrides\": [{ \"name\": \"admin\", \"command\": [\"bundle\", \"exec\", \"rake\", \"db:migrate\"] }] }' --launch-type '${launch_type}' --network-configuration '${network_config}'")
 }
 
 def publishStableTag() {
