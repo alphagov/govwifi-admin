@@ -1,0 +1,11 @@
+<table class="govuk-table govuk-!-margin-bottom-8">
+  <tbody class="govuk-table__body" id="ips-table">
+    <% domains.each do |domain| %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell govuk-!-width-one-third"><%= domain.name %></td>
+        <td class="govuk-table__cell text-right">
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
