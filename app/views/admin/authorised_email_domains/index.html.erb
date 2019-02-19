@@ -1,3 +1,11 @@
-<% @authorised_email_domains.each do |custom_email_domain| %>
-  <%= custom_email_domain %>
-<% end %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Whitelisted Signup Domains</h1>
+  </div>
+
+  <div class="govuk-grid-column-one-third text-right">
+    <%= link_to 'Whitelist a domain', new_admin_authorised_email_domain_path, class: "govuk-button" %>
+  </div>
+</div>
+
+ <%= render 'admin/authorised_email_domains/table', domains: @authorised_email_domains %>
