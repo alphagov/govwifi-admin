@@ -37,6 +37,21 @@ describe 'Authorised Email Domains' do
         end
       end
 
+      # context 'given I want to delete a whitelisted domain' do
+      #   it 'removes a domain' do
+      #     create(:authorised_email_domain, name: 'police.uk')
+      #     visit admin_authorised_email_domains_path
+
+      #     expect { click_on 'Delete' }.to change { AuthorisedEmailDomain.count }.by(-1)
+      #     expect(page).to have_content("#{authorised_email_domain.name} has been deleted")
+      #   end
+
+      #   it 'publishes an updated list of authorised domains to S3' do
+      #     expect_any_instance_of(Gateways::S3).to receive(:upload).with(data: '^.*@(gov\.uk)$')
+      #     click_on 'Remove'
+      #   end
+      # end
+
       context 'viewing a list of domains' do
         it 'displays a list of domains' do
           create(:authorised_email_domain, name: 'gov.some.test.uk')
@@ -45,6 +60,7 @@ describe 'Authorised Email Domains' do
           expect(page).to have_content('gov.some.test.uk')
         end
       end
+
     end
 
     context 'as a normal administrator' do
