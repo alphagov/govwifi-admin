@@ -1,10 +1,10 @@
 describe "DELETE /authorised_email_domains/:id", type: :request do
   let(:admin_user) { create(:user, super_admin: true) }
+  let!(:authorised_email_domain) { create(:authorised_email_domain, name: 'some.domain.org.uk') }
 
   before do
     https!
     login_as(admin_user, scope: :user)
-    create(:authorised_email_domain, name: 'some.domain.org.uk')
   end
 
   context "when the user is a super admin" do
