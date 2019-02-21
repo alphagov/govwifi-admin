@@ -10,7 +10,7 @@ describe "DELETE /authorised_email_domains/:id", type: :request do
   context "when the user is a super admin" do
     it "deletes the email domain" do
       expect {
-        delete admin_authorised_email_domains_path(authorised_email_domain)
+        delete admin_authorised_email_domain_path(authorised_email_domain)
       }.to change { AuthorisedEmailDomain.count }.by(-1)
     end
   end

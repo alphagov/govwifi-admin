@@ -27,7 +27,7 @@ class Admin::AuthorisedEmailDomainsController < AdminController
   end
 
   def destroy
-    authorised_email_domain = AuthorisedEmailDomain.find_by(id: authorised_email_params.fetch(:id))
+    authorised_email_domain = AuthorisedEmailDomain.find_by(id: params.fetch(:id))
 
     authorised_email_domain.destroy
     # UseCases::Administrator::PublishSignupWhitelist.new(
