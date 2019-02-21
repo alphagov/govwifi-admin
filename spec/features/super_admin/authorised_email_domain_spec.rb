@@ -61,7 +61,6 @@ describe 'Authorised Email Domains' do
           expect(page).to have_content('gov.some.test.uk')
         end
       end
-
     end
 
     context 'as a normal administrator' do
