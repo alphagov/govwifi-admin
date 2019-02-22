@@ -1,6 +1,6 @@
 describe User do
   context 'associations' do
-    it { is_expected.to belong_to(:organisation) }
+    it { is_expected.to belong_to(:organisation).optional }
   end
 
   context 'validations' do
