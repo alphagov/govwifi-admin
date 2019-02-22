@@ -39,7 +39,7 @@ class Admin::AuthorisedEmailDomainsController < AdminController
       presenter: UseCases::Administrator::CreateSignupWhitelist.new
     ).execute
 
-    # redirect_to admin_authorised_email_domains_path, notice: "#{authorised_email_domain.name} has been removed"
+    redirect_to admin_authorised_email_domains_path, notice: "#{authorised_email_domain.name} has been deleted"
   end
 
 private
