@@ -35,6 +35,26 @@ describe 'Authorised Email Domains' do
             expect(page).to have_content("Name can't be blank")
           end
         end
+
+        context 'deleting a whitelisted domain' do
+          let(:some_domain) { 'police.uk' }
+
+          it 'removes a domain' do
+            click_on 'Save'
+            click_on 'Remove'
+
+            expect { click_on 'Yes, remove this email domain' }.to change { AuthorisedEmailDomain.count }.by(-1)
+            expect(page).to have_content("#{some_domain} has been deleted")
+          end
+
+          it 'publishes an updated list of authorised domains to S3' do
+            click_on 'Save'
+            click_on 'Remove'
+
+            expect_any_instance_of(Gateways::S3).to receive(:upload).with(data: '^$')
+            click_on 'Yes, remove this email domain'
+          end
+        end
       end
 
       context 'viewing a list of domains' do

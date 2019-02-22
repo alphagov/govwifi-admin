@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     resources :mou, only: %i[index update create]
     resources :organisations, only: %i[index show destroy]
     resources :custom_organisations, only: %i[index create destroy]
-    resources :authorised_email_domains, only: %i[index new create]
+    resources :authorised_email_domains, only: %i[index new create destroy]
   end
 
   %w( 404 422 500 ).each do |code|
