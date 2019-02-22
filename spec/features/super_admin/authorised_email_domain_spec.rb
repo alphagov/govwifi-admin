@@ -47,13 +47,13 @@ describe 'Authorised Email Domains' do
             expect(page).to have_content("#{some_domain} has been deleted")
           end
 
-          # it 'publishes an updated list of authorised domains to S3' do
-          #   click_on 'Save'
-          #   click_on 'Remove'
+          it 'publishes an updated list of authorised domains to S3' do
+            click_on 'Save'
+            click_on 'Remove'
 
-          #   expect_any_instance_of(Gateways::S3).to receive(:upload).with(data: '^$')
-          #   click_on 'Yes, remove this email domain'
-          # end
+            expect_any_instance_of(Gateways::S3).to receive(:upload).with(data: '^$')
+            click_on 'Yes, remove this email domain'
+          end
         end
       end
 
