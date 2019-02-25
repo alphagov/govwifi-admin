@@ -22,7 +22,7 @@ describe 'Authorised Email Domains' do
           end
 
           it 'publishes the authorised domains to S3' do
-            expect_any_instance_of(Gateways::S3).to receive(:upload).with(data: '^.*@(gov\.uk)$')
+            expect_any_instance_of(Gateways::S3).to receive(:upload).with(data: '^[a-zA-Z0-9\.-]+@([a-zA-Z0-9-]+\.)*(gov\.uk)$')
             click_on 'Save'
           end
         end
