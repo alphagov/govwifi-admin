@@ -6,7 +6,7 @@ module UseCases
       def execute(domains)
         return NOOP_REGEX if domains.empty?
 
-        '^.*@([a-zA-Z0-9.-]+)?' + literal_dot(domains_list(domains) + '$')
+        '^[a-zA-Z0-9\.-]+@([a-zA-Z0-9\.-]+)?' + literal_dot(domains_list(domains) + '$')
       end
 
     private
