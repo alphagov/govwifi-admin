@@ -57,7 +57,10 @@ Rails.application.configure do
   config.force_ssl = false
   config.s3_aws_config = {
     stub_responses: {
-      put_object: {}
+      put_object: {},
+      get_object: {
+        body: '^[a-zA-Z0-9\.-]+@([a-zA-Z0-9-]+\.)*(gov\.uk)$'
+      }
     }
   }
   config.route53_aws_config = {

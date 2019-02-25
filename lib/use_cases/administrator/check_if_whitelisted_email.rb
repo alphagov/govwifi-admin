@@ -1,12 +1,21 @@
 module UseCases
   module Administrator
     class CheckIfWhitelistedEmail
-      def execute(email)
-        pattern = ENV.fetch('AUTHORISED_EMAIL_DOMAINS_REGEX')
-        checker = Regexp.new(pattern, Regexp::IGNORECASE)
-
-        { success: email.to_s.match?(checker) }
+      def initialize(gateway:)
+        @gateway = gateway
       end
+
+      def execute(email)
+        result = gateway.read
+
+        pattern = Regexp.new(result, Regexp::IGNORECASE)
+
+        { success: email.to_s.match?(pattern) }
+      end
+
+    private
+
+      attr_reader :gateway
     end
   end
 end

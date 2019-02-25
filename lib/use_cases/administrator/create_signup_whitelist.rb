@@ -6,17 +6,17 @@ module UseCases
       def execute(domains)
         return NOOP_REGEX if domains.empty?
 
-        '^[a-zA-Z0-9\.-]+@([a-zA-Z0-9-]+\.)*' + literal_dot(domains_list(domains) + '$')
+        '^[a-zA-Z0-9\.-]+@([a-zA-Z0-9-]+\.)*' + domains_list(domains) + '$'
       end
 
     private
 
       def domains_list(domains)
-        "(#{domains.join('|')})"
+        "(#{escaped_domains(domains).join('|')})"
       end
 
-      def literal_dot(whitelist)
-        whitelist.gsub('.', '\.')
+      def escaped_domains(domains)
+        domains.map { |domain| Regexp.escape(domain) }
       end
     end
   end
