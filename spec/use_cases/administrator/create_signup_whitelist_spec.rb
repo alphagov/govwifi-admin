@@ -17,7 +17,7 @@ describe UseCases::Administrator::CreateSignupWhitelist do
     end
 
     it 'creates a whitelist with one entry' do
-      expect(result).to eq('^[a-zA-Z0-9\.-]+@([a-zA-Z0-9\.-]+)?(gov\.uk)$')
+      expect(result).to eq('^[a-zA-Z0-9\.-]+@([a-zA-Z0-9-]+\.)*(gov\.uk)$')
     end
   end
 
@@ -25,7 +25,7 @@ describe UseCases::Administrator::CreateSignupWhitelist do
     let(:authorised_domains) { %w(gov.uk police.uk some.domain.org.uk) }
 
     it 'creates a whitelist with multiple entries' do
-      expect(result).to eq('^[a-zA-Z0-9\.-]+@([a-zA-Z0-9\.-]+)?(gov\.uk|police\.uk|some\.domain\.org\.uk)$')
+      expect(result).to eq('^[a-zA-Z0-9\.-]+@([a-zA-Z0-9-]+\.)*(gov\.uk|police\.uk|some\.domain\.org\.uk)$')
     end
   end
 end
