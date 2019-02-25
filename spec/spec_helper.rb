@@ -28,5 +28,14 @@ RSpec.configure do |config|
     to_return(status: 200, body: File.read("#{Rails.root}/spec/fixtures/local_auths_payload.json"))
   end
 
+  config.around do |example|
+    original_s3_aws_config = Rails.application.config.s3_aws_config
+    begin
+      example.run
+    ensure
+      Rails.application.config.s3_aws_config = original_s3_aws_config
+    end
+  end
+
   ENV['AUTHORISED_EMAIL_DOMAINS_REGEX'] = '.*gov\.uk'
 end

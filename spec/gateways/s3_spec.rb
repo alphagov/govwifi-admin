@@ -22,10 +22,6 @@ describe Gateways::S3 do
       }
     end
 
-    after do
-      Rails.application.config.s3_aws_config = { stub_responses: true }
-    end
-
     it 'returns the contents' do
       expect(subject.read).to eq('some data')
     end
