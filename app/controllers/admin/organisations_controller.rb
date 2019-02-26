@@ -3,10 +3,8 @@ class Admin::OrganisationsController < AdminController
 
   def index
     @organisations = Organisation.includes(:signed_mou_attachment).order("#{sort_column} #{sort_direction}").all
-
-    @total_number_of_organisations = Organisation.all.count
-    @total_number_of_locations = Location.all.count
-    @total_number_of_ips = Ip.all.count
+    @total_number_of_locations = Location.count
+    @total_number_of_ips = Ip.count
   end
 
   def show

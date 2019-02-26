@@ -1,24 +1,23 @@
 <h1 class="govuk-heading-l">Summary of all organisations</h1>
-
 <div class="govuk-grid-column admin-panel-stats-container">
-  <div class="govuk-grid-column-one-third" id="locations">
-    <div class="govuk-heading-l" style="text-align: left;">
+  <div class="govuk-grid-column-one-third stats-align-center">
+    <div class="govuk-heading-l">
     <strong class="total-org-stat-results-title"><%= @total_number_of_locations%></strong>
       <br>
       <p class="govuk-body govuk-!-font-size-24">Locations </p>
     </div>
   </div>
 
-  <div class="govuk-grid-column-one-third" id="organisations">
-    <div class="govuk-heading-l" style="text-align: left;">
-    <strong class="total-org-stat-results-title"><%= @total_number_of_organisations%></strong>
+  <div class="govuk-grid-column-one-third stats-align-center">
+    <div class="govuk-heading-l">
+    <strong class="total-org-stat-results-title"><%= @organisations.length%></strong>
       <br>
       <p class="govuk-body govuk-!-font-size-24">Organisations </p>
     </div>
   </div>
 
-  <div class="govuk-grid-column-one-third" id="ips">
-    <div class="govuk-heading-l" style="text-align: left;">
+  <div class="govuk-grid-column-one-third stats-align-center">
+    <div class="govuk-heading-l">
     <strong class="total-org-stat-results-title"><%= @total_number_of_ips%></strong>
       <br>
       <p class="govuk-body govuk-!-font-size-24">Ip addresses </p>
@@ -26,7 +25,7 @@
   </div>
 </div>
 
-<h1 class="govuk-heading-l">All organisations</h1>
+<h2 class="govuk-heading-m">All organisations</h2>
 
 <table class="govuk-table">
   <thead class="govuk-table__head">
