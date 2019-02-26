@@ -11,7 +11,11 @@ protected
   end
 
   def validate_email_on_whitelist
-    checker = UseCases::Administrator::CheckIfWhitelistedEmail.new
+    gateway = Gateways::S3.new(
+      bucket: ENV.fetch('S3_SIGNUP_WHITELIST_BUCKET'),
+      key: ENV.fetch('S3_SIGNUP_WHITELIST_OBJECT_KEY')
+    )
+    checker = UseCases::Administrator::CheckIfWhitelistedEmail.new(gateway: gateway)
     whitelisted = checker.execute(sign_up_params[:email])[:success]
     set_user_object_with_errors && return_user_to_registration_page unless whitelisted
   end

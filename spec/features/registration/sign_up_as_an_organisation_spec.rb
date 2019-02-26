@@ -5,6 +5,14 @@ describe 'Sign up as an organisation' do
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
 
+  before do
+    Rails.application.config.s3_aws_config = {
+      stub_responses: {
+        get_object: { body: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$' }
+      }
+    }
+  end
+
   let(:name) { 'Sally' }
 
   context 'with a valid email' do

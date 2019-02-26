@@ -1,11 +1,27 @@
 describe UseCases::Administrator::CheckIfWhitelistedEmail do
-  subject { described_class.new }
+  subject { described_class.new(gateway: s3_gateway) }
+  let(:s3_gateway) { double(read: '^.*@(aaa\.uk)$') }
 
-  context 'with a regex in the environment variable' do
-    before do
-      ENV['AUTHORISED_EMAIL_DOMAINS_REGEX'] = 'someone@a+\.uk'
+  context 'given a whitelisted email' do
+    it 'accepts an address matching the regex' do
+      result = subject.execute('someone@aaa.uk')
+      expect(result).to eq(success: true)
     end
 
+    it 'accepts an address matching the regex regardless of case' do
+      result = subject.execute('SOMEONE@AAA.UK')
+      expect(result).to eq(success: true)
+    end
+  end
+
+  context 'given a non-whitelisted email' do
+    it 'rejects an address not matching the regex' do
+      result = subject.execute('someone@bbb.uk')
+      expect(result).to eq(success: false)
+    end
+  end
+
+  context 'given an invalid email' do
     it 'rejects an empty email address' do
       result = subject.execute('')
       expect(result).to eq(success: false)
@@ -16,30 +32,9 @@ describe UseCases::Administrator::CheckIfWhitelistedEmail do
       expect(result).to eq(success: false)
     end
 
-    it 'accepts an address matching the regex' do
-      result = subject.execute('someone@aaa.uk')
-      expect(result).to eq(success: true)
-    end
-
-    it 'rejects an address not matching the regex' do
-      result = subject.execute('someone@bbb.uk')
+    it 'respects subdomains' do
+      result = subject.execute('someone@aaauk')
       expect(result).to eq(success: false)
-    end
-
-    it 'accepts an address matching the regex regardless of case' do
-      result = subject.execute('SOMEONE@AAA.UK')
-      expect(result).to eq(success: true)
-    end
-  end
-
-  context 'with no regex in the environment variable' do
-    before do
-      ENV.delete('AUTHORISED_EMAIL_DOMAINS_REGEX')
-    end
-
-    it 'blows up' do
-      expect { subject.execute('any string') }
-        .to raise_error(IndexError)
     end
   end
 end

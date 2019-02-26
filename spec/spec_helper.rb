@@ -36,6 +36,4 @@ RSpec.configure do |config|
       Rails.application.config.s3_aws_config = original_s3_aws_config
     end
   end
-
-  ENV['AUTHORISED_EMAIL_DOMAINS_REGEX'] = '.*gov\.uk'
 end
