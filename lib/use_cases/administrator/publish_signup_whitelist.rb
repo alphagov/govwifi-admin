@@ -9,7 +9,7 @@ module UseCases
 
       def execute
         payload = presenter.execute(source_gateway.fetch_domains)
-        destination_gateway.upload(data: payload)
+        destination_gateway.write(data: payload)
       end
 
     private

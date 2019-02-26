@@ -8,7 +8,7 @@ module UseCases
 
       def execute
         payload = source_gateway.fetch_ips.to_json
-        destination_gateway.upload(data: payload)
+        destination_gateway.write(data: payload)
       end
 
     private

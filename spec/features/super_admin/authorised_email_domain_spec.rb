@@ -22,7 +22,7 @@ describe 'Authorised Email Domains' do
           end
 
           it 'publishes the authorised domains to S3' do
-            expect_any_instance_of(Gateways::S3).to receive(:upload).with(data: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$')
+            expect_any_instance_of(Gateways::S3).to receive(:write).with(data: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$')
             click_on 'Save'
           end
         end
@@ -51,7 +51,7 @@ describe 'Authorised Email Domains' do
             click_on 'Save'
             click_on 'Remove'
 
-            expect_any_instance_of(Gateways::S3).to receive(:upload).with(data: '^$')
+            expect_any_instance_of(Gateways::S3).to receive(:write).with(data: '^$')
             click_on 'Yes, remove this email domain'
           end
         end

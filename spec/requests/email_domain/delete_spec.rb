@@ -14,7 +14,7 @@ describe "DELETE /authorised_email_domains/:id", type: :request do
     end
 
     it 'publishes the authorised domains to S3' do
-      expect_any_instance_of(Gateways::S3).to receive(:upload)
+      expect_any_instance_of(Gateways::S3).to receive(:write)
       delete admin_authorised_email_domain_path(email_domain)
     end
   end

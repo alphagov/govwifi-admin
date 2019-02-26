@@ -10,7 +10,7 @@ describe UseCases::PublishWhitelist do
   end
 
   before do
-    expect(s3_gateway).to receive(:upload)
+    expect(s3_gateway).to receive(:write)
       .with(data: whitelist)
       .and_return({})
   end
