@@ -19,7 +19,7 @@ protected
     whitelisted = checker.execute(sign_up_params[:email])[:success]
 
     if whitelisted == false
-      logger.info("Unsuccessful signup attempt: #{sign_up_params[:email]}")
+      Raven.capture_message("Unsuccessful signup attempt: #{sign_up_params[:email]}", level: 'info')
     end
 
     set_user_object_with_errors && return_user_to_registration_page unless whitelisted
