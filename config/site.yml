@@ -2,7 +2,7 @@ default: &default
   end_user_docs_link: 'https://www.gov.uk/government/collections/connect-to-govwifi'
   end_user_troubleshooting_link: 'https://www.gov.uk/guidance/solve-problems-with-connecting-to-govwifi'
   organisation_docs_link: 'https://docs.wifi.service.gov.uk'
-  cookies_docs_link: 'http://https://www.wifi.service.gov.uk/cookies'
+  cookies_docs_link: 'https://www.wifi.service.gov.uk/cookies'
   product_page_link: 'https://wifi.service.gov.uk'
   organisation_register_url: 'https://government-organisation.register.gov.uk/records.json?page-size=5000'
   local_auth_register_url: 'https://local-authority-eng.register.gov.uk/records.json?page-size=5000'
