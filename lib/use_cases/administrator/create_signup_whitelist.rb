@@ -6,7 +6,7 @@ module UseCases
       def execute(domains)
         return NOOP_REGEX if domains.empty?
 
-        '^[A-Za-z0-9\_\+\.\'-]+@([a-zA-Z0-9-]+\.)*' + domains_list(domains) + '$'
+        SIGNUP_WHITELIST_PREFIX_MATCHER + domains_list(domains) + '$'
       end
 
     private

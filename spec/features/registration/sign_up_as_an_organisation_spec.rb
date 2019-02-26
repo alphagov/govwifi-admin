@@ -8,7 +8,7 @@ describe 'Sign up as an organisation' do
   before do
     Rails.application.config.s3_aws_config = {
       stub_responses: {
-        get_object: { body: '^[a-zA-Z0-9\.-]+@([a-zA-Z0-9-]+\.)*(gov\.uk)$' }
+        get_object: { body: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$' }
       }
     }
   end
