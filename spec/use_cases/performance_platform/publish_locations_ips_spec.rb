@@ -14,7 +14,7 @@ describe UseCases::PerformancePlatform::PublishLocationsIps do
   end
 
   before do
-    expect(s3_gateway).to receive(:upload)
+    expect(s3_gateway).to receive(:write)
       .with(data: s3_payload.to_json)
       .and_return({})
   end

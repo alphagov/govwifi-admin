@@ -5,8 +5,8 @@ describe Gateways::S3 do
 
   subject { described_class.new(bucket: bucket, key: key) }
 
-  it 'uploads the data' do
-    expect(subject.upload(data: data)).to eq({})
+  it 'writes the data to the bucket' do
+    expect(subject.write(data: data)).to eq({})
   end
 
   context 'given we read from the S3 file' do

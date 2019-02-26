@@ -11,7 +11,7 @@ describe UseCases::Administrator::PublishSignupWhitelist do
   let(:presenter) { DummyWhitelistPresenter.new }
 
   it 'publishes the email domain whitelist' do
-    expect(s3_gateway).to receive(:upload).with(data: formatted_s3_payload)
+    expect(s3_gateway).to receive(:write).with(data: formatted_s3_payload)
 
     described_class.new(
       destination_gateway: s3_gateway,

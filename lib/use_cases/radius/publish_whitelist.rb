@@ -6,7 +6,7 @@ class PublishWhitelist
 
   def execute
     payload = generate_whitelist.execute
-    destination_gateway.upload(data: payload)
+    destination_gateway.write(data: payload)
   end
 
 private

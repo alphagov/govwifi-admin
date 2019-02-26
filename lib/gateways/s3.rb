@@ -6,7 +6,7 @@ module Gateways
       @client = Aws::S3::Client.new(config)
     end
 
-    def upload(data:)
+    def write(data:)
       client.put_object(
         body: data,
         bucket: bucket,
