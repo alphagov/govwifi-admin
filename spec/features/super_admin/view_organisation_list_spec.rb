@@ -64,10 +64,20 @@ describe 'view list of signed up organisations' do
       end
     end
 
-    context 'and three organisations exist' do
+    context 'and two extra organisations (with three locations each) exist' do
       before do
-        3.times { create(:organisation) }
+        2.times do
+          organisation = create(:organisation)
+          3.times { create(:location, organisation: organisation) }
+        end
+
         visit admin_organisations_path
+      end
+
+      it 'summarises the totals' do
+        expect(page).to have_content(
+          "GovWifi is in 6 locations across 3 organisations."
+        )
       end
 
       it 'shows all three organisations' do

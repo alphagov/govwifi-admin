@@ -1,6 +1,13 @@
 <h1 class="govuk-heading-l">All organisations</h1>
-<h3 class="govuk-heading-m">
-  <%= pluralize(@organisations.count, 'organisation') %> are signed up to GovWifi
+<h3 class="govuk-body">
+  GovWifi is in
+  <span class="govuk-!-font-weight-bold">
+    <%= pluralize(@location_count, 'location') %>
+  </span>
+   across
+  <span class="govuk-!-font-weight-bold">
+    <%= pluralize(@organisations.count, 'organisation') %>.
+  </span>
 </h3>
 
 <table class="govuk-table">
