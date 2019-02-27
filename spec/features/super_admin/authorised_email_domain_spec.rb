@@ -43,7 +43,7 @@ describe 'Authorised Email Domains' do
             click_on 'Save'
             click_on 'Remove'
 
-            expect { click_on 'Yes, remove this email domain' }.to change { AuthorisedEmailDomain.count }.by(-1)
+            expect { click_on "Yes, remove #{some_domain} from the whitelist" }.to change { AuthorisedEmailDomain.count }.by(-1)
             expect(page).to have_content("#{some_domain} has been deleted")
           end
 
@@ -52,7 +52,7 @@ describe 'Authorised Email Domains' do
             click_on 'Remove'
 
             expect_any_instance_of(Gateways::S3).to receive(:write).with(data: '^$')
-            click_on 'Yes, remove this email domain'
+            expect { click_on "Yes, remove #{some_domain} from the whitelist" }.to change { AuthorisedEmailDomain.count }.by(-1)
           end
         end
       end
