@@ -4,7 +4,7 @@
       <tr class="govuk-table__row">
         <td class="govuk-table__cell govuk-!-width-one-third"><%= domain.name %></td>
         <td class="govuk-table__cell text-right">
-          <%= link_to 'Remove', admin_authorised_email_domains_path(id: domain.id, remove_email_domain: true), class: "govuk-link" %>
+          <%= link_to 'Remove', admin_authorised_email_domains_path(id: domain.id, domain_to_remove: domain.name), class: "govuk-link" %>
         </td>
       </tr>
     <% end %>
