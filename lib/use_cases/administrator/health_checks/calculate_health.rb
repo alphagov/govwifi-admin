@@ -34,7 +34,7 @@ module UseCases
         end
 
         def status(health_check)
-          all_health_checkers_healthy?(health_check) ? :operational : :offline
+          all_health_checkers_healthy?(health_check) ? :healthy : :unhealthy
         end
 
         def all_health_checkers_healthy?(health_check)
