@@ -2,7 +2,11 @@ class Admin::OrganisationsController < AdminController
   helper_method :sort_column, :sort_direction
 
   def index
-    @organisations = Organisation.includes(:signed_mou_attachment).order("#{sort_column} #{sort_direction}").all
+    @organisations = Organisation
+      .includes(:signed_mou_attachment)
+      .order("#{sort_column} #{sort_direction}")
+
+    @location_count = Location.count
   end
 
   def show
