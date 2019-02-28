@@ -1,4 +1,4 @@
-class StatusController < ApplicationController
+class HealthChecksController < ApplicationController
   def index
     london_ips = ENV.fetch('LONDON_RADIUS_IPS').split(',')
     dublin_ips = ENV.fetch('DUBLIN_RADIUS_IPS').split(',')

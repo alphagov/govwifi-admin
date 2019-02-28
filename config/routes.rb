@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   end
 
   get '/healthcheck', to: 'monitoring#healthcheck'
-  resources :status, only: %i[index]
+  resources :health_checks, only: [:index]
+
   resources :ips, only: %i[index new create destroy] do
     get 'remove', to: 'ips#index'
   end

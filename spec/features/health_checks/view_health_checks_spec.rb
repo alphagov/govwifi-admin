@@ -1,7 +1,7 @@
 describe 'View GovWifi Status' do
   context 'when logged out' do
     before do
-      visit status_index_path
+      visit health_checks_path
     end
 
     it_behaves_like 'not signed in'
@@ -18,7 +18,7 @@ describe 'View GovWifi Status' do
       )
 
       sign_in_user user
-      visit status_index_path
+      visit health_checks_path
     end
 
     it 'allows viewing the health checks' do
