@@ -28,7 +28,7 @@ module UseCases
         end
 
         def health_check_for_ip(ip)
-          health_checks.find do |health_check|
+          non_latency_health_checks.find do |health_check|
             health_check.health_check_config.ip_address == ip
           end
         end
@@ -43,7 +43,13 @@ module UseCases
           end
         end
 
-        def health_checks
+        def non_latency_health_checks
+          all_health_checks.reject do |hc|
+            hc.health_check_config.measure_latency == true
+          end
+        end
+
+        def all_health_checks
           @health_checks ||= route53_gateway.list_health_checks.health_checks
         end
       end

@@ -49,6 +49,15 @@ class FakeHealthyRoute53Gateway
                 measure_latency: false,
                 type: 'HTTP',
               }
+            }, {
+              caller_reference: 'AdminMonitoring',
+              id: 'latency123',
+              health_check_version: 1,
+              health_check_config: {
+                ip_address: '777.777.777.777',
+                measure_latency: true,
+                type: 'HTTP',
+              }
             }
           ]
         }
@@ -120,6 +129,16 @@ describe UseCases::Administrator::HealthChecks::CalculateHealth do
         { ip_address: '111.111.111.111', status: :healthy },
         { ip_address: '222.222.222.222', status: :healthy }
       ]
+
+      expect(result).to eq(expected_result)
+    end
+  end
+
+  context 'Given a latency health check' do
+    let(:ips) { ['777.777.777.777', '111.111.111.111'] }
+
+    it 'returns healthy if all health checkers are healthy' do
+      expected_result = [{ ip_address: '111.111.111.111', status: :healthy }]
 
       expect(result).to eq(expected_result)
     end
