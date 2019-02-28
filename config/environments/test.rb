@@ -39,7 +39,6 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: "example.com" }
   config.s3_aws_config = { stub_responses: true }
-  config.route53_aws_config = { stub_responses: true }
 end
 
 ActionMailer::Base.delivery_method = :test
