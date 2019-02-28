@@ -21,8 +21,8 @@ describe 'View GovWifi Status' do
       visit status_index_path
     end
 
-    it 'allows viewing the GovWifi Status' do
-      expect(page).to have_content('Status')
+    it 'allows viewing the health checks' do
+      expect(page).to have_content('Health Checks')
       expect(page).to have_content('111.111.111.111')
     end
   end
