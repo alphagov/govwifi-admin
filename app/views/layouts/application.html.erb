@@ -3,13 +3,7 @@
   <head>
     <!-- test post please ignore -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= SITE_CONFIG['google_analytics_script_id'] %>"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    </script>
+    <%= render 'layouts/google_analytics' %>
 
     <title>Govwifi Admin</title>
 
@@ -41,6 +35,7 @@
   </head>
 
   <body class="govuk-template__body app-body-class">
+    <%= render 'layouts/google_tag_manager_no_script' %>
 
     <script>
         document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
