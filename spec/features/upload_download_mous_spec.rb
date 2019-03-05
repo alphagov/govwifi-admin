@@ -31,14 +31,8 @@ describe 'the upload and download of MOUs' do
 
       it 'can upload and download a version of the mou' do
         expect(page).to have_content("MOU uploaded successfully.")
-      end
-
-      it 'allows the user to see when the mou was uploaded' do
-        expect(page).to have_content("A signed MoU was uploaded on")
-      end
-
-      it 'allows the user to click the link and download their MoU' do
         expect(page).to have_content("download and view the document.")
+        expect(page).to have_content("A signed MoU was uploaded on")
       end
     end
 
