@@ -39,7 +39,6 @@ describe 'the upload and download of MOUs' do
 
       it 'allows the user to click the link and download their MoU' do
         expect(page).to have_content("download and view the document.")
-        click_on 'download and view the document.'
       end
     end
 

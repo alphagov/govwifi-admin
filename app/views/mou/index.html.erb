@@ -17,7 +17,7 @@
       </p>
     <% end %>
 
-    <% if current_organisation.signed_mou.attached? %>
+    <% if mou_attached %>
       <p class="govuk-body">
         A signed MoU was uploaded on <%= current_organisation.signed_mou.attachment.created_at.strftime('%e %b %Y') %>,
         <%= link_to "download and view the document.", rails_blob_path(current_organisation.signed_mou, disposition: "attachment"), class: "govuk-link" %>
