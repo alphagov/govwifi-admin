@@ -1,3 +1,5 @@
+<% mou_attached = current_organisation.signed_mou.attached? %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-l">Sign your agreement</h2>
@@ -14,15 +16,31 @@
         <%= link_to "support form", help_index_path, class: "govuk-link" %> if you need a copy.
       </p>
     <% end %>
+
+    <% if current_organisation.signed_mou.attached? %>
+      <p class="govuk-body">
+        A signed MoU was uploaded on <%= current_organisation.signed_mou.attachment.created_at.strftime('%e %b %Y') %>,
+        <%= link_to "download and view the document.", rails_blob_path(current_organisation.signed_mou, disposition: "attachment"), class: "govuk-link" %>
+      </p>
+      <h3 class="govuk-heading-m">Replace MoU</h3>
+      <p class="govuk-body">Manually replace this organisation's signed MoU. This will overwrite the existing document.</p>
+    <% else %>
+      <p class="govuk-body">You have not uploaded a signed MoU yet</p>
+    <% end %>
+
     <div>
       <%= form_with url: mou_index_path, method: 'post' do |form| %>
         <div class="govuk-form-group">
           <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
         </div>
-        <%= form.submit('Upload your MOU', class: 'govuk-button') %>
+        <% submit_text = mou_attached ? 'Replace MOU' : 'Upload MOU' %>
+        <%= form.submit(submit_text, class: 'govuk-button') %>
       <% end %>
     </div>
   </div>
 </div>
 
 <%= link_to "Getting help", help_index_path, class: 'govuk-link' %>
+
+
+
