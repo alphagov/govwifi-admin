@@ -1,5 +1,3 @@
-<% mou_attached = @current_org_signed_mou %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-l">Sign your agreement</h2>
@@ -17,7 +15,7 @@
       </p>
     <% end %>
 
-    <% if mou_attached %>
+    <% if @current_org_signed_mou %>
       <p class="govuk-body">
         A signed MoU was uploaded on <%= @current_org_signed_mou.created_at.strftime('%e %b %Y') %>,
         <%= link_to "download and view the document.", rails_blob_path(@current_org_signed_mou, disposition: "attachment"), class: "govuk-link" %>
@@ -33,7 +31,7 @@
         <div class="govuk-form-group">
           <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
         </div>
-        <% submit_text = mou_attached ? 'Replace MOU' : 'Upload MOU' %>
+        <% submit_text = @current_org_signed_mou ? 'Replace MOU' : 'Upload MOU' %>
         <%= form.submit(submit_text, class: 'govuk-button') %>
       <% end %>
     </div>
