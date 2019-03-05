@@ -1,6 +1,7 @@
 class MouController < ApplicationController
   def index
-    @mou = AdminConfig.mou
+    @mou = AdminConfig.mou.unsigned_document.attachment
+    @current_org_signed_mou = current_organisation.signed_mou.attachment
   end
 
   def create
