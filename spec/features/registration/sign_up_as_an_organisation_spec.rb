@@ -21,7 +21,7 @@ describe 'Sign up as an organisation' do
 
     it 'instructs the user to check their confirmation email' do
       expect(page).to have_content(
-        "A confirmation email has been sent to #{email}"
+        "A confirmation email has been sent to your email address."
         )
     end
   end
