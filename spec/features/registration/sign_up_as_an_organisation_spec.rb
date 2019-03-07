@@ -155,4 +155,23 @@ describe 'Sign up as an organisation' do
       expect(page).to have_content 'Email was already confirmed'
     end
   end
+
+  context 'Given an organisation is already registered' do
+    let(:existing_org_name) { 'Gov Org 1' }
+
+    before do
+      sign_up_for_account
+      create(:organisation, name: existing_org_name)
+      update_user_details(organisation_name: existing_org_name)
+    end
+
+    it_behaves_like 'errors in form'
+
+    it 'shows the user an error message' do
+      within('div#error-summary')do
+        expect(page).to have_content('Organisation name is already registered')
+        expect(page).to have_link('contact us', href: new_help_path)
+      end
+    end
+  end
 end

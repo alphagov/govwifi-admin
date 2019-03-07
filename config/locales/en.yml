@@ -13,5 +13,5 @@ en:
             name:
               taken: " is already registered. If you wish to administer an \n
               existing GovWifi installation, you must be invited to the \n
-              account. Please contact govwifi-support@digital.cabinet-office.gov.uk \n
+              account. Please <a href='/help/new'>contact us</a> \n
               if you need help."
