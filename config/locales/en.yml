@@ -5,8 +5,7 @@ en:
         user:
           attributes:
             email:
-              taken: " is already invited, or already registered with \n
-              another organisation."
+              taken: " is already associated with an account. If you can't sign in, <a href='/users/password/new'>reset your password</a>."
               invalid: " must be a valid email address"
         organisation:
           attributes:
