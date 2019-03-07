@@ -56,7 +56,7 @@ describe 'Sign up as an organisation' do
       let(:email) { 'someone@google.com' }
 
       it 'tells me my email is not valid' do
-        expect(page).to have_content("Only government organisations can sign up to GovWifi. If you're having trouble signing up, contact us.")
+        expect(page).to have_content("Email must be from a government domain. If you're having trouble signing up, contact us.")
       end
 
       it 'provides a link to a support form' do
@@ -71,7 +71,7 @@ describe 'Sign up as an organisation' do
       let(:email) { '' }
 
       it 'tells me my email is not valid' do
-        expect(page).to have_content("Only government organisations can sign up to GovWifi. If you're having trouble signing up, contact us.")
+        expect(page).to have_content("Email must be from a government domain. If you're having trouble signing up, contact us.")
       end
     end
 
@@ -153,6 +153,16 @@ describe 'Sign up as an organisation' do
 
     it 'tells the user the email is already confirmed' do
       expect(page).to have_content 'Email was already confirmed'
+    end
+  end
+
+  context 'with an already registered email' do
+    let(:email) { 'george@gov.uk' }
+    before { sign_up_for_account(email: email) }
+
+    it 'will tell the user the email is already in use' do
+      sign_up_for_account(email: email)
+      expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
     end
   end
 end
