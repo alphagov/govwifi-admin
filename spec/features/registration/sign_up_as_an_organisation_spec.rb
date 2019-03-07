@@ -170,7 +170,7 @@ describe 'Sign up as an organisation' do
     it 'shows the user an error message' do
       within('div#error-summary')do
         expect(page).to have_content('Organisation name is already registered')
-        expect(page).to have_link('contact us', href: new_help_path)
+        expect(page).to have_link('Contact us', href: new_help_path)
       end
     end
   end
