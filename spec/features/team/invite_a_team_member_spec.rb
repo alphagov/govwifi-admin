@@ -71,7 +71,7 @@ describe "Invite a team member" do
             click_on "Send invitation email"
           }.to change { User.count }.by(0)
           expect(InviteUseCaseSpy.invite_count).to eq(0)
-          expect(page).to have_content("Email is already invited, or already registered with another organisation")
+          expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
         end
       end
 

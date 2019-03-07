@@ -23,13 +23,16 @@ describe 'the upload and download of MOUs' do
     end
 
     context 'uploading the signed mou' do
-      it 'can upload and download a version of the mou' do
+      before do
         visit mou_index_path
-
         attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
         click_on 'Upload'
+      end
 
+      it 'can upload and download a version of the mou' do
         expect(page).to have_content("MOU uploaded successfully.")
+        expect(page).to have_content("download and view the document.")
+        expect(page).to have_content("A signed MoU was uploaded on")
       end
     end
 
