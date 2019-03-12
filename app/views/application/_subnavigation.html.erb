@@ -16,6 +16,7 @@
         <%= link_to 'Allow Organisations', admin_custom_organisations_path, class: active_tab(admin_custom_organisations_path) %>
         <%= link_to 'MOU', admin_mou_index_path, class: active_tab(admin_mou_index_path) %>
         <%= link_to 'Whitelisted Domains', admin_authorised_email_domains_path, class: active_tab(admin_authorised_email_domains_path) %>
+        <%= link_to 'Manage Users', admin_manage_users_path, class: active_tab(admin_manage_users_path) %>
       <% else %>
         <%= link_to 'Overview', overview_index_path, class: active_tab(overview_index_path)%>
         <%= link_to 'Setup', setup_instructions_path, class: active_tab(setup_instructions_path) + active_tab('mou') %>
