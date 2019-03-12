@@ -4,7 +4,6 @@
   <h2 class="govuk-heading-m">All Unconfirmed Users</h2>
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">
-        <th class="govuk-table__header govuk-!-width-one-third">Name</th>
         <th class="govuk-table__header govuk-!-width-one-third">Email</th>
         <th class="govuk-table__header govuk-!-width-one-third">Created at</th>
       </tr>
@@ -12,9 +11,6 @@
   <tbody class="govuk-table__body">
     <% @all_unconfirmed_users.each do |user| %>
       <tr class="govuk-table__row">
-        <td class="govuk-table__cell govuk-!-width-one-third" scope="row">
-          <%= user.name %>
-        </td>
         <td class="govuk-table__cell govuk-!-width-one-third" scope="row">
           <%= user.email %>
         </td>
