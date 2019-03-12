@@ -29,7 +29,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 protected
 
   def set_resource
-    token = params[:confirmation_token] || params[:user][:confirmation_token]
+    token = params[:confirmation_token] || params.dig(:user, :confirmation_token)
     @confirmable = User.find_or_initialize_with_error_by(:confirmation_token, token)
     self.resource = @confirmable
   end
