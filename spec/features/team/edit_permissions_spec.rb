@@ -34,8 +34,8 @@ describe 'Edit user permissions' do
       end
 
       it 'allows me to edit the user permissions' do
-        uncheck 'Manage team'
-        uncheck 'Manage locations'
+        uncheck 'Add and remove team members'
+        uncheck 'Add and remove locations and IPs'
 
         click_on 'Save'
 

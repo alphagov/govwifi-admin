@@ -11,18 +11,27 @@
       <div class="govuk-checkboxes">
         <%= form_for @user, url: team_member_path, html: { method: :put, novalidate: '' } do |form| %>
           <%= form.fields_for :permission, @user.permission do |permission_form| %>
+           <div class="govuk-checkboxes__item">
+              <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
+              <label class="govuk-label govuk-checkboxes__label">View logs</label>
+            </div>
+             <div class="govuk-checkboxes__item">
+              <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
+              <label class="govuk-label govuk-checkboxes__label">View team members</label>
+            </div>
             <div class="govuk-checkboxes__item">
               <%= permission_form.check_box :can_manage_team, class: 'govuk-checkboxes__input' %>
-              <label class="govuk-label govuk-checkboxes__label"><%= permission_form.label :can_manage_team, 'Manage team' %></label>
+              <label class="govuk-label govuk-checkboxes__label"><%= permission_form.label :can_manage_team, 'Add and remove team members' %></label>
             </div>
-
+            <div class="govuk-checkboxes__item">
+              <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
+              <label class="govuk-label govuk-checkboxes__label">View locations and IPs</label>
+            </div>
             <div class="govuk-checkboxes__item">
               <%= permission_form.check_box :can_manage_locations, class: 'govuk-checkboxes__input' %>
-              <label class="govuk-label govuk-checkboxes__label"><%= permission_form.label :can_manage_locations, 'Manage locations' %></label>
+              <label class="govuk-label govuk-checkboxes__label"><%= permission_form.label :can_manage_locations, 'Add and remove locations and IPs' %></label>
             </div>
           <% end %>
-            <p class="govuk-body govuk-!-margin-top-5"> All team members can view logs </p>
-
           <div class="govuk-!-margin-top-8">
             <%= form.submit 'Save', class: "govuk-button govuk-!-margin-0 govuk-!-margin-right-8 inline-block" %>
 
