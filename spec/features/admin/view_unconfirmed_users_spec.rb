@@ -1,9 +1,6 @@
-require 'support/invite_use_case_spy'
-require 'support/invite_use_case'
 require 'support/notifications_service'
 
 describe 'viewing all unconfirmed users' do
-  include_examples 'invite use case spy'
   include_examples 'notifications service'
 
   let!(:admin_user) { create(:user, super_admin: true) }
