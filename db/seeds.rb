@@ -33,6 +33,16 @@ user = organisation.users.create(
   )
 end
 
+2.times do
+  User.create(
+    email: Faker::Name.first_name + "@gov.uk",
+    password: "password",
+    name: Faker::Name.name,
+    confirmed_at: nil,
+    organisation: organisation
+  )
+end
+
 location_1 = Location.create!(
   address: 'Momentum Centre, London',
   postcode: 'SE10SX',
