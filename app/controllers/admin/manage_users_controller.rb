@@ -8,11 +8,11 @@ class Admin::ManageUsersController < AdminController
   private
 
   def sortable_columns
-    %w[created_at]
+    %w[email]
   end
 
   def sort_column
-    sortable_columns.include?(params[:sort]) ? params[:sort] : "created_at"
+    sortable_columns.include?(params[:sort]) ? params[:sort] : "email"
   end
 
   def sort_direction
