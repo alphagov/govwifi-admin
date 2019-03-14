@@ -1,4 +1,10 @@
-describe 'View team members of my organisation' do
+require 'support/notifications_service'
+require 'support/confirmation_use_case'
+
+describe 'View team members of my organisation', focus: true do
+  include_examples 'confirmation use case spy'
+  include_examples 'notifications service'
+
   context 'when logged out' do
     before { visit team_members_path }
 
@@ -34,16 +40,14 @@ describe 'View team members of my organisation' do
     end
 
     context 'when there are many users in my organisation' do
-      before do
-        create(:user, email: 'friend@example.gov.uk', organisation: organisation)
-      end
+      let!(:friend) { create(:user, email: 'friend@example.gov.uk', organisation: organisation) }
+      let!(:another_friend) { create(:user, email: 'another_friend@example.gov.uk', organisation: organisation) }
 
       it 'renders all users within my organisation' do
         sign_in_user user
         visit team_members_path
 
-        expect(page).to have_content('me@example.gov.uk')
-        expect(page).to have_content('friend@example.gov.uk')
+        expect(page.body).to match(/another_friend@example.gov.uk.*b_another_friend@example.gov.uk.*friend@example.gov.uk/m)
       end
     end
 

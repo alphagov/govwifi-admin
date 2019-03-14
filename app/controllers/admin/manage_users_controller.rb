@@ -5,7 +5,7 @@ class Admin::ManageUsersController < AdminController
     @all_unconfirmed_users = User.where(confirmed_at: nil).order("#{sort_column} #{sort_direction}")
   end
 
-  private
+private
 
   def sortable_columns
     %w[email]
