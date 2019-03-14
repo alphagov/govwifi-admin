@@ -58,11 +58,15 @@ describe 'Authorised Email Domains' do
       end
 
       context 'viewing a list of domains' do
-        it 'displays a list of domains' do
-          create(:authorised_email_domain, name: 'gov.some.test.uk')
+        before do
+          create(:authorised_email_domain, name: 'bgov.some.test.uk')
+          create(:authorised_email_domain, name: 'cgov.some.test.uk')
+          create(:authorised_email_domain, name: 'agov.some.test.uk')
           visit admin_authorised_email_domains_path
+        end
 
-          expect(page).to have_content('gov.some.test.uk')
+        it 'displays the list of all domains in alphabetical order' do
+          expect(page.body).to match(/agov.some.test.uk.*bgov.some.test.uk.*cgov.some.test.uk/m)
         end
       end
     end
