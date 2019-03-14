@@ -9,7 +9,7 @@ class Admin::ManageUsersController < AdminController
   private
 
   def sortable_columns
-    %w[email created_at]
+    %w[created_at]
   end
 
   def sort_column
