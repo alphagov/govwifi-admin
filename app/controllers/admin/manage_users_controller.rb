@@ -2,8 +2,7 @@ class Admin::ManageUsersController < AdminController
   helper_method :sort_column, :sort_direction
 
   def index
-    unconfirmed_user = User.where(confirmed_at: nil)
-    @all_unconfirmed_users = unconfirmed_user.order("#{sort_column} #{sort_direction}")
+    @all_unconfirmed_users = User.where(confirmed_at: nil).order("#{sort_column} #{sort_direction}")
   end
 
   private

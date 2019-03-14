@@ -1,6 +1,8 @@
 class Admin::AuthorisedEmailDomainsController < AdminController
+  helper_method :sort_column, :sort_direction
+
   def index
-    @authorised_email_domains = AuthorisedEmailDomain.all
+    @authorised_email_domains = AuthorisedEmailDomain.all.order("#{sort_column} #{sort_direction}")
   end
 
   def new
@@ -46,5 +48,17 @@ private
 
   def authorised_email_params
     params.require(:authorised_email_domain).permit(:name)
+  end
+
+  def sortable_columns
+    %w[name]
+  end
+
+  def sort_column
+    sortable_columns.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end
