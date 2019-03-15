@@ -2,12 +2,12 @@ class Admin::CustomOrganisationsController < AdminController
   helper_method :sort_column, :sort_direction
 
   def index
-    order_custom_orgs
+    @custom_organisation_names = ordered_custom_orgs
     @custom_organisation = CustomOrganisationName.new
   end
 
   def create
-    @custom_organisation_names = order_custom_orgs
+    @custom_organisation_names = ordered_custom_orgs
     @custom_organisation = CustomOrganisationName.new(custom_org_params)
 
     if @custom_organisation.save
@@ -33,8 +33,8 @@ private
     params.require(:custom_organisations).permit(:name)
   end
 
-  def order_custom_orgs
-    @custom_organisation_names = CustomOrganisationName.all.order("#{sort_column} #{sort_direction}")
+  def ordered_custom_orgs
+    CustomOrganisationName.all.order("#{sort_column} #{sort_direction}")
   end
 
   def sortable_columns
