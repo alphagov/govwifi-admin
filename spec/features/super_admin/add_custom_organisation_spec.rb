@@ -6,8 +6,9 @@ describe 'adding a custom organisation name' do
   let!(:admin_user) { create(:user, super_admin: true) }
 
   context 'when visiting the custom organisations page' do
-    let!(:org1) { CustomOrganisationName.create(name: 'Custom Org 1') }
     let!(:org2) { CustomOrganisationName.create(name: 'Custom Org 2') }
+    let!(:org1) { CustomOrganisationName.create(name: 'Custom Org 1') }
+    let!(:org4) { CustomOrganisationName.create(name: 'Custom Org 4') }
     let!(:org3) { CustomOrganisationName.create(name: 'Custom Org 3') }
 
     before do
@@ -16,7 +17,7 @@ describe 'adding a custom organisation name' do
     end
 
     it 'displays the list of all custom organisations in alphabetical order' do
-      expect(page.body).to match(/Custom Org 1.*Custom Org 2.*Custom Org 3/m)
+      expect(page.body).to match(/Custom Org 1.*Custom Org 2.*Custom Org 3.*Custom Org 4/m)
     end
 
     it 'will show the add custom organisations page' do

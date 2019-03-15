@@ -54,11 +54,15 @@ private
     %w[name]
   end
 
+  def sortable_directions
+    %w[asc]
+  end
+
   def sort_column
-    sortable_columns.include?(params[:sort]) ? params[:sort] : "name"
+    sortable_columns.include?(params[:sort]) ? params[:sort] : sortable_columns.first
   end
 
   def sort_direction
-    %w[asc].include?(params[:direction]) ? params[:direction] : "asc"
+    sortable_directions.include?(params[:direction]) ? params[:direction] : sortable_directions.first
   end
 end
