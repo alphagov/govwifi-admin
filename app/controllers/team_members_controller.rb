@@ -1,11 +1,9 @@
 class TeamMembersController < ApplicationController
   before_action :set_user, only: %i[edit update]
   before_action :validate_can_manage_team, only: %i[edit update]
-  helper_method :sort_column, :sort_direction
 
   def index
-    unsorted_team_members = current_user&.organisation&.users || []
-    @team_members = unsorted_team_members.order("#{sort_column} #{sort_direction}")
+    @team_members = current_user&.organisation&.users || []
   end
 
   def destroy
@@ -43,17 +41,5 @@ private
 
   def permission_params
     params.require(:user).permit(permission_attributes: %i[can_manage_team can_manage_locations])
-  end
-
-  def sortable_columns
-    %w[name]
-  end
-
-  def sort_column
-    sortable_columns.include?(params[:sort]) ? params[:sort] : "name"
-  end
-
-  def sort_direction
-    %w[asc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end
