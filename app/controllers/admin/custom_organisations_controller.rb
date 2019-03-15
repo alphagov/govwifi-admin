@@ -7,7 +7,7 @@ class Admin::CustomOrganisationsController < AdminController
   end
 
   def create
-    @custom_organisation_names = ordered_custom_orgs
+    @custom_organisation_names = order_custom_orgs
     @custom_organisation = CustomOrganisationName.new(custom_org_params)
 
     if @custom_organisation.save
