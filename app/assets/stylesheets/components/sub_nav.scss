@@ -1,5 +1,5 @@
 .subnav {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid $colour-black;
 
   // Flexbox used at desktop widths to keep the subnav links anchored to the
   // bottom of their div.
@@ -15,7 +15,7 @@
     // Organisation name aligned left on desktop and top margin reduced.
     @media (min-width: 640px) {
       text-align: left;
-      margin: 10px 0px;
+      margin: 10px 0;
     }
   }
 
@@ -39,7 +39,7 @@
 
     // Margin that separates subnav links is not required on first link
     > :first-child {
-      margin-left: 0px;
+      margin-left: 0;
     }
 
     a {
@@ -56,8 +56,8 @@
       // Active state conveys the current page to the user. Bottom margin is
       // replaced with a thick black bottom border
       &.active {
-        border-bottom: 5px solid black;
-        margin-bottom: 0px;
+        border-bottom: 5px solid $colour-black;
+        margin-bottom: 0;
       }
     }
   }

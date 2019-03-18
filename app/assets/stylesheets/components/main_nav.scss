@@ -5,14 +5,14 @@
   }
 }
 
-.product-name{
+.product-name {
   font-size: 24px;
   font-weight: 400;
   padding-left: 9px;
 }
 
 .govuk-header__link.active {
-  color: #1d8feb;
+  color: $govuk-link-active-colour;
 }
 
 .govuk-header__navigation-item {
