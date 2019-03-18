@@ -4,7 +4,7 @@ class TeamMembersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @team_members = current_user.organisation.users.order(build_order_query)
+    @team_members = current_organisation.users.order(build_order_query)
   end
 
   def destroy

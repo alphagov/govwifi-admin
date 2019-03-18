@@ -7,7 +7,7 @@ describe 'View team members of my organisation' do
 
   context 'when logged in' do
     let(:organisation) { create(:organisation) }
-    let(:user) { create(:user, email: 'me@example.gov.uk', organisation: organisation) }
+    let(:user) { create(:user, email: 'me@example.gov.uk', name: 'bob', organisation: organisation) }
 
     before do
       ENV['LONDON_RADIUS_IPS'] = "1.1.1.1,2.2.2.2"
@@ -34,7 +34,7 @@ describe 'View team members of my organisation' do
     end
 
     context 'when there are many users in my organisation' do
-      let!(:user_1) { create(:user, email: 'bob@example.gov.uk', organisation: organisation) }
+      let!(:user_1) { create(:user, email: 'bill@example.gov.uk', name: nil, organisation: organisation) }
       let!(:user_2) { create(:user, name: 'amada', organisation: organisation) }
       let!(:user_3) { create(:user, name: 'zara', organisation: organisation) }
 
@@ -42,7 +42,7 @@ describe 'View team members of my organisation' do
         sign_in_user user
         visit team_members_path
 
-        expect(page.body).to match(/#{user_2.name}.*#{user_1.email}.*#{user.email}.*#{user_3.name}/m)
+        expect(page.body).to match(/#{user_2.name}.*#{user_1.email}.*#{user.name}.*#{user_3.name}/m)
       end
     end
 
