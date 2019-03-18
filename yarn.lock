@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-govuk-frontend@^2.7.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-2.7.0.tgz#6a12baf514426653220dd3cdef55b1e1d97f52a6"
+govuk-frontend@^2.9.0:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-2.9.0.tgz#bc3ee6ee124d19e2d1ff4802c9eb7ea15039a205"
 
 html5shiv@^3.7.3:
   version "3.7.3"
