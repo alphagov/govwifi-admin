@@ -38,7 +38,7 @@ describe 'View team members of my organisation' do
       let!(:user_1) { create(:user, email: 'amada@example.gov.uk', organisation: organisation) }
       let!(:user_3) { create(:user, email: 'zara@example.gov.uk', organisation: organisation) }
 
-      it 'renders all confirmed team members within my organisation in alphabetical order' do
+      it 'renders all team members within my organisation in alphabetical order' do
         sign_in_user user
         visit team_members_path
 
