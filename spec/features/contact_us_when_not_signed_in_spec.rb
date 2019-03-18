@@ -98,7 +98,7 @@ describe 'Contact us when not signed in' do
       visit signing_up_new_help_path
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
-      click_on('Submit')
+      expect { click_on('Submit') }.to_not change { support_tickets.count }
     end
 
     context 'with blank details' do
@@ -122,7 +122,7 @@ describe 'Contact us when not signed in' do
         let(:email) { 'test@' }
 
         it 'does not submit the form' do
-          expect(page).to have_content 'Email is incorrect'
+          expect(page).to have_content 'Email is not a valid email address'
         end
       end
 
@@ -130,7 +130,7 @@ describe 'Contact us when not signed in' do
         let(:email) { 'test@ gov .uk' }
 
         it 'does not submit the form' do
-          expect(page).to have_content 'Email is incorrect'
+          expect(page).to have_content 'Email is not a valid email address'
         end
       end
 
@@ -138,7 +138,7 @@ describe 'Contact us when not signed in' do
         let(:email) { 'testgov.uk' }
 
         it 'does not submit the form' do
-          expect(page).to have_content 'Email is incorrect'
+          expect(page).to have_content 'Email is not a valid email address'
         end
       end
     end
