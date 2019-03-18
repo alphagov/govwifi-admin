@@ -98,7 +98,7 @@ describe 'Contact us when not signed in' do
       visit signing_up_new_help_path
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
-      expect { click_on('Submit') }.to_not change { support_tickets.count }
+      expect { click_on('Submit') }.to_not change(support_tickets, :count)
     end
 
     context 'with blank details' do
