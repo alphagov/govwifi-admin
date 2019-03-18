@@ -34,16 +34,15 @@ describe 'View team members of my organisation' do
     end
 
     context 'when there are many users in my organisation' do
-      before do
-        create(:user, email: 'friend@example.gov.uk', organisation: organisation)
-      end
+      let!(:user_2) { create(:user, email: 'bob@example.gov.uk', organisation: organisation) }
+      let!(:user_1) { create(:user, email: 'amada@example.gov.uk', organisation: organisation) }
+      let!(:user_3) { create(:user, email: 'zara@example.gov.uk', organisation: organisation) }
 
-      it 'renders all users within my organisation' do
+      it 'renders all confirmed team members within my organisation in alphabetical order' do
         sign_in_user user
         visit team_members_path
 
-        expect(page).to have_content('me@example.gov.uk')
-        expect(page).to have_content('friend@example.gov.uk')
+        expect(page.body).to match(/amada@example.gov.uk.*bob@example.gov.uk.*me@example.gov.uk.*zara@example.gov.uk/m)
       end
     end
 
