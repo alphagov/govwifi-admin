@@ -25,6 +25,8 @@ serve: build
 lint:
 	$(MAKE) build
 	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-ruby app lib spec Gemfile*
+	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-sass app/assets/stylesheets
+
 
 test:
 	$(MAKE) build
