@@ -3,10 +3,9 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
 describe 'inviting a user that has signed up' do
-  let(:confirmed_user) { create(:user) }
-
   include_examples 'invite use case spy'
 
+  let(:confirmed_user) { create(:user) }
 
   context 'when user is already a confirmed user' do
     let(:betty) { create(:user) }
@@ -47,13 +46,11 @@ describe 'inviting a user that has signed up' do
   end
 
   context 'when user is an unconfirmed user' do
+    include_examples 'confirmation use case spy'
+
     let(:unconfirmed_email) { 'notconfirmedyet@gov.uk' }
 
     before { sign_up_for_account(email: unconfirmed_email) }
-
-    include_examples 'confirmation use case spy'
-
-
 
     it 'sends a confirmation link' do
       expect(ConfirmationUseCaseSpy.confirmations_count).to eq(1)

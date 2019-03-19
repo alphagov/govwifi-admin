@@ -112,7 +112,7 @@ describe UseCases::Administrator::HealthChecks::CalculateHealth do
     described_class.new(route53_gateway: aws_route53_gateway).execute(ips: ips)
   end
 
-  context 'Given health checkers are healthy' do
+  context 'when health checkers are healthy' do
     let(:ips) { ['111.111.111.111', '222.222.222.222'] }
 
     it 'returns operational if all health checkers are healthy' do
@@ -125,7 +125,7 @@ describe UseCases::Administrator::HealthChecks::CalculateHealth do
     end
   end
 
-  context 'Given some checkers are unhealthy' do
+  context 'when some checkers are unhealthy' do
     let(:aws_route53_gateway) { FakeUnHealthyRoute53Gateway.new }
     let(:ips) { ['123.123.123.123'] }
 
@@ -136,7 +136,7 @@ describe UseCases::Administrator::HealthChecks::CalculateHealth do
     end
   end
 
-  context 'No health checks found' do
+  context 'when no health checks found' do
     let(:ips) { [] }
 
     it 'finds no health checks' do

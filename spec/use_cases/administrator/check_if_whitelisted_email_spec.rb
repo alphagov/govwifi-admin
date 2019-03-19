@@ -3,7 +3,7 @@ describe UseCases::Administrator::CheckIfWhitelistedEmail do
 
   let(:s3_gateway) { double(read: '^.*@(aaa\.uk)$') }
 
-  context 'given a whitelisted email' do
+  context 'when a whitelisted email' do
     it 'accepts an address matching the regex' do
       result = subject.execute('someone@aaa.uk')
       expect(result).to eq(success: true)
@@ -15,14 +15,14 @@ describe UseCases::Administrator::CheckIfWhitelistedEmail do
     end
   end
 
-  context 'given a non-whitelisted email' do
+  context 'when a non-whitelisted email' do
     it 'rejects an address not matching the regex' do
       result = subject.execute('someone@bbb.uk')
       expect(result).to eq(success: false)
     end
   end
 
-  context 'given an invalid email' do
+  context 'when an invalid email' do
     it 'rejects an empty email address' do
       result = subject.execute('')
       expect(result).to eq(success: false)

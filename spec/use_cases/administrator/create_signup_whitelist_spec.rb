@@ -1,7 +1,7 @@
 describe UseCases::Administrator::CreateSignupWhitelist do
   let(:result) { subject.execute(authorised_domains) }
 
-  context 'given no domains' do
+  context 'when no domains' do
     let(:authorised_domains) { [] }
 
     it 'creates no whitelist' do
@@ -9,7 +9,7 @@ describe UseCases::Administrator::CreateSignupWhitelist do
     end
   end
 
-  context 'given one domain' do
+  context 'when one domain' do
     let(:authorised_domains) { %w(gov.uk) }
 
     it 'escapes the fullstops' do
@@ -21,7 +21,7 @@ describe UseCases::Administrator::CreateSignupWhitelist do
     end
   end
 
-  context 'given multiple domains' do
+  context 'when multiple domains' do
     let(:authorised_domains) { %w(gov.uk police.uk some.domain.org.uk) }
 
     it 'creates a whitelist with multiple entries' do

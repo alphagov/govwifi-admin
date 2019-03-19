@@ -10,7 +10,7 @@ describe Gateways::S3 do
     expect(subject.write(data: data)).to eq({})
   end
 
-  context 'given we read from the S3 file' do
+  context 'when we read from the S3 file' do
     before do
       Rails.application.config.s3_aws_config = {
         stub_responses: {

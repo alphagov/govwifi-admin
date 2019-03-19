@@ -1,5 +1,5 @@
 describe UseCases::Administrator::SendConfirmationEmail do
-  subject { described_class.new(notifications_gateway: gateway_spy) }
+  subject(:use_case) { described_class.new(notifications_gateway: gateway_spy) }
 
   let(:gateway_spy) { spy(send: nil) }
 
@@ -8,7 +8,7 @@ describe UseCases::Administrator::SendConfirmationEmail do
   let(:template_id) { GOV_NOTIFY_CONFIG['confirmation_email']['template_id'] }
 
   before do
-    subject.execute(
+    use_case.execute(
       email: email,
       confirmation_url: confirmation_url,
       template_id: template_id

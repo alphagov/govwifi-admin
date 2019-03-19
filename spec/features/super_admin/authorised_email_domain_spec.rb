@@ -8,7 +8,7 @@ describe 'Authorised Email Domains' do
     context 'as super admin' do
       let(:admin_user) { create(:user, super_admin: true) }
 
-      context 'given I want to whitelist a domain' do
+      context 'when I want to whitelist a domain' do
         before do
           fill_in 'Name', with: some_domain
         end

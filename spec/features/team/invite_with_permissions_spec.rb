@@ -11,7 +11,7 @@ describe 'Set user permissions on invite' do
     fill_in 'Email', with: invited_email
   end
 
-  context 'Given I set all the permissions' do
+  context 'when I set all the permissions' do
     it 'assigns all the permissions to the user' do
       click_on 'Send invitation email'
 
@@ -20,7 +20,7 @@ describe 'Set user permissions on invite' do
     end
   end
 
-  context 'Given I set only the .can_manage_team permission' do
+  context 'when I set only the .can_manage_team permission' do
     it 'assigns only that permission' do
       uncheck 'Manage locations'
       click_on 'Send invitation email'
@@ -30,7 +30,7 @@ describe 'Set user permissions on invite' do
     end
   end
 
-  context 'Given I set no permissions' do
+  context 'when I set no permissions' do
     it 'assigns no permissions' do
       uncheck 'Manage locations'
       uncheck 'Manage team'

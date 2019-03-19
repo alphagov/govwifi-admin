@@ -2,6 +2,9 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
 describe 'logging in after signing up' do
+  include_examples 'confirmation use case spy'
+  include_examples 'notifications service'
+
   let(:correct_password) { 'f1uffy-bu44ies' }
 
   before do
@@ -15,11 +18,6 @@ describe 'logging in after signing up' do
 
     click_on 'Continue'
   end
-
-  include_examples 'confirmation use case spy'
-  include_examples 'notifications service'
-
-
 
   context 'with correct password' do
     let(:password) { correct_password }

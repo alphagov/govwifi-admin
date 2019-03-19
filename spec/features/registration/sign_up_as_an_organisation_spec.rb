@@ -159,7 +159,7 @@ describe 'Sign up as an organisation' do
     end
   end
 
-  context 'Given an organisation is already registered' do
+  context 'when an organisation is already registered' do
     let(:existing_org_name) { 'Gov Org 1' }
 
     before do

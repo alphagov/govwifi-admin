@@ -1,17 +1,14 @@
 require 'support/notifications_service'
 
 describe 'viewing all unconfirmed users' do
+  include_examples 'notifications service'
+
   let!(:confirmed_user) { create(:user, email: "test5@gov.uk", organisation: organisation) }
   let!(:unconfirmed_user_2) { create(:user, email: "test3@gov.uk", confirmed_at: nil) }
   let!(:unconfirmed_user_3) { create(:user, email: "test4@gov.uk", confirmed_at: nil) }
   let!(:unconfirmed_user_1) { create(:user, email: "test2@gov.uk", confirmed_at: nil) }
   let(:admin_user) { create(:user, email: "admin@gov.uk", super_admin: true, organisation: organisation) }
   let(:organisation) { create(:organisation) }
-
-  include_examples 'notifications service'
-
-
-
 
   context 'when visiting the manage users page' do
     before do

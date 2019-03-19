@@ -34,14 +34,14 @@ describe Organisation do
       end
     end
 
-    context 'Given my organisation is in the GovUk register' do
+    context 'when my organisation is in the GovUk register' do
       it 'is valid' do
         organisation = build(:organisation, name: 'Gov Org 1')
         expect(organisation).to be_valid
       end
     end
 
-    context 'Given my organisation is not in the GovUk register' do
+    context 'when my organisation is not in the GovUk register' do
       it 'is not valid' do
         expect { create(:organisation, name: 'Some invalid organisation name') }.to raise_error ActiveRecord::RecordInvalid
       end
