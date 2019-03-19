@@ -1,10 +1,12 @@
 require 'support/invite_use_case_spy'
 require 'support/invite_use_case'
 require 'support/notifications_service'
+require 'support/confirmation_use_case'
 
 describe "Invite a team member" do
   include_examples 'invite use case spy'
   include_examples 'notifications service'
+  include_examples 'confirmation use case spy'
 
   context "when logged out" do
     before do
@@ -77,8 +79,18 @@ describe "Invite a team member" do
         end
 
         context "and is not confirmed" do
-          let(:invited_user) { create(:user, :unconfirmed) }
-          let(:invited_user_email) { invited_user.email }
+          before do
+            sign_out
+            sign_up_for_account(email: invited_user_email)
+            sign_in_user user
+            visit root_path
+            click_on "Team"
+            click_on "Invite team member"
+            fill_in "Email", with: invited_user_email
+          end
+
+          let(:invited_user_email) { 'notconfirmedyet@gov.uk' }
+          let(:invited_user) { User.find_by(email: invited_user_email) }
 
           it "sends them an invite to the organisation's account" do
             expect {

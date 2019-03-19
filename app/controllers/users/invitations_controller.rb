@@ -1,11 +1,11 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :authorise_manage_team, only: %i(create new)
-  before_action :delete_original_invite, if: :resending_invite?, only: :create
+  before_action :delete_user_record, if: :resending_invite?, only: :create
   before_action :add_organisation_to_params, :validate_invited_user, only: :create
 
 private
 
-  def delete_original_invite
+  def delete_user_record
     User.find_by(email: invite_params[:email]).destroy!
   end
 
@@ -26,9 +26,8 @@ private
   end
 
   def user_is_invalid?
+    delete_user_record if invited_user_already_exists? && invited_user_not_confirmed?
     @user = User.new(invite_params)
-    return !invited_user_not_confirmed? if invited_user_already_exists? && invited_user_not_confirmed?
-
     !@user.validate
   end
 
@@ -54,20 +53,5 @@ private
 
   def authorise_manage_team
     redirect_to(root_path) unless current_user.can_manage_team?
-  end
-
-  def invite_resource(&block)
-    @user = User.find_by(email: invite_params[:email])
-    # @user is an instance or nil
-    if @user.nil?
-      # invite! class method returns invitable var, which is a User instance
-      resource_class.invite!(invite_params, current_inviter, &block)
-    elsif @user.confirmed_at.nil? && @user.email != current_user.email
-      # invite! instance method returns a Mail::Message instance
-      @user.invite!(current_user)
-      @user.update_attributes(invite_params)
-      # return the user instance to match expected return type
-      @user
-    end
   end
 end
