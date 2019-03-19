@@ -66,7 +66,7 @@ describe "Invite a team member" do
       end
 
       context "with an email that already exists" do
-        context "and is confirmed" do
+        context "when the user is confirmed" do
           let(:invited_user_email) { user.email }
 
           it "tells the user that the email has already been taken" do
@@ -130,7 +130,7 @@ describe "Invite a team member" do
         end
       end
 
-      context "tells user that email must be a valid email address" do
+      context "with a valid email address" do
         let(:invited_user_email) { "hello" }
 
         it "tells the user " do
