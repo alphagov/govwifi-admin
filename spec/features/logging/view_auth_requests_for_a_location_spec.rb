@@ -18,7 +18,7 @@ describe 'View authentication requests for a location' do
 
       let!(:organisation) { create(:organisation, locations: [location_2, location_3, location_4]) }
 
-      it 'shows the organisations alpabetical order' do
+      it 'shows the organisations in alpabetical order' do
         locations = find('#logs_search_term').all('option').collect(&:text)
         expect(locations).to match_array ["Abbey Street, HA7 2BL", "Garry Road, HA7 4BL", "Zeon Grove, HA7 3BL"]
       end
