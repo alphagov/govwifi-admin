@@ -11,6 +11,19 @@ describe 'View authentication requests for a location' do
       click_on 'Go to search'
     end
 
+    context 'With a new set of locations' do
+      let(:location_3) { create(:location, address: "Zeon Grove", postcode: "HA7 3BL") }
+      let(:location_2) { create(:location, address: "Abbey Street", postcode: "HA7 2BL") }
+      let(:location_4) { create(:location, address: "Garry Road", postcode: "HA7 4BL") }
+
+      let!(:organisation) { create(:organisation, locations: [location_2, location_3, location_4]) }
+
+      it 'shows me the locations in alpabetical order' do
+        locations = find('#logs_search_term').all('option').collect(&:text)
+        expect(locations).to match_array ["Abbey Street, HA7 2BL", "Garry Road, HA7 4BL", "Zeon Grove, HA7 3BL"]
+      end
+    end
+
     it 'shows me my locations' do
       organisation.locations.each do |location|
         expect(page).to have_content(location.full_address)
