@@ -48,7 +48,7 @@ private
   end
 
   def invited_user_not_confirmed?
-    User.find_by(email: invite_params[:email]).confirmed_at.nil?
+    !User.find_by(email: invite_params[:email]).confirmed?
   end
 
   def invited_user_has_no_org?

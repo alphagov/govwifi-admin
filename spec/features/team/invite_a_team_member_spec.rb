@@ -20,9 +20,7 @@ describe "Invite a team member" do
     let(:user) { create(:user) }
     before do
       sign_in_user user
-      visit root_path
-      click_on "Team"
-      click_on "Invite team member"
+      visit new_user_invitation_path
     end
 
     it "shows the invites page" do
@@ -46,7 +44,6 @@ describe "Invite a team member" do
             click_on "Send invitation email"
           }.to change { User.count }.by(1)
           expect(InviteUseCaseSpy.invite_count).to eq(1)
-          expect(invited_user.confirmed?).to eq(false)
           expect(invited_user.organisation).to eq(user.organisation)
         end
       end
@@ -60,7 +57,6 @@ describe "Invite a team member" do
             click_on "Send invitation email"
           }.to change { User.count }.by(1)
           expect(InviteUseCaseSpy.invite_count).to eq(1)
-          expect(invited_user.confirmed?).to eq(false)
           expect(invited_user.organisation).to eq(user.organisation)
         end
       end
@@ -83,9 +79,7 @@ describe "Invite a team member" do
             sign_out
             sign_up_for_account(email: invited_user_email)
             sign_in_user user
-            visit root_path
-            click_on "Team"
-            click_on "Invite team member"
+            visit new_user_invitation_path
             fill_in "Email", with: invited_user_email
           end
 
@@ -97,14 +91,13 @@ describe "Invite a team member" do
               click_on "Send invitation email"
             }.to change { User.count }.by(0)
             expect(InviteUseCaseSpy.invite_count).to eq(1)
-            expect(invited_user.confirmed?).to eq(false)
             expect(invited_user.organisation_id).to eq(user.organisation_id)
           end
         end
 
-        context "when user is not confirmed but has a organisation" do
+        context "when user is not confirmed but has already been invited" do
           let(:organisation) { create(:organisation) }
-          let(:invited_user) { create(:user, organisation: organisation, confirmed_at: nil) }
+          let(:invited_user) { create(:user, invitation_sent_at: Time.now, organisation: organisation, confirmed_at: nil) }
           let(:invited_user_email) { invited_user.email }
 
           it "does not send them an invite to the organisation's account" do
@@ -112,8 +105,8 @@ describe "Invite a team member" do
               click_on "Send invitation email"
             }.to change { User.count }.by(0)
             expect(InviteUseCaseSpy.invite_count).to eq(0)
-            expect(invited_user.confirmed?).to eq(false)
             expect(invited_user.organisation_id).to_not eq(user.organisation_id)
+            expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
           end
         end
       end
