@@ -2,30 +2,6 @@ $govuk-image-url-function: "image-url";
 $govuk-font-url-function: "font-url";
 
 @import "../../../node_modules/govuk-frontend/all";
-@import "./components/buttons_and_links";
-@import "./components/flash_messages";
-@import "./components/health_checks";
-@import "./components/label_inside_input";
-@import "./components/overview";
-@import "./utilities/layout";
-@import "./components/main_nav";
-@import "./components/sub_nav";
-@import "./components/team_members";
-@import "./utilities/typography";
-
-.govuk-main-wrapper {
-  margin-top: -25px;
-}
-
-.govuk-phase-banner {
-  margin-bottom: 25px;
-}
-
-.govuk-header__link--homepage {
-  width: 115%;
-}
-
-.beta-logo {
-  margin-left: 8px;
-  vertical-align: middle;
-}
+@import "./utilities/colours";
+@import "./components/*";
+@import "./utilities/*";

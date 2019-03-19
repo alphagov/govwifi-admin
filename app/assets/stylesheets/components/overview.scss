@@ -1,22 +1,22 @@
 .summary-background {
-  background: govuk-colour("blue")
+  background: $colour-blue;
 }
 
 .summary-link-colour:link {
-  color: govuk-colour("white")
+  color: $colour-white;
 }
 
 .summary-link-colour:visited {
-  color: govuk-colour("white")
+  color: $colour-white;
 }
 
 .summary-link-colour:hover {
-  color: govuk-colour("white")
+  color: $colour-white;
 }
 
 .overview-section-alignment {
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .overview-stats-panel {
@@ -26,5 +26,5 @@
 }
 
 .overview-stats-panel:hover {
-  background-color: govuk-colour("light-blue")
+  background-color: $colour-light-blue;
 }
