@@ -5,7 +5,6 @@ class AuthenticationMailer < ::Devise::Mailer
 
   def confirmation_instructions(record, token, _opts = {})
     confirmation_link = confirmation_url(record, confirmation_token: token)
-    puts confirmation_link
     template_id = GOV_NOTIFY_CONFIG['confirmation_email']['template_id']
 
     UseCases::Administrator::SendConfirmationEmail.new(
