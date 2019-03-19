@@ -18,6 +18,7 @@ describe 'editing an organisations details' do
 
   context 'a user from an organisation tries to change another organisations details' do
     let(:admin_user2) { create(:user) }
+
     before do
       sign_in_user admin_user1
     end

@@ -19,7 +19,7 @@ describe Gateways::ZendeskSupportTickets do
       let(:requester_name) { 'alice' }
 
       it 'creates a ticket' do
-        expect(support_tickets).to_not be_empty
+        expect(support_tickets).not_to be_empty
       end
 
       it 'sets the url on the client config' do
@@ -59,7 +59,7 @@ describe Gateways::ZendeskSupportTickets do
       let(:requester_name) { '' }
 
       it 'creates a ticket' do
-        expect(support_tickets).to_not be_empty
+        expect(support_tickets).not_to be_empty
       end
 
       it 'marks the requester name as unknown' do

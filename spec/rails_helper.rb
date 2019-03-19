@@ -32,17 +32,17 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.strategy = :transaction
     Session.delete_all
   end
 
   # This block must be here, do not combine with the other `before(:each)` block.
   # This makes it so Capybara can see the database.
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.start
   end
-  config.after(:each) do
+  config.after do
     Warden.test_reset!
     DatabaseCleaner.clean
     Session.delete_all

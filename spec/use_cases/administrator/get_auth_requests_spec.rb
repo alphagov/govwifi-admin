@@ -1,11 +1,12 @@
 describe UseCases::Administrator::GetAuthRequests do
-  let(:authentication_logs_gateway) { spy }
-
   subject do
     described_class.new(
       authentication_logs_gateway: authentication_logs_gateway,
     )
   end
+
+  let(:authentication_logs_gateway) { spy }
+
 
   context 'search results' do
     context 'search by username' do

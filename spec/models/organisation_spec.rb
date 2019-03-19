@@ -1,7 +1,7 @@
 describe Organisation do
   context 'associations' do
-    it { should have_many(:users) }
-    it { should have_many(:locations) }
+    it { is_expected.to have_many(:users) }
+    it { is_expected.to have_many(:locations) }
 
     context 'when deleting an organisation as an admin' do
       let(:org) { create(:organisation) }
@@ -22,7 +22,7 @@ describe Organisation do
 
       it 'is not valid' do
         organisation = build(:organisation, name: 'Gov Org 1')
-        expect(organisation).to_not be_valid
+        expect(organisation).not_to be_valid
       end
     end
 

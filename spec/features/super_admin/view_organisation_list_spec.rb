@@ -6,6 +6,7 @@ describe 'view list of signed up organisations' do
 
   context 'when not logged in' do
     let(:user) { nil }
+
     it_behaves_like 'not signed in'
   end
 
@@ -28,8 +29,8 @@ describe 'view list of signed up organisations' do
         org.signed_mou.attach(
           io: File.open(Rails.root + "spec/fixtures/mou.pdf"), filename: "mou.pdf"
         )
-        2.times { create(:location, organisation: org) }
-        3.times { create(:ip, location: Location.first) }
+        create_list(:location, 2, organisation: org)
+        create_list(:ip, 3, location: Location.first)
         visit admin_organisations_path
       end
 
@@ -68,7 +69,7 @@ describe 'view list of signed up organisations' do
       before do
         2.times do
           organisation = create(:organisation)
-          3.times { create(:location, organisation: organisation) }
+          create_list(:location, 3, organisation: organisation)
         end
 
         visit admin_organisations_path

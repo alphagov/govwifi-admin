@@ -64,8 +64,8 @@ describe 'View authentication requests for a location' do
       end
 
       it 'does not display logs for other IPs' do
-        expect(page).to_not have_content(other_ip.address)
-        expect(page).to_not have_content('bbbbb')
+        expect(page).not_to have_content(other_ip.address)
+        expect(page).not_to have_content('bbbbb')
       end
     end
   end

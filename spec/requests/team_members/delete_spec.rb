@@ -11,16 +11,17 @@ describe "DELETE /team_members/:id", type: :request do
     it "deletes the team member" do
       expect {
         delete team_member_path(team_member)
-      }.to change { User.count }.by(-1)
+      }.to change(User, :count).by(-1)
     end
   end
 
   context "when the team member belongs to another team" do
     let!(:other_team_member) { create(:user) }
+
     it "does not delete the user" do
       expect {
         delete team_member_path(other_team_member)
-      }.to change { User.count }.by(0)
+      }.to change(User, :count).by(0)
     end
   end
 end

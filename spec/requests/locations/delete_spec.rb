@@ -12,7 +12,7 @@ describe "DELETE /locations/:id", type: :request do
       it "deletes the location" do
         expect {
           delete location_path(location)
-        }.to change { Location.count }.by(-1)
+        }.to change(Location, :count).by(-1)
       end
     end
 
@@ -24,7 +24,7 @@ describe "DELETE /locations/:id", type: :request do
       it "does not delete the location" do
         expect {
           delete location_path(location)
-        }.to change { Location.count }.by(0)
+        }.to change(Location, :count).by(0)
       end
     end
   end
@@ -35,7 +35,7 @@ describe "DELETE /locations/:id", type: :request do
     it "does not delete the location" do
       expect {
         delete location_path(other_location)
-      }.to change { Location.count }.by(0)
+      }.to change(Location, :count).by(0)
     end
   end
 end

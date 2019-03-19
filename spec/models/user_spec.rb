@@ -12,11 +12,11 @@ describe User do
       subject { create(:user) }
 
       it 'can manage team members' do
-        expect(subject.can_manage_team?).to be_truthy
+        expect(subject).to be_can_manage_team
       end
 
       it 'can manage locations' do
-        expect(subject.can_manage_locations?).to be_truthy
+        expect(subject).to be_can_manage_locations
       end
     end
   end

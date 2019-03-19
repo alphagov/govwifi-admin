@@ -1,6 +1,6 @@
 require 'notifications/client'
 
-shared_examples 'notifications service' do
+shared_context 'notifications service' do
   let(:notifications_payload) { double }
 
   before do

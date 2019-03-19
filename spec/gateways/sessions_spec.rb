@@ -1,5 +1,6 @@
 describe Gateways::Sessions do
   subject { described_class.new(ips: my_ips) }
+
   let(:my_ips) { ['127.0.0.1', '127.0.0.2', '127.0.0.3', '127.0.0.4', '127.0.0.5'] }
   let(:today_date) { Time.now.to_s }
   let(:yesterday) { (Time.now - 1.day).to_s }

@@ -1,9 +1,10 @@
 require 'support/confirmation_use_case'
 
 describe 'adding a custom organisation name' do
+  let!(:admin_user) { create(:user, super_admin: true) }
+
   include_examples 'confirmation use case spy'
 
-  let!(:admin_user) { create(:user, super_admin: true) }
 
   context 'when visiting the custom organisations page' do
     let!(:org2) { CustomOrganisationName.create(name: 'Custom Org 2') }
@@ -28,7 +29,7 @@ describe 'adding a custom organisation name' do
       fill_in "Enter the organisation's full name", with: 'Custom Org name'
       expect {
         click_on 'Allow organisation'
-      }.to change { CustomOrganisationName.count }.by(1)
+      }.to change(CustomOrganisationName, :count).by(1)
     end
 
     context 'when the organisation name is blank' do
@@ -68,6 +69,7 @@ describe 'adding a custom organisation name' do
   context 'after addding a custom organisation' do
     let!(:org1) { CustomOrganisationName.create(name: 'Custom Org 1') }
     let!(:org2) { CustomOrganisationName.create(name: 'Custom Org 2') }
+
     before do
       sign_in_user admin_user
       visit admin_custom_organisations_path

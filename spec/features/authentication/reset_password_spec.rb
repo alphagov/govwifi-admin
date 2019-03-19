@@ -41,7 +41,7 @@ describe "Resetting a password" do
 
     it "tells them to confirm their account first" do
       expect(page).to have_content("Resend confirmation instructions")
-      expect(page.current_path).to eq(new_user_confirmation_path)
+      expect(page).to have_current_path(new_user_confirmation_path)
     end
 
     it "resends the confirm email" do

@@ -138,6 +138,7 @@ describe UseCases::Administrator::HealthChecks::CalculateHealth do
 
   context 'No health checks found' do
     let(:ips) { [] }
+
     it 'finds no health checks' do
       expect(result).to be_empty
     end

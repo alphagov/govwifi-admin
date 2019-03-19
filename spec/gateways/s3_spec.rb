@@ -1,9 +1,10 @@
 describe Gateways::S3 do
+  subject { described_class.new(bucket: bucket, key: key) }
+
   let(:bucket) { 'StubBucket' }
   let(:key) { 'StubKey' }
   let(:data) { { blah: 'foobar' }.to_json }
 
-  subject { described_class.new(bucket: bucket, key: key) }
 
   it 'writes the data to the bucket' do
     expect(subject.write(data: data)).to eq({})

@@ -14,7 +14,7 @@ describe 'the upload and download of MOUs' do
     end
 
     context 'no file uploaded' do
-      it 'should error' do
+      it 'errors' do
         visit mou_index_path
         click_on 'Upload'
 
@@ -40,7 +40,7 @@ describe 'the upload and download of MOUs' do
       it 'redirects unauthorised access' do
         visit admin_mou_index_path
 
-        expect(page.current_path).to eq(setup_instructions_path)
+        expect(page).to have_current_path(setup_instructions_path)
       end
     end
   end

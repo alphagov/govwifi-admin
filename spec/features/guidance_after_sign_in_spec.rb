@@ -2,6 +2,7 @@ describe 'guidance after sign in' do
   include_context 'with a mocked notifications client'
 
   let(:user) { create(:user) }
+
   before { sign_in_user user }
 
   context 'without locations' do
@@ -14,6 +15,7 @@ describe 'guidance after sign in' do
 
   context 'with locations' do
     let!(:location) { create(:location, organisation: user.organisation) }
+
     before { visit root_path }
 
     it 'shows me the landing guidance' do

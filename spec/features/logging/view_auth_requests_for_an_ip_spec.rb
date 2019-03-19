@@ -54,7 +54,7 @@ describe 'View authentication requests for an IP' do
 
         it_behaves_like "errors in form"
 
-        it "should display an error summary and prompt to the user" do
+        it "displays an error summary and prompt to the user" do
           expect(page).to have_content("Search term must be a valid IP address")
           expect(page).to have_content("Enter a valid IP address")
         end

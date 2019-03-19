@@ -12,7 +12,7 @@ describe 'Set user permissions on invite' do
   end
 
   context 'Given I set all the permissions' do
-    it 'should assign all the permissions to the user' do
+    it 'assigns all the permissions to the user' do
       click_on 'Send invitation email'
 
       expect(invited_user.permission.can_manage_team?).to eq(true)
@@ -21,7 +21,7 @@ describe 'Set user permissions on invite' do
   end
 
   context 'Given I set only the .can_manage_team permission' do
-    it 'should assign only that permission' do
+    it 'assigns only that permission' do
       uncheck 'Manage locations'
       click_on 'Send invitation email'
 
@@ -31,7 +31,7 @@ describe 'Set user permissions on invite' do
   end
 
   context 'Given I set no permissions' do
-    it 'should assign no permissions' do
+    it 'assigns no permissions' do
       uncheck 'Manage locations'
       uncheck 'Manage team'
 

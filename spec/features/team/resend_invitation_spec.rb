@@ -4,11 +4,8 @@ require 'support/notifications_service'
 
 describe 'Resend invitation to team member' do
   context 'resend invitation' do
-    include_examples 'invite use case spy'
-    include_examples 'notifications service'
-
-    let(:user) { create(:user) }
     let(:invited_user_email) { 'invited@gov.uk' }
+    let(:user) { create(:user) }
 
     before do
       sign_in_user user
@@ -16,13 +13,18 @@ describe 'Resend invitation to team member' do
       visit team_members_path
     end
 
+    include_examples 'invite use case spy'
+    include_examples 'notifications service'
+
+
+
     it 'shows that the invitation is pending' do
       expect(page).to have_content('invited')
     end
 
     it 'sends an invitation' do
       expect { click_on 'Resend invite' }.to \
-        change { InviteUseCaseSpy.invite_count }.by(1)
+        change(InviteUseCaseSpy, :invite_count).by(1)
     end
 
     context 'signup from resent invitation' do

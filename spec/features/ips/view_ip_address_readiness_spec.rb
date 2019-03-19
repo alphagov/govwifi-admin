@@ -36,7 +36,7 @@ describe 'view whether IPs are ready' do
 
         it 'shows it as available' do
           expect(page).to have_content('Available')
-          expect(page).to_not have_content('tomorrow')
+          expect(page).not_to have_content('tomorrow')
         end
       end
     end

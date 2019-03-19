@@ -16,7 +16,7 @@ describe 'Edit user permissions' do
 
     it 'does not show the edit team member link' do
       visit team_members_path
-      expect(page).to_not have_link('Edit permissions')
+      expect(page).not_to have_link('Edit permissions')
     end
 
     it 'Prevents visiting the edit permissions page directly' do

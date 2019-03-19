@@ -3,10 +3,11 @@ require 'support/confirmation_use_case_spy'
 require 'support/confirmation_use_case'
 
 describe 'Resending confirmation instructions' do
+  let(:correct_email) { 'user@gov.uk' }
+
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
 
-  let(:correct_email) { 'user@gov.uk' }
 
   context 'when entering correct information' do
     let(:entered_email) { correct_email }
@@ -17,7 +18,7 @@ describe 'Resending confirmation instructions' do
         visit new_user_confirmation_path
         fill_in 'user_email', with: entered_email
         click_on 'Resend confirmation instructions'
-      }.to change { ConfirmationUseCaseSpy.confirmations_count }.by(2)
+      }.to change(ConfirmationUseCaseSpy, :confirmations_count).by(2)
 
       expect(URI(confirmation_email_link).scheme).to eq("https")
     end

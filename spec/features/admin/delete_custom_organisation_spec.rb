@@ -15,7 +15,7 @@ describe 'deleting a custom organisation name' do
       click_link "custom-organisation-#{custom_org_name1.id}"
       click_on 'Yes, remove this organisation'
       visit admin_custom_organisations_path
-      expect(page).to_not have_content("DummyOrg1")
+      expect(page).not_to have_content("DummyOrg1")
     end
   end
 
@@ -30,7 +30,7 @@ describe 'deleting a custom organisation name' do
 
       expect {
         click_on 'Yes, remove this organisation'
-      }.to change { CustomOrganisationName.count }.by(-1)
+      }.to change(CustomOrganisationName, :count).by(-1)
     end
   end
 end

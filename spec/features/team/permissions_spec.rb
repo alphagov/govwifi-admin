@@ -19,7 +19,7 @@ describe 'Invite a team member' do
 
     it 'allows visiting the invites page directly' do
       visit new_user_invitation_path
-      expect(page.current_path).to eq(new_user_invitation_path)
+      expect(page).to have_current_path(new_user_invitation_path)
     end
 
     it 'allows re-sending invites' do
@@ -39,20 +39,20 @@ describe 'Invite a team member' do
     it 'hides the invite team member link' do
       visit team_members_path
 
-      expect(page).to_not have_link('Invite team member')
+      expect(page).not_to have_link('Invite team member')
     end
 
     it 'prevents visiting the invites page directly' do
       visit new_user_invitation_path
 
-      expect(page.current_path).to eq(setup_instructions_path)
+      expect(page).to have_current_path(setup_instructions_path)
     end
 
     it 'does not allow re-sending invites' do
       create(:user, organisation: user.organisation, invitation_sent_at: Date.today)
       visit team_members_path
 
-      expect(page).to_not have_button('Resend invite')
+      expect(page).not_to have_button('Resend invite')
     end
   end
 end

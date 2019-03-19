@@ -1,5 +1,6 @@
 describe UseCases::Administrator::CheckIfWhitelistedEmail do
   subject { described_class.new(gateway: s3_gateway) }
+
   let(:s3_gateway) { double(read: '^.*@(aaa\.uk)$') }
 
   context 'given a whitelisted email' do

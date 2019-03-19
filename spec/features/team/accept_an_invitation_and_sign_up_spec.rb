@@ -3,17 +3,19 @@ require 'support/invite_use_case'
 require 'support/notifications_service'
 
 describe "Sign up from invitation" do
-  include_examples 'invite use case spy'
-  include_examples 'notifications service'
-
-  let(:user) { create(:user) }
   let(:invited_user_email) { "invited@gov.uk" }
+  let(:user) { create(:user) }
 
   before do
     sign_in_user user
     invite_user(invited_user_email)
     sign_out
   end
+
+  include_examples 'invite use case spy'
+  include_examples 'notifications service'
+
+
 
   context "following the invite link" do
     let(:invite_link) { InviteUseCaseSpy.last_invite_url }

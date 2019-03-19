@@ -65,7 +65,7 @@ describe "View authentication requests for a username" do
       end
 
       it "does not display the logs of the ip the organisation does not own" do
-        expect(page).to_not have_content("2.2.2.2")
+        expect(page).not_to have_content("2.2.2.2")
       end
     end
 
@@ -95,7 +95,7 @@ describe "View authentication requests for a username" do
 
       it_behaves_like "errors in form"
 
-      it "should display an error summary to the user" do
+      it "displays an error summary to the user" do
         expect(page).to have_content("Search term must be 5 or 6 characters")
         expect(page).to have_content("Enter a valid username")
       end

@@ -3,9 +3,10 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
 describe 'inviting a user that has signed up' do
+  let(:confirmed_user) { create(:user) }
+
   include_examples 'invite use case spy'
 
-  let(:confirmed_user) { create(:user) }
 
   context 'when user is already a confirmed user' do
     let(:betty) { create(:user) }
@@ -19,7 +20,7 @@ describe 'inviting a user that has signed up' do
     it "does not send an invitation" do
       expect {
         click_on "Send invitation email"
-      }.to change { User.count }.by(0)
+      }.to change(User, :count).by(0)
       expect(InviteUseCaseSpy.invite_count).to eq(0)
       expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
     end
@@ -35,7 +36,7 @@ describe 'inviting a user that has signed up' do
       end
 
       it 'has no errors upon signing in' do
-        expect(page).to_not have_content('An error occurred')
+        expect(page).not_to have_content('An error occurred')
       end
 
       it 'does not change their default permissions' do
@@ -46,11 +47,13 @@ describe 'inviting a user that has signed up' do
   end
 
   context 'when user is an unconfirmed user' do
-    include_examples 'confirmation use case spy'
-
     let(:unconfirmed_email) { 'notconfirmedyet@gov.uk' }
 
     before { sign_up_for_account(email: unconfirmed_email) }
+
+    include_examples 'confirmation use case spy'
+
+
 
     it 'sends a confirmation link' do
       expect(ConfirmationUseCaseSpy.confirmations_count).to eq(1)
@@ -91,7 +94,7 @@ describe 'inviting a user that has signed up' do
         end
 
         it 'displays no errors upon signing in' do
-          expect(page).to_not have_content('An error occurred')
+          expect(page).not_to have_content('An error occurred')
         end
       end
     end

@@ -5,7 +5,7 @@ describe LogsSearch do
     context 'with blank term' do
       before { subject.term = '' }
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it 'explains it is blank' do
         subject.valid?
@@ -16,7 +16,7 @@ describe LogsSearch do
     context 'with 4 characters' do
       before { subject.term = 'abcd' }
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it 'explains the required length' do
         subject.valid?
@@ -39,7 +39,7 @@ describe LogsSearch do
     context 'with 7 characters' do
       before { subject.term = 'abcdefg' }
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it 'explains the required length' do
         subject.valid?
@@ -54,7 +54,7 @@ describe LogsSearch do
     context 'with blank term' do
       before { subject.term = '' }
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it 'explains it is blank' do
         subject.valid?
@@ -65,7 +65,7 @@ describe LogsSearch do
     context 'with an invalid IP' do
       before { subject.term = 'badger' }
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it 'explains it is invalid' do
         subject.valid?
@@ -76,7 +76,7 @@ describe LogsSearch do
     context 'with another invalid IP' do
       before { subject.term = '10.x.20.30' }
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it 'explains it is invalid' do
         subject.valid?

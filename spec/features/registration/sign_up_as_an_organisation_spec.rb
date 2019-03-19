@@ -2,8 +2,7 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
 describe 'Sign up as an organisation' do
-  include_examples 'confirmation use case spy'
-  include_examples 'notifications service'
+  let(:name) { 'Sally' }
 
   before do
     Rails.application.config.s3_aws_config = {
@@ -13,10 +12,14 @@ describe 'Sign up as an organisation' do
     }
   end
 
-  let(:name) { 'Sally' }
+  include_examples 'confirmation use case spy'
+  include_examples 'notifications service'
+
+
 
   context 'with a valid email' do
     let(:email) { 'newuser@gov.uk' }
+
     before { sign_up_for_account(email: email) }
 
     it 'instructs the user to check their confirmation email' do
@@ -177,6 +180,7 @@ describe 'Sign up as an organisation' do
 
   context 'with an already registered email' do
     let(:email) { 'george@gov.uk' }
+
     before { sign_up_for_account(email: email) }
 
     it 'will tell the user the email is already in use' do
