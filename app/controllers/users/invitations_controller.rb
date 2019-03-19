@@ -26,7 +26,7 @@ private
   end
 
   def user_is_invalid?
-    delete_user_record if invited_user_already_exists? && invited_user_not_confirmed?
+    delete_user_record if invited_user_already_exists? && invited_user_not_confirmed? && invited_user_has_no_org?
     @user = User.new(invite_params)
     !@user.validate
   end
@@ -41,6 +41,10 @@ private
 
   def invited_user_not_confirmed?
     User.find_by(email: invite_params[:email]).confirmed_at.nil?
+  end
+
+  def invited_user_has_no_org?
+    User.find_by(email: invite_params[:email]).organisation_id.nil?
   end
 
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105

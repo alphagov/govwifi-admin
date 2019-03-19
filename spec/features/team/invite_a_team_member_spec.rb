@@ -78,7 +78,7 @@ describe "Invite a team member" do
           end
         end
 
-        context "and is not confirmed" do
+        context "when user is not confirmed and has no organisation" do
           before do
             sign_out
             sign_up_for_account(email: invited_user_email)
@@ -99,6 +99,21 @@ describe "Invite a team member" do
             expect(InviteUseCaseSpy.invite_count).to eq(1)
             expect(invited_user.confirmed?).to eq(false)
             expect(invited_user.organisation_id).to eq(user.organisation_id)
+          end
+        end
+
+        context "when user is not confirmed but has a organisation" do
+          let(:organisation) { create(:organisation) }
+          let(:invited_user) { create(:user, organisation: organisation, confirmed_at: nil) }
+          let(:invited_user_email) { invited_user.email }
+
+          it "does not send them an invite to the organisation's account" do
+            expect {
+              click_on "Send invitation email"
+            }.to change { User.count }.by(0)
+            expect(InviteUseCaseSpy.invite_count).to eq(0)
+            expect(invited_user.confirmed?).to eq(false)
+            expect(invited_user.organisation_id).to_not eq(user.organisation_id)
           end
         end
       end
