@@ -65,34 +65,9 @@ describe 'inviting a user that has signed up' do
         click_on "Send invitation email"
       end
 
-      it "does not send an invitation" do
-        expect(InviteUseCaseSpy.invite_count).to eq(0)
-        expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
-      end
-
-      context 'when user uses the confirmation link after invitation attempt' do
-        let(:claire) { User.find_by(email: unconfirmed_email) }
-
-        before { visit confirmation_email_link }
-
-        it 'redirects them to a page to finish creating their account' do
-          expect(page).to have_content("Your name")
-          expect(page).to have_content("Create your account")
-        end
-
-        it 'does not change the default permissions from signing up' do
-          expect(claire.permission.can_manage_team?).to eq(true)
-          expect(claire.permission.can_manage_locations?).to eq(true)
-        end
-
-        it 'signs them in successfully' do
-          update_user_details(name: 'claire', organisation_name: 'Org 2')
-          expect(page).to have_content 'Sign out'
-        end
-
-        it 'displays no errors upon signing in' do
-          expect(page).to_not have_content('An error occurred')
-        end
+      it "sends an invitation" do
+        expect(InviteUseCaseSpy.invite_count).to eq(1)
+        expect(page).to_not have_content("Email is already associated with an account. If you can't sign in, reset your password")
       end
     end
   end
