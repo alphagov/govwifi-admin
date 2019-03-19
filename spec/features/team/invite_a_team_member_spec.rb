@@ -35,7 +35,7 @@ describe "Invite a team member" do
         fill_in "Email", with: invited_user_email
       end
 
-      context "with gov.uk email address" do
+      context "for new user with gov.uk email address" do
         let(:invited_user_email) { "correct@gov.uk" }
         let(:invited_user) { User.find_by(email: invited_user_email) }
 
@@ -49,7 +49,7 @@ describe "Invite a team member" do
         end
       end
 
-      context "with non gov.uk email address" do
+      context "for new user with non gov.uk email address" do
         let(:invited_user_email) { "incorrect@gmail.com" }
         let(:invited_user) { User.find_by(email: invited_user_email) }
 
@@ -64,14 +64,30 @@ describe "Invite a team member" do
       end
 
       context "with an email that already exists" do
-        let(:invited_user_email) { user.email }
+        context "and is confirmed" do
+          let(:invited_user_email) { user.email }
 
-        it "tells the user that the email has already been taken" do
-          expect {
-            click_on "Send invitation email"
-          }.to change { User.count }.by(0)
-          expect(InviteUseCaseSpy.invite_count).to eq(0)
-          expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
+          it "tells the user that the email has already been taken" do
+            expect {
+              click_on "Send invitation email"
+            }.to change { User.count }.by(0)
+            expect(InviteUseCaseSpy.invite_count).to eq(0)
+            expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
+          end
+        end
+
+        context "and is not confirmed" do
+          let(:invited_user) { create(:user, :unconfirmed) }
+          let(:invited_user_email) { invited_user.email }
+
+          it "sends them an invite to the organisation's account" do
+            expect {
+              click_on "Send invitation email"
+            }.to change { User.count }.by(0)
+            expect(InviteUseCaseSpy.invite_count).to eq(1)
+            expect(invited_user.confirmed?).to eq(false)
+            expect(invited_user.organisation_id).to eq(user.organisation_id)
+          end
         end
       end
 
