@@ -1,6 +1,7 @@
 class LogsSearchesController < ApplicationController
   def create
     @search = LogsSearch.new(search_params)
+    @locations = current_organisation.locations.order([:address])
 
     @search.first_step ? filter_choice : term_choice
   end
