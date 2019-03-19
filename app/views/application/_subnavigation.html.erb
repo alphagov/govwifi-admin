@@ -12,7 +12,6 @@
   <div class='govuk-grid-column-three-quarters govuk-grid-column-two-thirds-from-desktop govuk-!-padding-0 nav-links'>
     <nav class='govuk-body govuk-!-margin-bottom-0'>
       <% if current_user.super_admin? %>
-        <%= link_to 'Manage Users', admin_manage_users_path, class: active_tab(admin_manage_users_path) %>
         <%= link_to 'Organisations', admin_organisations_path, class: active_tab(admin_organisations_path) %>
         <%= link_to 'Allow Organisations', admin_custom_organisations_path, class: active_tab(admin_custom_organisations_path) %>
         <%= link_to 'MOU', admin_mou_index_path, class: active_tab(admin_mou_index_path) %>
