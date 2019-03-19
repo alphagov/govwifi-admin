@@ -1,6 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :authorise_manage_team, only: %i(create new)
-  before_action :delete_user_record, if: :resending_invite?, only: :create
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
   before_action :add_organisation_to_params, :validate_invited_user, only: :create
 
