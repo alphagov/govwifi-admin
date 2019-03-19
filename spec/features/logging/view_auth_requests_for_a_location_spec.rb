@@ -1,4 +1,4 @@
-describe 'View authentication requests for a location' do
+describe 'View authentication requests for a location', focus: true do
   context 'when signed in' do
     let(:user) { create(:user, organisation: organisation) }
     let(:organisation) { create(:organisation, :with_locations) }
@@ -12,8 +12,8 @@ describe 'View authentication requests for a location' do
     end
 
     context 'With a new set of locations' do
-      let(:location_3) { create(:location, address: "Zeon Grove", postcode: "HA7 3BL") }
       let(:location_2) { create(:location, address: "Abbey Street", postcode: "HA7 2BL") }
+      let(:location_3) { create(:location, address: "Zeon Grove", postcode: "HA7 3BL") }
       let(:location_4) { create(:location, address: "Garry Road", postcode: "HA7 4BL") }
 
       let!(:organisation) { create(:organisation, locations: [location_2, location_3, location_4]) }
