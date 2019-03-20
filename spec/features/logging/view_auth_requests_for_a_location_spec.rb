@@ -74,6 +74,24 @@ describe 'View authentication requests for a location' do
         expect(page).to_not have_content(other_ip.address)
         expect(page).to_not have_content('bbbbb')
       end
+
+      context 'When going back search by a different location' do
+        before do
+          click_on 'Search by a different location'
+          select location.address, from: "Select one of your organisation's locations"
+          click_on 'Show logs'
+        end
+
+        it 'displays logs for IPs under that location' do
+          expect(page).to have_content(ip.address)
+          expect(page).to have_content('aaaaa')
+        end
+
+        it 'does not display logs for other IPs' do
+          expect(page).to_not have_content(other_ip.address)
+          expect(page).to_not have_content('bbbbb')
+        end
+      end
     end
   end
 end

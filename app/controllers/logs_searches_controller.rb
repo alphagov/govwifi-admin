@@ -1,7 +1,7 @@
 class LogsSearchesController < ApplicationController
   def create
     @search = LogsSearch.new(search_params)
-    @locations = current_organisation.locations.order([:address])
+    @locations = ordered_locations
 
     @search.first_step ? filter_choice : term_choice
   end
@@ -33,11 +33,16 @@ class LogsSearchesController < ApplicationController
 
   def location
     @search = LogsSearch.new(filter: 'location')
+    @locations = ordered_locations
   end
 
 private
 
   def search_params
     params.require(:logs_search).permit(:filter, :term, :first_step)
+  end
+
+  def ordered_locations
+    current_organisation.locations.order([:address])
   end
 end
