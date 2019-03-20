@@ -11,6 +11,7 @@ class Admin::OrganisationsController < AdminController
 
   def show
     @organisation = Organisation.find(params[:id])
+    @locations = @organisation.locations.order("#{sort_column2} #{sort_direction2}")
   end
 
   def destroy
@@ -22,11 +23,19 @@ class Admin::OrganisationsController < AdminController
 private
 
   def sortable_columns
-    %w[name created_at active_storage_attachments.created_at]
+    %w[name created_at active_storage_attachments.created_at address]
+  end
+
+  def sort_column2
+    sortable_columns.include?(params[:sort]) ? params[:sort] : sortable_columns.last
+  end
+
+  def sort_direction2
+    %w[asc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   def sort_column
-    sortable_columns.include?(params[:sort]) ? params[:sort] : "created_at"
+    sortable_columns.include?(params[:sort]) ? params[:sort] : sortable_columns[1]
   end
 
   def sort_direction

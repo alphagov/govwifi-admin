@@ -2,11 +2,16 @@ describe 'view details of a signed up organisation' do
   let(:organisation) { create(:organisation) }
 
   context 'when logged in as a super-admin' do
-    let(:location) { create(:location, organisation: organisation) }
+    let(:location_1) { create(:location, organisation: organisation, address: 'Aarry Street', postcode: 'HA7 3BL') }
+    let(:location_3) { create(:location, organisation: organisation, address: 'Carry Street', postcode: 'HA7 2BL') }
+    let(:location_2) { create(:location, organisation: organisation, address: 'Barry Lane', postcode: 'HA7 6BL') }
 
     before do
       create(:user, organisation: organisation)
-      create(:ip, location: location)
+
+      create(:ip, location: location_1)
+      create(:ip, location: location_2)
+      create(:ip, location: location_3)
 
       sign_in_user create(:user, super_admin: true)
       visit admin_organisation_path(organisation)
@@ -43,20 +48,17 @@ describe 'view details of a signed up organisation' do
 
     it 'shows the number of locations' do
       within('#location-count') do
-        expect(page).to have_content('1')
+        expect(page).to have_content('3')
       end
     end
 
-    it 'lists all locations' do
-      organisation.locations.each do |location|
-        expect(page).to have_content(location.address)
-        expect(page).to have_content(location.postcode)
-      end
+    it 'lists all locations in alphabetical order' do
+      expect(page.body).to match(/#{location_1.address}.*#{location_2.address}.*#{location_3.address}/m)
     end
 
     it 'shows the number of IPs' do
       within('#ip-count') do
-        expect(page).to have_content('1')
+        expect(page).to have_content('3')
       end
     end
 
