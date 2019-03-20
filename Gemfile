@@ -39,6 +39,7 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 11'
+  gem 'erb_lint'
   gem 'listen', '~> 3'
   gem 'pry'
   gem 'rack-mini-profiler', require: false
