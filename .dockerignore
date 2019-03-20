@@ -6,6 +6,7 @@ coverage
 
 # Allow hidden ruby files
 !.rspec
+!.rubocop.yml
 !.ruby-version
 
 # Ignore host node_modules
