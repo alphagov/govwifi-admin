@@ -30,6 +30,10 @@ lint-sass: build
 lint-erb: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec erblint --lint-all
 
+autocorrect: autocorrect-erb
+autocorrect-erb: build
+	$(DOCKER_COMPOSE) run --rm app bundle exec erblint --lint-all --autocorrect
+
 test:
 	$(MAKE) build
 	$(DOCKER_COMPOSE) up -d db rr_db
