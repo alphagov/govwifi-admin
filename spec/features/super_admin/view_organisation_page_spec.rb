@@ -2,9 +2,9 @@ describe 'view details of a signed up organisation' do
   let(:organisation) { create(:organisation) }
 
   context 'when logged in as a super-admin' do
-    let(:location_1) { create(:location, organisation: organisation, address: 'Aarry Street', postcode: 'HA7 3BL') }
-    let(:location_3) { create(:location, organisation: organisation, address: 'Carry Street', postcode: 'HA7 2BL') }
-    let(:location_2) { create(:location, organisation: organisation, address: 'Barry Lane', postcode: 'HA7 6BL') }
+    let(:location_1) { create(:location, organisation: organisation, address: 'Aarry Street', postcode: 'HA7 2BL') }
+    let(:location_3) { create(:location, organisation: organisation, address: 'Carry Street', postcode: 'HA7 3BL') }
+    let(:location_2) { create(:location, organisation: organisation, address: 'Barry Lane', postcode: 'HA7 4BL') }
 
     before do
       create(:user, organisation: organisation)
