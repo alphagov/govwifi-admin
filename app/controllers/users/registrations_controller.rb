@@ -27,7 +27,7 @@ protected
 
   def set_user_object_with_errors
     @user = User.new(sign_up_params)
-    @user.errors.add(:email, "must be from a government domain. If you're having trouble signing up, <a href='/help/new'>contact us</a>.")
+    @user.errors.add(:email, "address must be from a government or a public sector domain. If you're having trouble signing up, <a href='/help/new'>contact us</a>.")
   end
 
   def return_user_to_registration_page
