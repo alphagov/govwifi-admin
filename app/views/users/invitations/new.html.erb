@@ -30,19 +30,28 @@
               <div class="govuk-checkboxes">
                 <%= f.fields_for :permission, resource.permission || resource.build_permission(can_manage_team: true, can_manage_locations: true) do |p| %>
                   <div class="govuk-checkboxes__item">
-                    <%= p.check_box :can_manage_team, class: 'govuk-checkboxes__input' %>
-                    <label class="govuk-label govuk-checkboxes__label"><%= p.label :can_manage_team, 'Manage team' %></label>
+                    <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
+                    <label class="govuk-label govuk-checkboxes__label">View logs</label>
                   </div>
-
+                  <div class="govuk-checkboxes__item">
+                    <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
+                    <label class="govuk-label govuk-checkboxes__label">View team members</label>
+                  </div>
+                  <div class="govuk-checkboxes__item">
+                    <%= p.check_box :can_manage_team, class: 'govuk-checkboxes__input' %>
+                    <label class="govuk-label govuk-checkboxes__label"><%= p.label :can_manage_team, 'Add and remove team members' %></label>
+                  </div>
+                  <div class="govuk-checkboxes__item">
+                    <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
+                    <label class="govuk-label govuk-checkboxes__label">View locations and IPs</label>
+                  </div>
                   <div class="govuk-checkboxes__item">
                     <%= p.check_box :can_manage_locations, class: 'govuk-checkboxes__input' %>
-                    <label class="govuk-label govuk-checkboxes__label"><%= p.label :can_manage_locations, 'Manage locations' %></label>
+                    <label class="govuk-label govuk-checkboxes__label"><%= p.label :can_manage_locations, 'Add and remove locations and IPs' %></label>
                   </div>
                 <% end %>
               </div>
             </fieldset>
-
-            <p class="govuk-body govuk-!-margin-top-5"> All team members can view logs </p>
           </div>
         </div>
 
