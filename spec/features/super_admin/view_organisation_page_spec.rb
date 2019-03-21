@@ -2,9 +2,9 @@ describe 'view details of a signed up organisation' do
   let(:organisation) { create(:organisation) }
 
   context 'when logged in as a super-admin' do
-    let(:location_1) { create(:location, organisation: organisation, address: 'Aarry Street', postcode: 'HA7 2BL') }
-    let(:location_3) { create(:location, organisation: organisation, address: 'Carry Street', postcode: 'HA7 3BL') }
-    let(:location_2) { create(:location, organisation: organisation, address: 'Barry Lane', postcode: 'HA7 4BL') }
+    let(:location_1) { create(:location, organisation: organisation, address: 'Aarry Street') }
+    let(:location_2) { create(:location, organisation: organisation, address: 'Carry Street') }
+    let(:location_3) { create(:location, organisation: organisation, address: 'Barry Lane') }
 
     before do
       create(:user, organisation: organisation)
@@ -53,7 +53,7 @@ describe 'view details of a signed up organisation' do
     end
 
     it 'lists all locations in alphabetical order' do
-      expect(page.body).to match(/#{location_1.address}.*#{location_2.address}.*#{location_3.address}/m)
+      expect(page.body).to match(/#{location_1.address}.*#{location_3.address}.*#{location_2.address}/m)
     end
 
     it 'shows the number of IPs' do
