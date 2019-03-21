@@ -32,6 +32,7 @@ shared_context 'with a mocked notifications client' do
   end
 
   before { stub_const("Notifications::Client", NotificationsMock) }
+
   after { NotificationsMock.reset! }
 
   let(:notifications) { NotificationsMock.notifications }

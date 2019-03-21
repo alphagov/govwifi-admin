@@ -25,14 +25,14 @@ describe 'the visibility of the organisation depending on user' do
       sign_in_user user
       visit root_path
 
-      expect(page).to_not have_link(nil, href: admin_organisations_path)
+      expect(page).not_to have_link(nil, href: admin_organisations_path)
     end
 
     it 'will redirect to root if users type address manually' do
       sign_in_user user
       visit admin_organisations_path
 
-      expect(page.current_path).to eq(setup_instructions_path)
+      expect(page).to have_current_path(setup_instructions_path)
     end
   end
 

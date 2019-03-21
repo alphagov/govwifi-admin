@@ -1,4 +1,11 @@
 describe UseCases::PerformancePlatform::PublishLocationsIps do
+  subject do
+    described_class.new(
+      destination_gateway: s3_gateway,
+      source_gateway: source_gateway
+    )
+  end
+
   let(:source_gateway) { double(fetch_ips: s3_payload) }
   let(:s3_gateway) { double }
   let(:s3_payload) do
@@ -19,12 +26,6 @@ describe UseCases::PerformancePlatform::PublishLocationsIps do
       .and_return({})
   end
 
-  subject do
-    described_class.new(
-      destination_gateway: s3_gateway,
-      source_gateway: source_gateway
-    )
-  end
 
   it "publishes the locations and ips" do
     expect(subject.execute).to eq({})

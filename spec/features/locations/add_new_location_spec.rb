@@ -58,7 +58,7 @@ describe 'Add new location' do
           before { visit ips_path }
 
           it 'has not added the invalid IP' do
-            expect(page).to_not have_content('10.wrong.0.1')
+            expect(page).not_to have_content('10.wrong.0.1')
           end
         end
       end

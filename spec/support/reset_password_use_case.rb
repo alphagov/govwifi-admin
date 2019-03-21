@@ -1,4 +1,4 @@
-shared_examples 'reset password use case spy' do
+shared_context 'reset password use case spy' do
   require_relative './reset_password_use_case_spy'
 
   before do

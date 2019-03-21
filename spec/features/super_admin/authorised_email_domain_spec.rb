@@ -8,7 +8,7 @@ describe 'Authorised Email Domains' do
     context 'as super admin' do
       let(:admin_user) { create(:user, super_admin: true) }
 
-      context 'given I want to whitelist a domain' do
+      context 'when I want to whitelist a domain' do
         before do
           fill_in 'Name', with: some_domain
         end
@@ -17,7 +17,7 @@ describe 'Authorised Email Domains' do
           let(:some_domain) { 'gov.uk' }
 
           it 'authorise a new domain' do
-            expect { click_on 'Save' }.to change { AuthorisedEmailDomain.count }.by(1)
+            expect { click_on 'Save' }.to change(AuthorisedEmailDomain, :count).by(1)
             expect(page).to have_content("#{some_domain} authorised")
           end
 
@@ -31,7 +31,7 @@ describe 'Authorised Email Domains' do
           let(:some_domain) { '' }
 
           it 'renders an error' do
-            expect { click_on 'Save' }.to_not(change { AuthorisedEmailDomain.count })
+            expect { click_on 'Save' }.not_to(change(AuthorisedEmailDomain, :count))
             expect(page).to have_content("Name can't be blank")
           end
         end
@@ -43,7 +43,7 @@ describe 'Authorised Email Domains' do
             click_on 'Save'
             click_on 'Remove'
 
-            expect { click_on "Yes, remove #{some_domain} from the whitelist" }.to change { AuthorisedEmailDomain.count }.by(-1)
+            expect { click_on "Yes, remove #{some_domain} from the whitelist" }.to change(AuthorisedEmailDomain, :count).by(-1)
             expect(page).to have_content("#{some_domain} has been deleted")
           end
 
@@ -52,7 +52,7 @@ describe 'Authorised Email Domains' do
             click_on 'Remove'
 
             expect_any_instance_of(Gateways::S3).to receive(:write).with(data: '^$')
-            expect { click_on "Yes, remove #{some_domain} from the whitelist" }.to change { AuthorisedEmailDomain.count }.by(-1)
+            expect { click_on "Yes, remove #{some_domain} from the whitelist" }.to change(AuthorisedEmailDomain, :count).by(-1)
           end
         end
       end
@@ -78,7 +78,7 @@ describe 'Authorised Email Domains' do
         sign_in_user admin_user
         visit new_admin_authorised_email_domain_path
 
-        expect(page.current_path).to eq(setup_instructions_path)
+        expect(page).to have_current_path(setup_instructions_path)
       end
     end
   end

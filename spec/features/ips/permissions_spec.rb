@@ -16,7 +16,7 @@ describe 'Add an IP' do
       end
 
       it 'does not redirect them to the homepage' do
-        expect(page.current_path).to eq(new_ip_path)
+        expect(page).to have_current_path(new_ip_path)
       end
     end
 
@@ -44,7 +44,7 @@ describe 'Add an IP' do
 
     it 'hides the add new IP link' do
       visit ips_path
-      expect(page).to_not have_link('Add IP address')
+      expect(page).not_to have_link('Add IP address')
     end
 
     context 'visiting the add IP page directly' do
@@ -53,7 +53,7 @@ describe 'Add an IP' do
       end
 
       it 'redirects them to the homepage' do
-        expect(page.current_path).to eq(setup_instructions_path)
+        expect(page).to have_current_path(setup_instructions_path)
       end
     end
 
@@ -64,7 +64,7 @@ describe 'Add an IP' do
 
       it 'has a link to add new IP addresses' do
         visit root_path
-        expect(page).to_not have_link('add the IPs')
+        expect(page).not_to have_link('add the IPs')
       end
     end
   end

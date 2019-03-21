@@ -21,7 +21,7 @@ describe 'Remove an IP' do
     end
 
     it "removes the IP" do
-      expect { click_on "Yes, remove this IP" }.to change { Ip.count }.by(-1)
+      expect { click_on "Yes, remove this IP" }.to change(Ip, :count).by(-1)
 
       expect(page).to have_content("Successfully removed IP address #{ip.address}")
       expect(page).to have_content("IP addresses")
@@ -37,7 +37,7 @@ describe 'Remove an IP' do
       visit ips_path
 
       within("#ips-table") do
-        expect(page).to_not have_content("Remove")
+        expect(page).not_to have_content("Remove")
       end
     end
 
@@ -47,20 +47,21 @@ describe 'Remove an IP' do
       end
 
       it "does not show the partial" do
-        expect(page).to_not have_content("Are you sure you want to remove this IP")
+        expect(page).not_to have_content("Are you sure you want to remove this IP")
       end
     end
   end
 
   context "when you do not own the IP" do
     let(:other_ip) { create(:ip, location: create(:location)) }
+
     before do
       visit ip_remove_path(other_ip)
     end
 
     it "does not show the partial" do
-      expect(page).to_not have_content("Are you sure you want to remove this IP")
-      expect(page).to_not have_content(other_ip.address)
+      expect(page).not_to have_content("Are you sure you want to remove this IP")
+      expect(page).not_to have_content(other_ip.address)
     end
   end
 end

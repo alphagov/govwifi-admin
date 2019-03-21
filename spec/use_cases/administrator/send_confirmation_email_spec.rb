@@ -1,14 +1,22 @@
 describe UseCases::Administrator::SendConfirmationEmail do
-  subject { described_class.new(notifications_gateway: gateway_spy) }
+  subject(:use_case) { described_class.new(notifications_gateway: gateway_spy) }
 
-  let(:gateway_spy) { spy(send: nil) }
-
+  let(:gateway_spy) { instance_spy('EmailGateway', send: nil) }
   let(:email) { 'test@example.com' }
   let(:confirmation_url) { 'https://example.com' }
   let(:template_id) { GOV_NOTIFY_CONFIG['confirmation_email']['template_id'] }
+  let(:valid_args) do
+    {
+      email: email,
+      email_reply_to_id: nil,
+      locals: { confirmation_url: confirmation_url },
+      reference: 'confirmation_email',
+      template_id: template_id
+    }
+  end
 
   before do
-    subject.execute(
+    use_case.execute(
       email: email,
       confirmation_url: confirmation_url,
       template_id: template_id
@@ -16,11 +24,6 @@ describe UseCases::Administrator::SendConfirmationEmail do
   end
 
   it 'calls notifications gateway with valid data' do
-    expect(gateway_spy).to have_received(:send) do |args|
-      expect(args[:email]).to eq(email)
-      expect(args.dig(:locals, :confirmation_url)).to eq(confirmation_url)
-      expect(args[:template_id]).to eq(template_id)
-      expect(args[:reference]).to eq('confirmation_email')
-    end
+    expect(gateway_spy).to have_received(:send).with(valid_args)
   end
 end

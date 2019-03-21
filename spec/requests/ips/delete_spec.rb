@@ -14,7 +14,7 @@ describe "DELETE /ips/:id", type: :request do
     it "deletes the IP" do
       expect {
         delete ip_path(ip)
-      }.to change { Ip.count }.by(-1)
+      }.to change(Ip, :count).by(-1)
     end
 
     it "Publishes the new list of IPs" do
@@ -29,7 +29,7 @@ describe "DELETE /ips/:id", type: :request do
     it "does not delete the IP" do
       expect {
         delete ip_path(other_ip)
-      }.to change { Ip.count }.by(0)
+      }.to change(Ip, :count).by(0)
     end
   end
 end

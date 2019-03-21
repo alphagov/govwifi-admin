@@ -18,6 +18,7 @@ describe "Invite a team member" do
 
   context "when logged in" do
     let(:user) { create(:user) }
+
     before do
       sign_in_user user
       visit new_user_invitation_path
@@ -28,9 +29,6 @@ describe "Invite a team member" do
     end
 
     context "when entering a team members email address" do
-      include_examples 'invite use case spy'
-      include_examples 'notifications service'
-
       before do
         fill_in "Email", with: invited_user_email
       end
@@ -42,7 +40,7 @@ describe "Invite a team member" do
         it "creates an unconfirmed user" do
           expect {
             click_on "Send invitation email"
-          }.to change { User.count }.by(1)
+          }.to change(User, :count).by(1)
           expect(InviteUseCaseSpy.invite_count).to eq(1)
           expect(invited_user.organisation).to eq(user.organisation)
         end
@@ -55,7 +53,7 @@ describe "Invite a team member" do
         it "creates an unconfirmed user" do
           expect {
             click_on "Send invitation email"
-          }.to change { User.count }.by(1)
+          }.to change(User, :count).by(1)
           expect(InviteUseCaseSpy.invite_count).to eq(1)
           expect(invited_user.organisation).to eq(user.organisation)
         end
@@ -117,7 +115,7 @@ describe "Invite a team member" do
         it "tells the user that email cannot be blank" do
           expect {
             click_on "Send invitation email"
-          }.to change { User.count }.by(0)
+          }.to change(User, :count).by(0)
           expect(InviteUseCaseSpy.invite_count).to eq(0)
           expect(page).to have_content("Email can't be blank")
         end
@@ -129,7 +127,7 @@ describe "Invite a team member" do
         it "tells the user " do
           expect {
             click_on "Send invitation email"
-          }.to change { User.count }.by(0)
+          }.to change(User, :count).by(0)
           expect(InviteUseCaseSpy.invite_count).to eq(0)
           expect(page).to have_content("Email must be a valid email address")
         end

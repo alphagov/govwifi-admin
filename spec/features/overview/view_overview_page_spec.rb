@@ -9,7 +9,7 @@ describe 'viewing the overview page' do
       end
 
       it 'redirects the user to the setting up page' do
-        expect(page.current_path).to eq(setup_instructions_path)
+        expect(page).to have_current_path(setup_instructions_path)
       end
     end
 
@@ -65,7 +65,7 @@ describe 'viewing the overview page' do
         it 'redirects to the team members page when Team Members is clicked on' do
           click_link 'Team Members'
 
-          expect(page.current_path).to eq(team_members_path)
+          expect(page).to have_current_path(team_members_path)
         end
 
         it 'displays the number of Locations' do
@@ -78,7 +78,7 @@ describe 'viewing the overview page' do
         it 'redirects to the IPs page when Locations is clicked on' do
           click_link 'Locations'
 
-          expect(page.current_path).to eq(ips_path)
+          expect(page).to have_current_path(ips_path)
         end
 
         it 'displays the number of IPs added' do
@@ -92,7 +92,7 @@ describe 'viewing the overview page' do
           within('div#ips') do
             click_link 'IPs'
           end
-          expect(page.current_path).to eq(ips_path)
+          expect(page).to have_current_path(ips_path)
         end
       end
     end

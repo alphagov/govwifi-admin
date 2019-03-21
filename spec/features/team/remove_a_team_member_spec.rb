@@ -17,11 +17,11 @@ describe "Remove a team member" do
     end
 
     it "hides the delete user link when already clicked" do
-      expect(page).to_not have_content("Remove user from service")
+      expect(page).not_to have_content("Remove user from service")
     end
 
     it "deletes the user" do
-      expect { click_on "Yes, remove this team member" }.to change { User.count }.by(-1)
+      expect { click_on "Yes, remove this team member" }.to change(User, :count).by(-1)
     end
   end
 
@@ -31,7 +31,7 @@ describe "Remove a team member" do
     end
 
     context "when visiting remove team member url directly" do
-      it 'should not show the page' do
+      it 'does not show the page' do
         expect {
           visit edit_team_member_path(another_user, remove_team_member: true)
         }.to raise_error(ActionController::RoutingError)

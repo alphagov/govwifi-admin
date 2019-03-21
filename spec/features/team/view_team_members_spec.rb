@@ -56,7 +56,7 @@ describe 'View team members of my organisation' do
         sign_in_user user
         visit team_members_path
 
-        expect(page).to_not have_content('stranger@example.gov.uk')
+        expect(page).not_to have_content('stranger@example.gov.uk')
       end
     end
   end

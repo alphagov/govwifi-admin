@@ -42,24 +42,24 @@ describe Location do
     context 'which is in the incorrect format' do
       it 'errors as the postcode does not match the correct format' do
         subject.postcode = 'WHATEVER POSTCODE'
-        expect(subject).to_not be_valid
+        expect(subject).not_to be_valid
       end
 
       it 'errors as the postcode is empty' do
         subject.postcode = ''
-        expect(subject).to_not be_valid
+        expect(subject).not_to be_valid
       end
 
       it 'errors as the postcode is nil' do
         subject.postcode = nil
-        expect(subject).to_not be_valid
+        expect(subject).not_to be_valid
       end
     end
   end
 
   describe 'saving invalid IPs with mix of hash and strong parameters' do
     it 'does not save invalid IPs' do
-      location = Location.create(
+      location = described_class.create(
         address: '6-8 HEMMING ST',
         postcode: '',
         organisation_id: create(:organisation).id,
@@ -70,7 +70,7 @@ describe Location do
       )
 
       expect(location.save).to be_falsey
-      expect(location).to_not be_valid
+      expect(location).not_to be_valid
     end
   end
 end

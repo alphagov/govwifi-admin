@@ -24,7 +24,7 @@ describe 'Remove a location' do
       end
 
       it "removes the location" do
-        expect { click_on "Yes, remove this location" }.to change { Location.count }.by(-1)
+        expect { click_on "Yes, remove this location" }.to change(Location, :count).by(-1)
 
         expect(page).to have_content("Successfully removed location #{location.address}")
         expect(page).to have_content("IP addresses")
@@ -37,7 +37,7 @@ describe 'Remove a location' do
       end
 
       it "does not show the remove location link" do
-        expect(page).to_not have_content("Remove location")
+        expect(page).not_to have_content("Remove location")
       end
     end
   end
@@ -51,7 +51,7 @@ describe 'Remove a location' do
       visit ips_path
 
       within("#ips-table") do
-        expect(page).to_not have_content("Remove location")
+        expect(page).not_to have_content("Remove location")
       end
     end
 
@@ -61,20 +61,21 @@ describe 'Remove a location' do
       end
 
       it "does not show the partial" do
-        expect(page).to_not have_content("Are you sure you want to remove this location")
+        expect(page).not_to have_content("Are you sure you want to remove this location")
       end
     end
   end
 
   context "when you do not own the location" do
     let(:other_location) { create(:location, organisation: create(:organisation)) }
+
     before do
       visit location_remove_path(other_location)
     end
 
     it "does not show the partial" do
-      expect(page).to_not have_content("Are you sure you want to remove this location")
-      expect(page).to_not have_content(other_location.address)
+      expect(page).not_to have_content("Are you sure you want to remove this location")
+      expect(page).not_to have_content(other_location.address)
     end
   end
 end
