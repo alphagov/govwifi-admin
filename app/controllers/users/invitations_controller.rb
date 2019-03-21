@@ -1,11 +1,12 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :authorise_manage_team, only: %i(create new)
-  before_action :delete_original_invite, if: :resending_invite?, only: :create
+  before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
   before_action :add_organisation_to_params, :validate_invited_user, only: :create
+
 
 private
 
-  def delete_original_invite
+  def delete_user_record
     User.find_by(email: invite_params[:email]).destroy!
   end
 
@@ -25,6 +26,14 @@ private
     return_user_to_invite_page if user_is_invalid?
   end
 
+  def user_should_be_cleared?
+    resending_invite? || unconfirmed_user_with_no_org?
+  end
+
+  def unconfirmed_user_with_no_org?
+    invited_user_already_exists? && invited_user_not_confirmed? && invited_user_has_no_org?
+  end
+
   def user_is_invalid?
     @user = User.new(invite_params)
     !@user.validate
@@ -36,6 +45,14 @@ private
 
   def invited_user_already_exists?
     !!User.find_by(email: invite_params[:email])
+  end
+
+  def invited_user_not_confirmed?
+    !User.find_by(email: invite_params[:email]).confirmed?
+  end
+
+  def invited_user_has_no_org?
+    User.find_by(email: invite_params[:email]).organisation_id.nil?
   end
 
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105

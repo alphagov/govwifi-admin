@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'aws-sdk-route53', '~> 1.17.0'
+gem 'aws-sdk-route53', '~> 1.19.0'
 gem 'aws-sdk-s3', '~> 1'
 gem 'devise', '~> 4.6.1'
 gem 'devise_invitable', '~> 2.0.0'
@@ -25,6 +25,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'database_cleaner'
+  gem 'erb_lint', require: false
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker'
   gem 'govuk-lint', '~> 3'

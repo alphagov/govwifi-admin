@@ -11,9 +11,16 @@ describe 'View authentication requests for a location' do
       click_on 'Go to search'
     end
 
-    it 'shows me my locations' do
-      organisation.locations.each do |location|
-        expect(page).to have_content(location.full_address)
+    context 'and selecting a location to view logs for' do
+      let(:location_2) { create(:location, address: "Abbey Street", postcode: "HA7 2BL") }
+      let(:location_3) { create(:location, address: "Zeon Grove", postcode: "HA7 3BL") }
+      let(:location_4) { create(:location, address: "Garry Road", postcode: "HA7 4BL") }
+
+      let!(:organisation) { create(:organisation, locations: [location_2, location_3, location_4]) }
+
+      it 'shows the organisations in alpabetical order' do
+        locations = find('#logs_search_term').all('option').collect(&:text)
+        expect(locations).to match_array ["Abbey Street, HA7 2BL", "Garry Road, HA7 4BL", "Zeon Grove, HA7 3BL"]
       end
     end
 
@@ -66,6 +73,24 @@ describe 'View authentication requests for a location' do
       it 'does not display logs for other IPs' do
         expect(page).not_to have_content(other_ip.address)
         expect(page).not_to have_content('bbbbb')
+      end
+
+      context 'When going back search by a different location' do
+        before do
+          click_on 'Search by a different location'
+          select location.address, from: "Select one of your organisation's locations"
+          click_on 'Show logs'
+        end
+
+        it 'displays logs for IPs under that location' do
+          expect(page).to have_content(ip.address)
+          expect(page).to have_content('aaaaa')
+        end
+
+        it 'does not display logs for other IPs' do
+          expect(page).to_not have_content(other_ip.address)
+          expect(page).to_not have_content('bbbbb')
+        end
       end
     end
   end

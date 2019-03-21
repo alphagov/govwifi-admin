@@ -11,6 +11,7 @@ class Admin::OrganisationsController < AdminController
 
   def show
     @organisation = Organisation.find(params[:id])
+    @locations = @organisation.locations.order("address asc")
   end
 
   def destroy
@@ -30,6 +31,7 @@ private
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    directions = %w[desc asc]
+    directions.include?(params[:direction]) ? params[:direction] : directions.first
   end
 end

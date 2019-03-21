@@ -1,9 +1,9 @@
-<% if organisation.locations.any? %>
+<% if locations.any? %>
   <table class="govuk-table">
     <thead class="govuk-table__head">
     </thead>
     <tbody class="govuk-table__body">
-      <% organisation.locations.each do |location| %>
+      <% locations.each do |location| %>
         <tr class="govuk-table__row">
           <td class="govuk-table__cell" scope="row"><%= location.address %></td>
           <td class="govuk-table__cell text-right" scope="row"><%= location.postcode %></td>

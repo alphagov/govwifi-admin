@@ -1,3 +1,5 @@
+inherit_gem:
+  govuk-lint: configs/rubocop/all.yml
 require: rubocop-rspec
 AllCops:
   Exclude:

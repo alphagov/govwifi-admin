@@ -31,7 +31,7 @@
     <% end %>
 
     <%= render 'section', heading: 'Locations' do %>
-      <%= render 'locations', organisation: @organisation %>
+      <%= render 'locations', locations: @locations %>
     <% end %>
 
     <%= link_to 'Delete organisation', admin_organisation_path(@organisation, remove_organisation: true), class: "govuk-button red-button" %>
