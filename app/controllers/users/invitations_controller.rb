@@ -7,6 +7,8 @@ private
 
   def find_user
     @found_user ||= User.find_by(email: invite_params[:email])
+    @found_user = User.find_by(email: invite_params[:email]) if @found_user&.destroyed?
+    @found_user
   end
 
   def delete_user_record
