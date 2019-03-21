@@ -4,11 +4,11 @@
   <div class="govuk-grid-column-two-thirds">
     <%= link_to 'Back', new_help_path, class: "govuk-back-link" %>
     <h2 class="govuk-heading-l">Ask a question or leave feedback</h2>
-    <%= form_for @support_form, url: {action: "create"}  do |f| %>
+    <%= form_for @support_form, url: { action: "create" }  do |f| %>
       <div class="govuk-two-thirds">
         <div class="govuk-form-group <%= field_error(@support_form, :details) %>">
           <%= f.label :details, "Your message", class: "govuk-label" %>
-          <%= f.text_area :details, class: "govuk-textarea", size: "30x10"%>
+          <%= f.text_area :details, class: "govuk-textarea", size: "30x10" %>
         </div>
         <div class="govuk-form-group">
           <%= f.label :name, "Your name", class: "govuk-label" %>

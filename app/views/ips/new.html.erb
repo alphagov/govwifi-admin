@@ -11,7 +11,7 @@
     <%= form_with model: @ip do |form| %>
       <div class="govuk-form-group <%= field_error(@ip, :location_id) %>">
         <%= form.label :location, "Select an existing location", class: "govuk-label" %>
-        <%= collection_select :ip, :location_id, @locations, :id, :full_address, {}, { class: "govuk-select" } %>
+        <%= collection_select :ip, :location_id, @locations, :id, :full_address, {}, class: "govuk-select" %>
       </div>
 
       <div class="govuk-form-group <%= field_error(@ip, :address) %>">

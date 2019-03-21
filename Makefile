@@ -22,13 +22,17 @@ serve: build
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
 	$(DOCKER_COMPOSE) up -d app
 
-lint: lint-ruby lint-sass
+lint: lint-ruby lint-sass lint-erb
 lint-ruby: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-ruby app lib spec Gemfile*
 lint-sass: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-sass app/assets/stylesheets
 lint-erb: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec erblint --lint-all
+
+autocorrect: autocorrect-erb
+autocorrect-erb: build
+	$(DOCKER_COMPOSE) run --rm app bundle exec erblint --lint-all --autocorrect
 
 test:
 	$(MAKE) build
