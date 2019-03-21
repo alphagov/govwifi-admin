@@ -5,22 +5,8 @@ class Users::InvitationsController < Devise::InvitationsController
 
 private
 
-  def invited_user
-    @invited_user ||= User.find_by(email: invite_params[:email])
-    @invited_user = User.find_by(email: invite_params[:email]) if @invited_user&.destroyed?
-    @invited_user
-  end
-
-  def delete_user_record
-    invited_user.destroy!
-  end
-
-  def resending_invite?
-    !!params[:resend]
-  end
-
-  def after_invite_path_for(_resource)
-    team_members_path
+  def authorise_manage_team
+    redirect_to(root_path) unless current_user.can_manage_team?
   end
 
   def add_organisation_to_params
@@ -29,6 +15,24 @@ private
 
   def validate_invited_user
     return_user_to_invite_page if user_is_invalid?
+  end
+
+  def delete_user_record
+    invited_user.destroy!
+  end
+
+  def invited_user
+    @invited_user ||= User.find_by(email: invite_params[:email])
+    @invited_user = User.find_by(email: invite_params[:email]) if @invited_user&.destroyed?
+    @invited_user
+  end
+
+  def resending_invite?
+    !!params[:resend]
+  end
+
+  def after_invite_path_for(_resource)
+    team_members_path
   end
 
   def user_should_be_cleared?
@@ -68,7 +72,5 @@ private
     ))
   end
 
-  def authorise_manage_team
-    redirect_to(root_path) unless current_user.can_manage_team?
-  end
+
 end
