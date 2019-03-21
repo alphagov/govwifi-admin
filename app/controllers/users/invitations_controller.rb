@@ -1,6 +1,6 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
-  before_action :add_organisation_to_params, :validate_invited_user, only: :create
+  before_action :add_organisation_to_params, only: :create
 
 private
 
@@ -10,11 +10,6 @@ private
 
   def add_organisation_to_params
     params[:user][:organisation_id] = current_user.organisation_id
-  end
-
-  def validate_invited_user
-    user = User.new(invite_params)
-    return_user_to_invite_page(user) if user_is_invalid?(user)
   end
 
   def delete_user_record
@@ -41,14 +36,6 @@ private
 
   def unconfirmed_user_with_no_org?
     invited_user_already_exists? && invited_user_not_confirmed? && invited_user_has_no_org?
-  end
-
-  def user_is_invalid?(user)
-    !user.valid?
-  end
-
-  def return_user_to_invite_page(user)
-    render :new, resource: user
   end
 
   def invited_user_already_exists?
