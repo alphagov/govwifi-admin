@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     resources :custom_organisations, only: %i[index create destroy]
     resources :authorised_email_domains, only: %i[index new create destroy]
     resources :logs, only: %i[index]
-    resources :logs_searches, path: 'logs/search', only: %i[new index create] do
+    resources :logs_searches, path: 'admin_logs/search', only: %i[new index create] do
       get 'ip', on: :new
       get 'username', on: :new
       get 'location', on: :new

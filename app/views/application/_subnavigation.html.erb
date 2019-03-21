@@ -15,7 +15,7 @@
         <%= link_to 'Organisations', admin_organisations_path, class: active_tab(admin_organisations_path) %>
         <%= link_to 'Allow Organisations', admin_custom_organisations_path, class: active_tab(admin_custom_organisations_path) %>
         <%= link_to 'MOU', admin_mou_index_path, class: active_tab(admin_mou_index_path) %>
-        <%= link_to 'Logs', admin_logs_path, class: active_tab(admin_logs_path) %>
+        <%= link_to 'Logs', new_admin_logs_search_path, class: active_tab(new_admin_logs_search_path) %>
         <%= link_to 'Whitelisted Domains', admin_authorised_email_domains_path, class: active_tab(admin_authorised_email_domains_path) %>
       <% else %>
         <%= link_to 'Overview', overview_index_path, class: active_tab(overview_index_path)%>
