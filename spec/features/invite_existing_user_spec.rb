@@ -2,29 +2,30 @@ require 'support/invite_use_case'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
-describe 'inviting a user that has signed up' do
+describe 'Inviting an existing user', type: :feature do
   include_examples 'invite use case spy'
 
   let(:confirmed_user) { create(:user) }
 
-  context 'when user is already a confirmed user' do
+  context 'with a confirmed user' do
     let(:betty) { create(:user) }
 
     before do
       sign_in_user confirmed_user
       visit new_user_invitation_path
-      fill_in "Email", with: betty.email
+      fill_in 'Email', with: betty.email
+      click_on 'Send invitation email'
     end
 
-    it "does not send an invitation" do
-      expect {
-        click_on "Send invitation email"
-      }.to change(User, :count).by(0)
+    it 'does not send an invitation' do
       expect(InviteUseCaseSpy.invite_count).to eq(0)
+    end
+
+    it 'displays the correct error message' do
       expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
     end
 
-    context 'and user logs into their account afterwards' do
+    context 'when the invited user signs in afterwards' do
       before do
         login_as(betty, scope: :user)
         visit root_path
@@ -38,14 +39,17 @@ describe 'inviting a user that has signed up' do
         expect(page).not_to have_content('An error occurred')
       end
 
-      it 'does not change their default permissions' do
+      it 'does not change their manage team permissions' do
         expect(betty.permission.can_manage_team?).to eq(true)
+      end
+
+      it 'does not change their manage location permissions' do
         expect(betty.permission.can_manage_locations?).to eq(true)
       end
     end
   end
 
-  context 'when user is an unconfirmed user' do
+  context 'with an unconfirmed user' do
     include_examples 'confirmation use case spy'
 
     let(:unconfirmed_email) { 'notconfirmedyet@gov.uk' }
@@ -54,21 +58,21 @@ describe 'inviting a user that has signed up' do
 
     it 'sends a confirmation link' do
       expect(ConfirmationUseCaseSpy.confirmations_count).to eq(1)
-      expect(URI(confirmation_email_link).scheme).to eq("https")
     end
 
-    context 'and is invited by another user' do
-      before do
-        sign_in_user confirmed_user
-        visit new_user_invitation_path
-        fill_in "Email", with: unconfirmed_email
-        click_on "Send invitation email"
-      end
+    it 'sends a secure https link in the email' do
+      expect(URI(confirmation_email_link).scheme).to eq('https')
+    end
 
-      it "sends an invitation" do
-        expect(InviteUseCaseSpy.invite_count).to eq(1)
-        expect(page).to_not have_content("Email is already associated with an account. If you can't sign in, reset your password")
-      end
+    before do
+      sign_in_user confirmed_user
+      visit new_user_invitation_path
+      fill_in 'Email', with: unconfirmed_email
+      click_on 'Send invitation email'
+    end
+
+    it 'sends an invitation' do
+      expect(InviteUseCaseSpy.invite_count).to eq(1)
     end
   end
 end
