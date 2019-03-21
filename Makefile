@@ -22,7 +22,7 @@ serve: build
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
 	$(DOCKER_COMPOSE) up -d app
 
-lint: lint-ruby lint-sass
+lint: lint-ruby lint-sass lint-erb
 lint-ruby: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-ruby app lib spec Gemfile*
 lint-sass: build
