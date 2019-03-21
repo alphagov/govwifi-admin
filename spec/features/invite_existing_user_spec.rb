@@ -1,15 +1,15 @@
 require 'support/invite_use_case'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
+# require 'support/confirmation_use_case_spy'
 
 describe 'Inviting an existing user', type: :feature do
-  include_examples 'invite use case spy'
-
+  let(:betty) { create(:user) }
   let(:confirmed_user) { create(:user) }
 
-  context 'with a confirmed user' do
-    let(:betty) { create(:user) }
+  include_examples 'invite use case spy'
 
+  context 'with a confirmed user' do
     before do
       sign_in_user confirmed_user
       visit new_user_invitation_path
@@ -27,7 +27,7 @@ describe 'Inviting an existing user', type: :feature do
 
     context 'when the invited user signs in afterwards' do
       before do
-        login_as(betty, scope: :user)
+        sign_in_user betty
         visit root_path
       end
 
@@ -54,17 +54,8 @@ describe 'Inviting an existing user', type: :feature do
 
     let(:unconfirmed_email) { 'notconfirmedyet@gov.uk' }
 
-    before { sign_up_for_account(email: unconfirmed_email) }
-
-    it 'sends a confirmation link' do
-      expect(ConfirmationUseCaseSpy.confirmations_count).to eq(1)
-    end
-
-    it 'sends a secure https link in the email' do
-      expect(URI(confirmation_email_link).scheme).to eq('https')
-    end
-
     before do
+      sign_up_for_account(email: unconfirmed_email)
       sign_in_user confirmed_user
       visit new_user_invitation_path
       fill_in 'Email', with: unconfirmed_email
