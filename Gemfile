@@ -25,6 +25,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'database_cleaner'
+  gem 'erb_lint', require: false
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker'
   gem 'govuk-lint', '~> 3'

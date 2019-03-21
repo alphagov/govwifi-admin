@@ -1,6 +1,9 @@
 FROM ruby:2.6.1
 ARG BUNDLE_INSTALL_CMD
 
+# required for certain linting tools that read files, such as erb-lint
+ENV LANG 'C.UTF-8'
+
 ENV RACK_ENV development
 ENV DB_USER root
 ENV DB_PASS root
