@@ -57,6 +57,4 @@ private
       can_manage_locations
     ))
   end
-
-
 end
