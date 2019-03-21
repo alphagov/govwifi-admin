@@ -1,7 +1,12 @@
 ---
+exclude:
+  - '**/node_modules/**/*'
 linters:
   ErbSafety:
     enabled: true
+    exclude:
+      # we exclude this as it uses html_safe deliberately.
+      - '**/app/views/layouts/_form_errors.html.erb'
   Rubocop:
     enabled: true
     rubocop_config:
