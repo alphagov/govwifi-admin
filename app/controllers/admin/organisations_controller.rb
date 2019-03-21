@@ -27,7 +27,7 @@ private
   end
 
   def sort_column
-    sortable_columns.include?(params[:sort]) ? params[:sort] : sortable_columns[1]
+    sortable_columns.include?(params[:sort]) ? params[:sort] : "created_at"
   end
 
   def sort_column_show
@@ -43,5 +43,4 @@ private
     direction = %w[asc]
     direction.include?(params[:direction]) ? params[:direction] : direction.first
   end
-
 end
