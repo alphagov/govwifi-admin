@@ -14,7 +14,8 @@ private
   end
 
   def validate_invited_user
-    return_user_to_invite_page if user_is_invalid?
+    user = User.new(invite_params)
+    return_user_to_invite_page(user) if user_is_invalid?(user)
   end
 
   def delete_user_record
@@ -43,13 +44,12 @@ private
     invited_user_already_exists? && invited_user_not_confirmed? && invited_user_has_no_org?
   end
 
-  def user_is_invalid?
-    @user = User.new(invite_params)
-    !@user.validate
+  def user_is_invalid?(user)
+    !user.valid?
   end
 
-  def return_user_to_invite_page
-    render :new, resource: @user
+  def return_user_to_invite_page(user)
+    render :new, resource: user
   end
 
   def invited_user_already_exists?
