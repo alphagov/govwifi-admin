@@ -26,19 +26,21 @@ private
     %w[name created_at active_storage_attachments.created_at address]
   end
 
+  def sort_column
+    sortable_columns.include?(params[:sort]) ? params[:sort] : sortable_columns[1]
+  end
+
   def sort_column2
     sortable_columns.include?(params[:sort]) ? params[:sort] : sortable_columns.last
   end
 
   def sort_direction2
-    %w[asc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
-
-  def sort_column
-    sortable_columns.include?(params[:sort]) ? params[:sort] : sortable_columns[1]
+    direction = %w[asc]
+    direction.include?(params[:direction]) ? params[:direction] : direction.first
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    directions = %w[asc desc]
+    directions.include?(params[:direction]) ? params[:direction] : directions.last
   end
 end
