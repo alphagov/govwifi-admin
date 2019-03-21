@@ -48,13 +48,12 @@
 
         <div class='govuk-grid-column-one-third govuk-list govuk-!-padding-right-4 text-right'>
           <% if current_user.can_manage_team? && member.id != current_user.id %>
-            <%= link_to 'Edit permissions', edit_team_member_path(member), class: "govuk-link govuk-!-padding-right-1"%>
+            <%= link_to 'Edit permissions', edit_team_member_path(member), class: "govuk-link govuk-!-padding-right-1" %>
 
             <% if member.invitation_pending? && current_user.can_manage_team? %>
             <%= button_to("Resend invite",
-              user_invitation_path({ user: { email: member.email }, resend: true}),
-              method: :post, class: 'resend-invite-button')
-            %>
+              user_invitation_path(user: { email: member.email }, resend: true),
+              method: :post, class: 'resend-invite-button') %>
             <% end %>
           <% end %>
       </div>

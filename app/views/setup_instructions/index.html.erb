@@ -16,7 +16,7 @@
         <% end %>
       <% else %>
         <p class="govuk-body">
-          You have <%= link_to "#{pluralize(@ips.count, "IP")} configured.", ips_path, class: "govuk-link"  %>
+          You have <%= link_to "#{pluralize(@ips.count, 'IP')} configured.", ips_path, class: "govuk-link" %>
         </p>
       <% end %>
       <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
@@ -36,7 +36,7 @@
       Authenticators can usually be configured to connect to more than one RADIUS server. The extras are commonly known as "backups" or "failovers".
     </p>
 
-    <%= render "radius_details", london_ips: @london_radius_ips, dublin_ips: @dublin_radius_ips  %>
+    <%= render "radius_details", london_ips: @london_radius_ips, dublin_ips: @dublin_radius_ips %>
 
     <hr class="govuk-section-break--m govuk-section-break--visible">
 
@@ -59,7 +59,7 @@
     <h3 class="govuk-heading-m"> 5. Check the connection works </h3>
     <p class="govuk-body"> Connect to your new GovWifi network, and sign in with an individual account. </p>
     <p class=govuk-body>
-      <%= link_to "Download a poster to advertise GovWifi is available in your building(s)", asset_path('govwifi-poster.png'), { download: "" ,class: "govuk-link"}  %>
+      <%= link_to "Download a poster to advertise GovWifi is available in your building(s)", asset_path('govwifi-poster.png'), download: "", class: "govuk-link" %>
     </p>
     <details class="govuk-details govuk-!-margin-bottom-0">
       <summary class="govuk-details__summary">

@@ -9,7 +9,7 @@
       <%= link_to 'documentation.', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %>
     </div>
 
-    <%= form_for @support_form, url: {action: "create"}  do |f| %>
+    <%= form_for @support_form, url: { action: "create" }  do |f| %>
       <div class="govuk-form-group">
         <%= f.label :name, "Your name", class: "govuk-label" %>
         <%= f.text_field :name, class: "govuk-input" %>

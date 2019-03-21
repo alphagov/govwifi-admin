@@ -52,10 +52,10 @@
     <p class="govuk-body">
       If you <strong> can't resolve your issue</strong>, send us a support request.
     </p>
-    <%= form_for @support_form, url: {action: "create"}  do |f| %>
+    <%= form_for @support_form, url: { action: "create" }  do |f| %>
       <div class="govuk-form-group <%= field_error(@support_form, :details) %>">
         <%= f.label :details, "Tell us about your issue", class: "govuk-label" %>
-        <%= f.text_area :details, class: "govuk-textarea", size: "30x10"  %>
+        <%= f.text_area :details, class: "govuk-textarea", size: "30x10" %>
       </div>
       <div class="govuk-form-group">
         <%= f.hidden_field :choice %>
@@ -67,5 +67,3 @@
     <% end %>
   </div>
 </div>
-
-

@@ -15,7 +15,7 @@
         </p>
         <div class="govuk-radios <%= field_error(@search, :filter) %>">
           <%= render 'error_message', key: :filter, message: 'select an option' %>
-          
+
           <div class="govuk-radios__item">
             <input class="govuk-radios__input" id="choice-location" name="logs_search[filter]" type="radio" value="location">
             <label class="govuk-label govuk-radios__label" for="choice-location">
