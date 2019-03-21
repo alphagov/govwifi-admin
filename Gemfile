@@ -25,6 +25,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'database_cleaner'
+  gem 'erb_lint', require: false
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker'
   gem 'govuk-lint', '~> 3'
@@ -39,7 +40,6 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 11'
-  gem 'erb_lint', require: false
   gem 'listen', '~> 3'
   gem 'pry'
   gem 'rack-mini-profiler', require: false
