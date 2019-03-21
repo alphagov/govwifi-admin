@@ -1,7 +1,6 @@
 require 'support/invite_use_case'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
-# require 'support/confirmation_use_case_spy'
 
 describe 'Inviting an existing user', type: :feature do
   let(:betty) { create(:user) }
@@ -50,9 +49,10 @@ describe 'Inviting an existing user', type: :feature do
   end
 
   context 'with an unconfirmed user' do
-    include_examples 'confirmation use case spy'
-
     let(:unconfirmed_email) { 'notconfirmedyet@gov.uk' }
+
+    # rubocop:disable RSpec/HooksBeforeExamples
+    include_examples 'notifications service'
 
     before do
       sign_up_for_account(email: unconfirmed_email)
@@ -61,6 +61,7 @@ describe 'Inviting an existing user', type: :feature do
       fill_in 'Email', with: unconfirmed_email
       click_on 'Send invitation email'
     end
+    # rubocop:enable RSpec/HooksBeforeExamples
 
     it 'sends an invitation' do
       expect(InviteUseCaseSpy.invite_count).to eq(1)
