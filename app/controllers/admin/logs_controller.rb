@@ -1,7 +1,7 @@
 class Admin::LogsController < AdminController
   def index
     if valid_search_params.blank?
-      redirect_to(new_logs_search_path) && return
+      redirect_to(new_admin_logs_search_path) && return
     end
 
     if params[:location].present?

@@ -1,6 +1,4 @@
-<% if params[:username].present? %>
-  <%= link_to "Search by a different username", username_new_admin_logs_search_path, class: "govuk-back-link" %>
-<% end %>
+<%= link_to "Search by a different username", new_admin_logs_search_path, class: "govuk-back-link" %>
 
 <% if @logs.present? %>
   <h1 class="govuk-heading-l">Found <%= pluralize(@logs.count, "result") %> for "<%= params[:username] %>"</h1>
@@ -52,10 +50,6 @@
     <h1 class="govuk-heading-l govuk-grid-column-three-quarters">
       <% if params[:username].present? %>
         "<%= params[:username] %>" <strong>isn't reaching the GovWifi service</strong>
-      <% elsif params[:location] %>
-        Traffic from <%= @location_address %> <strong>isn't reaching the GovWifi service</strong>
-      <% else %>
-        Traffic from <%= params[:ip] %> <strong>isn't reaching the GovWifi service</strong>
       <% end %>
     </h1>
 
@@ -81,11 +75,7 @@
         If you were expecting to see results, we recommend:
       </h3>
 
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Checking your <%= link_to 'configured IP addresses', ips_path, class: "govuk-link" %> match your authenticator IPs </li>
-        <li>Checking your authenticators have the right RADIUS secret keys</li>
-        <li><%= link_to 'Browsing the technical documentation', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %></li>
-      </ul>
+
 
       <p class="govuk-body"> If you still need help, <%= link_to "contact us", signed_in_new_help_path, class: "govuk-link" %></p>
     </div>

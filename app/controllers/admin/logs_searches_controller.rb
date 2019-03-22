@@ -14,14 +14,6 @@ class Admin::LogsSearchesController < AdminController
     end
   end
 
-  def term_choice
-    if @search.valid?
-      redirect_to admin_logs_path(@search.filter.to_sym => @search.term)
-    else
-      render @search.filter
-    end
-  end
-
   def username
     @search = LogsSearch.new(filter: 'username')
   end
