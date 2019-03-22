@@ -1,13 +1,9 @@
 <% if params[:username].present? %>
-  <%= link_to "Search by a different username", username_new_logs_search_path, class: "govuk-back-link" %>
-<% elsif params[:ip].present? %>
-  <%= link_to "Search by a different IP", ip_new_logs_search_path, class: "govuk-back-link" %>
-<% else %>
-  <%= link_to "Search by a different location", location_new_logs_search_path, class: "govuk-back-link" %>
+  <%= link_to "Search by a different username", username_new_admin_logs_search_path, class: "govuk-back-link" %>
 <% end %>
 
 <% if @logs.present? %>
-  <h1 class="govuk-heading-l">Found <%= pluralize(@logs.count, "result") %> for "<%= params[:username] || params[:ip] || @location_address %>"</h1>
+  <h1 class="govuk-heading-l">Found <%= pluralize(@logs.count, "result") %> for "<%= params[:username] %>"</h1>
 
   <div class="govuk-inset-text">
     <h4 class="govuk-heading-s">Filtered results</h4>
