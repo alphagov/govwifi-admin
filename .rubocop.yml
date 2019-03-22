@@ -4,7 +4,6 @@ require: rubocop-rspec
 AllCops:
   Exclude:
     - spec/features/contact_us_when_signed_in_spec.rb
-    - spec/features/admin/delete_custom_organisation_spec.rb
     - spec/features/status/view_status_spec.rb
     - spec/features/team/permissions_spec.rb
     - spec/features/team/remove_a_team_member_spec.rb
