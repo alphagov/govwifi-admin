@@ -1,4 +1,4 @@
-describe 'Choosing how to filter' do
+describe 'Choosing how to filter', type: :feature do
   before do
     sign_in_user create(:user)
     visit new_logs_search_path
@@ -10,8 +10,8 @@ describe 'Choosing how to filter' do
     it_behaves_like 'errors in form'
   end
 
-  context 'hacking urls' do
-    context 'to results link with no filter' do
+  context 'when changing URL parameters' do
+    context 'with no filter on results link' do
       before { visit logs_path }
 
       it 'redirects me to choosing a filter' do
@@ -19,7 +19,7 @@ describe 'Choosing how to filter' do
       end
     end
 
-    context 'to location not in my organisation' do
+    context "with a location not in the user's organisation" do
       let(:other_location) { create(:location) }
 
       it 'does not find the location' do
