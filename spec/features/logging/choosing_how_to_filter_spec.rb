@@ -19,7 +19,7 @@ describe 'Choosing how to filter', type: :feature do
       end
     end
 
-    context "with a location not in in the user's organisation" do
+    context "with a location not in the user's organisation" do
       let(:other_location) { create(:location) }
 
       it 'does not find the location' do

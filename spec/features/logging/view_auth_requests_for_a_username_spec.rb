@@ -54,7 +54,7 @@ describe "View authentication requests for a username", type: :feature do
     context "when username is correct" do
       let(:search_string) { "AAAAAA" }
 
-      it "displays 2 results" do
+      it "displays two results" do
         expect(page).to have_content("Found 2 results for \"#{username}\"")
       end
 

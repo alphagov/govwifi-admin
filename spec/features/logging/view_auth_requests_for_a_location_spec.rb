@@ -71,7 +71,7 @@ describe 'View authentication requests for a location', type: :feature do
       expect(page).not_to have_content(other_ip.address)
     end
 
-    context 'when going back search by a different location' do
+    context 'when going back to search by a different location' do
       before do
         click_on 'Search by a different location'
         select location.address, from: "Select one of your organisation's locations"
