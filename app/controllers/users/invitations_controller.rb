@@ -5,6 +5,7 @@ class Users::InvitationsController < Devise::InvitationsController
 private
 
   def authenticate_inviter!
+    # https://github.com/scambra/devise_invitable#controller-filter
     redirect_to(root_path) unless current_user&.can_manage_team?
   end
 
@@ -18,8 +19,6 @@ private
 
   def invited_user
     @invited_user ||= User.find_by(email: invite_params[:email])
-    @invited_user = User.find_by(email: invite_params[:email]) if @invited_user&.destroyed?
-    @invited_user
   end
 
   def resending_invite?
