@@ -1,4 +1,4 @@
-describe 'Edit user permissions' do
+describe 'Edit user permissions', type: :feature do
   let(:user) { create(:user) }
   let(:invited_user_other_org) { User.find_by(email: 'invited_other_org@gov.uk') }
   let(:invited_user_same_org) { User.find_by(email: 'invited_same_org@gov.uk') }
@@ -9,7 +9,7 @@ describe 'Edit user permissions' do
     sign_in_user user
   end
 
-  context 'When I do not have the .can_manage_team permission' do
+  context 'without the .can_manage_team permission' do
     before do
       user.permission.update!(can_manage_team: false)
     end
@@ -19,34 +19,38 @@ describe 'Edit user permissions' do
       expect(page).not_to have_link('Edit permissions')
     end
 
-    it 'Prevents visiting the edit permissions page directly' do
+    it 'prevents visiting the edit permissions page directly' do
       expect {
         visit edit_team_member_path(invited_user_same_org)
       }.to raise_error(ActionController::RoutingError)
     end
   end
 
-  context 'When I have the .can_manage_team permission' do
-    context 'User belongs to my organisation' do
+  context 'with the .can_manage_team permission' do
+    context 'when the user belongs to my organisation' do
       before do
         visit team_members_path
         click_link 'Edit permissions'
-      end
-
-      it 'allows me to edit the user permissions' do
         uncheck 'Add and remove team members'
         uncheck 'Add and remove locations and IPs'
-
         click_on 'Save'
+      end
 
+      it 'correctly sets the manage team permissions' do
         expect(invited_user_same_org.can_manage_team?).to eq(false)
+      end
+
+      it 'correctly sets the manage locations permissions' do
         expect(invited_user_same_org.can_manage_locations?).to eq(false)
+      end
+
+      it 'sets the correct success message' do
         expect(page).to have_content('Permissions updated')
       end
     end
 
-    context 'User does not belong to my organisation' do
-      it 'Restricts editing to only users in my organisation' do
+    context 'when the user does not belong to my organisation' do
+      it 'restricts editing to only users in my organisation' do
         expect {
           visit edit_team_member_path(invited_user_other_org)
         }.to raise_error(ActionController::RoutingError)
