@@ -1,4 +1,4 @@
-describe 'Contact us when signed in' do
+describe 'Contact us when signed in', type: :feature do
   include_context 'with a mocked support tickets client'
 
   let(:organisation) { create :organisation }
@@ -30,8 +30,11 @@ describe 'Contact us when signed in' do
       expect(support_tickets.count).to eq 1
     end
 
-    it 'sets the right information on the ticket' do
+    it 'sets the correct email on the ticket' do
       expect(support_tickets.last[:requester][:email]).to eq(user.email)
+    end
+
+    it 'sets the correct message on the ticket' do
       expect(support_tickets.last[:comment][:value]).to eq(
         'Help me, Barry!'
       )
@@ -48,7 +51,7 @@ describe 'Contact us when signed in' do
     end
   end
 
-  context 'from root/help path' do
+  context 'when visiting from the root/help path' do
     before { visit '/help' }
 
     it 'shows the user the not signed in support page' do
