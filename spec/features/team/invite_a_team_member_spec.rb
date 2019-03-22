@@ -1,4 +1,3 @@
-require 'support/invite_use_case_spy'
 require 'support/invite_use_case'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
