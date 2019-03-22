@@ -1,4 +1,4 @@
-describe "View authentication requests for a username" do
+describe "View authentication requests for a username", type: :feature do
   context "with results" do
     let(:username) { "AAAAAA" }
     let(:search_string) { "AAAAAA" }
@@ -54,9 +54,15 @@ describe "View authentication requests for a username" do
     context "when username is correct" do
       let(:search_string) { "AAAAAA" }
 
-      it "displays the authentication requests" do
+      it "displays 2 results" do
         expect(page).to have_content("Found 2 results for \"#{username}\"")
+      end
+
+      it "displays a successful request" do
         expect(page).to have_content("successful")
+      end
+
+      it "displays a failed request" do
         expect(page).to have_content("failed")
       end
 
@@ -69,34 +75,32 @@ describe "View authentication requests for a username" do
       end
     end
 
-    context "When search input has whitespace" do
-      let(:username) { "Garry" }
+    context "when search input has trailing whitespace" do
+      let(:search_string) { "AAAAAA " }
 
-      context "with trailing whitespace" do
-        let(:search_string) { "Garry " }
-
-        it "displays the search results of the username after stripping its trailing whitespace" do
-          expect(page).to have_content("1.1.1.1")
-        end
-      end
-
-      context "with leading whitespace" do
-        let(:search_string) { " Garry" }
-
-        it "displays the search results of the username after stripping its leading whitespace" do
-          expect(page).to have_content("1.1.1.1")
-        end
+      it "displays the search results of the username" do
+        expect(page).to have_content("1.1.1.1")
       end
     end
 
+    context "when search input has leading whitespace" do
+      let(:search_string) { " AAAAAA" }
+
+      it "displays the search results of the username" do
+        expect(page).to have_content("1.1.1.1")
+      end
+    end
 
     context "when username is too short" do
       let(:search_string) { "1" }
 
       it_behaves_like "errors in form"
 
-      it "displays an error summary to the user" do
+      it "displays an error to the user" do
         expect(page).to have_content("Search term must be 5 or 6 characters")
+      end
+
+      it "prompts the user for a valid username" do
         expect(page).to have_content("Enter a valid username")
       end
     end
