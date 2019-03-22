@@ -5,7 +5,6 @@ AllCops:
   Exclude:
     - spec/features/admin/delete_custom_organisation_spec.rb
     - spec/features/status/view_status_spec.rb
-    - spec/features/team/resend_invitation_spec.rb
     - spec/features/team/accept_an_invitation_and_sign_up_spec.rb
     - spec/features/team/invite_a_team_member_spec.rb
     - spec/features/team/edit_permissions_spec.rb
