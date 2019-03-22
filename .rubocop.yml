@@ -3,7 +3,6 @@ inherit_gem:
 require: rubocop-rspec
 AllCops:
   Exclude:
-    - spec/features/download_poster_spec.rb
     - spec/features/contact_us_when_signed_in_spec.rb
     - spec/features/admin/delete_custom_organisation_spec.rb
     - spec/features/status/view_status_spec.rb
@@ -33,9 +32,6 @@ AllCops:
     - spec/features/authentication/logging_in_after_signing_up_spec.rb
     - spec/features/authentication/lock_user_account_spec.rb
     - spec/features/authentication/reset_password_spec.rb
-    - spec/features/logging/view_auth_requests_for_an_ip_spec.rb
-    - spec/features/logging/choosing_how_to_filter_spec.rb
-    - spec/features/logging/view_auth_requests_for_a_username_spec.rb
     - spec/models/logs_search_spec.rb
     - spec/models/ip_spec.rb
     - spec/models/location_spec.rb
@@ -76,4 +72,3 @@ AllCops:
     - spec/features/ips/add_ip_to_existing_location_spec.rb
     - spec/features/ips/view_ip_addresses_spec.rb
     - spec/features/ips/remove_an_ip_spec.rb
-    - spec/features/logging/view_auth_requests_for_a_location_spec.rb
