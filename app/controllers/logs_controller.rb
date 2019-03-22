@@ -10,16 +10,31 @@ class LogsController < ApplicationController
       @location_address = location.address
     end
 
-    @logs = get_auth_requests.execute(
-      ips: location_ips || params[:ip],
-      username: params[:username]
-    ).fetch(:results)
+    if current_user.super_admin?
+      @logs = get_auth_super_admin_requests.execute(
+        ips: location_ips || params[:ip],
+        username: params[:username]
+      ).fetch(:results)
+      else
+        @logs = get_auth_requests.execute(
+          ips: location_ips || params[:ip],
+          username: params[:username]
+        ).fetch(:results)
+      end
   end
 
 private
 
   def valid_search_params
     params.keys & %w[ip username location]
+  end
+
+  def get_auth_super_admin_requests
+    UseCases::Administrator::GetAuthRequests.new(
+      authentication_logs_gateway: Gateways::Sessions.new(
+        ips: nil
+      )
+    )
   end
 
   def get_auth_requests
