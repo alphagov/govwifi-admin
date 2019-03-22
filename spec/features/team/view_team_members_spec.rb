@@ -1,4 +1,4 @@
-describe 'View team members of my organisation' do
+describe 'View team members of my organisation', type: :feature do
   context 'when logged out' do
     before { visit team_members_path }
 
@@ -14,22 +14,30 @@ describe 'View team members of my organisation' do
       ENV['DUBLIN_RADIUS_IPS'] = "1.1.1.1,2.2.2.2"
     end
 
-    context 'as the only user in my organisation' do
+    context 'when there is only one user in an organisation' do
+      let(:correct_permissions) do
+        [
+          "View logs",
+          "View team members",
+          "Add and remove team members",
+          "View locations and IPs",
+          "Add and remove locations and IPs"
+        ]
+      end
+
       before do
         sign_in_user user
         visit team_members_path
       end
 
-      it 'shows my email' do
-        expect(page).to have_content('me@example.gov.uk')
+      it 'shows the users email' do
+        expect(page).to have_content(user.email)
       end
 
-      it 'shows my permissions' do
-        expect(page).to have_content('View logs')
-        expect(page).to have_content('View team members')
-        expect(page).to have_content('View locations and IPs')
-        expect(page).to have_content('Add and remove team members')
-        expect(page).to have_content('Add and remove locations and IPs')
+      it 'displays all the permissions' do
+        selector = '#member-' + user.id.to_s + '-permissions'
+        array_of_permissions = find(selector).all('li').collect(&:text)
+        expect(array_of_permissions).to eq(correct_permissions)
       end
     end
 
@@ -38,10 +46,12 @@ describe 'View team members of my organisation' do
       let!(:user_2) { create(:user, name: 'amada', organisation: organisation) }
       let!(:user_3) { create(:user, name: 'zara', organisation: organisation) }
 
-      it 'renders all team members within my organisation in alphabetical order' do
+      before do
         sign_in_user user
         visit team_members_path
+      end
 
+      it 'renders all team members within my organisation in alphabetical order' do
         expect(page.body).to match(/#{user_2.name}.*#{user_1.email}.*#{user.name}.*#{user_3.name}/m)
       end
     end
@@ -50,12 +60,11 @@ describe 'View team members of my organisation' do
       before do
         other_organisation = create(:organisation, name: 'Gov Org 2')
         create(:user, email: 'stranger@example.gov.uk', organisation: other_organisation)
+        sign_in_user user
+        visit team_members_path
       end
 
       it 'does not include users from other organisations' do
-        sign_in_user user
-        visit team_members_path
-
         expect(page).not_to have_content('stranger@example.gov.uk')
       end
     end
