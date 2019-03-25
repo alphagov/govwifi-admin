@@ -1,33 +1,28 @@
-describe 'deleting a custom organisation name' do
-  let!(:custom_org_name1) { create(:custom_organisation_name, name: 'DummyOrg1') }
-  let!(:custom_org_name2) { create(:custom_organisation_name, name: 'DummyOrg2') }
-  let!(:custom_org_name3) { create(:custom_organisation_name, name: 'DummyOrg3') }
+describe 'Delete a custom organisation name', type: :feature do
+  let(:admin_user) { create(:user, super_admin: true) }
 
-  let!(:admin_user) { create(:user, super_admin: true) }
-
-  context 'when visiting the custom organisations page' do
-    before do
-      sign_in_user admin_user
-      visit admin_custom_organisations_path
-    end
-
-    it 'allows the user to delete a custom organisation' do
-      click_link "custom-organisation-#{custom_org_name1.id}"
-      click_on 'Yes, remove this organisation'
-      visit admin_custom_organisations_path
-      expect(page).not_to have_content("DummyOrg1")
-    end
+  before do
+    create(:custom_organisation_name, name: 'DummyOrg1')
+    create(:custom_organisation_name, name: 'DummyOrg2')
+    sign_in_user admin_user
+    visit admin_custom_organisations_path
   end
 
-  context 'changes the number of custom orgs in the register' do
+  context 'when deleting a custom organisation name' do
+    let(:allowed_organisation_1) { CustomOrganisationName.find_by(name: 'DummyOrg1') }
+
     before do
-      sign_in_user admin_user
-      visit admin_custom_organisations_path
+      click_link "custom-organisation-#{allowed_organisation_1.id}"
     end
 
-    it 'will remove the custom org from the register' do
-      click_link "custom-organisation-#{custom_org_name3.id}"
+    it 'removes the correct organisation name from the list' do
+      click_on 'Yes, remove this organisation'
+      within ".govuk-table" do
+        expect(page).not_to have_content(allowed_organisation_1.name)
+      end
+    end
 
+    it 'removes the organisation name from the register' do
       expect {
         click_on 'Yes, remove this organisation'
       }.to change(CustomOrganisationName, :count).by(-1)
