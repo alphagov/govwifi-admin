@@ -1,4 +1,4 @@
-describe "View authentication requests for a username", type: :feature do
+describe "View authentication requests for a username", focus: true, type: :feature do
   context "with results" do
     let(:username) { "AAAAAA" }
     let(:search_string) { "AAAAAA" }
@@ -122,7 +122,7 @@ describe "View authentication requests for a username", type: :feature do
     end
 
     it 'wont allow an organsiation with no ips to view all logs' do
-      expect(page).to have_content("Only requests from your organisation's IPs are shown")
+      expect(page).to have_content("\"#{username}\" isn't reaching the GovWifi service")
     end
 
     it "displays the no results message" do
