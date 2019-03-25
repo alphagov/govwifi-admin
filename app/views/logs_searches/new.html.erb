@@ -15,26 +15,20 @@
         </p>
         <div class="govuk-radios <%= field_error(@search, :filter) %>">
           <%= render 'error_message', key: :filter, message: 'select an option' %>
-          <% if current_user.super_admin? %>
-            <div class="govuk-radios__item govuk-!-margin-bottom-6">
-              <input class="govuk-radios__input" id="choice-username" name="logs_search[filter]" type="radio" value="username">
-              <label class="govuk-label govuk-radios__label" for="choice-username">
-              Username
-            </label>
-          </div>
-          <% else %>
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="choice-location" name="logs_search[filter]" type="radio" value="location">
-            <label class="govuk-label govuk-radios__label" for="choice-location">
-              Location
-            </label>
-          </div>
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="choice-ip" name="logs_search[filter]" type="radio" value="ip">
-            <label class="govuk-label govuk-radios__label" for="choice-ip">
-              IP address
-            </label>
-          </div>
+          <% if !current_user.super_admin? %>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="choice-location" name="logs_search[filter]" type="radio" value="location">
+              <label class="govuk-label govuk-radios__label" for="choice-location">
+                Location
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="choice-ip" name="logs_search[filter]" type="radio" value="ip">
+              <label class="govuk-label govuk-radios__label" for="choice-ip">
+                IP address
+              </label>
+            </div>
+          <% end %>
           <div class="govuk-radios__item">
             <input class="govuk-radios__input" id="choice-username" name="logs_search[filter]" type="radio" value="username">
             <label class="govuk-label govuk-radios__label" for="choice-username">
@@ -43,7 +37,6 @@
           </div>
         </div>
       </div>
-      <% end %>
       <input type='hidden' name='logs_search[first_step]' value='true'>
       <%= form.submit 'Go to search', class: 'govuk-button' %>
     <% end %>
