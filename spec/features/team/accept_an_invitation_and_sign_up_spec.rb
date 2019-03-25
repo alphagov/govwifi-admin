@@ -2,20 +2,22 @@ require 'support/invite_use_case_spy'
 require 'support/invite_use_case'
 require 'support/notifications_service'
 
-describe "Sign up from invitation" do
-  include_examples 'invite use case spy'
-  include_examples 'notifications service'
-
+describe "Sign up from invitation", type: :feature do
   let(:invited_user_email) { "invited@gov.uk" }
   let(:user) { create(:user) }
 
+  include_examples 'invite use case spy'
+  include_examples 'notifications service'
+
+  # rubocop:disable RSpec/HooksBeforeExamples
   before do
     sign_in_user user
     invite_user(invited_user_email)
     sign_out
   end
+  # rubocop:enable RSpec/HooksBeforeExamples
 
-  context "following the invite link" do
+  context "when following the invite link" do
     let(:invite_link) { InviteUseCaseSpy.last_invite_url }
     let(:invited_user) { User.find_by(email: invited_user_email) }
 
@@ -27,7 +29,7 @@ describe "Sign up from invitation" do
       expect(page).to have_content("Create your account")
     end
 
-    context "signing up as an invited user" do
+    context "when signing up as an invited user" do
       before do
         fill_in "Your name", with: "Ron Swanson"
         fill_in "Password", with: "password"
@@ -36,9 +38,10 @@ describe "Sign up from invitation" do
 
       it "confirms the user" do
         expect(invited_user.confirmed?).to eq(true)
+      end
+
+      it "sets the users name" do
         expect(invited_user.name).to eq("Ron Swanson")
-        expect(page).to have_content("Sign out")
-        expect(page).to have_content(user.organisation.name)
       end
     end
   end

@@ -1,4 +1,4 @@
-describe "Remove a team member" do
+describe "Remove a team member", type: :feature do
   let(:user) { create(:user) }
   let(:another_user) { create(:user, organisation: user.organisation) }
 
