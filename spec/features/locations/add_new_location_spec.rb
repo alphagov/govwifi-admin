@@ -1,122 +1,116 @@
-describe 'Add new location' do
+describe 'Add new location', type: :feature do
   include_context 'with a mocked notifications client'
 
   let(:user) { create(:user) }
   let(:ip_input) { "location_ips_attributes_0_address" }
   let(:second_ip_input) { "location_ips_attributes_1_address" }
 
-  context 'when logged in' do
-    before do
-      sign_in_user user
-      visit ips_path
-      click_on 'Add IP address'
+  before do
+    sign_in_user user
+    visit ips_path
+    click_on 'Add IP address'
+  end
+
+  it 'displays an instruction to add the first location' do
+    expect(page).to have_content('Add your first location')
+  end
+
+  context 'when adding the first location' do
+    context 'with valid IP data' do
+      before do
+        fill_in 'Address', with: '30 Square'
+        fill_in 'Postcode', with: 'W1A 2AB'
+        fill_in ip_input, with: '141.0.149.130'
+      end
+
+      it 'adds the location and IPs' do
+        expect { click_on 'Add new location' }.to change(Location, :count).by(1)
+      end
+
+      it 'displays the success message to the user' do
+        click_on 'Add new location'
+        expect(page).to have_content('30 Square, W1A 2AB added')
+      end
     end
 
-    it 'displays an instruction to add the first location' do
-      expect(page).to have_content('Add your first location')
+    context 'with invalid IP data' do
+      before do
+        fill_in 'Address', with: '30 Square'
+        fill_in 'Postcode', with: 'W1A 2AB'
+        fill_in ip_input, with: '10.wrong.0.1'
+        fill_in second_ip_input, with: '10.0.0.3'
+        click_on 'Add new location'
+      end
+
+      it 'asks me to re-enter IPs' do
+        expect(page).to have_content('enter up to five IP addresses')
+      end
+
+      it 'tells me an IP is invalid' do
+        expect(page).to have_content(
+          "One or more IPs are incorrect"
+        )
+      end
+
+      it 'does not add the invalid IP' do
+        visit ips_path
+        expect(page).not_to have_content('10.wrong.0.1')
+      end
     end
 
-    context 'and adding the first location' do
-      context 'and that IP is valid' do
-        before do
-          fill_in 'Address', with: '30 Square'
-          fill_in 'Postcode', with: 'W1A 2AB'
-          fill_in ip_input, with: '141.0.149.130'
-          click_on 'Add new location'
-        end
-
-        it 'shows me the location was added' do
-          expect(page).to have_content('30 Square, W1A 2AB added')
-        end
-
-        it 'adds the location and IPs' do
-          expect(Ip.last.location.address).to eq('30 Square')
-          expect(Ip.last.location.postcode).to eq('W1A 2AB')
-        end
+    context 'when the IP field is left blank' do
+      before do
+        fill_in 'Address', with: '30 Square'
+        fill_in 'Postcode', with: 'W1A 2AB'
+        click_on 'Add new location'
+        visit ips_path
       end
 
-      context 'and that IP is invalid' do
-        before do
-          fill_in 'Address', with: '30 Square'
-          fill_in 'Postcode', with: 'W1A 2AB'
-          fill_in ip_input, with: '10.wrong.0.1'
-          fill_in second_ip_input, with: '10.0.0.3'
-          click_on 'Add new location'
-        end
+      it 'adds the location' do
+        expect(page).to have_content('30 Square')
+      end
+    end
 
-        it 'asks me to re-enter IPs' do
-          expect(page).to have_content('enter up to five IP addresses')
-        end
-
-        it 'tells me an IP is invalid' do
-          expect(page).to have_content(
-            "One or more IPs are incorrect"
-          )
-        end
-
-        context 'when looking back at the list' do
-          before { visit ips_path }
-
-          it 'has not added the invalid IP' do
-            expect(page).not_to have_content('10.wrong.0.1')
-          end
-        end
+    context 'when the location address is left blank' do
+      before do
+        fill_in 'Postcode', with: 'W1A 2AB'
+        fill_in ip_input, with: '10.wrong.0.1'
+        click_on 'Add new location'
       end
 
-      context 'and that IP is blank' do
-        before do
-          fill_in 'Address', with: '30 Square'
-          fill_in 'Postcode', with: 'W1A 2AB'
-          click_on 'Add new location'
-        end
+      it_behaves_like "errors in form"
+    end
 
-        context 'when looking back at the list' do
-          before { visit ips_path }
-
-          it 'has added the location' do
-            expect(page).to have_content('30 Square')
-          end
-        end
+    context 'when the postcode is left blank' do
+      before do
+        fill_in 'Address', with: '30 Square'
+        fill_in 'Postcode', with: ''
+        fill_in ip_input, with: '10.0.0.3'
+        click_on 'Add new location'
       end
 
-      context 'and the address is blank' do
-        before do
-          fill_in 'Postcode', with: 'W1A 2AB'
-          fill_in ip_input, with: '10.wrong.0.1'
-          click_on 'Add new location'
-        end
+      it_behaves_like 'errors in form'
+    end
 
-        it_behaves_like "errors in form"
+    context 'when the postcode is not valid' do
+      before do
+        fill_in 'Address', with: '30 Square'
+        fill_in 'Postcode', with: 'WHATEVER'
+        fill_in ip_input, with: '10.0.0.3'
+        click_on 'Add new location'
       end
 
-      context 'the postcode is blank' do
-        before do
-          fill_in 'Address', with: '30 Square'
-          fill_in 'Postcode', with: ''
-          fill_in ip_input, with: '10.0.0.3'
-          click_on 'Add new location'
-        end
-
-        it_behaves_like 'errors in form'
-      end
-
-      context 'the postcode is not valid' do
-        before do
-          fill_in 'Address', with: '30 Square'
-          fill_in 'Postcode', with: 'WHATEVER'
-          fill_in ip_input, with: '10.0.0.3'
-          click_on 'Add new location'
-        end
-
-        it 'errors about an invalid postcode' do
-          expect(page).to have_content('Postcode must be valid')
-        end
+      it 'displays an error about the invalid postcode' do
+        expect(page).to have_content('Postcode must be valid')
       end
     end
   end
 
   context 'when logged out' do
-    before { visit new_location_path }
+    before do
+      sign_out
+      visit new_location_path
+    end
 
     it_behaves_like 'not signed in'
   end

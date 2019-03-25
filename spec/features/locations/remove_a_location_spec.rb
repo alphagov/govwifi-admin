@@ -1,4 +1,4 @@
-describe 'Remove a location' do
+describe 'Remove a location', type: :feature do
   let(:user) { create(:user) }
   let!(:location) { create(:location, organisation: user.organisation) }
 
@@ -18,16 +18,17 @@ describe 'Remove a location' do
 
       it "shows the remove location partial" do
         within(".govuk-error-summary") do
-          expect(page).to have_content(location.address)
           expect(page).to have_button("Yes, remove this location")
         end
       end
 
       it "removes the location" do
         expect { click_on "Yes, remove this location" }.to change(Location, :count).by(-1)
+      end
 
+      it "displays the success message to the user" do
+        click_on "Yes, remove this location"
         expect(page).to have_content("Successfully removed location #{location.address}")
-        expect(page).to have_content("IP addresses")
       end
     end
 
@@ -49,7 +50,6 @@ describe 'Remove a location' do
 
     it "does not show the remove button" do
       visit ips_path
-
       within("#ips-table") do
         expect(page).not_to have_content("Remove location")
       end
@@ -75,7 +75,6 @@ describe 'Remove a location' do
 
     it "does not show the partial" do
       expect(page).not_to have_content("Are you sure you want to remove this location")
-      expect(page).not_to have_content(other_location.address)
     end
   end
 end
