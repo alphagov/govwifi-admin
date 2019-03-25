@@ -1,10 +1,9 @@
 require 'support/confirmation_use_case'
 
-describe 'adding a custom organisation name' do
-  let!(:admin_user) { create(:user, super_admin: true) }
+describe 'Adding a custom organisation name', type: :feature do
+  let(:admin_user) { create(:user, super_admin: true) }
 
   include_examples 'confirmation use case spy'
-
 
   context 'when visiting the custom organisations page' do
     let!(:org2) { CustomOrganisationName.create(name: 'Custom Org 2') }
@@ -33,16 +32,24 @@ describe 'adding a custom organisation name' do
     end
 
     context 'when the organisation name is blank' do
-      it 'will error if its blank' do
+      before do
         fill_in 'custom_organisations[name]', with: ' '
         click_on 'Allow organisation'
+      end
+        
+      it 'will error if its blank' do
         expect(page).to have_content("Name can't be blank")
       end
+    end
 
-      it 'will error if its already in our register' do
+    context 'when custom organisation name already exists' do
+      before do
         CustomOrganisationName.create(name: 'Custom Org name')
         fill_in 'custom_organisations[name]', with: 'Custom Org name'
         click_on 'Allow organisation'
+      end
+
+      it 'will error if its already in our register' do
         expect(page).to have_content("Name is already in our register")
       end
     end
