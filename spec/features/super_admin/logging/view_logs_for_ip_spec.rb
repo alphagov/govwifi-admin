@@ -6,6 +6,10 @@ describe 'View authentication requests for an IP', type: :feature do
   let(:organisation) { create(:organisation) }
   let(:location) { create(:location, organisation_id: organisation.id) }
 
+  let(:other_user) { create(:user, organisation_id: other_user_organisation.id) }
+  let(:other_user_organisation) { create(:organisation) }
+  let(:other_user_location) { create(:location, organisation_id: other_user_organisation.id) }
+
   let(:super_admin) { create(:user, super_admin: true) }
   let(:super_admin_organisation) { create(:organisation) }
   let(:super_admin_location) { create(:location, super_admin_organisation: super_admin.organisation) }
@@ -48,7 +52,22 @@ describe 'View authentication requests for an IP', type: :feature do
       let(:search_string) { ip }
 
       it 'displays all results for the searched IP' do
-        expect(page).to have_content("Found 3 results for ")
+        expect(page).to have_content("Found 3 results for \"#{ip}\"")
+      end
+    end
+
+    context 'when a user from another organisation views an IP from another organisation' do
+      let(:search_string) { ip }
+
+      before do
+        sign_in_user other_user
+        visit ip_new_logs_search_path
+        fill_in "IP address", with: search_string
+        click_on "Show logs"
+      end
+
+      it 'displays all results for the searched IP' do
+        expect(page).not_to have_content("Found 3 results for \"#{ip}\"")
       end
     end
 
