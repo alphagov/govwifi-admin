@@ -5,7 +5,6 @@ AllCops:
   Exclude:
     - spec/features/status/view_status_spec.rb
     - spec/features/upload_download_mous_spec.rb
-    - spec/features/super_admin/view_organisation_page_spec.rb
     - spec/features/super_admin/delete_organisation_as_super_admin_spec.rb
     - spec/features/super_admin/add_custom_organisation_spec.rb
     - spec/features/super_admin/view_organisation_tab_spec.rb
