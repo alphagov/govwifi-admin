@@ -2,13 +2,9 @@ describe "View authentication requests for a username", type: :feature do
   context "with results" do
     let(:username) { "AAAAAA" }
     let(:search_string) { "AAAAAA" }
-
     let(:organisation) { create(:organisation) }
     let(:admin_user) { create(:user, organisation_id: organisation.id) }
     let(:location) { create(:location, organisation_id: organisation.id) }
-
-    let(:organisation_with_no_ips) { create(:organisation) }
-    let(:admin_user_2) { create(:user, organisation_id: organisation_with_no_ips.id) }
 
     before do
       Session.create!(
@@ -55,9 +51,13 @@ describe "View authentication requests for a username", type: :feature do
       click_on "Show logs"
     end
 
-    context 'when an organsiation with no ips searches logs' do
+    context 'when an organisation with no ips searches logs' do
+      let(:organisation_with_no_ips) { create(:organisation) }
+      let(:admin_user) { create(:user, organisation: organisation_with_no_ips) }
+      let(:search_string) { "AAAAAA" }
+
       before do
-        sign_in_user admin_user_2
+        sign_in_user admin_user
         visit new_logs_search_path
         choose "Username"
         click_on "Go to search"
@@ -65,9 +65,7 @@ describe "View authentication requests for a username", type: :feature do
         click_on "Show logs"
       end
 
-      let(:search_string) { "AAAAAA" }
-
-      it "displays no results results " do
+      it "displays no results" do
         expect(page).to have_content("\"#{username}\" isn't reaching the GovWifi service")
       end
     end
