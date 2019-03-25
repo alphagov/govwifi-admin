@@ -5,8 +5,6 @@ AllCops:
   Exclude:
     - spec/features/status/view_status_spec.rb
     - spec/features/upload_download_mous_spec.rb
-    - spec/features/super_admin/sign_in_as_super_admin_spec.rb
-    - spec/features/super_admin/authorised_email_domain_spec.rb
     - spec/features/logout_user_after_inactivity_spec.rb
     - spec/features/overview/view_overview_page_spec.rb
     - spec/features/authentication/logging_in_after_signing_up_spec.rb
