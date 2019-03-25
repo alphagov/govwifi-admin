@@ -1,4 +1,4 @@
-describe 'sorting the values in the organisation list' do
+describe 'Sorting the organisations list', type: :feature do
   context 'when super admin views the list' do
     let!(:super_admin) { create(:user, super_admin: true) }
 
@@ -10,7 +10,7 @@ describe 'sorting the values in the organisation list' do
       visit root_path
     end
 
-    context 'and sorts by account creation date' do
+    context 'when sorting by account creation date' do
       it 'sorts the list from newest to oldest, by default' do
         expect(page.body).to match(/Gov Org 1.*Gov Org 3.*Gov Org 2/m)
       end
@@ -22,7 +22,7 @@ describe 'sorting the values in the organisation list' do
       end
     end
 
-    context 'and sorts by organisation name' do
+    context 'when sorting by organisation name' do
       it 'sorts the list from A -Z, when Name is clicked once' do
         click_link 'Name'
 
@@ -36,7 +36,7 @@ describe 'sorting the values in the organisation list' do
       end
     end
 
-    context 'and sorts by signed MoU uploads' do
+    context 'when sorting by signed MoU uploads' do
       before do
         create(:organisation, name: "Gov Org 4")
 
