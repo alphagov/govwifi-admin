@@ -128,12 +128,10 @@ describe "View authentication requests for a username", type: :feature do
   end
 
   context "without results" do
-    let(:organisation) { create(:organisation) }
-    let(:admin_user) { create(:user, organisation_id: organisation.id) }
-    let(:username) { "AAAAAA" }
+    let(:username) { "random" }
 
     before do
-      sign_in_user admin_user
+      sign_in_user create(:user)
       visit new_logs_search_path
       choose "Username"
       click_on "Go to search"
