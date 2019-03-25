@@ -1,5 +1,4 @@
-describe "View authentication requests for a username", focus: true, type: :feature do
-
+describe "View authentication requests for a username", type: :feature do
   context "with super admin privileages" do
     let(:username) { "Larry" }
 
