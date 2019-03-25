@@ -1,28 +1,23 @@
-describe 'the upload and download of MOUs' do
-  context 'when logged out' do
-    before { visit mou_index_path }
+describe 'Uploading and downloading an MOU', type: :feature do
+  let(:user) { create(:user) }
 
-    it_behaves_like 'not signed in'
-  end
-
-  context 'As normal user' do
-    let!(:organisation) { create(:organisation) }
-    let!(:user) { create(:user, email: 'me@example.gov.uk', organisation: organisation) }
-
+  context "when signed in" do
     before do
       sign_in_user user
     end
 
-    context 'no file uploaded' do
-      it 'errors' do
+    context 'when no file is chosen to upload' do
+      before do
         visit mou_index_path
         click_on 'Upload'
+      end
 
+      it 'displays an error to the user' do
         expect(page).to have_content("Choose a file before uploading")
       end
     end
 
-    context 'uploading the signed mou' do
+    context 'when uploading the signed mou' do
       before do
         visit mou_index_path
         attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
@@ -31,36 +26,19 @@ describe 'the upload and download of MOUs' do
 
       it 'can upload and download a version of the mou' do
         expect(page).to have_content("MOU uploaded successfully.")
-        expect(page).to have_content("download and view the document.")
-        expect(page).to have_content("A signed MoU was uploaded on")
       end
-    end
 
-    context 'when trying to access MOU pages for admins' do
-      it 'redirects unauthorised access' do
-        visit admin_mou_index_path
-
-        expect(page).to have_current_path(setup_instructions_path)
+      it 'displays the download link' do
+        expect(page).to have_link("download and view the document.")
       end
     end
   end
 
-  context 'As a super admin' do
-    let!(:organisation) { create(:organisation) }
-    let!(:user) { create(:user, email: 'me@example.gov.uk', organisation: organisation, super_admin: true) }
-
-    it 'uploads and downloads the mou template' do
-      sign_in_user user
-      visit admin_mou_index_path
-
-      attach_file("unsigned_document", Rails.root + "spec/fixtures/mou.pdf")
-      click_on 'Upload'
-
-      expect(page).to have_content("MOU template uploaded successfully.")
-
-      click_on 'Download current template'
-
-      expect(page.body).to eq("12334567 signed mou with content\n")
+  context 'when signed out' do
+    before do
+      visit mou_index_path
     end
+
+    it_behaves_like 'not signed in'
   end
 end
