@@ -56,7 +56,7 @@ describe 'View authentication requests for an IP', type: :feature do
       end
     end
 
-    context 'when a user from another organisation views an IP from another organisation' do
+    context 'when a user from an organisation searches logs for an IP from another organisation' do
       let(:search_string) { ip }
 
       before do
