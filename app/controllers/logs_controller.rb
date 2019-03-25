@@ -25,7 +25,7 @@ private
   def get_auth_requests
     UseCases::Administrator::GetAuthRequests.new(
       authentication_logs_gateway: Gateways::Sessions.new(
-        ips: current_user.super_admin? ? Ip.all.map(&:address) : current_organisation.ips.map(&:address)
+        ip_filter: current_user.super_admin? ? nil : current_organisation.ips.map(&:address)
       )
     )
   end
