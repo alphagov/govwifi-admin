@@ -2,6 +2,7 @@ describe "View authentication requests for a username", type: :feature do
   context "with results" do
     let(:username) { "AAAAAA" }
     let(:search_string) { "AAAAAA" }
+
     let(:organisation) { create(:organisation) }
     let(:admin_user) { create(:user, organisation_id: organisation.id) }
     let(:location) { create(:location, organisation_id: organisation.id) }
@@ -107,15 +108,21 @@ describe "View authentication requests for a username", type: :feature do
   end
 
   context "without results" do
-    let(:username) { "random" }
+    let(:organisation) { create(:organisation) }
+    let(:admin_user_2) { create(:user, organisation_id: organisation.id) }
+    let(:username) { "AAAAAA" }
 
     before do
-      sign_in_user create(:user)
+      sign_in_user admin_user_2
       visit new_logs_search_path
       choose "Username"
       click_on "Go to search"
       fill_in "Username", with: username
       click_on "Show logs"
+    end
+
+    it 'wont allow an organsiation with no ips to view all logs' do
+      expect(page).to have_content("Only requests from your organisation's IPs are shown")
     end
 
     it "displays the no results message" do
