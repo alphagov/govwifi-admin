@@ -2,17 +2,17 @@ module Gateways
   class Sessions
     MAXIMUM_RESULTS_COUNT = 500
 
-    def initialize(ips:)
-      @organisation_ips = ips
+    def initialize(ip_filter:)
+      @ip_filter = ip_filter
     end
 
     def search(username: nil, ips: nil)
       results = Session
-        .where(siteIP: organisation_ips)
-        .where('start >= ?', 2.weeks.ago)
-        .order(start: :desc)
-        .limit(MAXIMUM_RESULTS_COUNT)
+                  .where('start >= ?', 2.weeks.ago)
+                  .order(start: :desc)
+                  .limit(MAXIMUM_RESULTS_COUNT)
 
+      results = results.where(siteIP: ip_filter) if ip_filter
       results = results.where(username: username) if username.present?
       results = results.where(siteIP: ips) if ips.present?
 
@@ -30,6 +30,6 @@ module Gateways
 
   private
 
-    attr_reader :organisation_ips
+    attr_reader :ip_filter
   end
 end

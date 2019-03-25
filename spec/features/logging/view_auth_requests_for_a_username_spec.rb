@@ -51,6 +51,25 @@ describe "View authentication requests for a username", type: :feature do
       click_on "Show logs"
     end
 
+    context 'when an organisation with no ips searches logs' do
+      let(:organisation_with_no_ips) { create(:organisation) }
+      let(:admin_user) { create(:user, organisation: organisation_with_no_ips) }
+      let(:search_string) { "AAAAAA" }
+
+      before do
+        sign_in_user admin_user
+        visit new_logs_search_path
+        choose "Username"
+        click_on "Go to search"
+        fill_in "Username", with: search_string
+        click_on "Show logs"
+      end
+
+      it "displays no results" do
+        expect(page).to have_content("\"#{username}\" isn't reaching the GovWifi service")
+      end
+    end
+
     context "when username is correct" do
       let(:search_string) { "AAAAAA" }
 
