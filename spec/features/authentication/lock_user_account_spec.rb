@@ -1,4 +1,6 @@
-describe 'Locking a users account' do
+require 'support/notifications_service'
+
+describe 'Locking a users account', type: :feature do
   include_context 'with a mocked notifications client'
 
   let(:correct_password) { 'password' }
@@ -8,23 +10,17 @@ describe 'Locking a users account' do
   before { visit new_user_session_path }
 
   context 'when they have tried to login nine times with the wrong password' do
-    it 'warns them one more wrong attempt will lock their account' do
+    before do
       9.times do
         fill_in 'Email', with: user.email
         fill_in 'Password', with: incorrect_password
         click_on 'Continue'
       end
+    end
+
+    it 'warns them one more wrong attempt will lock their account' do
       expect(page).to have_content 'You have one more attempt before your account is locked.'
     end
-  end
-
-  it 'when they have tried to login ten times with the wrong password tells them their account is locked' do
-    10.times do
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: incorrect_password
-      click_on 'Continue'
-    end
-    expect(page).to have_content 'Your account is locked.'
   end
 
   context 'when they have tried to login ten times with the wrong password' do
@@ -34,6 +30,10 @@ describe 'Locking a users account' do
         fill_in 'Password', with: incorrect_password
         click_on 'Continue'
       end
+    end
+
+    it 'locks their account' do
+      expect(page).to have_content 'Your account is locked.'
     end
 
     it 'sends one email' do
@@ -46,10 +46,6 @@ describe 'Locking a users account' do
 
     it 'sends an unlock link' do
       expect(last_notification_link).to include(user_unlock_path)
-    end
-
-    it 'tells me my account is locked' do
-      expect(page).to have_content 'Your account is locked.'
     end
   end
 end
