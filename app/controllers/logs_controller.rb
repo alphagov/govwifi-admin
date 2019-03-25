@@ -10,17 +10,10 @@ class LogsController < ApplicationController
       @location_address = location.address
     end
 
-    if current_user.super_admin?
-      @logs = get_auth_super_admin_requests.execute(
-        ips: location_ips || params[:ip],
-        username: params[:username]
-      ).fetch(:results)
-      else
-        @logs = get_auth_requests.execute(
-          ips: location_ips || params[:ip],
-          username: params[:username]
-        ).fetch(:results)
-      end
+    @logs = get_auth_requests.execute(
+      ips: location_ips || params[:ip],
+      username: params[:username]
+    ).fetch(:results)
   end
 
 private
@@ -29,18 +22,10 @@ private
     params.keys & %w[ip username location]
   end
 
-  def get_auth_super_admin_requests
-    UseCases::Administrator::GetAuthRequests.new(
-      authentication_logs_gateway: Gateways::Sessions.new(
-        ips: nil
-      )
-    )
-  end
-
   def get_auth_requests
     UseCases::Administrator::GetAuthRequests.new(
       authentication_logs_gateway: Gateways::Sessions.new(
-        ips: current_organisation.ips.map(&:address)
+        ips: current_user.super_admin? ? nil : current_organisation.ips.map(&:address)
       )
     )
   end
