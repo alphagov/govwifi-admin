@@ -7,19 +7,12 @@ module Gateways
     end
 
     def search(username: nil, ips: nil)
-      results = if ip_filter
-                  Session
-                    .where(siteIP: ip_filter)
-                    .where('start >= ?', 2.weeks.ago)
-                    .order(start: :desc)
-                    .limit(MAXIMUM_RESULTS_COUNT)
-                else
-                  Session
-                    .where('start >= ?', 2.weeks.ago)
-                    .order(start: :desc)
-                    .limit(MAXIMUM_RESULTS_COUNT)
-                end
+      results = Session
+                  .where('start >= ?', 2.weeks.ago)
+                  .order(start: :desc)
+                  .limit(MAXIMUM_RESULTS_COUNT)
 
+      results = results.where(siteIP: ip_filter) if ip_filter
       results = results.where(username: username) if username.present?
       results = results.where(siteIP: ips) if ips.present?
 

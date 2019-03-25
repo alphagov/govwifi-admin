@@ -13,6 +13,9 @@ describe "View authentication requests for a username", type: :feature do
   let(:location_2) { create(:location, organisation: organisation_2) }
   let(:ip_2) { create(:ip, location: location_2) }
 
+  let(:organisation_3) { create(:organisation) }
+  let(:location_3) { create(:location, organisation: organisation_3) }
+
   before do
     sign_in_user super_admin
     visit new_logs_search_path
@@ -31,6 +34,7 @@ describe "View authentication requests for a username", type: :feature do
         success: true,
         building_identifier: ""
       )
+
       Session.create!(
         start: 3.days.ago,
         username: username,
