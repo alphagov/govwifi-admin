@@ -1,11 +1,11 @@
-describe 'Authorised Email Domains' do
+describe 'Authorised Email Domains', type: :feature do
   context 'when logged in' do
     before do
       sign_in_user admin_user
       visit new_admin_authorised_email_domain_path
     end
 
-    context 'as super admin' do
+    context 'with super admin privileges' do
       let(:admin_user) { create(:user, super_admin: true) }
 
       context 'when I want to whitelist a domain' do
@@ -13,10 +13,10 @@ describe 'Authorised Email Domains' do
           fill_in 'Name', with: some_domain
         end
 
-        context 'adding a new domain' do
+        context 'when adding a new domain' do
           let(:some_domain) { 'gov.uk' }
 
-          it 'authorise a new domain' do
+          it 'authorises a new domain' do
             expect { click_on 'Save' }.to change(AuthorisedEmailDomain, :count).by(1)
             expect(page).to have_content("#{some_domain} authorised")
           end
@@ -27,7 +27,7 @@ describe 'Authorised Email Domains' do
           end
         end
 
-        context 'Submitting a blank domain' do
+        context 'when submitting a blank domain' do
           let(:some_domain) { '' }
 
           it 'renders an error' do
@@ -36,7 +36,7 @@ describe 'Authorised Email Domains' do
           end
         end
 
-        context 'deleting a whitelisted domain' do
+        context 'when deleting a whitelisted domain' do
           let(:some_domain) { 'police.uk' }
 
           it 'removes a domain' do
@@ -57,7 +57,7 @@ describe 'Authorised Email Domains' do
         end
       end
 
-      context 'viewing a list of domains' do
+      context 'when viewing a list of domains' do
         before do
           create(:authorised_email_domain, name: 'bgov.some.test.uk')
           create(:authorised_email_domain, name: 'cgov.some.test.uk')
@@ -71,7 +71,7 @@ describe 'Authorised Email Domains' do
       end
     end
 
-    context 'as a normal administrator' do
+    context 'without super admin privileges' do
       let(:admin_user) { create(:user, super_admin: false) }
 
       it 'will redirect to root if users type address manually' do
