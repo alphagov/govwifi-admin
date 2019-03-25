@@ -1,5 +1,6 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
+  before_action :return_user_to_invite_page, if: :user_is_invalid?, only: :create
   before_action :add_organisation_to_params, only: :create
 
 private
@@ -15,6 +16,17 @@ private
 
   def delete_user_record
     invited_user.destroy!
+  end
+
+  def return_user_to_invite_page
+    respond_with_navigational(resource) { render :new }
+  end
+
+  def user_is_invalid?
+    # This is an indirect solution to preventing a user being re-invited when they belong
+    # to another organisation.
+    self.resource = resource_class.new(invite_params)
+    resource.invalid?
   end
 
   def invited_user
