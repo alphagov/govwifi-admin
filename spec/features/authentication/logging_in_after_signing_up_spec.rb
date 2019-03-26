@@ -1,12 +1,13 @@
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
-describe 'logging in after signing up' do
+describe 'Logging in after signing up', type: :feature do
+  let(:correct_password) { 'f1uffy-bu44ies' }
+
   include_examples 'confirmation use case spy'
   include_examples 'notifications service'
 
-  let(:correct_password) { 'f1uffy-bu44ies' }
-
+  # rubocop:disable RSpec/HooksBeforeExamples
   before do
     sign_up_for_account(email: 'tom@gov.uk')
     update_user_details(password: correct_password)
@@ -18,6 +19,7 @@ describe 'logging in after signing up' do
 
     click_on 'Continue'
   end
+  # rubocop:enable RSpec/HooksBeforeExamples
 
   context 'with correct password' do
     let(:password) { correct_password }

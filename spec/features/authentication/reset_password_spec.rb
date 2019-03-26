@@ -1,4 +1,6 @@
-describe "Resetting a password" do
+require 'support/notifications_service'
+
+describe "Resetting a password", type: :feature do
   include_context 'with a mocked notifications client'
 
   it "displays the forgot password link at login" do
@@ -41,7 +43,6 @@ describe "Resetting a password" do
 
     it "tells them to confirm their account first" do
       expect(page).to have_content("Resend confirmation instructions")
-      expect(page).to have_current_path(new_user_confirmation_path)
     end
 
     it "resends the confirm email" do
@@ -52,52 +53,60 @@ describe "Resetting a password" do
   context "when the user does exist" do
     let(:user) { create(:user) }
 
-    it "sends a reset password email" do
+    before do
       visit new_user_password_path
       fill_in "user_email", with: user.email
       click_on "Send me reset password instructions"
-      expect(last_notification_type).to eq "reset"
-      expect(page).to have_content("You will receive an email with instructions")
     end
 
-    context "when clicking on reset link" do
+    it "sends a reset password email" do
+      expect(last_notification_type).to eq "reset"
+    end
+
+    it "displays a confirmation message to the user" do
+      expect(page).to have_content("You will receive an email with instructions")
+    end
+  end
+
+  context "when clicking on reset link" do
+    let(:user) { create(:user) }
+
+    before do
+      visit new_user_password_path
+      fill_in "user_email", with: user.email
+      click_on "Send me reset password instructions"
+      visit(last_notification_link)
+    end
+
+    it "sends an https link" do
+      expect(URI(last_notification_link).scheme).to eq("https")
+    end
+
+    it "redirects user to edit password page" do
+      expect(page).to have_content("Change your password")
+    end
+
+    context "when entering correct passwords" do
       before do
-        visit new_user_password_path
-        fill_in "user_email", with: user.email
-        click_on "Send me reset password instructions"
-        visit(last_notification_link)
+        fill_in "user_password", with: "password"
+        click_on "Change my password"
       end
 
-      it "sends an https link" do
-        expect(URI(last_notification_link).scheme).to eq("https")
+      it "changes to users password" do
+        expect(page).to have_content("Sign out")
+      end
+    end
+
+    context "when entering a password that is too short" do
+      before do
+        fill_in "user_password", with: "1"
+        click_on "Change my password"
       end
 
-      it "redirects user to edit password page" do
-        expect(page).to have_content("Change your password")
-      end
+      it_behaves_like "errors in form"
 
-      context "when entering correct passwords" do
-        before do
-          fill_in "user_password", with: "password"
-          click_on "Change my password"
-        end
-
-        it "changes to users password" do
-          expect(page).to have_content("Sign out")
-        end
-      end
-
-      context "when entering a password that is too short" do
-        before do
-          fill_in "user_password", with: "1"
-          click_on "Change my password"
-        end
-
-        it_behaves_like "errors in form"
-
-        it "tells the user the password is too short" do
-          expect(page).to have_content("Password is too short")
-        end
+      it "tells the user the password is too short" do
+        expect(page).to have_content("Password is too short")
       end
     end
   end
