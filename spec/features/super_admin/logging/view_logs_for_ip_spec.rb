@@ -1,14 +1,10 @@
-describe 'View authentication requests for an IP', type: :feature do
+describe 'View authentication requests for an IP', focus: true, type: :feature do
   let(:ip) { '1.2.3.4' }
   let(:username) { 'ABCDEF' }
 
-  let(:admin_user) { create(:user, organisation_id: organisation.id) }
-  let(:organisation) { create(:organisation) }
-  let(:location) { create(:location, organisation_id: organisation.id) }
-
-  let(:other_user) { create(:user, organisation_id: other_user_organisation.id) }
+  let(:other_user) { create(:user, organisation: other_user_organisation) }
   let(:other_user_organisation) { create(:organisation) }
-  let(:other_user_location) { create(:location, organisation_id: other_user_organisation.id) }
+  let(:other_user_location) { create(:location, organisation: other_user.organisation) }
 
   let(:super_admin) { create(:user, super_admin: true) }
   let(:super_admin_organisation) { create(:organisation) }
@@ -36,7 +32,7 @@ describe 'View authentication requests for an IP', type: :feature do
       success: true
     )
 
-    create(:ip, location_id: location.id, address: ip)
+    create(:ip, location_id: super_admin_location.id, address: ip)
 
     sign_in_user super_admin
   end
@@ -56,7 +52,7 @@ describe 'View authentication requests for an IP', type: :feature do
       end
     end
 
-    context 'when a user from an organisation searches logs for an IP from another organisation' do
+    context "when entering an IP address that belongs to another organisation" do
       let(:search_string) { ip }
 
       before do
@@ -66,7 +62,7 @@ describe 'View authentication requests for an IP', type: :feature do
         click_on "Show logs"
       end
 
-      it 'displays all results for the searched IP' do
+      it "does not display any logs" do
         expect(page).not_to have_content("Found 3 results for \"#{ip}\"")
       end
     end
@@ -78,10 +74,6 @@ describe 'View authentication requests for an IP', type: :feature do
 
       it "displays an error summary" do
         expect(page).to have_content("Search term must be a valid IP address")
-      end
-
-      it "prompts to the user for a valid IP address" do
-        expect(page).to have_content("Enter a valid IP address")
       end
     end
   end
