@@ -4,15 +4,7 @@ require: rubocop-rspec
 AllCops:
   Exclude:
     - spec/features/upload_download_mous_spec.rb
-    - spec/features/super_admin/view_organisation_list_spec.rb
-    - spec/features/super_admin/sort_view_in_organisation_list_spec.rb
-    - spec/features/super_admin/view_organisation_page_spec.rb
-    - spec/features/super_admin/delete_organisation_as_super_admin_spec.rb
-    - spec/features/super_admin/add_custom_organisation_spec.rb
-    - spec/features/super_admin/view_organisation_tab_spec.rb
-    - spec/features/super_admin/authorised_email_domain_spec.rb
-    - spec/features/super_admin/sign_in_as_super_admin_spec.rb
-    - spec/features/super_admin/edit_organisation_details_spec.rb
+    - spec/features/logout_user_after_inactivity_spec.rb
     - spec/features/overview/view_overview_page_spec.rb
     - spec/models/logs_search_spec.rb
     - spec/models/ip_spec.rb

@@ -1,5 +1,5 @@
-describe 'signing in as a super admin' do
-  let!(:user) { create(:user, super_admin: true) }
+describe 'Signing in as a super admin', type: :feature do
+  let(:user) { create(:user, super_admin: true) }
 
   context 'when visiting the home page' do
     before do
