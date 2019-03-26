@@ -1,4 +1,4 @@
-describe 'view list of signed up organisations' do
+describe 'View a list of signed up organisations', type: :feature do
   before do
     login_as user
     visit admin_organisations_path
@@ -14,7 +14,6 @@ describe 'view list of signed up organisations' do
     let(:user) { create(:user) }
 
     it 'redirects me to the landing guidance' do
-      expect(page).to have_content 'Get GovWifi'
       expect(page).to have_content 'If you have trouble setting up GovWifi'
     end
   end
@@ -22,7 +21,7 @@ describe 'view list of signed up organisations' do
   context 'when logged in as an admin' do
     let(:user) { create(:user, super_admin: true) }
 
-    context 'and one organisation exists' do
+    context 'when one organisation exists' do
       let(:org) { create(:organisation, created_at: '1 Feb 2014') }
 
       before do
@@ -65,7 +64,7 @@ describe 'view list of signed up organisations' do
       end
     end
 
-    context 'and two extra organisations (with three locations each) exist' do
+    context 'with multiple organisations with multiple locations each' do
       before do
         2.times do
           organisation = create(:organisation)

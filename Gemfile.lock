@@ -56,7 +56,7 @@ GEM
     aws-sdk-kms (1.16.0)
       aws-sdk-core (~> 3, >= 3.48.2)
       aws-sigv4 (~> 1.1)
-    aws-sdk-route53 (1.20.0)
+    aws-sdk-route53 (1.21.0)
       aws-sdk-core (~> 3, >= 3.48.2)
       aws-sigv4 (~> 1.1)
     aws-sdk-s3 (1.35.0)
@@ -183,7 +183,7 @@ GEM
     mysql2 (0.5.2)
     nenv (0.3.0)
     nio4r (2.3.1)
-    nokogiri (1.10.1)
+    nokogiri (1.10.2)
       mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -334,7 +334,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk-route53 (~> 1.20.0)
+  aws-sdk-route53 (~> 1.21.0)
   aws-sdk-s3 (~> 1)
   byebug (~> 11)
   capybara
