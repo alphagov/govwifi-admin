@@ -1,18 +1,13 @@
 describe 'View authentication requests for an IP', type: :feature do
-  let(:user) { create(:user, organisation: user_organisation) }
-  let(:user_organisation) { create(:organisation) }
+  let(:user) { create(:user) }
   let(:user_location) { create(:location, organisation: user.organisation) }
   let(:ip_1) { create(:ip, location_id: user_location.id, address: '1.2.3.4') }
 
-  let(:user_2) { create(:user, organisation: user_2_organisation) }
-  let(:user_2_organisation) { create(:organisation) }
+  let(:user_2) { create(:user) }
   let(:user_2_location) { create(:location, organisation: user_2.organisation) }
   let(:ip_2) { create(:ip, location_id: user_2_location.id, address: '1.2.3.5') }
 
   let(:super_admin) { create(:user, super_admin: true) }
-  let(:super_admin_organisation) { create(:organisation) }
-  let(:super_admin_location) { create(:location, organisation: super_admin.organisation) }
-
 
   before do
     Session.create!(
@@ -39,7 +34,7 @@ describe 'View authentication requests for an IP', type: :feature do
     visit ip_new_logs_search_path
   end
 
-  context "when searching for an IP from a location" do
+  context "when searching for an IP" do
     before do
       fill_in "IP address", with: ip_1.address
       click_on "Show logs"
@@ -50,7 +45,7 @@ describe 'View authentication requests for an IP', type: :feature do
     end
   end
 
-  context "when looking for an IP from a different location" do
+  context "when searching for another IP" do
     before do
       fill_in "IP address", with: ip_2.address
       click_on "Show logs"
