@@ -1,0 +1,25 @@
+<div class="govuk-grid-column-two-thirds">
+  <div class="govuk-inset-text govuk-!-margin-top-0">
+    <h4 class="govuk-heading-s">Filtered results</h4>
+
+    <% if !current_user.super_admin? %>
+      <p class="govuk-body">
+        Only logs from your organisation's IPs are shown.
+      </p>
+    <% end %>
+
+    <p class="govuk-body">
+      Both successful and failed authentication logs are shown.
+    </p>
+
+    <% if logs.count >= Gateways::Sessions::MAXIMUM_RESULTS_COUNT %>
+      <p class="govuk-body">
+        Only the 500 most recent logs are shown.
+      </p>
+    <% elsif logs.present? %>
+      <p class="govuk-body">
+        Logs older than two weeks are not shown. If you need more logs, <%= link_to "contact us", signed_in_new_help_path, class: "govuk-link" %>.
+      </p>
+    <% end %>
+  </div>
+</div>
