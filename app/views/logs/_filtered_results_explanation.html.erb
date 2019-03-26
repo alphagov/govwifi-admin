@@ -12,13 +12,13 @@
       Both successful and failed authentication logs are shown.
     </p>
 
+    <p class="govuk-body">
+      Logs older than two weeks are not shown.
+    </p>
+
     <% if logs.count >= Gateways::Sessions::MAXIMUM_RESULTS_COUNT %>
       <p class="govuk-body">
         Only the 500 most recent logs are shown.
-      </p>
-    <% elsif logs.present? %>
-      <p class="govuk-body">
-        Logs older than two weeks are not shown.
       </p>
     <% end %>
 
