@@ -1,35 +1,28 @@
-describe 'View authentication requests for an IP', focus: true, type: :feature do
-  let(:ip) { '1.2.3.4' }
-  let(:username) { 'ABCDEF' }
-
+describe 'View authentication requests for an IP', type: :feature do
   let(:other_user) { create(:user, organisation: other_user_organisation) }
   let(:other_user_organisation) { create(:organisation) }
   let(:other_user_location) { create(:location, organisation: other_user.organisation) }
 
   let(:super_admin) { create(:user, super_admin: true) }
   let(:super_admin_organisation) { create(:organisation) }
-  let(:super_admin_location) { create(:location, super_admin_organisation: super_admin.organisation) }
+  let(:super_admin_location) { create(:location, organisation: super_admin.organisation) }
+
+  let(:ip) { '1.2.3.4' }
 
   before do
     Session.create!(
       start: 3.days.ago,
-      username: username,
       siteIP: ip,
-      success: true
     )
 
     Session.create!(
       start: 3.days.ago,
-      username: username,
       siteIP: ip,
-      success: true
     )
 
     Session.create!(
       start: 3.days.ago,
-      username: username,
       siteIP: ip,
-      success: true
     )
 
     create(:ip, location_id: super_admin_location.id, address: ip)
