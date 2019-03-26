@@ -3,7 +3,7 @@
     <h2 class="govuk-heading-l govuk-grid-column-full">Overview</h2>
     <div class="govuk-grid-column-one-third" id="team-members">
       <div class="overview-stats-panel govuk-panel--confirmation summary-background">
-        <h1 class="govuk-panel__title text-left">
+        <h1 class="govuk-panel__title text-left" id="team-members-count">
           <%= @team_members.count %>
         </h1>
         <p class="govuk-panel__body text-left govuk-!-font-size-27">
@@ -13,7 +13,7 @@
     </div>
     <div class="govuk-grid-column-one-third" id="locations">
       <div class="overview-stats-panel govuk-panel--confirmation summary-background">
-        <h1 class="govuk-panel__title text-left">
+        <h1 class="govuk-panel__title text-left" id="locations-count">
           <%= @locations.count %>
         </h1>
         <p class="govuk-panel__body text-left govuk-!-font-size-27">
@@ -23,7 +23,7 @@
     </div>
     <div class="govuk-grid-column-one-third" id="ips">
       <div class="overview-stats-panel govuk-panel--confirmation summary-background">
-        <h1 class="govuk-panel__title text-left">
+        <h1 class="govuk-panel__title text-left" id="ips-count">
           <%= @ips.count %>
         </h1>
         <p class="govuk-panel__body text-left govuk-!-font-size-27">
