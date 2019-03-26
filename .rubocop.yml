@@ -4,6 +4,7 @@ require: rubocop-rspec
 AllCops:
   Exclude:
     - spec/features/upload_download_mous_spec.rb
+<<<<<<< HEAD
     - spec/features/super_admin/view_organisation_list_spec.rb
     - spec/features/super_admin/sort_view_in_organisation_list_spec.rb
     - spec/features/super_admin/view_organisation_page_spec.rb
@@ -13,6 +14,9 @@ AllCops:
     - spec/features/super_admin/authorised_email_domain_spec.rb
     - spec/features/super_admin/sign_in_as_super_admin_spec.rb
     - spec/features/super_admin/edit_organisation_details_spec.rb
+=======
+    - spec/features/logout_user_after_inactivity_spec.rb
+>>>>>>> lint-super-admin-specs
     - spec/features/overview/view_overview_page_spec.rb
     - spec/features/authentication/logging_in_after_signing_up_spec.rb
     - spec/features/authentication/lock_user_account_spec.rb

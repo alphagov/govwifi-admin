@@ -1,4 +1,4 @@
-describe 'view details of a signed up organisation' do
+describe 'View details of an organisation', type: :feature do
   let(:organisation) { create(:organisation) }
 
   context 'when logged in as a super-admin' do
@@ -42,7 +42,6 @@ describe 'view details of a signed up organisation' do
     it 'lists the users' do
       organisation.users.each do |user|
         expect(page).to have_content(user.name)
-        expect(page).to have_content(user.email)
       end
     end
 
