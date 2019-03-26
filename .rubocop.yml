@@ -3,7 +3,6 @@ inherit_gem:
 require: rubocop-rspec
 AllCops:
   Exclude:
-    - spec/features/logout_user_after_inactivity_spec.rb
     - spec/models/logs_search_spec.rb
     - spec/models/ip_spec.rb
     - spec/models/location_spec.rb
