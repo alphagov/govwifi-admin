@@ -3,7 +3,6 @@ inherit_gem:
 require: rubocop-rspec
 AllCops:
   Exclude:
-    - spec/features/status/view_status_spec.rb
     - spec/features/upload_download_mous_spec.rb
     - spec/features/super_admin/view_organisation_list_spec.rb
     - spec/features/super_admin/sort_view_in_organisation_list_spec.rb
