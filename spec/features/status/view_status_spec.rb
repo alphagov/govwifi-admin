@@ -1,4 +1,4 @@
-describe 'View GovWifi Status' do
+describe 'View GovWifi status', type: :feature do
   context 'when logged out' do
     before do
       visit status_index_path
@@ -9,11 +9,14 @@ describe 'View GovWifi Status' do
 
   context 'when logged in' do
     let(:user) { create(:user) }
+    let(:use_case) { instance_double(UseCases::Administrator::HealthChecks::CalculateHealth) }
 
     before do
-      allow_any_instance_of(
+      allow(
         UseCases::Administrator::HealthChecks::CalculateHealth
-      ).to receive(:execute).and_return(
+      ).to receive(:new).and_return(use_case)
+
+      allow(use_case).to receive(:execute).and_return(
         [ip_address: '111.111.111.111', status: :operational]
       )
 
@@ -23,6 +26,9 @@ describe 'View GovWifi Status' do
 
     it 'allows viewing the GovWifi Status' do
       expect(page).to have_content('Status')
+    end
+
+    it 'displays the IP' do
       expect(page).to have_content('111.111.111.111')
     end
   end
