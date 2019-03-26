@@ -1,11 +1,11 @@
 describe 'View authentication requests for an IP', type: :feature do
   let(:user) { create(:user) }
   let(:user_location) { create(:location, organisation: user.organisation) }
-  let(:ip_1) { create(:ip, location_id: user_location.id, address: '1.2.3.4') }
+  let(:ip_1) { create(:ip, location: user_location, address: '1.2.3.4') }
 
   let(:user_2) { create(:user) }
   let(:user_2_location) { create(:location, organisation: user_2.organisation) }
-  let(:ip_2) { create(:ip, location_id: user_2_location.id, address: '1.2.3.5') }
+  let(:ip_2) { create(:ip, location: user_2_location, address: '1.2.3.5') }
 
   let(:super_admin) { create(:user, super_admin: true) }
 
