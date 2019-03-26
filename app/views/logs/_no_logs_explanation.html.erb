@@ -1,0 +1,26 @@
+<div class="govuk-grid-column-two-thirds">
+  <% if current_user.super_admin? %>
+    <h3 class="govuk-body">
+      If you were expecting to see results, we recommend asking the organisation:
+    </h3>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>If the IPs they entered into the admin portal match their access point IPs exactly?</li>
+      <li>If their access points have the correct RADIUS secret keys?</li>
+      <li>If they have <%= link_to 'browsed the technical documentation?', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %></li>
+    </ul>
+
+  <% else %>
+    <h3 class="govuk-body">
+      If you were expecting to see results, we recommend:
+    </h3>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>Checking your <%= link_to 'configured IP addresses', ips_path, class: "govuk-link" %> match your authenticator IPs </li>
+      <li>Checking your authenticators have the right RADIUS secret keys</li>
+      <li><%= link_to 'Browsing the technical documentation', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %></li>
+    </ul>
+
+    <p class="govuk-body"> If you still need help, <%= link_to "contact us", signed_in_new_help_path, class: "govuk-link" %></p>
+  <% end %>
+</div>

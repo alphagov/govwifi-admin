@@ -45,18 +45,6 @@
 
     <%= render 'logs/filtered_results_explanation', logs: @logs %>
 
-    <div class="govuk-grid-column-two-thirds">
-      <h3 class="govuk-body">
-        If you were expecting to see results, we recommend:
-      </h3>
-
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Checking your <%= link_to 'configured IP addresses', ips_path, class: "govuk-link" %> match your authenticator IPs </li>
-        <li>Checking your authenticators have the right RADIUS secret keys</li>
-        <li><%= link_to 'Browsing the technical documentation', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %></li>
-      </ul>
-
-      <p class="govuk-body"> If you still need help, <%= link_to "contact us", signed_in_new_help_path, class: "govuk-link" %></p>
-    </div>
+    <%= render 'logs/no_logs_explanation' %>
   </div>
 <% end %>

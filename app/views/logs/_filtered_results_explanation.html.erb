@@ -18,7 +18,13 @@
       </p>
     <% elsif logs.present? %>
       <p class="govuk-body">
-        Logs older than two weeks are not shown. If you need more logs, <%= link_to "contact us", signed_in_new_help_path, class: "govuk-link" %>.
+        Logs older than two weeks are not shown.
+      </p>
+    <% end %>
+
+    <% if logs.present? && !current_user.super_admin? %>
+      <p class="govuk-body">
+        If you need more logs, <%= link_to "contact us", signed_in_new_help_path, class: "govuk-link" %>.
       </p>
     <% end %>
   </div>
