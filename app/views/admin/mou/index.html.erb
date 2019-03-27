@@ -6,10 +6,11 @@
     <hr class="govuk-section-break--m govuk-section-break--visible">
     <% if @mou.unsigned_document.attached? %>
       <%= link_to "Download current template", rails_blob_path(@mou.unsigned_document, disposition: "attachment"), class: "govuk-link" %>
+      <h3 class="govuk-heading-m">Replace Template</h3>
     <% else %>
-       <p class="govuk-body">There is no uploaded MOU for organisations to access.</p>
+      <p class="govuk-body">There is no uploaded MOU for organisations to access.</p>
+      <h3 class="govuk-heading-m">Upload Template</h3>
     <% end %>
-    <h3 class="govuk-heading-m">Upload Template</h3>
     <p class="govuk-body"> </p>
     <p class="govuk-body"> </p>
     <%= form_with url: admin_mou_index_path, method: 'post', class: 'govuk-form-group' do |form| %>
