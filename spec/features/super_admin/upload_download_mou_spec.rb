@@ -1,14 +1,14 @@
-describe 'Upload and download the MOU template', type: :feature do
+describe 'Upload and download the MOU template', focus: true, type: :feature do
   let(:super_admin) { create(:user, super_admin: true) }
 
   before do
     sign_in_user super_admin
     visit admin_mou_index_path
-    attach_file('unsigned_document', Rails.root + 'spec/fixtures/mou.pdf')
   end
 
   context 'when uploading an MOU' do
     before do
+      attach_file('unsigned_document', Rails.root + 'spec/fixtures/mou.pdf')
       click_on 'Upload'
     end
 
@@ -17,8 +17,19 @@ describe 'Upload and download the MOU template', type: :feature do
     end
   end
 
+  context 'when no file is uploaded' do
+    before do
+      click_on 'Upload'
+    end
+
+    it 'shows the user an error message' do
+      expect(page).to have_content('No MoU template selected. Please select a file and try again.')
+    end
+  end
+
   context 'when dowloading the MOU template' do
     before do
+      attach_file('unsigned_document', Rails.root + 'spec/fixtures/mou.pdf')
       click_on 'Upload'
       click_on 'Download current template'
     end

@@ -25,8 +25,12 @@ private
   end
 
   def attach_to_template
-    AdminConfig.mou.unsigned_document.attach(params[:unsigned_document])
-    flash[:notice] = "MOU template uploaded successfully."
+    if params[:unsigned_document]
+      AdminConfig.mou.unsigned_document.attach(params[:unsigned_document])
+      flash[:notice] = "MOU template uploaded successfully."
+    else
+      flash[:alert] = "No MoU template selected. Please select a file and try again."
+    end
     redirect_to admin_mou_index_path
   end
 end
