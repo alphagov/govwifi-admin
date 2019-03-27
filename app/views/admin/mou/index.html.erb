@@ -7,7 +7,7 @@
     <% if @mou.unsigned_document.attached? %>
       <%= link_to "Download current template", rails_blob_path(@mou.unsigned_document, disposition: "attachment"), class: "govuk-link" %>
     <% else %>
-      <p class="govuk-body">There is no uploaded MOU for organisations to access, please upload an MoU. </p>
+      <p class="govuk-body">There is no uploaded MOU for organisations to access.</p>
     <% end %>
     <h3 class="govuk-heading-m  govuk-!-margin-top-2">Upload Template</h3>
     <p class="govuk-body"> </p>
@@ -16,8 +16,8 @@
       <%= form.label :unsigned_mou, 'Select template file', class: 'govuk-label' %>
       <%= form.file_field(:unsigned_document) %>
       <p>
-       <% submit_text = @mou.unsigned_document.attached? ? 'Replace MOU' : 'Upload MOU' %>
-      <%= form.submit(submit_text, class: 'govuk-button') %>
+        <% submit_text = @mou.unsigned_document.attached? ? 'Replace MOU' : 'Upload MOU' %>
+        <%= form.submit(submit_text, class: 'govuk-button') %>
       </p>
     <% end %>
     <div class="govuk-inset-text">
