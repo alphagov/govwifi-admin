@@ -7,7 +7,7 @@
     <% if @mou.unsigned_document.attached? %>
       <%= link_to "Download current template", rails_blob_path(@mou.unsigned_document, disposition: "attachment"), class: "govuk-link" %>
     <% else %>
-      <p class="govuk-body">There is no uploaded MOU for organisations to access.</p>
+      <p class="govuk-body">There is no uploaded MOU for organisations to view.</p>
     <% end %>
     <h3 class="govuk-heading-m  govuk-!-margin-top-2">Upload Template</h3>
     <p class="govuk-body"> </p>
