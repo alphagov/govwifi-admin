@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get 'created/location', to: 'ips#index', on: :collection
     get 'created/location/with-ip', to: 'ips#index', on: :collection
     get 'removed', to: 'ips#index', on: :collection
+    get 'removed/location', to: 'ips#index', on: :collection
   end
 
   resources :help, only: %i[create new] do

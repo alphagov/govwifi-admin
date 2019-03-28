@@ -24,7 +24,7 @@ class LocationsController < ApplicationController
     redirect_to ips_path && return unless location && location.ips.empty?
 
     location.destroy
-    redirect_to ips_path, notice: "Successfully removed location #{location.address}"
+    redirect_to removed_location_ips_path, notice: "Successfully removed location #{location.address}"
   end
 
 private
