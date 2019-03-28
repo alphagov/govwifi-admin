@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :ips, only: %i[index new create destroy] do
     get 'remove', to: 'ips#index'
     get 'created', to: 'ips#index', on: :collection
+    get 'created/location', to: 'ips#index', on: :collection
+    get 'created/location/with-ip', to: 'ips#index', on: :collection
     get 'removed', to: 'ips#index', on: :collection
   end
 
