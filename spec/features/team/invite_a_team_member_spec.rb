@@ -116,7 +116,7 @@ describe "Inviting a team member", type: :feature do
       it "sets the invitees organisation" do
         expect(invited_user.organisation_id).to eq(user.organisation_id)
       end
-      
+
       it 'redirects to the "after user invited" path for analytics' do
         expect(page).to have_current_path('/team_members/created/invite')
       end

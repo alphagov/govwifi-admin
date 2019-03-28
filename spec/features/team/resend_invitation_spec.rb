@@ -26,6 +26,11 @@ describe 'Resending an invitation to a team member', type: :feature do
       change(InviteUseCaseSpy, :invite_count).by(1)
   end
 
+  it 'redirects to the "after resending invite" path for analytics' do
+    click_on 'Resend invite'
+    expect(page).to have_current_path('/team_members/recreated/invite')
+  end
+
   context 'when signing up from the resent invitation' do
     let(:invite_link) { InviteUseCaseSpy.last_invite_url }
     let(:invited_user) { User.find_by(email: invited_user_email) }
