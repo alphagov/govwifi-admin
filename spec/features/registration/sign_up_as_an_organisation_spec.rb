@@ -188,4 +188,16 @@ describe 'Sign up as an organisation' do
       expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
     end
   end
+
+  context 'when no whitelisted organisation is selected' do
+    let(:non_whitelist_org_name) {'Not Whitelisted'}
+
+    before { sign_up_for_account }
+
+    it 'will tell the user the organisation is not whitelisted' do
+      update_user_details(organisation_name: non_whitelist_org_name)
+      expect(page).to have_content("name isn't whitelisted")
+    end
+
+  end
 end
