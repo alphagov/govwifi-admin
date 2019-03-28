@@ -25,17 +25,12 @@ private
   end
 
   def attach_to_template
-    if params[:unsigned_document] && check_accepted_formats(params[:unsigned_document])
+    if params[:unsigned_document]
       AdminConfig.mou.unsigned_document.attach(params[:unsigned_document])
       flash[:notice] = "MOU template uploaded successfully."
     else
       flash[:alert] = "No MoU template selected. Please upload either a png, jpeg, jpg, gif, pdf or txt file"
     end
     redirect_to admin_mou_index_path
-  end
-
-  def check_accepted_formats(file)
-    accepted_formats = [".png", ".jpeg", ".jpg", ".gif", ".pdf", ".txt"]
-    accepted_formats.include? File.extname(file.path)
   end
 end
