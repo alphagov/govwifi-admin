@@ -1,4 +1,4 @@
-describe 'Upload and download the MOU template', focus: true, type: :feature do
+describe 'Upload and download the MOU template', type: :feature do
   let(:super_admin) { create(:user, super_admin: true) }
 
   before do
