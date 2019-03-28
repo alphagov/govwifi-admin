@@ -12,7 +12,7 @@ class TeamMembersController < ApplicationController
     redirect_to team_members_path && return unless user
 
     user.destroy
-    redirect_to team_members_path, notice: "Team member has been removed"
+    redirect_to removed_team_members_path, notice: "Team member has been removed"
   end
 
   def edit; end

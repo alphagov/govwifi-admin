@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     collection do
       get 'created/invite', to: 'team_members#index'
       get 'updated/permissions', to: 'team_members#index'
+      get 'removed', to: 'team_members#index'
     end
   end
   resources :mou, only: %i[index create]
