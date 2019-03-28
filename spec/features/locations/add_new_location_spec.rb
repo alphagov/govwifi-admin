@@ -31,6 +31,11 @@ describe 'Add new location', type: :feature do
         click_on 'Add new location'
         expect(page).to have_content('30 Square, W1A 2AB added')
       end
+
+      it 'redirects to "After location created with IP" path for analytics' do
+        click_on 'Add new location'
+        expect(page).to have_current_path('/ips/created/location/with-ip')
+      end
     end
 
     context 'with invalid IP data' do
@@ -63,11 +68,14 @@ describe 'Add new location', type: :feature do
         fill_in 'Address', with: '30 Square'
         fill_in 'Postcode', with: 'W1A 2AB'
         click_on 'Add new location'
-        visit ips_path
       end
 
       it 'adds the location' do
         expect(page).to have_content('30 Square')
+      end
+
+      it 'redirects to "After location created" path for analytics' do
+        expect(page).to have_current_path('/ips/created/location')
       end
     end
 
