@@ -23,7 +23,18 @@ describe 'Upload and download the MOU template', type: :feature do
     end
 
     it 'shows the user an error message' do
-      expect(page).to have_content('No MoU template selected. Please select a file and try again.')
+      expect(page).to have_content('No MoU template selected. Please upload either a png, jpeg, jpg, gif, pdf or txt file')
+    end
+  end
+
+  context 'when an incorrect file type is uploaded' do
+    before do
+      attach_file('unsigned_document', Rails.root + 'spec/fixtures/mou.not_accepted_file_type')
+      click_on 'Upload'
+    end
+
+    it 'shows the user an error message' do
+      expect(page).to have_content('No MoU template selected. Please upload either a png, jpeg, jpg, gif, pdf or txt file')
     end
   end
 
