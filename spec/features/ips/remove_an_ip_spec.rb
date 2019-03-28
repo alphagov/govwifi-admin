@@ -26,6 +26,11 @@ describe 'Remove an IP' do
       expect(page).to have_content("Successfully removed IP address #{ip.address}")
       expect(page).to have_content("IP addresses")
     end
+
+    it 'redirects to the "after IP removed" path for Analytics' do
+      click_on "Yes, remove this IP"
+      expect(page).to have_current_path('/ips/removed')
+    end
   end
 
   context "with incorrect permissions" do

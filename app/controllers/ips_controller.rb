@@ -13,7 +13,7 @@ class IpsController < ApplicationController
     if @ip.save
       Facades::Ips::Publish.new.execute
       redirect_to(
-        ips_path,
+        created_ips_path,
         notice: "#{@ip.address} added, it will be active starting tomorrow"
       )
     else
@@ -35,7 +35,7 @@ class IpsController < ApplicationController
 
     ip.destroy
     Facades::Ips::Publish.new.execute
-    redirect_to ips_path, notice: "Successfully removed IP address #{ip.address}"
+    redirect_to removed_ips_path, notice: "Successfully removed IP address #{ip.address}"
   end
 
 private

@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :status, only: %i[index]
   resources :ips, only: %i[index new create destroy] do
     get 'remove', to: 'ips#index'
+    get 'created', to: 'ips#index', on: :collection
+    get 'removed', to: 'ips#index', on: :collection
   end
 
   resources :help, only: %i[create new] do

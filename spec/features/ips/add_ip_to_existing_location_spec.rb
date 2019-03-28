@@ -22,6 +22,10 @@ describe 'add an IP to an existing location' do
         it 'adds to the correct location' do
           expect(location.reload.ips.map(&:address)).to include("141.0.149.130")
         end
+
+        it 'redirects to the "after IP created" path for Analytics' do
+          expect(page).to have_current_path('/ips/created')
+        end
       end
 
       context 'and enter invalid data' do
@@ -54,6 +58,10 @@ describe 'add an IP to an existing location' do
 
       it 'adds to that location' do
         expect(other_location.reload.ips.map(&:address)).to include("141.0.149.130")
+      end
+
+      it 'redirects to the "after IP created" path for Analytics' do
+        expect(page).to have_current_path('/ips/created')
       end
     end
   end
