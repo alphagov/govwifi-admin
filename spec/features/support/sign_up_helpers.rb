@@ -16,7 +16,7 @@ def update_user_details(
 
   visit confirmation_email_link
 
-  select organisation_name, from: 'Organisation name'
+  select organisation_name, from: 'Organisation name' if find_field('Organisation name').has_content?(organisation_name)
 
   fill_in 'Service email', with: service_email
   fill_in 'Your name', with: name
