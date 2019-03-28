@@ -23,6 +23,7 @@
     <% end %>
 
     <%= render 'section', heading: 'Team' do %>
+      <%= link_to "Add team member", admin_add_user_to_organisation_index_path(organisation_id: @organisation), class: "govuk-button" %>
       <%= render 'team', organisation: @organisation %>
     <% end %>
 
