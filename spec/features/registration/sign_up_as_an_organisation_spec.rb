@@ -194,17 +194,10 @@ describe 'Sign up as an organisation' do
 
     before { sign_up_for_account }
 
-    it 'will tell the user the organisation name cannot be left blank' do
+    it 'displays one error message that the name cannot be left blank' do
       update_user_details(organisation_name: org_name_left_blank)
       within('div#error-summary') do
-        expect(page).to have_content("Organisation name can't be blank")
-      end
-    end
-
-    it 'will not display a non-whitelist error for a blank entry' do
-      update_user_details(organisation_name: org_name_left_blank)
-      within('div#error-summary') do
-        expect(page).to_not have_content("isn't a whitelisted organisation")
+        expect(page).to have_selector("li#error-message", count: 1, text: "Organisation name can't be blank")
       end
     end
   end
