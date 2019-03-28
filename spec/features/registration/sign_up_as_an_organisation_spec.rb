@@ -188,4 +188,24 @@ describe 'Sign up as an organisation' do
       expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
     end
   end
+
+  context 'when no organisation has been selected' do
+    let(:org_name_left_blank) { '' }
+
+    before { sign_up_for_account }
+
+    it 'will tell the user the organisation name cannot be left blank' do
+      update_user_details(organisation_name: org_name_left_blank)
+      within('div#error-summary') do
+        expect(page).to have_content("Organisation name can't be blank")
+      end
+    end
+
+    it 'will not display a non-whitelist error for a blank entry' do
+      update_user_details(organisation_name: org_name_left_blank)
+      within('div#error-summary') do
+        expect(page).to_not have_content("isn't a whitelisted organisation")
+      end
+    end
+  end
 end
