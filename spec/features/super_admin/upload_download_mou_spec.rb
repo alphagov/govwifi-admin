@@ -23,7 +23,7 @@ describe 'Upload and download the MOU template', type: :feature do
     end
 
     it 'shows the user an error message' do
-      expect(page).to have_content('No MoU template selected. Please upload either a png, jpeg, jpg, gif, pdf or txt file')
+      expect(page).to have_content('No MoU template selected. Please select a file and try again')
     end
   end
 

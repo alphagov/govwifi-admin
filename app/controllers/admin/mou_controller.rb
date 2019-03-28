@@ -29,7 +29,7 @@ private
       AdminConfig.mou.unsigned_document.attach(params[:unsigned_document])
       flash[:notice] = "MOU template uploaded successfully."
     else
-      flash[:alert] = "No MoU template selected. Please upload either a png, jpeg, jpg, gif, pdf or txt file"
+      flash[:alert] = "No MoU template selected. Please select a file and try again."
     end
     redirect_to admin_mou_index_path
   end
