@@ -9,7 +9,7 @@ end
 
 gem 'aws-sdk-route53', '~> 1.21.0'
 gem 'aws-sdk-s3', '~> 1'
-gem 'devise', '~> 4.6.1'
+gem 'devise', '~> 4.6.2'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'httparty', '~> 0.16.4'
 gem 'mysql2', '~> 0.5.2'
