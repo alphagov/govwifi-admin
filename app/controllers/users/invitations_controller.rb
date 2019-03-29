@@ -1,7 +1,7 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
   before_action :return_user_to_invite_page, if: :user_is_invalid?, only: :create
-  before_action :add_organisation_to_params, only: :create
+  before_action :add_organisation_to_params, unless: :super_admin?, only: :create
 
 private
 
@@ -11,9 +11,7 @@ private
   end
 
   def add_organisation_to_params
-    if !current_user.super_admin?
-      params[:user][:organisation_id] = current_user.organisation_id
-    end
+    params[:user][:organisation_id] = current_user.organisation_id
   end
 
   def delete_user_record
@@ -40,7 +38,7 @@ private
   end
 
   def after_invite_path_for(_resource)
-    if current_user.super_admin?
+    if super_admin?
       admin_organisation_path(params[:user][:organisation_id])
     else
       team_members_path
@@ -65,6 +63,10 @@ private
 
   def invited_user_has_no_org?
     invited_user.organisation_id.nil?
+  end
+
+  def super_admin?
+    current_user.super_admin?
   end
 
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105
