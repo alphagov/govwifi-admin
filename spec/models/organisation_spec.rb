@@ -46,5 +46,39 @@ describe Organisation do
         expect { create(:organisation, name: 'Some invalid organisation name') }.to raise_error ActiveRecord::RecordInvalid
       end
     end
+
+    context 'when adding an organisation name at account confirmation' do
+      let(:organisation) { build(:organisation, name: organisation_name) }
+
+      context 'when organisation name is left blank' do
+        let(:organisation_name) { '' }
+
+        it 'is invalid' do
+          expect(organisation).not_to be_valid
+        end
+
+        it 'explains why it is invalid' do
+          organisation.valid?
+          expect(organisation.errors.full_messages).to eq([
+            "Name can't be blank"
+          ])
+        end
+      end
+
+      context 'when organisation name is not in register' do
+        let(:organisation_name) { 'Some Name' }
+
+        it 'is invalid' do
+          expect(organisation).not_to be_valid
+        end
+
+        it 'calls this method' do
+          organisation.valid?
+          expect(organisation.errors.full_messages).to eq([
+            "#{organisation.name} isn't a whitelisted organisation"
+          ])
+        end
+      end
+    end
   end
 end
