@@ -1,7 +1,7 @@
 require 'support/invite_use_case'
 require 'support/notifications_service'
 
-describe "Inviting a team member as a super admin", type: :feature do
+describe "Inviting a team member as a super admin", focus: true, type: :feature do
   include_examples 'notifications service'
 
   let(:organisation) { create(:organisation, name: "Gov Org 3") }
@@ -22,5 +22,10 @@ describe "Inviting a team member as a super admin", type: :feature do
       click_on 'Send invitation email'
       user = User.find_by(email: 'barry@gov.uk')
       expect(user.organisation).to eq(organisation)
+    end
+
+    it "will redirect the user to the organisation page" do
+      click_on 'Send invitation email'
+      expect(page).to have_current_path(admin_organisation_path(organisation))
     end
   end

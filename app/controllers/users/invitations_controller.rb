@@ -43,7 +43,11 @@ private
   end
 
   def after_invite_path_for(_resource)
-    team_members_path
+    if current_user.super_admin?
+      admin_organisation_path(params[:user][:organisation_id])
+    else
+      team_members_path
+    end
   end
 
   def user_should_be_cleared?
