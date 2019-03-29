@@ -49,6 +49,7 @@
                     <%= p.check_box :can_manage_locations, class: 'govuk-checkboxes__input' %>
                     <label class="govuk-label govuk-checkboxes__label"><%= p.label :can_manage_locations, 'Add and remove locations and IPs' %></label>
                   </div>
+                  <%= f.hidden_field :organisation_id, { :value => params[:organisation_id]} %>
                 <% end %>
               </div>
             </fieldset>

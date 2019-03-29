@@ -11,7 +11,12 @@ private
   end
 
   def add_organisation_to_params
-    params[:user][:organisation_id] = current_user.organisation_id
+
+    if current_user.super_admin?
+
+    else
+      params[:user][:organisation_id] = current_user.organisation_id
+    end
   end
 
   def delete_user_record
