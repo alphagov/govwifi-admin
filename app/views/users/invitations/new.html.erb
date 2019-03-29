@@ -2,8 +2,8 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= link_to "Back to list", team_members_path, class: "govuk-back-link" %>
     <% if !current_user.super_admin? %>
+      <%= link_to "Back to list", team_members_path, class: "govuk-back-link" %>
       <h2 class="govuk-heading-l">Invite a team member</h2>
       <div class="govuk-details">
       <div class="govuk-details__text">
@@ -12,8 +12,8 @@
         </p>
       </div>
     </div>
-
     <% else %>
+      <%= link_to "Back to organisation", admin_organisation_path(params[:id]), class: "govuk-back-link" %>
       <h2 class="govuk-heading-l">Invite a team member to <%= params[:name] %> </h2>
       <div class="govuk-details">
         <div class="govuk-details__text">
