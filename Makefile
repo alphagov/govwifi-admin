@@ -12,10 +12,9 @@ endif
 DOCKER_BUILD_CMD = $(DOCKER_COMPOSE) build $(BUNDLE_FLAGS)
 
 build:
-	$(MAKE) stop
 	$(DOCKER_BUILD_CMD)
 
-serve: build
+serve: stop build
 	$(DOCKER_COMPOSE) up -d govuk-fake-registers db rr_db
 	./mysql/bin/wait_for_mysql
 	./mysql/bin/wait_for_rr_db
@@ -34,8 +33,7 @@ autocorrect: autocorrect-erb
 autocorrect-erb: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec erblint --lint-all --autocorrect
 
-test:
-	$(MAKE) build
+test: stop build
 	$(DOCKER_COMPOSE) up -d db rr_db
 	./mysql/bin/wait_for_mysql
 	./mysql/bin/wait_for_rr_db
