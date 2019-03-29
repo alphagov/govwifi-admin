@@ -30,6 +30,11 @@ describe 'Remove a location', type: :feature do
         click_on "Yes, remove this location"
         expect(page).to have_content("Successfully removed location #{location.address}")
       end
+
+      it 'redirects to the "after location removed" path for analytics' do
+        click_on "Yes, remove this location"
+        expect(page).to have_current_path('/ips/removed/location')
+      end
     end
 
     context "when the location has an IP" do

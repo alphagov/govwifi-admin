@@ -39,9 +39,9 @@ private
 
   def after_invite_path_for(_resource)
     if super_admin?
-      admin_organisation_path(params[:user][:organisation_id])
+      admin_organisation_path(invite_params[:organisation_id])
     else
-      team_members_path
+      resending_invite? ? recreated_invite_team_members_path : created_invite_team_members_path
     end
   end
 

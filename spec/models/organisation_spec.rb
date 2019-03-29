@@ -42,8 +42,32 @@ describe Organisation do
     end
 
     context 'when my organisation is not in the GovUk register' do
+      let(:organisation) { build(:organisation, name: 'Some invalid organisation name') }
+
       it 'is not valid' do
-        expect { create(:organisation, name: 'Some invalid organisation name') }.to raise_error ActiveRecord::RecordInvalid
+        expect(organisation).not_to be_valid
+      end
+
+      it 'explains why it is invalid' do
+        organisation.valid?
+        expect(organisation.errors.full_messages).to eq([
+          "#{organisation.name} isn't a whitelisted organisation"
+        ])
+      end
+    end
+
+    context 'when organisation name is left blank' do
+      let(:organisation) { build(:organisation, name: '') }
+
+      it 'is invalid' do
+        expect(organisation).not_to be_valid
+      end
+
+      it 'explains why it is invalid' do
+        organisation.valid?
+        expect(organisation.errors.full_messages).to eq([
+          "Name can't be blank"
+        ])
       end
     end
   end

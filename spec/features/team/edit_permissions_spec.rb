@@ -47,6 +47,10 @@ describe 'Edit user permissions', type: :feature do
       it 'sets the correct success message' do
         expect(page).to have_content('Permissions updated')
       end
+
+      it 'redirects to "after permission updated" team members page for analytics' do
+        expect(page).to have_current_path('/team_members/updated/permissions')
+      end
     end
 
     context 'when the user does not belong to my organisation' do

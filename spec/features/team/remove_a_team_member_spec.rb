@@ -23,6 +23,11 @@ describe "Remove a team member", type: :feature do
     it "deletes the user" do
       expect { click_on "Yes, remove this team member" }.to change(User, :count).by(-1)
     end
+
+    it 'redirects to "after user removed" team members page for analytics' do
+      click_on "Yes, remove this team member"
+      expect(page).to have_current_path('/team_members/removed')
+    end
   end
 
   context "without correct permissions" do

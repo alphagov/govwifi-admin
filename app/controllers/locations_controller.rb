@@ -9,7 +9,10 @@ class LocationsController < ApplicationController
 
     if @location.save
       Facades::Ips::Publish.new.execute
-      redirect_to ips_path, notice: "#{@location.full_address} added"
+      redirect_to(
+        @location.ips.any? ? created_location_with_ip_ips_path : created_location_ips_path,
+        notice: "#{@location.full_address} added"
+      )
     else
       add_blank_ips_to_location
       render :new
@@ -21,7 +24,7 @@ class LocationsController < ApplicationController
     redirect_to ips_path && return unless location && location.ips.empty?
 
     location.destroy
-    redirect_to ips_path, notice: "Successfully removed location #{location.address}"
+    redirect_to removed_location_ips_path, notice: "Successfully removed location #{location.address}"
   end
 
 private

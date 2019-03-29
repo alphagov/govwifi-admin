@@ -17,7 +17,10 @@ Rails.application.routes.draw do
   resources :ips, only: %i[index new create destroy] do
     get 'remove', to: 'ips#index'
     get 'created', to: 'ips#index', on: :collection
+    get 'created/location', to: 'ips#index', on: :collection
+    get 'created/location/with-ip', to: 'ips#index', on: :collection
     get 'removed', to: 'ips#index', on: :collection
+    get 'removed/location', to: 'ips#index', on: :collection
   end
 
   resources :help, only: %i[create new] do
@@ -31,8 +34,21 @@ Rails.application.routes.draw do
   resources :locations, only: %i[new create destroy] do
     get 'remove', to: 'ips#index'
   end
-  resources :team_members, only: %i[index edit update destroy]
-  resources :mou, only: %i[index create]
+  resources :team_members, only: %i[index edit update destroy] do
+    collection do
+      get 'created/invite', to: 'team_members#index'
+      get 'recreated/invite', to: 'team_members#index'
+      get 'updated/permissions', to: 'team_members#index'
+      get 'removed', to: 'team_members#index'
+    end
+  end
+
+  resources :mou, only: %i[index create] do
+    collection do
+      get 'created', to: 'mou#index'
+      get 'replaced', to: 'mou#index'
+    end
+  end
   resources :logs, only: %i[index]
 
   resources :logs_searches, path: 'logs/search', only: %i[new index create] do
