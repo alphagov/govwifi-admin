@@ -188,4 +188,17 @@ describe 'Sign up as an organisation' do
       expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
     end
   end
+
+  context 'when no organisation has been selected' do
+    let(:org_name_left_blank) { '' }
+
+    before { sign_up_for_account }
+
+    it 'displays one error message that the name cannot be left blank' do
+      update_user_details(organisation_name: org_name_left_blank)
+      within('div#error-summary') do
+        expect(page).to have_selector("li#error-message", count: 1, text: "Organisation name can't be blank")
+      end
+    end
+  end
 end
