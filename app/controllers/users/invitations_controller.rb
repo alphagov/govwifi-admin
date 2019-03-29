@@ -11,10 +11,7 @@ private
   end
 
   def add_organisation_to_params
-
-    if current_user.super_admin?
-
-    else
+    if !current_user.super_admin?
       params[:user][:organisation_id] = current_user.organisation_id
     end
   end

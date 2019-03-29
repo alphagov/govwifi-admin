@@ -3,17 +3,26 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= link_to "Back to list", team_members_path, class: "govuk-back-link" %>
-    <h2 class="govuk-heading-l">
-      Invite a team member
-    </h2>
-
-    <div class="govuk-details">
+    <% if !current_user.super_admin %>
+      <h2 class="govuk-heading-l">Invite a team member</h2>
+      <div class="govuk-details">
       <div class="govuk-details__text">
         <p class="govuk-body">
-          Team members will receive an email invitation to join your organisation's GovWifi Admin dashboard.
+          Team members will receive an email invitation to join your organisation's GovWifi admin dashboard.
         </p>
       </div>
     </div>
+
+    <% else %>
+      <h2 class="govuk-heading-l">Invite a team member to <%= params[:name] %> </h2>
+      <div class="govuk-details">
+        <div class="govuk-details__text">
+          <p class="govuk-body">
+            Team members will receive an email invitation to join <%= params[:name] %>'s GovWifi admin account.
+          </p>
+      </div>
+    </div>
+    <% end %>
 
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
       <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, novalidate: '' } do |f| %>
@@ -49,7 +58,7 @@
                     <%= p.check_box :can_manage_locations, class: 'govuk-checkboxes__input' %>
                     <label class="govuk-label govuk-checkboxes__label"><%= p.label :can_manage_locations, 'Add and remove locations and IPs' %></label>
                   </div>
-                  <%= f.hidden_field :organisation_id, { :value => params[:organisation_id]} %>
+                  <%= f.hidden_field :organisation_id, { :value => params[:id]} %>
                 <% end %>
               </div>
             </fieldset>

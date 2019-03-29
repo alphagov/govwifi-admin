@@ -14,6 +14,10 @@ describe "Inviting a team member as a super admin", focus: true, type: :feature 
     fill_in 'Email address', with: 'barry@gov.uk'
   end
 
+    it "will give the give the name of the organisation you want to add a team member to" do
+      expect(page).to have_content("Invite a team member to #{organisation.name}")
+    end
+
     it "creates the user" do
       expect{ click_on 'Send invitation email' }.to change(User, :count).by(1)
     end
