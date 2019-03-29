@@ -24,12 +24,38 @@ describe 'Uploading and downloading an MOU', type: :feature do
         click_on 'Upload'
       end
 
-      it 'can upload and download a version of the mou' do
+      it 'can upload a version of the mou' do
         expect(page).to have_content("MOU uploaded successfully.")
       end
 
       it 'displays the download link' do
         expect(page).to have_link("download and view the document.")
+      end
+
+      it 'redirects to "after MOU uploaded" path for analytics' do
+        expect(page).to have_current_path('/mou/created')
+      end
+    end
+
+    context 'when replacing the signed mou' do
+      before do
+        visit mou_index_path
+        attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
+        click_on 'Upload'
+        attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
+        click_on 'Replace MOU'
+      end
+
+      it 'can upload a version of the mou' do
+        expect(page).to have_content("MOU uploaded successfully.")
+      end
+
+      it 'displays the download link' do
+        expect(page).to have_link("download and view the document.")
+      end
+
+      it 'redirects to "after MOU uploaded" path for analytics' do
+        expect(page).to have_current_path('/mou/replaced')
       end
     end
   end
