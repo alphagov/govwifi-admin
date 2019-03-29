@@ -42,7 +42,13 @@ Rails.application.routes.draw do
       get 'removed', to: 'team_members#index'
     end
   end
-  resources :mou, only: %i[index create]
+
+  resources :mou, only: %i[index create] do
+    collection do
+      get 'created', to: 'mou#index'
+      get 'replaced', to: 'mou#index'
+    end
+  end
   resources :logs, only: %i[index]
 
   resources :logs_searches, path: 'logs/search', only: %i[new index create] do
