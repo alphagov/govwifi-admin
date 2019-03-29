@@ -38,7 +38,7 @@ private
   end
 
   def after_invite_path_for(_resource)
-    team_members_path
+    resending_invite? ? recreated_invite_team_members_path : created_invite_team_members_path
   end
 
   def user_should_be_cleared?

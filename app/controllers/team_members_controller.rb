@@ -12,7 +12,7 @@ class TeamMembersController < ApplicationController
     redirect_to team_members_path && return unless user
 
     user.destroy
-    redirect_to team_members_path, notice: "Team member has been removed"
+    redirect_to removed_team_members_path, notice: "Team member has been removed"
   end
 
   def edit; end
@@ -21,7 +21,7 @@ class TeamMembersController < ApplicationController
     @user.permission.update!(permission_params[:permission_attributes])
 
     flash[:notice] = 'Permissions updated'
-    redirect_to team_members_path
+    redirect_to updated_permissions_team_members_path
   end
 
 private

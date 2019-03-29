@@ -34,7 +34,14 @@ Rails.application.routes.draw do
   resources :locations, only: %i[new create destroy] do
     get 'remove', to: 'ips#index'
   end
-  resources :team_members, only: %i[index edit update destroy]
+  resources :team_members, only: %i[index edit update destroy] do
+    collection do
+      get 'created/invite', to: 'team_members#index'
+      get 'recreated/invite', to: 'team_members#index'
+      get 'updated/permissions', to: 'team_members#index'
+      get 'removed', to: 'team_members#index'
+    end
+  end
   resources :mou, only: %i[index create]
   resources :logs, only: %i[index]
 

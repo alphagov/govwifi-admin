@@ -45,6 +45,10 @@ describe "Inviting a team member", type: :feature do
       it "sets the invitees organisation" do
         expect(invited_user.organisation).to eq(user.organisation)
       end
+
+      it 'redirects to the "after user invited" path for analytics' do
+        expect(page).to have_current_path('/team_members/created/invite')
+      end
     end
 
     context "with a non gov.uk email address" do
@@ -65,6 +69,10 @@ describe "Inviting a team member", type: :feature do
 
       it "sets the invitees organisation" do
         expect(invited_user.organisation).to eq(user.organisation)
+      end
+
+      it 'redirects to the "after user invited" path for analytics' do
+        expect(page).to have_current_path('/team_members/created/invite')
       end
     end
 
@@ -107,6 +115,10 @@ describe "Inviting a team member", type: :feature do
 
       it "sets the invitees organisation" do
         expect(invited_user.organisation_id).to eq(user.organisation_id)
+      end
+
+      it 'redirects to the "after user invited" path for analytics' do
+        expect(page).to have_current_path('/team_members/created/invite')
       end
     end
 
