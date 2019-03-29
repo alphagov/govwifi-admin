@@ -3,19 +3,19 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% if current_user.super_admin? %>
-    <%= link_to "Back to organisation", admin_organisation_path(params[:id]), class: "govuk-back-link" %>
+      <%= link_to "Back to organisation", admin_organisation_path(params[:id]), class: "govuk-back-link" %>
       <h2 class="govuk-heading-l">Invite a team member to <%= params[:name] %> </h2>
       <div class="govuk-details">
         <div class="govuk-details__text">
           <p class="govuk-body">
             Team members will receive an email invitation to join <%= params[:name] %>'s GovWifi admin account.
           </p>
+        </div>
       </div>
-    </div>
     <% else %>
       <%= link_to "Back to list", team_members_path, class: "govuk-back-link" %>
       <h2 class="govuk-heading-l">Invite a team member</h2>
-        <div class="govuk-details">
+      <div class="govuk-details">
         <div class="govuk-details__text">
           <p class="govuk-body">
             Team members will receive an email invitation to join your organisation's GovWifi admin dashboard.
