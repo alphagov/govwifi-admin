@@ -23,7 +23,10 @@ describe 'View IP addresses' do
 
       it 'redirects the user to the setting up page' do
         visit root_path
-        expect(page).to have_current_path(initial_setup_instructions_path)
+
+        within("h2") do
+          expect(page).to have_content("Get GovWifi access in your organisation")
+        end
       end
     end
 

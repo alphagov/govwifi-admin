@@ -94,7 +94,9 @@ describe 'Authorising Email Domains', type: :feature do
     end
 
     it 'will redirect to root if users type address manually' do
-      expect(page).to have_current_path(initial_setup_instructions_path)
+      within("h2") do
+        expect(page).to have_content("Get GovWifi access in your organisation")
+      end
     end
   end
 

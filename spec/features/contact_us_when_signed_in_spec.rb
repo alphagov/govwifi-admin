@@ -23,7 +23,9 @@ describe 'Contact us when signed in', type: :feature do
     end
 
     it 'redirects to the home page' do
-      expect(page).to have_current_path(initial_setup_instructions_path)
+      within("h2") do
+        expect(page).to have_content("Get GovWifi access in your organisation")
+      end
     end
 
     it 'opens a support ticket' do
