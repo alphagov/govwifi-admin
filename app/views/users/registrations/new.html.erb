@@ -4,9 +4,7 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Sign up your organisation to GovWifi</h1>
 
-    <p class="govuk-body">
-      If you are an individual user trying to connect to GovWifi, <%= link_to "follow these instructions.", SITE_CONFIG['end_user_docs_link'], class: "govuk-link" %>
-    </p>
+    <%= render "users/shared/end_user_warning" %>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { novalidate: '' }) do |f| %>
       <div class="govuk-form-group <%= field_error(resource, :email) %>">
