@@ -60,7 +60,6 @@ describe "Inviting a team member as a super admin", type: :feature do
       let(:email_second_attempt) { "barry@gov.uk" }
 
       before do
-        click_on 'Send invitation email'
         fill_in 'Email address', with: email_second_attempt
         click_on 'Send invitation email'
       end
