@@ -22,11 +22,7 @@ describe 'Contact us when signed in', type: :feature do
       expect(page).to have_content('Your support request has been submitted')
     end
 
-    it 'redirects to the home page' do
-      within("h2") do
-        expect(page).to have_content("Get GovWifi access in your organisation")
-      end
-    end
+    it_behaves_like 'display setup instructions'
 
     it 'opens a support ticket' do
       expect(support_tickets.count).to eq 1

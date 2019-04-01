@@ -46,10 +46,6 @@ describe 'Upload and download the MOU template', type: :feature do
       visit admin_mou_index_path
     end
 
-    it 'redirects unauthorised access' do
-      within("h2") do
-        expect(page).to have_content("Get GovWifi access in your organisation")
-      end
-    end
+    it_behaves_like 'display setup instructions'
   end
 end

@@ -93,11 +93,7 @@ describe 'Authorising Email Domains', type: :feature do
       visit new_admin_authorised_email_domain_path
     end
 
-    it 'will redirect to root if users type address manually' do
-      within("h2") do
-        expect(page).to have_content("Get GovWifi access in your organisation")
-      end
-    end
+    it_behaves_like 'display setup instructions'
   end
 
   context 'when logged out' do

@@ -7,11 +7,7 @@ describe 'Viewing the overview page', type: :feature do
       visit root_path
     end
 
-    it 'redirects the user to the setting up page' do
-      within("h2") do
-        expect(page).to have_content("Get GovWifi access in your organisation")
-      end
-    end
+    it_behaves_like 'display setup instructions'
   end
 
   context 'with at least one IP' do
