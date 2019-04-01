@@ -70,6 +70,10 @@ Rails.application.routes.draw do
     resources :organisations, only: %i[index show destroy]
     resources :custom_organisations, only: %i[index create destroy]
     resources :authorised_email_domains, only: %i[index new create destroy]
+    resources :users, only: [] do
+      post 'permission', to: 'users/permissions#create', as: :grant_permission
+      delete 'permission', to: 'users/permissions#destroy', as: :revoke_permission
+    end
   end
 
   %w( 404 422 500 ).each do |code|

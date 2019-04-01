@@ -7,6 +7,15 @@
         <tr class="govuk-table__row">
           <td class="govuk-table__cell" scope="row"><%= user.name %></td>
           <td class="govuk-table__cell text-right" scope="row"><%= user.email %></td>
+          <td class="govuk-table__cell text-right" scope="row">
+            <% if user.super_admin? %>
+              <%= button_to("revoke super admin", admin_user_revoke_permission_path(user),
+                method: :delete, class: 'resend-invite-button') %>
+            <% else %>
+              <%= button_to("grant super admin", admin_user_grant_permission_path(user),
+                method: :post, class: 'resend-invite-button') %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
