@@ -23,7 +23,7 @@ describe 'Contact us when signed in', type: :feature do
     end
 
     it 'redirects to the home page' do
-      expect(page).to have_current_path(setup_instructions_path)
+      expect(page).to have_current_path(initial_setup_instructions_path)
     end
 
     it 'opens a support ticket' do

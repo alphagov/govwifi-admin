@@ -45,7 +45,7 @@ describe 'Invite a team member', type: :feature do
     it 'prevents visiting the invites page directly' do
       visit new_user_invitation_path
 
-      expect(page).to have_current_path(setup_instructions_path)
+      expect(page).to have_current_path(initial_setup_instructions_path)
     end
 
     it 'does not allow re-sending invites' do
