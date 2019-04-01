@@ -11,7 +11,7 @@ class Admin::OrganisationsController < AdminController
 
   def show
     @organisation = Organisation.find(params[:id])
-    @team = @organisation.users.order(build_order_query)
+    @team = sorted_team_members(@organisation)
     @locations = @organisation.locations.order("address asc")
   end
 
@@ -23,11 +23,10 @@ class Admin::OrganisationsController < AdminController
 
 private
 
-  def build_order_query
-    Arel::Nodes::NamedFunction.new("COALESCE", [
-      User.arel_table['name'],
-      User.arel_table['email']
-    ]).asc
+  def sorted_team_members(organisation)
+    UseCases::Administrator::SortUsers.new(
+      users_gateway: Gateways::OrganisationUsers.new(organisation: organisation)
+    ).execute
   end
 
   def sortable_columns
