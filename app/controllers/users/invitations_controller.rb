@@ -3,6 +3,8 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :return_user_to_invite_page, if: :user_is_invalid?, only: :create
   before_action :add_organisation_to_params, unless: :super_admin?, only: :create
 
+  helper_method :target_organisation, :super_admin?
+
 private
 
   def authenticate_inviter!
@@ -67,6 +69,14 @@ private
 
   def super_admin?
     current_user.super_admin?
+  end
+
+  def target_organisation
+    @target_organisation ||= if super_admin?
+                               Organisation.find_by(id: params[:id] || invite_params[:organisation_id])
+                             else
+                               current_user.organisation
+                             end
   end
 
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105

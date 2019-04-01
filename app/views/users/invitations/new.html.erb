@@ -2,13 +2,13 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <% if current_user.super_admin? %>
-      <%= link_to "Back to organisation", admin_organisation_path(params[:id]), class: "govuk-back-link" %>
-      <h2 class="govuk-heading-l">Invite a team member to <%= params[:name] %> </h2>
+    <% if super_admin? %>
+      <%= link_to "Back to organisation", admin_organisation_path(target_organisation.id), class: "govuk-back-link" %>
+      <h2 class="govuk-heading-l">Invite a team member to <%= target_organisation.name %> </h2>
       <div class="govuk-details">
         <div class="govuk-details__text">
           <p class="govuk-body">
-            Team members will receive an email invitation to join <%= params[:name] %>'s GovWifi admin account.
+            Team members will receive an email invitation to join <%= target_organisation.name %>'s GovWifi admin account.
           </p>
         </div>
       </div>
@@ -57,8 +57,8 @@
                     <%= p.check_box :can_manage_locations, class: 'govuk-checkboxes__input' %>
                     <label class="govuk-label govuk-checkboxes__label"><%= p.label :can_manage_locations, 'Add and remove locations and IPs' %></label>
                   </div>
-                  <% if current_user.super_admin? %>
-                    <%= f.hidden_field :organisation_id, value: params[:id] %>
+                  <% if super_admin? %>
+                    <%= f.hidden_field :organisation_id, value: target_organisation.id %>
                   <% end %>
                 <% end %>
               </div>
