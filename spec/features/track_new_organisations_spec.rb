@@ -1,4 +1,4 @@
-describe 'Allowing GA to track an organisation with no IPs via URL paths', type: :feature do
+describe 'Tracking new organisations', type: :feature do
   let(:user) { create(:user) }
 
   before do
@@ -6,14 +6,14 @@ describe 'Allowing GA to track an organisation with no IPs via URL paths', type:
     visit root_path
   end
 
-  it 'displays an inital tag on the URL when logged in' do
+  it 'displays an initial tag on the URL when logged in' do
     expect(page).to have_current_path('/setup_instructions/initial')
   end
 
-  context 'when visiting the setup instruction page at any time' do
+  context 'when a user clicks on the setup sub-navigation link ' do
     before { click_on 'Setup' }
 
-    it 'displays an inital tag on the URL' do
+    it 'displays the initial tag on the URL' do
       expect(page).to have_current_path('/setup_instructions/initial')
     end
   end
