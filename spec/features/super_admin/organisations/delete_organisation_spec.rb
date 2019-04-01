@@ -1,5 +1,5 @@
 describe 'Deleting an organisation', type: :feature do
-  let!(:admin_user) { create(:user, super_admin: true) }
+  let!(:admin_user) { create(:user, :super_admin) }
   let!(:organisation) { create(:organisation, name: 'Gov Org 2') }
 
   context 'when visiting the organisations page' do

@@ -17,7 +17,7 @@ describe 'View details of an organisation', type: :feature do
       create(:ip, location: location_2)
       create(:ip, location: location_3)
 
-      sign_in_user create(:user, super_admin: true)
+      sign_in_user create(:user, :super_admin)
       visit admin_organisation_path(organisation)
     end
 

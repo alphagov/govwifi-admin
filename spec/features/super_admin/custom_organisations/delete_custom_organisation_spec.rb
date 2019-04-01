@@ -1,5 +1,5 @@
 describe 'Delete a custom organisation name', type: :feature do
-  let(:admin_user) { create(:user, super_admin: true) }
+  let(:admin_user) { create(:user, :super_admin) }
 
   before do
     create(:custom_organisation_name, name: 'DummyOrg1')

@@ -1,6 +1,6 @@
 describe 'Sorting the organisations list', type: :feature do
   context 'when super admin views the list' do
-    let!(:super_admin) { create(:user, super_admin: true) }
+    let!(:super_admin) { create(:user, :super_admin) }
 
     before do
       create(:organisation, name: "Gov Org 2", created_at: '10 Dec 2013')

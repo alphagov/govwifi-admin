@@ -7,7 +7,7 @@ describe 'View authentication requests for an IP', type: :feature do
   let(:user_2_location) { create(:location, organisation: user_2.organisation) }
   let(:ip_2) { create(:ip, location: user_2_location, address: '1.2.3.5') }
 
-  let(:super_admin) { create(:user, super_admin: true) }
+  let(:super_admin) { create(:user, :super_admin) }
 
   before do
     Session.create!(

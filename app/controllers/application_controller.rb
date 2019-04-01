@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, except: :error
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
 
-  helper_method :current_organisation
+  helper_method :current_organisation, :super_admin?
 
   def current_organisation
     @current_organisation ||= current_user.organisation
@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
 
   def error
     render :error, code: params[:code]
+  end
+
+  def super_admin?
+    current_organisation.super_admin?
   end
 
 protected
