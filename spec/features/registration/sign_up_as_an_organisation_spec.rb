@@ -92,7 +92,7 @@ describe 'Sign up as an organisation' do
     before do
       sign_up_for_account
       update_user_details(password: '1')
-      expect(page).to have_content 'Create your account'
+      expect(page).to have_content 'Create your GovWifi network admin account'
     end
 
     it_behaves_like 'errors in form'
@@ -121,7 +121,7 @@ describe 'Sign up as an organisation' do
     before do
       sign_up_for_account
       update_user_details(service_email: "")
-      expect(page).to have_content 'Create your account'
+      expect(page).to have_content 'Create your GovWifi network admin account'
     end
 
     it_behaves_like 'errors in form'
@@ -135,7 +135,7 @@ describe 'Sign up as an organisation' do
     before do
       sign_up_for_account
       update_user_details(password: '1')
-      expect(page).to have_content 'Create your account'
+      expect(page).to have_content 'Create your GovWifi network admin account'
     end
 
     it_behaves_like 'errors in form'
