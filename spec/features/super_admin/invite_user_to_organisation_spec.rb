@@ -16,7 +16,6 @@ describe "Inviting a team member as a super admin", type: :feature do
   include_examples 'notifications service'
   include_examples 'invite use case spy'
 
-
   it "will take the user to the organisation when they click 'back to organisation'" do
     click_on 'Back to organisation'
     expect(page).to have_current_path(admin_organisation_path(organisation))
@@ -56,7 +55,7 @@ describe "Inviting a team member as a super admin", type: :feature do
       expect(page).to have_content("Email can't be blank")
     end
 
-    context "when retying with a valid email address" do
+    context "when retrying with a valid email address" do
       let(:email_second_attempt) { "barry@gov.uk" }
 
       before do
