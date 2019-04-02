@@ -8,6 +8,9 @@ FactoryBot.define do
     confirmed_at { Time.zone.now }
 
     association :organisation
+    trait :super_admin do
+      association :organisation, super_admin: true
+    end
     trait :unconfirmed do
       confirmed_at { nil }
     end

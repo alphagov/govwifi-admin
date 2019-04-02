@@ -1,5 +1,5 @@
 describe 'Adding a custom organisation name', type: :feature do
-  let(:admin_user) { create(:user, super_admin: true) }
+  let(:admin_user) { create(:user, :super_admin) }
 
   before do
     sign_in_user admin_user

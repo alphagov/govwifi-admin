@@ -4,7 +4,7 @@ describe 'Authorising Email Domains', type: :feature do
     visit new_admin_authorised_email_domain_path
   end
 
-  let(:admin_user) { create(:user, super_admin: true) }
+  let(:admin_user) { create(:user, :super_admin) }
 
   context 'when whitelisting a domain' do
     before do
@@ -86,7 +86,7 @@ describe 'Authorising Email Domains', type: :feature do
   end
 
   context 'without super admin privileges' do
-    let(:admin_user) { create(:user, super_admin: false) }
+    let(:admin_user) { create(:user) }
 
     before do
       sign_in_user admin_user

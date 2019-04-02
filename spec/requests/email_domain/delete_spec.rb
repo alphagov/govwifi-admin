@@ -4,7 +4,7 @@ describe "DELETE /authorised_email_domains/:id", type: :request do
   context "when the user is a super admin" do
     before do
       https!
-      sign_in_user(create(:user, super_admin: true))
+      sign_in_user(create(:user, :super_admin))
     end
 
     it "deletes the email domain" do
@@ -22,7 +22,7 @@ describe "DELETE /authorised_email_domains/:id", type: :request do
   context "when the user is not super admin" do
     before do
       https!
-      sign_in_user(create(:user, super_admin: false))
+      sign_in_user(create(:user))
     end
 
     it "does not delete the email domain" do
