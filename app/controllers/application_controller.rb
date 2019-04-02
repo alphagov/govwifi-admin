@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def super_admin?
-    current_organisation.super_admin?
+    current_organisation&.super_admin?
   end
 
 protected
