@@ -32,9 +32,9 @@ describe 'Add new location', type: :feature do
         expect(page).to have_content('30 Square, W1A 2AB added')
       end
 
-      it 'redirects to "After location created with IP" path for analytics' do
+      it 'redirects to "After location created with IP for a new org" path for analytics' do
         click_on 'Add new location'
-        expect(page).to have_current_path('/ips/created/location/with-ip')
+        expect(page).to have_current_path('/ips/created/location/with-ip/new_org')
       end
     end
 
@@ -74,8 +74,8 @@ describe 'Add new location', type: :feature do
         expect(page).to have_content('30 Square')
       end
 
-      it 'redirects to "After location created" path for analytics' do
-        expect(page).to have_current_path('/ips/created/location')
+      it 'redirects to "After location created for a new org" path for analytics' do
+        expect(page).to have_current_path('/ips/created/location/new_org')
       end
     end
 
