@@ -6,6 +6,10 @@ describe 'View details of an organisation', type: :feature do
     let(:location_2) { create(:location, organisation: organisation, address: 'Carry Street') }
     let(:location_3) { create(:location, organisation: organisation, address: 'Barry Lane') }
 
+    let!(:user_1) { create(:user, name: "Aardvark", organisation: organisation) }
+    let!(:user_2) { create(:user, name: "Zed", organisation: organisation) }
+    let!(:user_3) { create(:user, name: "", email: "batman@batcave.com", organisation: organisation) }
+
     before do
       create(:user, organisation: organisation)
 
@@ -35,7 +39,7 @@ describe 'View details of an organisation', type: :feature do
 
     it 'shows the number of users' do
       within('#user-count') do
-        expect(page).to have_content('1')
+        expect(page).to have_content('4')
       end
     end
 
@@ -43,6 +47,10 @@ describe 'View details of an organisation', type: :feature do
       organisation.users.each do |user|
         expect(page).to have_content(user.name)
       end
+    end
+
+    it 'lists all team members in alphabetical order' do
+      expect(page.body).to match(/#{user_1.name}.*#{user_3.name}.*#{user_2.email}/m)
     end
 
     it 'shows the number of locations' do

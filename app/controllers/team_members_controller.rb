@@ -4,7 +4,7 @@ class TeamMembersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @team_members = current_organisation.users.order(build_order_query)
+    @team_members = sorted_team_members(current_organisation)
   end
 
   def destroy
@@ -26,11 +26,10 @@ class TeamMembersController < ApplicationController
 
 private
 
-  def build_order_query
-    Arel::Nodes::NamedFunction.new("COALESCE", [
-      User.arel_table['name'],
-      User.arel_table['email']
-    ]).asc
+  def sorted_team_members(organisation)
+    UseCases::Administrator::SortUsers.new(
+      users_gateway: Gateways::OrganisationUsers.new(organisation: organisation)
+    ).execute
   end
 
   def set_user
