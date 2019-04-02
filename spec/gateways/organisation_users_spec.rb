@@ -15,6 +15,10 @@ describe Gateways::OrganisationUsers do
     it 'fetches the users for the organisation' do
       expect(gateway.fetch).to eq(result)
     end
+
+    it 'returns an ActiveRecord collection' do
+      expect(gateway.fetch.class.ancestors).to include(ActiveRecord::Relation)
+    end
   end
 
   context 'without users' do
