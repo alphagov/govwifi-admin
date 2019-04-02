@@ -13,7 +13,7 @@ class IpsController < ApplicationController
     if @ip.save
       Facades::Ips::Publish.new.execute
       redirect_to(
-        created_ips_path,
+        ip_creation_path,
         notice: "#{@ip.address} added, it will be active starting tomorrow"
       )
     else
@@ -39,6 +39,12 @@ class IpsController < ApplicationController
   end
 
 private
+
+  def ip_creation_path
+    return created_new_org_ips_path if current_organisation.ips.count <= 1
+
+    created_ips_path
+  end
 
   def available_locations
     current_organisation.locations.order(:address)

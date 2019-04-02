@@ -10,7 +10,7 @@ class LocationsController < ApplicationController
     if @location.save
       Facades::Ips::Publish.new.execute
       redirect_to(
-        @location.ips.any? ? created_location_with_ip_ips_path : created_location_ips_path,
+        @location.ips.any? ? location_with_ips_creation_path : location_creation_path,
         notice: "#{@location.full_address} added"
       )
     else
@@ -28,6 +28,18 @@ class LocationsController < ApplicationController
   end
 
 private
+
+  def location_creation_path
+    return created_location_new_org_ips_path if current_organisation.ips.empty?
+
+    created_location_ips_path
+  end
+
+  def location_with_ips_creation_path
+    return created_location_with_ip_new_org_ips_path if current_organisation.ips.count <= 1
+
+    created_location_with_ip_ips_path
+  end
 
   def add_blank_ips_to_location
     desired_count = 5

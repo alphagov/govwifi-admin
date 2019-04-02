@@ -9,7 +9,11 @@
     </div>
     <% if current_user.can_manage_locations? %>
       <p class="govuk-body govuk-!-margin-bottom-1">
+      <% if current_organisation.ips.empty? %>
+        <%= link_to "Add IP to this location", new_org_new_ip_path(location: location), class: "govuk-link" %>
+      <% else %>
         <%= link_to "Add IP to this location", new_ip_path(location: location), class: "govuk-link" %>
+      <% end %>
       </p>
     <% end %>
 

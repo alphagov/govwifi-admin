@@ -15,9 +15,14 @@ Rails.application.routes.draw do
   get '/healthcheck', to: 'monitoring#healthcheck'
   resources :status, only: %i[index]
   resources :ips, only: %i[index new create destroy] do
+    get 'new_org', to: 'ips#index', on: :collection
+    get 'new_org', to: 'ips#new', on: :new
     get 'remove', to: 'ips#index'
+    get 'created/new_org', to: 'ips#index', on: :collection
     get 'created', to: 'ips#index', on: :collection
+    get 'created/location/new_org', to: 'ips#index', on: :collection
     get 'created/location', to: 'ips#index', on: :collection
+    get 'created/location/with-ip/new_org', to: 'ips#index', on: :collection
     get 'created/location/with-ip', to: 'ips#index', on: :collection
     get 'removed', to: 'ips#index', on: :collection
     get 'removed/location', to: 'ips#index', on: :collection
@@ -32,6 +37,7 @@ Rails.application.routes.draw do
   end
 
   resources :locations, only: %i[new create destroy] do
+    get 'new_org', to: 'locations#new', on: :collection
     get 'remove', to: 'ips#index'
   end
   resources :team_members, only: %i[index edit update destroy] do

@@ -11,7 +11,7 @@
       <% elsif @ips.empty? %>
         <% if current_user.can_manage_locations? %>
           <p class="govuk-body">
-            You need to <%= link_to "add the IPs", new_ip_path, class: "govuk-link" %> of your authenticator(s).
+            You need to <%= link_to "add the IPs", new_org_new_ip_path, class: "govuk-link" %> of your authenticator(s).
           </p>
         <% end %>
       <% else %>
