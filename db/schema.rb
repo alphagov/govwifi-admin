@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_02_134657) do
+ActiveRecord::Schema.define(version: 2019_04_02_142239) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -113,7 +113,6 @@ ActiveRecord::Schema.define(version: 2019_04_02_134657) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.string "mobile"
-    t.boolean "super_admin", default: false
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
