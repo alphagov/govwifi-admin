@@ -93,7 +93,7 @@ describe 'Authorising Email Domains', type: :feature do
       visit new_admin_authorised_email_domain_path
     end
 
-    it_behaves_like 'display setup instructions'
+    it_behaves_like 'shows the setup instructions page'
   end
 
   context 'when logged out' do

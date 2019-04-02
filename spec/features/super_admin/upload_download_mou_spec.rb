@@ -46,6 +46,6 @@ describe 'Upload and download the MOU template', type: :feature do
       visit admin_mou_index_path
     end
 
-    it_behaves_like 'display setup instructions'
+    it_behaves_like 'shows the setup instructions page'
   end
 end

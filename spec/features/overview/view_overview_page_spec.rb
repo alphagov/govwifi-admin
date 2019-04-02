@@ -7,7 +7,7 @@ describe 'Viewing the overview page', type: :feature do
       visit root_path
     end
 
-    it_behaves_like 'display setup instructions'
+    it_behaves_like 'shows the setup instructions page'
   end
 
   context 'with at least one IP' do
