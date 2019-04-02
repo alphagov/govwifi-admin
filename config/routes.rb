@@ -60,7 +60,7 @@ Rails.application.routes.draw do
   resources :organisations, only: %i[edit update]
   resources :setup_instructions, only: %i[index] do
     collection do
-      get 'initial', to: 'setup_instructions#index'
+      get 'initial', to: 'setup_instructions#index', as: :new_organisation
     end
   end
   resources :overview, only: %i[index]
