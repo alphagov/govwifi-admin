@@ -1,11 +1,7 @@
 <div class='govuk-grid-row subnav govuk-!-margin-0'>
   <div class='govuk-grid-column-one-quarter govuk-grid-column-one-third-from-desktop govuk-!-padding-left-0 organisation-name'>
     <p class='govuk-body govuk-!-margin-0 govuk-!-padding-0'>
-      <% if super_admin? %>
-        <strong>GovWifi Super Admin</strong>
-      <% else %>
-        <strong><%= current_organisation.name %></strong>
-      <% end %>
+      <strong><%= current_organisation.name %></strong>
     </p>
   </div>
 
