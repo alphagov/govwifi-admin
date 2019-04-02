@@ -24,7 +24,7 @@
 
     <%= render 'section', heading: 'Team' do %>
       <%= link_to "Add team member", new_user_invitation_path(id: @organisation.id), class: "govuk-button" %>
-      <%= render 'team', organisation: @organisation %>
+      <%= render 'team', team: @team %>
     <% end %>
 
     <%= render 'section', heading: 'MoU' do %>

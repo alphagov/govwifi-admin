@@ -11,6 +11,7 @@ class Admin::OrganisationsController < AdminController
 
   def show
     @organisation = Organisation.find(params[:id])
+    @team = sorted_team_members(@organisation)
     @locations = @organisation.locations.order("address asc")
   end
 
@@ -21,6 +22,12 @@ class Admin::OrganisationsController < AdminController
   end
 
 private
+
+  def sorted_team_members(organisation)
+    UseCases::Administrator::SortUsers.new(
+      users_gateway: Gateways::OrganisationUsers.new(organisation: organisation)
+    ).execute
+  end
 
   def sortable_columns
     %w[name created_at active_storage_attachments.created_at]
