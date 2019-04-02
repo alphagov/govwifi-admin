@@ -1,7 +1,10 @@
 class Users::InvitationsController < Devise::InvitationsController
+  before_action :set_target_organisation, if: :super_admin?, only: %i(create new)
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
   before_action :return_user_to_invite_page, if: :user_is_invalid?, only: :create
-  before_action :add_organisation_to_params, only: :create
+  before_action :add_organisation_to_params, unless: :super_admin?, only: :create
+
+  helper_method :super_admin?
 
 private
 
@@ -22,6 +25,10 @@ private
     respond_with_navigational(resource) { render :new }
   end
 
+  def set_target_organisation
+    @target_organisation = Organisation.find(params[:id] || invite_params[:organisation_id])
+  end
+
   def user_is_invalid?
     # This is an indirect solution to preventing a user being re-invited when they belong
     # to another organisation.
@@ -38,7 +45,11 @@ private
   end
 
   def after_invite_path_for(_resource)
-    resending_invite? ? recreated_invite_team_members_path : created_invite_team_members_path
+    if super_admin?
+      admin_organisation_path(invite_params[:organisation_id])
+    else
+      resending_invite? ? recreated_invite_team_members_path : created_invite_team_members_path
+    end
   end
 
   def user_should_be_cleared?
@@ -59,6 +70,10 @@ private
 
   def invited_user_has_no_org?
     invited_user.organisation_id.nil?
+  end
+
+  def super_admin?
+    current_user.super_admin?
   end
 
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105
