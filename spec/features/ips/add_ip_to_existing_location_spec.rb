@@ -23,8 +23,20 @@ describe 'add an IP to an existing location' do
           expect(location.reload.ips.map(&:address)).to include("141.0.149.130")
         end
 
-        it 'redirects to the "after IP created" path for Analytics' do
-          expect(page).to have_current_path('/ips/created')
+        context 'when the organisation has at least one IP address' do
+          before do
+            visit new_ip_path(location: location)
+            fill_in 'address', with: second_ip_address
+            click_on 'Add new IP address'
+          end
+
+          context 'when user adds another IP' do
+            let(:second_ip_address) { '131.0.139.100' }
+
+            it 'redirects to the "after IP created" path for Analytics' do
+              expect(page).to have_current_path('/ips/created')
+            end
+          end
         end
       end
 
@@ -60,8 +72,20 @@ describe 'add an IP to an existing location' do
         expect(other_location.reload.ips.map(&:address)).to include("141.0.149.130")
       end
 
-      it 'redirects to the "after IP created" path for Analytics' do
-        expect(page).to have_current_path('/ips/created')
+      context 'when the organisation has at least one IP address' do
+        before do
+          visit new_ip_path(location: location)
+          fill_in 'address', with: second_ip_address
+          click_on 'Add new IP address'
+        end
+
+        context 'when user adds another IP' do
+          let(:second_ip_address) { '131.0.139.100' }
+
+          it 'redirects to the "after IP created" path for Analytics' do
+            expect(page).to have_current_path('/ips/created')
+          end
+        end
       end
     end
   end
