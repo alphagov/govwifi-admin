@@ -52,9 +52,7 @@ describe 'Add an IP' do
         visit new_ip_path
       end
 
-      it 'redirects them to the homepage' do
-        expect(page).to have_current_path(setup_instructions_path)
-      end
+      it_behaves_like 'shows the setup instructions page'
     end
 
     context 'Homepage instructions' do

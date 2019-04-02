@@ -58,7 +58,11 @@ Rails.application.routes.draw do
   end
 
   resources :organisations, only: %i[edit update]
-  resources :setup_instructions, only: %i[index]
+  resources :setup_instructions, only: %i[index] do
+    collection do
+      get 'initial', to: 'setup_instructions#index', as: :new_organisation
+    end
+  end
   resources :overview, only: %i[index]
 
   namespace :admin do

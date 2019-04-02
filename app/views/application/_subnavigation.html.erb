@@ -19,7 +19,11 @@
         <%= link_to 'Whitelisted Domains', admin_authorised_email_domains_path, class: active_tab(admin_authorised_email_domains_path) %>
       <% else %>
         <%= link_to 'Overview', overview_index_path, class: active_tab(overview_index_path) %>
-        <%= link_to 'Setup', setup_instructions_path, class: active_tab(setup_instructions_path) + active_tab('mou') %>
+        <% if current_organisation.ips.empty? %>
+          <%= link_to 'Setup', new_organisation_setup_instructions_path, class: active_tab(new_organisation_setup_instructions_path) + active_tab('mou') %>
+        <% else %>
+          <%= link_to 'Setup', setup_instructions_path, class: active_tab(setup_instructions_path) + active_tab('mou') %>
+        <% end %>
         <%= link_to 'IPs', ips_path, id: 'nav-ips', class: active_tab('ips') + active_tab('locations') %>
         <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
         <%= link_to 'Team', team_members_path, class: active_tab('team') + active_tab('user') %>

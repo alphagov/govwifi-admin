@@ -46,8 +46,6 @@ describe 'Upload and download the MOU template', type: :feature do
       visit admin_mou_index_path
     end
 
-    it 'redirects unauthorised access' do
-      expect(page).to have_current_path(setup_instructions_path)
-    end
+    it_behaves_like 'shows the setup instructions page'
   end
 end

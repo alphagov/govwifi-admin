@@ -1,6 +1,8 @@
 shared_examples 'user not authorised' do
-  it 'redirects to setting up' do
-    # this relies on the assumption that users created for the purpose of testing have no IPs, which routes them differently from root.
-    expect(page).to have_current_path(setup_instructions_path)
+  # Assumes that users created for the purpose of testing have no IPs initially, which routes them differently from root.
+  it 'redirects to setting up page' do
+    within("h2") do
+      expect(page).to have_content("Get GovWifi access in your organisation")
+    end
   end
 end

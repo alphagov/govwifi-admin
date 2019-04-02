@@ -22,9 +22,7 @@ describe 'Contact us when signed in', type: :feature do
       expect(page).to have_content('Your support request has been submitted')
     end
 
-    it 'redirects to the home page' do
-      expect(page).to have_current_path(setup_instructions_path)
-    end
+    it_behaves_like 'shows the setup instructions page'
 
     it 'opens a support ticket' do
       expect(support_tickets.count).to eq 1
