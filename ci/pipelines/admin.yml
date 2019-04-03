@@ -3,6 +3,7 @@ resources:
     type: git
     source:
       uri: "https://github.com/alphagov/govwifi-admin.git"
+      branch: "concourse"
 
 jobs:
   - name: runner-image
@@ -10,6 +11,5 @@ jobs:
       - get: govwifi-admin
         trigger: true
       - task: build
-        image: builder
         privileged: true
         file: govwifi-admin/ci/tasks/runner-image.yml
