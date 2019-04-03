@@ -1,91 +1,93 @@
 describe LogsSearch do
-  context 'searching by username' do
-    before { subject.filter = 'username' }
+  subject(:log_search) { described_class.new }
+
+  context 'when searching by username' do
+    before { log_search.filter = 'username' }
 
     context 'with blank term' do
-      before { subject.term = '' }
+      before { log_search.term = '' }
 
       it { is_expected.not_to be_valid }
 
       it 'explains it is blank' do
-        subject.valid?
-        expect(subject.errors.full_messages.first).to eq "Search term cannot be empty"
+        log_search.valid?
+        expect(log_search.errors.full_messages.first).to eq "Search term cannot be empty"
       end
     end
 
     context 'with 4 characters' do
-      before { subject.term = 'abcd' }
+      before { log_search.term = 'abcd' }
 
       it { is_expected.not_to be_valid }
 
       it 'explains the required length' do
-        subject.valid?
-        expect(subject.errors.full_messages.first).to eq 'Search term must be 5 or 6 characters'
+        log_search.valid?
+        expect(log_search.errors.full_messages.first).to eq 'Search term must be 5 or 6 characters'
       end
     end
 
     context 'with 5 characters' do
-      before { subject.term = 'abcde' }
+      before { log_search.term = 'abcde' }
 
       it { is_expected.to be_valid }
     end
 
     context 'with 6 characters' do
-      before { subject.term = 'abcdef' }
+      before { log_search.term = 'abcdef' }
 
       it { is_expected.to be_valid }
     end
 
     context 'with 7 characters' do
-      before { subject.term = 'abcdefg' }
+      before { log_search.term = 'abcdefg' }
 
       it { is_expected.not_to be_valid }
 
       it 'explains the required length' do
-        subject.valid?
-        expect(subject.errors.full_messages.first).to eq 'Search term must be 5 or 6 characters'
+        log_search.valid?
+        expect(log_search.errors.full_messages.first).to eq 'Search term must be 5 or 6 characters'
       end
     end
   end
 
-  context 'searching by IP' do
-    before { subject.filter = 'ip' }
+  context 'when searching by IP' do
+    before { log_search.filter = 'ip' }
 
     context 'with blank term' do
-      before { subject.term = '' }
+      before { log_search.term = '' }
 
       it { is_expected.not_to be_valid }
 
       it 'explains it is blank' do
-        subject.valid?
-        expect(subject.errors.full_messages.first).to eq "Search term cannot be empty"
+        log_search.valid?
+        expect(log_search.errors.full_messages.first).to eq "Search term cannot be empty"
       end
     end
 
     context 'with an invalid IP' do
-      before { subject.term = 'badger' }
+      before { log_search.term = 'badger' }
 
       it { is_expected.not_to be_valid }
 
       it 'explains it is invalid' do
-        subject.valid?
-        expect(subject.errors.full_messages.first).to eq "Search term must be a valid IP address"
+        log_search.valid?
+        expect(log_search.errors.full_messages.first).to eq "Search term must be a valid IP address"
       end
     end
 
     context 'with another invalid IP' do
-      before { subject.term = '10.x.20.30' }
+      before { log_search.term = '10.x.20.30' }
 
       it { is_expected.not_to be_valid }
 
       it 'explains it is invalid' do
-        subject.valid?
-        expect(subject.errors.full_messages.first).to eq "Search term must be a valid IP address"
+        log_search.valid?
+        expect(log_search.errors.full_messages.first).to eq "Search term must be a valid IP address"
       end
     end
 
     context 'with a valid IP' do
-      before { subject.term = '11.22.33.44' }
+      before { log_search.term = '11.22.33.44' }
 
       it { is_expected.to be_valid }
     end
