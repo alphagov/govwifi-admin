@@ -13,7 +13,5 @@ module Gateways
       coordinates = [longitude, latitude]
       coordinates
     end
-
-  private
   end
 end
