@@ -1,0 +1,15 @@
+resources:
+  - name: govwifi-admin
+    type: git
+    source:
+      uri: "https://github.com/alphagov/govwifi-admin.git"
+
+jobs:
+  - name: runner-image
+    plan:
+      - get: govwifi-admin
+        trigger: true
+      - task: build
+        image: builder
+        privileged: true
+        file: govwifi-admin/ci/tasks/runner-image.yml
