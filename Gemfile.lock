@@ -123,6 +123,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.10.0)
     formatador (0.2.5)
+    geocoder (1.5.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     govuk-lint (3.11.0)
@@ -345,6 +346,7 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails (~> 5.0)
   faker
+  geocoder (~> 1.5, >= 1.5.1)
   govuk-lint (~> 3)
   guard-rspec
   httparty (~> 0.16.4)
