@@ -1,5 +1,3 @@
 class Admin::GovwifiMapController < AdminController
-  def index
-
-  end
+  def index; end
 end

@@ -1,4 +1,4 @@
-describe 'Signing in as a super admin', type: :feature, focus: true do
+describe 'Signing in as a super admin', type: :feature do
   let(:user) { create(:user, :super_admin) }
 
   context 'when viewing the GovWifi map' do
