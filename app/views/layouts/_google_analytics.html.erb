@@ -3,8 +3,8 @@
 
   <script>
     dataLayer = [{
-      'signed_in': '<%= user_signed_in?.to_json %>'
-      'hasIPs': '<%= (!current_user.nil? && current_organisation.ips.any?).to_json %>'
+      'signedIn': '<%= user_signed_in?.to_json %>'
+      'hasIPs': '<%= (!!current_user && current_organisation.ips.any?).to_json %>'
     }];
   </script>
 
