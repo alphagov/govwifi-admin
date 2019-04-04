@@ -7,11 +7,15 @@ module Gateways
       response = HTTParty.get("http://api.postcodes.io/postcodes/#{trimed_postcode}")
       result = JSON.parse(response.body)
 
-      longitude = result['result']['longitude']
-      latitude = result['result']['latitude']
+      if result['status'] == 404
+        return result['error']
+      else
+        longitude = result['result']['longitude']
+        latitude = result['result']['latitude']
 
-      coordinates = [longitude, latitude]
-      coordinates
+        coordinates = [longitude, latitude]
+        coordinates
+      end
     end
   end
 end
