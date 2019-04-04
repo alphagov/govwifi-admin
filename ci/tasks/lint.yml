@@ -1,0 +1,13 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: cybojenix/govwifi-concourse-runner
+
+inputs:
+  name: govwifi-admin
+
+run:
+  path: govwifi-admin/ci/tasks/scripts/test.sh

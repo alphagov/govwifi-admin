@@ -6,10 +6,13 @@ resources:
       branch: "concourse"
 
 jobs:
-  - name: runner-image
+  - name: lint & test
     plan:
       - get: govwifi-admin
         trigger: true
-      - task: build
+      - task: lint
         privileged: true
-        file: govwifi-admin/ci/tasks/runner-image.yml
+        file: govwifi-admin/ci/tasks/lint.yml
+      - task: test
+        privileged: true
+        file: govwifi-admin/ci/tasks/test.yml
