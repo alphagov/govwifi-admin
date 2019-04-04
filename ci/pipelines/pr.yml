@@ -1,0 +1,71 @@
+resource_types:
+- name: pull-request
+  type: registry-image
+  source:
+    repository: teliaoss/github-pr-resource
+
+resources:
+  - name: pull-request
+    type: pull-request
+    check_every: 1m
+    source:
+      repository: alphagov/govwifi-admin
+      access_token: ((github-access-token))
+
+  - name: mysql-image
+    type: registry-image
+    source:
+      repository: mysql
+      tag: 5.7
+
+  - name: ruby-image
+    type: registry-image
+    source:
+      repository: ruby
+      tag: 2.6.2
+
+  - name: nginx-image
+    type: registry-image
+    source:
+      repository: nginx
+      tag: alpine
+
+jobs:
+  - name: lint & test
+    plan:
+      - aggregate:
+        - do:
+          - get: govwifi-admin
+            resource: pull-request
+            trigger: true
+            version: every
+          - put: pull-request
+            params:
+              path: govwifi-admin
+              status: pending
+        - get: mysql-image
+          params: {format: oci}
+        - get: ruby-image
+          params: {format: oci}
+        - get: nginx-image
+          params: {format: oci}
+      - task: pre-build
+        privileged: true
+        file: govwifi-admin/ci/tasks/pre-build.yml
+      - aggregate:
+        - task: lint
+          privileged: true
+          file: govwifi-admin/ci/tasks/lint.yml
+        - task: test
+          privileged: true
+          file: govwifi-admin/ci/tasks/test.yml
+    on_failure:
+      put: pull-request
+      params:
+        path: govwifi-admin
+        status: failure
+    on_success:
+      put: pull-request
+      params:
+        path: govwifi-admin
+        status: success
