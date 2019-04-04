@@ -1,4 +1,4 @@
-shared_context 'confirmation use case spy' do
+shared_context 'with confirmation use case spy' do
   require_relative './confirmation_use_case_spy'
 
   before do
