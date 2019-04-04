@@ -64,7 +64,7 @@ describe LogsSearch do
       end
     end
 
-    context 'with an invalid IP' do
+    context 'with a search term containing only letters' do
       before { log_search.term = 'badger' }
 
       it { is_expected.not_to be_valid }
@@ -75,7 +75,7 @@ describe LogsSearch do
       end
     end
 
-    context 'with another invalid IP' do
+    context 'with a search term containing a mix of letters and numbers' do
       before { log_search.term = '10.x.20.30' }
 
       it { is_expected.not_to be_valid }
@@ -86,7 +86,7 @@ describe LogsSearch do
       end
     end
 
-    context 'with a valid IP' do
+    context 'with a search term that is a valid IPv4 address' do
       before { log_search.term = '11.22.33.44' }
 
       it { is_expected.to be_valid }
