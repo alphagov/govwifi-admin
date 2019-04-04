@@ -19,7 +19,6 @@ AllCops:
     - spec/gateways/zendesk_support_tickets_spec.rb
     - spec/gateways/govuk_organisations_register_gateway_spec.rb
     - spec/gateways/ips_spec.rb
-    - spec/gateways/authorised_email_domains_spec.rb
     - spec/gateways/email_spec.rb
     - spec/gateways/sessions_spec.rb
     - spec/gateways/route53_spec.rb
