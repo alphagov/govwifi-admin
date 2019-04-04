@@ -1,17 +1,35 @@
 <%= link_to "Back to organisations", admin_organisations_path, class: "govuk-back-link" %>
 <h1 class="govuk-heading-l">GovWifi Map of Locations</h1>
 
-<div id="map"></div>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat: -33.9, lng: 151.2}
+        });
 
-<script>
-  function initMap() {
-  var madetech = {lat: 51.5063, lng: 0.1021};
+        setMarkers(map);
+      }
 
-  var map = new google.maps.Map(document.getElementById('map'), {zoom: 5, center: madetech});
-  var marker = new google.maps.Marker({position: madetech, map: map});
-  }
-</script>
+      var beaches = [
+        [-33.890542, 151.274856, 4],
+        [-33.923036, 151.259052, 5],
+        [-34.028249, 151.157507, 3],
+        [-33.80010128657071, 151.28747820854187, 2],
+        [-33.950198, 151.259302, 1]
+      ];
 
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=API_KEY_GOES_HERE&callback=initMap">
-</script>
+      function setMarkers(map) {
+        for (var i = 0; i < beaches.length; i++) {
+          var beach = beaches[i];
+          var marker = new google.maps.Marker({
+            position: {lat: beach[0], lng: beach[1]},
+            map: map
+          });
+        }
+      }
+    </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=API_KEY_GOES_HERE&callback=initMap">
+  </script>
