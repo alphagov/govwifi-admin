@@ -15,3 +15,4 @@ function load_layers() {
     wait "$pid"
   done
 }
+load_layers
