@@ -52,7 +52,7 @@ describe 'Inviting an existing user', type: :feature do
     let(:unconfirmed_email) { 'notconfirmedyet@gov.uk' }
 
     # rubocop:disable RSpec/HooksBeforeExamples
-    include_examples 'notifications service'
+    include_examples 'with notifications service'
 
     before do
       sign_up_for_account(email: unconfirmed_email)

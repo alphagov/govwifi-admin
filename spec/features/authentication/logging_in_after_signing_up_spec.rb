@@ -5,7 +5,7 @@ describe 'Logging in after signing up', type: :feature do
   let(:correct_password) { 'f1uffy-bu44ies' }
 
   include_examples 'confirmation use case spy'
-  include_examples 'notifications service'
+  include_examples 'with notifications service'
 
   # rubocop:disable RSpec/HooksBeforeExamples
   before do
