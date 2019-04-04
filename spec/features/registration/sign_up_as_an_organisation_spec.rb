@@ -12,7 +12,7 @@ describe 'Sign up as an organisation' do
     }
   end
 
-  include_examples 'confirmation use case spy'
+  include_examples 'with confirmation use case spy'
   include_examples 'with notifications service'
 
 
