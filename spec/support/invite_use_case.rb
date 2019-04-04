@@ -1,4 +1,4 @@
-shared_context 'invite use case spy' do
+shared_context 'with invite use case spy' do
   require_relative './invite_use_case_spy'
 
   before do
