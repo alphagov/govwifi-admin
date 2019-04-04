@@ -1,5 +1,6 @@
 module Gateways
   class Coordinates
+<<<<<<< HEAD
     def initialize(postcodes: [])
       @postcodes = postcodes
     end
@@ -28,10 +29,27 @@ module Gateways
           return { success: false, coordinates: coordinates, error: nil }
         end
       end
+=======
+    def initialize(postcode:)
+      @postcode = postcode
+    end
+
+    def fetch_coordinates
+      response = HTTParty.get("http://api.postcodes.io/postcodes/#{postcode}")
+      result = JSON.parse(response.body)
+
+      longitude = result['result']['longitude']
+      latitude = result['result']['latitude']
+      { success: true, coordinates: [longitude, latitude], error: nil }
+>>>>>>> refac
     end
 
   private
 
+<<<<<<< HEAD
     attr_reader :postcodes
+=======
+    attr_reader :postcode
+>>>>>>> refac
   end
 end
