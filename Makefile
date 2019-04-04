@@ -16,7 +16,12 @@ endif
 DOCKER_BUILD_CMD = $(DOCKER_COMPOSE) build
 
 build:
-	BUNDLE_FLAGS=$(BUNDLE_FLAGS) $(DOCKER_COMPOSE) up --no-start app
+ifndef USE_CONCOURSE_COMPOSE
+	BUNDLE_FLAGS=$(BUNDLE_FLAGS) $(DOCKER_COMPOSE) build
+endif
+
+prebuild:
+	BUNDLE_FLAGS=$(BUNDLE_FLAGS) $(DOCKER_COMPOSE) build
 
 serve: stop build
 	$(DOCKER_COMPOSE) up -d govuk-fake-registers db rr_db
