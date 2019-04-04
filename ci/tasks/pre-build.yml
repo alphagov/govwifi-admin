@@ -16,7 +16,7 @@ outputs:
   - name: govwifi-admin-prebuilt
 
 caches:
-  - path: govwifi-admin-prebuilt
+  - path: govwifi-admin-prebuilt-cached
 
 params:
   USE_CONCOURSE_COMPOSE: true
