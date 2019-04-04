@@ -7,8 +7,10 @@ image_resource:
     repository: cybojenix/govwifi-concourse-runner
 
 inputs:
-  name: govwifi-admin
-  name: mysql-image
+  - name: govwifi-admin
+  - name: mysql-image
+  - name: nginx-image
+  - name: ruby-image
 
 run:
   path: govwifi-admin/ci/tasks/scripts/lint.sh
