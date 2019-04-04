@@ -21,12 +21,6 @@ RSpec.configure do |config|
     FactoryBot.reload
     ActionMailer::Base.deliveries.clear
 
-    stub_request(:get, "http://api.postcodes.io/postcodes/HA72BL").
-      to_return(status: 200, body: File.read("#{Rails.root}/spec/fixtures/postcode_conversion_payload.json"))
-
-    stub_request(:get, "http://api.postcodes.io/postcodes/notavalidpostcode").
-      to_return(status: 404, body: File.read("#{Rails.root}/spec/fixtures/postcode_error_conversion_payload.json"))
-
     stub_request(:get, 'https://government-organisation.register.gov.uk/records.json?page-size=5000').
      to_return(status: 200, body: File.read("#{Rails.root}/spec/fixtures/gov_orgs_payload.json"))
 

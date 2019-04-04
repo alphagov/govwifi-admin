@@ -1,38 +1,7 @@
 {
   "status": 200,
   "result": {
-      "postcode": "HA7 2BL",
-      "quality": 1,
-      "eastings": 516654,
-      "northings": 190822,
-      "country": "England",
-      "nhs_ha": "London",
       "longitude": -0.316963,
-      "latitude": 51.604163,
-      "european_electoral_region": "London",
-      "primary_care_trust": "Harrow",
-      "region": "London",
-      "lsoa": "Harrow 008E",
-      "msoa": "Harrow 008",
-      "incode": "2BL",
-      "outcode": "HA7",
-      "parliamentary_constituency": "Harrow East",
-      "admin_district": "Harrow",
-      "parish": "Harrow, unparished area",
-      "admin_county": null,
-      "admin_ward": "Belmont",
-      "ced": null,
-      "ccg": "NHS Harrow",
-      "nuts": "Harrow and Hillingdon",
-      "codes": {
-          "admin_district": "E09000015",
-          "admin_county": "E99999999",
-          "admin_ward": "E05000285",
-          "parish": "E43000205",
-          "parliamentary_constituency": "E14000731",
-          "ccg": "E38000074",
-          "ced": "E99999999",
-          "nuts": "UKI74"
-      }
+      "latitude": 51.604163
   }
 }
