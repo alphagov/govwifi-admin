@@ -3,7 +3,7 @@
 source /docker-helpers.sh
 start_docker
 
-ls -lsa mysql-image || echo "failed to find mysql-image"
+ls -lsa govwifi-admin-prebuilt-cached || echo "failed to find cached prebuilt"
 
 docker load -i mysql-image/image.tar
 docker load -i nginx-image/image.tar
