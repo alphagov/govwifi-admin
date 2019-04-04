@@ -29,8 +29,14 @@ jobs:
       - get: govwifi-admin
         trigger: true
       - get: mysql-image
+        params:
+          save: true
       - get: ruby-image
+        params:
+          save: true
       - get: nginx-image
+        params:
+          save: true
       - task: lint
         privileged: true
         file: govwifi-admin/ci/tasks/lint.yml
