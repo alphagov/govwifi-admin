@@ -1,4 +1,6 @@
 describe Gateways::Ips do
+  subject(:ip_gateway) { described_class.new }
+
   let(:location_1) { create(:location, organisation: create(:organisation)) }
   let(:location_2) { create(:location, organisation: create(:organisation)) }
   let(:result) do
@@ -19,6 +21,6 @@ describe Gateways::Ips do
   end
 
   it "fetches the locations_ips" do
-    expect(subject.fetch_ips).to eq(result)
+    expect(ip_gateway.fetch_ips).to eq(result)
   end
 end
