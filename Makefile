@@ -22,6 +22,7 @@ endif
 
 prebuild:
 	BUNDLE_FLAGS=$(BUNDLE_FLAGS) $(DOCKER_COMPOSE) build
+	$(DOCKER_COMPOSE) up --no-start
 
 serve: stop build
 	$(DOCKER_COMPOSE) up -d govuk-fake-registers db rr_db
