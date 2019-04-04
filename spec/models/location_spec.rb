@@ -64,7 +64,7 @@ describe Location do
       )
     }
 
-    it 'is invalid' do
+    it 'does not pass validation' do
       expect(location).not_to be_valid
     end
 

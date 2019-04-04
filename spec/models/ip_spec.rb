@@ -5,7 +5,7 @@ describe Ip do
   it { is_expected.to validate_presence_of(:address) }
   it { is_expected.to validate_uniqueness_of(:address) }
 
-  context "when validating" do
+  context "when validating address" do
     let(:location) { create(:location, organisation: create(:organisation)) }
 
     it 'does not allow the address 0.0.0.0' do
@@ -32,7 +32,7 @@ describe Ip do
     context "with a valid address" do
       let!(:ip) { described_class.create(address: "141.0.149.130", location: location) }
 
-      it "saves the address" do
+      it "saves the IP" do
         expect(described_class.count).to eq(1)
       end
 
