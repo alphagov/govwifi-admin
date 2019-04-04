@@ -1,8 +1,10 @@
-require 'httparty'
-
 module Gateways
   class PostcodeConversionGateway
-    def convert_postcode_to_long_and_lat(postcode)
+    def initialize(postcode:)
+      @postcode = postcode
+    end
+
+    def fetch_coordinates
       trimed_postcode = postcode.gsub(/\s+/, "")
 
       response = HTTParty.get("http://api.postcodes.io/postcodes/#{trimed_postcode}")
@@ -16,5 +18,9 @@ module Gateways
         [longitude, latitude]
       end
     end
+
+  private
+
+    attr_reader :postcode
   end
 end
