@@ -6,9 +6,9 @@ start_docker
 function load_layers() {
   echo "loading docker layer cache"
   pids=
-  sleep 5 & pids[0]=$!
-  sleep 5 & pids[1]=$!
-  sleep 5 & pids[2]=$!
+  docker load -qi mysql-image/image.tar & pids[0]=$!
+  docker load -qi nginx-image/image.tar & pids[1]=$!
+  docker load -qi ruby-image/image.tar & pids[2]=$!
   [[ -f "govwifi-admin-prebuilt/image.tar" ]] && docker load -qi "govwifi-admin-prebuilt/image.tar" & pids[3]=$!
 
   for pid in ${pids[*]}; do
