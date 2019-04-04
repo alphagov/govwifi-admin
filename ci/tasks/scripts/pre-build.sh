@@ -4,7 +4,7 @@
 
 cd govwifi-admin || exit
 
-[[ -f "../govwifi-admin-prebuilt-cached/image.tar" ]] && docker load "../govwifi-admin-prebuilt-cached/image.tar"
+[[ -f "../govwifi-admin-prebuilt-cached/image.tar" ]] && docker load -i "../govwifi-admin-prebuilt-cached/image.tar"
 
 
 make prebuild
