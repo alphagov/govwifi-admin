@@ -5,11 +5,32 @@ resources:
       uri: "https://github.com/alphagov/govwifi-admin.git"
       branch: "concourse"
 
+  - name: mysql-image
+    type: registry-image
+    source:
+      repository: mysql
+      tag: 5.7
+
+  - name: ruby-image
+    type: registry-image
+    source:
+      repository: ruby
+      tag: 2.6.2
+
+  - name: nginx-image
+    type: registry-image
+    source:
+      repository: nginx
+      tag: alpine
+
 jobs:
   - name: lint & test
     plan:
       - get: govwifi-admin
         trigger: true
+      - get: mysql-image
+      - get: ruby-image
+      - get: nginx-image
       - task: lint
         privileged: true
         file: govwifi-admin/ci/tasks/lint.yml
