@@ -13,5 +13,8 @@ inputs:
   - name: ruby-image
   - name: govwifi-admin-prebuilt
 
+params:
+  USE_CONCOURSE_COMPOSE: true
+
 run:
   path: govwifi-admin/ci/tasks/scripts/lint.sh

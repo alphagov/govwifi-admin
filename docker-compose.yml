@@ -25,7 +25,10 @@ services:
       - "7000"
 
   app:
-    build: .
+    build:
+      context: .
+      args:
+        BUNDLE_INSTALL_CMD: "${BUNDLE_FLAGS:-bundle install --jobs 20 --retry 5}"
     links:
       - db
       - rr_db

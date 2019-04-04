@@ -1,18 +1,22 @@
-BUNDLE_FLAGS = --build-arg BUNDLE_INSTALL_CMD='bundle install --jobs 20 --retry 5'
+BUNDLE_FLAGS = 'bundle install --jobs 20 --retry 5'
 DOCKER_COMPOSE = docker-compose -f docker-compose.yml
 
 ifdef DEPLOYMENT
-	BUNDLE_FLAGS = --build-arg BUNDLE_INSTALL_CMD='bundle install --without test'
+	BUNDLE_FLAGS = 'bundle install --without test'
 endif
 
 ifndef JENKINS_URL
   DOCKER_COMPOSE += -f docker-compose.development.yml
 endif
 
-DOCKER_BUILD_CMD = $(DOCKER_COMPOSE) build $(BUNDLE_FLAGS)
+ifdef USE_CONCOURSE_COMPOSE
+	DOCKER_COMPOSE += -f docker-compose.concourse.yml
+endif
+
+DOCKER_BUILD_CMD = $(DOCKER_COMPOSE) build
 
 build:
-	$(DOCKER_BUILD_CMD)
+	BUNDLE_FLAGS=$(BUNDLE_FLAGS) $(DOCKER_COMPOSE) up -d --no-start app
 
 serve: stop build
 	$(DOCKER_COMPOSE) up -d govuk-fake-registers db rr_db

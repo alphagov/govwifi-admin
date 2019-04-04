@@ -7,6 +7,7 @@ cd govwifi-admin || exit
 make build
 # needed to register the image container with compose
 docker-compose up --no-start
-docker save "govwifi-admin_app" -o "../govwifi-admin-prebuilt/image.tar"
+docker tag "$(docker-compose images -q app)" "govwifi-admin-app-prebuilt"
+docker save "govwifi-admin-app-prebuilt" -o "../govwifi-admin-prebuilt/image.tar"
 
 cd / || exit

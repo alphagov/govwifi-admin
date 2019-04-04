@@ -15,5 +15,11 @@ inputs:
 outputs:
   - name: govwifi-admin-prebuilt
 
+caches:
+  - path: govwifi-admin-prebuilt
+
+params:
+  USE_CONCOURSE_COMPOSE: true
+
 run:
   path: govwifi-admin/ci/tasks/scripts/pre-build.sh
