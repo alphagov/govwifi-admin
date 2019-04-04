@@ -11,7 +11,7 @@ describe "POST /users/invitation", type: :request do
   end
 
   include_examples 'notifications service'
-  include_examples 'invite use case spy'
+  include_examples 'with invite use case spy'
 
   context 'with tampered organisation_id parameter' do
     let(:email) { 'barry@gov.uk' }

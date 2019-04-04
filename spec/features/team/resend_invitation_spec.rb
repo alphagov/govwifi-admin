@@ -6,7 +6,7 @@ describe 'Resending an invitation to a team member', type: :feature do
   let(:invited_user_email) { 'invited@gov.uk' }
   let(:user) { create(:user) }
 
-  include_examples 'invite use case spy'
+  include_examples 'with invite use case spy'
   include_examples 'notifications service'
 
   # rubocop:disable RSpec/HooksBeforeExamples
