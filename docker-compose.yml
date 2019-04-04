@@ -28,7 +28,7 @@ services:
     build:
       context: .
       args:
-        BUNDLE_INSTALL_CMD: "${BUNDLE_FLAGS:-bundle install --jobs 20 --retry 5}"
+        BUNDLE_INSTALL_FLAGS: "${BUNDLE_INSTALL_FLAGS:- --jobs 20 --retry 5}"
     links:
       - db
       - rr_db

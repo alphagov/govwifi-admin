@@ -1,8 +1,8 @@
-BUNDLE_FLAGS = 'bundle install --jobs 20 --retry 5'
 DOCKER_COMPOSE = docker-compose -f docker-compose.yml
+BUNDLE_FLAGS=
 
 ifdef DEPLOYMENT
-	BUNDLE_FLAGS = 'bundle install --without test'
+  BUNDLE_FLAGS = --without test development
 endif
 
 ifndef JENKINS_URL
@@ -13,15 +13,15 @@ ifdef USE_CONCOURSE_COMPOSE
 	DOCKER_COMPOSE += -f docker-compose.concourse.yml
 endif
 
-DOCKER_BUILD_CMD = $(DOCKER_COMPOSE) build
+DOCKER_BUILD_CMD = BUNDLE_INSTALL_FLAGS="$(BUNDLE_FLAGS)" $(DOCKER_COMPOSE) build
 
 build:
 ifndef USE_CONCOURSE_COMPOSE
-	BUNDLE_FLAGS=$(BUNDLE_FLAGS) $(DOCKER_COMPOSE) build
+	$(DOCKER_COMPOSE) build
 endif
 
 prebuild:
-	BUNDLE_FLAGS=$(BUNDLE_FLAGS) $(DOCKER_COMPOSE) build
+	$(DOCKER_COMPOSE) build
 	$(DOCKER_COMPOSE) up --no-start
 
 serve: stop build
