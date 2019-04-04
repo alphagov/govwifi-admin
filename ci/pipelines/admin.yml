@@ -24,19 +24,31 @@ resources:
       tag: alpine
 
 jobs:
+  - name: build
+    plan:
+      - get: govwifi-admin
+        trigger: true
+      - get: mysql-image
+        params: {format: oci}
+      - get: ruby-image
+        params: {format: oci}
+      - get: nginx-image
+        params: {format: oci}
+      - task: pre-build
+        privileged: true
+        file: govwifi-admin/ci/tasks/pre-build.yml
+
   - name: lint & test
     plan:
       - get: govwifi-admin
         trigger: true
       - get: mysql-image
-        params:
-          save: true
+        params: {format: oci}
       - get: ruby-image
-        params:
-          save: true
+        params: {format: oci}
       - get: nginx-image
-        params:
-          save: true
+        params: {format: oci}
+      - get: govwifi-admin-prebuilt
       - task: lint
         privileged: true
         file: govwifi-admin/ci/tasks/lint.yml

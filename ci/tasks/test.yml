@@ -11,6 +11,7 @@ inputs:
   - name: mysql-image
   - name: nginx-image
   - name: ruby-image
+  - name: govwifi-admin-prebuilt
 
 run:
   path: govwifi-admin/ci/tasks/scripts/test.sh

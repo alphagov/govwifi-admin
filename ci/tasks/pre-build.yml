@@ -11,7 +11,9 @@ inputs:
   - name: mysql-image
   - name: nginx-image
   - name: ruby-image
+
+outputs:
   - name: govwifi-admin-prebuilt
 
 run:
-  path: govwifi-admin/ci/tasks/scripts/lint.sh
+  path: govwifi-admin/ci/tasks/scripts/pre-build.sh
