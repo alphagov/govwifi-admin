@@ -1,6 +1,7 @@
-describe 'healthcheck' do
+describe 'healthcheck', type: :request do
+  before { get '/healthcheck' }
+
   it 'responds successfully' do
-    get '/healthcheck'
     expect(response).to be_successful
   end
 end
