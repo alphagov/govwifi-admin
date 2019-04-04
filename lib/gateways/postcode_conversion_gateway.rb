@@ -14,7 +14,6 @@ module Gateways
         latitude = result['result']['latitude']
 
         coordinates = [longitude, latitude]
-        coordinates
       end
     end
   end
