@@ -11,12 +11,9 @@ describe "DELETE /ips/:id", type: :request do
   end
 
   context "when the user owns the IP" do
-    let(:publish_instance) { instance_double(Facades::Ips::Publish) }
+    let(:publish_ip) { instance_spy(Facades::Ips::Publish, execute: nil) }
 
-    before do
-      allow(Facades::Ips::Publish).to receive(:new).and_return(publish_instance)
-      allow(publish_instance).to receive(:execute)
-    end
+    before { allow(Facades::Ips::Publish).to receive(:new).and_return(publish_ip) }
 
     it "deletes the IP" do
       expect {
@@ -26,7 +23,7 @@ describe "DELETE /ips/:id", type: :request do
 
     it "publishes the list of remaining IPs after a deletion" do
       delete ip_path(ip)
-      expect(publish_instance).to have_received(:execute)
+      expect(publish_ip).to have_received(:execute)
     end
   end
 
