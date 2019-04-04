@@ -38,10 +38,20 @@ module Gateways
       response = HTTParty.get("http://api.postcodes.io/postcodes/#{postcode}")
       result = JSON.parse(response.body)
 
+<<<<<<< HEAD
       longitude = result['result']['longitude']
       latitude = result['result']['latitude']
       { success: true, coordinates: [longitude, latitude], error: nil }
 >>>>>>> refac
+=======
+      if result['status'] == 404
+        return { success: false, coordinates: [], error: "Invalid postcode" }
+      else
+        longitude = result['result']['longitude']
+        latitude = result['result']['latitude']
+        { success: true, coordinates: [longitude, latitude], error: nil }
+      end
+>>>>>>> more tests
     end
 
   private
