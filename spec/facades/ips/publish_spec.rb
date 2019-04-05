@@ -1,12 +1,20 @@
 describe Facades::Ips::Publish do
+  subject(:facade) { described_class.new }
+
+  let(:publish_location_ips) { instance_spy(UseCases::PerformancePlatform::PublishLocationsIps, execute: nil) }
+  let(:publish_whitelist) { instance_spy(PublishWhitelist, execute: nil) }
+
   before do
-    expect_any_instance_of(
-      UseCases::PerformancePlatform::PublishLocationsIps
-    ).to receive(:execute)
-    expect_any_instance_of(PublishWhitelist).to receive(:execute)
+    allow(UseCases::PerformancePlatform::PublishLocationsIps).to receive(:new).and_return(publish_location_ips)
+    allow(PublishWhitelist).to receive(:new).and_return(publish_whitelist)
+    facade.execute
   end
 
-  it "executes the relevant UseCases" do
-    subject.execute
+  it 'executes the publish location & ips usecase' do
+    expect(publish_location_ips).to have_received(:execute)
+  end
+
+  it 'executes the publish whitelist usecase' do
+    expect(publish_whitelist).to have_received(:execute)
   end
 end
