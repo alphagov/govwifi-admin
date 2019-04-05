@@ -51,7 +51,6 @@ describe 'Inviting an existing user', type: :feature do
   context 'with an unconfirmed user' do
     let(:unconfirmed_email) { 'notconfirmedyet@gov.uk' }
 
-    # rubocop:disable RSpec/HooksBeforeExamples
     include_context 'when using the notifications service'
 
     before do
@@ -61,7 +60,6 @@ describe 'Inviting an existing user', type: :feature do
       fill_in 'Email', with: unconfirmed_email
       click_on 'Send invitation email'
     end
-    # rubocop:enable RSpec/HooksBeforeExamples
 
     it 'sends an invitation' do
       expect(InviteUseCaseSpy.invite_count).to eq(1)
