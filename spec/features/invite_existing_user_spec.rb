@@ -6,7 +6,7 @@ describe 'Inviting an existing user', type: :feature do
   let(:betty) { create(:user) }
   let(:confirmed_user) { create(:user) }
 
-  include_examples 'invite use case spy'
+  include_examples 'when sending an invite email'
 
   context 'with a confirmed user' do
     before do
