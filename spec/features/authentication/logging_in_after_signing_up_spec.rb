@@ -4,7 +4,7 @@ require 'support/confirmation_use_case'
 describe 'Logging in after signing up', type: :feature do
   let(:correct_password) { 'f1uffy-bu44ies' }
 
-  include_examples 'with confirmation use case spy'
+  include_context 'when sending a confirmation email'
   include_context 'when using the notifications service'
 
   # rubocop:disable RSpec/HooksBeforeExamples

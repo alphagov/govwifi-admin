@@ -16,7 +16,7 @@ describe "Inviting a team member", type: :feature do
 
     include_examples 'invite use case spy'
     include_context 'when using the notifications service'
-    include_examples 'with confirmation use case spy'
+    include_context 'when sending a confirmation email'
 
     # rubocop:disable RSpec/HooksBeforeExamples
     before do
