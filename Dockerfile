@@ -5,7 +5,7 @@ ENV LANG 'C.UTF-8'
 
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache nodejs yarn build-base mysql-dev
+RUN apk add --no-cache nodejs yarn build-base mysql-dev bash
 
 COPY Gemfile Gemfile.lock .ruby-version ./
 
@@ -40,6 +40,8 @@ ENV RR_DB_USER root
 ENV RR_DB_PASS root
 ENV RR_DB_HOST rr_db
 ENV RR_DB_NAME rr_govwifi
+
+RUN mkdir -p /tmp
 
 ARG RUN_PRECOMPILATION=true
 RUN if [ ${RUN_PRECOMPILATION} = 'true' ]; then \
