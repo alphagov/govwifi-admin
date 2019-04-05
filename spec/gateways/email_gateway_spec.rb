@@ -33,7 +33,7 @@ describe EmailGateway do
       )
     end
 
-    it 'calls notifications' do
+    it 'calls the Notify client' do
       expect(notification).to have_received(:send_email).with(notifications_payload)
     end
   end
