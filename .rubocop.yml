@@ -19,7 +19,6 @@ AllCops:
     - spec/gateways/zendesk_support_tickets_spec.rb
     - spec/gateways/govuk_organisations_register_gateway_spec.rb
     - spec/gateways/ips_spec.rb
-    - spec/gateways/sessions_spec.rb
     - spec/gateways/route53_spec.rb
     - spec/use_cases/radius/generate_ip_whitelist_spec.rb
     - spec/use_cases/generate_radius_secret_key_spec.rb
