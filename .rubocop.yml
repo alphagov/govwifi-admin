@@ -3,9 +3,6 @@ inherit_gem:
 require: rubocop-rspec
 AllCops:
   Exclude:
-    - spec/models/organisation_spec.rb
-    - spec/models/authorised_email_domain_spec.rb
-    - spec/models/user_spec.rb
     - spec/use_cases/radius/generate_ip_whitelist_spec.rb
     - spec/use_cases/generate_radius_secret_key_spec.rb
     - spec/use_cases/performance_platform/publish_locations_ips_spec.rb
