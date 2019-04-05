@@ -14,17 +14,15 @@ describe "Inviting a team member", type: :feature do
   context "when inviting a team member" do
     let(:user) { create(:user) }
 
-    include_examples 'when sending an invite email'
-    include_examples 'notifications service'
-    include_examples 'confirmation use case spy'
+    include_context 'when sending an invite email'
+    include_context 'when using the notifications service'
+    include_context 'when sending a confirmation email'
 
-    # rubocop:disable RSpec/HooksBeforeExamples
     before do
       sign_in_user user
       visit new_user_invitation_path
       fill_in "Email", with: invited_user_email
     end
-    # rubocop:enable RSpec/HooksBeforeExamples
 
     context "with a gov.uk email address" do
       let(:invited_user_email) { "correct@gov.uk" }
