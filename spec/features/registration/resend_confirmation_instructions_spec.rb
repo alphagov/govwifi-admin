@@ -6,7 +6,7 @@ describe 'Resending confirmation instructions' do
   let(:correct_email) { 'user@gov.uk' }
 
   include_examples 'with confirmation use case spy'
-  include_examples 'with notifications service'
+  include_context 'when using the notifications service'
 
 
   context 'when entering correct information' do

@@ -1,6 +1,6 @@
 require 'notifications/client'
 
-shared_context 'with notifications service' do
+shared_context 'when using the notifications service' do
   let(:notifications_payload) { double }
   let(:notification_instance) { instance_double(Notifications::Client) }
 

@@ -10,7 +10,7 @@ describe "POST /users/invitation", type: :request do
     login_as(user, scope: :user)
   end
 
-  include_examples 'with notifications service'
+  include_context 'when using the notifications service'
   include_examples 'invite use case spy'
 
   context 'with tampered organisation_id parameter' do

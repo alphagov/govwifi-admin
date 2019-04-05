@@ -13,7 +13,7 @@ describe "Inviting a team member as a super admin", type: :feature do
     fill_in 'Email address', with: email
   end
 
-  include_examples 'with notifications service'
+  include_context 'when using the notifications service'
   include_examples 'invite use case spy'
 
   it "will take the user to the organisation when they click 'back to organisation'" do
