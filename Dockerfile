@@ -5,7 +5,7 @@ ENV LANG 'C.UTF-8'
 
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache nodejs yarn build-base mysql-dev
+RUN apk add --no-cache nodejs yarn build-base mysql-dev bash
 
 COPY Gemfile Gemfile.lock .ruby-version ./
 
