@@ -1,42 +1,25 @@
 describe Gateways::GovukOrganisationsRegisterGateway do
-  it 'fetches the organisations' do
-    result = subject.government_orgs
-    expect(result).to eq(
-      [
-        'Gov Org 1',
-        'Gov Org 2',
-        'Gov Org 3',
-        'Gov Org 4'
-      ]
-    )
+  subject(:register_gateway) { described_class.new }
+
+  it 'fetches the organisation names from the register' do
+    result = register_gateway.government_orgs
+    expect(result).to eq(['Gov Org 1', 'Gov Org 2', 'Gov Org 3', 'Gov Org 4'])
   end
 
-  it 'fetches the local auths' do
-    result = subject.local_authorities
-    expect(result).to eq(
-      [
-        'Local Auth 1',
-        'Local Auth 2',
-        'Local Auth 3',
-        'Local Auth 4'
-      ]
-    )
+  it 'fetches the local authority names from the register' do
+    result = register_gateway.local_authorities
+    expect(result).to eq(['Local Auth 1', 'Local Auth 2', 'Local Auth 3', 'Local Auth 4'])
   end
 
-  context 'with custom organisations' do
+  context 'when custom organisations are added' do
     before do
       CustomOrganisationName.create(name: 'Custom Org 1')
       CustomOrganisationName.create(name: 'Custom Org 2')
     end
 
-    it 'fetches the custom orgs' do
-      result = subject.custom_orgs
-      expect(result).to eq(
-        [
-        'Custom Org 1',
-        'Custom Org 2'
-        ]
-      )
+    it 'fetches the custom organisation names from the register' do
+      result = register_gateway.custom_orgs
+      expect(result).to eq(['Custom Org 1', 'Custom Org 2'])
     end
   end
 end
