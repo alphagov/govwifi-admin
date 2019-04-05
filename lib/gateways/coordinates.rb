@@ -9,7 +9,7 @@ module Gateways
 
       result = JSON.parse(response.body)
 
-      if result['status'] == 404
+      if result['result'].length < 2
         return { success: false, coordinates: [], error: "Invalid postcode" }
       else
         coordinates = []

@@ -3,6 +3,8 @@ class Admin::GovwifiMapController < AdminController
     @postcodes = Location.pluck(:postcode)
     @coordinates = convert_postcodes
 
+    pp convert_postcodes
+
     # get all postcodes
 
     # send postcodes to gateway and save coordinates
