@@ -1,10 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 describe Gateways::Coordinates do
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 describe Gateways::Coordinates, focus: true do
 >>>>>>> GETS COORDINATES
+=======
+describe Gateways::Coordinates do
+>>>>>>> more stuff
   subject(:postcode_coordinates_gateway) { described_class.new(postcodes: postcode) }
 
   context 'when given a valid postcode' do
@@ -128,24 +132,24 @@ describe Gateways::Coordinates, focus: true do
     end
   end
 
-  context 'when given an invalid postcode' do
-    let(:postcode) { 'not_a_valid_postcode' }
+  # context 'when given an invalid postcode' do
+  #   let(:postcode) { 'not_a_valid_postcode' }
 
-    before do
-      stub_request(:get, "http://api.postcodes.io/postcodes/not_a_valid_postcode").
-        to_return(status: 404,
-          body: {
-            status: 404,
-            result: {
-              longitude: -0.316963,
-              latitude: 51.604163
-          }
-        }.to_json)
-    end
+  #   before do
+  #     stub_request(:get, "http://api.postcodes.io/postcodes/not_a_valid_postcode").
+  #       to_return(status: 404,
+  #         body: {
+  #           status: 404,
+  #           result: {
+  #             longitude: -0.316963,
+  #             latitude: 51.604163
+  #         }
+  #       }.to_json)
+  #   end
 
-    it 'will error' do
-      result = postcode_coordinates_gateway.fetch_coordinates
-      expect(result[:error]).to eq("Invalid postcode")
-    end
-  end
+  #   it 'will error' do
+  #     result = postcode_coordinates_gateway.fetch_coordinates
+  #     expect(result[:error]).to eq("Invalid postcode")
+  #   end
+  # end
 end
