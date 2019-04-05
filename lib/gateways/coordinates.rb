@@ -40,7 +40,7 @@ module Gateways
     end
 
     def fetch_coordinates
-      response = HTTParty.post("http://api.postcodes.io/postcodes")
+      response = HTTParty.post("http://api.postcodes.io/postcodes", body: { postcodes: postcodes })
 
       result = JSON.parse(response.body)
 
@@ -54,8 +54,8 @@ module Gateways
         return { success: false, coordinates: [], error: "Invalid postcode" }
       else
         coordinates = []
-
         result["result"].each do | o |
+          next if o["result"].nil?
           longitude = o["result"]["longitude"]
           latitude = o["result"]["latitude"]
           coordinates << [longitude, latitude]

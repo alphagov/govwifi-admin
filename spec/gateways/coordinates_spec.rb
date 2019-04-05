@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 describe Gateways::Coordinates do
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+describe Gateways::Coordinates, focus: true do
+>>>>>>> GETS COORDINATES
   subject(:postcode_coordinates_gateway) { described_class.new(postcodes: postcode) }
 
   context 'when given a valid postcode' do
