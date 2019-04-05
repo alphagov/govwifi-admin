@@ -12,7 +12,12 @@ class Admin::GovwifiMapController < AdminController
 =======
     @coordinates = convert_postcodes
 
+<<<<<<< HEAD
 >>>>>>> GETS COORDINATES
+=======
+    pp convert_postcodes
+
+>>>>>>> validate invalid postcodes
     # get all postcodes
 
     # send postcodes to gateway and save coordinates

@@ -45,12 +45,16 @@ module Gateways
       result = JSON.parse(response.body)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       longitude = result['result']['longitude']
       latitude = result['result']['latitude']
       { success: true, coordinates: [longitude, latitude], error: nil }
 >>>>>>> refac
 =======
       if result['status'] == 404
+=======
+      if result['result'].length < 2
+>>>>>>> validate invalid postcodes
         return { success: false, coordinates: [], error: "Invalid postcode" }
       else
         coordinates = []
