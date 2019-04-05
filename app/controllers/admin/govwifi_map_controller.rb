@@ -1,6 +1,8 @@
 class Admin::GovwifiMapController < AdminController
   def index
     @postcodes = Location.pluck(:postcode)
+    @coordinates = convert_postcodes
+
     # get all postcodes
 
     # send postcodes to gateway and save coordinates
@@ -10,9 +12,7 @@ class Admin::GovwifiMapController < AdminController
     # pass array of coordinates to view
   end
 
-  def convert_postcode
-    UseCases::Administrator::ConvertPostcode.new(
-      postcode_gateway: Gateways::Coordinates.new(postcode: @postcodes)
-    ).execute
+  def convert_postcodes
+    Gateways::Coordinates.new(postcodes: @postcodes).fetch_coordinates
   end
 end

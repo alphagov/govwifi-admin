@@ -41,6 +41,8 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 11'
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'listen', '~> 3'
   gem 'pry'
   gem 'rack-mini-profiler', require: false

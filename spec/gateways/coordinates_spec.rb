@@ -1,4 +1,4 @@
-describe Gateways::Coordinates do
+describe Gateways::Coordinates, focus: true do
   subject(:postcode_coordinates_gateway) { described_class.new(postcodes: postcode) }
 
   context 'when given a valid postcode' do
