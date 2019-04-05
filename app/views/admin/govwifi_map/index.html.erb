@@ -41,12 +41,12 @@
         setMarkers(map);
       }
 
-      var beaches = [
-        [-33.890542, 151.274856, 4],
-        [-33.923036, 151.259052, 5],
-        [-34.028249, 151.157507, 3],
-        [-33.80010128657071, 151.28747820854187, 2],
-        [-33.950198, 151.259302, 1]
+      var locations = [
+        [-33.890542, 151.274856],
+        [-33.923036, 151.259052],
+        [-34.028249, 151.157507],
+        [-33.80010128657071, 151.28747820854187],
+        [-33.950198, 151.259302]
       ];
 
 <<<<<<< HEAD
@@ -56,16 +56,16 @@
 >>>>>>> google static map
 =======
       function setMarkers(map) {
-        for (var i = 0; i < beaches.length; i++) {
-          var beach = beaches[i];
+        for (var i = 0; i < locations.length; i++) {
+          var location = locations[i];
           var marker = new google.maps.Marker({
-            position: {lat: beach[0], lng: beach[1]},
+            position: {lat: location[0], lng: location[1]},
             map: map
           });
         }
       }
     </script>
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=API_KEY_GOES_HERE&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCz1cPYKamsA_ZJCygL9EY0Zq6stkazTco&callback=initMap">
   </script>
 >>>>>>> multiple markers
