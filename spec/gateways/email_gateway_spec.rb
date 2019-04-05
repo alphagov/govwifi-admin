@@ -10,7 +10,7 @@ describe EmailGateway do
     allow(Notifications::Client).to receive(:new).and_return(notification)
   end
 
-  context 'with confirmation emails' do
+  context 'when sending a confirmation email' do
     let(:email) { 'test@example.com' }
     let(:confirmation_url) { 'http://example.com/confirm?token=123' }
     let(:template_id) { 1 }
