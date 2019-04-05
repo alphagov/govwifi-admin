@@ -1,15 +1,14 @@
-BUNDLE_FLAGS = --build-arg BUNDLE_INSTALL_CMD='bundle install --jobs 20 --retry 5'
 DOCKER_COMPOSE = docker-compose -f docker-compose.yml
-
+BUNDLE_FLAGS=
 ifdef DEPLOYMENT
-	BUNDLE_FLAGS = --build-arg BUNDLE_INSTALL_CMD='bundle install --without test'
+  BUNDLE_FLAGS = --without test development
 endif
 
 ifndef JENKINS_URL
   DOCKER_COMPOSE += -f docker-compose.development.yml
 endif
 
-DOCKER_BUILD_CMD = $(DOCKER_COMPOSE) build $(BUNDLE_FLAGS)
+DOCKER_BUILD_CMD = BUNDLE_INSTALL_FLAGS="$(BUNDLE_FLAGS)" $(DOCKER_COMPOSE) build
 
 build:
 	$(DOCKER_BUILD_CMD)
@@ -23,7 +22,7 @@ serve: stop build
 
 lint: lint-ruby lint-sass lint-erb
 lint-ruby: build
-	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-ruby app lib spec Gemfile*
+	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-ruby app lib spec Gemfile
 lint-sass: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-sass app/assets/stylesheets
 lint-erb: build
