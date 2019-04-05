@@ -14,7 +14,7 @@ describe "Inviting a team member", type: :feature do
   context "when inviting a team member" do
     let(:user) { create(:user) }
 
-    include_examples 'with invite use case spy'
+    include_context 'when sending an invite email'
     include_examples 'notifications service'
     include_examples 'confirmation use case spy'
 
