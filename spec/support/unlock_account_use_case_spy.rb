@@ -1,4 +1,4 @@
-shared_context 'with unlock account use case spy' do
+shared_context 'when unlocking an account' do
   before do
     allow(UseCases::Administrator::SendUnlockEmail).to \
       receive(:new).and_return(UnlockAccountUseCaseSpy.new)
