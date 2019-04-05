@@ -6,9 +6,6 @@ AllCops:
     - spec/models/organisation_spec.rb
     - spec/models/authorised_email_domain_spec.rb
     - spec/models/user_spec.rb
-    - spec/requests/ips/delete_spec.rb
-    - spec/requests/email_domain/delete_spec.rb
-    - spec/requests/monitoring/healthcheck_spec.rb
     - spec/support/notifications_service.rb
     - spec/support/confirmation_use_case.rb
     - spec/support/unlock_account_use_case_spy.rb
