@@ -1,4 +1,6 @@
 describe Gateways::AuthorisedEmailDomains do
+  subject(:domain_gateway) { described_class.new }
+
   let(:result) do
     [
       'gov.uk',
@@ -11,7 +13,7 @@ describe Gateways::AuthorisedEmailDomains do
     create(:authorised_email_domain, name: 'eukri.gsi.com')
   end
 
-  it 'fetches the locations_ips' do
-    expect(subject.fetch_domains).to eq(result)
+  it 'fetches the locations ips' do
+    expect(domain_gateway.fetch_domains).to eq(result)
   end
 end
