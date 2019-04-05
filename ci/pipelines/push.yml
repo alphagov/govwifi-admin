@@ -5,6 +5,14 @@ resources:
       uri: "https://github.com/alphagov/govwifi-admin.git"
       branch: "concourse"
 
+  - name: ecr
+    # This needs to be docker-image, until registry-image supports ECR
+    type: docker-image
+    source:
+      repository: "((ecs-registry))/govwifi/admin"
+      aws_access_key_id: ((ecr-access-key-id))
+      aws_secret_access_key: ((ecr-secret-access-key))
+
   - name: mysql-image
     type: registry-image
     source:
@@ -45,3 +53,12 @@ jobs:
         - task: test
           privileged: true
           file: govwifi-admin/ci/tasks/test.yml
+  - name: Push Image
+    plan:
+      - get: govwifi-admin
+        trigger: true
+        passed: ['lint & test']
+      - task: build deployment image
+        privileged: true
+        file: govwifi-admin/ci/tasks/deployment-build.yml
+
