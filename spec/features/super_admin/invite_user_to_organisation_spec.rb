@@ -14,7 +14,7 @@ describe "Inviting a team member as a super admin", type: :feature do
   end
 
   include_examples 'notifications service'
-  include_examples 'invite use case spy'
+  include_examples 'when sending an invite email'
 
   it "will take the user to the organisation when they click 'back to organisation'" do
     click_on 'Back to organisation'
