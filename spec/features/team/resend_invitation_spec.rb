@@ -6,16 +6,14 @@ describe 'Resending an invitation to a team member', type: :feature do
   let(:invited_user_email) { 'invited@gov.uk' }
   let(:user) { create(:user) }
 
-  include_examples 'invite use case spy'
-  include_examples 'notifications service'
+  include_context 'when sending an invite email'
+  include_context 'when using the notifications service'
 
-  # rubocop:disable RSpec/HooksBeforeExamples
   before do
     sign_in_user user
     invite_user(invited_user_email)
     visit team_members_path
   end
-  # rubocop:enable RSpec/HooksBeforeExamples
 
   it 'shows that the invitation is pending' do
     expect(page).to have_content('invited')
