@@ -1,16 +1,16 @@
 describe Gateways::S3 do
-  subject { described_class.new(bucket: bucket, key: key) }
+  subject(:gateway) { described_class.new(bucket: bucket, key: key) }
 
   let(:bucket) { 'StubBucket' }
   let(:key) { 'StubKey' }
   let(:data) { { blah: 'foobar' }.to_json }
 
 
-  it 'writes the data to the bucket' do
-    expect(subject.write(data: data)).to eq({})
+  it 'writes the data to the S3 bucket' do
+    expect(gateway.write(data: data)).to eq({})
   end
 
-  context 'when we read from the S3 file' do
+  context 'when reading a file from the S3 bucket' do
     before do
       Rails.application.config.s3_aws_config = {
         stub_responses: {
@@ -23,8 +23,8 @@ describe Gateways::S3 do
       }
     end
 
-    it 'returns the contents' do
-      expect(subject.read).to eq('some data')
+    it 'returns the contents of the file' do
+      expect(gateway.read).to eq('some data')
     end
   end
 end
