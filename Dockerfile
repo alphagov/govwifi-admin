@@ -41,6 +41,8 @@ ENV RR_DB_PASS root
 ENV RR_DB_HOST rr_db
 ENV RR_DB_NAME rr_govwifi
 
+RUN mkdir -p /tmp
+
 ARG RUN_PRECOMPILATION=true
 RUN if [ ${RUN_PRECOMPILATION} = 'true' ]; then \
   ASSET_PRECOMPILATION_ONLY=true RAILS_ENV=production bundle exec rails assets:precompile; \
