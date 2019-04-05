@@ -114,7 +114,7 @@ def deploy(deploy_environment) {
     sh("eval \$(aws ecr get-login --no-include-email)")
     def appImage = docker.build(
       "govwifi/admin:${deploy_environment}",
-      "--build-arg BUNDLE_INSTALL_CMD='bundle install --without test' ."
+      "--build-arg BUNDLE_INSTALL_FLAGS='--without test development' ."
     )
     appImage.push()
     runMigrations(deploy_environment)
