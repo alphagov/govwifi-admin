@@ -2,6 +2,7 @@ module Gateways
   class Coordinates
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     def initialize(postcodes: [])
       @postcodes = postcodes
     end
@@ -35,6 +36,9 @@ module Gateways
       @postcode = postcode
 =======
     def initialize(postcodes: [] )
+=======
+    def initialize(postcodes: [])
+>>>>>>> clean up again
       @postcodes = postcodes
 >>>>>>> gateway takes array of postcodes
     end
@@ -58,8 +62,9 @@ module Gateways
         return { success: false, coordinates: [], error: "Invalid postcode" }
       else
         coordinates = []
-        result["result"].each do | o |
+        result["result"].each do |o|
           next if o["result"].nil?
+
           longitude = o["result"]["longitude"]
           latitude = o["result"]["latitude"]
           coordinates << [latitude, longitude]
