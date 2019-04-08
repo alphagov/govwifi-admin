@@ -1,0 +1,13 @@
+{ success: true, payload: [lat, long], error: "Invalid postcode" }
+
+result = Gateway.execute
+if result[:success]
+  return result[:payload]
+else
+  retry
+
+result = Gateway.execute
+if result.class == Array && result.lenght == 2
+  return result
+else if result == 'Invalid postcode'
+  retry
