@@ -22,7 +22,7 @@ serve: stop build
 
 lint: lint-ruby lint-sass lint-erb
 lint-ruby: build
-	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-ruby app lib spec Gemfile
+	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-ruby app lib spec Gemfile*
 lint-sass: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-sass app/assets/stylesheets
 lint-erb: build
