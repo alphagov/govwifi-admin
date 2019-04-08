@@ -6,7 +6,9 @@ ifdef DEPLOYMENT
 endif
 
 ifndef JENKINS_URL
-  DOCKER_COMPOSE += -f docker-compose.development.yml
+  ifndef USE_CONCOURSE_COMPOSE
+    DOCKER_COMPOSE += -f docker-compose.development.yml
+  endif
 endif
 
 ifdef USE_CONCOURSE_COMPOSE
