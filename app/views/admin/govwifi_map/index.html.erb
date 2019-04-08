@@ -2,10 +2,11 @@
 <h1 class="govuk-heading-l">GovWifi Map of Locations</h1>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
 
-<div id="map"></div>
+<div class="map"></div>
+
   <script>
     function initMap() {
-      var map = new google.maps.Map(document.getElementById('map'), {
+      var map = new google.maps.Map(document.querySelector(".map"), {
         zoom: 5,
         center: {lat: 52.3555, lng:  1.1743}
       });
@@ -13,7 +14,7 @@
       setMarkers(map);
     }
 
-    var locations = (<%=raw @coordinates.to_json %>);
+    var locations = (<%= raw @coordinates.to_json %>);
 
     function setMarkers(map) {
       for (var i = 0; i < locations.length; i++) {
