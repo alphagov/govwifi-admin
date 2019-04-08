@@ -151,7 +151,7 @@ describe Gateways::Coordinates, focus: true do
   end
 
   context 'when given an invalid postcode' do
-    let(:postcode) { 'not_a_valid_postcode' }
+    let(:postcode) { %w[not_a_valid_postcode] }
 
     before do
       stub_request(:post, "http://api.postcodes.io/postcodes").

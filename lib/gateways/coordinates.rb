@@ -9,6 +9,7 @@ module Gateways
 
     def fetch_coordinates
       combined_coordinates = []
+<<<<<<< HEAD
 
       postcodes.each_slice(100) do |batch|
         response = HTTParty.post("http://api.postcodes.io/postcodes", body: { postcodes: batch })
@@ -45,9 +46,16 @@ module Gateways
 
     def fetch_coordinates
       response = HTTParty.post("http://api.postcodes.io/postcodes", body: { postcodes: postcodes })
+=======
+>>>>>>> batches
 
-      result = JSON.parse(response.body)
+      postcodes.each_slice(100) do |batch|
+        response = HTTParty.post("http://api.postcodes.io/postcodes", body: { postcodes: batch })
+        result = JSON.parse(response.body)
+        combined_coordinates << result
+        final_coordinates = combined_coordinates.first
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       longitude = result['result']['longitude']
@@ -64,13 +72,22 @@ module Gateways
         coordinates = []
         result["result"].each do |o|
           next if o["result"].nil?
+=======
+        if final_coordinates['result'].length < 2
+          return { success: false, coordinates: [], error: "Invalid postcode" }
+        else
+          coordinates = []
+          final_coordinates["result"].each do |o|
+            next if o["result"].nil?
+>>>>>>> batches
 
-          longitude = o["result"]["longitude"]
-          latitude = o["result"]["latitude"]
-          coordinates << [latitude, longitude]
+            longitude = o["result"]["longitude"]
+            latitude = o["result"]["latitude"]
+            coordinates << [latitude, longitude]
+          end
+
+          return { success: false, coordinates: coordinates, error: nil }
         end
-
-        return { success: false, coordinates: coordinates, error: nil }
       end
 >>>>>>> more tests
     end
