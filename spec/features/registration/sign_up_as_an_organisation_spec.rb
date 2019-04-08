@@ -12,8 +12,8 @@ describe 'Sign up as an organisation' do
     }
   end
 
-  include_examples 'confirmation use case spy'
-  include_examples 'notifications service'
+  include_context 'when sending a confirmation email'
+  include_context 'when using the notifications service'
 
 
 

@@ -1,13 +1,14 @@
 describe Gateways::ZendeskSupportTickets do
   include_context 'with a mocked support tickets client'
+  subject(:ticket_gateway) { described_class.new }
 
-  context 'creating a ticket' do
+  context 'when creating a ticket' do
     before do
       ENV['ZENDESK_API_ENDPOINT'] = 'https://zendesk-example.api.com'
       ENV['ZENDESK_API_USER'] = 'example-zendesk-admin@user.com'
       ENV['ZENDESK_API_TOKEN'] = 'abcdefghihgfedcba'
 
-      subject.create(
+      ticket_gateway.create(
         subject: 'example subject',
         email: 'alice@company.com',
         name: requester_name,
@@ -68,10 +69,10 @@ describe Gateways::ZendeskSupportTickets do
     end
   end
 
-  context 'creating multiple tickets' do
+  context 'when creating multiple tickets' do
     before do
       3.times do
-        subject.create(
+        ticket_gateway.create(
           subject: 'example subject',
           email: 'alice@company.com',
           name: 'alice',
@@ -80,7 +81,7 @@ describe Gateways::ZendeskSupportTickets do
       end
     end
 
-    it 'creates three tickets' do
+    it 'creates all desired number of tickets' do
       expect(support_tickets.count).to eq(3)
     end
   end

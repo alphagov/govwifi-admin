@@ -1,23 +1,16 @@
 describe User do
-  context 'associations' do
-    it { is_expected.to belong_to(:organisation).optional }
-  end
+  it { is_expected.to belong_to(:organisation).optional }
+  it { is_expected.to validate_presence_of(:name).on(:update) }
 
-  context 'validations' do
-    it { is_expected.to validate_presence_of(:name).on(:update) }
-  end
+  context 'when creating a user without explicit permissions' do
+    subject(:user) { create(:user) }
 
-  context 'permissions' do
-    context 'a new user' do
-      subject { create(:user) }
+    it 'receives default permission to manage team members' do
+      expect(user).to be_can_manage_team
+    end
 
-      it 'can manage team members' do
-        expect(subject).to be_can_manage_team
-      end
-
-      it 'can manage locations' do
-        expect(subject).to be_can_manage_locations
-      end
+    it 'receives default permission to manage locations' do
+      expect(user).to be_can_manage_locations
     end
   end
 end
