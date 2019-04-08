@@ -14,6 +14,14 @@ resources:
       aws_access_key_id: ((ecr-access-key-id))
       aws_secret_access_key: ((ecr-secret-access-key))
 
+  - name: runner
+    # See https://github.com/alphagov/govwifi-concourse-runner for a reference dockerfile
+    # readonly_private_ecr_repo_url is provided by the hosted Concourse
+    type: registry-image
+    source:
+      repository: ((readonly_private_ecr_repo_url))
+      tag: concourse-runner-latest
+
   - name: mysql-image
     type: registry-image
     source:
@@ -32,6 +40,21 @@ resources:
       repository: nginx
       tag: alpine
 
+groups:
+  - name: test
+    jobs: [lint & test]
+  - name: push
+    jobs: [Push Image]
+  - name: staging
+    jobs:
+      - migrate staging
+      - deploy staging
+  - name: production
+    jobs:
+      - production gate
+      - migrate production
+      - deploy production
+
 jobs:
   - name: lint & test
     plan:
@@ -44,15 +67,19 @@ jobs:
           params: {format: oci}
         - get: nginx-image
           params: {format: oci}
+        - get: runner
       - task: pre-build
         privileged: true
+        image: runner
         file: govwifi-admin/ci/tasks/pre-build.yml
       - aggregate:
         - task: lint
           privileged: true
+          image: runner
           file: govwifi-admin/ci/tasks/lint.yml
         - task: test
           privileged: true
+          image: runner
           file: govwifi-admin/ci/tasks/test.yml
   - name: Push Image
     plan:
@@ -70,9 +97,54 @@ jobs:
         trigger: true
         passed: ['Push Image']
       - task: 'migrate'
+        image: runner
         file: govwifi-admin/ci/tasks/migrate.yml
         params:
           DEPLOY_STAGE: staging
+          AWS_ACCESS_KEY_ID: ((deploy-access-key-id))
+          AWS_SECRET_ACCESS_KEY: ((deploy-secret-access-key))
+          AWS_DEFAULT_REGION: ((deploy-region))
+  - name: deploy staging
+    plan:
+      - get: govwifi-admin
+        trigger: true
+        passed: ['migrate staging']
+      - task: 'deploy staging'
+        image: runner
+        file: govwifi-admin/ci/tasks/deploy.yml
+        params:
+          DEPLOY_STAGE: staging
+          AWS_ACCESS_KEY_ID: ((deploy-access-key-id))
+          AWS_SECRET_ACCESS_KEY: ((deploy-secret-access-key))
+          AWS_DEFAULT_REGION: ((deploy-region))
+  - name: production gate
+    plan:
+      - get: govwifi-admin
+        passed: [deploy staging]
+  - name: migrate production
+    plan:
+      - get: govwifi-admin
+        trigger: true
+        passed: ['production gate']
+      - task: 'migrate'
+        image: runner
+        file: govwifi-admin/ci/tasks/migrate.yml
+        params:
+          DEPLOY_STAGE: production
+          AWS_ACCESS_KEY_ID: ((deploy-access-key-id))
+          AWS_SECRET_ACCESS_KEY: ((deploy-secret-access-key))
+          AWS_DEFAULT_REGION: ((deploy-region))
+  - name: deploy production
+    plan:
+      - get: govwifi-admin
+        trigger: true
+        passed:
+          - migrate production
+      - task: 'deploy staging'
+        image: runner
+        file: govwifi-admin/ci/tasks/deploy.yml
+        params:
+          DEPLOY_STAGE: production
           AWS_ACCESS_KEY_ID: ((deploy-access-key-id))
           AWS_SECRET_ACCESS_KEY: ((deploy-secret-access-key))
           AWS_DEFAULT_REGION: ((deploy-region))
