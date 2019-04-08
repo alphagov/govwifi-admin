@@ -71,8 +71,8 @@ jobs:
         passed: ['Push Image']
       - task: 'migrate'
         file: govwifi-admin/ci/tasks/migrate.yml
-        vars:
-          deploy_stage: 'staging'
-          aws-access-key-id: ((deploy-access-key-id))
-          aws-secret-access-key: ((deploy-secret-access-key))
-          aws-region: ((deploy-region))
+        params:
+          DEPLOY_STAGE: staging
+          AWS_ACCESS_KEY_ID: ((deploy-access-key-id))
+          AWS_SECRET_ACCESS_KEY: ((deploy-secret-access-key))
+          AWS_DEFAULT_REGION: ((deploy-region))

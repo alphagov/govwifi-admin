@@ -10,10 +10,10 @@ inputs:
   - name: govwifi-admin
 
 params:
-  DEPLOY_STAGE: ((deploy_stage))
-  AWS_ACCESS_KEY_ID: ((aws-access-key-id))
-  AWS_SECRET_ACCESS_KEY: ((aws-secret-access-key))
-  AWS_DEFAULT_REGION: ((aws-region))
+  DEPLOY_STAGE:
+  AWS_ACCESS_KEY_ID:
+  AWS_SECRET_ACCESS_KEY:
+  AWS_DEFAULT_REGION:
 
 run:
   path: govwifi-admin/ci/tasks/scripts/migrate.sh
