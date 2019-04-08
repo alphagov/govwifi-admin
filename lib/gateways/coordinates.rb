@@ -17,10 +17,10 @@ module Gateways
           next if o["result"].nil?
           longitude = o["result"]["longitude"]
           latitude = o["result"]["latitude"]
-          coordinates << [longitude, latitude]
+          coordinates << [latitude, longitude]
         end
 
-        { success: true, coordinates: coordinates, error: nil }
+        coordinates
       end
     end
 
