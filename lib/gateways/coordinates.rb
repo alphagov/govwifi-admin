@@ -1,6 +1,6 @@
 module Gateways
   class Coordinates
-    def initialize(postcodes: [] )
+    def initialize(postcodes: [])
       @postcodes = postcodes
     end
 
@@ -13,8 +13,9 @@ module Gateways
         return { success: false, coordinates: [], error: "Invalid postcode" }
       else
         coordinates = []
-        result["result"].each do | o |
+        result["result"].each do |o|
           next if o["result"].nil?
+
           longitude = o["result"]["longitude"]
           latitude = o["result"]["latitude"]
           coordinates << [latitude, longitude]
