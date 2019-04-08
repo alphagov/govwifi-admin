@@ -130,6 +130,7 @@ describe Gateways::Coordinates, focus: true do
       result = postcode_coordinates_gateway.fetch_coordinates
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       expect(result[:coordinates]).to eq([-0.316963, 51.604163])
 >>>>>>> refac
 =======
@@ -138,6 +139,9 @@ describe Gateways::Coordinates, focus: true do
         [-2.302836, 53.455654]
 =======
       expect(result).to eq([
+=======
+      expect(result[:coordinates]).to eq([
+>>>>>>> done
         [51.656146, -1.069849],
         [53.455654, -2.302836]
 >>>>>>> plots on google maps

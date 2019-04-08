@@ -38,22 +38,22 @@
 =======
 =======
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCz1cPYKamsA_ZJCygL9EY0Zq6stkazTco&callback=initMap"></script>
 
 >>>>>>> move api line
 <div id="map"></div>
   <script>
     function initMap() {
       var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 1,
-        center: {lat: -0.316963, lng:  51.604163}
+        zoom: 5,
+        center: {lat: 52.3555, lng:  1.1743}
       });
 >>>>>>> plots on google maps
 
       setMarkers(map);
     }
 
-    var locations = (<%=raw @coordinates.to_json %>);
+    var locations = [(<%=raw @formatted_coordinates.to_json %>)];
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -81,6 +81,8 @@
 >>>>>>> plots on google maps
       }
     }
+
+
   </script>
 <<<<<<< HEAD
   <script async defer

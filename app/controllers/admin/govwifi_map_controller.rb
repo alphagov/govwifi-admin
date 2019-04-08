@@ -4,6 +4,7 @@ class Admin::GovwifiMapController < AdminController
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @coordinates = convert_postcodes[:coordinates]
   end
 
@@ -23,7 +24,10 @@ class Admin::GovwifiMapController < AdminController
 =======
 >>>>>>> plots on google maps
 
+=======
+>>>>>>> done
     @coordinates = convert_postcodes
+    @formatted_coordinates = @coordinates[:coordinates].flatten
   end
 
 <<<<<<< HEAD

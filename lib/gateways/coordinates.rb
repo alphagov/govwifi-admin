@@ -70,7 +70,7 @@ module Gateways
           coordinates << [latitude, longitude]
         end
 
-        coordinates
+        return { success: false, coordinates: coordinates, error: nil }
       end
 >>>>>>> more tests
     end
