@@ -12,6 +12,14 @@ resources:
       repository: alphagov/govwifi-admin
       access_token: ((github-access-token))
 
+  - name: runner
+    # See https://github.com/alphagov/govwifi-concourse-runner for a reference dockerfile
+    # readonly_private_ecr_repo_url is provided by the hosted Concourse
+    type: docker-image
+    source:
+      repository: "((readonly_private_ecr_repo_url))"
+      tag: concourse-runner-latest
+
   - name: mysql-image
     type: registry-image
     source:
@@ -49,15 +57,19 @@ jobs:
           params: {format: oci}
         - get: nginx-image
           params: {format: oci}
+        - get: runner
       - task: pre-build
         privileged: true
+        image: runner
         file: govwifi-admin/ci/tasks/pre-build.yml
       - do:
         - task: lint
           privileged: true
+          image: runner
           file: govwifi-admin/ci/tasks/lint.yml
         - task: test
           privileged: true
+          image: runner
           file: govwifi-admin/ci/tasks/test.yml
     on_failure:
       put: pull-request
