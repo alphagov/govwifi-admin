@@ -7,7 +7,7 @@ describe UseCases::PerformancePlatform::PublishLocationsIps do
   end
 
   let(:source_gateway) { instance_double(Gateways::Ips, fetch_ips: s3_payload) }
-  let(:s3_gateway) { instance_spy(Gateways::S3, write: {}) }
+  let(:s3_gateway) { instance_spy(Gateways::S3) }
   let(:s3_payload) do
     [
       {
