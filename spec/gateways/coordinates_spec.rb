@@ -36,7 +36,7 @@ describe Gateways::Coordinates do
 
     it 'Converts the postcode to long and latitude' do
       result = postcode_coordinates_gateway.fetch_coordinates
-      expect(result).to eq([
+      expect(result[:coordinates]).to eq([
         [51.656146, -1.069849],
         [53.455654, -2.302836]
       ])
