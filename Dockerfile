@@ -9,7 +9,7 @@ RUN apk add --no-cache nodejs yarn build-base mysql-dev bash
 
 COPY Gemfile Gemfile.lock .ruby-version ./
 
-ARG BUNDLE_INSTALL_FLAGS='--without test development'
+ARG BUNDLE_INSTALL_FLAGS
 RUN echo "${BUNDLE_INSTALL_FLAGS}"
 RUN bundle install --no-cache ${BUNDLE_INSTALL_FLAGS}
 
