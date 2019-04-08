@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 describe Gateways::Coordinates do
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -10,6 +11,9 @@ describe Gateways::Coordinates, focus: true do
 =======
 describe Gateways::Coordinates do
 >>>>>>> more stuff
+=======
+describe Gateways::Coordinates do
+>>>>>>> plots on google maps
   subject(:postcode_coordinates_gateway) { described_class.new(postcodes: postcode) }
 
   context 'when given a valid postcode' do
@@ -106,15 +110,15 @@ describe Gateways::Coordinates, focus: true do
             {
               "query": "OX49 5NU",
               "result": {
-                  "longitude": -1.069849,
-                  "latitude": 51.656146
+                "latitude": 51.656146,
+                "longitude": -1.069849
                 }
             },
             {
               "query": "M32 0JG",
               "result": {
-                  "longitude": -2.302836,
-                  "latitude": 53.455654
+                "latitude": 53.455654,
+                "longitude": -2.302836
                 }
             }
           ]
@@ -125,12 +129,18 @@ describe Gateways::Coordinates, focus: true do
     it 'Converts the postcode to long and latitude' do
       result = postcode_coordinates_gateway.fetch_coordinates
 <<<<<<< HEAD
+<<<<<<< HEAD
       expect(result[:coordinates]).to eq([-0.316963, 51.604163])
 >>>>>>> refac
 =======
       expect(result[:coordinates]).to eq([
         [-1.069849, 51.656146],
         [-2.302836, 53.455654]
+=======
+      expect(result).to eq([
+        [51.656146, -1.069849],
+        [53.455654, -2.302836]
+>>>>>>> plots on google maps
       ])
 >>>>>>> gateway takes array of postcodes
     end

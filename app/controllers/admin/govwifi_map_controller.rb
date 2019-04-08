@@ -3,6 +3,7 @@ class Admin::GovwifiMapController < AdminController
     @postcodes = Location.pluck(:postcode)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @coordinates = convert_postcodes[:coordinates]
   end
 
@@ -19,12 +20,10 @@ class Admin::GovwifiMapController < AdminController
 
 >>>>>>> validate invalid postcodes
     # get all postcodes
+=======
+>>>>>>> plots on google maps
 
-    # send postcodes to gateway and save coordinates
-
-    # combine coordinates into array of the correct shape
-
-    # pass array of coordinates to view
+    @coordinates = convert_postcodes
   end
 
 <<<<<<< HEAD
