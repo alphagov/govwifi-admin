@@ -5,6 +5,7 @@ class Admin::GovwifiMapController < AdminController
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @coordinates = convert_postcodes[:coordinates]
   end
 
@@ -28,6 +29,9 @@ class Admin::GovwifiMapController < AdminController
 >>>>>>> done
     @coordinates = convert_postcodes
     @formatted_coordinates = @coordinates[:coordinates].flatten
+=======
+    @coordinates = convert_postcodes[:coordinates]
+>>>>>>> no api works
   end
 
 <<<<<<< HEAD
