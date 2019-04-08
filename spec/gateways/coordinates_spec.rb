@@ -2,16 +2,17 @@ describe Gateways::Coordinates do
   subject(:postcode_coordinates_gateway) { described_class.new(postcodes: postcode) }
 
   context 'when given a valid postcode' do
-    let(:postcode) { ['HA72BL', 'HA73BL'] }
+    let(:postcode) { %w[HA72BL HA73BL] }
 
     before do
       stub_request(:post, "http://api.postcodes.io/postcodes").
       with(
         headers: {
-       'Accept'=>'*/*',
-       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-       'User-Agent'=>'Ruby'
-        }).
+       'Accept' => '*/*',
+       'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       'User-Agent' => 'Ruby'
+       }
+       ).
       to_return(status: 200, body: {
         "status": 200,
         "result": [
@@ -31,7 +32,6 @@ describe Gateways::Coordinates do
             }
           ]
         }.to_json, headers: {})
-
     end
 
     it 'Converts the postcode to long and latitude' do
@@ -50,10 +50,11 @@ describe Gateways::Coordinates do
       stub_request(:post, "http://api.postcodes.io/postcodes").
       with(
         headers: {
-       'Accept'=>'*/*',
-       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-       'User-Agent'=>'Ruby'
-        }).
+       'Accept' => '*/*',
+       'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       'User-Agent' => 'Ruby'
+        }
+        ).
       to_return(status: 200, body: {
           "status": 200,
           "result": [
@@ -63,7 +64,7 @@ describe Gateways::Coordinates do
               }
           ]
         }.to_json, headers: {})
-      end
+    end
 
     it 'will error' do
       result = postcode_coordinates_gateway.fetch_coordinates
