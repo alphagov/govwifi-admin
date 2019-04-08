@@ -1,8 +1,7 @@
 class Admin::GovwifiMapController < AdminController
   def index
     @postcodes = Location.pluck(:postcode)
-    @coordinates = convert_postcodes
-    @formatted_coordinates = @coordinates[:coordinates].flatten
+    @coordinates = convert_postcodes[:coordinates]
   end
 
   def convert_postcodes
