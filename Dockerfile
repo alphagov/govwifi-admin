@@ -34,7 +34,8 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
 ENV PATH "$PATH:/root/.yarn/bin:/root/.config/yarn/global/node_modules/.bin"
 
 COPY Gemfile Gemfile.lock .ruby-version ./
-RUN ${BUNDLE_INSTALL_CMD}
+ARG BUNDLE_INSTALL_FLAGS
+RUN bundle install --no-cache ${BUNDLE_INSTALL_FLAGS}
 
 COPY package.json yarn.lock ./
 RUN yarn
