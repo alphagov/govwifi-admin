@@ -1,4 +1,4 @@
-FROM ruby:2.6.2
+FROM ruby:2.6.2-slim
 ARG BUNDLE_INSTALL_CMD
 
 # required for certain linting tools that read files, such as erb-lint
