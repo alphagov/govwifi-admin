@@ -69,7 +69,7 @@ jobs:
       - get: govwifi-admin
         trigger: true
         passed: ['Push Image']
-      - task:
+      - task: 'migrate'
         file: govwifi-admin/ci/tasks/migrate.yml
         vars:
           deploy_stage: 'staging'
