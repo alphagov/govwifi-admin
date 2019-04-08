@@ -3,7 +3,6 @@ inherit_gem:
 require: rubocop-rspec
 AllCops:
   Exclude:
-    - spec/use_cases/generate_radius_secret_key_spec.rb
     - spec/use_cases/performance_platform/publish_locations_ips_spec.rb
     - spec/use_cases/publish_radius_whitelist_spec.rb
     - spec/use_cases/organisation/fetch_organisations_register_spec.rb
