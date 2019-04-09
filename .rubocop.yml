@@ -1,10 +1,3 @@
 inherit_gem:
   govuk-lint: configs/rubocop/all.yml
 require: rubocop-rspec
-AllCops:
-  Exclude:
-    - spec/features/ips/permissions_spec.rb
-    - spec/features/ips/view_ip_address_readiness_spec.rb
-    - spec/features/ips/add_ip_to_existing_location_spec.rb
-    - spec/features/ips/view_ip_addresses_spec.rb
-    - spec/features/ips/remove_an_ip_spec.rb

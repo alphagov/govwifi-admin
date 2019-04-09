@@ -1,4 +1,4 @@
-describe 'Remove an IP' do
+describe 'Removing an IP', type: :feature do
   let(:user) { create(:user) }
   let(:location) { create(:location, organisation: user.organisation) }
   let!(:ip) { create(:ip, location: location) }
@@ -16,15 +16,22 @@ describe 'Remove an IP' do
     it "shows the remove IP partial" do
       within(".govuk-error-summary") do
         expect(page).to have_content(ip.address)
+      end
+    end
+
+    it "shows the remove IP button" do
+      within(".govuk-error-summary") do
         expect(page).to have_button("Yes, remove this IP")
       end
     end
 
     it "removes the IP" do
       expect { click_on "Yes, remove this IP" }.to change(Ip, :count).by(-1)
+    end
 
+    it "displays the success message to the user" do
+      click_on "Yes, remove this IP"
       expect(page).to have_content("Successfully removed IP address #{ip.address}")
-      expect(page).to have_content("IP addresses")
     end
 
     it 'redirects to the "after IP removed" path for Analytics' do
@@ -66,7 +73,6 @@ describe 'Remove an IP' do
 
     it "does not show the partial" do
       expect(page).not_to have_content("Are you sure you want to remove this IP")
-      expect(page).not_to have_content(other_ip.address)
     end
   end
 end
