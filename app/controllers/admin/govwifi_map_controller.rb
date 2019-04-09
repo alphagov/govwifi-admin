@@ -5,8 +5,8 @@ class Admin::GovwifiMapController < AdminController
   end
 
   def convert_postcodes_to_coordinates
-    results = Gateways::Coordinates.new(postcodes: @postcodes).fetch_coordinates
-
-    results.map { |v| [v[:latitude], v[:longitude]] }
+    UseCases::Administrator::GetPostcodeCoordinates.new(
+      postcodes_gateway: Gateways::Coordinates.new(postcodes: @postcodes)
+    ).execute
   end
 end
