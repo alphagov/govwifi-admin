@@ -6,3 +6,5 @@ services:
     build:
       cache_from:
         - govwifi-admin-app-prebuilt
+      args:
+        RUN_PRECOMPILATION: 'false'
