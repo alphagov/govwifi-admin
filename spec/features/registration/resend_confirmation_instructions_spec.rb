@@ -2,35 +2,40 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case_spy'
 require 'support/confirmation_use_case'
 
-describe 'Resending confirmation instructions' do
+describe 'Resending confirmation instructions', type: :feature do
   let(:correct_email) { 'user@gov.uk' }
 
   include_context 'when sending a confirmation email'
   include_context 'when using the notifications service'
 
-
   context 'when entering correct information' do
     let(:entered_email) { correct_email }
 
+    before do
+      sign_up_for_account(email: correct_email)
+      visit new_user_confirmation_path
+      fill_in 'user_email', with: entered_email
+    end
+
     it 'resends the confirmation link' do
       expect {
-        sign_up_for_account(email: correct_email)
-        visit new_user_confirmation_path
-        fill_in 'user_email', with: entered_email
         click_on 'Resend confirmation instructions'
-      }.to change(ConfirmationUseCaseSpy, :confirmations_count).by(2)
+      }.to change(ConfirmationUseCaseSpy, :confirmations_count).by(1)
+    end
+  end
 
-      expect(URI(confirmation_email_link).scheme).to eq("https")
+  context 'when comparing links before and after resending' do
+    let(:entered_email) { correct_email }
+
+    before do
+      sign_up_for_account(email: correct_email)
     end
 
     it 'does not change the link' do
-      sign_up_for_account(email: correct_email)
       previous_link = confirmation_email_link
-
       visit new_user_confirmation_path
       fill_in 'user_email', with: entered_email
       click_on 'Resend confirmation instructions'
-
       expect(confirmation_email_link).to eq(previous_link)
     end
   end
