@@ -62,7 +62,7 @@ jobs:
         privileged: true
         image: runner
         file: govwifi-admin/ci/tasks/pre-build.yml
-      - do:
+      - aggregate:
         - task: lint
           privileged: true
           image: runner
