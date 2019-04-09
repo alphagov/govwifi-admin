@@ -3,7 +3,7 @@ resources:
     type: git
     source:
       uri: "https://github.com/alphagov/govwifi-admin.git"
-      branch: "ci-concourse-deployment"
+      branch: master
 
   - name: ecr
     type: docker-image
