@@ -3,7 +3,7 @@ resources:
     type: git
     source:
       uri: "https://github.com/alphagov/govwifi-admin.git"
-      branch: "concourse"
+      branch: "ci-concourse-deployment"
 
   - name: ecr
     # This needs to be docker-image, until registry-image supports ECR
