@@ -9,22 +9,22 @@ resources:
     # This needs to be docker-image, until registry-image supports ECR
     type: docker-image
     source:
-      repository: "((ecs-registry))/govwifi/admin"
+      repository: "((deploy-repository))/govwifi/admin"
       tag: concourse-latest
-      aws_access_key_id: ((ecr-access-key-id))
-      aws_secret_access_key: ((ecr-secret-access-key))
+      aws_access_key_id: ((deploy-access-key-id))
+      aws_secret_access_key: ((deploy-secret-access-key))
 
   - name: mysql-image
     type: registry-image
     source:
       repository: mysql
-      tag: 5.7
+      tag: '5.7'
 
   - name: ruby-image
     type: registry-image
     source:
       repository: ruby
-      tag: 2.6.2-alpine3.9
+      tag: '2.6.2'
 
   - name: nginx-image
     type: registry-image
