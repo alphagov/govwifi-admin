@@ -1,4 +1,4 @@
-describe 'guidance after sign in' do
+describe 'Guidance after sign in', type: :feature do
   include_context 'with a mocked notifications client'
 
   let(:user) { create(:user) }
@@ -18,12 +18,11 @@ describe 'guidance after sign in' do
 
     before { visit root_path }
 
-    it 'shows me the landing guidance' do
+    it 'displays the landing guidance' do
       expect(page).to have_content 'Get GovWifi'
-      expect(page).to have_content 'If you have trouble setting up GovWifi,'
     end
 
-    context 'and an IP, clicking on that IP' do
+    context 'with one IP' do
       let(:ip_address) { '141.0.149.130' }
 
       before do
@@ -32,13 +31,13 @@ describe 'guidance after sign in' do
         click_on '1 IP'
       end
 
-      it 'shows me the IP address' do
+      it 'displays the IP address' do
         expect(page).to have_content(ip_address)
       end
     end
 
-    context 'and no IPs' do
-      it 'shows me I can add new IPs' do
+    context 'with no IPs' do
+      it 'allows user to add new IPs' do
         click_on 'add the IPs'
         expect(page).to have_content('Enter IP address')
       end
@@ -55,17 +54,14 @@ describe 'guidance after sign in' do
         ENV['DUBLIN_RADIUS_IPS'] = "#{radius_ip_3},#{radius_ip_4}"
       end
 
-      it 'displays RADIUS settings' do
-        expect(page).to have_content('RADIUS')
-        expect(page).to have_content('London')
-        expect(page).to have_content('Dublin')
+      it 'displays the London IPs' do
+        ips = page.all(:css, '#london-radius-ips li').map(&:text)
+        expect(ips).to match_array([radius_ip_1, radius_ip_2])
       end
 
-      it 'displays the correct IPs' do
-        expect(page).to have_content(radius_ip_1)
-        expect(page).to have_content(radius_ip_2)
-        expect(page).to have_content(radius_ip_3)
-        expect(page).to have_content(radius_ip_4)
+      it 'displays the Dublin IPs' do
+        ips = page.all(:css, '#dublin-radius-ips li').map(&:text)
+        expect(ips).to match_array([radius_ip_3, radius_ip_4])
       end
     end
   end

@@ -16,12 +16,17 @@
     <% end %>
 
     <h3> London: </h3>
-    <% london_ips.each do |ip| %>
-      <p class="govuk-body"> <%= ip %>
-    <% end %>
+    <ul class="plain-list" id="london-radius-ips">
+      <% london_ips.each do |ip| %>
+        <li><p class="govuk-body"> <%= ip %></li>
+      <% end %>
+    </ul>
+
     <h3> Dublin: </h3>
-    <% dublin_ips.each do |ip| %>
-      <p class="govuk-body"> <%= ip %>
-    <% end %>
+    <ul class="plain-list" id="dublin-radius-ips">
+      <% dublin_ips.each do |ip| %>
+        <li><p class="govuk-body"> <%= ip %></li>
+      <% end %>
+    </ul>
   </div>
 </details>
