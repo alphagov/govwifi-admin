@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   root 'home#index'
 
@@ -72,7 +73,8 @@ Rails.application.routes.draw do
     resources :authorised_email_domains, only: %i[index new create destroy]
   end
 
-  %w( 404 422 500 ).each do |code|
+  %w(404 422 500).each do |code|
     get code, to: 'application#error', code: code
   end
 end
+# rubocop:enable Metrics/BlockLength
