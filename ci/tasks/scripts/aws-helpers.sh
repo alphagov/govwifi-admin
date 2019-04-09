@@ -70,31 +70,12 @@ function override_command_structure() {
 EOF
 }
 
-function ecs_deploy_region() {
+function ecs_deploy() {
   local cluster_name="${1}"
   local service_name="${2}"
-  local region="${3}"
 
   aws ecs update-service \
         --cluster "${cluster_name}" \
         --service "${service_name}" \
-        --region "${region}" \
         --force-new-deployment
-}
-
-function ecs_deploy() {
-  local cluster_name="${1}"
-  local service_name="${2}"
-  local regions="${3:-}"
-
-  if [[ "$regions" != '' ]]; then
-    for region in ${regions//,/ }; do
-      ecs_deploy_region "${cluster_name}" "${service_name}" "${region}"
-    done
-  else
-    aws ecs update-service \
-          --cluster "${cluster_name}" \
-          --service "${service_name}" \
-          --force-new-deployment
-  fi
 }
