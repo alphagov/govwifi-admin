@@ -50,10 +50,7 @@ jobs:
             resource: pull-request
             trigger: true
             version: every
-          - put: pull-request
-            params:
-              path: govwifi-admin
-              status: pending
+          - <<: *update-status-pending
         - get: mysql-image
           params: {format: oci}
         - get: ruby-image
@@ -75,12 +72,37 @@ jobs:
           image: runner
           file: govwifi-admin/ci/tasks/test.yml
     on_failure:
-      put: pull-request
-      params:
-        path: govwifi-admin
-        status: failure
+      do:
+        - <<: *update-status-failure
     on_success:
-      put: pull-request
-      params:
-        path: govwifi-admin
-        status: success
+      do:
+        - <<: *update-status-success
+
+common:
+  update-status-base: &update-status-base
+    put: update-status
+    resource: pull-request
+    get_params:
+      skip_download: true
+
+  update-status-params-base: &update-status-params-base
+    path: govwifi-admin
+    context: 'concourse/ci'
+
+  update-status-pending: &update-status-pending
+    <<: *update-status-base
+    params:
+      <<: *update-status-params-base
+      status: pending
+
+  update-status-failure: &update-status-failure
+    <<: *update-status-base
+    params:
+      <<: *update-status-params-base
+      status: failure
+
+  update-status-success: &update-status-success
+    <<: *update-status-base
+    params:
+      <<: *update-status-params-base
+      status: success
