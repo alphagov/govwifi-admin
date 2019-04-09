@@ -40,24 +40,24 @@ resources:
       tag: alpine
 
 groups:
-  - name: test
+  - name: Test
     jobs:
-      - lint & test
+      - Lint & Test
   - name: push
     jobs:
       - Push Image
-  - name: staging
+  - name: Staging
     jobs:
-      - migrate staging
-      - deploy staging
-  - name: production
+      - Migrate Staging
+      - Deploy Staging
+  - name: Production
     jobs:
-      - Confirm deploy to production
-      - migrate production
-      - deploy production
+      - Confirm Deploy to Production
+      - Migrate Production
+      - Deploy Production
 
 jobs:
-  - name: lint & test
+  - name: Lint & Test
     interruptible: true
     plan:
       - aggregate:
@@ -90,7 +90,7 @@ jobs:
     plan:
       - get: govwifi-admin
         trigger: true
-        passed: ['lint & test']
+        passed: ['Lint & Test']
       - put: ecr
         params:
           build: govwifi-admin
@@ -99,7 +99,7 @@ jobs:
         get_params:
           skip_download: true
 
-  - name: migrate staging
+  - name: Migrate Staging
     serial_groups:
       - push-image
       - deploy-staging
@@ -117,13 +117,13 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ((deploy-secret-access-key))
           AWS_DEFAULT_REGION: ((deploy-region))
 
-  - name: deploy staging
+  - name: Deploy Staging
     serial_groups:
       - push-image
       - deploy-staging
     plan:
       - get: govwifi-admin
-        passed: [migrate staging]
+        passed: [Migrate Staging]
         trigger: true
       - get: runner
       - task: deploy staging
@@ -135,22 +135,22 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ((deploy-secret-access-key))
           DEPLOY_STAGE: staging
 
-  - name: Confirm deploy to production
+  - name: Confirm Deploy to Production
     interruptible: true
     serial_groups:
       - push-image
       - deploy-production
     plan:
       - get: govwifi-admin
-        passed: [deploy staging]
+        passed: [Deploy Staging]
 
-  - name: migrate production
+  - name: Migrate Production
     serial_groups:
       - push-image
       - deploy-production
     plan:
       - get: govwifi-admin
-        passed: [Confirm deploy to production]
+        passed: [Confirm Deploy to Production]
         trigger: true
       - get: runner
       - task: migrate
@@ -162,13 +162,13 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ((deploy-secret-access-key))
           DEPLOY_STAGE: production
 
-  - name: deploy production
+  - name: Deploy Production
     serial_groups:
       - push-image
       - deploy-production
     plan:
       - get: govwifi-admin
-        passed: [migrate production]
+        passed: [Migrate Production]
         trigger: true
       - get: runner
       - task: deploy staging
