@@ -35,7 +35,7 @@ function run_task_with_command() {
   local task_definition="${3}"
   local docker_service_name="${4}"
   local command="${5}"
-  local network_config, launch_type
+  local network_config launch_type
 
   network_config="$(get_network_config "${cluster_name}" "${service_name}")"
   launch_type="$(get_launch_type "${cluster_name}" "${service_name}")"
