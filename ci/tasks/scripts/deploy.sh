@@ -2,7 +2,6 @@
 
 source govwifi-admin/ci/tasks/scripts/aws-helpers.sh
 
-
 function deploy() {
   local cluster_name, service_name, deploy_stage
 

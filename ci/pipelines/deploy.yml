@@ -124,7 +124,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ((deploy-secret-access-key))
           DEPLOY_STAGE: staging
 
-  - name: production gate
+  - name: Confirm deploy to production
     plan:
       - get: govwifi-admin
         passed: [deploy staging]
@@ -147,8 +147,7 @@ jobs:
   - name: deploy production
     plan:
       - get: govwifi-admin
-        passed:
-        - migrate production
+        passed: [migrate production]
         trigger: true
       - get: runner
       - task: deploy staging
