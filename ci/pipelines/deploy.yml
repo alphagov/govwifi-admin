@@ -58,6 +58,7 @@ groups:
 
 jobs:
   - name: lint & test
+    interruptible: true
     plan:
       - aggregate:
         - get: govwifi-admin
@@ -84,6 +85,7 @@ jobs:
           image: runner
 
   - name: Push Image
+    interruptible: true
     serial_groups: [push-image]
     plan:
       - get: govwifi-admin
@@ -134,6 +136,7 @@ jobs:
           DEPLOY_STAGE: staging
 
   - name: Confirm deploy to production
+    interruptible: true
     serial_groups:
       - push-image
       - deploy-production
