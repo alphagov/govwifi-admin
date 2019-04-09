@@ -15,8 +15,12 @@ module Gateways
       postcodes.each_slice(100) do |batch|
 =======
     def fetch_coordinates(batch_size: 100)
+<<<<<<< HEAD
       postcodes.each_slice(batch_size).map do |batch|
 >>>>>>> works
+=======
+      postcode_results = postcodes.each_slice(batch_size).map do |batch|
+>>>>>>> done
         response = HTTParty.post("http://api.postcodes.io/postcodes", body: { postcodes: batch })
         result = JSON.parse(response.body)
 
@@ -28,6 +32,7 @@ module Gateways
             longitude: o["result"]["longitude"]
           }
         end
+<<<<<<< HEAD
 <<<<<<< HEAD
       end
 =======
@@ -91,6 +96,11 @@ module Gateways
 =======
       end.flatten.compact
 >>>>>>> works
+=======
+      end
+
+      postcode_results.flatten.compact
+>>>>>>> done
     end
 
   private

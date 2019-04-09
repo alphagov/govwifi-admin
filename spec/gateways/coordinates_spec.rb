@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 describe Gateways::Coordinates do
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -18,6 +19,9 @@ describe Gateways::Coordinates do
   subject(:postcode_coordinates_gateway) { described_class.new(postcodes: postcode) }
 =======
 describe Gateways::Coordinates, focus: true do
+=======
+describe Gateways::Coordinates do
+>>>>>>> done
   subject(:postcode_coordinates_gateway) { described_class.new(postcodes: postcodes) }
 >>>>>>> works
 
