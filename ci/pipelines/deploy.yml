@@ -6,7 +6,6 @@ resources:
       branch: "ci-concourse-deployment"
 
   - name: ecr
-    # This needs to be docker-image, until registry-image supports ECR
     type: docker-image
     source:
       repository: "((deploy-repository))/govwifi/admin"
