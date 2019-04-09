@@ -40,6 +40,9 @@ resources:
 
 jobs:
   - name: lint & test
+    interruptible: true
+    disable_manual_trigger: true
+    build_logs_to_retain: 10
     plan:
       - aggregate:
         - do:
