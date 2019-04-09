@@ -9,7 +9,7 @@ resources:
     type: docker-image
     source:
       repository: "((deploy-repository))/govwifi/admin"
-      tag: concourse-latest
+      tag: latest
       aws_access_key_id: ((deploy-access-key-id))
       aws_secret_access_key: ((deploy-secret-access-key))
 
@@ -43,16 +43,15 @@ groups:
   - name: Test
     jobs:
       - Lint & Test
-  - name: push
-    jobs:
-      - Push Image
   - name: Staging
     jobs:
+      - Push Staging
       - Migrate Staging
       - Deploy Staging
   - name: Production
     jobs:
       - Confirm Deploy to Production
+      - Push Production
       - Migrate Production
       - Deploy Production
 
@@ -84,9 +83,9 @@ jobs:
           file: govwifi-admin/ci/tasks/test.yml
           image: runner
 
-  - name: Push Image
+  - name: Push Staging
     interruptible: true
-    serial_groups: [push-image]
+    serial_groups: [deploy-staging]
     plan:
       - get: govwifi-admin
         trigger: true
@@ -96,17 +95,16 @@ jobs:
           build: govwifi-admin
           build_args:
             BUNDLE_INSTALL_FLAGS: '--without test development'
+          tag: staging
         get_params:
           skip_download: true
 
   - name: Migrate Staging
-    serial_groups:
-      - push-image
-      - deploy-staging
+    serial_groups: [deploy-staging]
     plan:
       - get: govwifi-admin
         trigger: true
-        passed: ['Push Image']
+        passed: [Push Staging]
       - get: runner
       - task: 'migrate'
         file: govwifi-admin/ci/tasks/migrate.yml
@@ -118,9 +116,7 @@ jobs:
           AWS_DEFAULT_REGION: ((deploy-region))
 
   - name: Deploy Staging
-    serial_groups:
-      - push-image
-      - deploy-staging
+    serial_groups: [deploy-staging]
     plan:
       - get: govwifi-admin
         passed: [Migrate Staging]
@@ -137,20 +133,34 @@ jobs:
 
   - name: Confirm Deploy to Production
     interruptible: true
-    serial_groups:
-      - push-image
-      - deploy-production
+    serial_groups: [deploy-production]
     plan:
       - get: govwifi-admin
         passed: [Deploy Staging]
 
-  - name: Migrate Production
-    serial_groups:
-      - push-image
-      - deploy-production
+  - name: Push Production
+    interruptible: true
+    serial_groups: [deploy-production]
     plan:
       - get: govwifi-admin
+        trigger: true
         passed: [Confirm Deploy to Production]
+      - put: ecr
+        params:
+          build: govwifi-admin
+          build_args:
+            BUNDLE_INSTALL_FLAGS: '--without test development'
+          tag: production
+          cache: true
+          cache_tag: staging
+        get_params:
+          skip_download: true
+
+  - name: Migrate Production
+    serial_groups: [deploy-production]
+    plan:
+      - get: govwifi-admin
+        passed: [Push Production]
         trigger: true
       - get: runner
       - task: migrate
@@ -163,9 +173,7 @@ jobs:
           DEPLOY_STAGE: production
 
   - name: Deploy Production
-    serial_groups:
-      - push-image
-      - deploy-production
+    serial_groups: [deploy-production]
     plan:
       - get: govwifi-admin
         passed: [Migrate Production]
