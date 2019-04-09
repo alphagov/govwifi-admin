@@ -52,7 +52,7 @@ groups:
       - deploy staging
   - name: production
     jobs:
-      - production gate
+      - Confirm deploy to production
       - migrate production
       - deploy production
 
@@ -132,7 +132,7 @@ jobs:
   - name: migrate production
     plan:
       - get: govwifi-admin
-        passed: [production gate]
+        passed: [Confirm deploy to production]
         trigger: true
       - get: runner
       - task: migrate
