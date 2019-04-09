@@ -1,9 +1,9 @@
 <table class="govuk-table govuk-!-margin-bottom-8">
   <caption class="govuk-table__caption text-left govuk-!-font-size-24">
-    <span id="location-address"><%= location.full_address %></span>
+    <%= location.full_address %>
     <div class="govuk-body govuk-!-margin-bottom-2">
       RADIUS secret key:
-      <div class="inline-block" id="radius-secret-key">
+      <div class="inline-block">
         <%= location.radius_secret_key %>
       </div>
     </div>
@@ -23,7 +23,7 @@
   <tbody class="govuk-table__body" id="ips-table">
     <% location.ips.each do |ip| %>
       <tr class="govuk-table__row">
-        <td class="govuk-table__cell govuk-!-width-one-third" id="ip-address"><%= ip.address %></td>
+        <td class="govuk-table__cell govuk-!-width-one-third"><%= ip.address %></td>
         <% if ip.available? %>
           <td class="govuk-table__cell govuk-!-width-one-third">Available</td>
         <% else %>
