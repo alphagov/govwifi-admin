@@ -1,118 +1,29 @@
 <%= link_to "Back to organisations", admin_organisations_path, class: "govuk-back-link" %>
-<h1 class="govuk-heading-l">GovWifi Map of Locations</h1>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+ <h1 class="govuk-heading-l">GovWifi Map of Locations</h1>
 
-<<<<<<< HEAD
->>>>>>> move script
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
-=======
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCz1cPYKamsA_ZJCygL9EY0Zq6stkazTco&callback=initMap"></script>
->>>>>>> batches
-=======
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
->>>>>>> changes
-=======
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_PUBLIC_API_KEY'] %>&callback=initMap"></script>
->>>>>>> add google maps api key
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_PUBLIC_API_KEY'] %>&callback=initMap"></script>
 
-<div class="map"></div>
-<<<<<<< HEAD
+  <div class="map"></div>
+   <script>
+     function initMap() {
+       var map = new google.maps.Map(document.querySelector(".map"), {
+         zoom: 5,
+         center: {lat: 52.3555, lng:  1.1743}
+       });
 
-<<<<<<< HEAD
-  <script>
-    function initMap() {
-      var map = new google.maps.Map(document.querySelector(".map"), {
-        zoom: 5,
-        center: {lat: 52.3555, lng:  1.1743}
-      });
+       setMarkers(map);
+     }
 
-      setMarkers(map);
-    }
+     var locations = (<%= raw @coordinates.to_json %>);
 
-    var locations = (<%= raw @coordinates.to_json %>);
+     function setMarkers(map) {
+       for (var i = 0; i < locations.length; i++) {
 
-    function setMarkers(map) {
-      for (var i = 0; i < locations.length; i++) {
-
-        var location = locations[i];
-        var marker = new google.maps.Marker({
-          position: {lat: location[0], lng: location[1]},
-          map: map
-        });
-      }
-    }
-  </script>
-=======
-=======
-<%= @coordinates %>
->>>>>>> GETS COORDINATES
-=======
-=======
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCz1cPYKamsA_ZJCygL9EY0Zq6stkazTco&callback=initMap"></script>
-=======
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
->>>>>>> no api works
-
->>>>>>> move api line
-<div id="map"></div>
-=======
->>>>>>> works
-=======
->>>>>>> works
-  <script>
-    function initMap() {
-      var map = new google.maps.Map(document.querySelector(".map"), {
-        zoom: 5,
-        center: {lat: 52.3555, lng:  1.1743}
-      });
->>>>>>> plots on google maps
-
-      setMarkers(map);
-    }
-
-    var locations = (<%= raw @coordinates.to_json %>);
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=API_KEY_GOES_HERE&callback=initMap">
-</script>
->>>>>>> google static map
-=======
-      function setMarkers(map) {
-        for (var i = 0; i < locations.length; i++) {
-          var location = locations[i];
-          var marker = new google.maps.Marker({
-            position: {lat: location[0], lng: location[1]},
-            map: map
-          });
-        }
-=======
-    function setMarkers(map) {
-      for (var i = 0; i < locations.length; i++) {
-
-        var location = locations[i];
-        var marker = new google.maps.Marker({
-          position: {lat: location[0], lng: location[1]},
-          map: map
-        });
->>>>>>> plots on google maps
-      }
-    }
-  </script>
-<<<<<<< HEAD
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
-  </script>
->>>>>>> multiple markers
-=======
->>>>>>> move api line
+         var location = locations[i];
+         var marker = new google.maps.Marker({
+           position: {lat: location[0], lng: location[1]},
+           map: map
+         });
+       }
+     }
+   </script>
