@@ -84,6 +84,7 @@ jobs:
           image: runner
 
   - name: Push Image
+    serial_groups: [push-image]
     plan:
       - get: govwifi-admin
         trigger: true
@@ -95,6 +96,9 @@ jobs:
             BUNDLE_INSTALL_FLAGS: '--without test development'
 
   - name: migrate staging
+    serial_groups:
+      - push-image
+      - deploy-staging
     plan:
       - get: govwifi-admin
         trigger: true
@@ -110,6 +114,9 @@ jobs:
           AWS_DEFAULT_REGION: ((deploy-region))
 
   - name: deploy staging
+    serial_groups:
+      - push-image
+      - deploy-staging
     plan:
       - get: govwifi-admin
         passed: [migrate staging]
@@ -125,11 +132,17 @@ jobs:
           DEPLOY_STAGE: staging
 
   - name: Confirm deploy to production
+    serial_groups:
+      - push-image
+      - deploy-production
     plan:
       - get: govwifi-admin
         passed: [deploy staging]
 
   - name: migrate production
+    serial_groups:
+      - push-image
+      - deploy-production
     plan:
       - get: govwifi-admin
         passed: [Confirm deploy to production]
@@ -145,6 +158,9 @@ jobs:
           DEPLOY_STAGE: production
 
   - name: deploy production
+    serial_groups:
+      - push-image
+      - deploy-production
     plan:
       - get: govwifi-admin
         passed: [migrate production]
