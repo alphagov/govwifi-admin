@@ -1,17 +1,30 @@
 DOCKER_COMPOSE = docker-compose -f docker-compose.yml
 BUNDLE_FLAGS=
+
 ifdef DEPLOYMENT
   BUNDLE_FLAGS = --without test development
 endif
 
 ifndef JENKINS_URL
-  DOCKER_COMPOSE += -f docker-compose.development.yml
+  ifndef USE_CONCOURSE_COMPOSE
+    DOCKER_COMPOSE += -f docker-compose.development.yml
+  endif
+endif
+
+ifdef USE_CONCOURSE_COMPOSE
+	DOCKER_COMPOSE += -f docker-compose.concourse.yml
 endif
 
 DOCKER_BUILD_CMD = BUNDLE_INSTALL_FLAGS="$(BUNDLE_FLAGS)" $(DOCKER_COMPOSE) build
 
 build:
-	$(DOCKER_BUILD_CMD)
+ifndef USE_CONCOURSE_COMPOSE
+	$(DOCKER_COMPOSE) build
+endif
+
+prebuild:
+	$(DOCKER_COMPOSE) build
+	$(DOCKER_COMPOSE) up --no-start
 
 serve: stop build
 	$(DOCKER_COMPOSE) up -d govuk-fake-registers db rr_db

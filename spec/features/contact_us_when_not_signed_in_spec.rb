@@ -1,4 +1,4 @@
-describe 'Contact us when not signed in' do
+describe 'Contact us when not signed in', type: :feature do
   include_context 'with a mocked support tickets client'
 
   let(:email) { 'george@gov.uk' }
@@ -12,134 +12,158 @@ describe 'Contact us when not signed in' do
     visit new_help_path
   end
 
-  context 'navigating via links' do
+  context 'when navigating via links' do
     it 'shows the user the not signed in support page' do
       expect(page).to have_content 'How can we help?'
     end
   end
 
-  context 'submits a support ticket' do
-    it 'when having trouble signing up' do
+  context 'when having trouble signing up' do
+    before do
       choose 'I\'m having trouble signing up'
-      click_on('Continue')
+      click_on 'Continue'
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
-      click_on('Submit')
-      expect(page).to have_content 'Your support request has been submitted.'
+      click_on 'Submit'
     end
 
-    it 'when something is wrong with their admin account' do
-      choose 'Something\'s wrong with my admin account'
-      click_on('Continue')
-      expect(page).to have_content 'Something’s wrong with my admin account'
-      fill_in 'Your email address', with: email
-      fill_in 'Tell us a bit more about your issue', with: details
-      click_on('Submit')
-      expect(page).to have_content 'Your support request has been submitted.'
-    end
-
-    it 'when there is a question or feedback' do
-      choose 'Ask a question or leave feedback'
-      click_on('Continue')
-      fill_in 'Your message', with: details
-      fill_in 'Your email address', with: email
-      click_on('Submit')
+    it 'submits the ticket' do
       expect(page).to have_content 'Your support request has been submitted.'
     end
   end
 
-  context 'checks the email is actually sent' do
-    it 'signing up email sent' do
+  context 'when something is wrong with their admin account' do
+    before do
+      choose 'Something\'s wrong with my admin account'
+      click_on 'Continue'
+      fill_in 'Your email address', with: email
+      fill_in 'Tell us a bit more about your issue', with: details
+    end
+
+    it 'submits the ticket' do
+      click_on 'Submit'
+      expect(page).to have_content 'Your support request has been submitted.'
+    end
+
+    it 'sends an email' do
       expect {
-        visit signing_up_new_help_path
-        fill_in 'Your email address', with: email
-        fill_in 'Tell us a bit more about your issue', with: details
         click_on 'Submit'
       }.to change(support_tickets, :count).by(1)
     end
+  end
 
-    it 'existing account email sent' do
-      expect {
-        visit signing_up_new_help_path
-        fill_in 'Your email address', with: email
-        fill_in 'Tell us a bit more about your issue', with: details
-        click_on 'Submit'
-      }.to change(support_tickets, :count).by(1)
+  context 'when there is a question or feedback' do
+    before do
+      choose 'Ask a question or leave feedback'
+      click_on 'Continue'
+      fill_in 'Your message', with: details
+      fill_in 'Your email address', with: email
     end
 
-    it 'feedback email sent' do
+    it 'submits the ticket' do
+      click_on 'Submit'
+      expect(page).to have_content 'Your support request has been submitted.'
+    end
+
+    it 'sends an email' do
       expect {
-        visit feedback_new_help_path
-        fill_in 'Your email address', with: email
-        fill_in 'Your message', with: details
         click_on 'Submit'
       }.to change(support_tickets, :count).by(1)
     end
 
     it 'records the email' do
-      visit signing_up_new_help_path
-      fill_in 'Your email address', with: email
-      fill_in 'Tell us a bit more about your issue', with: details
       click_on 'Submit'
-
       expect(support_tickets.last[:requester][:email])
         .to eq email
     end
   end
 
-  context 'incorrectly filled out form' do
+  context 'with an incorrectly filled out form' do
     before do
       visit signing_up_new_help_path
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
-      expect { click_on('Submit') }.not_to change(support_tickets, :count)
     end
 
     context 'with blank details' do
       let(:details) { '' }
 
-      it 'does not submit the form' do
+      before do
+        click_on 'Submit'
+      end
+
+      it 'displays an error message' do
         expect(page).to have_content 'Details can\'t be blank'
+      end
+
+      it 'does not submit the form' do
+        expect { click_on 'Submit' }.not_to change(support_tickets, :count)
       end
     end
 
     context 'with blank email' do
       let(:email) { '' }
 
-      it 'does not submit the form' do
+      before do
+        click_on 'Submit'
+      end
+
+      it 'displays an error message' do
         expect(page).to have_content 'Email can\'t be blank'
+      end
+
+      it 'does not submit the form' do
+        expect { click_on 'Submit' }.not_to change(support_tickets, :count)
+      end
+    end
+  end
+
+  context 'with incorrect email formats' do
+    before do
+      visit signing_up_new_help_path
+      fill_in 'Your email address', with: email
+      fill_in 'Tell us a bit more about your issue', with: details
+    end
+
+    context 'without a subdomain' do
+      let(:email) { 'test@' }
+
+      before do
+        click_on 'Submit'
+      end
+
+      it 'does not submit the form' do
+        expect(page).to have_content 'Email is not a valid email address'
       end
     end
 
-    context 'with incorrect email formats' do
-      context 'without a subdomain' do
-        let(:email) { 'test@' }
+    context 'with random whitespace' do
+      let(:email) { 'test@ gov .uk' }
 
-        it 'does not submit the form' do
-          expect(page).to have_content 'Email is not a valid email address'
-        end
+      before do
+        click_on 'Submit'
       end
 
-      context 'with random whitespace' do
-        let(:email) { 'test@ gov .uk' }
+      it 'does not submit the form' do
+        expect(page).to have_content 'Email is not a valid email address'
+      end
+    end
 
-        it 'does not submit the form' do
-          expect(page).to have_content 'Email is not a valid email address'
-        end
+    context 'without an @ symbol' do
+      let(:email) { 'testgov.uk' }
+
+      before do
+        click_on 'Submit'
       end
 
-      context 'without an @ symbol' do
-        let(:email) { 'testgov.uk' }
-
-        it 'does not submit the form' do
-          expect(page).to have_content 'Email is not a valid email address'
-        end
+      it 'does not submit the form' do
+        expect(page).to have_content 'Email is not a valid email address'
       end
     end
   end
 end
 
-context 'navigating directly to root/help path' do
+context 'when navigating directly to root/help path' do
   before { visit '/help' }
 
   it 'shows the user the not signed in support page' do
@@ -147,7 +171,7 @@ context 'navigating directly to root/help path' do
   end
 end
 
-context 'navigating directly to signed-in help path' do
+context 'when navigating directly to signed-in help path' do
   before { visit '/help/new/signed_in' }
 
   it 'shows the user the not signed in support page' do

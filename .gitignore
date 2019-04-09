@@ -31,3 +31,5 @@ storage/
 
 # SimpleCov output
 coverage
+
+ci/secrets

@@ -1,7 +1,7 @@
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
-describe 'Sign up as an organisation' do
+describe 'Sign up as an organisation', type: :feature do
   let(:name) { 'Sally' }
 
   before do
@@ -14,8 +14,6 @@ describe 'Sign up as an organisation' do
 
   include_context 'when sending a confirmation email'
   include_context 'when using the notifications service'
-
-
 
   context 'with a valid email' do
     let(:email) { 'newuser@gov.uk' }
@@ -92,7 +90,6 @@ describe 'Sign up as an organisation' do
     before do
       sign_up_for_account
       update_user_details(password: '1')
-      expect(page).to have_content 'Create your GovWifi network admin account'
     end
 
     it_behaves_like 'errors in form'
@@ -121,7 +118,6 @@ describe 'Sign up as an organisation' do
     before do
       sign_up_for_account
       update_user_details(service_email: "")
-      expect(page).to have_content 'Create your GovWifi network admin account'
     end
 
     it_behaves_like 'errors in form'
@@ -135,7 +131,6 @@ describe 'Sign up as an organisation' do
     before do
       sign_up_for_account
       update_user_details(password: '1')
-      expect(page).to have_content 'Create your GovWifi network admin account'
     end
 
     it_behaves_like 'errors in form'
@@ -173,6 +168,11 @@ describe 'Sign up as an organisation' do
     it 'shows the user an error message' do
       within('div#error-summary')do
         expect(page).to have_content('Organisation name is already registered')
+      end
+    end
+
+    it 'displays a contact us link' do
+      within('div#error-summary')do
         expect(page).to have_link('Contact us', href: new_help_path)
       end
     end

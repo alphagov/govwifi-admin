@@ -7,9 +7,6 @@ AllCops:
     - spec/use_cases/organisation/view_radius_ip_addresses_spec.rb
     - spec/use_cases/administrator/publish_signup_whitelist_spec.rb
     - spec/use_cases/administrator/create_support_ticket_spec.rb
-    - spec/features/registration/sign_up_as_an_organisation_spec.rb
-    - spec/features/registration/resend_confirmation_instructions_spec.rb
-    - spec/features/contact_us_when_not_signed_in_spec.rb
     - spec/features/ips/permissions_spec.rb
     - spec/features/ips/view_ip_address_readiness_spec.rb
     - spec/features/ips/add_ip_to_existing_location_spec.rb
