@@ -1,82 +1,57 @@
-describe 'View IP addresses' do
+describe 'Viewing IP addresses', type: :feature do
   include_context 'with a mocked notifications client'
+
+  let(:user) { create(:user) }
+
+  context 'with no IPs' do
+    before do
+      sign_in_user user
+    end
+
+    it 'shows no IPs' do
+      visit ips_path
+      expect(page).to have_content 'You need to add the IPs of your authenticator(s)'
+    end
+
+    it 'redirects the user to the setting up page' do
+      visit root_path
+
+      within("h2") do
+        expect(page).to have_content("Get GovWifi access in your organisation")
+      end
+    end
+  end
+
+  context 'with IPs' do
+    let(:location_one) { create(:location, organisation: user.organisation) }
+    let(:location_two) { create(:location, organisation: user.organisation) }
+    let!(:ip_one) { create(:ip, location: location_one) }
+    let!(:ip_two) { create(:ip, location: location_two) }
+
+    before do
+      sign_in_user user
+      visit ips_path
+    end
+
+    it 'shows the RADIUS secret keys' do
+      displayed_secret_keys = page.all("div#radius-secret-key").map(&:text)
+      expect(displayed_secret_keys).to match_array([location_one.radius_secret_key, location_two.radius_secret_key])
+    end
+
+    it 'shows the IPs' do
+      displayed_ips = page.all("td#ip-address").map(&:text)
+      expect(displayed_ips).to match_array([ip_one.address, ip_two.address])
+    end
+
+    it 'shows the locations addresses' do
+      location_addresses = page.all("span#location-address").map(&:text)
+      expect(location_addresses).to match_array([location_one.full_address, location_two.full_address])
+    end
+  end
 
   context 'when logged out' do
     before { visit ips_path }
 
     it_behaves_like 'not signed in'
-  end
-
-  context 'when logged in' do
-    let(:user) { create(:user) }
-
-    context 'with no IPs' do
-      before do
-        sign_in_user user
-      end
-
-      it 'shows no IPs' do
-        visit ips_path
-        expect(page).to have_content 'Add IP'
-        expect(page).to have_content 'You need to add the IPs of your authenticator(s)'
-      end
-
-      it 'redirects the user to the setting up page' do
-        visit root_path
-
-        within("h2") do
-          expect(page).to have_content("Get GovWifi access in your organisation")
-        end
-      end
-    end
-
-    context 'with IPs' do
-      let(:ip_one) { '141.0.149.130' }
-      let(:ip_two) { '141.0.149.131' }
-      let(:address_one) { '179 Southern Street, Southwark' }
-      let(:address_two) { '123 Northern Street, Whitechapel' }
-      let(:postcode_one) { 'HA7 4BL' }
-      let(:postcode_two) { 'HA7 5BL' }
-      let(:radius_secret_key) { 'E1EAB12AD10B8' }
-
-      before do
-        location_one = create(:location,
-          organisation: user.organisation,
-          address: address_one,
-          postcode: postcode_one)
-
-        location_one.update(radius_secret_key: radius_secret_key)
-
-        location_two = create(:location,
-          organisation: user.organisation,
-          address: address_two,
-          postcode: postcode_two)
-
-        create(:ip, address: ip_one, location: location_one)
-        create(:ip, address: ip_two, location: location_two)
-
-        sign_in_user user
-        visit ips_path
-      end
-
-      it 'shows the RADIUS secret key' do
-        expect(page).to have_content(radius_secret_key)
-      end
-
-      it 'shows those IPs' do
-        expect(page).to have_content(ip_one)
-        expect(page).to have_content(ip_two)
-      end
-
-      it 'shows the related addresses' do
-        expect(page).to have_content(address_one)
-        expect(page).to have_content(address_two)
-      end
-
-      it 'shows the related postcodes' do
-        expect(page).to have_content(postcode_one)
-        expect(page).to have_content(postcode_two)
-      end
-    end
   end
 end

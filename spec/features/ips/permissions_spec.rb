@@ -1,5 +1,5 @@
-describe 'Add an IP' do
-  let!(:user) { create(:user) }
+describe 'Add an IP', type: :feature do
+  let(:user) { create(:user) }
 
   before do
     sign_in_user user
@@ -10,7 +10,7 @@ describe 'Add an IP' do
       user.permission.update!(can_manage_locations: true)
     end
 
-    context 'visiting the add IP page directly' do
+    context 'when visiting the add IP page directly' do
       before do
         visit new_ip_path
       end
@@ -25,7 +25,7 @@ describe 'Add an IP' do
       expect(page).to have_link('Add IP address')
     end
 
-    context 'Homepage instructions' do
+    context 'when viewing homepage instructions' do
       before do
         Ip.delete_all
       end
@@ -47,7 +47,7 @@ describe 'Add an IP' do
       expect(page).not_to have_link('Add IP address')
     end
 
-    context 'visiting the add IP page directly' do
+    context 'when visiting the add IP page directly' do
       before do
         visit new_ip_path
       end
@@ -55,7 +55,7 @@ describe 'Add an IP' do
       it_behaves_like 'shows the setup instructions page'
     end
 
-    context 'Homepage instructions' do
+    context 'when viewing the homepage instructions' do
       before do
         Ip.delete_all
       end
