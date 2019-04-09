@@ -1,25 +1,25 @@
 describe UseCases::Administrator::CreateSupportTicket do
-  subject { described_class.new(tickets_gateway: tickets_gateway_spy) }
+  subject(:use_case) { described_class.new(tickets_gateway: tickets_gateway_spy) }
 
-  let(:tickets_gateway_spy) { spy(:create) }
+  let(:tickets_gateway_spy) { instance_spy(Gateways::ZendeskSupportTickets) }
+  let(:message_subject) { "Admin support request" }
+  let(:email) { "help@support.com" }
+  let(:name) { "Helpy McHelpface" }
+  let(:body) { "some details about my issue" }
+  let(:expected_arguments) { { subject: message_subject, email: email, name: name, body: body } }
 
   before do
-    subject.execute(
+    use_case.execute(
       requester: {
-        email: 'help@support.com',
-        name: 'Helpy McHelpface',
+        email: email,
+        name: name,
         organisation: 'Parks & Rec'
       },
-      details: 'some details about my issue'
+      details: body
     )
   end
 
   it 'passes the requester to the gateway' do
-    expect(tickets_gateway_spy).to have_received(:create) do |args|
-      expect(args[:subject]).to eq 'Admin support request'
-      expect(args[:email]).to eq 'help@support.com'
-      expect(args[:name]).to eq 'Helpy McHelpface'
-      expect(args[:body]).to eq 'some details about my issue'
-    end
+    expect(tickets_gateway_spy).to have_received(:create).with(expected_arguments)
   end
 end
