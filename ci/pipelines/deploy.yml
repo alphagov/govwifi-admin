@@ -94,6 +94,8 @@ jobs:
           build: govwifi-admin
           build_args:
             BUNDLE_INSTALL_FLAGS: '--without test development'
+        get_params:
+          skip_download: true
 
   - name: migrate staging
     serial_groups:
