@@ -12,7 +12,7 @@ class LocationsController < ApplicationController
       Facades::Ips::Publish.new.execute
       redirect_to(
         @location.ips.any? ? created_location_with_ip_ips_path : created_location_ips_path,
-        notice: "Successfully added #{number_of_ips_added} IP address to #{@location.full_address}"
+        notice: "Successfully added #{number_of_ips_added} IP addresses to #{@location.full_address}"
       )
     else
       add_blank_ips_to_location
