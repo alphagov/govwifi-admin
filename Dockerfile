@@ -19,6 +19,7 @@ ENV S3_SIGNUP_WHITELIST_OBJECT_KEY 'StubKEY'
 ENV S3_WHITELIST_OBJECT_KEY 'WhitelistStubKey'
 ENV LOGGING_API_SEARCH_ENDPOINT 'https://govwifi-logging-api.gov.uk/search/'
 ENV S3_MOU_BUCKET 'StubMouBucket'
+ENV GOOGLE_MAPS_PUBLIC_API_KEY 'google-api-key'
 
 ENV RR_DB_USER root
 ENV RR_DB_PASS root

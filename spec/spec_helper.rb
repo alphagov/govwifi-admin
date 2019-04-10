@@ -25,7 +25,7 @@ RSpec.configure do |config|
      to_return(status: 200, body: File.read("#{Rails.root}/spec/fixtures/gov_orgs_payload.json"))
 
     stub_request(:get, 'https://local-authority-eng.register.gov.uk/records.json?page-size=5000').
-    to_return(status: 200, body: File.read("#{Rails.root}/spec/fixtures/local_auths_payload.json"))
+      to_return(status: 200, body: File.read("#{Rails.root}/spec/fixtures/local_auths_payload.json"))
   end
 
   config.around do |example|
