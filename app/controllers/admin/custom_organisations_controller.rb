@@ -56,11 +56,7 @@ private
     sortable_directions.include?(params[:direction]) ? params[:direction] : sortable_directions.first
   end
 
-  def fetch_organisations_from_register
-    @register_organisations = Organisation.fetch_organisations_from_register
-  end
-
   def set_organisations_from_register
-    @fetched_organisations_from_register = fetch_organisations_from_register
+    @fetched_organisations_from_register = Organisation.fetch_organisations_from_register
   end
 end
