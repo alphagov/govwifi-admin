@@ -38,7 +38,7 @@ describe 'Add new location', type: :feature do
       end
     end
 
-    context 'when adding one or more ips' do
+    context 'when adding multiple ips' do
       before do
         fill_in 'Address', with: '30 Square'
         fill_in 'Postcode', with: 'W1A 2AB'

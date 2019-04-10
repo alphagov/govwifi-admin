@@ -6,14 +6,12 @@ class LocationsController < ApplicationController
 
   def create
     @location = Location.new(location_params_without_blank_ips)
-    number_of_ips_added = @location.ips.length
-    pluralize_adress = 'IP address'.pluralize(number_of_ips_added)
 
     if @location.save
       Facades::Ips::Publish.new.execute
       redirect_to(
         @location.ips.any? ? created_location_with_ip_ips_path : created_location_ips_path,
-        notice: "Successfully added #{number_of_ips_added} #{pluralize_adress} to #{@location.full_address}"
+        notice: "Successfully added #{@location.ips.length} #{'IP address'.pluralize(@location.ips.length)} to #{@location.full_address}"
       )
     else
       add_blank_ips_to_location
