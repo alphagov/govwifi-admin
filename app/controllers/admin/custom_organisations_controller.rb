@@ -1,6 +1,8 @@
 class Admin::CustomOrganisationsController < AdminController
   helper_method :sort_column, :sort_direction
 
+  before_action :set_organisations_from_register, only: %i[create index]
+
   def index
     @custom_organisation_names = ordered_custom_orgs
     @custom_organisation = CustomOrganisationName.new
@@ -11,9 +13,10 @@ class Admin::CustomOrganisationsController < AdminController
     @custom_organisation = CustomOrganisationName.new(custom_org_params)
 
     if @custom_organisation.save
-      flash.now[:notice] = "Custom organisation has been successfully added"
+      redirect_to admin_custom_organisations_path, notice: "Custom organisation has been successfully added"
+    else
+      render :index
     end
-    render :index
   end
 
   def destroy
@@ -51,5 +54,9 @@ private
 
   def sort_direction
     sortable_directions.include?(params[:direction]) ? params[:direction] : sortable_directions.first
+  end
+
+  def set_organisations_from_register
+    @fetched_organisations_from_register = Organisation.fetch_organisations_from_register
   end
 end
