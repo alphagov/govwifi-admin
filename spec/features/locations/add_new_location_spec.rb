@@ -29,7 +29,7 @@ describe 'Add new location', type: :feature do
 
       it 'displays the success message to the user' do
         click_on 'Add new location'
-        expect(page).to have_content('30 Square, W1A 2AB added')
+        expect(page).to have_content('Successfully added 1 IP address to 30 Square')
       end
 
       it 'redirects to "After location created with IP" path for analytics' do
