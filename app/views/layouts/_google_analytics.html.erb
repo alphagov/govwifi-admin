@@ -5,7 +5,6 @@
     window.dataLayer = [{
       'signedIn': '<%= user_signed_in?.to_json %>',
       'hasIPs': '<%= (!!current_user && current_organisation.ips.any?).to_json %>'
-      'superAdmin': '<%= (user_signed_in? && super_admin?).to_json %>'
     }];
   </script>
 
