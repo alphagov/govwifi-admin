@@ -27,14 +27,28 @@ describe 'Add new location', type: :feature do
         expect { click_on 'Add new location' }.to change(Location, :count).by(1)
       end
 
-      it 'displays the success message to the user' do
+      it 'displays the success message to the user with 1 IP added' do
         click_on 'Add new location'
-        expect(page).to have_content('30 Square, W1A 2AB added')
+        expect(page).to have_content('Successfully added 1 IP address to 30 Square')
       end
 
       it 'redirects to "After location created with IP" path for analytics' do
         click_on 'Add new location'
         expect(page).to have_current_path('/ips/created/location/with-ip')
+      end
+    end
+
+    context 'when adding multiple ips' do
+      before do
+        fill_in 'Address', with: '30 Square'
+        fill_in 'Postcode', with: 'W1A 2AB'
+        fill_in ip_input, with: '141.0.149.130'
+        fill_in second_ip_input, with: '141.0.149.132'
+      end
+
+      it 'displays the success message to the user with pluralization' do
+        click_on 'Add new location'
+        expect(page).to have_content('Successfully added 2 IP addresses to 30 Square')
       end
     end
 
