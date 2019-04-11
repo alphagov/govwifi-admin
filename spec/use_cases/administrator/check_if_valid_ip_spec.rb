@@ -1,5 +1,6 @@
 describe UseCases::Administrator::CheckIfValidIp do
   subject(:use_case) { described_class.new }
+
   let(:success_result) { use_case.execute(address)[:success] }
   let(:is_ipv6?) { use_case.execute(address)[:ipv6?] }
 
