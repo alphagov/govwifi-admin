@@ -54,6 +54,20 @@ describe Ip do
         ])
       end
     end
+
+    context "with a private address" do
+      let!(:ip) { described_class.create(address: "192.168.0.0", location: location) }
+
+      it "does not save the IP" do
+        expect(described_class.count).to eq(0)
+      end
+
+      it "displays an error message" do
+        expect(ip.errors.full_messages).to eq([
+          "Address '192.168.0.0' is a private IP address. Only public IPv4 addresses can be added."
+        ])
+      end
+    end
   end
 
   context 'when checking availability' do
