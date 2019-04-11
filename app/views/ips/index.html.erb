@@ -1,40 +1,51 @@
-<div class="govuk-grid-row">
-  <%= render "confirm_remove_ip" if @ip_to_delete && current_user.can_manage_locations? %>
-  <%= render "confirm_remove_location" if @location_to_delete && current_user.can_manage_locations? %>
+<script>
+  let filterInput = document.getElementById('filterInput');
+  addEventListener('keyup', filterNames);
 
-  <script>
-    let filterInput = document.getElementById('filterInput');
-    addEventListener('keyup', filterNames);
+  function filterNames(){
+    let filterValue = document.getElementById('filterInput').value.toUpperCase();
+    let table = document.getElementById('wrapper')
+    let item = table.querySelectorAll('caption.govuk-table__caption');
 
-    function filterNames(){
-      let filterValue = document.getElementById('filterInput').value.toUpperCase();
-      let locations = document.getElementById('locations')
+    for(let i = 0;i < item.length;i++){
+      let text = item[i].getElementsByTagName('div')[0];
+
+      if(text.innerHTML.toUpperCase().indexOf(filterValue) > -1){
+        item[i].style.display = '';
+      } else {
+        item[i].style.display = 'none';
+      }
     }
-  </script>
-
-  <div class="govuk-grid-column-two-thirds">
-    <input type='text' id='filterInput' placeholder='Search' class='govuk-input'>
-    <h1 class="govuk-heading-l  govuk-!-padding-top-5">IP addresses</h1>
-  </div>
-  <div class="govuk-grid-column-one-third text-right">
-    <% if current_user.can_manage_locations? %>
-      <% if current_organisation.locations.empty? %>
-        <%= link_to 'Add IP address', new_location_path, class: "govuk-button" %>
-      <% else %>
-        <%= link_to 'Add IP address', new_ip_path, class: "govuk-button" %>
+  }
+</script>
+<div id='wrapper'>
+  <div class="govuk-grid-row">
+    <%= render "confirm_remove_ip" if @ip_to_delete && current_user.can_manage_locations? %>
+    <%= render "confirm_remove_location" if @location_to_delete && current_user.can_manage_locations? %>
+    <div class="govuk-grid-column-two-thirds">
+      <input type='text' id='filterInput' placeholder='Search' class='govuk-input'>
+      <h1 class="govuk-heading-l  govuk-!-padding-top-5">IP addresses</h1>
+    </div>
+    <div class="govuk-grid-column-one-third text-right">
+      <% if current_user.can_manage_locations? %>
+        <% if current_organisation.locations.empty? %>
+          <%= link_to 'Add IP address', new_location_path, class: "govuk-button" %>
+        <% else %>
+          <%= link_to 'Add IP address', new_ip_path, class: "govuk-button" %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
-</div>
 
-<% if current_organisation.locations.empty? %>
-  <p class="govuk-body">
-    You need to add the IPs of your authenticator(s).
-  </p>
-  <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
+  <% if current_organisation.locations.empty? %>
+    <p class="govuk-body">
+      You need to add the IPs of your authenticator(s).
+    </p>
+    <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
 
-<% else %>
-  <% @locations.each do |location| %>
-    <%= render "ips/table", location: location %>
+  <% else %>
+    <% @locations.each do |location| %>
+      <%= render "ips/table", location: location %>
+    <% end %>
   <% end %>
-<% end %>
+</div>
