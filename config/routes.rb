@@ -66,11 +66,15 @@ Rails.application.routes.draw do
   resources :overview, only: %i[index]
 
   namespace :admin do
+    resources :govwifi_map, only: %i[index]
     resources :mou, only: %i[index update create]
     resources :organisations, only: %i[index show destroy]
-    resources :custom_organisations, only: %i[index create destroy]
-    resources :authorised_email_domains, only: %i[index new create destroy]
-    resources :govwifi_map, only: %i[index]
+    resource :whitelist, only: %i[new] do
+      scope module: 'whitelists' do
+        resources :email_domains, only: %i[index new create destroy]
+        resources :organisation_names, only: %i[index create destroy]
+      end
+    end
   end
 
   %w( 404 422 500 ).each do |code|
