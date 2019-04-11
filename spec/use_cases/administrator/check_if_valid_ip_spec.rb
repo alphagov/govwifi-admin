@@ -23,6 +23,10 @@ describe UseCases::Administrator::CheckIfValidIp do
       it 'returns false' do
         expect(success_result).to eq(false)
       end
+
+      it 'returns a custom error message' do
+        expect(error_message).to eq("'#{address}' is a private IP address. Only public IPv4 addresses can be added.")
+      end
     end
 
     context 'with an empty string' do

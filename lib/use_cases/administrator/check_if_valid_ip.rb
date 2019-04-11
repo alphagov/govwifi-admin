@@ -28,8 +28,16 @@ module UseCases
           address_is_not_private?
       end
 
+      def private_ip_address?
+        address.present? &&
+          address_is_ipv4? &&
+          !address_is_not_private?
+      end
+
       def custom_error_message
         return "'#{address}' is an IPv6 address. Only IPv4 addresses can be added." if valid_ipv6_address?
+
+        return "'#{address}' is a private IP address. Only public IPv4 addresses can be added." if private_ip_address?
 
         "'#{address}' is not valid" if !valid_ipv4_address?
       end
