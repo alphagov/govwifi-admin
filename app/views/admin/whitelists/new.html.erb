@@ -1,1 +1,14 @@
-Whitelist an organisation
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-quarter">
+    <nav>
+      <ul class="govuk-list">
+        <li><%= link_to "Start here", new_admin_whitelist_path, class: "govuk-link" %></li>
+        <li><%= link_to "Organisations whitelist", admin_whitelist_organisation_names_path, class: "govuk-link" %></li>
+        <li><%= link_to "Users whitelist", admin_whitelist_email_domains_path, class: "govuk-link" %></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="govuk-grid-column-three-quarters">
+    <h2 class="govuk-heading-m">Give an organisation access to GovWifi</h2>
+  </div>
+</div>

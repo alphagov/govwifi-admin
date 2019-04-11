@@ -5,6 +5,9 @@ describe 'Whitelisting an organisation', type: :feature do
   end
 
   it 'displays the new page' do
-    expect(page).to have_content('Whitelist an organisation')
+    expect(page).to have_content('Give an organisation access to GovWifi')
+    expect(page).to have_link('Start here')
+    expect(page).to have_link('Organisations whitelist')
+    expect(page).to have_link('Users whitelist')
   end
 end
