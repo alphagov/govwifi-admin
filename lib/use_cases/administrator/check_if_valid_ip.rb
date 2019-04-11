@@ -3,14 +3,14 @@ module UseCases
     class CheckIfValidIp
       def execute(address)
         @address = address
-        { success: valid_address?, ipv6: ipv6_address? }
+        { success: valid_ipv4_address?, ipv6?: valid_ipv6_address? }
       end
 
     private
 
       attr_reader :address
 
-      def valid_address?
+      def valid_ipv4_address?
         address.present? &&
           address_is_ipv4? &&
           address_is_not_subnet? &&
@@ -19,7 +19,7 @@ module UseCases
           address_is_not_private?
       end
 
-      def ipv6_address?
+      def valid_ipv6_address?
         address.present? &&
           address_is_ipv6? &&
           address_is_not_subnet? &&
