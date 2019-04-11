@@ -2,7 +2,10 @@
 <%= render "confirm_remove_custom_organisation" if params[:remove_custom_org] %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-one-quarter">
+    <%= render "admin/whitelists/side_nav" %>
+  </div>
+  <div class="govuk-grid-column-three-quarters">
     <h2 class="govuk-heading-l">Allow an organisation access to the admin platform</h2>
       <%= label_tag 'search_orgs_label', "Search for existing organisations on GovWifi before adding them", class: "govuk-label" %>
       <%= select_tag "organisations_register", options_for_select(@fetched_organisations_from_register << '', '') %>
