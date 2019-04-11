@@ -103,6 +103,10 @@ describe UseCases::Administrator::CheckIfValidIp do
       it 'returns true' do
         expect(success_result).to eq(true)
       end
+
+      it 'does not return a custom error message' do
+        expect(error_message).to eq(nil)
+      end
     end
   end
 end
