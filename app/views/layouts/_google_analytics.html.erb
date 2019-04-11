@@ -2,8 +2,8 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=<%= SITE_CONFIG['google_analytics_script_id'] %>"></script>
 
   <script>
-    dataLayer = [{
-      'signedIn': '<%= user_signed_in?.to_json %>',
+    window.dataLayer = [{
+      'signedIn': '<%= user_signed_in?.to_json %>',
       'hasIPs': '<%= (!!current_user && current_organisation.ips.any?).to_json %>'
     }];
   </script>
