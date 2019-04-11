@@ -38,14 +38,14 @@ describe 'Adding an IP to an existing location', type: :feature do
       end
     end
 
-    context 'with the wrong IP format' do
+    context 'with data as an IPv6 address' do
       let(:ip_address) { 'FE80::0202:B3FF:FE1E:8329' }
 
       it 'does not add an IP to the location' do
         expect(location.reload.ips).to be_empty
       end
 
-      it 'shows a error message' do
+      it 'shows an error message' do
         expect(page).to have_content("'FE80::0202:B3FF:FE1E:8329' is an IPv6 address. Only IPv4 addresses can be added")
       end
     end
