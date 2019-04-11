@@ -48,7 +48,7 @@ describe Ip do
         expect(described_class.count).to eq(0)
       end
 
-      it "displays an an error message" do
+      it "displays an error message" do
         expect(ip.errors.full_messages).to eq([
           "Address '2001:db8:0:1234:0:567:8:1' is an IPv6 address. Only IPv4 addresses can be added."
         ])
