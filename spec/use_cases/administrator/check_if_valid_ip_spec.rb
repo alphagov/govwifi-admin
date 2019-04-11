@@ -6,8 +6,8 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { "incorrectIP" }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        result = use_case.execute(address)[:success]
+        expect(result).to eq(false)
       end
     end
 
@@ -15,8 +15,8 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { "10.255.255.255" }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        result = use_case.execute(address)[:success]
+        expect(result).to eq(false)
       end
     end
 
@@ -24,8 +24,8 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        result = use_case.execute(address)[:success]
+        expect(result).to eq(false)
       end
     end
 
@@ -33,8 +33,8 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { nil }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        result = use_case.execute(address)[:success]
+        expect(result).to eq(false)
       end
     end
 
@@ -42,8 +42,8 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '172.16.254.1.' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        result = use_case.execute(address)[:success]
+        expect(result).to eq(false)
       end
     end
 
@@ -51,8 +51,8 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '172.16.254.1 ' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        result = use_case.execute(address)[:success]
+        expect(result).to eq(false)
       end
     end
 
@@ -60,8 +60,8 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '192.618.0.1' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        result = use_case.execute(address)[:success]
+        expect(result).to eq(false)
       end
     end
 
@@ -69,8 +69,8 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '127.0.0.1' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        result = use_case.execute(address)[:success]
+        expect(result).to eq(false)
       end
     end
   end
@@ -80,8 +80,8 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '192.168.1.15/24' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        result = use_case.execute(address)[:success]
+        expect(result).to eq(false)
       end
     end
 
@@ -89,8 +89,13 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '2001:db8:0:1234:0:567:8:1' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        result = use_case.execute(address)[:success]
+        expect(result).to eq(false)
+      end
+
+      it 'recognises address as IPv6' do
+        result = use_case.execute(address)[:ipv6]
+        expect(result).to eq(true)
       end
     end
   end
@@ -100,8 +105,8 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '141.0.149.130' }
 
       it 'returns true' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: true)
+        result = use_case.execute(address)[:success]
+        expect(result).to eq(true)
       end
     end
   end
