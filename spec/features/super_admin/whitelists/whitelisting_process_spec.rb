@@ -4,10 +4,17 @@ describe 'Whitelisting an organisation', type: :feature do
     visit new_admin_whitelist_path
   end
 
-  it 'displays the new page' do
+  it 'displays the start page' do
     expect(page).to have_content('Give an organisation access to GovWifi')
-    expect(page).to have_link('Start here')
-    expect(page).to have_link('Organisations whitelist')
-    expect(page).to have_link('Users whitelist')
+  end
+
+  it 'allows the user to see the list of whitelisted organisations' do
+    click_on "Organisations whitelist"
+    expect(page).to have_content("Custom Organisations that are already in our register")
+  end
+
+  it 'allows the user to see the list of whitelisted email domains' do
+    click_on "Users whitelist"
+    expect(page).to have_content("Email domains that are already whitelisted")
   end
 end
