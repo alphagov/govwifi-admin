@@ -29,7 +29,7 @@ describe Ip do
       end
     end
 
-    context "with a valid address" do
+    context "with a valid IPv4 address" do
       let!(:ip) { described_class.create(address: "141.0.149.130", location: location) }
 
       it "saves the IP" do
@@ -38,6 +38,20 @@ describe Ip do
 
       it "does not display an an error message" do
         expect(ip.errors.full_messages).to eq([])
+      end
+    end
+
+    context "with a valid IPv6 address" do
+      let!(:ip) { described_class.create(address: "2001:db8:0:1234:0:567:8:1", location: location) }
+
+      it "does not save the IP" do
+        expect(described_class.count).to eq(0)
+      end
+
+      it "displays an an error message" do
+        expect(ip.errors.full_messages).to eq([
+          "Address '2001:db8:0:1234:0:567:8:1' is an IPv6 address. Only IPv4 addresses can be added."
+        ])
       end
     end
   end

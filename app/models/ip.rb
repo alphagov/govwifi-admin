@@ -12,8 +12,12 @@ private
 
   def address_must_be_valid_ip
     checker = UseCases::Administrator::CheckIfValidIp.new
-    valid_ip = checker.execute(self.address)[:success]
+    valid_ipv4 = checker.execute(self.address)[:success]
+    valid_ipv6 = checker.execute(self.address)[:ipv6]
+    message2 = "'#{self.address}' is an IPv6 address. Only IPv4 addresses can be added."
+    return errors.add(:address, message2) if valid_ipv6
+
     message = "'#{self.address}' is not valid"
-    errors.add(:address, message) unless valid_ip
+    errors.add(:address, message) unless valid_ipv4 && !valid_ipv6
   end
 end
