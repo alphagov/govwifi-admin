@@ -1,8 +1,8 @@
 <script>
   let filterInput = document.getElementById('filterInput');
-  addEventListener('keyup', filterNames);
+  addEventListener('keyup', filterLocations);
 
-  function filterNames(){
+  function filterLocations(){
     let filterValue = document.getElementById('filterInput').value.toUpperCase();
     let table = document.getElementById('wrapper')
     let location_name = table.querySelectorAll('caption.govuk-table__caption');
