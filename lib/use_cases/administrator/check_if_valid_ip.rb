@@ -3,7 +3,7 @@ module UseCases
     class CheckIfValidIp
       def execute(address)
         @address = address
-        { success: valid_ipv4_address?, ipv6?: valid_ipv6_address? }
+        { success: valid_ipv4_address?, error_message: custom_error_message }
       end
 
     private
@@ -26,6 +26,12 @@ module UseCases
           address_does_not_allows_all? &&
           address_is_not_loopback? &&
           address_is_not_private?
+      end
+
+      def custom_error_message
+        return "'#{address}' is an IPv6 address. Only IPv4 addresses can be added." if valid_ipv6_address?
+
+        "'#{address}' is not valid" if !valid_ipv4_address?
       end
 
       def address_does_not_allows_all?

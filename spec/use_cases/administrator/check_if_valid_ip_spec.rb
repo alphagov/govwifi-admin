@@ -2,7 +2,7 @@ describe UseCases::Administrator::CheckIfValidIp do
   subject(:use_case) { described_class.new }
 
   let(:success_result) { use_case.execute(address)[:success] }
-  let(:is_ipv6?) { use_case.execute(address)[:ipv6?] }
+  let(:error_message) { use_case.execute(address)[:error_message] }
 
   context 'when invalid' do
     context 'with an invalid IP address' do
@@ -10,6 +10,10 @@ describe UseCases::Administrator::CheckIfValidIp do
 
       it 'returns false' do
         expect(success_result).to eq(false)
+      end
+
+      it 'returns a custom error message' do
+        expect(error_message).to eq("'#{address}' is not valid")
       end
     end
 
@@ -86,8 +90,8 @@ describe UseCases::Administrator::CheckIfValidIp do
         expect(success_result).to eq(false)
       end
 
-      it 'recognises the address format' do
-        expect(is_ipv6?).to eq(true)
+      it 'returns a custom error message' do
+        expect(error_message).to eq("'#{address}' is an IPv6 address. Only IPv4 addresses can be added.")
       end
     end
   end
