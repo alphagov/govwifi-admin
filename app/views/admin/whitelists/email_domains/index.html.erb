@@ -7,8 +7,8 @@
   </div>
 
   <div class="govuk-grid-column-one-third text-right">
-    <%= link_to 'Whitelist a domain', new_admin_authorised_email_domain_path, class: "govuk-button" %>
+    <%= link_to 'Whitelist a domain', new_admin_whitelist_email_domain_path, class: "govuk-button" %>
   </div>
 </div>
 
- <%= render 'admin/authorised_email_domains/table', domains: @authorised_email_domains %>
+ <%= render 'admin/whitelists/email_domains/table', domains: @authorised_email_domains %>

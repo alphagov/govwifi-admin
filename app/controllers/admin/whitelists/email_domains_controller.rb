@@ -1,4 +1,4 @@
-class Admin::AuthorisedEmailDomainsController < AdminController
+class Admin::Whitelists::EmailDomainsController < AdminController
   helper_method :sort_column, :sort_direction
 
   def index
@@ -22,7 +22,7 @@ class Admin::AuthorisedEmailDomainsController < AdminController
         presenter: UseCases::Administrator::CreateSignupWhitelist.new
       ).execute
 
-      redirect_to admin_authorised_email_domains_path, notice: "#{@authorised_email_domain.name} authorised"
+      redirect_to admin_whitelist_email_domains_path, notice: "#{@authorised_email_domain.name} authorised"
     else
       render :new
     end
@@ -41,7 +41,7 @@ class Admin::AuthorisedEmailDomainsController < AdminController
       presenter: UseCases::Administrator::CreateSignupWhitelist.new
     ).execute
 
-    redirect_to admin_authorised_email_domains_path, notice: "#{authorised_email_domain.name} has been deleted"
+    redirect_to admin_whitelist_email_domains_path, notice: "#{authorised_email_domain.name} has been deleted"
   end
 
 private
