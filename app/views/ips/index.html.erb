@@ -2,8 +2,19 @@
   <%= render "confirm_remove_ip" if @ip_to_delete && current_user.can_manage_locations? %>
   <%= render "confirm_remove_location" if @location_to_delete && current_user.can_manage_locations? %>
 
+  <script>
+    let filterInput = document.getElementById('filterInput');
+    addEventListener('keyup', filterNames);
+
+    function filterNames(){
+      let filterValue = document.getElementById('filterInput').value.toUpperCase();
+      let locations = document.getElementById('locations')
+    }
+  </script>
+
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">IP addresses</h1>
+    <input type='text' id='filterInput' placeholder='Search' class='govuk-input'>
+    <h1 class="govuk-heading-l  govuk-!-padding-top-5">IP addresses</h1>
   </div>
   <div class="govuk-grid-column-one-third text-right">
     <% if current_user.can_manage_locations? %>
