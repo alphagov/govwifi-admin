@@ -44,9 +44,7 @@ describe "View authentication requests for a username", type: :feature do
       create(:ip, location: location_two, address: "2.2.2.2")
 
       sign_in_user admin_user
-      visit new_logs_search_path
-      choose "Username"
-      click_on "Go to search"
+      visit username_new_logs_search_path
       fill_in "Username", with: search_string
       click_on "Show logs"
     end

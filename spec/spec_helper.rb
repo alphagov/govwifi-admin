@@ -1,6 +1,10 @@
 require 'simplecov'
 
-SimpleCov.start
+SimpleCov.start 'rails'
+SimpleCov.add_filter [
+  'app/controllers/application_controller.rb',
+  'app/helpers/application_helper.rb'
+]
 
 RSpec.configure do |config|
   config.filter_run focus: true
