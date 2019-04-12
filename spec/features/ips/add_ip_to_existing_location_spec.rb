@@ -61,6 +61,18 @@ describe 'Adding an IP to an existing location', type: :feature do
         expect(page).to have_content("'192.168.0.0' is a private IP address. Only public IPv4 addresses can be added.")
       end
     end
+
+    context 'with blank data' do
+      let(:ip_address) { '' }
+
+      it 'does not add an IP to the location' do
+        expect(location.reload.ips).to be_empty
+      end
+
+      it 'shows an error message' do
+        expect(page).to have_content("Address can't be blank")
+      end
+    end
   end
 
   context 'when selecting another location' do
