@@ -3,8 +3,9 @@
     <%= render "admin/whitelists/side_nav" %>
   </div>
   <div class="govuk-grid-column-three-quarters">
-    <% if params[:step] %>
-      <%= render "admin/whitelists/steps/#{params[:step]}" %>
+    <% next_step = params.dig(:step) || params.dig(:whitelist, :step) %>
+    <% if next_step  %>
+      <%= render "admin/whitelists/steps/#{next_step}" %>
     <% else %>
       <%= render "admin/whitelists/steps/first" %>
     <% end %>

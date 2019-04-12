@@ -47,24 +47,55 @@ describe 'Whitelisting an organisation', type: :feature do
   end
 
   context 'saving the results of the setup process' do
-    before do
-      visit new_admin_whitelist_path(
-        step: 'fifth',
-        organisation_name: 'Made Tech Limited'
-      )
-      fill_in 'Email domain', with: 'madetech.com'
+    context 'with correct data' do
+      before do
+        visit new_admin_whitelist_path(
+          whitelist: {
+            step: 'fifth',
+            organisation_name: 'Made Tech Limited'
+          }
+        )
+        fill_in 'Email domain', with: 'madetech.com'
 
+      end
+
+      it 'saves the entered details' do
+        expect { click_on 'Continue' }.to change(CustomOrganisationName, :count).by(1)
+          .and change(AuthorisedEmailDomain, :count).by(1)
+      end
+
+      it 'displays a success message to the user' do
+        click_on 'Continue'
+        expect(page).to have_content('Saved')
+      end
     end
 
-    it 'saves the entered details' do
-      expect { click_on 'Continue' }.to change(CustomOrganisationName, :count).by(1)
-        .and change(AuthorisedEmailDomain, :count).by(1)
-    end
+    context 'with incorrect email domain' do
+      before do
+        AuthorisedEmailDomain.create(name: "madetech.com")
+        visit new_admin_whitelist_path(
+          whitelist: {
+            step: 'fifth',
+            organisation_name: 'Made Tech Limited'
+          }
+        )
+        fill_in 'Email domain', with: 'madetech.com'
+      end
 
+      it 'does not save the entered details' do
+        expect { click_on 'Continue' }.to change(CustomOrganisationName, :count).by(0)
+          .and change(AuthorisedEmailDomain, :count).by(0)
+      end
 
-    it 'displays a success message to the user' do
-      click_on 'Continue'
-      expect(page).to have_content('Saved')
+      it 'redirects to the fourth step' do
+        click_on 'Continue'
+        expect(page).to have_content('Add the organisation name to the register')
+      end
+
+      it 'displays an error message to the user' do
+        click_on 'Continue'
+        expect(page).to have_content('Validation failed')
+      end
     end
   end
 end
