@@ -5,7 +5,7 @@
   function filterLocations(){
     let filterValue = document.getElementById('filterInput').value.toUpperCase();
     let table = document.getElementById('wrapper')
-    let location_name = table.querySelectorAll('caption.govuk-table__caption');
+    let location_name = table.querySelectorAll('table.govuk-table');
     let ips = table.querySelectorAll('tbody#ips-table');
 
     for(let i = 0;i < location_name.length;i++){
