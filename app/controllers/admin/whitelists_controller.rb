@@ -2,9 +2,11 @@ class Admin::WhitelistsController < AdminController
   def new; end
 
   def create
-    whitelisted_name = CustomOrganisationName.new(name: params[:organisation_name])
-    if whitelisted_name.save
-      email_domain = AuthorisedEmailDomain.create(name: whitelist_params[:email_domain])
+    whitelisted_details = Whitelist.new(
+      organisation_name: whitelist_params[:organisation_name],
+      email_domain: whitelist_params[:email_domain]
+    )
+    if whitelisted_details.save
       redirect_to new_admin_whitelist_path, notice: "Saved"
     end
   end
