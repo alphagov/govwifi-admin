@@ -30,7 +30,7 @@ resources:
     type: registry-image
     source:
       repository: ruby
-      tag: 2.6.2-alpine3.9
+      tag: '2.6.2'
 
   - name: nginx-image
     type: registry-image
