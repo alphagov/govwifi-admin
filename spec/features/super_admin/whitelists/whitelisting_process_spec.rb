@@ -44,25 +44,6 @@ describe 'Whitelisting an organisation', type: :feature do
       click_on 'Continue'
       expect(page).to have_content("Add the organisation's email domain to the whitelist")
     end
-
-    it 'displays the sixth step' do
-      click_on 'Start'
-      click_on 'Continue'
-      click_on 'Continue'
-      click_on 'Continue'
-      click_on 'Continue'
-      expect(page).to have_content("You've whitelisted the organisation to use GovWifi")
-    end
-
-    it 'displays the sixth step' do
-      click_on 'Start'
-      click_on 'Continue'
-      click_on 'Continue'
-      click_on 'Continue'
-      click_on 'Continue'
-      click_on 'Done'
-      expect(page).to have_content("Give an organisation access to GovWifi")
-    end
   end
 
   context 'saving the results of the setup process' do
@@ -72,10 +53,18 @@ describe 'Whitelisting an organisation', type: :feature do
         organisation_name: 'Made Tech Limited'
       )
       fill_in 'Email domain', with: 'madetech.com'
-      click_on 'Continue'
+
     end
 
     it 'saves the entered details' do
+      expect { click_on 'Continue' }.to change(CustomOrganisationName, :count).by(1)
+        .and change(AuthorisedEmailDomain, :count).by(1)
+    end
+
+
+    it 'displays a success message to the user' do
+      click_on 'Continue'
+      expect(page).to have_content('Saved')
     end
   end
 end
