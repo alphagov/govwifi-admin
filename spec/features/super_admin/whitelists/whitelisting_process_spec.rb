@@ -64,4 +64,18 @@ describe 'Whitelisting an organisation', type: :feature do
       expect(page).to have_content("Give an organisation access to GovWifi")
     end
   end
+
+  context 'saving the results of the setup process' do
+    before do
+      visit new_admin_whitelist_path(
+        step: 'fifth',
+        organisation_name: 'Made Tech Limited'
+      )
+      fill_in 'Email domain', with: 'madetech.com'
+      click_on 'Continue'
+    end
+
+    it 'saves the entered details' do
+    end
+  end
 end
