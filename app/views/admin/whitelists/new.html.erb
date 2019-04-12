@@ -3,23 +3,10 @@
     <%= render "admin/whitelists/side_nav" %>
   </div>
   <div class="govuk-grid-column-three-quarters">
-    <h1 class="govuk-heading-l">Give an organisation access to GovWifi</h1>
-    <h3 class="govuk-heading-s">Allowed Organisation Names</h3>
-    <p class="govuk-body">
-      For an organisation to sign up to GovWifi, their organisation's name needs to be on the 'register', which is a known list
-      of accepted public sector organisation names. If the organisation is not on the list, then the name can be added. Once an
-      organisation's name is whitelisted, it will appear in the drop down list during the signup process.
-    </p>
-    <h3 class="govuk-heading-s">Allowed End User Email Addresses</h3>
-    <p class="govuk-body">
-      Anyone with an email neding in ".gov.uk" can request a GovWifi username and password. For any organisations with emails that
-      don't end in ".gov.uk" their email domain needs to be whitelisted first. Once an organisation's email domain is whitelisted,
-      all end users of the organisation will be able to signup for GovWifi.
-    </p>
-
-    <p class="govuk-body">
-      Follow these instructions to whitelist an organisation and its users
-    </p>
-    <%= button_tag "Start", class: "govuk-button", disabled: true %>
+    <% if params[:step] %>
+      <%= render "admin/whitelists/steps/#{params[:step]}" %>
+    <% else %>
+      <%= render "admin/whitelists/steps/first" %>
+    <% end %>
   </div>
 </div>
