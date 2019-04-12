@@ -15,6 +15,13 @@ describe Ip do
       ])
     end
 
+    it 'does not allow a blank address' do
+      ip = described_class.create(address: '', location: location)
+      expect(ip.errors.full_messages).to eq([
+        "Address can't be blank"
+      ])
+    end
+
     context "with an invalid address" do
       let!(:ip) { described_class.create(address: "invalidIP", location: location) }
 
