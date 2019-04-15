@@ -56,45 +56,58 @@ describe 'Whitelisting an organisation', type: :feature do
           }
         )
         fill_in 'Email domain', with: 'madetech.com'
-
+        click_on 'Continue'
       end
 
       it 'saves the entered details' do
-        expect { click_on 'Continue' }.to change(CustomOrganisationName, :count).by(1)
+        expect { click_on "Submit" }.to change(CustomOrganisationName, :count).by(1)
           .and change(AuthorisedEmailDomain, :count).by(1)
       end
 
       it 'displays a success message to the user' do
-        click_on 'Continue'
+        click_on 'Submit'
         expect(page).to have_content('Organisation has been whitelisted')
       end
     end
 
-    context 'with incorrect email domain' do
+    context 'with an incorrect organisation name' do
+      let(:organisation_name) { "Made Tech Ltd" }
       before do
-        AuthorisedEmailDomain.create(name: "madetech.com")
+        CustomOrganisationName.create(name: organisation_name)
+        visit new_admin_whitelist_path(step: "fourth")
+        fill_in 'Organisation name', with: organisation_name
+        click_on 'Continue'
+      end
+
+      it 'rerenders the organisation name form' do
+        expect(page).to have_content('Add the organisation name to the register')
+      end
+
+      it 'displays an error message to the user' do
+        expect(page).to have_content('Name is already in our register')
+      end
+    end
+
+    context 'with incorrect email domain' do
+      let(:email_domain) { "madetech.com" }
+      before do
+        AuthorisedEmailDomain.create(name: email_domain)
         visit new_admin_whitelist_path(
           whitelist: {
             step: 'fifth',
             organisation_name: 'Made Tech Limited'
           }
         )
-        fill_in 'Email domain', with: 'madetech.com'
-      end
-
-      it 'does not save the entered details' do
-        expect { click_on 'Continue' }.to change(CustomOrganisationName, :count).by(0)
-          .and change(AuthorisedEmailDomain, :count).by(0)
-      end
-
-      it 'redirects to the fourth step' do
+        fill_in 'Email domain', with: email_domain
         click_on 'Continue'
-        expect(page).to have_content('Add the organisation name to the register')
+      end
+
+      it 'rerenders the email domain form' do
+        expect(page).to have_content("Add the organisation's email domain to the whitelist")
       end
 
       it 'displays an error message to the user' do
-        click_on 'Continue'
-        expect(page).to have_content('Validation failed')
+        expect(page).to have_content('Name has already been taken')
       end
     end
   end

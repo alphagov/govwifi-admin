@@ -1,6 +1,26 @@
 class Admin::WhitelistsController < AdminController
   def new
     @whitelist ||= Whitelist.new
+
+    if organisation_name_submitted? && organisation_name_needs_validation?
+      @organisation_name = CustomOrganisationName.new(name: whitelist_params.dig(:organisation_name))
+      if @organisation_name.invalid?
+        params[:whitelist][:step] = "fourth"
+      else
+        params[:whitelist][:organisation_name_valid] = true
+      end
+    end
+
+    if params.dig(:whitelist, :email_domain).present?
+      @email_domain = AuthorisedEmailDomain.new(name: whitelist_params.dig(:email_domain))
+      if @email_domain.invalid?
+        params[:whitelist][:step] = "fifth"
+      end
+    end
+
+    # validate each form here individually
+    # if params[organisation_name].present? validate it
+
   end
 
   def create
@@ -18,7 +38,15 @@ class Admin::WhitelistsController < AdminController
 
 private
 
+  def organisation_name_submitted?
+    params.dig(:whitelist, :organisation_name).present?
+  end
+
+  def organisation_name_needs_validation?
+    !!!whitelist_params.dig(:organisation_name_valid)
+  end
+
   def whitelist_params
-    params.require(:whitelist).permit(:email_domain, :organisation_name)
+    params.require(:whitelist).permit(:email_domain, :organisation_name, :organisation_name_valid)
   end
 end

@@ -1,2 +1,12 @@
-<h1 class="govuk-heading-l">You've whitelisted the organisation to use GovWifi</h1>
-<%= link_to "Done", new_admin_whitelist_path, class: "govuk-button" %>
+<h1 class="govuk-heading-l">You've entered the following info</h1>
+<%= params %>
+<%= form_with model: @whitelist, url: admin_whitelist_path do |form| %>
+  <div class="govuk-form-group">
+    <%= form.hidden_field :organisation_name, value: params.dig(:whitelist, :organisation_name) %>
+    <%= form.hidden_field :email_domain, value: params.dig(:whitelist, :email_domain) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Submit", class: "govuk-button" %>
+  </div>
+<% end %>
