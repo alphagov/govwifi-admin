@@ -1,4 +1,4 @@
-describe 'Application errors', type: 'feature' do
+describe 'Application errors', type: :feature do
   let(:user) { create(:user) }
 
   it 'renders a page not found page' do
