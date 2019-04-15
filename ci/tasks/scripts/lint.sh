@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e -u -o pipefail
+set -v -e -u -o pipefail
 
 ./govwifi-admin/ci/tasks/scripts/with-docker.sh
 

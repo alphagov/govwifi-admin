@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e -u -o pipefail
+set -v -e -u -o pipefail
 
 function stage_name() {
   local deploy_stage="${DEPLOY_STAGE}"
