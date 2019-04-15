@@ -23,7 +23,7 @@ class Admin::Whitelists::OrganisationNamesController < AdminController
     custom_org = CustomOrganisationName.find(params.fetch(:id))
 
     custom_org.destroy
-    redirect_to admin_custom_organisations_path, notice: "Successfully removed #{custom_org.name}"
+    redirect_to admin_whitelist_organisation_names_path, notice: "Successfully removed #{custom_org.name}"
   end
 
 private

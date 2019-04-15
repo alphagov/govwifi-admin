@@ -26,7 +26,7 @@ describe 'Editing an organisations details', type: :feature do
       sign_in_user other_user
     end
 
-    it 'will cause routing error' do
+    it 'displays an error message to the user' do
       expect {
         visit edit_organisation_path(user.organisation)
       }.to raise_error(ActionController::RoutingError)
@@ -41,7 +41,7 @@ describe 'Editing an organisations details', type: :feature do
       click_on 'Save'
     end
 
-    it 'will cause routing error' do
+    it 'will display an error to the user' do
       expect(page).to have_content("Service email can't be blank")
     end
   end
