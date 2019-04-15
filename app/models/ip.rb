@@ -12,8 +12,7 @@ private
 
   def address_must_be_valid_ip
     checker = UseCases::Administrator::CheckIfValidIp.new
-    valid_ip = checker.execute(self.address)[:success]
-    message = "'#{self.address}' is not valid"
-    errors.add(:address, message) unless valid_ip
+    results = checker.execute(self.address)
+    errors.add(:address, results[:error_message]) unless results[:success]
   end
 end

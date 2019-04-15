@@ -1,13 +1,19 @@
 describe UseCases::Administrator::CheckIfValidIp do
   subject(:use_case) { described_class.new }
 
+  let(:success_result) { use_case.execute(address)[:success] }
+  let(:error_message) { use_case.execute(address)[:error_message] }
+
   context 'when invalid' do
     context 'with an invalid IP address' do
       let(:address) { "incorrectIP" }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        expect(success_result).to eq(false)
+      end
+
+      it 'returns a custom error message' do
+        expect(error_message).to eq("'#{address}' is not valid")
       end
     end
 
@@ -15,8 +21,11 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { "10.255.255.255" }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        expect(success_result).to eq(false)
+      end
+
+      it 'returns a custom error message' do
+        expect(error_message).to eq("'#{address}' is a private IP address. Only public IPv4 addresses can be added.")
       end
     end
 
@@ -24,8 +33,7 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        expect(success_result).to eq(false)
       end
     end
 
@@ -33,8 +41,7 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { nil }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        expect(success_result).to eq(false)
       end
     end
 
@@ -42,8 +49,7 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '172.16.254.1.' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        expect(success_result).to eq(false)
       end
     end
 
@@ -51,8 +57,7 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '172.16.254.1 ' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        expect(success_result).to eq(false)
       end
     end
 
@@ -60,8 +65,7 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '192.618.0.1' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        expect(success_result).to eq(false)
       end
     end
 
@@ -69,8 +73,7 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '127.0.0.1' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        expect(success_result).to eq(false)
       end
     end
   end
@@ -80,8 +83,7 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '192.168.1.15/24' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        expect(success_result).to eq(false)
       end
     end
 
@@ -89,8 +91,11 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '2001:db8:0:1234:0:567:8:1' }
 
       it 'returns false' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: false)
+        expect(success_result).to eq(false)
+      end
+
+      it 'returns a custom error message' do
+        expect(error_message).to eq("'#{address}' is an IPv6 address. Only IPv4 addresses can be added.")
       end
     end
   end
@@ -100,8 +105,11 @@ describe UseCases::Administrator::CheckIfValidIp do
       let(:address) { '141.0.149.130' }
 
       it 'returns true' do
-        result = use_case.execute(address)
-        expect(result).to eq(success: true)
+        expect(success_result).to eq(true)
+      end
+
+      it 'does not return a custom error message' do
+        expect(error_message).to eq(nil)
       end
     end
   end

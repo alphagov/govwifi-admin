@@ -3,6 +3,6 @@
     Are you sure you want to remove this email domain?
   </h2>
   <div class="govuk-error-summary__body">
-    <%= button_to "Yes, remove #{params[:domain_to_remove]} from the whitelist", admin_authorised_email_domain_path(params[:id]), method: :delete, class: "govuk-button red-button" %>
+    <%= button_to "Yes, remove #{params[:domain_to_remove]} from the whitelist", admin_whitelist_email_domain_path(params[:id]), method: :delete, class: "govuk-button red-button" %>
   </div>
 </div>

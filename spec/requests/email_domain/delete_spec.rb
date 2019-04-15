@@ -12,12 +12,12 @@ describe "DELETE /authorised_email_domains/:id", type: :request do
 
     it "deletes the email domain" do
       expect {
-        delete admin_authorised_email_domain_path(email_domain)
+        delete admin_whitelist_email_domain_path(email_domain)
       }.to change(AuthorisedEmailDomain, :count).by(-1)
     end
 
     it 'publishes the new list of authorised domains to S3' do
-      delete admin_authorised_email_domain_path(email_domain)
+      delete admin_whitelist_email_domain_path(email_domain)
       expect(gateway).to have_received(:write)
     end
   end
@@ -30,7 +30,7 @@ describe "DELETE /authorised_email_domains/:id", type: :request do
 
     it "does not delete the email domain" do
       expect {
-        delete admin_authorised_email_domain_path(email_domain)
+        delete admin_whitelist_email_domain_path(email_domain)
       }.to change(AuthorisedEmailDomain, :count).by(0)
     end
   end

@@ -3,20 +3,43 @@ module UseCases
     class CheckIfValidIp
       def execute(address)
         @address = address
-        { success: valid_address? }
+        { success: valid_ipv4_address?, error_message: custom_error_message }
       end
 
     private
 
       attr_reader :address
 
-      def valid_address?
+      def valid_ipv4_address?
         address.present? &&
           address_is_ipv4? &&
           address_is_not_subnet? &&
           address_does_not_allows_all? &&
           address_is_not_loopback? &&
           address_is_not_private?
+      end
+
+      def valid_ipv6_address?
+        address.present? &&
+          address_is_ipv6? &&
+          address_is_not_subnet? &&
+          address_does_not_allows_all? &&
+          address_is_not_loopback? &&
+          address_is_not_private?
+      end
+
+      def private_ip_address?
+        address.present? &&
+          address_is_ipv4? &&
+          !address_is_not_private?
+      end
+
+      def custom_error_message
+        return "'#{address}' is an IPv6 address. Only IPv4 addresses can be added." if valid_ipv6_address?
+
+        return "'#{address}' is a private IP address. Only public IPv4 addresses can be added." if private_ip_address?
+
+        "'#{address}' is not valid" if !valid_ipv4_address?
       end
 
       def address_does_not_allows_all?
@@ -30,6 +53,14 @@ module UseCases
       def address_is_ipv4?
         begin
           IPAddr.new(address).ipv4?
+        rescue IPAddr::InvalidAddressError
+          false
+        end
+      end
+
+      def address_is_ipv6?
+        begin
+          IPAddr.new(address).ipv6?
         rescue IPAddr::InvalidAddressError
           false
         end

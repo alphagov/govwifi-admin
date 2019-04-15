@@ -1,0 +1,14 @@
+<%= javascript_include_tag 'accessible-autocomplete.min.js' %>
+<%= stylesheet_link_tag 'accessible-autocomplete.min.css' %>
+
+<script>
+  accessibleAutocomplete.enhanceSelectElement({
+    selectElement: document.querySelector('#organisations_register'),
+    required: true,
+    displayMenu: 'overlay',
+    defaultValue: '',
+    showNoOptionsFound: true,
+    showAllValues: true,
+    confirmOnBlur: true
+  })
+</script>

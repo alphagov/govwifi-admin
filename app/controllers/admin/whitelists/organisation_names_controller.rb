@@ -1,5 +1,7 @@
-class Admin::CustomOrganisationsController < AdminController
+class Admin::Whitelists::OrganisationNamesController < AdminController
   helper_method :sort_column, :sort_direction
+
+  before_action :set_organisations_from_register, only: %i[create index]
 
   def index
     @custom_organisation_names = ordered_custom_orgs
@@ -11,9 +13,10 @@ class Admin::CustomOrganisationsController < AdminController
     @custom_organisation = CustomOrganisationName.new(custom_org_params)
 
     if @custom_organisation.save
-      flash.now[:notice] = "Custom organisation has been successfully added"
+      redirect_to admin_whitelist_organisation_names_path, notice: "Custom organisation has been successfully added"
+    else
+      render :index
     end
-    render :index
   end
 
   def destroy
@@ -22,9 +25,9 @@ class Admin::CustomOrganisationsController < AdminController
     if custom_org.destroy
       notice = "Successfully removed #{custom_org.name}"
     else
-      redirect_to admin_custom_organisations_path, notice: custom_org.errors.full_messages
+      redirect_to admin_whitelist_organisation_names_path, notice: custom_org.errors.full_messages
     end
-    redirect_to admin_custom_organisations_path, notice: notice
+    redirect_to admin_whitelist_organisation_names_path, notice: notice
   end
 
 private
@@ -51,5 +54,9 @@ private
 
   def sort_direction
     sortable_directions.include?(params[:direction]) ? params[:direction] : sortable_directions.first
+  end
+
+  def set_organisations_from_register
+    @fetched_organisations_from_register = Organisation.fetch_organisations_from_register
   end
 end
