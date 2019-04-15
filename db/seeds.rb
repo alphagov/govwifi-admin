@@ -8,7 +8,7 @@ super_admin_organisation = Organisation.create!(
   name: 'GovWifi Super Administrators', service_email: 'it@gds.com', super_admin: true
 )
 
-admin_user = super_admin_organisation.users.create(
+super_admin_organisation.users.create(
   email: "admin@gov.uk",
   password: "password",
   name: "Steve",
@@ -18,7 +18,7 @@ admin_user = super_admin_organisation.users.create(
 organisation = Organisation.create(
   name: 'UKTI Education', service_email: 'it@parks.com'
 )
-user = organisation.users.create(
+organisation.users.create(
   email: "test@gov.uk",
   password: "password",
   name: "Steve",
@@ -45,28 +45,29 @@ end
   )
 end
 
-location_1 = Location.create!(
+location_one = Location.create!(
   address: 'Momentum Centre, London',
   postcode: 'SE10SX',
   organisation_id: organisation.id
 )
 
-location_2 = Location.create!(
+location_two = Location.create!(
   address: '136 Southwark Street, London',
   postcode: 'E33EH',
   organisation_id: organisation.id
 )
 
 20.times do
-  Ip.create!(address: Faker::Internet.unique.public_ip_v4_address, location: location_1)
+  Ip.create!(address: Faker::Internet.unique.public_ip_v4_address, location: location_one)
 end
 
 20.times do
-  Ip.create!(address: Faker::Internet.unique.public_ip_v4_address, location: location_2)
+  Ip.create!(address: Faker::Internet.unique.public_ip_v4_address, location: location_two)
 end
 
-location_2.ips.each_with_index do |ip, index|
-  Session.create(start: (Time.now - index.day).to_s,
+location_two.ips.each_with_index do |ip, index|
+  Session.create(
+    start: (Time.now - index.day).to_s,
     success: index.even?,
     username: "Garry",
     siteIP: ip.address
