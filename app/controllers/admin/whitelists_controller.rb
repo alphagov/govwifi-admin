@@ -1,6 +1,8 @@
 class Admin::WhitelistsController < AdminController
   def new
     @whitelist = Whitelist.new
+    @organisation_names = Organisation.fetch_organisations_from_register
+    
     validate_organisation_name if organisation_name_needs_validation?
     validate_email_domain if email_domain_needs_validation?
   end
