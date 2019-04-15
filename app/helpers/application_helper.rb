@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def active_tab(identifier)
-    if request.path.include?(identifier) && identifier != root_path
+    if request.path.include?(identifier)
       "active"
     else
       ""
