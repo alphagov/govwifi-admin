@@ -5,8 +5,8 @@ class Whitelist
 
   def save
     ActiveRecord::Base.transaction do
-      CustomOrganisationName.create!(name: organisation_name) if organisation_name
-      AuthorisedEmailDomain.create!(name: email_domain) if email_domain
+      CustomOrganisationName.create!(name: organisation_name) if organisation_name.present?
+      AuthorisedEmailDomain.create!(name: email_domain) if email_domain.present?
     end
 
     true

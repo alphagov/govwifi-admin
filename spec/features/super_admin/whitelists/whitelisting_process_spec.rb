@@ -46,30 +46,7 @@ describe 'Whitelisting an organisation', type: :feature do
     end
   end
 
-  context 'saving the results of the setup process' do
-    context 'with correct data' do
-      before do
-        visit new_admin_whitelist_path(
-          whitelist: {
-            step: 'fifth',
-            organisation_name: 'Made Tech Limited'
-          }
-        )
-        fill_in 'Email domain', with: 'madetech.com'
-        click_on 'Continue'
-      end
-
-      it 'saves the entered details' do
-        expect { click_on "Submit" }.to change(CustomOrganisationName, :count).by(1)
-          .and change(AuthorisedEmailDomain, :count).by(1)
-      end
-
-      it 'displays a success message to the user' do
-        click_on 'Submit'
-        expect(page).to have_content('Organisation has been whitelisted')
-      end
-    end
-
+  context 'validating the forms' do
     context 'with an incorrect organisation name' do
       let(:organisation_name) { "Made Tech Ltd" }
       before do
@@ -108,6 +85,97 @@ describe 'Whitelisting an organisation', type: :feature do
 
       it 'displays an error message to the user' do
         expect(page).to have_content('Name has already been taken')
+      end
+    end
+  end
+
+  context 'saving the results of the setup process' do
+    context 'with all correct data' do
+      before do
+        visit new_admin_whitelist_path(
+          whitelist: {
+            step: 'fifth',
+            organisation_name: 'Made Tech Limited'
+          }
+        )
+        fill_in 'Email domain', with: 'madetech.com'
+        click_on 'Continue'
+      end
+
+      it 'saves the entered details' do
+        expect { click_on "Submit" }.to change(CustomOrganisationName, :count).by(1)
+          .and change(AuthorisedEmailDomain, :count).by(1)
+      end
+
+      it 'displays a success message to the user' do
+        click_on 'Submit'
+        expect(page).to have_content('Organisation has been whitelisted')
+      end
+    end
+
+    context 'without an organisation name' do
+      before do
+        visit new_admin_whitelist_path(
+          whitelist: {
+            step: 'fifth',
+            organisation_name: ''
+          }
+        )
+        fill_in 'Email domain', with: 'madetech.com'
+        click_on 'Continue'
+      end
+
+      it 'saves the entered details' do
+        expect { click_on "Submit" }.to change(CustomOrganisationName, :count).by(0)
+          .and change(AuthorisedEmailDomain, :count).by(1)
+      end
+
+      it 'displays a success message to the user' do
+        click_on 'Submit'
+        expect(page).to have_content('Organisation has been whitelisted')
+      end
+    end
+
+    context 'without an email domain' do
+      before do
+        visit new_admin_whitelist_path(
+          whitelist: {
+            step: 'fifth',
+            organisation_name: 'Made Tech'
+          }
+        )
+        fill_in 'Email domain', with: ''
+        click_on 'Continue'
+      end
+
+      it 'saves the entered details' do
+        expect { click_on "Submit" }.to change(CustomOrganisationName, :count).by(1)
+          .and change(AuthorisedEmailDomain, :count).by(0)
+      end
+
+      it 'displays a success message to the user' do
+        click_on 'Submit'
+        expect(page).to have_content('Organisation has been whitelisted')
+      end
+    end
+
+    context 'when viewing the summary step' do
+      before do
+        visit new_admin_whitelist_path(
+          whitelist: {
+            step: 'sixth',
+            organisation_name: 'Made Tech',
+            email_domain: 'madetech.com'
+          }
+        )
+      end
+
+      it 'displays all the organisation name' do
+        expect(page).to have_content('Made Tech')
+      end
+
+      it 'displays the email domain' do
+        expect(page).to have_content('madetech.com')
       end
     end
   end
