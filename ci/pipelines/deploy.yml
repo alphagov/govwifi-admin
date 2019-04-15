@@ -174,7 +174,7 @@ jobs:
           build: govwifi-admin
           build_args:
             BUNDLE_INSTALL_FLAGS: '--without test development'
-          tag_file: deploy-version
+          tag_file: deploy-version/tag
           cache: true
           cache_tag: staging
         get_params:
