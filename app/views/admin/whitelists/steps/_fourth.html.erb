@@ -6,6 +6,8 @@
     <%= form.label :organisation_name, value: "Organisation name", for: :organisation_name, class: "govuk-label" %>
     <%= form.text_field :organisation_name, id: :organisation_name, autocomplete: "off", class: "govuk-input govuk-input--width-30" %>
   </div>
+  <%= form.hidden_field :admin, value: params[:admin] %>
+  <%= form.hidden_field :register, value: params[:register] %>
   <%= form.hidden_field :step, value: "fifth" %>
 
   <div class="actions">

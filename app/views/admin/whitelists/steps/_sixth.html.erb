@@ -11,18 +11,22 @@
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">Does the organisation need to create a GovWifi admin account?</td>
-      <td class="govuk-table__cell">TODO (Yes / No)</td>
+      <td class="govuk-table__cell"><%= params.dig(:whitelist, :admin) %></td>
     </tr>
 
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">Is the organisation's name on the register?</td>
-      <td class="govuk-table__cell">TODO (Yes / No)</td>
-    </tr>
+    <% if params.dig(:whitelist, :register).present? %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell">Is the organisation's name on the register?</td>
+        <td class="govuk-table__cell"><%= params.dig(:whitelist, :register) %></td>
+      </tr>
+    <% end %>
 
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">Organisation name</td>
-      <td class="govuk-table__cell"><%= params.dig(:whitelist, :organisation_name) %></td>
-    </tr>
+    <% if params.dig(:whitelist, :organisation_name).present? %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell">Organisation name</td>
+        <td class="govuk-table__cell"><%= params.dig(:whitelist, :organisation_name) %></td>
+      </tr>
+    <% end %>
 
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">Email domain</td>
