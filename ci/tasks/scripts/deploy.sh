@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -v -e -u -o pipefail
+
 source govwifi-admin/ci/tasks/scripts/aws-helpers.sh
 
 function deploy() {

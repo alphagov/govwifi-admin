@@ -1,8 +1,10 @@
 #!/bin/bash
 
+set -v -e -u -o pipefail
+
 ./govwifi-admin/ci/tasks/scripts/with-docker.sh
 
-cd govwifi-admin || exit
+cd govwifi-admin
 
 [[ -f "../govwifi-admin-prebuilt-cached/image.tar" ]] && docker load -qi "../govwifi-admin-prebuilt-cached/image.tar"
 
