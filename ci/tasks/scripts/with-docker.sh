@@ -14,7 +14,7 @@ function load_layers() {
   [[ -f "govwifi-admin-prebuilt/image.tar" ]] && docker load -qi "govwifi-admin-prebuilt/image.tar" & pids[3]=$!
 
   for pid in ${pids[*]}; do
-    wait "$pid"
+    wait "$pid" || echo  # we don't care about the return code of docker loading
   done
 }
 load_layers
