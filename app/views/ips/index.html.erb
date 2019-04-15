@@ -1,29 +1,33 @@
-<div class="govuk-grid-row">
-  <%= render "confirm_remove_ip" if @ip_to_delete && current_user.can_manage_locations? %>
-  <%= render "confirm_remove_location" if @location_to_delete && current_user.can_manage_locations? %>
+<%= render "shared/filter_search" %>
 
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">IP addresses</h1>
-  </div>
-  <div class="govuk-grid-column-one-third text-right">
-    <% if current_user.can_manage_locations? %>
-      <% if current_organisation.locations.empty? %>
-        <%= link_to 'Add IP address', new_location_path, class: "govuk-button" %>
-      <% else %>
-        <%= link_to 'Add IP address', new_ip_path, class: "govuk-button" %>
+<div id='wrapper'>
+  <div class="govuk-grid-row">
+    <%= render "confirm_remove_ip" if @ip_to_delete && current_user.can_manage_locations? %>
+    <%= render "confirm_remove_location" if @location_to_delete && current_user.can_manage_locations? %>
+    <div class="govuk-grid-column-two-thirds">
+      <input type='text' id='filterInput' placeholder='Search by location or postcode' class='govuk-input'>
+      <h1 class="govuk-heading-l  govuk-!-padding-top-5">IP addresses</h1>
+    </div>
+    <div class="govuk-grid-column-one-third text-right">
+      <% if current_user.can_manage_locations? %>
+        <% if current_organisation.locations.empty? %>
+          <%= link_to 'Add IP address', new_location_path, class: "govuk-button" %>
+        <% else %>
+          <%= link_to 'Add IP address', new_ip_path, class: "govuk-button" %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
-</div>
 
-<% if current_organisation.locations.empty? %>
-  <p class="govuk-body">
-    You need to add the IPs of your authenticator(s).
-  </p>
-  <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
+  <% if current_organisation.locations.empty? %>
+    <p class="govuk-body">
+      You need to add the IPs of your authenticator(s).
+    </p>
+    <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
 
-<% else %>
-  <% @locations.each do |location| %>
-    <%= render "ips/table", location: location %>
+  <% else %>
+    <% @locations.each do |location| %>
+      <%= render "ips/table", location: location %>
+    <% end %>
   <% end %>
-<% end %>
+</div>
