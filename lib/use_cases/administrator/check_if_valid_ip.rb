@@ -39,7 +39,7 @@ module UseCases
 
         return "'#{address}' is a private IP address. Only public IPv4 addresses can be added." if private_ip_address?
 
-        "'#{address}' is not valid" if !valid_ipv4_address?
+        "'#{address}' is not a valid IP address" if !valid_ipv4_address?
       end
 
       def address_does_not_allows_all?
