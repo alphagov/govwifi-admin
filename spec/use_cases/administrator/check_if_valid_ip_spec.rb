@@ -13,7 +13,7 @@ describe UseCases::Administrator::CheckIfValidIp do
       end
 
       it 'returns a custom error message' do
-        expect(error_message).to eq("'#{address}' is not valid")
+        expect(error_message).to eq("'#{address}' is not a valid IP address")
       end
     end
 

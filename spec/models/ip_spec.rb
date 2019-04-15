@@ -11,7 +11,7 @@ describe Ip do
     it 'does not allow the address 0.0.0.0' do
       ip = described_class.create(address: '0.0.0.0', location: location)
       expect(ip.errors.full_messages).to eq([
-        "Address '0.0.0.0' is not valid"
+        "Address '0.0.0.0' is not a valid IP address"
       ])
     end
 
@@ -31,7 +31,7 @@ describe Ip do
 
       it "displays an error message" do
         expect(ip.errors.full_messages).to eq([
-          "Address 'invalidIP' is not valid"
+          "Address 'invalidIP' is not a valid IP address"
         ])
       end
     end
