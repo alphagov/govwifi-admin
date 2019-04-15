@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -v -e -u -o pipefail
+set -x -e -u -o pipefail
 
 source /docker-helpers.sh
 start_docker
