@@ -30,7 +30,7 @@ describe 'Adding an IP to an existing location', type: :feature do
       let(:ip_address) { '10.wrong.0.1' }
 
       it 'shows a error message' do
-        expect(page).to have_content("'10.wrong.0.1' is not valid")
+        expect(page).to have_content("'10.wrong.0.1' is not a valid IP address")
       end
 
       it 'does not add an IP to the location' do
