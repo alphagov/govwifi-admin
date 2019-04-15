@@ -26,21 +26,21 @@ describe 'Whitelisting an organisation', type: :feature do
 
     it 'displays the third step' do
       click_on 'Start'
-      click_on 'Continue'
+      click_on 'Yes'
       expect(page).to have_content("Is the organisation's name on the register?")
     end
 
     it 'displays the fourth step' do
       click_on 'Start'
-      click_on 'Continue'
-      click_on 'Continue'
+      click_on 'Yes'
+      click_on 'No'
       expect(page).to have_content('Add the organisation name to the register')
     end
 
     it 'displays the fifth step' do
       click_on 'Start'
-      click_on 'Continue'
-      click_on 'Continue'
+      click_on 'Yes'
+      click_on 'No'
       click_on 'Continue'
       expect(page).to have_content("Add the organisation's email domain to the whitelist")
     end
@@ -66,7 +66,7 @@ describe 'Whitelisting an organisation', type: :feature do
 
       it 'displays a success message to the user' do
         click_on 'Continue'
-        expect(page).to have_content('Saved')
+        expect(page).to have_content('Organisation has been whitelisted')
       end
     end
 

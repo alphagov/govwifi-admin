@@ -1,2 +1,4 @@
 <h1 class="govuk-heading-l">Does the organisation need to create a GovWifi admin account?</h1>
-<%= link_to "Continue", new_admin_whitelist_path(step: "third"), class: "govuk-button" %>
+
+<%= link_to "Yes", new_admin_whitelist_path(step: "third"), class: "govuk-button" %>
+<%= link_to "No", new_admin_whitelist_path(step: "fifth", organisation_name: ""), class: "govuk-button" %>

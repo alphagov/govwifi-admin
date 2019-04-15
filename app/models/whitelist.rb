@@ -4,11 +4,9 @@ class Whitelist
   attr_accessor :email_domain, :organisation_name
 
   def save
-    # return false if invalid?
-
     ActiveRecord::Base.transaction do
-      CustomOrganisationName.create!(name: organisation_name)
-      AuthorisedEmailDomain.create!(name: email_domain)
+      CustomOrganisationName.create!(name: organisation_name) if organisation_name
+      AuthorisedEmailDomain.create!(name: email_domain) if email_domain
     end
 
     true

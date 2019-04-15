@@ -9,7 +9,8 @@ class Admin::WhitelistsController < AdminController
       email_domain: whitelist_params[:email_domain]
     )
     if @whitelist.save
-      redirect_to new_admin_whitelist_path, notice: "Saved"
+      redirect_to new_admin_whitelist_path,
+        notice: "Organisation has been whitelisted"
     else
       redirect_to new_admin_whitelist_path(step: "fourth")
     end

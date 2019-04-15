@@ -6,7 +6,7 @@
     <%= form.label :email_domain, value: "Email domain", for: :email_domain, class: "govuk-label" %>
     <%= form.text_field :email_domain, id: :email_domain, autocomplete: "off", class: "govuk-input govuk-input--width-30" %>
 
-    <%= form.hidden_field :organisation_name, value: params[:whitelist][:organisation_name] %>
+    <%= form.hidden_field :organisation_name, value: params.dig(:whitelist, :organisation_name) %>
   </div>
 
   <div class="actions">
