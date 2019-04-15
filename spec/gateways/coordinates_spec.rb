@@ -5,7 +5,7 @@ describe Gateways::Coordinates do
     let(:postcodes) { %w[OX49 5NU M32 0JG] }
 
     before do
-      stub_request(:post, "http://api.postcodes.io/postcodes").
+      stub_request(:post, "https://api.postcodes.io/postcodes").
       to_return(status: 200, body: {
         "status": 200,
         "result": [
@@ -42,7 +42,7 @@ describe Gateways::Coordinates do
       let(:postcodes) { %w[not_a_valid_postcode] }
 
       before do
-        stub_request(:post, "http://api.postcodes.io/postcodes").
+        stub_request(:post, "https://api.postcodes.io/postcodes").
         to_return(status: 200, body: {
             "status": 200,
             "result": [
@@ -64,7 +64,7 @@ describe Gateways::Coordinates do
       let(:postcodes) { %w[not_a_valid_postcode] }
 
       before do
-        stub_request(:post, "http://api.postcodes.io/postcodes").
+        stub_request(:post, "https://api.postcodes.io/postcodes").
         to_return(status: 200, body: {
             "status": 200,
             "result": [
@@ -94,7 +94,7 @@ describe Gateways::Coordinates do
     let(:postcodes) { %w[HA72BL HA73BL HA74BL HA75BL] }
 
     before do
-      stub_request(:post, "http://api.postcodes.io/postcodes").
+      stub_request(:post, "https://api.postcodes.io/postcodes").
       to_return(status: 200, body: {
         "status": 200,
         "result": [
@@ -133,8 +133,8 @@ describe Gateways::Coordinates do
     it 'batches them to prevent rate limiting' do
       postcode_coordinates_gateway.fetch_coordinates(batch_size: 2)
 
-      assert_requested :post, "http://api.postcodes.io/postcodes", body: "postcodes[]=HA72BL&postcodes[]=HA73BL"
-      assert_requested :post, "http://api.postcodes.io/postcodes", body: "postcodes[]=HA74BL&postcodes[]=HA75BL"
+      assert_requested :post, "https://api.postcodes.io/postcodes", body: "postcodes[]=HA72BL&postcodes[]=HA73BL"
+      assert_requested :post, "https://api.postcodes.io/postcodes", body: "postcodes[]=HA74BL&postcodes[]=HA75BL"
     end
   end
 end

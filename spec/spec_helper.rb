@@ -1,6 +1,7 @@
 require 'simplecov'
 
-SimpleCov.start
+SimpleCov.start 'rails'
+SimpleCov.minimum_coverage 100
 
 RSpec.configure do |config|
   config.filter_run focus: true

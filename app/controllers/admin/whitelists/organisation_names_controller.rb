@@ -22,12 +22,8 @@ class Admin::Whitelists::OrganisationNamesController < AdminController
   def destroy
     custom_org = CustomOrganisationName.find(params.fetch(:id))
 
-    if custom_org.destroy
-      notice = "Successfully removed #{custom_org.name}"
-    else
-      redirect_to admin_whitelist_organisation_names_path, notice: custom_org.errors.full_messages
-    end
-    redirect_to admin_whitelist_organisation_names_path, notice: notice
+    custom_org.destroy
+    redirect_to admin_whitelist_organisation_names_path, notice: "Successfully removed #{custom_org.name}"
   end
 
 private

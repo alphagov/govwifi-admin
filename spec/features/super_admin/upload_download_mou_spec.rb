@@ -48,4 +48,27 @@ describe 'Upload and download the MOU template', type: :feature do
 
     it_behaves_like 'shows the setup instructions page'
   end
+
+  context 'when an organisation exists with no MOU' do
+    before do
+      visit(admin_organisation_path(Organisation.first))
+    end
+
+    context 'when I attach an MOU' do
+      it 'uploads the MOU' do
+        attach_file('signed_mou', Rails.root + 'spec/fixtures/mou.pdf')
+        click_on 'Upload MOU'
+
+        expect(page).to have_content('MOU uploaded successfully.')
+      end
+    end
+
+    context 'when I submit a blank MOU' do
+      it 'displays an error to the user' do
+        click_on 'Upload MOU'
+
+        expect(page).to have_content('No MoU file selected. Please select a file and try again.')
+      end
+    end
+  end
 end
