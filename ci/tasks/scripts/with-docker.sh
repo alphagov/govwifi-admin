@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e -u -o pipefail
+
 source /docker-helpers.sh
 start_docker
 
