@@ -90,12 +90,24 @@ jobs:
       - get: govwifi-admin
         trigger: true
         passed: ['Lint & Test']
+      - get: runner
+      - task: write docker tag file
+        image: runner
+        config:
+          platform: linux
+          outputs:
+            - name: deploy-version
+          run:
+            path: sh
+            args:
+              - '-exc'
+              - "echo 'staging' > deploy-version/tag"
       - put: ecr
         params:
           build: govwifi-admin
           build_args:
             BUNDLE_INSTALL_FLAGS: '--without test development'
-          tag: staging
+          tag_file: deploy-version/tag
         get_params:
           skip_download: true
 
@@ -145,12 +157,24 @@ jobs:
       - get: govwifi-admin
         trigger: true
         passed: [Confirm Deploy to Production]
+      - get: runner
+      - task: write docker tag file
+        image: runner
+        config:
+          platform: linux
+          outputs:
+            - name: deploy-version
+          run:
+            path: sh
+            args:
+              - '-exc'
+              - "echo 'production' > deploy-version/tag"
       - put: ecr
         params:
           build: govwifi-admin
           build_args:
             BUNDLE_INSTALL_FLAGS: '--without test development'
-          tag: production
+          tag_file: deploy-version
           cache: true
           cache_tag: staging
         get_params:
