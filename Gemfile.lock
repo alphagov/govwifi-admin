@@ -44,6 +44,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
+    ansi (1.5.0)
     arel (9.0.0)
     ast (2.4.0)
     aws-eventstream (1.0.2)
@@ -145,6 +146,7 @@ GEM
       rspec (>= 2.99.0, < 4.0)
     hashdiff (0.3.8)
     hashie (3.6.0)
+    hirb (0.7.3)
     html_tokenizer (0.0.7)
     httparty (0.16.4)
       mime-types (~> 3.0)
@@ -295,6 +297,10 @@ GEM
       docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
+    simplecov-console (0.4.2)
+      ansi
+      hirb
+      simplecov
     simplecov-html (0.10.2)
     smart_properties (1.13.1)
     sprockets (3.7.2)
@@ -363,6 +369,7 @@ DEPENDENCIES
   sentry-raven
   shoulda-matchers (~> 4.0)
   simplecov
+  simplecov-console
   timecop (~> 0.9.1)
   tzinfo-data
   uk_postcode (~> 2.1, >= 2.1.3)
