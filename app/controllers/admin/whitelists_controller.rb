@@ -2,7 +2,6 @@ class Admin::WhitelistsController < AdminController
   def new
     @whitelist = Whitelist.new
     @organisation_names = Organisation.fetch_organisations_from_register
-    
     validate_organisation_name if organisation_name_needs_validation?
     validate_email_domain if email_domain_needs_validation?
   end
@@ -16,7 +15,6 @@ class Admin::WhitelistsController < AdminController
       redirect_to new_admin_whitelist_path,
         notice: "Organisation has been whitelisted"
     else
-      # TODO: Test this with a request spec. Feature spec can't achieve it
       redirect_to new_admin_whitelist_path(step: "fourth"),
         notice: 'There was an error, please try again'
     end
@@ -39,10 +37,18 @@ private
   def validate_organisation_name
     @organisation_name = CustomOrganisationName.new(name: whitelist_params.dig(:organisation_name))
     if @organisation_name.invalid?
-      params[:whitelist][:step] = "fourth"
+      send_user_back_to_organisation_name_form
     else
-      params[:whitelist][:organisation_name_valid] = true
+      mark_organisation_name_as_validated
     end
+  end
+
+  def send_user_back_to_organisation_name_form
+    params[:whitelist][:step] = "fourth"
+  end
+
+  def mark_organisation_name_as_validated
+    params[:whitelist][:organisation_name_valid] = true
   end
 
   def email_domain_needs_validation?
@@ -52,8 +58,12 @@ private
   def validate_email_domain
     @email_domain = AuthorisedEmailDomain.new(name: whitelist_params.dig(:email_domain))
     if @email_domain.invalid?
-      params[:whitelist][:step] = "fifth"
+      send_user_back_to_email_domain_form
     end
+  end
+
+  def send_user_back_to_email_domain_form
+    params[:whitelist][:step] = "fifth"
   end
 
   def whitelist_params

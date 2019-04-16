@@ -46,9 +46,10 @@ describe 'Whitelisting an organisation', type: :feature do
     end
   end
 
-  context 'validating the forms' do
+  context 'when validating the form input' do
     context 'with an incorrect organisation name' do
       let(:organisation_name) { "Made Tech Ltd" }
+
       before do
         CustomOrganisationName.create(name: organisation_name)
         visit new_admin_whitelist_path(step: "fourth")
@@ -67,6 +68,7 @@ describe 'Whitelisting an organisation', type: :feature do
 
     context 'with incorrect email domain' do
       let(:email_domain) { "madetech.com" }
+
       before do
         AuthorisedEmailDomain.create(name: email_domain)
         visit new_admin_whitelist_path(
@@ -89,7 +91,7 @@ describe 'Whitelisting an organisation', type: :feature do
     end
   end
 
-  context 'saving the results of the setup process' do
+  context 'when saving the results of the setup process' do
     context 'with all correct data' do
       before do
         visit new_admin_whitelist_path(
