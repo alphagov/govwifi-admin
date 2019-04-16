@@ -35,7 +35,7 @@ describe "POST /admin/whitelist", type: :request do
     end
   end
 
-  context "with invalid params" do
+  context "with empty params" do
     let(:empty_params) do
       {
         whitelist: {
@@ -49,6 +49,32 @@ describe "POST /admin/whitelist", type: :request do
     it "does not create the related whitelist objects" do
       expect {
         post admin_whitelist_path, params: empty_params
+      }.to change(CustomOrganisationName, :count).by(0)
+      .and change(AuthorisedEmailDomain, :count).by(0)
+    end
+  end
+
+  context "with invalid params" do
+    let(:organisation_name) { "Made Tech Ltd" }
+    let(:email_domain) { "madetech.com" }
+    let(:invalid_params) do
+      {
+        whitelist: {
+          step: 'sixth',
+          organisation_name: organisation_name,
+          email_domain: email_domain
+        }
+      }
+    end
+
+    before do
+      AuthorisedEmailDomain.create(name: email_domain)
+      CustomOrganisationName.create(name: organisation_name)
+    end
+
+    it "does not create the related whitelist objects" do
+      expect {
+        post admin_whitelist_path, params: invalid_params
       }.to change(CustomOrganisationName, :count).by(0)
       .and change(AuthorisedEmailDomain, :count).by(0)
     end
