@@ -26,6 +26,9 @@
     <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
 
   <% else %>
+    <p class="govuk-body" id="noLocationResults" style="display: none">
+      No results found
+    </p>
     <% @locations.each do |location| %>
       <%= render "ips/table", location: location %>
     <% end %>
