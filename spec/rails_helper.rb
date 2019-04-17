@@ -31,10 +31,12 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   Capybara.register_driver :remote_chrome do |app|
+    caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => {"excludeSwitches" => [ "--ignore-certificate-errors" ]})
+
     Capybara::Selenium::Driver.new(
       app,
       browser: :remote,
-      desired_capabilities: :chrome,
+      desired_capabilities: caps,
       url: "http://selenium:4444/wd/hub"
     )
   end
@@ -44,7 +46,7 @@ RSpec.configure do |config|
   config.before do
     WebMock.disable_net_connect!(
       allow_localhost: true,
-      allow: ["selenium:4444", "%r{chromedriver/storage/googleapis/com"]
+      allow: ["app:3000", "selenium:4444", "%r{chromedriver/storage/googleapis/com"]
     )
   end
 

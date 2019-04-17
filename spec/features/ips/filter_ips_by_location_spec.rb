@@ -1,4 +1,5 @@
 describe 'filtering IP addresses by dynamic search', type: :feature do
+
   before do
     create(:location, organisation: organisation, address: 'Apple Street')
     create(:location, organisation: organisation, address: 'Banana Road')
@@ -38,6 +39,8 @@ describe 'filtering IP addresses by dynamic search', type: :feature do
   end
 
   context 'when user fills in the search bar', js: true do
+    Capybara.app_host = "http://app:3000"
+
     let(:filter_value) { 'b' }
 
     before { page.driver.evaluate_script(filter_function_string) }
