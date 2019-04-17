@@ -26,6 +26,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'selenium-webdriver'
+  gem 'webdrivers', '~> 3.0'
   gem 'database_cleaner'
   gem 'erb_lint', require: false
   gem 'factory_bot_rails', '~> 5.0'
