@@ -33,9 +33,11 @@ group :test do
   gem 'guard-rspec'
   gem 'nokogiri'
   gem 'rspec-rails', '~> 3'
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'simplecov', require: false
   gem 'timecop', '~> 0.9.1'
+  gem 'webdrivers', '~> 3.0'
   gem 'webmock', '~> 3.5.1'
 end
 
