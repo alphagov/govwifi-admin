@@ -10,25 +10,10 @@ describe 'View authentication requests for an IP', type: :feature do
   let(:super_admin) { create(:user, :super_admin) }
 
   before do
-    Session.create!(
-      start: 3.days.ago,
-      siteIP: ip_1.address,
-    )
-
-    Session.create!(
-      start: 3.days.ago,
-      siteIP: ip_1.address,
-    )
-
-    Session.create!(
-      start: 3.days.ago,
-      siteIP: ip_2.address,
-    )
-
-    Session.create!(
-      start: 3.days.ago,
-      siteIP: ip_2.address,
-    )
+    create(:session, start: 3.days.ago, siteIP: ip_1.address)
+    create(:session, start: 3.days.ago, siteIP: ip_1.address)
+    create(:session, start: 3.days.ago, siteIP: ip_2.address)
+    create(:session, start: 3.days.ago, siteIP: ip_2.address)
 
     sign_in_user super_admin
     visit ip_new_logs_search_path

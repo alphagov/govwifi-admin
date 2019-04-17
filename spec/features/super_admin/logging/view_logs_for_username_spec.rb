@@ -22,45 +22,10 @@ describe "View authentication requests for a username", type: :feature do
 
   context "when there are results from multiple organisations and users" do
     before do
-      Session.create!(
-        start: 3.days.ago,
-        username: username,
-        mac: "",
-        ap: "",
-        siteIP: super_admin_ip.address,
-        success: true,
-        building_identifier: ""
-      )
-
-      Session.create!(
-        start: 3.days.ago,
-        username: username,
-        mac: "",
-        ap: "",
-        siteIP: ip.address,
-        success: true,
-        building_identifier: ""
-      )
-
-      Session.create!(
-        start: 3.days.ago,
-        username: username,
-        mac: "",
-        ap: "",
-        siteIP: ip_2.address,
-        success: true,
-        building_identifier: ""
-      )
-
-      Session.create!(
-        start: 3.days.ago,
-        username: "user2",
-        mac: "",
-        ap: "",
-        siteIP: ip_2.address,
-        success: true,
-        building_identifier: ""
-      )
+      create(:session, start: 3.days.ago, username: username, siteIP: super_admin_ip.address, success: true)
+      create(:session, start: 3.days.ago, username: username, siteIP: ip.address, success: true)
+      create(:session, start: 3.days.ago, username: username, siteIP: ip_2.address, success: true)
+      create(:session, start: 3.days.ago, username: "user2", siteIP: ip_2.address, success: true)
 
       fill_in "Username", with: username
       click_on "Show logs"

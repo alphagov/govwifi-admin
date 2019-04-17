@@ -6,13 +6,7 @@ describe 'View authentication requests for an IP', type: :feature do
   let(:location) { create(:location, organisation_id: organisation.id) }
 
   before do
-    Session.create!(
-      start: 3.days.ago,
-      username: username,
-      siteIP: ip,
-      success: true
-    )
-
+    create(:session, start: 3.days.ago, username: username, siteIP: ip, success: true)
     create(:ip, location_id: location.id, address: ip)
     sign_in_user admin_user
   end

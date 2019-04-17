@@ -98,7 +98,7 @@ describe Ip do
 
     context 'with sessions in the last 10 days' do
       before do
-        Session.create(start: Date.today, username: 'abc123', siteIP: ip_address.address)
+        create(:session, start: Date.today, username: 'abc123', siteIP: ip_address.address)
       end
 
       it { is_expected.not_to be_inactive }

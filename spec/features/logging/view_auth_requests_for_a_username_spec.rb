@@ -7,35 +7,9 @@ describe "View authentication requests for a username", type: :feature do
     let(:location) { create(:location, organisation_id: organisation.id) }
 
     before do
-      Session.create!(
-        start: 3.days.ago,
-        username: username,
-        mac: "",
-        ap: "",
-        siteIP: "1.1.1.1",
-        success: true,
-        building_identifier: ""
-      )
-
-      Session.create!(
-        start: 3.days.ago,
-        username: username,
-        mac: "",
-        ap: "",
-        siteIP: "1.1.1.1",
-        success: false,
-        building_identifier: ""
-      )
-
-      Session.create!(
-        start: 3.days.ago,
-        username: username,
-        mac: "",
-        ap: "",
-        siteIP: "2.2.2.2",
-        success: false,
-        building_identifier: ""
-      )
+      create(:session, start: 3.days.ago, username: username, siteIP: "1.1.1.1", success: true)
+      create(:session, start: 3.days.ago, username: username, siteIP: "1.1.1.1", success: false)
+      create(:session, start: 3.days.ago, username: username, siteIP: "2.2.2.2", success: false)
 
       organisation = create(:organisation)
       location_two = create(:location, organisation: organisation)

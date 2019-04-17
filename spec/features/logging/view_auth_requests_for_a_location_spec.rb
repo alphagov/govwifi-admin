@@ -39,25 +39,8 @@ describe 'View authentication requests for a location', type: :feature do
     let(:other_ip) { create(:ip) }
 
     before do
-      Session.create!(
-        start: 3.days.ago,
-        username: 'aaaaa',
-        mac: '',
-        ap: '',
-        siteIP: ip.address,
-        success: true,
-        building_identifier: ''
-      )
-
-      Session.create!(
-        start: 3.days.ago,
-        username: 'bbbbb',
-        mac: '',
-        ap: '',
-        siteIP: other_ip.address,
-        success: true,
-        building_identifier: ''
-      )
+      create(:session, start: 3.days.ago, username: 'aaaaa', siteIP: ip.address, success: true)
+      create(:session, start: 3.days.ago, username: 'bbbbb', siteIP: other_ip.address, success: true)
 
       select location.address, from: "Select one of your organisation's locations"
       click_on 'Show logs'

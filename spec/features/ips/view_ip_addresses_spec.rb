@@ -53,7 +53,7 @@ describe 'Viewing IP addresses', type: :feature do
 
     context 'with active IPs' do
       before do
-        Session.create(start: Date.today, username: 'abc123', siteIP: ip.address)
+        create(:session, start: Date.today, username: 'abc123', siteIP: ip.address)
         visit ips_path
       end
 
