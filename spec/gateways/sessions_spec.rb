@@ -11,7 +11,7 @@ describe Gateways::Sessions do
   context 'when searching by username' do
     context 'when recent log entries contain none of my IP addresses' do
       before do
-        Session.create(start: today_date, username: username, siteIP: '7.7.7.7')
+        create(:session, start: today_date, username: username, siteIP: '7.7.7.7')
       end
 
       it 'finds no results' do
@@ -42,7 +42,7 @@ describe Gateways::Sessions do
       }
 
       before do
-        Session.create(start: today_date, success: true, username: username, siteIP: '127.0.0.1')
+        create(:session, start: today_date, success: true, username: username, siteIP: '127.0.0.1')
       end
 
       it 'finds one result' do
@@ -52,7 +52,7 @@ describe Gateways::Sessions do
       end
 
       it 'finds multiple results' do
-        Session.create(start: yesterday, success: true, username: username, siteIP: '127.0.0.1')
+        create(:session, start: yesterday, success: true, username: username, siteIP: '127.0.0.1')
 
         expect(session_gateway.search(username: 'BOBABC')).to eq(expected_result)
       end
@@ -60,9 +60,9 @@ describe Gateways::Sessions do
 
     context 'when recent log entries contain any number of my IP addresses' do
       it 'only selects logs matching my IP addresses' do
-        Session.create(start: today_date, username: username, siteIP: '127.0.0.1')
-        Session.create(start: today_date, username: username, siteIP: '127.0.0.4')
-        Session.create(start: today_date, username: username, siteIP: '3.3.3.3')
+        create(:session, start: today_date, username: username, siteIP: '127.0.0.1')
+        create(:session, start: today_date, username: username, siteIP: '127.0.0.4')
+        create(:session, start: today_date, username: username, siteIP: '3.3.3.3')
 
         result = session_gateway.search(username: username)
         expect(result.count).to eq(2)
@@ -70,9 +70,9 @@ describe Gateways::Sessions do
     end
 
     context 'when viewing the results' do
-      let!(:last_result) { Session.create(start: two_days_ago, username: username, ap: 'ap3', siteIP: '127.0.0.1') }
-      let!(:first_result) { Session.create(start: today_date, username: username, ap: 'ap1', siteIP: '127.0.0.1') }
-      let!(:middle_result) { Session.create(start: yesterday, username: username, ap: 'ap2', siteIP: '127.0.0.1') }
+      let!(:last_result) { create(:session, start: two_days_ago, username: username, ap: 'ap3', siteIP: '127.0.0.1') }
+      let!(:first_result) { create(:session, start: today_date, username: username, ap: 'ap1', siteIP: '127.0.0.1') }
+      let!(:middle_result) { create(:session, start: yesterday, username: username, ap: 'ap2', siteIP: '127.0.0.1') }
 
       it 'displays the newest logs first' do
         result = session_gateway.search(username: username)
@@ -86,7 +86,7 @@ describe Gateways::Sessions do
   context 'when searching by IP address' do
     before do
       ['127.0.0.1', '127.0.0.2', '3.3.3.3'].each do |ip|
-        Session.create(start: today_date, username: username, siteIP: ip)
+        create(:session, start: today_date, username: username, siteIP: ip)
       end
     end
 
@@ -108,7 +108,7 @@ describe Gateways::Sessions do
 
   context 'when searching for logs older than two weeks' do
     before do
-      Session.create(start: three_weeks_ago, success: true, username: 'FOOBAR', siteIP: '127.0.0.1')
+      create(:session, start: three_weeks_ago, success: true, username: 'FOOBAR', siteIP: '127.0.0.1')
     end
 
     it 'returns no results' do
