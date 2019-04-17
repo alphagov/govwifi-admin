@@ -8,6 +8,8 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'support/factory_bot'
 require 'webmock/rspec'
+require "selenium-webdriver"
+require 'webdrivers'
 #
 # The following line is provided for convenience purposes. It has the downside
 # of increasing the boot-up time by auto-requiring all files in the support
@@ -27,6 +29,24 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
+  Capybara.register_driver :remote_chrome do |app|
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :remote,
+      desired_capabilities: :chrome,
+      url: "http://selenium:4444/wd/hub"
+    )
+  end
+
+  Capybara.javascript_driver = :remote_chrome
+
+  config.before do
+    WebMock.disable_net_connect!(
+      allow_localhost: true,
+      allow: ["selenium:4444", "%r{chromedriver/storage/googleapis/com"]
+    )
+  end
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
