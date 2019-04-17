@@ -35,6 +35,7 @@ group :test do
   gem 'rspec-rails', '~> 3'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'simplecov', require: false
+  gem 'simplecov-console', require: false
   gem 'timecop', '~> 0.9.1'
   gem 'webmock', '~> 3.5.1'
 end

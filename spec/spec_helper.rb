@@ -1,7 +1,14 @@
 require 'simplecov'
+require 'simplecov-console'
 
 SimpleCov.start 'rails'
 SimpleCov.minimum_coverage 100
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::Console,
+])
+
 
 RSpec.configure do |config|
   config.filter_run focus: true
