@@ -32,7 +32,13 @@ services:
     links:
       - db
       - rr_db
+      - selenium
     expose:
     - "3000"
     depends_on:
       - 'govuk-fake-registers'
+
+  selenium:
+    image: "selenium/standalone-firefox"
+    expose:
+      - "4444"
