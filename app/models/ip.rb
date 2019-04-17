@@ -4,6 +4,14 @@ class Ip < ApplicationRecord
   validates :address, presence: true, uniqueness: true
   validate :address_must_be_valid_ip
 
+  def inactive?
+    Session
+      .where(siteIP: self.address)
+      .where("start > #{Date.today - 10.days}")
+      .limit(1)
+      .empty?
+  end
+
   def available?
     created_at < Date.today.beginning_of_day
   end
