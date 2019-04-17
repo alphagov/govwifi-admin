@@ -42,6 +42,27 @@ describe 'Viewing IP addresses', type: :feature do
     it 'shows the locations address' do
       expect(page).to have_content(location.address)
     end
+
+    context 'with inactive IPs' do
+      it 'labels the IP as inactive' do
+        within("#ips-row-#{ip.id}") do
+          expect(page).to have_content('Inactive (no traffic for the last 10 days)')
+        end
+      end
+    end
+
+    context 'with active IPs' do
+      before do
+        Session.create(start: Date.today, username: 'abc123', siteIP: ip.address)
+        visit ips_path
+      end
+
+      it 'Does not label the IP as inactive' do
+        within("#ips-row-#{ip.id}") do
+          expect(page).not_to have_content('Inactive (no traffic for the last 10 days)')
+        end
+      end
+    end
   end
 
   context 'when logged out' do

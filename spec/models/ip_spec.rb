@@ -90,4 +90,18 @@ describe Ip do
       it { is_expected.to be_available }
     end
   end
+
+  context 'when checking if inactive' do
+    context 'with no sessions for the last 10 days' do
+      it { is_expected.to be_inactive }
+    end
+
+    context 'with sessions in the last 10 days' do
+      before do
+        Session.create(start: Date.today, username: 'abc123', siteIP: ip_address.address)
+      end
+
+      it { is_expected.not_to be_inactive }
+    end
+  end
 end
