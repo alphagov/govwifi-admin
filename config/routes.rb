@@ -70,7 +70,7 @@ Rails.application.routes.draw do
     resources :govwifi_map, only: %i[index]
     resources :mou, only: %i[index update create]
     resources :organisations, only: %i[index show destroy]
-    resource :whitelist, only: %i[new] do
+    resource :whitelist, only: %i[new create] do
       scope module: 'whitelists' do
         resources :email_domains, only: %i[index new create destroy]
         resources :organisation_names, only: %i[index create destroy]
