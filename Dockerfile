@@ -29,7 +29,7 @@ ENV RR_DB_NAME rr_govwifi
 WORKDIR /usr/src/app
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-  apt-get update && apt-get install -y apt-transport-https nodejs libuv1 && \
+  apt-get update && apt-get install -y apt-transport-https nodejs libuv1 firefox-esr && \
   curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.9.4 && \
   rm -rf /var/lib/apt/lists/*
 ENV PATH "$PATH:/root/.yarn/bin:/root/.config/yarn/global/node_modules/.bin"
