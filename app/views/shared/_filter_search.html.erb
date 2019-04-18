@@ -1,39 +1,29 @@
 <script>
-  let filterInput = document.getElementById('filterInput');
-  addEventListener('keyup', filterLocations);
+  var filterInput = document.getElementById('filter-input');
+  filterInput.addEventListener('keyup', filterResults);
 
-  function filterLocations(){
-    let filterValue = document.getElementById('filterInput').value.toUpperCase();
-    let location_name = document.getElementById('wrapper').querySelectorAll('table.govuk-table');
+  function filterResults() {
+    var filterValue = filterInput.value.toUpperCase();
+    var rows = document.querySelectorAll('.result-row');
 
-    for(let i = 0;i < location_name.length;i++){
-      let text = location_name[i].getElementsByTagName('div')[0];
-      location_name[i].style.display = 'none';
-
-      if(text.innerHTML.toUpperCase().indexOf(filterValue) > -1){
-        location_name[i].style.display = '';
-      }
+    for(var i = 0; i < rows.length; i++) {
+      var text = rows[i].querySelectorAll('.filter-by')[0].innerHTML.toUpperCase();
+      rows[i].style.display = text.indexOf(filterValue) > -1 ? '' : 'none';
     }
 
-    displayResultsMessage(location_name);
+    displayResultsMessage(rows);
   }
 
-function displayResultsMessage(location_name) {
-  var noResultsMessage = document.getElementById('noLocationResults');
-  noResultsMessage.style.display = 'none';
+  function displayResultsMessage(results) {
+    var noResultsMessage = document.getElementById('no-results');
+    noResultsMessage.style.display = 'none';
 
-  var noResults = Array.from(location_name).every(
-    function(e) { return e.style.display == 'none'; }
-  );
+    var noResults = Array.from(results).every(
+      function(e) { return e.style.display == 'none'; }
+    );
 
-  if (noResults) {
-    noResultsMessage.style.display = 'block';
+    if (noResults) {
+      noResultsMessage.style.display = 'block';
+    }
   }
-}
 </script>
-
-<noscript>
-    <style>
-        #filterInput {display:none;}
-    </style>
-</noscript>

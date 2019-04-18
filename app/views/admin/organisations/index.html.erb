@@ -12,6 +12,8 @@
 
 <%= link_to 'GovWifi map', admin_govwifi_map_index_path, class: "govuk-link" %>
 
+<p><input type='text' id='filter-input' placeholder='Search by organisation name' class='govuk-input'></p>
+
 <table class="govuk-table">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
@@ -24,9 +26,9 @@
   </thead>
   <tbody class="govuk-table__body">
     <% @organisations.each do |organisation| %>
-      <tr class="govuk-table__row">
+      <tr class="govuk-table__row result-row">
         <td class="govuk-table__cell govuk-!-width-one-half" scope="row">
-          <%= link_to organisation.name, admin_organisation_path(organisation), class: "govuk-link" %>
+          <%= link_to organisation.name, admin_organisation_path(organisation), class: "govuk-link filter-by" %>
         </td>
         <td class="govuk-table__cell" scope="row">
           <%= organisation.created_at.strftime('%e %b %Y') %>
@@ -48,3 +50,8 @@
     <% end %>
   </tbody>
 </table>
+<p class="govuk-body" id="no-results" style="display: none">
+  No results found
+</p>
+
+<%= render "shared/filter_search" %>
