@@ -3,18 +3,16 @@ require 'support/confirmation_use_case_spy'
 require 'support/confirmation_use_case'
 
 describe 'Resending confirmation instructions', type: :feature do
-  let(:correct_email) { 'user@gov.uk' }
+  let(:unconfirmed_email) { 'user@gov.uk' }
 
   include_context 'when sending a confirmation email'
   include_context 'when using the notifications service'
 
-  context 'when entering correct information' do
-    let(:entered_email) { correct_email }
-
+  context 'when entering an email address that has signed up' do
     before do
-      sign_up_for_account(email: correct_email)
+      sign_up_for_account(email: unconfirmed_email)
       visit new_user_confirmation_path
-      fill_in 'user_email', with: entered_email
+      fill_in 'user_email', with: unconfirmed_email
     end
 
     it 'resends the confirmation link' do
@@ -22,58 +20,69 @@ describe 'Resending confirmation instructions', type: :feature do
         click_on 'Resend confirmation instructions'
       }.to change(ConfirmationUseCaseSpy, :confirmations_count).by(1)
     end
+
+    it 'displays generic response message to the user' do
+      click_on 'Resend confirmation instructions'
+      expect(page).to have_content 'If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.'
+    end
   end
 
-  context 'when comparing links before and after resending' do
-    let(:entered_email) { correct_email }
+  context 'when comparing each link sent per request' do
+    let(:previous_confirmation_link) { confirmation_email_link }
 
     before do
-      sign_up_for_account(email: correct_email)
+      sign_up_for_account(email: unconfirmed_email)
+      visit new_user_confirmation_path
+      fill_in 'user_email', with: unconfirmed_email
+      click_on 'Resend confirmation instructions'
     end
 
     it 'does not change the link' do
-      previous_link = confirmation_email_link
-      visit new_user_confirmation_path
-      fill_in 'user_email', with: entered_email
-      click_on 'Resend confirmation instructions'
-      expect(confirmation_email_link).to eq(previous_link)
+      expect(confirmation_email_link).to eq(previous_confirmation_link)
     end
   end
 
-  context 'when user has not been confirmed' do
-    let(:entered_email) { correct_email }
+  context 'when entering an email address that has NOT signed up' do
+    let(:new_user_email) { 'different_user@gov.uk' }
 
-    context 'when email cannot be found' do
-      before do
-        sign_up_for_account(email: correct_email)
-        visit new_user_confirmation_path
-        fill_in 'user_email', with: entered_email
-        click_on 'Resend confirmation instructions'
-      end
-
-      let(:entered_email) { 'different_user@gov.uk' }
-
-      it_behaves_like 'errors in form'
-
-      it 'displays an error to the user' do
-        expect(page).to have_content 'Email not found'
-      end
-    end
-  end
-
-  context 'when user has been confirmed' do
     before do
-      sign_up_for_account(email: correct_email)
-      update_user_details
       visit new_user_confirmation_path
-      fill_in 'user_email', with: correct_email
-      click_on 'Resend confirmation instructions'
+      fill_in 'user_email', with: new_user_email
     end
 
-    it_behaves_like 'errors in form'
+    it 'displays generic response message to the user' do
+      click_on 'Resend confirmation instructions'
+      expect(page).to have_content 'If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.'
+    end
 
-    it 'tells the user this email has already been confirmed' do
-      expect(page).to have_content 'Email was already confirmed'
+    it 'does not sent any confirmation link' do
+      expect {
+        click_on 'Resend confirmation instructions'
+      }.to change(ConfirmationUseCaseSpy, :confirmations_count).by(0)
+    end
+  end
+
+  context 'when email address has already been confirmed' do
+    let(:confirmed_email) { unconfirmed_email }
+
+    before do
+      sign_up_for_account(email: unconfirmed_email)
+      update_user_details
+      sign_out
+
+      visit new_user_confirmation_path
+      fill_in 'user_email', with: confirmed_email
+    end
+
+    it 'displays generic response message to the user' do
+      click_on 'Resend confirmation instructions'
+      expect(page).to have_content 'If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.'
+    end
+
+    it 'does not sent any confirmation link' do
+      expect {
+        click_on 'Resend confirmation instructions'
+      }.to change(ConfirmationUseCaseSpy, :confirmations_count).by(0)
     end
   end
 end

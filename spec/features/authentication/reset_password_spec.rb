@@ -14,17 +14,15 @@ describe "Resetting a password", type: :feature do
     expect(page).to have_content("Reset your GovWifi network admin account password")
   end
 
-  context "when user does not exist" do
+  context "when the user has never signed up" do
     before do
       visit new_user_password_path
       fill_in "user_email", with: "user@user.com"
       click_on "Send me reset password instructions"
     end
 
-    it_behaves_like "errors in form"
-
-    it "tells the user the email cannot be found" do
-      expect(page).to have_content("Email not found")
+    it "displays a generic response" do
+      expect(page).to have_content("If your email address exists in our database")
     end
 
     it 'sends no email' do
@@ -32,7 +30,7 @@ describe "Resetting a password", type: :feature do
     end
   end
 
-  context "when user is not yet confirmed" do
+  context "when the user has signed up but has NOT been confirmed" do
     let(:user) { create(:user, :unconfirmed) }
 
     before do
@@ -50,7 +48,7 @@ describe "Resetting a password", type: :feature do
     end
   end
 
-  context "when the user does exist" do
+  context "when the user has signed up and has been confirmed" do
     let(:user) { create(:user) }
 
     before do
@@ -59,16 +57,16 @@ describe "Resetting a password", type: :feature do
       click_on "Send me reset password instructions"
     end
 
+    it "displays a generic response" do
+      expect(page).to have_content("If your email address exists in our database")
+    end
+
     it "sends a reset password email" do
       expect(last_notification_type).to eq "reset"
     end
-
-    it "displays a confirmation message to the user" do
-      expect(page).to have_content("You will receive an email with instructions")
-    end
   end
 
-  context "when clicking on reset link" do
+  context "when clicking on the reset link" do
     let(:user) { create(:user) }
 
     before do
@@ -82,24 +80,28 @@ describe "Resetting a password", type: :feature do
       expect(URI(last_notification_link).scheme).to eq("https")
     end
 
-    it "redirects user to edit password page" do
+    it "redirects the user to the edit password page" do
       expect(page).to have_content("Change your password")
     end
 
-    context "when entering correct passwords" do
+    context "when entering a password that is 6 to 80 characters long" do
       before do
-        fill_in "user_password", with: "password"
+        fill_in "user_password", with: "new_password"
         click_on "Change my password"
       end
 
-      it "changes to users password" do
+      it "automatically signs them in using the new password" do
         expect(page).to have_content("Sign out")
+      end
+
+      it "tells the user their password has been changed" do
+        expect(page).to have_content("Your password has been changed successfully")
       end
     end
 
-    context "when entering a password that is too short" do
+    context "when entering a password that is less than 6 characters" do
       before do
-        fill_in "user_password", with: "1"
+        fill_in "user_password", with: "pass"
         click_on "Change my password"
       end
 
