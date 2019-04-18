@@ -25,7 +25,7 @@
 
   <% else %>
     <p class="govuk-body" id="no-results" style="display: none">
-      No results found
+      <strong>No results found</strong>
     </p>
     <% @locations.each do |location| %>
       <%= render "ips/table", location: location %>
