@@ -8,7 +8,7 @@ describe 'Resending confirmation instructions', type: :feature do
   include_context 'when sending a confirmation email'
   include_context 'when using the notifications service'
 
-  context 'when entering an email address that has signed up' do
+  context 'when entering an email address that has signed up but not confirmed' do
     before do
       sign_up_for_account(email: unconfirmed_email)
       visit new_user_confirmation_path
@@ -50,7 +50,7 @@ describe 'Resending confirmation instructions', type: :feature do
       fill_in 'user_email', with: new_user_email
     end
 
-    it 'displays generic response message to the user' do
+    it 'displays a generic response to the user' do
       click_on 'Resend confirmation instructions'
       expect(page).to have_content 'If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.'
     end
@@ -63,18 +63,15 @@ describe 'Resending confirmation instructions', type: :feature do
   end
 
   context 'when email address has already been confirmed' do
-    let(:confirmed_email) { unconfirmed_email }
+    let(:user) { create(:user, email: unconfirmed_email) }
+    let(:confirmed_email) { user.email }
 
     before do
-      sign_up_for_account(email: unconfirmed_email)
-      update_user_details
-      sign_out
-
       visit new_user_confirmation_path
       fill_in 'user_email', with: confirmed_email
     end
 
-    it 'displays generic response message to the user' do
+    it 'displays a generic response to the user' do
       click_on 'Resend confirmation instructions'
       expect(page).to have_content 'If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.'
     end
