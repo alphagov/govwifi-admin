@@ -1,6 +1,7 @@
 <script>
   var filterInput = document.getElementById('filter-input');
   filterInput.addEventListener('keyup', filterResults);
+  filterInput.addEventListener('search', filterResults);
 
   function filterResults() {
     var filterValue = filterInput.value.toUpperCase();
