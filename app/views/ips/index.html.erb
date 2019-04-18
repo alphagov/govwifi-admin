@@ -3,7 +3,7 @@
     <%= render "confirm_remove_ip" if @ip_to_delete && current_user.can_manage_locations? %>
     <%= render "confirm_remove_location" if @location_to_delete && current_user.can_manage_locations? %>
     <div class="govuk-grid-column-two-thirds">
-      <input type='search' id='filter-input' placeholder='Search by location or postcode' class='govuk-input'>
+      <input type="search" id="filter-input" placeholder="Search by location or postcode" class="govuk-input">
       <h1 class="govuk-heading-l  govuk-!-padding-top-5">IP addresses</h1>
     </div>
     <div class="govuk-grid-column-one-third text-right">
