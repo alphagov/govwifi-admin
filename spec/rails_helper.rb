@@ -30,18 +30,19 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
-  Capybara.register_driver :remote_chrome do |app|
-    caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => {"excludeSwitches" => [ "--ignore-certificate-errors" ]})
-
-    Capybara::Selenium::Driver.new(
-      app,
-      browser: :remote,
-      desired_capabilities: caps,
-      url: "http://selenium:4444/wd/hub"
+  Capybara.register_driver :headless_chrome do |app|
+    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      chromeOptions: { args: %w(headless disable-gpu allow-insecure-localhost ignore-certificate-errors no-sandbox) }
     )
+
+    Capybara::Selenium::Driver.new app,
+      browser: :chrome,
+      url: 'http://selenium:4444/wd/hub',
+      desired_capabilities: capabilities
   end
 
-  Capybara.javascript_driver = :remote_chrome
+
+  Capybara.javascript_driver = :headless_chrome
 
   config.before do
     WebMock.disable_net_connect!(
