@@ -3,7 +3,7 @@
 
   <div class="map"></div>
    <script>
-     function initMap() {
+   window.initMap = function(){
        var map = new google.maps.Map(document.querySelector(".map"), {
          zoom: 5,
          center: {lat: 52.3555, lng:  1.1743}
