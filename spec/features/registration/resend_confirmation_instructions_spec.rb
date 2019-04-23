@@ -23,7 +23,7 @@ describe 'Resending confirmation instructions', type: :feature do
 
     it 'displays generic response message to the user' do
       click_on 'Resend confirmation instructions'
-      expect(page).to have_content 'If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.'
+      expect(page).to have_content 'If you have an account with us, you will receive an email with a confirmation link shortly.'
     end
   end
 
@@ -52,7 +52,7 @@ describe 'Resending confirmation instructions', type: :feature do
 
     it 'displays a generic response to the user' do
       click_on 'Resend confirmation instructions'
-      expect(page).to have_content 'If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.'
+      expect(page).to have_content 'If you have an account with us, you will receive an email with a confirmation link shortly.'
     end
 
     it 'does not sent any confirmation link' do
@@ -73,7 +73,7 @@ describe 'Resending confirmation instructions', type: :feature do
 
     it 'displays a generic response to the user' do
       click_on 'Resend confirmation instructions'
-      expect(page).to have_content 'If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.'
+      expect(page).to have_content 'If you have an account with us, you will receive an email with a confirmation link shortly.'
     end
 
     it 'does not sent any confirmation link' do
