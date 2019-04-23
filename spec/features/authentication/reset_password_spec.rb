@@ -22,7 +22,7 @@ describe "Resetting a password", type: :feature do
     end
 
     it "displays a generic response" do
-      expect(page).to have_content("If your email address exists in our database")
+      expect(page).to have_content("If you have an account with us, you will receive an email with a password reset link shortly.")
     end
 
     it 'sends no email' do
@@ -58,7 +58,7 @@ describe "Resetting a password", type: :feature do
     end
 
     it "displays a generic response" do
-      expect(page).to have_content("If your email address exists in our database")
+      expect(page).to have_content("If you have an account with us, you will receive an email with a password reset link shortly.")
     end
 
     it "sends a reset password email" do
