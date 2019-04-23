@@ -1,6 +1,5 @@
 <%= link_to "Back to organisations", admin_organisations_path, class: "govuk-back-link" %>
  <h1 class="govuk-heading-l">GovWifi Map of Locations</h1>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_PUBLIC_API_KEY'] %>&callback=initMap"></script>
 
   <div class="map"></div>
    <script>
@@ -25,3 +24,4 @@
        }
      }
    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_PUBLIC_API_KEY'] %>&callback=initMap" async defer></script>
