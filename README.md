@@ -113,19 +113,24 @@ Deployments to Staging are run automatically whenever a change to the `master` b
 Deployments to Production must be manually triggered.
 You can do this by going to the [production deployment pipeline][prod-deploy-pipeline], and starting the "Confirm Deploy to Production" task.
 
+You can start the task by clicking on it, and pressing the `+` icon in the top right of the screen.
+
 This will do a few things:
 - It ensures the tests have been run on the latest commit for master.
 - It ensures Staging has already been deployed for the latest commit for master.
 - It then allows production to deploy using the latest commit for master.
 
+You do not need to wait the Tests and Staging deploy to finish before starting a Production deploy.
+The Production deploy will wait for the Tests and Staging deploy to finish before actually running.
+
 ## How to contribute
 
 1. Fork the project
-1. Create a feature or fix branch
-1. Make your changes (with tests if possible)
-1. Run and linter `make lint`
-1. Run and pass tests `make test`
-1. Raise a pull request
+2. Create a feature or fix branch
+3. Make your changes (with tests if possible)
+4. Run and linter `make lint`
+5. Run and pass tests `make test`
+6. Raise a pull request
 
 ## Licence
 
