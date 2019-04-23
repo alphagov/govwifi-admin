@@ -5,7 +5,7 @@ class Organisation < ApplicationRecord
   has_many :ips, through: :locations
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
-  validates :service_email, presence: true, format: { with: Devise.email_regexp, unless: Proc.new { |org| org.service_email.blank? }, message: "must be a valid email address" }
+  validates :service_email, format: { with: Devise.email_regexp, message: "must be a valid email address" }
   validate :validate_in_register?, unless: Proc.new { |org| org.name.blank? }
 
   def validate_in_register?

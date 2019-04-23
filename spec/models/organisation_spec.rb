@@ -79,7 +79,7 @@ describe Organisation do
     it 'explains why it is invalid' do
       organisation.valid?
       expect(organisation.errors.full_messages).to eq([
-        "Service email can't be blank"
+        "Service email must be a valid email address"
       ])
     end
   end
