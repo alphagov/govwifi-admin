@@ -52,8 +52,8 @@ describe 'Contact us when signed in', type: :feature do
   context 'when visiting from the root/help path' do
     before { visit '/help' }
 
-    it 'shows the user the not signed in support page' do
-      expect(page).to have_content 'How can we help?'
+    it 'redirects the user to the signed in support page' do
+      expect(page).to have_button 'Send support request'
     end
   end
 end
