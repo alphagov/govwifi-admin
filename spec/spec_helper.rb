@@ -39,6 +39,7 @@ RSpec.configure do |config|
   config.around do |example|
     original_s3_aws_config = Rails.application.config.s3_aws_config
     begin
+      class ActiveModel::SecurePassword::InstanceMethodsOnActivation; end;
       example.run
     ensure
       Rails.application.config.s3_aws_config = original_s3_aws_config
