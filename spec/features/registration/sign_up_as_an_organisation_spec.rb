@@ -127,6 +127,19 @@ describe 'Sign up as an organisation', type: :feature do
     end
   end
 
+  context 'when service email entered is not an email address' do
+    before do
+      sign_up_for_account
+      update_user_details(service_email: "InvalidEmail")
+    end
+
+    it_behaves_like 'errors in form'
+
+    it 'tells the user that the service email must be a valid email address' do
+      expect(page).to have_content "Organisation service email must be a valid email address"
+    end
+  end
+
   context 'when password is too short' do
     before do
       sign_up_for_account
