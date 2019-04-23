@@ -63,8 +63,8 @@ describe 'Resending confirmation instructions', type: :feature do
   end
 
   context 'when email address has already been confirmed' do
-    let(:user) { create(:user, email: unconfirmed_email) }
-    let(:confirmed_email) { user.email }
+    let(:confirmed_user) { create(:user, email: unconfirmed_email) }
+    let(:confirmed_email) { confirmed_user.email }
 
     before do
       visit new_user_confirmation_path
