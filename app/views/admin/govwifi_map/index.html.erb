@@ -1,27 +1,27 @@
 <%= link_to "Back to organisations", admin_organisations_path, class: "govuk-back-link" %>
- <h1 class="govuk-heading-l">GovWifi Map of Locations</h1>
+<h1 class="govuk-heading-l">GovWifi Map of Locations</h1>
 
   <div class="map"></div>
-   <script>
-   window.initMap = function(){
-       var map = new google.maps.Map(document.querySelector(".map"), {
-         zoom: 5,
-         center: {lat: 52.3555, lng:  1.1743}
-       });
+  <script>
+    window.initMap = function initMap(){
+        var map = new google.maps.Map(document.querySelector(".map"), {
+          zoom: 5,
+          center: {lat: 52.3555, lng:  1.1743}
+        });
 
-       setMarkers(map);
-     }
+        setMarkers(map);
+      }
 
-     var locations = <%= raw @coordinates.to_json %>;
+      var locations = <%= raw @coordinates.to_json %>;
 
-     function setMarkers(map) {
-       for (var i = 0; i < locations.length; i++) {
-         var location = locations[i];
-         var marker = new google.maps.Marker({
-           position: {lat: location[0], lng: location[1]},
-           map: map
-         });
-       }
-     }
-   </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_PUBLIC_API_KEY'] %>&callback=initMap" async defer></script>
+      function setMarkers(map) {
+        for (var i = 0; i < locations.length; i++) {
+          var location = locations[i];
+          var marker = new google.maps.Marker({
+            position: {lat: location[0], lng: location[1]},
+            map: map
+          });
+        }
+      }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_PUBLIC_API_KEY'] %>&callback=initMap" async defer></script>
