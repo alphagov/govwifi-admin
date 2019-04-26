@@ -68,4 +68,34 @@ describe Organisation do
       ])
     end
   end
+
+  context 'when organisation service email is left blank' do
+    let(:organisation) { build(:organisation, service_email: '') }
+
+    it 'is not valid' do
+      expect(organisation).not_to be_valid
+    end
+
+    it 'explains why it is invalid' do
+      organisation.valid?
+      expect(organisation.errors.full_messages).to eq([
+        "Service email must be a valid email address"
+      ])
+    end
+  end
+
+  context 'when organisation service email is not an email address' do
+    let(:organisation) { build(:organisation, service_email: 'IncorrectFormat') }
+
+    it 'is not valid' do
+      expect(organisation).not_to be_valid
+    end
+
+    it 'explains why it is invalid' do
+      organisation.valid?
+      expect(organisation.errors.full_messages).to eq([
+        "Service email must be a valid email address"
+      ])
+    end
+  end
 end
