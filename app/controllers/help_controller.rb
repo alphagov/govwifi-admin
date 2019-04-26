@@ -2,7 +2,7 @@ class HelpController < ApplicationController
   skip_before_action :authenticate_user!
 
   def new
-    return redirect_to signed_in_new_help_path if !!current_user
+    return redirect_to signed_in_new_help_path if current_user
 
     case params[:choice]
     when "signing_up"
