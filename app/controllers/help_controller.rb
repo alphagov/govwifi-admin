@@ -1,9 +1,8 @@
 class HelpController < ApplicationController
   skip_before_action :authenticate_user!
+  before_action :redirect_signed_in_user, only: :new
 
   def new
-    return redirect_to signed_in_new_help_path if current_user
-
     case params[:choice]
     when "signing_up"
       redirect_to signing_up_new_help_path
@@ -63,6 +62,10 @@ class HelpController < ApplicationController
   end
 
 private
+
+  def redirect_signed_in_user
+    return redirect_to signed_in_new_help_path if current_user
+  end
 
   def support_form_params
     params.require(:support_form).permit(:name, :details, :email, :organisation, :choice)
