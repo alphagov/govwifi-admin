@@ -77,6 +77,12 @@
           <nav>
             <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
               <li class="govuk-header__navigation-item">
+                <%= link_to 'Connect to GovWifi', SITE_CONFIG['connect_to_govwifi_link'], class: "govuk-header__link" %>
+              </li>
+              <li class="govuk-header__navigation-item">
+                <%= link_to 'Offer GovWifi', SITE_CONFIG['organisation_docs_link'], class: "govuk-header__link" %>
+              </li>
+              <li class="govuk-header__navigation-item">
                 <%= link_to 'Documentation', SITE_CONFIG['organisation_docs_link'], class: "govuk-header__link" %>
               </li>
               <li class="govuk-header__navigation-item">
