@@ -27,7 +27,7 @@ describe 'Locking a user account', type: :feature do
       fill_in 'Password', with: correct_password
       click_on 'Continue'
 
-      expect(page).to have_link 'Sign in'
+      expect(page).to have_link 'Admin'
     end
 
     it 'triggers a notification to be sent' do
