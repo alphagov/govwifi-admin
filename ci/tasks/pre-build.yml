@@ -1,25 +1,25 @@
 ---
 platform: linux
 
-image_resource:
-  type: registry-image
-  source:
-    repository: cybojenix/govwifi-concourse-runner
-
 inputs:
-  - name: govwifi-admin
-  - name: mysql-image
-  - name: nginx-image
-  - name: ruby-image
+  - name: src
+  - name: docker-cache/mysql-image
+  - name: docker-cache/nginx-image
+  - name: docker-cache/ruby-image
 
 outputs:
-  - name: govwifi-admin-prebuilt
+  # aligns with PREBUILT_TAG
+  - name: docker-cache/app-prebuilt
 
 caches:
-  - path: govwifi-admin-prebuilt-cached
+  - path: docker-cache/app-prebuilt-cached
 
 params:
-  USE_CONCOURSE_COMPOSE: true
+  # Expose that we're using Concourse
+  ON_CONCOURSE: true
+  # Set this to custom image names for preloading the app image. see `docker-compose.concourse.yml`
+  PREBUILT_TAG: 'app-prebuilt'
+  PREBUILT_CACHED_DIR: 'docker-cache/app-prebuilt-cached'
 
 run:
-  path: govwifi-admin/ci/tasks/scripts/pre-build.sh
+  path: src/ci/tasks/scripts/pre-build.sh
