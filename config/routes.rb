@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     get '/', on: :collection, to: 'help#new'
     get 'signed_in', on: :new
     get 'signing_up', on: :new
-    get 'existing_account', on: :new
+    get 'admin_account', on: :new
     get 'feedback', on: :new
   end
 
