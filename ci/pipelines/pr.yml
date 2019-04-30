@@ -46,31 +46,41 @@ jobs:
     plan:
       - aggregate:
         - do:
-          - get: govwifi-admin
+          - get: src
             resource: pull-request
             trigger: true
             version: every
           - <<: *update-status-pending
-        - get: mysql-image
+
+        # fetch each image and place in the docker-cache directory
+        - get: docker-cache/mysql-image
+          resource: mysql-image
           params: {format: oci}
-        - get: ruby-image
+        - get: docker-cache/ruby-image
+          resource: ruby-image
           params: {format: oci}
-        - get: nginx-image
+        - get: docker-cache/nginx-image
+          resource: nginx-image
           params: {format: oci}
+
         - get: runner
+
+      # used to avoid building multiple times down the road
       - task: pre-build
         privileged: true
         image: runner
-        file: govwifi-admin/ci/tasks/pre-build.yml
+        file: src/ci/tasks/pre-build.yml
+
       - aggregate:
         - task: lint
           privileged: true
           image: runner
-          file: govwifi-admin/ci/tasks/lint.yml
+          file: src/ci/tasks/lint.yml
         - task: test
           privileged: true
           image: runner
-          file: govwifi-admin/ci/tasks/test.yml
+          file: src/ci/tasks/test.yml
+
     on_failure:
       do:
         - <<: *update-status-failure
@@ -78,7 +88,7 @@ jobs:
       do:
         - <<: *update-status-success
 
-common:
+update-status-commands:
   update-status-base: &update-status-base
     put: update-status
     resource: pull-request
@@ -86,8 +96,8 @@ common:
       skip_download: true
 
   update-status-params-base: &update-status-params-base
-    path: govwifi-admin
-    context: 'concourse/ci'
+    path: src
+    context: 'pr'
 
   update-status-pending: &update-status-pending
     <<: *update-status-base
