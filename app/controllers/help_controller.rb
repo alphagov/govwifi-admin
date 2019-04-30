@@ -8,8 +8,8 @@ class HelpController < ApplicationController
       redirect_to signing_up_new_help_path
     when "existing_account"
       redirect_to existing_account_new_help_path
-    when "feedback"
-      redirect_to feedback_new_help_path
+    when "user_support"
+      redirect_to user_support_new_help_path
     end
   end
 
@@ -23,9 +23,9 @@ class HelpController < ApplicationController
     @support_form.choice = :existing_account
   end
 
-  def feedback
+  def user_support
     @support_form = SupportForm.new
-    @support_form.choice = :feedback
+    @support_form.choice = :user_support
   end
 
   def signed_in
