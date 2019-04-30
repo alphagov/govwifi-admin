@@ -16,7 +16,7 @@ describe 'Viewing IP addresses', type: :feature do
     it 'redirects the user to the setting up page' do
       visit root_path
 
-      within("h2") do
+      within("#setup-header") do
         expect(page).to have_content("Get GovWifi access in your organisation")
       end
     end

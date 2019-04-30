@@ -45,7 +45,7 @@ describe 'Invite a team member', type: :feature do
     it 'prevents visiting the invites page directly' do
       visit new_user_invitation_path
 
-      within("h2") do
+      within("#setup-header") do
         expect(page).to have_content("Get GovWifi access in your organisation")
       end
     end

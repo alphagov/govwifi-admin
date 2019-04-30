@@ -1,20 +1,15 @@
 ---
 platform: linux
 
-image_resource:
-  type: registry-image
-  source:
-    repository: cybojenix/govwifi-concourse-runner
-
 inputs:
-  - name: govwifi-admin
-  - name: mysql-image
-  - name: nginx-image
-  - name: ruby-image
-  - name: govwifi-admin-prebuilt
+  - name: src
+  - name: docker-cache/mysql-image
+  - name: docker-cache/nginx-image
+  - name: docker-cache/ruby-image
+  - name: docker-cache/app-prebuilt
 
 params:
-  USE_CONCOURSE_COMPOSE: true
+  ON_CONCOURSE: true
 
 run:
-  path: govwifi-admin/ci/tasks/scripts/test.sh
+  path: src/ci/tasks/scripts/test.sh
