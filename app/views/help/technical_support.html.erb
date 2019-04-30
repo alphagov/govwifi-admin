@@ -6,7 +6,7 @@
     <h2 class="govuk-heading-l">Network administrator technical support</h2>
     <p class="govuk-inset-text">
       If you are experiencing difficulty setting up or accessing an existing GovWifi administrator account, please use our
-      <%= link_to 'administrator account', admin_account_new_path, class: "govuk-link" %>
+      <%= link_to 'administrator account', existing_account_new_help_path, class: "govuk-link" %>
     </p>
 
     <%= form_for @support_form, url: { action: "create" }  do |f| %>

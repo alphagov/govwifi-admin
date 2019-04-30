@@ -4,8 +4,8 @@ class HelpController < ApplicationController
 
   def new
     case params[:choice]
-    when "techical_support"
-      redirect_to techical_support_new_help_path
+    when "technical_support"
+      redirect_to technical_support_new_help_path
     when "existing_account"
       redirect_to existing_account_new_help_path
     when "feedback"
@@ -13,9 +13,9 @@ class HelpController < ApplicationController
     end
   end
 
-  def techical_support
+  def technical_support
     @support_form = SupportForm.new
-    @support_form.choice = :techical_support
+    @support_form.choice = :technical_support
   end
 
   def existing_account
