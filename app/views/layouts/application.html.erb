@@ -5,11 +5,12 @@
 
     <%= render 'layouts/google_analytics' %>
 
-    <title>Govwifi Admin</title>
+    <title><%= @page_title || SITE_CONFIG['default_page_title'] %></title>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#0b0c0c" />
+    <meta name="description" content="<%= @meta_description || SITE_CONFIG['default_meta_description'] %>" />
 
     <%= favicon_link_tag asset_path('favicon.ico') %>
     <link rel="mask-icon" href="/assets/images/govuk-mask-icon.svg" color="#0b0c0c">
