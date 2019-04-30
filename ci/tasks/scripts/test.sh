@@ -1,11 +1,12 @@
 #!/bin/bash
 
-set -v -e -u -o pipefail
+set -e -u -o pipefail
 
-./govwifi-admin/ci/tasks/scripts/with-docker.sh
+./src/ci/tasks/scripts/with-docker.sh
 
-cd govwifi-admin
+workspace_dir="${PWD}"
+cd src
 
 make test
 
-cd /
+cd "${workspace_dir}"
