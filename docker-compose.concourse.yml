@@ -2,9 +2,9 @@ version: '3.4'
 
 services:
   app:
-    image: govwifi-admin-app-prebuilt
+    image: app-prebuilt
     build:
       cache_from:
-        - govwifi-admin-app-prebuilt
+        - app-prebuilt
       args:
         RUN_PRECOMPILATION: 'false'

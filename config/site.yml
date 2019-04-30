@@ -7,6 +7,8 @@ default: &default
   product_page_link: 'https://wifi.service.gov.uk'
   organisation_register_url: 'https://government-organisation.register.gov.uk/records.json?page-size=5000'
   local_auth_register_url: 'https://local-authority-eng.register.gov.uk/records.json?page-size=5000'
+  default_page_title: 'GovWifi Admin'
+  default_meta_description: 'GovWifi - Administration Platform'
 
 development:
   <<: *default
