@@ -80,7 +80,7 @@ describe 'Contact us when not signed in', type: :feature do
 
   context 'with an incorrectly filled out form' do
     before do
-      visit signing_up_new_help_path
+      visit technical_support_new_help_path
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
     end
@@ -120,7 +120,7 @@ describe 'Contact us when not signed in', type: :feature do
 
   context 'with incorrect email formats' do
     before do
-      visit signing_up_new_help_path
+      visit technical_support_new_help_path
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
     end
