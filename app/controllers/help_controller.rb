@@ -6,8 +6,8 @@ class HelpController < ApplicationController
     case params[:choice]
     when "techical_support"
       redirect_to techical_support_new_help_path
-    when "admin_account"
-      redirect_to admin_account_new_help_path
+    when "existing_account"
+      redirect_to existing_account_new_help_path
     when "feedback"
       redirect_to feedback_new_help_path
     end
