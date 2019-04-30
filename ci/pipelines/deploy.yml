@@ -60,27 +60,31 @@ jobs:
     interruptible: true
     plan:
       - aggregate:
-        - get: govwifi-admin
+        - get: src
+          resource: govwifi-admin
           trigger: true
-        - get: mysql-image
+        - get: docker-cache/mysql-image
+          resource: mysql-image
           params: {format: oci}
-        - get: ruby-image
+        - get: docker-cache/ruby-image
+          resource: ruby-image
           params: {format: oci}
-        - get: nginx-image
+        - get: docker-cache/nginx-image
+          resource: nginx-image
           params: {format: oci}
         - get: runner
       - task: pre-build
         privileged: true
-        file: govwifi-admin/ci/tasks/pre-build.yml
+        file: src/ci/tasks/pre-build.yml
         image: runner
       - aggregate:
         - task: lint
           privileged: true
-          file: govwifi-admin/ci/tasks/lint.yml
+          file: src/ci/tasks/lint.yml
           image: runner
         - task: test
           privileged: true
-          file: govwifi-admin/ci/tasks/test.yml
+          file: src/ci/tasks/test.yml
           image: runner
 
   - name: Push Staging
