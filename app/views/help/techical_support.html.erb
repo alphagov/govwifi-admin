@@ -3,10 +3,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= link_to 'Back', new_help_path, class: "govuk-back-link" %>
-    <h2 class="govuk-heading-l">I'm having trouble signing up</h2>
+    <h2 class="govuk-heading-l">Network administrator technical support</h2>
     <p class="govuk-inset-text">
-      We publish guidance on how to setup and manage the service in our
-      <%= link_to 'documentation.', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %>
+      If you are experiencing difficulty setting up or accessing an existing GovWifi administrator account, please use our
+      <%= link_to 'administrator account', admin_account_new_path, class: "govuk-link" %>
     </p>
 
     <%= form_for @support_form, url: { action: "create" }  do |f| %>
