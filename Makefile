@@ -6,19 +6,19 @@ ifdef DEPLOYMENT
 endif
 
 ifndef JENKINS_URL
-  ifndef USE_CONCOURSE_COMPOSE
+  ifndef ON_CONCOURSE
     DOCKER_COMPOSE += -f docker-compose.development.yml
   endif
 endif
 
-ifdef USE_CONCOURSE_COMPOSE
+ifdef ON_CONCOURSE
 	DOCKER_COMPOSE += -f docker-compose.concourse.yml
 endif
 
 DOCKER_BUILD_CMD = BUNDLE_INSTALL_FLAGS="$(BUNDLE_FLAGS)" $(DOCKER_COMPOSE) build
 
 build:
-ifndef USE_CONCOURSE_COMPOSE
+ifndef ON_CONCOURSE
 	$(DOCKER_COMPOSE) build
 endif
 
