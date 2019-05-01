@@ -8,6 +8,8 @@ class Organisation < ApplicationRecord
   validates :service_email, format: { with: Devise.email_regexp, message: "must be a valid email address" }
   validate :validate_in_register?, unless: Proc.new { |org| org.name.blank? }
 
+  after_initialize :generate_uuid
+
   def validate_in_register?
     unless Organisation.fetch_organisations_from_register.include?(name)
       errors.add(:base, "#{name} isn't a whitelisted organisation")
@@ -18,5 +20,11 @@ class Organisation < ApplicationRecord
     UseCases::Organisation::FetchOrganisationRegister.new(
       organisations_gateway: Gateways::GovukOrganisationsRegisterGateway.new
     ).execute.sort
+  end
+
+  def generate_uuid
+    return if uuid.present?
+
+    self.uuid = SecureRandom.uuid
   end
 end

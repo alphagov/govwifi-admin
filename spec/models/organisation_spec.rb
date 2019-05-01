@@ -98,4 +98,24 @@ describe Organisation do
       ])
     end
   end
+
+  context 'when an organisation does not have a uuid' do
+    let(:organisation) { described_class.new(name: 'Gov Org 1', service_email: 'foo@bar.com') }
+
+    before { organisation.save! }
+
+    it 'generates a new one' do
+      expect(organisation.uuid).to be_present
+    end
+  end
+
+  context 'when an organisation has a uuid' do
+    let(:organisation) { described_class.new(uuid: 'abcde', name: 'Gov Org 1', service_email: 'foo@bar.com') }
+
+    before { organisation.save! }
+
+    it 'does not generate a new one' do
+      expect(organisation.uuid).to eq('abcde')
+    end
+  end
 end
