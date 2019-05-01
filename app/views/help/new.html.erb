@@ -1,31 +1,37 @@
+<div><% content_for :page_title, 'Contact Us - GovWifi' %></div>
+<div><% content_for :meta_description, 'Contact us for help and support installing GovWifi in your organisation.' %></div>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-l">Support</h2>
+    <h2 class="govuk-heading-l">Contact GovWifi</h2>
     <div class="govuk-details">
+    <p>
+      We provide network administrator guidance on how to offer and manage GovWifi in your organisation in our
+      <%= link_to 'technical documentation', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %>.
+    </p>
+    <p>
+      If you are having trouble connecting to GovWifi, see our <%= link_to 'user support guidance', 'https://www.wifi.service.gov.uk/support/', class: "govuk-link" %> on common issues.
+    </p>
+
       <h2 class="govuk-body-m">How can we help?</h2>
 
       <%= form_tag new_help_path, class: 'govuk-radios', method: 'get' do %>
         <div class="govuk-radio">
           <div class="govuk-radios__item">
             <%= radio_button_tag(:choice, :technical_support, nil, class: "govuk-radios__input") %>
-            <%= label_tag(:choice_technical_support, "I'm having trouble signing up", class: 'govuk-label govuk-radios__label') %>
+            <%= label_tag(:choice_technical_support, "Network administrator technical support", class: 'govuk-label govuk-radios__label') %>
           </div>
           <div class="govuk-radios__item">
             <%= radio_button_tag(:choice, :admin_account, nil, class: "govuk-radios__input") %>
-            <%= label_tag(:choice_admin_account, "Something's wrong with my admin account", class: 'govuk-label govuk-radios__label') %>
+            <%= label_tag(:choice_admin_account, "Network administrator account support", class: 'govuk-label govuk-radios__label') %>
           </div>
           <div class="govuk-radios__item">
             <%= radio_button_tag(:choice, :user_support, nil, class: "govuk-radios__input") %>
-            <%= label_tag(:choice_user_support, "Ask a question or leave feedback", class: 'govuk-label govuk-radios__label govuk-!-margin-bottom-4') %>
+            <%= label_tag(:choice_user_support, "Connecting to GovWifi user support", class: 'govuk-label govuk-radios__label govuk-!-margin-bottom-4') %>
           </div>
         </div>
         <%= submit_tag('Continue', class: 'govuk-button') %>
       <% end %>
-
-      <p class="govuk-body"> If you are having trouble connecting to GovWifi, see <%= link_to 'our guidance on common issues', SITE_CONFIG['end_user_troubleshooting_link'], class: "govuk-link" %>.
-      </p>
-
-      <p class="govuk-body"> If this doesn't resolve the issue, we recommend you contact your organisation’s IT support team.</p>
     </div>
   </div>
 </div>
