@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     get 'signed_in', on: :new
     get 'admin_account', on: :new
     get 'technical_support', on: :new
-    get 'feedback', on: :new
+    get 'user_support', on: :new
   end
 
   resources :locations, only: %i[new create destroy] do
