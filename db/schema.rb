@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2019_05_01_150308) do
     t.datetime "updated_at", null: false
     t.string "service_email"
     t.boolean "super_admin", default: false
-    t.string "uuid", limit: 36, null: false
+    t.string "uuid", limit: 36, default: "uuid()", null: false
   end
 
   create_table "permissions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
