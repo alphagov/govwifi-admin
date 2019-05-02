@@ -5,7 +5,12 @@ class MouController < ApplicationController
   end
 
   def create
-    redirect_path = replacing? ? replaced_mou_index_path : created_mou_index_path
+    redirect_path = if replacing?
+                      replaced_mou_index_path(organisation_uuid: current_organisation.uuid)
+                    else
+                      created_mou_index_path(organisation_uuid: current_organisation.uuid)
+                    end
+
     if params[:signed_mou]
       current_organisation.signed_mou.attach(params[:signed_mou])
       flash[:notice] = "MOU uploaded successfully."

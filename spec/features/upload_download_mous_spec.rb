@@ -8,7 +8,7 @@ describe 'Uploading and downloading an MOU', type: :feature do
 
     context 'when no file is chosen to upload' do
       before do
-        visit mou_index_path
+        visit mou_index_path(organisation_uuid: user.organisation.uuid)
         click_on 'Upload'
       end
 
@@ -19,7 +19,7 @@ describe 'Uploading and downloading an MOU', type: :feature do
 
     context 'when uploading the signed mou' do
       before do
-        visit mou_index_path
+        visit mou_index_path(organisation_uuid: user.organisation.uuid)
         attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
         click_on 'Upload'
       end
@@ -33,13 +33,13 @@ describe 'Uploading and downloading an MOU', type: :feature do
       end
 
       it 'redirects to "after MOU uploaded" path for analytics' do
-        expect(page).to have_current_path('/mou/created')
+        expect(page).to have_current_path("/organisations/#{user.organisation.uuid}/mou/created")
       end
     end
 
     context 'when replacing the signed mou' do
       before do
-        visit mou_index_path
+        visit mou_index_path(organisation_uuid: user.organisation.uuid)
         attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
         click_on 'Upload'
         attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
@@ -55,14 +55,14 @@ describe 'Uploading and downloading an MOU', type: :feature do
       end
 
       it 'redirects to "after MOU uploaded" path for analytics' do
-        expect(page).to have_current_path('/mou/replaced')
+        expect(page).to have_current_path("/organisations/#{user.organisation.uuid}/mou/replaced")
       end
     end
   end
 
   context 'when signed out' do
     before do
-      visit mou_index_path
+      visit mou_index_path(organisation_uuid: user.organisation.uuid)
     end
 
     it_behaves_like 'not signed in'
