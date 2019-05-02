@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2019_05_02_092749) do
     t.datetime "updated_at", null: false
     t.string "service_email"
     t.boolean "super_admin", default: false
-    t.string "uuid", limit: 36, null: false
+    t.string "uuid", limit: 36, null: false, default: 'uuid()'
     t.index ["uuid"], name: "index_organisations_on_uuid", unique: true
   end
 
