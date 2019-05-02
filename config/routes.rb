@@ -44,10 +44,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :mou, only: %i[index create] do
-    collection do
-      get 'created', to: 'mou#index'
-      get 'replaced', to: 'mou#index'
+  scope '/organisations/:organisation_uuid' do
+    resources :mou, only: %i[index create] do
+      collection do
+        get 'created', to: 'mou#index'
+        get 'replaced', to: 'mou#index'
+      end
     end
   end
   resources :logs, only: %i[index]
