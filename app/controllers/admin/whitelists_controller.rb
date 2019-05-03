@@ -22,10 +22,10 @@ class Admin::WhitelistsController < AdminController
       ).execute
 
       redirect_to new_admin_whitelist_path,
-        notice: "Organisation has been whitelisted"
+                  notice: "Organisation has been whitelisted"
     else
       redirect_to new_admin_whitelist_path(step: "fourth"),
-        notice: 'There was an error, please try again'
+                  notice: 'There was an error, please try again'
     end
   end
 

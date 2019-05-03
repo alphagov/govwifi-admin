@@ -3,22 +3,22 @@ class FakeHealthyRoute53Gateway
     client = Aws::Route53::Client.new(stub_responses: true)
 
     client.stub_responses(:get_health_check_status,
-      health_check_observations:
-        [
-          {
-            region: 'ap-southeast-2',
-            ip_address: '39.239.222.111',
-            status_report: {
-              status: 'Success: HTTP Status Code 200, OK'
-            }
-          }, {
-            region: 'ap-eu-west-1',
-            ip_address: '27.111.39.33',
-            status_report: {
-              status: 'Success: HTTP Status Code 200, OK'
-            }
-          }
-        ])
+                          health_check_observations:
+                            [
+                              {
+                                region: 'ap-southeast-2',
+                                ip_address: '39.239.222.111',
+                                status_report: {
+                                  status: 'Success: HTTP Status Code 200, OK'
+                                }
+                              }, {
+                                region: 'ap-eu-west-1',
+                                ip_address: '27.111.39.33',
+                                status_report: {
+                                  status: 'Success: HTTP Status Code 200, OK'
+                                }
+                              }
+                            ])
 
     client.get_health_check_status(health_check_id: health_check_id)
   end
@@ -64,16 +64,16 @@ class FakeUnHealthyRoute53Gateway
     client = Aws::Route53::Client.new(stub_responses: true)
 
     client.stub_responses(:get_health_check_status,
-      health_check_observations:
-        [
-          {
-            region: 'ap-southeast-2',
-            ip_address: '39.239.222.111',
-            status_report: {
-              status: 'Failure: HTTP Status Code 500, Host Unreachable'
-            }
-          }
-        ])
+                          health_check_observations:
+                            [
+                              {
+                                region: 'ap-southeast-2',
+                                ip_address: '39.239.222.111',
+                                status_report: {
+                                  status: 'Failure: HTTP Status Code 500, Host Unreachable'
+                                }
+                              }
+                            ])
 
     client.get_health_check_status(health_check_id: health_check_id)
   end
