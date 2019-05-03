@@ -16,7 +16,7 @@ class OrganisationsController < ApplicationController
 private
 
   def set_organisation
-    @organisation = Organisation.find_by(id: params.fetch(:id))
+    @organisation = Organisation.find_by(id: params[:id]) || Organisation.find_by(uuid: params[:id])
   end
 
   def validate_user_is_part_of_organisation

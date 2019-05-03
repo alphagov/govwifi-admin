@@ -10,13 +10,13 @@ class Admin::OrganisationsController < AdminController
   end
 
   def show
-    @organisation = Organisation.find_by(id: params[:id])
+    @organisation = Organisation.find_by(id: params[:id]) || Organisation.find_by(uuid: params[:id])
     @team = sorted_team_members(@organisation)
     @locations = @organisation.locations.order("address asc")
   end
 
   def destroy
-    organisation = Organisation.find_by(id: params[:id])
+    organisation = Organisation.find_by(id: params[:id]) || Organisation.find_by(uuid: params[:id])
     organisation.destroy
     redirect_to admin_organisations_path, notice: "Organisation has been removed"
   end
