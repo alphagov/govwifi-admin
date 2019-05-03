@@ -18,7 +18,7 @@ describe 'View details of an organisation', type: :feature do
       create(:ip, location: location_3)
 
       sign_in_user create(:user, :super_admin)
-      visit admin_organisation_path(organisation)
+      visit admin_organisation_path(organisation.id)
     end
 
     it 'shows details page for the organisations' do
@@ -90,7 +90,7 @@ describe 'View details of an organisation', type: :feature do
         organisation.signed_mou.attach(
           io: File.open(Rails.root + 'spec/fixtures/mou.pdf'), filename: 'mou.pdf'
         )
-        visit admin_organisation_path(organisation)
+        visit admin_organisation_path(organisation.id)
       end
 
       it 'has a download button' do
@@ -113,7 +113,7 @@ describe 'View details of an organisation', type: :feature do
   end
 
   context 'when logged out' do
-    before { visit admin_organisation_path(organisation) }
+    before { visit admin_organisation_path(organisation.id) }
 
     it_behaves_like 'not signed in'
   end
@@ -121,7 +121,7 @@ describe 'View details of an organisation', type: :feature do
   context 'when logged in as a normal user' do
     before do
       sign_in_user create(:user)
-      visit admin_organisation_path(organisation)
+      visit admin_organisation_path(organisation.id)
     end
 
     it_behaves_like 'user not authorised'

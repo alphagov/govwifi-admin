@@ -5,7 +5,7 @@ describe 'Editing an organisations details', type: :feature do
   context 'when editing an organisation you belong to' do
     before do
       sign_in_user user
-      visit edit_organisation_path(organisation)
+      visit edit_organisation_path(organisation.id)
       fill_in 'Service email', with: "NewServiceEmail@gov.uk"
       click_on 'Save'
     end
@@ -28,7 +28,7 @@ describe 'Editing an organisations details', type: :feature do
 
     it 'displays an error message to the user' do
       expect {
-        visit edit_organisation_path(user.organisation)
+        visit edit_organisation_path(organisation.id)
       }.to raise_error(ActionController::RoutingError)
     end
   end
@@ -36,7 +36,7 @@ describe 'Editing an organisations details', type: :feature do
   context 'when inputting invalid details' do
     before do
       sign_in_user user
-      visit edit_organisation_path(organisation)
+      visit edit_organisation_path(organisation.id)
       fill_in 'Service email', with: ''
       click_on 'Save'
     end

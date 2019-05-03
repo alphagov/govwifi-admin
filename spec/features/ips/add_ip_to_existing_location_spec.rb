@@ -5,7 +5,7 @@ describe 'Adding an IP to an existing location', type: :feature do
   context 'when selecting a location' do
     before do
       sign_in_user user
-      visit new_ip_path(location: location)
+      visit new_ip_path(location: location, organisation: user.organisation.uuid)
       fill_in 'address', with: ip_address
       click_on 'Add new IP address'
     end
@@ -22,7 +22,7 @@ describe 'Adding an IP to an existing location', type: :feature do
       end
 
       it 'redirects to the "after IP created" path for Analytics' do
-        expect(page).to have_current_path('/ips/created')
+        expect(page).to have_current_path("/organisations/#{user.organisation.uuid}/ips/created")
       end
     end
 
@@ -82,7 +82,7 @@ describe 'Adding an IP to an existing location', type: :feature do
 
     before do
       sign_in_user user
-      visit new_ip_path(location: other_location)
+      visit new_ip_path(location: other_location, organisation: user.organisation.uuid)
       fill_in 'address', with: "141.0.149.130"
       click_on 'Add new IP address'
     end
@@ -96,13 +96,13 @@ describe 'Adding an IP to an existing location', type: :feature do
     end
 
     it 'redirects to the "after IP created" path for Analytics' do
-      expect(page).to have_current_path('/ips/created')
+      expect(page).to have_current_path("/organisations/#{user.organisation.uuid}/ips/created")
     end
   end
 
   context 'when not logged in' do
     before do
-      visit new_ip_path(location: location)
+      visit new_ip_path(location: location, organisation: user.organisation.uuid)
     end
 
     it_behaves_like 'not signed in'

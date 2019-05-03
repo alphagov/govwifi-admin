@@ -13,7 +13,7 @@ describe 'View authentication requests for an IP', type: :feature do
 
   context 'when using a link' do
     before do
-      visit ips_path
+      visit ips_path(organisation: admin_user.organisation.uuid)
 
       within('#ips-table') do
         click_on 'View logs'

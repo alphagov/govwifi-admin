@@ -19,7 +19,7 @@
         <% else %>
           <%= link_to 'Setup', setup_instructions_path, class: active_tab(setup_instructions_path) + active_tab('mou') %>
         <% end %>
-        <%= link_to 'IPs', ips_path, id: 'nav-ips', class: active_tab('ips') + active_tab('locations') %>
+        <%= link_to 'IPs', ips_path(organisation: current_organisation), id: 'nav-ips', class: active_tab('ips') + active_tab('locations') %>
         <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
         <%= link_to 'Team', team_members_path, class: active_tab('team') + active_tab('user') %>
       <% end %>

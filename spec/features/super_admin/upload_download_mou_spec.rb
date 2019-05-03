@@ -51,7 +51,7 @@ describe 'Upload and download the MOU template', type: :feature do
 
   context 'when an organisation exists with no MOU' do
     before do
-      visit(admin_organisation_path(Organisation.first))
+      visit(admin_organisation_path(Organisation.first.id))
     end
 
     context 'when I attach an MOU' do

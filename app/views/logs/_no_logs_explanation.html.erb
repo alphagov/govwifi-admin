@@ -16,7 +16,7 @@
     </h3>
 
     <ul class="govuk-list govuk-list--bullet">
-      <li>Checking your <%= link_to 'configured IP addresses', ips_path, class: "govuk-link" %> match your authenticator IPs </li>
+      <li>Checking your <%= link_to 'configured IP addresses', ips_path(organisation: current_organisation), class: "govuk-link" %> match your authenticator IPs </li>
       <li>Checking your authenticators have the right RADIUS secret keys</li>
       <li><%= link_to 'Browsing the technical documentation', SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %></li>
     </ul>

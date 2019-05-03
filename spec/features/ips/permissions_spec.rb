@@ -12,16 +12,16 @@ describe 'Add an IP', type: :feature do
 
     context 'when visiting the add IP page directly' do
       before do
-        visit new_ip_path
+        visit new_ip_path(organisation: user.organisation.uuid)
       end
 
       it 'does not redirect them to the homepage' do
-        expect(page).to have_current_path(new_ip_path)
+        expect(page).to have_current_path(new_ip_path(organisation: user.organisation.uuid))
       end
     end
 
     it 'displays the add new IP link' do
-      visit ips_path
+      visit ips_path(organisation: user.organisation.uuid)
       expect(page).to have_link('Add IP address')
     end
 
@@ -43,13 +43,13 @@ describe 'Add an IP', type: :feature do
     end
 
     it 'hides the add new IP link' do
-      visit ips_path
+      visit ips_path(organisation: user.organisation.uuid)
       expect(page).not_to have_link('Add IP address')
     end
 
     context 'when visiting the add IP page directly' do
       before do
-        visit new_ip_path
+        visit new_ip_path(organisation: user.organisation.uuid)
       end
 
       it_behaves_like 'shows the setup instructions page'

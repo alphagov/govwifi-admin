@@ -27,7 +27,7 @@
     <% end %>
 
     <div>
-      <%= form_with url: mou_index_path(organisation_uuid: current_organisation.uuid), method: 'post' do |form| %>
+      <%= form_with url: mou_index_path(organisation: current_organisation), method: 'post' do |form| %>
         <div class="govuk-form-group">
           <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
         </div>

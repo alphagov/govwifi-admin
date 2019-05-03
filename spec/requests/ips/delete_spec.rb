@@ -17,12 +17,12 @@ describe "DELETE /ips/:id", type: :request do
 
     it "deletes the IP" do
       expect {
-        delete ip_path(ip)
+        delete ip_path(ip, organisation: user.organisation.uuid)
       }.to change(Ip, :count).by(-1)
     end
 
     it "publishes the list of remaining IPs after a deletion" do
-      delete ip_path(ip)
+      delete ip_path(ip, organisation: user.organisation.uuid)
       expect(publish_ip).to have_received(:execute)
     end
   end
@@ -32,7 +32,7 @@ describe "DELETE /ips/:id", type: :request do
 
     it "does not delete the IP" do
       expect {
-        delete ip_path(other_ip)
+        delete ip_path(other_ip, organisation: user.organisation.uuid)
       }.to change(Ip, :count).by(0)
     end
   end

@@ -13,7 +13,7 @@ class IpsController < ApplicationController
     if @ip.save
       Facades::Ips::Publish.new.execute
       redirect_to(
-        created_ips_path,
+        created_ips_path(organisation: current_organisation),
         notice: "#{@ip.address} added, it will be active starting tomorrow"
       )
     else

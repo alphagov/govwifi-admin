@@ -17,7 +17,7 @@
           <%= @locations.count %>
         </h1>
         <p class="govuk-panel__body text-left govuk-!-font-size-27">
-          <%= link_to "Locations", ips_path, class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
+          <%= link_to "Locations", ips_path(organisation: current_organisation), class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
         </p>
       </div>
     </div>
@@ -27,7 +27,7 @@
           <%= @ips.count %>
         </h1>
         <p class="govuk-panel__body text-left govuk-!-font-size-27">
-          <%= link_to "IPs", ips_path, class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
+          <%= link_to "IPs", ips_path(organisation: current_organisation), class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
         </p>
       </div>
     </div>

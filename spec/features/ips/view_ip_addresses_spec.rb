@@ -9,7 +9,7 @@ describe 'Viewing IP addresses', type: :feature do
     end
 
     it 'shows no IPs' do
-      visit ips_path
+      visit ips_path(organisation: user.organisation.uuid)
       expect(page).to have_content 'You need to add the IPs of your authenticator(s)'
     end
 
@@ -28,7 +28,7 @@ describe 'Viewing IP addresses', type: :feature do
 
     before do
       sign_in_user user
-      visit ips_path
+      visit ips_path(organisation: user.organisation.uuid)
     end
 
     it 'shows the RADIUS secret key' do
@@ -54,7 +54,7 @@ describe 'Viewing IP addresses', type: :feature do
     context 'with active IPs' do
       before do
         create(:session, start: Date.today, username: 'abc123', siteIP: ip.address)
-        visit ips_path
+        visit ips_path(organisation: user.organisation.uuid)
       end
 
       it 'Does not label the IP as inactive' do
@@ -66,7 +66,7 @@ describe 'Viewing IP addresses', type: :feature do
   end
 
   context 'when logged out' do
-    before { visit ips_path }
+    before { visit ips_path(organisation: user.organisation.uuid) }
 
     it_behaves_like 'not signed in'
   end

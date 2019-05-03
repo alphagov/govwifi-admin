@@ -11,7 +11,7 @@
     </div>
     <% if current_user.can_manage_locations? %>
       <p class="govuk-body govuk-!-margin-bottom-1">
-        <%= link_to "Add IP to this location", new_ip_path(location: location), class: "govuk-link" %>
+        <%= link_to "Add IP to this location", new_ip_path(location: location, organisation: current_organisation.uuid), class: "govuk-link" %>
       </p>
     <% end %>
 
@@ -39,7 +39,7 @@
         </td>
         <td class="govuk-table__cell text-right">
           <% if current_user.can_manage_locations? %>
-            <%= link_to 'Remove', ip_remove_path(ip), class: "govuk-link" %>
+            <%= link_to 'Remove', ip_remove_path(ip, organisation: current_organisation.uuid), class: "govuk-link" %>
           <% end %>
         </td>
         <td class="govuk-table__cell text-right">

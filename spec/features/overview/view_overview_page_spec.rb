@@ -71,14 +71,14 @@ describe 'Viewing the overview page', type: :feature do
       it 'redirects to the IPs page when Locations is clicked on' do
         click_link 'Locations'
 
-        expect(page).to have_current_path(ips_path)
+        expect(page).to have_current_path(ips_path(organisation: user.organisation.uuid))
       end
 
       it 'redirects to the IPs page when IPs is clicked on' do
         within('div#ips') do
           click_link 'IPs'
         end
-        expect(page).to have_current_path(ips_path)
+        expect(page).to have_current_path(ips_path(organisation: user.organisation.uuid))
       end
     end
   end

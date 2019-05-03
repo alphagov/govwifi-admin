@@ -7,13 +7,13 @@ describe 'Wiew whether IPs are ready', type: :feature do
     before do
       create :location, organisation: user.organisation
       sign_in_user user
-      visit new_ip_path
+      visit new_ip_path(organisation: user.organisation.uuid)
       fill_in 'address', with: '141.0.149.130'
       click_on 'Add new IP address'
     end
 
     context 'when viewing the new IP immediately' do
-      before { visit ips_path }
+      before { visit ips_path(organisation: user.organisation.uuid) }
 
       it 'shows it is activating tomorrow' do
         expect(page).to have_content('Not available until 6am tomorrow')
@@ -26,7 +26,7 @@ describe 'Wiew whether IPs are ready', type: :feature do
           ip.update_attributes(created_at: Date.yesterday)
         end
         sign_in_user user
-        visit ips_path
+        visit ips_path(organisation: user.organisation.uuid)
       end
 
       it 'shows it as available' do

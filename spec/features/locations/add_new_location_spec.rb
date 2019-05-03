@@ -7,7 +7,7 @@ describe 'Add new location', type: :feature do
 
   before do
     sign_in_user user
-    visit ips_path
+    visit ips_path(organisation: user.organisation.uuid)
     click_on 'Add IP address'
   end
 
@@ -34,7 +34,7 @@ describe 'Add new location', type: :feature do
 
       it 'redirects to "After location created with IP" path for analytics' do
         click_on 'Add new location'
-        expect(page).to have_current_path('/ips/created/location/with-ip')
+        expect(page).to have_current_path("/organisations/#{user.organisation.uuid}/ips/created/location/with-ip")
       end
     end
 
@@ -72,7 +72,7 @@ describe 'Add new location', type: :feature do
       end
 
       it 'does not add the invalid IP' do
-        visit ips_path
+        visit ips_path(organisation: user.organisation.uuid)
         expect(page).not_to have_content('10.wrong.0.1')
       end
     end
@@ -89,7 +89,7 @@ describe 'Add new location', type: :feature do
       end
 
       it 'redirects to "After location created" path for analytics' do
-        expect(page).to have_current_path('/ips/created/location')
+        expect(page).to have_current_path("/organisations/#{user.organisation.uuid}/ips/created/location")
       end
     end
 

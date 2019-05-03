@@ -6,9 +6,9 @@ class MouController < ApplicationController
 
   def create
     redirect_path = if replacing?
-                      replaced_mou_index_path(organisation_uuid: current_organisation.uuid)
+                      replaced_mou_index_path(organisation: current_organisation)
                     else
-                      created_mou_index_path(organisation_uuid: current_organisation.uuid)
+                      created_mou_index_path(organisation: current_organisation)
                     end
 
     if params[:signed_mou]

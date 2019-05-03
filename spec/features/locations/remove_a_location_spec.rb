@@ -8,7 +8,7 @@ describe 'Remove a location', type: :feature do
 
   context "with correct permissions" do
     before do
-      visit ips_path
+      visit ips_path(organisation: user.organisation.uuid)
     end
 
     context "when location has no IPs" do
@@ -33,7 +33,7 @@ describe 'Remove a location', type: :feature do
 
       it 'redirects to the "after location removed" path for analytics' do
         click_on "Yes, remove this location"
-        expect(page).to have_current_path('/ips/removed/location')
+        expect(page).to have_current_path("/organisations/#{user.organisation.uuid}/ips/removed/location")
       end
     end
 
@@ -54,7 +54,7 @@ describe 'Remove a location', type: :feature do
     end
 
     it "does not show the remove button" do
-      visit ips_path
+      visit ips_path(organisation: user.organisation.uuid)
       within("#ips-table") do
         expect(page).not_to have_content("Remove location")
       end

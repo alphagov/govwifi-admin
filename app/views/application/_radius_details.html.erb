@@ -10,9 +10,9 @@
     </p>
 
     <% if current_organisation.locations.empty? %>
-      <p>Your RADIUS secret keys will be generated when you <%= link_to 'add your first IP address', new_ip_path, class: "govuk-link" %></p>
+      <p>Your RADIUS secret keys will be generated when you <%= link_to 'add your first IP address', new_ip_path(organisation: current_organisation), class: "govuk-link" %></p>
     <% else %>
-      <p> Your RADIUS secret keys are shown under <%= link_to "your organisation's locations", ips_path, class: "govuk-link" %>.</p>
+      <p> Your RADIUS secret keys are shown under <%= link_to "your organisation's locations", ips_path(organisation: current_organisation), class: "govuk-link" %>.</p>
     <% end %>
 
     <h3> London: </h3>

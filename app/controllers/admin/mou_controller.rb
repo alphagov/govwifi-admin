@@ -5,9 +5,9 @@ class Admin::MouController < AdminController
 
   def create
     if params[:id]
-      organisation = Organisation.find(params[:id])
-      attach_to_organisation(organisation)
-      redirect_to admin_organisation_path(organisation)
+      organisation = Organisation.find_by(id: params[:id])
+      attach_to_organisation(organisation.id)
+      redirect_to admin_organisation_path(organisation.id)
     else
       attach_to_template
     end

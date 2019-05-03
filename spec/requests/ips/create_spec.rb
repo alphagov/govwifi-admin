@@ -17,6 +17,6 @@ describe "POST /ips", type: :request do
   end
 
   it "publishes IP to s3 for performance platform" do
-    post ips_path, params: { ip: { address: ip_address } }
+    post ips_path(organisation: user.organisation.uuid), params: { ip: { address: ip_address } }
   end
 end

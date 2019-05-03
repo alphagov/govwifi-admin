@@ -17,6 +17,6 @@
       </tbody>
     </table>
 
-    <%= button_to 'Yes, remove this IP', ip_path(@ip_to_delete), method: :delete, class: "govuk-button red-button" %>
+    <%= button_to 'Yes, remove this IP', ip_path(@ip_to_delete, organisation: current_organisation.uuid), method: :delete, class: "govuk-button red-button" %>
   </div>
 </div>

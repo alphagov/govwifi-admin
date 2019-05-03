@@ -11,7 +11,7 @@
         <% if current_organisation.locations.empty? %>
           <%= link_to 'Add IP address', new_location_path, class: "govuk-button" %>
         <% else %>
-          <%= link_to 'Add IP address', new_ip_path, class: "govuk-button" %>
+          <%= link_to 'Add IP address', new_ip_path(organisation: current_organisation), class: "govuk-button" %>
         <% end %>
       <% end %>
     </div>

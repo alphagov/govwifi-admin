@@ -19,6 +19,6 @@
       <%= f.submit 'Show logs', class: 'govuk-button' %>
     <% end %>
 
-    <p class='govuk-body'> Or, click "view logs" from <%= link_to 'your list of IP addresses', ips_path %></p>
+    <p class='govuk-body'> Or, click "view logs" from <%= link_to 'your list of IP addresses', ips_path(organisation: current_organisation) %></p>
   </div>
 </div>

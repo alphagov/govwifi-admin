@@ -24,7 +24,7 @@ private
   end
 
   def set_target_organisation
-    @target_organisation = Organisation.find(params[:id] || invite_params[:organisation_id])
+    @target_organisation = Organisation.find_by(id: params[:id] || invite_params[:organisation_id])
   end
 
   def user_is_invalid?

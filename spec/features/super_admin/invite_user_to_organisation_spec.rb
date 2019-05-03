@@ -8,7 +8,7 @@ describe "Inviting a team member as a super admin", type: :feature do
 
   before do
     sign_in_user super_admin
-    visit admin_organisation_path(organisation)
+    visit admin_organisation_path(organisation.id)
     click_on 'Add team member'
     fill_in 'Email address', with: email
   end
@@ -18,7 +18,7 @@ describe "Inviting a team member as a super admin", type: :feature do
 
   it "will take the user to the organisation when they click 'back to organisation'" do
     click_on 'Back to organisation'
-    expect(page).to have_current_path(admin_organisation_path(organisation))
+    expect(page).to have_current_path(admin_organisation_path(organisation.id))
   end
 
   it "will display the name of the organisation you want to add a team member to" do
@@ -37,7 +37,7 @@ describe "Inviting a team member as a super admin", type: :feature do
 
   it "will redirect the user to the organisation page on success" do
     click_on 'Send invitation email'
-    expect(page).to have_current_path(admin_organisation_path(organisation))
+    expect(page).to have_current_path(admin_organisation_path(organisation.id))
   end
 
   context "without an email address" do
@@ -73,7 +73,7 @@ describe "Inviting a team member as a super admin", type: :feature do
       end
 
       it "will redirect the user to the organisation page on success" do
-        expect(page).to have_current_path(admin_organisation_path(organisation))
+        expect(page).to have_current_path(admin_organisation_path(organisation.id))
       end
     end
   end

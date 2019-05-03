@@ -11,12 +11,12 @@
       <% elsif @ips.empty? %>
         <% if current_user.can_manage_locations? %>
           <p class="govuk-body">
-            You need to <%= link_to "add the IPs", new_ip_path, class: "govuk-link" %> of your authenticator(s).
+            You need to <%= link_to "add the IPs", new_ip_path(organisation: current_organisation), class: "govuk-link" %> of your authenticator(s).
           </p>
         <% end %>
       <% else %>
         <p class="govuk-body">
-          You have <%= link_to "#{pluralize(@ips.count, 'IP')} configured.", ips_path, class: "govuk-link" %>
+          You have <%= link_to "#{pluralize(@ips.count, 'IP')} configured.", ips_path(organisation: current_organisation), class: "govuk-link" %>
         </p>
       <% end %>
       <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
@@ -80,7 +80,7 @@
 
     <h3 class="govuk-heading-m"> 6. Sign your agreement </h3>
     <p class="govuk-body">
-      <%= link_to "Sign a memorandum of understanding (MOU)", mou_index_path(organisation_uuid: current_organisation.uuid), class: "govuk-link" %> with the Government Digital Service (GDS).
+      <%= link_to "Sign a memorandum of understanding (MOU)", mou_index_path(organisation: current_organisation), class: "govuk-link" %> with the Government Digital Service (GDS).
     </p>
     <p class="govuk-body">This must be done by someone in your organisation who has permission to sign off and procure services'.</p>
 

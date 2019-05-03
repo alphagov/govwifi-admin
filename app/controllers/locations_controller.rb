@@ -10,7 +10,7 @@ class LocationsController < ApplicationController
     if @location.save
       Facades::Ips::Publish.new.execute
       redirect_to(
-        @location.ips.any? ? created_location_with_ip_ips_path : created_location_ips_path,
+        @location.ips.any? ? created_location_with_ip_ips_path(organisation: current_organisation) : created_location_ips_path(organisation: current_organisation),
         notice: "Successfully added #{@location.ips.length} #{'IP address'.pluralize(@location.ips.length)} to #{@location.full_address}"
       )
     else
@@ -21,10 +21,10 @@ class LocationsController < ApplicationController
 
   def destroy
     location = current_organisation.locations.find_by(id: params.fetch(:id))
-    redirect_to ips_path && return unless location && location.ips.empty?
+    redirect_to ips_path(organisation: current_organisation) && return unless location && location.ips.empty?
 
     location.destroy
-    redirect_to removed_location_ips_path, notice: "Successfully removed location #{location.address}"
+    redirect_to removed_location_ips_path(organisation: current_organisation), notice: "Successfully removed location #{location.address}"
   end
 
 private

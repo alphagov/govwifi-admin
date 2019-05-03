@@ -15,15 +15,6 @@ Rails.application.routes.draw do
 
   get '/healthcheck', to: 'monitoring#healthcheck'
   resources :status, only: %i[index]
-  resources :ips, only: %i[index new create destroy] do
-    get 'remove', to: 'ips#index'
-    get 'created', to: 'ips#index', on: :collection
-    get 'created/location', to: 'ips#index', on: :collection
-    get 'created/location/with-ip', to: 'ips#index', on: :collection
-    get 'removed', to: 'ips#index', on: :collection
-    get 'removed/location', to: 'ips#index', on: :collection
-  end
-
   resources :help, only: %i[create new] do
     get '/', on: :collection, to: 'help#new'
     get 'signed_in', on: :new
@@ -44,7 +35,16 @@ Rails.application.routes.draw do
     end
   end
 
-  scope '/organisations/:organisation_uuid' do
+  scope '/organisations/:organisation' do
+    resources :ips, only: %i[index new create destroy] do
+      get 'remove', to: 'ips#index'
+      get 'created', to: 'ips#index', on: :collection
+      get 'created/location', to: 'ips#index', on: :collection
+      get 'created/location/with-ip', to: 'ips#index', on: :collection
+      get 'removed', to: 'ips#index', on: :collection
+      get 'removed/location', to: 'ips#index', on: :collection
+    end
+
     resources :mou, only: %i[index create] do
       collection do
         get 'created', to: 'mou#index'

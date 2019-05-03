@@ -9,7 +9,7 @@ describe 'Removing an IP', type: :feature do
 
   context "with correct permissions" do
     before do
-      visit ips_path
+      visit ips_path(organisation: user.organisation.uuid)
       click_on "Remove"
     end
 
@@ -36,7 +36,7 @@ describe 'Removing an IP', type: :feature do
 
     it 'redirects to the "after IP removed" path for Analytics' do
       click_on "Yes, remove this IP"
-      expect(page).to have_current_path('/ips/removed')
+      expect(page).to have_current_path("/organisations/#{user.organisation.uuid}/ips/removed")
     end
   end
 
@@ -46,7 +46,7 @@ describe 'Removing an IP', type: :feature do
     end
 
     it "does not show the remove button" do
-      visit ips_path
+      visit ips_path(organisation: user.organisation.uuid)
 
       within("#ips-table") do
         expect(page).not_to have_content("Remove")
@@ -55,7 +55,7 @@ describe 'Removing an IP', type: :feature do
 
     context "when visiting the remove IP page directly" do
       before do
-        visit ip_remove_path(ip)
+        visit ip_remove_path(ip, organisation: user.organisation.uuid)
       end
 
       it "does not show the partial" do
@@ -68,7 +68,7 @@ describe 'Removing an IP', type: :feature do
     let(:other_ip) { create(:ip, location: create(:location)) }
 
     before do
-      visit ip_remove_path(other_ip)
+      visit ip_remove_path(other_ip, organisation: user.organisation.uuid)
     end
 
     it "does not show the partial" do
