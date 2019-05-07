@@ -29,9 +29,9 @@ describe "POST /admin/whitelist", type: :request do
       .and change(AuthorisedEmailDomain, :count).by(1)
     end
 
-    it 'sends the email domain to S3' do
+    it 'sends the email domain and organisation names to S3' do
       post admin_whitelist_path, params: valid_params
-      expect(gateway).to have_received(:write)
+      expect(gateway).to have_received(:write).twice
     end
   end
 
