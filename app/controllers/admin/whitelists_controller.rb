@@ -21,13 +21,13 @@ class Admin::WhitelistsController < AdminController
         presenter: UseCases::Administrator::CreateSignupWhitelist.new
       ).execute
 
-      UseCases::PublishOrganisationWhitelist.new(
+      UseCases::Administrator::PublishOrganisationNames.new(
         destination_gateway: Gateways::S3.new(
           bucket: ENV.fetch('S3_ORGANISATION_WHITELIST_BUCKET'),
           key: ENV.fetch('S3_ORGANISATION_WHITELIST_OBJECT_KEY')
         ),
-        source_gateway: Gateways::OrganisationsWhitelist.new,
-        presenter: UseCases::Administrator::CreateOrganisationWhitelist.new
+        source_gateway: Gateways::OrganisationNames.new,
+        presenter: UseCases::Administrator::FormatOrganisationNames.new
       ).execute
 
       redirect_to new_admin_whitelist_path,

@@ -1,6 +1,6 @@
 module UseCases
   module Administrator
-    class CreateOrganisationWhitelist
+    class FormatOrganisationNames
       def execute(organisation_names)
         return "empty" if organisation_names.empty?
 

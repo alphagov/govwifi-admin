@@ -1,4 +1,4 @@
-describe UseCases::Administrator::CreateOrganisationWhitelist do
+describe UseCases::Administrator::FormatOrganisationNames do
   let(:result) { subject.execute(organisation_names) }
 
   context 'when no organisation names' do

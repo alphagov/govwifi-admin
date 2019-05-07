@@ -12,13 +12,13 @@ class Admin::Whitelists::OrganisationNamesController < AdminController
     @custom_organisation_names = ordered_custom_orgs
     @custom_organisation = CustomOrganisationName.new(custom_org_params)
 
-    UseCases::PublishOrganisationWhitelist.new(
+    UseCases::Administrator::PublishOrganisationNames.new(
       destination_gateway: Gateways::S3.new(
         bucket: ENV.fetch('S3_ORGANISATION_WHITELIST_BUCKET'),
         key: ENV.fetch('S3_ORGANISATION_WHITELIST_OBJECT_KEY')
       ),
-      source_gateway: Gateways::OrganisationsWhitelist.new,
-      presenter: UseCases::Administrator::CreateOrganisationWhitelist.new
+      source_gateway: Gateways::OrganisationNames.new,
+      presenter: UseCases::Administrator::FormatOrganisationNames.new
     ).execute
 
     if @custom_organisation.save
