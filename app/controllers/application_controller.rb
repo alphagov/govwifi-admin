@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_organisation, :super_admin?
 
   def current_organisation
-    @current_organisation ||= current_user.organisations.first
+    @organisation ||= if session[:organisation_id] && current_user.organisations.map(&:id).include?(session[:organisation_id])
+      Organisation.find(session[:organisation_id])
+    else
+      current_user.organisations.first
+    end
   end
 
   def error
