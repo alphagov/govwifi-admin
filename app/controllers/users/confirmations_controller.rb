@@ -68,8 +68,8 @@ private
   def publish_organisation_names
     UseCases::Administrator::PublishOrganisationNames.new(
       destination_gateway: Gateways::S3.new(
-        bucket: ENV.fetch('S3_ORGANISATION_WHITELIST_BUCKET'),
-        key: ENV.fetch('S3_ORGANISATION_WHITELIST_OBJECT_KEY')
+        bucket: ENV.fetch('S3_ORGANISATION_NAMES_BUCKET'),
+        key: ENV.fetch('S3_ORGANISATION_NAMES_OBJECT_KEY')
       ),
       source_gateway: Gateways::OrganisationNames.new,
       presenter: UseCases::Administrator::FormatOrganisationNames.new

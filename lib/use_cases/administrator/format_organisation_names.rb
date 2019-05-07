@@ -2,7 +2,7 @@ module UseCases
   module Administrator
     class FormatOrganisationNames
       def execute(organisation_names)
-        return "empty" if organisation_names.empty?
+        return "" if organisation_names.empty?
 
         organisation_names_list(organisation_names)
       end

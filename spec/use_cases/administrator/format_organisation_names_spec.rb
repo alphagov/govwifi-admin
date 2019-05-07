@@ -5,7 +5,7 @@ describe UseCases::Administrator::FormatOrganisationNames do
     let(:organisation_names) { [] }
 
     it 'creates no whitelist' do
-      expect(result).to eq('empty')
+      expect(result).to eq('')
     end
   end
 
