@@ -10,10 +10,18 @@ describe UseCases::Administrator::FormatOrganisationNames do
   end
 
   context 'when one organisation name is added' do
-    let(:organisation_names) { %w(Government Digital Services) }
+    let(:organisation_names) { ["Government Digital Services"] }
 
     it 'creates a whitelist with one entry' do
       expect(result).to eq('- Government Digital Services')
+    end
+  end
+
+  context 'when more than one organisation name is added' do
+    let(:organisation_names) { ["Government Digital Services", "Made Tech"] }
+
+    it 'creates a whitelist with one entry' do
+      expect(result).to eq('- Government Digital Services\n- Made Tech')
     end
   end
 end

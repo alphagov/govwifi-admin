@@ -10,7 +10,7 @@ module UseCases
     private
 
       def organisation_names_list(organisation_names)
-        "- #{organisation_names.join(' ')}"
+        "- #{organisation_names.join('\n- ')}"
       end
     end
   end
