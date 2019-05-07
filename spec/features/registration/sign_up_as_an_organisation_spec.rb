@@ -214,4 +214,20 @@ describe 'Sign up as an organisation', type: :feature do
       end
     end
   end
+
+  context 'when creating a new organisation' do
+    let(:whitelist_gateway) { instance_double(Gateways::S3, read: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$') }
+    let(:organisation_names_gateway) { instance_spy(Gateways::S3) }
+
+    before do
+      allow(Gateways::S3).to receive(:new).and_return(whitelist_gateway, organisation_names_gateway)
+
+      sign_up_for_account
+      update_user_details(organisation_name: "Org 1")
+    end
+
+    it 'publishes the updated list of organisation names to S3' do
+      expect(organisation_names_gateway).to have_received(:write).with(data: "- Gov Org 1")
+    end
+  end
 end
