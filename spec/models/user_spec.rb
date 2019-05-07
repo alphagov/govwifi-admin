@@ -1,5 +1,5 @@
 describe User do
-  it { is_expected.to belong_to(:organisation).optional }
+  it { is_expected.to have_and_belong_to_many(:organisations) }
   it { is_expected.to validate_presence_of(:name).on(:update) }
 
   context 'when creating a user without explicit permissions' do

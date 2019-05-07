@@ -1,5 +1,5 @@
 describe Organisation do
-  it { is_expected.to have_many(:users) }
+  it { is_expected.to have_and_belong_to_many(:users) }
   it { is_expected.to have_many(:locations) }
 
   context 'when deleting an organisation' do

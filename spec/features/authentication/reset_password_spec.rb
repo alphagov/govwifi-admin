@@ -67,7 +67,7 @@ describe "Resetting a password", type: :feature do
   end
 
   context "when clicking on the reset link" do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, organisations: [create(:organisation)]) }
 
     before do
       visit new_user_password_path

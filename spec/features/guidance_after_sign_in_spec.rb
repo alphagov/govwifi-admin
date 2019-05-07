@@ -14,7 +14,7 @@ describe 'Guidance after sign in', type: :feature do
   end
 
   context 'with locations' do
-    let!(:location) { create(:location, organisation: user.organisation) }
+    let!(:location) { create(:location, organisation: user.organisations.first) }
 
     before { visit root_path }
 
