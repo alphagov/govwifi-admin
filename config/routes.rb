@@ -27,9 +27,9 @@ Rails.application.routes.draw do
   resources :help, only: %i[create new] do
     get '/', on: :collection, to: 'help#new'
     get 'signed_in', on: :new
-    get 'signing_up', on: :new
-    get 'existing_account', on: :new
-    get 'feedback', on: :new
+    get 'admin_account', on: :new
+    get 'technical_support', on: :new
+    get 'user_support', on: :new
   end
 
   resources :locations, only: %i[new create destroy] do

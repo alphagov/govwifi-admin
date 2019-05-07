@@ -20,7 +20,7 @@ describe 'Contact us when not signed in', type: :feature do
 
   context 'when having trouble signing up' do
     before do
-      choose 'I\'m having trouble signing up'
+      choose 'Network administrator technical support'
       click_on 'Continue'
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
@@ -34,7 +34,7 @@ describe 'Contact us when not signed in', type: :feature do
 
   context 'when something is wrong with their admin account' do
     before do
-      choose 'Something\'s wrong with my admin account'
+      choose 'Network administrator account support'
       click_on 'Continue'
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
@@ -54,7 +54,7 @@ describe 'Contact us when not signed in', type: :feature do
 
   context 'when there is a question or feedback' do
     before do
-      choose 'Ask a question or leave feedback'
+      choose 'Connecting to GovWifi user support'
       click_on 'Continue'
       fill_in 'Your message', with: details
       fill_in 'Your email address', with: email
@@ -80,7 +80,7 @@ describe 'Contact us when not signed in', type: :feature do
 
   context 'with an incorrectly filled out form' do
     before do
-      visit signing_up_new_help_path
+      visit technical_support_new_help_path
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
     end
@@ -120,7 +120,7 @@ describe 'Contact us when not signed in', type: :feature do
 
   context 'with incorrect email formats' do
     before do
-      visit signing_up_new_help_path
+      visit technical_support_new_help_path
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
     end
