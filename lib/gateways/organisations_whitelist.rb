@@ -1,6 +1,6 @@
 module Gateways
   class OrganisationsWhitelist
-    def fetch_domains
+    def fetch_names
       Organisation.pluck(:name)
     end
   end

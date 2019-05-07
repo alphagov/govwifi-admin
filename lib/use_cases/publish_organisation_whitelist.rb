@@ -7,7 +7,7 @@ module UseCases
     end
 
     def execute
-      payload = presenter.execute(source_gateway.fetch_domains)
+      payload = presenter.execute(source_gateway.fetch_names)
       destination_gateway.write(data: payload)
     end
 
