@@ -13,6 +13,14 @@ class Admin::Whitelists::OrganisationNamesController < AdminController
     @custom_organisation = CustomOrganisationName.new(custom_org_params)
 
     if @custom_organisation.save
+      UseCases::PublishOrganisationWhitelist.new(
+        destination_gateway: Gateways::S3.new(
+          bucket: ENV.fetch('S3_ORGANISATION_WHITELIST_BUCKET'),
+          key: ENV.fetch('S3_ORGANISATION_WHITELIST_OBJECT_KEY')
+        ),
+        source_gateway: Gateways::OrganisationsWhitelist.new,
+        presenter: UseCases::Administrator::CreateOrganisationWhitelist.new
+      ).execute
       redirect_to admin_whitelist_organisation_names_path, notice: "Custom organisation has been successfully added"
     else
       render :index

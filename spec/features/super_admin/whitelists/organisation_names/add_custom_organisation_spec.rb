@@ -1,8 +1,25 @@
-describe 'Adding a custom organisation name', type: :feature do
+describe 'Adding a custom organisation name', type: :feature, focus: true do
   let(:admin_user) { create(:user, :super_admin) }
 
   before do
     sign_in_user admin_user
+  end
+
+  context 'when adding a custom organisation'do
+    let(:name) { 'Custom Org name' }
+    let(:gateway) { instance_spy(Gateways::S3) }
+
+    before do
+      visit admin_whitelist_organisation_names_path
+      fill_in "Enter the organisation's full name", with: name
+    end
+
+    it 'publishes the custom organisations whitelist to S3' do
+      allow(Gateways::S3).to receive(:new).and_return(gateway)
+      click_on 'Allow organisation'
+
+      expect(gateway).to have_received(:write).with(data: "#{name}")
+    end
   end
 
   context 'when visiting the custom organisations page' do
