@@ -27,6 +27,7 @@ describe 'Authorising Email Domains', type: :feature do
       it 'publishes the authorised domains to S3' do
         allow(Gateways::S3).to receive(:new).and_return(gateway)
         click_on 'Save'
+
         expect(gateway).to have_received(:write).with(data: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$')
       end
     end
