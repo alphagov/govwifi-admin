@@ -22,5 +22,5 @@ run:
   args:
     - '-exc'
     - |
-      src/tasks/scripts/migrate.sh
-      src/tasks/scripts/deploy.sh
+      src/ci/tasks/scripts/migrate.sh
+      src/ci/tasks/scripts/deploy.sh
