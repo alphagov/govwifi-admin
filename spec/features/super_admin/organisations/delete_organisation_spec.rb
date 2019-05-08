@@ -30,5 +30,18 @@ describe 'Deleting an organisation', type: :feature do
       click_on 'Yes, remove this organisation'
       expect(page).not_to have_content("Gov Org 2")
     end
+
+    context 'when deleting an organisation' do
+      let(:organisation_names_gateway) { instance_spy(Gateways::S3) }
+
+      before do
+        allow(Gateways::S3).to receive(:new).and_return(organisation_names_gateway)
+      end
+
+      it 'publishes the updated list of organisation names to S3' do
+        click_on 'Yes, remove this organisation'
+        expect(organisation_names_gateway).to have_received(:write).with(data: "- Gov Org 1")
+      end
+    end
   end
 end
