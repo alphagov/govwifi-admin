@@ -1,4 +1,4 @@
-describe UseCases::Administrator::FormatOrganisationNames do
+describe UseCases::Administrator::FormatOrganisationNames, focus: true do
   let(:result) { subject.execute(organisation_names) }
 
   context 'when no organisation names' do
@@ -13,7 +13,7 @@ describe UseCases::Administrator::FormatOrganisationNames do
     let(:organisation_names) { ["Government Digital Services"] }
 
     it 'creates a whitelist with one entry' do
-      expect(result).to eq('- Government Digital Services')
+      expect(result.read).to eq("---\n- Government Digital Services\n")
     end
   end
 
@@ -21,7 +21,7 @@ describe UseCases::Administrator::FormatOrganisationNames do
     let(:organisation_names) { ["Government Digital Services", "Made Tech"] }
 
     it 'creates a whitelist with two entries' do
-      expect(result).to eq('- Government Digital Services\n- Made Tech')
+      expect(result.read).to eq("---\n- Government Digital Services\n- Made Tech\n")
     end
   end
 end
