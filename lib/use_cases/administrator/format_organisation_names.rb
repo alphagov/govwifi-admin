@@ -10,7 +10,9 @@ module UseCases
     private
 
       def organisation_names_list(organisation_names)
-        "- #{organisation_names.join('\n- ')}"
+        data = StringIO.new(organisation_names.to_yaml)
+        data.rewind
+        data
       end
     end
   end
