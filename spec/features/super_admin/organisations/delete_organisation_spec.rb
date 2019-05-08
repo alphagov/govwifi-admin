@@ -33,14 +33,18 @@ describe 'Deleting an organisation', type: :feature do
 
     context 'when deleting an organisation' do
       let(:organisation_names_gateway) { instance_spy(Gateways::S3) }
+      let(:data) { instance_double(StringIO) }
+      let(:presenter) { instance_double(UseCases::Administrator::FormatOrganisationNames) }
 
       before do
         allow(Gateways::S3).to receive(:new).and_return(organisation_names_gateway)
+        allow(UseCases::Administrator::FormatOrganisationNames).to receive(:new).and_return(presenter)
+        allow(presenter).to receive(:execute).and_return(data)
       end
 
       it 'publishes the updated list of organisation names to S3' do
         click_on 'Yes, remove this organisation'
-        expect(organisation_names_gateway).to have_received(:write).with(data: "- Gov Org 1")
+        expect(organisation_names_gateway).to have_received(:write).with(data: data)
       end
     end
   end
