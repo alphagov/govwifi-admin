@@ -73,16 +73,16 @@ describe 'Authorising Email Domains', type: :feature, focus: true do
   end
 
   context 'when creating a new email domain' do
+    let(:email_domains_gateway) { instance_spy(Gateways::S3) }
+    let(:whitelist_gateway) { instance_double(Gateways::S3, read: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$') }
+
     before do
-      fill_in 'Name', with: some_domain
+      allow(Gateways::S3).to receive(:new).and_return(email_domains_gateway, whitelist_gateway)
+      fill_in 'Name', with: "george.uk"
     end
 
-    let(:whitelist_gateway) { instance_double(Gateways::S3, read: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$') }
-    let(:email_domains_gateway) { instance_spy(Gateways::S3) }
-
-    let(:some_domain) { 'george.uk' }
-
     it 'publishes the updated list of email domains names to S3' do
+      click_on 'Save'
       expect(email_domains_gateway).to have_received(:write).with(data: "- george.uk")
     end
   end

@@ -1,6 +1,6 @@
 module UseCases
   module Administrator
-    class FormatEmailDomainsNames
+    class FormatEmailDomains
       def execute(email_domains)
         return "" if email_domains.empty?
 

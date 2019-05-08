@@ -24,8 +24,8 @@ class Admin::Whitelists::EmailDomainsController < AdminController
 
       UseCases::Administrator::PublishSignupWhitelist.new(
         destination_gateway: Gateways::S3.new(
-          bucket: ENV.fetch('S3_SIGNUP_WHITELIST_BUCKET'),
-          key: ENV.fetch('S3_SIGNUP_WHITELIST_OBJECT_KEY')
+          bucket: ENV.fetch('S3_EMAIL_DOMAINS_BUCKET'),
+          key: ENV.fetch('S3_EMAIL_DOMAINS_OBJECT_KEY')
         ),
         source_gateway: Gateways::AuthorisedEmailDomains.new,
         presenter: UseCases::Administrator::FormatEmailDomains.new
