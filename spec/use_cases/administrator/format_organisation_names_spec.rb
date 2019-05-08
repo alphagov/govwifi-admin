@@ -1,11 +1,15 @@
-describe UseCases::Administrator::FormatOrganisationNames, focus: true do
+describe UseCases::Administrator::FormatOrganisationNames do
   let(:result) { subject.execute(organisation_names) }
 
   context 'when no organisation names' do
     let(:organisation_names) { [] }
 
     it 'creates no whitelist' do
-      expect(result).to eq('')
+      expect(result.read).to eq("--- []\n")
+    end
+
+    it 'returns an IO object' do
+      expect(result).to be_an_instance_of(StringIO)
     end
   end
 
