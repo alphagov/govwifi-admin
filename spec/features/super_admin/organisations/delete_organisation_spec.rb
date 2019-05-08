@@ -1,4 +1,4 @@
-describe 'Deleting an organisation', type: :feature, focus: true do
+describe 'Deleting an organisation', type: :feature do
   let!(:admin_user) { create(:user, :super_admin) }
   let!(:organisation) { create(:organisation, name: 'Gov Org 2') }
 
