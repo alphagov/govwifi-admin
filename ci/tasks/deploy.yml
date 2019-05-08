@@ -9,8 +9,8 @@ params:
 
   # These are set for deploy.sh and migrate.sh
   SERVICE_NAME: "admin"
-  CLUSTER_NAME: "admin-cluster"
-  TASK_NAME: "admin-task"
+  CLUSTER_NAME: "admin"
+  TASK_NAME: "admin"
   CONTAINER_NAME: "admin"
 
 inputs:
