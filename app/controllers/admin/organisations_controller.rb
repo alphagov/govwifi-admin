@@ -33,7 +33,7 @@ private
   def publish_organisation_names
     UseCases::Administrator::PublishOrganisationNames.new(
       destination_gateway: Gateways::S3.new(
-        bucket: ENV.fetch('S3_ORGANISATION_NAMES_BUCKET'),
+        bucket: ENV.fetch('S3_PRODUCT_PAGE_DATA_BUCKET'),
         key: ENV.fetch('S3_ORGANISATION_NAMES_OBJECT_KEY')
       ),
       source_gateway: Gateways::OrganisationNames.new,
