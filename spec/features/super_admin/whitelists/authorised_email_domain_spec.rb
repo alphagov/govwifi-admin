@@ -1,4 +1,4 @@
-describe 'Authorising Email Domains', type: :feature do
+describe 'Authorising Email Domains', type: :feature, focus: true do
   before do
     sign_in_user admin_user
     visit new_admin_whitelist_email_domain_path
@@ -69,6 +69,21 @@ describe 'Authorising Email Domains', type: :feature do
 
         expect(gateway).to have_received(:write).with(data: '^$')
       end
+    end
+  end
+
+  context 'when creating a new email domain' do
+    before do
+      fill_in 'Name', with: some_domain
+    end
+
+    let(:whitelist_gateway) { instance_double(Gateways::S3, read: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$') }
+    let(:email_domains_gateway) { instance_spy(Gateways::S3) }
+
+    let(:some_domain) { 'george.uk' }
+
+    it 'publishes the updated list of email domains names to S3' do
+      expect(email_domains_gateway).to have_received(:write).with(data: "- george.uk")
     end
   end
 

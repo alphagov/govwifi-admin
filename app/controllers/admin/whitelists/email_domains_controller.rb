@@ -22,6 +22,15 @@ class Admin::Whitelists::EmailDomainsController < AdminController
         presenter: UseCases::Administrator::CreateSignupWhitelist.new
       ).execute
 
+      UseCases::Administrator::PublishSignupWhitelist.new(
+        destination_gateway: Gateways::S3.new(
+          bucket: ENV.fetch('S3_SIGNUP_WHITELIST_BUCKET'),
+          key: ENV.fetch('S3_SIGNUP_WHITELIST_OBJECT_KEY')
+        ),
+        source_gateway: Gateways::AuthorisedEmailDomains.new,
+        presenter: UseCases::Administrator::FormatEmailDomains.new
+      ).execute
+
       redirect_to admin_whitelist_email_domains_path, notice: "#{@authorised_email_domain.name} authorised"
     else
       render :new
