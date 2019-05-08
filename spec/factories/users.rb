@@ -9,9 +9,13 @@ FactoryBot.define do
     trait :super_admin do
       association :organisation, super_admin: true
     end
-    after(:create) do |user|
-      create(:organisation, users: [user])
+
+    trait :with_organisation do
+      after(:create) do |user|
+        create(:organisation, users: [user])
+      end
     end
+
     trait :unconfirmed do
       confirmed_at { nil }
     end
