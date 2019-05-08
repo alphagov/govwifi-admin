@@ -1,7 +1,7 @@
 describe 'Guidance after sign in', type: :feature do
   include_context 'with a mocked notifications client'
 
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
 
   before { sign_in_user user }
 

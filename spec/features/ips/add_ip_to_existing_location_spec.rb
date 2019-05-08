@@ -1,5 +1,5 @@
 describe 'Adding an IP to an existing location', type: :feature do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
   let(:location) { create(:location, organisation: user.organisations.first) }
 
   context 'when selecting a location' do

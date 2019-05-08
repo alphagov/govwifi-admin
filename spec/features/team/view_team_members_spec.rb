@@ -7,7 +7,7 @@ describe 'View team members of my organisation', type: :feature do
 
   context 'when logged in' do
     let(:organisation) { create(:organisation) }
-    let(:user) { create(:user, email: 'me@example.gov.uk', name: 'bob', organisation: organisation) }
+    let(:user) { create(:user, email: 'me@example.gov.uk', name: 'bob', organisations: [organisation]) }
 
     before do
       ENV['LONDON_RADIUS_IPS'] = "1.1.1.1,2.2.2.2"
@@ -42,9 +42,9 @@ describe 'View team members of my organisation', type: :feature do
     end
 
     context 'when there are many users in my organisation' do
-      let!(:user_1) { create(:user, email: 'bill@example.gov.uk', name: nil, organisation: organisation) }
-      let!(:user_2) { create(:user, name: 'amada', organisation: organisation) }
-      let!(:user_3) { create(:user, name: 'zara', organisation: organisation) }
+      let!(:user_1) { create(:user, email: 'bill@example.gov.uk', name: nil, organisations: [organisation]) }
+      let!(:user_2) { create(:user, name: 'amada', organisations: [organisation]) }
+      let!(:user_3) { create(:user, name: 'zara', organisations: [organisation]) }
 
       before do
         sign_in_user user
@@ -59,7 +59,7 @@ describe 'View team members of my organisation', type: :feature do
     context 'when there are users outside of my organisation' do
       before do
         other_organisation = create(:organisation, name: 'Gov Org 2')
-        create(:user, email: 'stranger@example.gov.uk', organisation: other_organisation)
+        create(:user, email: 'stranger@example.gov.uk', organisations: [other_organisation])
         sign_in_user user
         visit team_members_path
       end

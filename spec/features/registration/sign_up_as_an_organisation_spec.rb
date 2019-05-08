@@ -41,7 +41,7 @@ describe 'Sign up as an organisation', type: :feature do
       end
 
       it 'creates an organisation for the user' do
-        expect(User.last.organisation.name).to eq('Gov Org 1')
+        expect(User.last.organisations.first.name).to eq('Gov Org 1')
       end
     end
 

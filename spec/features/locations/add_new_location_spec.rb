@@ -1,7 +1,7 @@
 describe 'Add new location', type: :feature do
   include_context 'with a mocked notifications client'
 
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
   let(:ip_input) { "location_ips_attributes_0_address" }
   let(:second_ip_input) { "location_ips_attributes_1_address" }
 

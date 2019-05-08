@@ -1,5 +1,5 @@
 describe 'View authentication requests for a location', type: :feature do
-  let(:user) { create(:user, organisation: organisation) }
+  let(:user) { create(:user, organisations: [organisation]) }
   let(:organisation) { create(:organisation, :with_locations) }
   let(:location) { organisation.locations.first }
 

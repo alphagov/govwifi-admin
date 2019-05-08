@@ -4,10 +4,9 @@ describe Organisation do
 
   context 'when deleting an organisation' do
     let(:org) { create(:organisation) }
-    let!(:user) { create(:user, organisation: org) }
+    let!(:user) { create(:user, organisations: [org]) }
     let!(:location) { create(:location, organisation: org) }
     let!(:ip) { Ip.create(address: "1.1.1.1", location: location) }
-
     before { org.destroy }
 
     it 'removes all associated users' do

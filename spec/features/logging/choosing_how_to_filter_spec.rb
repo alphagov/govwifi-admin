@@ -1,6 +1,6 @@
 describe 'Choosing how to filter', type: :feature do
   before do
-    sign_in_user create(:user)
+    sign_in_user create(:user, :with_organisation)
     visit new_logs_search_path
   end
 

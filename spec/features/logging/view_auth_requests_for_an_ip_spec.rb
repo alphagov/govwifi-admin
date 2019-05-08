@@ -1,9 +1,8 @@
 describe 'View authentication requests for an IP', type: :feature do
   let(:ip) { '1.2.3.4' }
   let(:username) { 'ABCDEF' }
-  let(:organisation) { create(:organisation) }
-  let(:admin_user) { create(:user, organisation_id: organisation.id) }
-  let(:location) { create(:location, organisation_id: organisation.id) }
+  let(:admin_user) { create(:user, :with_organisation) }
+  let(:location) { create(:location, organisation: admin_user.organisations.first) }
 
   before do
     create(:session, start: 3.days.ago, username: username, siteIP: ip, success: true)
