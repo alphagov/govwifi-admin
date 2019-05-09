@@ -18,7 +18,7 @@ class Admin::WhitelistsController < AdminController
           key: ENV.fetch('S3_SIGNUP_WHITELIST_OBJECT_KEY')
         ),
         source_gateway: Gateways::AuthorisedEmailDomains.new,
-        presenter: UseCases::Administrator::CreateSignupWhitelist.new
+        presenter: UseCases::Administrator::FormatEmailDomainsRegex.new
       ).execute
 
       redirect_to new_admin_whitelist_path,

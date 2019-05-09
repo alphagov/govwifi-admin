@@ -1,6 +1,6 @@
 module UseCases
   module Administrator
-    class FormatEmailDomains
+    class FormatEmailDomainsList
       def execute(email_domains)
         StringIO.new(email_domains.to_yaml)
       end

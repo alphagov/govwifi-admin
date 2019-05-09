@@ -19,7 +19,7 @@ class Admin::Whitelists::EmailDomainsController < AdminController
           key: ENV.fetch('S3_SIGNUP_WHITELIST_OBJECT_KEY')
         ),
         source_gateway: Gateways::AuthorisedEmailDomains.new,
-        presenter: UseCases::Administrator::CreateSignupWhitelist.new
+        presenter: UseCases::Administrator::FormatEmailDomainsRegex.new
       ).execute
 
       UseCases::Administrator::PublishSignupWhitelist.new(
@@ -28,7 +28,7 @@ class Admin::Whitelists::EmailDomainsController < AdminController
           key: ENV.fetch('S3_EMAIL_DOMAINS_OBJECT_KEY')
         ),
         source_gateway: Gateways::AuthorisedEmailDomains.new,
-        presenter: UseCases::Administrator::FormatEmailDomains.new
+        presenter: UseCases::Administrator::FormatEmailDomainsList.new
       ).execute
 
       redirect_to admin_whitelist_email_domains_path, notice: "#{@authorised_email_domain.name} authorised"
@@ -47,7 +47,7 @@ class Admin::Whitelists::EmailDomainsController < AdminController
         key: ENV.fetch('S3_SIGNUP_WHITELIST_OBJECT_KEY')
       ),
       source_gateway: Gateways::AuthorisedEmailDomains.new,
-      presenter: UseCases::Administrator::CreateSignupWhitelist.new
+      presenter: UseCases::Administrator::FormatEmailDomainsRegex.new
     ).execute
 
     redirect_to admin_whitelist_email_domains_path, notice: "#{authorised_email_domain.name} has been deleted"

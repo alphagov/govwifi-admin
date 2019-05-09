@@ -1,4 +1,4 @@
-describe UseCases::Administrator::FormatEmailDomains do
+describe UseCases::Administrator::FormatEmailDomainsList do
   let(:result) { subject.execute(email_domains) }
 
   context 'with no email domains' do
