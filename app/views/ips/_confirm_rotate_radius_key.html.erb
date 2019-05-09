@@ -1,0 +1,9 @@
+<div class="govuk-error-summary">
+  <h2 class="govuk-error-summary__title">
+    Are you sure you want to rotate this RADIUS secret key?
+  </h2>
+
+    <%= button_to 'Yes, remove this location', location_path(@key_to_rotate),
+      method: :delete, class: "govuk-button red-button" %>
+  </div>
+</div>
