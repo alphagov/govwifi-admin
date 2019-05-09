@@ -59,9 +59,13 @@ describe 'Authorising Email Domains', type: :feature do
 
     context 'when deleting a whitelisted domain' do
       let(:some_domain) { 'police.uk' }
-      let(:gateway) { instance_spy(Gateways::S3) }
+      let(:regex_gateway) { instance_spy(Gateways::S3) }
+      let(:email_domains_gateway) { instance_spy(Gateways::S3) }
+      let(:presenter) { instance_double(UseCases::Administrator::FormatEmailDomainsList) }
+      let(:data) { instance_double(StringIO) }
 
       before do
+        allow(Gateways::S3).to receive(:new).and_return(regex_gateway, email_domains_gateway)
         click_on 'Save'
         click_on 'Remove'
       end
@@ -75,11 +79,17 @@ describe 'Authorising Email Domains', type: :feature do
         expect(page).to have_content("#{some_domain} has been deleted")
       end
 
-      it 'publishes an updated list of authorised domains to S3' do
-        allow(Gateways::S3).to receive(:new).and_return(gateway)
+      it 'publishes an updated regex list of authorised domains to S3' do
+        allow(Gateways::S3).to receive(:new).and_return(regex_gateway)
         click_on "Yes, remove #{some_domain} from the whitelist"
+        expect(regex_gateway).to have_received(:write).with(data: '^$')
+      end
 
-        expect(gateway).to have_received(:write).with(data: '^$')
+      it 'publishes an updated email domains list to S3' do
+        allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
+        allow(presenter).to receive(:execute).and_return(data)
+        click_on "Yes, remove #{some_domain} from the whitelist"
+        expect(email_domains_gateway).to have_received(:write).with(data: data)
       end
     end
   end
