@@ -13,7 +13,14 @@ describe 'Authorising Email Domains', type: :feature do
 
     context 'when adding a new domain' do
       let(:some_domain) { 'gov.uk' }
-      let(:gateway) { instance_spy(Gateways::S3) }
+      let(:regex_gateway) { instance_spy(Gateways::S3) }
+      let(:email_domains_gateway) { instance_spy(Gateways::S3) }
+      let(:presenter) { instance_double(UseCases::Administrator::FormatEmailDomainsList) }
+      let(:data) { instance_double(StringIO) }
+
+      before do
+        allow(Gateways::S3).to receive(:new).and_return(regex_gateway, email_domains_gateway)
+      end
 
       it 'authorises a new domain' do
         expect { click_on 'Save' }.to change(AuthorisedEmailDomain, :count).by(1)
@@ -24,11 +31,16 @@ describe 'Authorising Email Domains', type: :feature do
         expect(page).to have_content("#{some_domain} authorised")
       end
 
-      it 'publishes the authorised domains to S3' do
-        allow(Gateways::S3).to receive(:new).and_return(gateway)
+      it 'publishes the authorised domains regex to S3' do
         click_on 'Save'
+        expect(regex_gateway).to have_received(:write).with(data: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$')
+      end
 
-        expect(gateway).to have_received(:write).with(data: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$')
+      it 'publishes the list of domains to S3' do
+        allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
+        allow(presenter).to receive(:execute).and_return(data)
+        click_on 'Save'
+        expect(email_domains_gateway).to have_received(:write).with(data: data)
       end
     end
 

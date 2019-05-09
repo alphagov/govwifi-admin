@@ -1,6 +1,6 @@
 module UseCases
   module Administrator
-    class CreateSignupWhitelist
+    class FormatEmailDomainsRegex
       NOOP_REGEX = '^$'.freeze
 
       def execute(domains)
