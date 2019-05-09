@@ -32,7 +32,7 @@ describe "POST /admin/whitelist", type: :request do
       .and change(AuthorisedEmailDomain, :count).by(1)
     end
 
-    it 'sends the email domain regex to S3' do
+    it 'publishes the email domain regex to S3' do
       post admin_whitelist_path, params: valid_params
       expect(regex_gateway).to have_received(:write)
     end
