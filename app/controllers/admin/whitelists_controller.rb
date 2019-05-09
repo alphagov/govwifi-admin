@@ -12,14 +12,8 @@ class Admin::WhitelistsController < AdminController
       email_domain: whitelist_params[:email_domain]
     )
     if @whitelist.save
-      UseCases::Administrator::PublishSignupWhitelist.new(
-        destination_gateway: Gateways::S3.new(
-          bucket: ENV.fetch('S3_SIGNUP_WHITELIST_BUCKET'),
-          key: ENV.fetch('S3_SIGNUP_WHITELIST_OBJECT_KEY')
-        ),
-        source_gateway: Gateways::AuthorisedEmailDomains.new,
-        presenter: UseCases::Administrator::FormatEmailDomainsRegex.new
-      ).execute
+      publish_email_domains_regex
+      publish_email_domains_list
 
       redirect_to new_admin_whitelist_path,
         notice: "Organisation has been whitelisted"
@@ -30,6 +24,28 @@ class Admin::WhitelistsController < AdminController
   end
 
 private
+
+  def publish_email_domains_regex
+    UseCases::Administrator::PublishSignupWhitelist.new(
+      destination_gateway: Gateways::S3.new(
+        bucket: ENV.fetch('S3_SIGNUP_WHITELIST_BUCKET'),
+        key: ENV.fetch('S3_SIGNUP_WHITELIST_OBJECT_KEY')
+      ),
+      source_gateway: Gateways::AuthorisedEmailDomains.new,
+      presenter: UseCases::Administrator::FormatEmailDomainsRegex.new
+    ).execute
+  end
+
+  def publish_email_domains_list
+    UseCases::Administrator::PublishSignupWhitelist.new(
+      destination_gateway: Gateways::S3.new(
+        bucket: ENV.fetch('S3_PRODUCT_PAGE_DATA_BUCKET'),
+        key: ENV.fetch('S3_EMAIL_DOMAINS_OBJECT_KEY')
+      ),
+      source_gateway: Gateways::AuthorisedEmailDomains.new,
+      presenter: UseCases::Administrator::FormatEmailDomainsList.new
+    ).execute
+  end
 
   def organisation_name_needs_validation?
     organisation_name_submitted? && organisation_name_not_yet_validated?
