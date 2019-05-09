@@ -6,8 +6,11 @@ FactoryBot.define do
     password { '123456' }
     name { "bob" }
     confirmed_at { Time.zone.now }
+
     trait :super_admin do
-      association :organisation, super_admin: true
+      after(:create) do |user|
+        create(:organisation, users: [user], super_admin: true)
+      end
     end
 
     trait :with_organisation do

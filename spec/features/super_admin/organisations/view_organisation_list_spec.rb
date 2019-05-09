@@ -19,7 +19,7 @@ describe 'View a list of signed up organisations', type: :feature do
   end
 
   context 'when logged in as an admin' do
-    let(:user) { create(:user, :with_organisation, :super_admin) }
+    let(:user) { create(:user, :super_admin) }
 
     context 'when one organisation exists' do
       let(:org) { create(:organisation, created_at: '1 Feb 2014') }

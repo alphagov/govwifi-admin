@@ -4,14 +4,11 @@ describe Organisation do
 
   context 'when deleting an organisation' do
     let(:org) { create(:organisation) }
-    let!(:user) { create(:user, organisations: [org]) }
+    let(:user) { create(:user, organisations: [org]) }
     let!(:location) { create(:location, organisation: org) }
     let!(:ip) { Ip.create(address: "1.1.1.1", location: location) }
-    before { org.destroy }
 
-    it 'removes all associated users' do
-      expect { user.reload }.to raise_error ActiveRecord::RecordNotFound
-    end
+    before { org.destroy }
 
     it 'removes all associated locations' do
       expect { location.reload }.to raise_error ActiveRecord::RecordNotFound

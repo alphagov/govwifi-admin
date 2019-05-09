@@ -42,7 +42,7 @@ describe 'Upload and download the MOU template', type: :feature do
   context 'without super admin privileges' do
     before do
       sign_out
-      sign_in_user create(:user)
+      sign_in_user create(:user, :with_organisation)
       visit admin_mou_index_path
     end
 

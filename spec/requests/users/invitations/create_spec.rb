@@ -20,7 +20,7 @@ describe "POST /users/invitation", type: :request do
     before do
       post user_invitation_path, params: { user: {
         email: email,
-        organisation_id: other_organisation.id
+        organisation_id: organisation.id
       } }
     end
 
@@ -29,7 +29,8 @@ describe "POST /users/invitation", type: :request do
     end
 
     it 'ignores provided organisation_id' do
-      expect(User.find_by(email: email).organisation_id).to eq(organisation.id)
+      user = User.find_by(email: email)
+      expect(user.organisations).to eq([organisation])
     end
   end
 end
