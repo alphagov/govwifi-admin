@@ -19,6 +19,10 @@ class LocationsController < ApplicationController
     end
   end
 
+  def update
+    redirect_to(ips_path, notice: 'RADIUS secret key has been successfully rotated')
+  end
+
   def destroy
     location = current_organisation.locations.find_by(id: params.fetch(:id))
     redirect_to ips_path && return unless location && location.ips.empty?
