@@ -24,6 +24,7 @@ class IpsController < ApplicationController
 
   def index
     set_ip_or_location_to_delete
+    set_radius_key_rotation
     @locations = Location.includes(:ips)
       .where(organisation: current_organisation)
       .order(:address)
@@ -48,6 +49,14 @@ private
     params.require(:ip).permit(:address, :location_id)
   end
 
+  def set_radius_key_rotation
+    if key_rotation_requested?
+      @key_to_rotate = current_organisation
+      .locations
+      .find_by(id: params.fetch(:location_id))
+    end
+  end
+
   def set_ip_or_location_to_delete
     if ip_removal_requested?
       @ip_to_delete = current_organisation.ips.find_by(id: params.fetch(:ip_id))
@@ -62,7 +71,11 @@ private
     params[:ip_id].present?
   end
 
+  def key_rotation_requested?
+    params[:location_id].present? && params[:rotate].present?
+  end
+
   def location_removal_requested?
-    params[:location_id].present?
+    params[:location_id].present? && params[:remove].present?
   end
 end
