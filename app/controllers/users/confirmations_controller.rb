@@ -4,6 +4,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # based largely on recommendations here: 'https://github.com/plataformatec/devise/wiki/How-To:-Override-confirmations-so-users-can-pick-their-own-passwords-as-part-of-confirmation-activation'
   before_action :set_resource, only: %i[update show]
   before_action :fetch_organisations_from_register, only: %i[update show]
+  after_action :publish_organisation_names, only: :update
 
   def update
     with_unconfirmed_confirmable do
@@ -62,5 +63,16 @@ private
 
   def fetch_organisations_from_register
     @register_organisations = Organisation.fetch_organisations_from_register
+  end
+
+  def publish_organisation_names
+    UseCases::Administrator::PublishOrganisationNames.new(
+      destination_gateway: Gateways::S3.new(
+        bucket: ENV.fetch('S3_PRODUCT_PAGE_DATA_BUCKET'),
+        key: ENV.fetch('S3_ORGANISATION_NAMES_OBJECT_KEY')
+      ),
+      source_gateway: Gateways::OrganisationNames.new,
+      presenter: UseCases::Administrator::FormatOrganisationNames.new
+    ).execute
   end
 end

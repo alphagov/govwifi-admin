@@ -7,7 +7,10 @@ describe "POST /admin/whitelist", type: :request do
   end
 
   context "with valid params" do
-    let(:gateway) { instance_spy(Gateways::S3, write: nil) }
+    let(:regex_gateway) { instance_spy(Gateways::S3, write: nil) }
+    let(:email_domains_gateway) { instance_spy(Gateways::S3) }
+    let(:presenter) { instance_double(UseCases::Administrator::FormatEmailDomainsList) }
+    let(:data) { instance_double(StringIO) }
     let(:valid_params) do
       {
         whitelist: {
@@ -19,7 +22,7 @@ describe "POST /admin/whitelist", type: :request do
     end
 
     before do
-      allow(Gateways::S3).to receive(:new).and_return(gateway)
+      allow(Gateways::S3).to receive(:new).and_return(regex_gateway, email_domains_gateway)
     end
 
     it "creates the related whitelist objects" do
@@ -29,9 +32,16 @@ describe "POST /admin/whitelist", type: :request do
       .and change(AuthorisedEmailDomain, :count).by(1)
     end
 
-    it 'sends the email domain to S3' do
+    it 'publishes the email domain regex to S3' do
       post admin_whitelist_path, params: valid_params
-      expect(gateway).to have_received(:write)
+      expect(regex_gateway).to have_received(:write)
+    end
+
+    it 'publishes the email domain list to S3' do
+      allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
+      allow(presenter).to receive(:execute).and_return(data)
+      post admin_whitelist_path, params: valid_params
+      expect(email_domains_gateway).to have_received(:write).with(data: data)
     end
   end
 

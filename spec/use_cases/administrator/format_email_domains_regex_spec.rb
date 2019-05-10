@@ -1,4 +1,4 @@
-describe UseCases::Administrator::CreateSignupWhitelist do
+describe UseCases::Administrator::FormatEmailDomainsRegex do
   let(:result) { subject.execute(authorised_domains) }
 
   context 'when no domains' do
