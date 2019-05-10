@@ -1,7 +1,7 @@
 describe 'Contact us when signed in', type: :feature do
   include_context 'with a mocked support tickets client'
 
-  let(:user) { create(:user, organisations: [create(:organisation)]) }
+  let(:user) { create(:user, :with_organisation) }
 
   before do
     sign_in_user user

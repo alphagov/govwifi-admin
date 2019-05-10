@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_and_belongs_to_many :organisations, optional: true
+  has_and_belongs_to_many :organisations
 
   has_one :permission, dependent: :destroy
   accepts_nested_attributes_for :permission, :organisations

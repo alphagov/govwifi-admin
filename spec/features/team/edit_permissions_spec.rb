@@ -5,7 +5,7 @@ describe 'Edit user permissions', type: :feature do
 
   before do
     create(:user, email: 'invited_other_org@gov.uk')
-    create(:user, email: 'invited_same_org@gov.uk', organisations: [user.organisations.first])
+    create(:user, email: 'invited_same_org@gov.uk', organisations: user.organisations)
     sign_in_user user
   end
 
