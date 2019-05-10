@@ -18,7 +18,7 @@ describe 'Rotate RADIUS secret key', type: :feature do
       expect(page).to have_content('RADIUS secret key has been successfully rotated')
     end
 
-    it 'will show the new secret key for that location' do
+    it 'will not show the old RADIUS secret key for that location' do
       expect(page).not_to have_content(radius_key)
     end
   end
