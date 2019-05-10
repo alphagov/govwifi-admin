@@ -20,8 +20,7 @@ class LocationsController < ApplicationController
   end
 
   def update
-    location_id = params[:id]
-    location = Location.find(location_id)
+    location = Location.find(params[:id])
     location.update(radius_secret_key: rotate_radius_secret_key)
     redirect_to(ips_path, notice: 'RADIUS secret key has been successfully rotated')
   end

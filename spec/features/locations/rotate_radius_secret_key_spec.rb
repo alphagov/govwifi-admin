@@ -1,7 +1,5 @@
 describe 'Rotate RADIUS secret key', type: :feature do
-  include_context 'with a mocked notifications client'
-
-  context 'when a user has the corret permissions' do
+  context 'when a user has the correct permissions' do
     let(:user_1) { create(:user) }
     let!(:location_1) { create(:location, organisation: user_1.organisation) }
     let(:radius_key) { "ABC" }
