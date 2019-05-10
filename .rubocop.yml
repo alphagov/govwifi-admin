@@ -1,3 +1,7 @@
 inherit_gem:
   govuk-lint: configs/rubocop/all.yml
 require: rubocop-rspec
+
+# The suggested alignment is awful so disable this cop
+Layout/AlignArguments:
+  Enabled: false

@@ -8,7 +8,7 @@ class User < ApplicationRecord
   delegate :can_manage_locations?, :can_manage_team?, to: :permission
 
   devise :invitable, :confirmable, :database_authenticatable, :registerable, :recoverable,
-         :rememberable, :trackable, :timeoutable, :validatable, :lockable
+    :rememberable, :trackable, :timeoutable, :validatable, :lockable
 
   validates :name, presence: true, on: :update
   validates :password, presence: true,

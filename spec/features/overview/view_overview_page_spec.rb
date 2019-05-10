@@ -22,16 +22,16 @@ describe 'Viewing the overview page', type: :feature do
 
     before do
       location_one = create(:location,
-                            organisation: user.organisation,
-                            address: address_one,
-                            postcode: postcode_one)
+        organisation: user.organisation,
+        address: address_one,
+        postcode: postcode_one)
 
       location_one.update(radius_secret_key: radius_secret_key)
 
       location_two = create(:location,
-                            organisation: user.organisation,
-                            address: address_two,
-                            postcode: postcode_two)
+        organisation: user.organisation,
+        address: address_two,
+        postcode: postcode_two)
 
       create(:ip, address: ip_one, location: location_one)
       create(:ip, address: ip_two, location: location_one)
