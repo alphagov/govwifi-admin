@@ -17,16 +17,6 @@ class Location < ApplicationRecord
     "#{address}, #{postcode}"
   end
 
-  def self.to_csv
-    attributes = %w{service_email}
-    CSV.generate(headers: true) do |csv|
-      csv << attributes
-      all.each do |location|
-        csv << location.attributes.values_at(*attributes)
-      end
-    end
-  end
-
 private
 
   def validate_postcode

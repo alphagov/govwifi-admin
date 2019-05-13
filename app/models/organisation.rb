@@ -22,6 +22,16 @@ class Organisation < ApplicationRecord
     ).execute.sort
   end
 
+  def to_csv
+    attributes = %w{service_email}
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      all.each do |location|
+        csv << location.attributes.values_at(*attributes)
+      end
+    end
+  end
+
   def set_uuid
     return if uuid.present?
 
