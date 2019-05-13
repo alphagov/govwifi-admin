@@ -32,8 +32,9 @@ Rails.application.routes.draw do
     get 'user_support', on: :new
   end
 
-  resources :locations, only: %i[new create destroy] do
+  resources :locations, only: %i[new create destroy update] do
     get 'remove', to: 'ips#index'
+    get 'rotate_key', to: 'ips#index'
   end
   resources :team_members, only: %i[index edit update destroy] do
     collection do
