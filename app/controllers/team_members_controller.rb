@@ -43,7 +43,7 @@ private
   end
 
   def users_belong_to_same_org
-    current_user.organisation == @user.organisation
+    @user.organisations.include?(current_organisation)
   end
 
   def permission_params

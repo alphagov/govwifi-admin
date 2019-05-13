@@ -32,7 +32,7 @@ describe "Inviting a team member as a super admin", type: :feature do
   it "adds the invited user to the correct organisation" do
     click_on 'Send invitation email'
     user = User.find_by(email: 'barry@gov.uk')
-    expect(user.organisation).to eq(organisation)
+    expect(user.organisations).to eq([organisation])
   end
 
   it "will redirect the user to the organisation page on success" do
@@ -69,7 +69,7 @@ describe "Inviting a team member as a super admin", type: :feature do
 
       it "adds the invited user to the correct organisation" do
         user = User.find_by(email: 'barry@gov.uk')
-        expect(user.organisation).to eq(organisation)
+        expect(user.organisations).to eq([organisation])
       end
 
       it "will redirect the user to the organisation page on success" do

@@ -1,7 +1,7 @@
 describe 'Viewing IP addresses', type: :feature do
   include_context 'with a mocked notifications client'
 
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
 
   context 'with no IPs' do
     before do
@@ -23,7 +23,7 @@ describe 'Viewing IP addresses', type: :feature do
   end
 
   context 'with IPs' do
-    let(:location) { create(:location, organisation: user.organisation) }
+    let(:location) { create(:location, organisation: user.organisations.first) }
     let!(:ip) { create(:ip, location: location) }
 
     before do

@@ -1,7 +1,7 @@
 describe 'Rotate RADIUS secret key', type: :feature do
   context 'when a user has the correct permissions' do
-    let(:user_1) { create(:user) }
-    let!(:location_1) { create(:location, organisation: user_1.organisation) }
+    let(:user_1) { create(:user, :with_organisation) }
+    let!(:location_1) { create(:location, organisation: user_1.organisations.first) }
     let(:radius_key) { "ABC" }
     let(:set_secret_key) { location_1.update!(radius_secret_key: radius_key) }
 
@@ -22,8 +22,8 @@ describe 'Rotate RADIUS secret key', type: :feature do
   end
 
   context 'when a user has the incorrect permissions' do
-    let(:user_2) { create(:user) }
-    let(:location_2) { create(:location, organisation: user_2.organisation) }
+    let(:user_2) { create(:user, :with_organisation) }
+    let(:location_2) { create(:location, organisation: user_2.organisations.first) }
 
     before do
       user_2.permission.update!(can_manage_locations: false)

@@ -31,7 +31,7 @@ organisation.users.create(
     password: "password",
     name: Faker::Name.name,
     confirmed_at: Time.zone.now,
-    organisation: organisation
+    organisations: [organisation]
   )
 end
 
@@ -41,7 +41,7 @@ end
     password: "password",
     name: Faker::Name.name,
     confirmed_at: nil,
-    organisation: organisation
+    organisations: [organisation]
   )
 end
 

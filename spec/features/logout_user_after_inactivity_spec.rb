@@ -1,7 +1,7 @@
 require 'timecop'
 
 describe 'Logout users after period of inactivity', type: :feature do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
 
   context 'when a signed in user has been inactive for 59 minutes' do
     before do

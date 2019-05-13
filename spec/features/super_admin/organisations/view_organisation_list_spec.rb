@@ -11,7 +11,7 @@ describe 'View a list of signed up organisations', type: :feature do
   end
 
   context 'when logged in as a normal user' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :with_organisation) }
 
     it 'redirects me to the landing guidance' do
       expect(page).to have_content 'If you have trouble setting up GovWifi'
