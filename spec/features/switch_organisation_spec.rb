@@ -21,10 +21,11 @@ describe 'Multiple organisations', type: :feature do
 
     context "when the user belongs to the organisation in the session" do
       it 'allows switching to that organisation' do
-        page.set_rack_session(organisation_id: organisation.id)
+        user.organisations << other_organisation
+        page.set_rack_session(organisation_id: other_organisation.id)
 
         visit root_path
-        expect(page).to have_content(organisation.name)
+        expect(page).to have_content(other_organisation.name)
       end
     end
   end
