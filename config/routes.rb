@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   end
 
   get 'change_organisation', to: 'current_organisation#edit'
+  patch 'change_organisation', to: 'current_organisation#update'
 
   resources :mou, only: %i[index create] do
     collection do
