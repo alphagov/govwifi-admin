@@ -1,14 +1,26 @@
 ---
 platform: linux
 
-inputs:
-  - name: govwifi-admin
-
 params:
-  DEPLOY_STAGE:
+  STAGE:
   AWS_ACCESS_KEY_ID:
-  AWS_SECRET_ACCESS_KEY:
   AWS_DEFAULT_REGION:
+  AWS_SECRET_ACCESS_KEY:
+
+  # These are set for deploy.sh and migrate.sh
+  SERVICE_NAME: "admin"
+  CLUSTER_NAME: "admin"
+  TASK_NAME: "admin"
+  CONTAINER_NAME: "admin"
+
+inputs:
+  - name: src
+  - name: deploy-tools
 
 run:
-  path: govwifi-admin/ci/tasks/scripts/deploy.sh
+  path: bash
+  args:
+    - '-exc'
+    - |
+      src/ci/tasks/scripts/migrate.sh
+      src/ci/tasks/scripts/deploy.sh
