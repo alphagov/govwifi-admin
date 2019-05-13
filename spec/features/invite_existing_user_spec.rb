@@ -3,8 +3,9 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
 describe 'Inviting an existing user', type: :feature do
-  let(:betty) { create(:user, :with_organisation) }
-  let(:confirmed_user) { create(:user, :with_organisation) }
+  let(:organisation) { create(:organisation) }
+  let(:betty) { create(:user, organisations: [organisation]) }
+  let(:confirmed_user) { create(:user, organisations: [organisation]) }
 
   include_examples 'when sending an invite email'
 
@@ -18,10 +19,6 @@ describe 'Inviting an existing user', type: :feature do
 
     it 'does not send an invitation' do
       expect(InviteUseCaseSpy.invite_count).to eq(0)
-    end
-
-    it 'displays the correct error message' do
-      expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
     end
 
     context 'when the invited user signs in afterwards' do
