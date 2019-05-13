@@ -20,7 +20,7 @@ describe 'Editing an organisations details', type: :feature do
   end
 
   context 'when updating an organisation you do not belong to' do
-    let(:other_user) { create(:user) }
+    let(:other_user) { create(:user, :with_organisation) }
 
     before do
       sign_in_user other_user
