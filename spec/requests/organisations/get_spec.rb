@@ -1,4 +1,4 @@
-describe "GET /locations", type: :request do
+describe "GET /service_emails", type: :request do
   let!(:organisation_1) { create(:organisation) }
   let!(:organisation_2) { create(:organisation) }
   let(:user) { create(:user, :super_admin) }
