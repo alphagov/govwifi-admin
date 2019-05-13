@@ -2,7 +2,7 @@ require 'rack_session_access/capybara'
 
 describe 'Multiple organisations', type: :feature do
   let!(:other_organisation) { create(:organisation) }
-  let(:user) { create(:user, organisation: create(:organisation)) }
+  let(:user) { create(:user, :with_organisation) }
 
   before do
     sign_in_user user
