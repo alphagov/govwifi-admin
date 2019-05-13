@@ -7,6 +7,11 @@ class Admin::OrganisationsController < AdminController
       .order("#{sort_column} #{sort_direction}")
 
     @location_count = Location.count
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data service_emails.to_csv, filename: "service_emails.csv" }
+    end
   end
 
   def show
@@ -23,6 +28,10 @@ class Admin::OrganisationsController < AdminController
   end
 
 private
+
+  def service_emails
+    Organisation.pluck(:service_email)
+  end
 
   def sorted_team_members(organisation)
     UseCases::Administrator::SortUsers.new(

@@ -10,7 +10,7 @@ describe 'Downloading all the service emails', type: :feature do
     expect(page).to have_content('Download all service emails')
   end
 
-  it 'will download a csv file with all the service emails' do
+  it 'will download a csv file with all the service emails', focus: true do
     click_on 'Download all service emails'
     expect(page.response_headers['Content-Type']).to eq('text/csv')
   end
