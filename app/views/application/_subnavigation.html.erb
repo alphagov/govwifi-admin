@@ -1,11 +1,12 @@
 <div class='govuk-grid-row subnav govuk-!-margin-0'>
-  <div class='govuk-grid-column-one-quarter govuk-grid-column-one-third-from-desktop govuk-!-padding-left-0 organisation-name'>
+  <div class='govuk-grid-column-one-third govuk-grid-column-one-half-from-desktop govuk-!-padding-left-0 organisation-name'>
     <p class='govuk-body govuk-!-margin-0 govuk-!-padding-0'>
       <strong><%= current_organisation.name %></strong>
+      <%= link_to 'change', "#", class: "govuk-link govuk-body-s govuk-!-padding-left-1" %>
     </p>
   </div>
 
-  <div class='govuk-grid-column-three-quarters govuk-grid-column-two-thirds-from-desktop govuk-!-padding-0 nav-links'>
+  <div class='govuk-grid-column-two-thirds govuk-grid-column-one-half-from-desktop govuk-!-padding-0 nav-links'>
     <nav class='govuk-body govuk-!-margin-bottom-0'>
       <% if super_admin? %>
         <%= link_to 'Organisations', admin_organisations_path, class: active_tab(admin_organisations_path) %>
