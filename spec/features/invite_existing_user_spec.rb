@@ -3,8 +3,8 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
 describe 'Inviting an existing user', type: :feature do
-  let(:betty) { create(:user) }
-  let(:confirmed_user) { create(:user) }
+  let(:betty) { create(:user, :with_organisation) }
+  let(:confirmed_user) { create(:user, :with_organisation) }
 
   include_examples 'when sending an invite email'
 

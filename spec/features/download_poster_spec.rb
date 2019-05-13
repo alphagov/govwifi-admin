@@ -1,5 +1,5 @@
 describe 'Downloading the GovWifi poster', type: :feature do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
 
   before do
     sign_in_user user

@@ -1,6 +1,6 @@
 describe 'Editing an organisations details', type: :feature do
   let(:organisation) { create(:organisation, name: "Gov Org 2", service_email: "testme@gov.uk") }
-  let(:user) { create(:user, organisation: organisation) }
+  let(:user) { create(:user, organisations: [organisation]) }
 
   context 'when editing an organisation you belong to' do
     before do
@@ -28,7 +28,7 @@ describe 'Editing an organisations details', type: :feature do
 
     it 'displays an error message to the user' do
       expect {
-        visit edit_organisation_path(user.organisation)
+        visit edit_organisation_path(organisation)
       }.to raise_error(ActionController::RoutingError)
     end
   end

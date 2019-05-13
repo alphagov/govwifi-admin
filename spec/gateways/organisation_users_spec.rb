@@ -8,8 +8,8 @@ describe Gateways::OrganisationUsers do
     end
 
     before do
-      create_list :user, 3, organisation: organisation
-      create(:user)
+      create_list :user, 3, organisations: [organisation]
+      create(:user, :with_organisation)
     end
 
     it 'fetches the users for the organisation' do

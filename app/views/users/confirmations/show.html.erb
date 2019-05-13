@@ -9,7 +9,7 @@
       <%= form_for(resource, as: resource_name, url: users_confirmations_path, html: { method: :put, novalidate: '' }) do |f| %>
         <%= f.hidden_field :confirmation_token, value: params[:confirmation_token] || params[:user][:confirmation_token] %>
 
-        <%= f.fields_for :organisation, resource.build_organisation do |organisation_form| %>
+        <%= f.fields_for :organisations, resource.organisations.build do |organisation_form| %>
           <div class="govuk-form-group <%= field_error(resource, "organisation.name") %>">
             <%= organisation_form.label :name, "Organisation name", class: "govuk-label" %>
             <div class="govuk-hint">If your organisation name does not appear below <%= link_to "contact us", technical_support_new_help_path, class: "govuk-link" %></div>

@@ -1,11 +1,11 @@
 describe 'Edit user permissions', type: :feature do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
   let(:invited_user_other_org) { User.find_by(email: 'invited_other_org@gov.uk') }
   let(:invited_user_same_org) { User.find_by(email: 'invited_same_org@gov.uk') }
 
   before do
     create(:user, email: 'invited_other_org@gov.uk')
-    create(:user, email: 'invited_same_org@gov.uk', organisation: user.organisation)
+    create(:user, email: 'invited_same_org@gov.uk', organisations: user.organisations)
     sign_in_user user
   end
 

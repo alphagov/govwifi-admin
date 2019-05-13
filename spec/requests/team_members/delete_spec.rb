@@ -1,6 +1,6 @@
 describe "DELETE /team_members/:id", type: :request do
-  let(:user) { create(:user) }
-  let!(:team_member) { create(:user, organisation: user.organisation) }
+  let(:user) { create(:user, :with_organisation) }
+  let!(:team_member) { create(:user, organisations: user.organisations) }
 
   before do
     https!

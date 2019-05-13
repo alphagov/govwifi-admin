@@ -1,6 +1,6 @@
 describe "DELETE /locations/:id", type: :request do
-  let(:user) { create(:user) }
-  let!(:location) { create(:location, organisation: user.organisation) }
+  let(:user) { create(:user, :with_organisation) }
+  let!(:location) { create(:location, organisation: user.organisations.first) }
 
   before do
     https!
