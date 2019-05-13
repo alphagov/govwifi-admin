@@ -108,10 +108,10 @@ describe 'Authorising Email Domains', type: :feature do
   end
 
   context 'without super admin privileges' do
-    let(:admin_user) { create(:user) }
+    let(:normal_user) { create(:user, :with_organisation) }
 
     before do
-      sign_in_user admin_user
+      sign_in_user normal_user
       visit new_admin_whitelist_email_domain_path
     end
 

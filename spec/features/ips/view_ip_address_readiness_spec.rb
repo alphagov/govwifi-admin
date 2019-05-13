@@ -2,10 +2,10 @@ describe 'Wiew whether IPs are ready', type: :feature do
   include_context 'with a mocked notifications client'
 
   context 'when one IP has been added' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :with_organisation) }
 
     before do
-      create :location, organisation: user.organisation
+      create :location, organisation: user.organisations.first
       sign_in_user user
       visit new_ip_path
       fill_in 'address', with: '141.0.149.130'

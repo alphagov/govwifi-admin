@@ -1,5 +1,5 @@
 describe 'Viewing the overview page', type: :feature do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
 
   context 'with no IPs' do
     before do
@@ -22,14 +22,14 @@ describe 'Viewing the overview page', type: :feature do
 
     before do
       location_one = create(:location,
-        organisation: user.organisation,
+        organisation: user.organisations.first,
         address: address_one,
         postcode: postcode_one)
 
       location_one.update(radius_secret_key: radius_secret_key)
 
       location_two = create(:location,
-        organisation: user.organisation,
+        organisation: user.organisations.first,
         address: address_two,
         postcode: postcode_two)
 

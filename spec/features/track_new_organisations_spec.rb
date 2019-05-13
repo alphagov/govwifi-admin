@@ -1,7 +1,7 @@
 describe 'Tracking new organisations', type: :feature do
   include_context 'with a mocked notifications client'
 
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
 
   before do
     sign_in_user user
@@ -21,7 +21,7 @@ describe 'Tracking new organisations', type: :feature do
   end
 
   context 'when a user adds their first IP, then clicks setup link' do
-    let!(:location) { create(:location, organisation: user.organisation) }
+    let!(:location) { create(:location, organisation: user.organisations.first) }
     let(:ip_address) { '120.0.129.150' }
 
     before do

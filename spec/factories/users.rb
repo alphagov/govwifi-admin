@@ -7,10 +7,18 @@ FactoryBot.define do
     name { "bob" }
     confirmed_at { Time.zone.now }
 
-    association :organisation
     trait :super_admin do
-      association :organisation, super_admin: true
+      after(:create) do |user|
+        create(:organisation, users: [user], super_admin: true)
+      end
     end
+
+    trait :with_organisation do
+      after(:create) do |user|
+        create(:organisation, users: [user])
+      end
+    end
+
     trait :unconfirmed do
       confirmed_at { nil }
     end

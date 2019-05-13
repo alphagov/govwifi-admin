@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_organisation, :super_admin?
 
   def current_organisation
-    @current_organisation ||= current_user.organisation
+    @current_organisation ||= current_user.organisations.first
   end
 
   def error

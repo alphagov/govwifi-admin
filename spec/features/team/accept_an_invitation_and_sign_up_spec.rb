@@ -4,7 +4,7 @@ require 'support/notifications_service'
 
 describe "Sign up from invitation", type: :feature do
   let(:invited_user_email) { "invited@gov.uk" }
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
 
   include_context 'when sending an invite email'
   include_context 'when using the notifications service'

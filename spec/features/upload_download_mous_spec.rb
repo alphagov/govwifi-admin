@@ -1,5 +1,5 @@
 describe 'Uploading and downloading an MOU', type: :feature do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
 
   context "when signed in" do
     before do
