@@ -1,6 +1,6 @@
 class Admin::OrganisationsController < AdminController
   helper_method :sort_column, :sort_direction
-  CSV_HEADER = "email address"
+  CSV_HEADER = "email address".freeze
 
   def index
     @organisations = Organisation
