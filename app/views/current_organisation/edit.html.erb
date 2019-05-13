@@ -1,0 +1,12 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Choose service</h1>
+
+    <ul class="govuk-list">
+      <% current_user.organisations.each do | organisation | %>
+        <li><%= link_to organisation.name, change_organisation_path, class: "govuk-link govuk-heading-m" %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+

@@ -45,6 +45,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'change_organisation', to: 'current_organisation#edit'
+
   resources :mou, only: %i[index create] do
     collection do
       get 'created', to: 'mou#index'
