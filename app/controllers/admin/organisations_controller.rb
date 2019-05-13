@@ -1,5 +1,6 @@
 class Admin::OrganisationsController < AdminController
   helper_method :sort_column, :sort_direction
+  CSV_HEADER = "email address"
 
   def index
     @organisations = Organisation
@@ -10,7 +11,7 @@ class Admin::OrganisationsController < AdminController
 
     respond_to do |format|
       format.html
-      format.csv { send_data service_emails.to_csv, filename: "service_emails.csv" }
+      format.csv { send_data service_emails_csv, filename: "service_emails.csv" }
     end
   end
 
@@ -29,8 +30,9 @@ class Admin::OrganisationsController < AdminController
 
 private
 
-  def service_emails
-    Organisation.pluck(:service_email)
+  def service_emails_csv
+    service_emails = Organisation.pluck(:service_email)
+    service_emails.prepend(CSV_HEADER).join("\n")
   end
 
   def sorted_team_members(organisation)
