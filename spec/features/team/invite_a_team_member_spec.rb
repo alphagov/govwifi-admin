@@ -12,7 +12,7 @@ describe "Inviting a team member", type: :feature do
   end
 
   context "when inviting a team member" do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :with_organisation) }
 
     include_context 'when sending an invite email'
     include_context 'when using the notifications service'
@@ -41,7 +41,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "sets the invitees organisation" do
-        expect(invited_user.organisation).to eq(user.organisation)
+        expect(invited_user.organisations).to eq(user.organisations)
       end
 
       it 'redirects to the "after user invited" path for analytics' do
@@ -66,7 +66,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "sets the invitees organisation" do
-        expect(invited_user.organisation).to eq(user.organisation)
+        expect(invited_user.organisations).to eq(user.organisations)
       end
 
       it 'redirects to the "after user invited" path for analytics' do
@@ -97,6 +97,7 @@ describe "Inviting a team member", type: :feature do
       before do
         sign_out
         sign_up_for_account(email: invited_user_email)
+
         sign_in_user user
         visit new_user_invitation_path
         fill_in "Email", with: invited_user_email
@@ -112,7 +113,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "sets the invitees organisation" do
-        expect(invited_user.organisation_id).to eq(user.organisation_id)
+        expect(invited_user.organisations).to eq(user.organisations)
       end
 
       it 'redirects to the "after user invited" path for analytics' do
@@ -122,7 +123,7 @@ describe "Inviting a team member", type: :feature do
 
     context "with an unconfirmed user that has already been invited" do
       let(:organisation) { create(:organisation) }
-      let!(:invited_user) { create(:user, invitation_sent_at: Time.now, organisation: organisation, confirmed_at: nil) }
+      let!(:invited_user) { create(:user, invitation_sent_at: Time.now, organisations: [organisation], confirmed_at: nil) }
       let(:invited_user_email) { invited_user.email }
 
       before do

@@ -8,7 +8,7 @@ describe 'View GovWifi status', type: :feature do
   end
 
   context 'when logged in' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :with_organisation) }
     let(:use_case) { instance_double(UseCases::Administrator::HealthChecks::CalculateHealth) }
 
     before do

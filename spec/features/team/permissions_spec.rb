@@ -3,7 +3,7 @@ require 'support/notifications_service'
 describe 'Invite a team member', type: :feature do
   include_context 'with a mocked notifications client'
 
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
 
   before { sign_in_user user }
 
@@ -23,7 +23,8 @@ describe 'Invite a team member', type: :feature do
     end
 
     it 'allows re-sending invites' do
-      create(:user, organisation: user.organisation, invitation_sent_at: Date.today)
+      another_user = create(:user, invitation_sent_at: Date.today)
+      another_user.organisations << user.organisations.first
       visit team_members_path
 
       expect(page).to have_button('Resend invite')
@@ -51,7 +52,8 @@ describe 'Invite a team member', type: :feature do
     end
 
     it 'does not allow re-sending invites' do
-      create(:user, organisation: user.organisation, invitation_sent_at: Date.today)
+      another_user = create(:user, invitation_sent_at: Date.today)
+      another_user.organisations << user.organisations.first
       visit team_members_path
 
       expect(page).not_to have_button('Resend invite')

@@ -2,17 +2,27 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :set_target_organisation, if: :super_admin?, only: %i(create new)
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
   before_action :return_user_to_invite_page, if: :user_is_invalid?, only: :create
-  before_action :add_organisation_to_params, unless: :super_admin?, only: :create
+  after_action :ensure_organisation_added, only: :create
 
 private
+
+  def ensure_organisation_added
+    organisation_id = if super_admin?
+                        invite_params[:organisation_id]
+                      else
+                        current_organisation.id
+                      end
+
+    organisation = Organisation.find(organisation_id)
+    user = User.find_by(email: invite_params[:email])
+    if user.organisations.empty?
+      user.organisations << organisation
+    end
+  end
 
   def authenticate_inviter!
     # https://github.com/scambra/devise_invitable#controller-filter
     redirect_to(root_path) unless current_user&.can_manage_team?
-  end
-
-  def add_organisation_to_params
-    params[:user][:organisation_id] = current_user.organisation_id
   end
 
   def delete_user_record
@@ -67,7 +77,7 @@ private
   end
 
   def invited_user_has_no_org?
-    invited_user.organisation_id.nil?
+    invited_user.organisations.empty?
   end
 
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105

@@ -41,7 +41,7 @@ describe 'Sign up as an organisation', type: :feature do
       end
 
       it 'creates an organisation for the user' do
-        expect(User.last.organisation.name).to eq('Gov Org 1')
+        expect(User.last.organisations.first.name).to eq('Gov Org 1')
       end
     end
 
@@ -123,7 +123,7 @@ describe 'Sign up as an organisation', type: :feature do
     it_behaves_like 'errors in form'
 
     it 'tells the user that the service email must be present' do
-      expect(page).to have_content "Organisation service email must be a valid email address"
+      expect(page).to have_content "Organisations service email must be a valid email address"
     end
   end
 
@@ -136,7 +136,7 @@ describe 'Sign up as an organisation', type: :feature do
     it_behaves_like 'errors in form'
 
     it 'tells the user that the service email must be a valid email address' do
-      expect(page).to have_content "Organisation service email must be a valid email address"
+      expect(page).to have_content "Organisations service email must be a valid email address"
     end
   end
 
@@ -180,7 +180,7 @@ describe 'Sign up as an organisation', type: :feature do
 
     it 'shows the user an error message' do
       within('div#error-summary')do
-        expect(page).to have_content('Organisation name is already registered')
+        expect(page).to have_content('Organisations name is already registered')
       end
     end
 
@@ -210,7 +210,7 @@ describe 'Sign up as an organisation', type: :feature do
     it 'displays one error message that the name cannot be left blank' do
       update_user_details(organisation_name: org_name_left_blank)
       within('div#error-summary') do
-        expect(page).to have_selector("li#error-message", count: 1, text: "Organisation name can't be blank")
+        expect(page).to have_selector("li#error-message", count: 1, text: "Organisations name can't be blank")
       end
     end
   end
@@ -218,16 +218,20 @@ describe 'Sign up as an organisation', type: :feature do
   context 'when creating a new organisation' do
     let(:whitelist_gateway) { instance_double(Gateways::S3, read: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$') }
     let(:organisation_names_gateway) { instance_spy(Gateways::S3) }
+    let(:data) { instance_double(StringIO) }
+    let(:presenter) { instance_double(UseCases::Administrator::FormatOrganisationNames) }
 
     before do
       allow(Gateways::S3).to receive(:new).and_return(whitelist_gateway, organisation_names_gateway)
+      allow(UseCases::Administrator::FormatOrganisationNames).to receive(:new).and_return(presenter)
+      allow(presenter).to receive(:execute).and_return(data)
 
       sign_up_for_account
       update_user_details(organisation_name: "Org 1")
     end
 
     it 'publishes the updated list of organisation names to S3' do
-      expect(organisation_names_gateway).to have_received(:write).with(data: "- Gov Org 1")
+      expect(organisation_names_gateway).to have_received(:write).with(data: data)
     end
   end
 end

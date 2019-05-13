@@ -10,6 +10,7 @@
       </div>
     </div>
     <% if current_user.can_manage_locations? %>
+      <%= link_to 'Rotate secret key', location_rotate_key_path(location, rotate: true), class: "govuk-button red-button" %>
       <p class="govuk-body govuk-!-margin-bottom-1">
         <%= link_to "Add IP to this location", new_ip_path(location: location), class: "govuk-link" %>
       </p>
@@ -17,7 +18,7 @@
 
     <% if current_user.can_manage_locations? && location.ips.empty? %>
       <p class="govuk-body govuk-!-margin-bottom-1">
-        <%= link_to 'Remove this location', location_remove_path(location), class: "govuk-link" %>
+        <%= link_to 'Remove this location', location_remove_path(location, remove: true), class: "govuk-link" %>
       </p>
     <% end %>
   </caption>

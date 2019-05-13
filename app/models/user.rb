@@ -1,9 +1,8 @@
 class User < ApplicationRecord
-  belongs_to :organisation, inverse_of: :users, optional: true
-  accepts_nested_attributes_for :organisation
+  has_and_belongs_to_many :organisations
 
   has_one :permission, dependent: :destroy
-  accepts_nested_attributes_for :permission
+  accepts_nested_attributes_for :permission, :organisations
 
   delegate :can_manage_locations?, :can_manage_team?, to: :permission
 

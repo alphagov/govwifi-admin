@@ -2,7 +2,7 @@ describe "View authentication requests for a username", type: :feature do
   let(:username) { "Larry" }
 
   let(:super_admin) { create(:user, :super_admin) }
-  let(:super_admin_location) { create(:location, organisation: super_admin.organisation) }
+  let(:super_admin_location) { create(:location, organisation: super_admin.organisations.first) }
   let(:super_admin_ip) { create(:ip, location: super_admin_location) }
 
   let(:organisation) { create(:organisation) }

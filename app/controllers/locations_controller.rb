@@ -19,6 +19,12 @@ class LocationsController < ApplicationController
     end
   end
 
+  def update
+    location = Location.find(params[:id])
+    location.update(radius_secret_key: rotate_radius_secret_key)
+    redirect_to(ips_path, notice: 'RADIUS secret key has been successfully rotated')
+  end
+
   def destroy
     location = current_organisation.locations.find_by(id: params.fetch(:id))
     redirect_to ips_path && return unless location && location.ips.empty?
@@ -28,6 +34,11 @@ class LocationsController < ApplicationController
   end
 
 private
+
+  def rotate_radius_secret_key
+    use_case = UseCases::Administrator::GenerateRadiusSecretKey.new
+    use_case.execute
+  end
 
   def add_blank_ips_to_location
     desired_count = 5

@@ -1,5 +1,5 @@
 describe 'Application errors', type: :feature do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_organisation) }
 
   it 'renders a page not found page' do
     sign_in_user user
