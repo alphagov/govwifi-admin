@@ -22,4 +22,5 @@ params:
   PREBUILT_CACHED_DIR: 'docker-cache/app-prebuilt-cached'
 
 run:
-  path: src/ci/tasks/scripts/pre-build.sh
+  path: docker-wrapper
+  args: [src/ci/tasks/scripts/pre-build.sh]
