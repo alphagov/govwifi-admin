@@ -206,6 +206,9 @@ GEM
       rack (>= 1.2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rack_session_access (0.2.0)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rails (5.2.3)
       actioncable (= 5.2.3)
       actionmailer (= 5.2.3)
@@ -361,6 +364,7 @@ DEPENDENCIES
   pry
   puma (~> 3.12)
   rack-mini-profiler
+  rack_session_access
   rails (~> 5.2.3)
   rspec-rails (~> 3)
   sass-rails (~> 5.0)
@@ -375,7 +379,7 @@ DEPENDENCIES
   zendesk_api
 
 RUBY VERSION
-   ruby 2.6.2p47
+   ruby 2.6.3p62
 
 BUNDLED WITH
    1.17.3

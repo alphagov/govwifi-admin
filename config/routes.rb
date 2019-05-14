@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   end
 
   get '/healthcheck', to: 'monitoring#healthcheck'
+  get 'change_organisation', to: 'current_organisation#edit'
+  patch 'change_organisation', to: 'current_organisation#update'
+
   resources :status, only: %i[index]
   resources :ips, only: %i[index new create destroy] do
     get 'remove', to: 'ips#index'
@@ -24,6 +27,8 @@ Rails.application.routes.draw do
     get 'removed/location', to: 'ips#index', on: :collection
   end
 
+  get 'confirm_cross_organisation_invitations', to: 'users/cross_organisation_confirmations#create'
+
   resources :help, only: %i[create new] do
     get '/', on: :collection, to: 'help#new'
     get 'signed_in', on: :new
@@ -31,7 +36,6 @@ Rails.application.routes.draw do
     get 'technical_support', on: :new
     get 'user_support', on: :new
   end
-
   resources :locations, only: %i[new create destroy update] do
     get 'remove', to: 'ips#index'
     get 'rotate_key', to: 'ips#index'
@@ -44,7 +48,6 @@ Rails.application.routes.draw do
       get 'removed', to: 'team_members#index'
     end
   end
-
   resources :mou, only: %i[index create] do
     collection do
       get 'created', to: 'mou#index'
@@ -52,13 +55,11 @@ Rails.application.routes.draw do
     end
   end
   resources :logs, only: %i[index]
-
   resources :logs_searches, path: 'logs/search', only: %i[new index create] do
     get 'ip', on: :new
     get 'username', on: :new
     get 'location', on: :new
   end
-
   resources :organisations, only: %i[edit update]
   resources :setup_instructions, only: %i[index] do
     collection do

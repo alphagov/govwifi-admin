@@ -1,5 +1,6 @@
 class Admin::OrganisationsController < AdminController
   helper_method :sort_column, :sort_direction
+  CSV_HEADER = "email address".freeze
 
   def index
     @organisations = Organisation
@@ -7,6 +8,11 @@ class Admin::OrganisationsController < AdminController
       .order("#{sort_column} #{sort_direction}")
 
     @location_count = Location.count
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data service_emails_csv, filename: "service_emails.csv" }
+    end
   end
 
   def show
@@ -23,6 +29,11 @@ class Admin::OrganisationsController < AdminController
   end
 
 private
+
+  def service_emails_csv
+    service_emails = Organisation.pluck(:service_email)
+    service_emails.prepend(CSV_HEADER).join("\n")
+  end
 
   def sorted_team_members(organisation)
     UseCases::Administrator::SortUsers.new(

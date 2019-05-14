@@ -12,4 +12,5 @@ params:
   ON_CONCOURSE: true
 
 run:
-  path: src/ci/tasks/scripts/lint.sh
+  path: docker-wrapper
+  args: [src/ci/tasks/scripts/lint.sh]
