@@ -27,5 +27,10 @@ describe 'Inviting an existing user', type: :feature do
     it 'notifies the user with a success message' do
       expect(page).to have_content("#{betty.email} has been invited to join #{confirmed_user.organisations.first.name}")
     end
+
+    it 'lists the invited user in the team list as invited' do
+      visit team_members_path
+      expect(page).to have_content(betty.email)
+    end
   end
 end
