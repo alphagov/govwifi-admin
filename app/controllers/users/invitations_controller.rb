@@ -1,4 +1,6 @@
 class Users::InvitationsController < Devise::InvitationsController
+  prepend_before_action :create_cross_organisation_invitation, if: :user_belongs_to_other_organisations?, only: :create
+
   before_action :set_target_organisation, if: :super_admin?, only: %i(create new)
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
   before_action :return_user_to_invite_page, if: :user_is_invalid?, only: :create
@@ -18,6 +20,25 @@ private
     if user.organisations.empty?
       user.organisations << organisation
     end
+  end
+
+  def create_cross_organisation_invitation
+    token = Devise.friendly_token[0, 20]
+    invited_user.cross_organisation_invitations.create!(
+      invited_by_id: current_user.id,
+      organisation: current_organisation,
+      invitation_token: token
+    )
+
+    AuthenticationMailer.invitation_instructions(invited_user, token).deliver_now
+
+    redirect_to team_members_path, notice: "#{invited_user.email} has been invited to join #{current_organisation.name}"
+  end
+
+  def user_belongs_to_other_organisations?
+    invited_user.present? &&
+      invited_user.organisations.present? &&
+      invited_user.organisations.pluck(:id).exclude?(current_organisation.id)
   end
 
   def authenticate_inviter!
