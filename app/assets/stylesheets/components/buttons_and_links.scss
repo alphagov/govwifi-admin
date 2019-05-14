@@ -13,3 +13,17 @@
     color: lighten($govuk-error-colour, 10%) !important;
   }
 }
+
+.button-as-link {
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  color: $govuk-link-colour;
+  background-color: transparent;
+
+  &:hover {
+    color: $govuk-link-hover-colour;
+  }
+}
