@@ -30,7 +30,7 @@ private
       invitation_token: token
     )
 
-    AuthenticationMailer.invitation_instructions(invited_user, token).deliver_now
+    AuthenticationMailer.cross_organisation_invitation_instructions(invited_user, token, organisation: current_organisation).deliver_now
 
     redirect_to team_members_path, notice: "#{invited_user.email} has been invited to join #{current_organisation.name}"
   end

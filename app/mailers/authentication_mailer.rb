@@ -56,4 +56,18 @@ class AuthenticationMailer < ::Devise::Mailer
       template_id: template_id
     )
   end
+
+  def cross_organisation_invitation_instructions(record, token, _opts = {})
+    invite_link = confirm_cross_organisation_invitations_url(token: token)
+    template_id = GOV_NOTIFY_CONFIG['cross_organisation_invitation']['template_id']
+
+    UseCases::Administrator::SendCrossOrganisationInviteEmail.new(
+      notifications_gateway: EmailGateway.new
+    ).execute(
+      email: record.email,
+      invite_url: invite_link,
+      template_id: template_id,
+      organisation: _opts.fetch(:organisation)
+    )
+  end
 end
