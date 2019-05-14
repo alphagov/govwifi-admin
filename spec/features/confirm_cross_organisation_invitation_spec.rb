@@ -1,4 +1,4 @@
-describe 'Confirming a cross organisation invitation', type: :feature do
+describe 'Confirming a cross organisation invitation' do
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
   let(:invited_user) { create(:user, :with_organisation) }
