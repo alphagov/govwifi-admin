@@ -24,7 +24,7 @@ describe CrossOrganisationInvitation do
     end
 
     it 'confirms the invitation' do
-      expect(invitation.confirmed_at).to_not be_nil
+      expect(invitation.confirmed_at).not_to be_nil
     end
   end
 end

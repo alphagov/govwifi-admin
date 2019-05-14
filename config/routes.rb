@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     get 'removed/location', to: 'ips#index', on: :collection
   end
 
-  get 'confirm_cross_organisation_invitations' , to: 'users/cross_organisation_confirmations#create'
+  get 'confirm_cross_organisation_invitations', to: 'users/cross_organisation_confirmations#create'
 
   resources :help, only: %i[create new] do
     get '/', on: :collection, to: 'help#new'

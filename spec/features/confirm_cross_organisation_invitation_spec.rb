@@ -1,8 +1,8 @@
-describe 'Confirming a cross organisation invitation' do
-    let(:organisation) { create(:organisation) }
-    let(:user) { create(:user, organisations: [organisation]) }
-    let(:invited_user) { create(:user, :with_organisation) }
-    let(:token) { 'abc123' }
+describe 'Confirming a cross organisation invitation', type: :feature do
+  let(:organisation) { create(:organisation) }
+  let(:user) { create(:user, organisations: [organisation]) }
+  let(:invited_user) { create(:user, :with_organisation) }
+  let(:token) { 'abc123' }
 
   context 'with an existing user' do
     before do
