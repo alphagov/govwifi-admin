@@ -12,6 +12,9 @@ class OrganisationsController < ApplicationController
     if @organisation.save
       assign_user_to_organisation(@organisation)
       redirect_to root_path, notice: '#{@organisation.name} created'
+    else
+      @register_organisations = Organisation.fetch_organisations_from_register
+      render :new
     end
   end
 
