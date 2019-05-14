@@ -32,7 +32,7 @@ private
 
     AuthenticationMailer.invitation_instructions(invited_user, token).deliver_now
 
-    redirect_to team_members_path, notice: 'done'
+    redirect_to team_members_path, notice: "#{invited_user.email} has been invited to join #{current_organisation.name}"
   end
 
   def user_belongs_to_other_organisations?

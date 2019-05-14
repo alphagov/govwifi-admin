@@ -23,5 +23,9 @@ describe 'Inviting an existing user', type: :feature do
     it 'creates a join organisation invitation' do
       expect(betty.cross_organisation_invitations.count).to eq(1)
     end
+
+    it 'notifies the user with a success message' do
+      expect(page).to have_content("#{betty.email} has been invited to join #{confirmed_user.organisations.first.name}")
+    end
   end
 end
