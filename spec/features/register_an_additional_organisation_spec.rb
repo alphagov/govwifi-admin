@@ -35,6 +35,11 @@ describe 'Register an additional organisation', type: :feature do
       click_on 'Create organisation'
       expect(user.reload.organisations.map(&:name)).to eq([organisation_1.name, organisation_2_name])
     end
+
+    it 'displays the success message to the user' do
+      click_on 'Create organisation'
+      expect(page).to have_content("#{organisation_2_name} created")
+    end
   end
 
   context 'when submitting the form with invalid data' do
