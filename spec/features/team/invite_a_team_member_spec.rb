@@ -41,7 +41,8 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "sets the invitees organisation" do
-        expect(invited_user.organisations).to eq(user.organisations)
+        organisations = invited_user.organisations
+        expect(organisations).to eq(user.organisations)
       end
 
       it 'redirects to the "after user invited" path for analytics' do
@@ -122,8 +123,7 @@ describe "Inviting a team member", type: :feature do
     end
 
     context "with an unconfirmed user that has already been invited" do
-      let(:organisation) { create(:organisation) }
-      let!(:invited_user) { create(:user, invitation_sent_at: Time.now, organisations: [organisation], confirmed_at: nil) }
+      let!(:invited_user) { create(:user, invitation_sent_at: Time.now, organisations: user.organisations, confirmed_at: nil) }
       let(:invited_user_email) { invited_user.email }
 
       before do
