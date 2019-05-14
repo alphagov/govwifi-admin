@@ -3,6 +3,7 @@ class Organisation < ApplicationRecord
   has_and_belongs_to_many :users, inverse_of: :organisation
   has_many :locations, dependent: :destroy
   has_many :ips, through: :locations
+  has_many :cross_organisation_invitations
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :service_email, format: { with: Devise.email_regexp, message: "must be a valid email address" }
@@ -18,5 +19,15 @@ class Organisation < ApplicationRecord
     UseCases::Organisation::FetchOrganisationRegister.new(
       organisations_gateway: Gateways::GovukOrganisationsRegisterGateway.new
     ).execute.sort
+  end
+
+  def invited_users
+    User.where(id: pending_invitations.pluck(:user_id))
+  end
+
+private
+
+  def pending_invitations
+    cross_organisation_invitations.pending
   end
 end

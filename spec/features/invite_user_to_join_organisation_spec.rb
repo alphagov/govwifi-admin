@@ -30,7 +30,7 @@ describe 'Inviting an existing user', type: :feature do
 
     it 'lists the invited user in the team list as invited' do
       visit team_members_path
-      expect(page).to have_content(betty.email)
+      expect(page).to have_content("#{betty.email} (invited)")
     end
   end
 end

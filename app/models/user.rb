@@ -30,6 +30,10 @@ class User < ApplicationRecord
     invitation_sent_at && !invitation_accepted?
   end
 
+  def has_pending_invites_for_organisation?(organisation)
+    cross_organisation_invitations.pending.where(organisation: organisation).any?
+  end
+
 private
 
   def create_default_permissions

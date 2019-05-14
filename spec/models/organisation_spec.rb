@@ -94,4 +94,21 @@ describe Organisation do
       ])
     end
   end
+
+  context '.invited_users' do
+    let(:user) { create(:user) }
+    let(:organisation) { create(:organisation) }
+
+    before do
+      create(:cross_organisation_invitation,
+             user: user,
+             invited_by_id: create(:user).id,
+             organisation: organisation,
+             invitation_token: 'abc123')
+    end
+
+    it 'lists all the users pending joining the organisation' do
+      expect(organisation.invited_users).to eq([user])
+    end
+  end
 end
