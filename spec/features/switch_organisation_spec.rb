@@ -1,18 +1,18 @@
 require 'rack_session_access/capybara'
 
-describe 'Multiple organisations', type: :feature do
+describe 'Multiple organisations', type: :feature, focus: true do
   let(:organisation_1) { create(:organisation) }
   let(:organisation_2) { create(:organisation) }
   let(:user) { create(:user) }
 
   before do
-    user.organisations << [organisation_1]
+    user.organisations << organisation_1
     sign_in_user user
   end
 
   context "when switching organisations" do
     before do
-      user.organisations << [organisation_2]
+      user.organisations << organisation_2
       visit root_path
       click_on 'switch'
     end
@@ -47,7 +47,7 @@ describe 'Multiple organisations', type: :feature do
 
     context "when the user belongs to the organisation in the session" do
       before do
-        user.organisations << [organisation_2]
+        user.organisations << organisation_2
         page.set_rack_session(organisation_id: organisation_2.id)
         visit root_path
       end
