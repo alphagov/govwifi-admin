@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_13_111153) do
+ActiveRecord::Schema.define(version: 2019_05_14_101700) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2019_05_13_111153) do
     t.string "invitation_token", null: false
     t.bigint "user_id", null: false
     t.integer "invited_by_id", null: false
+    t.datetime "confirmed_at"
     t.index ["organisation_id"], name: "index_cross_organisation_invitations_on_organisation_id"
     t.index ["user_id"], name: "index_cross_organisation_invitations_on_user_id"
   end
