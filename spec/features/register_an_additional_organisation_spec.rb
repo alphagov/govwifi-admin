@@ -26,9 +26,7 @@ describe 'Register an additional organisation', type: :feature do
     end
 
     it 'creates the organisation' do
-      expect do
-        click_on 'Create organisation'
-      end.to change(Organisation, :count).by(1)
+      expect { click_on 'Create organisation' }.to change(Organisation, :count).by(1)
     end
 
     it 'associates the organisation to the user' do
@@ -39,6 +37,13 @@ describe 'Register an additional organisation', type: :feature do
     it 'displays the success message to the user' do
       click_on 'Create organisation'
       expect(page).to have_content("#{organisation_2_name} created")
+    end
+
+    it 'sets the new organisation as the current organisation' do
+      click_on 'Create organisation'
+      within ".subnav" do
+        expect(page).to have_content(organisation_2_name)
+      end
     end
   end
 
@@ -54,9 +59,7 @@ describe 'Register an additional organisation', type: :feature do
       let(:service_email) { "" }
 
       it 'does not create the organisation' do
-        expect do
-          click_on 'Create organisation'
-        end.to change(Organisation, :count).by(0)
+        expect { click_on 'Create organisation' }.to change(Organisation, :count).by(0)
       end
 
       it 'displays the correct error to the user' do
@@ -70,9 +73,7 @@ describe 'Register an additional organisation', type: :feature do
       let(:service_email) { "info@gov.uk" }
 
       it 'does not create the organisation' do
-        expect do
-          click_on 'Create organisation'
-        end.to change(Organisation, :count).by(0)
+        expect { click_on 'Create organisation' }.to change(Organisation, :count).by(0)
       end
 
       it 'displays the correct error to the user' do

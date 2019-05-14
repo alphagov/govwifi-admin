@@ -11,6 +11,8 @@ class OrganisationsController < ApplicationController
     @organisation = Organisation.new(organisation_params)
     if @organisation.save
       assign_user_to_organisation(@organisation)
+      set_as_current_organisation(@organisation)
+
       redirect_to root_path, notice: "#{@organisation.name} created"
     else
       @register_organisations = Organisation.fetch_organisations_from_register
@@ -47,6 +49,10 @@ private
 
   def assign_user_to_organisation(organisation)
     current_user.organisations << organisation
+  end
+
+  def set_as_current_organisation(organisation)
+    session[:organisation_id] = organisation.id
   end
 
   def organisation_params
