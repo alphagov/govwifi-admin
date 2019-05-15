@@ -2,6 +2,24 @@ class OrganisationsController < ApplicationController
   before_action :set_organisation, only: %i[edit update]
   before_action :validate_user_is_part_of_organisation, only: %i[edit update]
 
+  def new
+    @organisation = Organisation.new
+    @register_organisations = Organisation.fetch_organisations_from_register
+  end
+
+  def create
+    @organisation = Organisation.new(organisation_params)
+    if @organisation.save
+      assign_user_to_organisation(@organisation)
+      set_as_current_organisation(@organisation)
+
+      redirect_to root_path, notice: "#{@organisation.name} created"
+    else
+      @register_organisations = Organisation.fetch_organisations_from_register
+      render :new
+    end
+  end
+
   def edit; end
 
   def update
@@ -29,7 +47,15 @@ private
     current_organisation == @organisation
   end
 
+  def assign_user_to_organisation(organisation)
+    current_user.organisations << organisation
+  end
+
+  def set_as_current_organisation(organisation)
+    session[:organisation_id] = organisation.id
+  end
+
   def organisation_params
-    params.require(:organisation).permit(:service_email)
+    params.require(:organisation).permit(:service_email, :name)
   end
 end
