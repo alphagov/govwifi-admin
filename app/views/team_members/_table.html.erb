@@ -4,12 +4,16 @@
       <div class='govuk-grid-row'>
         <div class='govuk-grid-column-two-thirds'>
 
-          <% if member.invitation_pending? || member.has_pending_invites_for_organisation?(current_organisation) %>
-            <h3 class='govuk-heading-m govuk-!-margin-bottom-0 text-light-grey'><%= member.email %> (invited)</h3>
-          <% else %>
+          <% if member.name %>
             <h3 class='govuk-heading-m govuk-!-margin-bottom-0'><%= member.name %>
-              <span class='govuk-!-padding-left-1 govuk-body text-light-grey'><%= member.email %></span>
+            <span class='govuk-!-padding-left-1 govuk-body text-light-grey'><%= member.email %>
+              <% if member.cross_organisation_invitation_pending?(current_organisation) %>
+                (invited)
+              <% end %>
+            </span>
             </h3>
+          <% else %>
+            <h3 class='govuk-heading-m govuk-!-margin-bottom-0 text-light-grey'><%= member.email %> (invited)</h3>
           <% end %>
 
           <ul class='govuk-list' id='member-<%= member.id %>-permissions'>

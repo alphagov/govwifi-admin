@@ -27,14 +27,14 @@ describe User do
                invited_by_id: create(:user).id)
       end
 
-      it 'returns true if we have a pending invitation to the organisation' do
-        expect(user.has_pending_invites_for_organisation?(organisation)).to eq(true)
+      it 'returns true if the invitation is unconfirmed' do
+        expect(user.cross_organisation_invitation_pending?(organisation)).to eq(true)
       end
 
       it 'returns false if the invitation is confirmed' do
         user.cross_organisation_invitations.first.confirm!
 
-        expect(user.has_pending_invites_for_organisation?(organisation)).to eq(false)
+        expect(user.cross_organisation_invitation_pending?(organisation)).to eq(false)
       end
     end
   end

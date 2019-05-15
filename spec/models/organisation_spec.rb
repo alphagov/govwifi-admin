@@ -116,7 +116,7 @@ describe Organisation do
     context 'with cross-organisation invited users only' do
       before { create_invitation }
 
-      it 'lists all the users pending joining the organisation' do
+      it 'includes the invited users' do
         expect(organisation.team_list).to eq([invited_user])
       end
     end
@@ -124,7 +124,7 @@ describe Organisation do
     context 'with users and cross-organisation invited_users' do
       before { create_invitation }
 
-      it 'lists all the users pending joining the organisation' do
+      it 'includes all of them' do
         user = create(:user, organisations: [organisation])
         expect(organisation.team_list).to eq([invited_user, user])
       end

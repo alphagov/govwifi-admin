@@ -22,12 +22,6 @@ class Organisation < ApplicationRecord
   end
 
   def team_list
-    User.where(id: users.pluck(:id) + pending_invitations.pluck(:user_id))
-  end
-
-private
-
-  def pending_invitations
-    cross_organisation_invitations.pending
+    User.where(id: users.pluck(:id) + cross_organisation_invitations.pending.pluck(:user_id))
   end
 end
