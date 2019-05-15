@@ -1,12 +1,11 @@
 describe User do
+  subject(:user) { create(:user) }
+
   it { is_expected.to have_and_belong_to_many(:organisations) }
   it { is_expected.to have_many(:cross_organisation_invitations) }
   it { is_expected.to validate_presence_of(:name).on(:update) }
 
-  subject(:user) { create(:user) }
-
   context 'when creating a user without explicit permissions' do
-
     it 'receives default permission to manage team members' do
       expect(user).to be_can_manage_team
     end
@@ -28,20 +27,14 @@ describe User do
                invited_by_id: create(:user).id)
       end
 
-      context 'when the invite is unconfirmed' do
-        it 'returns true if we have a pending invitation to the organisation' do
-          expect(user.has_pending_invites_for_organisation?(organisation)).to eq(true)
-        end
+      it 'returns true if we have a pending invitation to the organisation' do
+        expect(user.has_pending_invites_for_organisation?(organisation)).to eq(true)
       end
 
-      context 'when the invite is confirmed' do
-        before do
-          user.cross_organisation_invitations.first.confirm!
-        end
+      it 'returns false if the invitation is confirmed' do
+        user.cross_organisation_invitations.first.confirm!
 
-        it 'returns true if we have a pending invitation to the organisation' do
-          expect(user.has_pending_invites_for_organisation?(organisation)).to eq(false)
-        end
+        expect(user.has_pending_invites_for_organisation?(organisation)).to eq(false)
       end
     end
   end

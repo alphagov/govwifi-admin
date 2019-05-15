@@ -5,7 +5,7 @@ module Gateways
     end
 
     def fetch
-      @organisation.users.merge(@organisation.invited_users)
+      @organisation.team_list
     end
   end
 end

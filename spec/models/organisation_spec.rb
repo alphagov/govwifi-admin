@@ -95,20 +95,39 @@ describe Organisation do
     end
   end
 
-  context '.invited_users' do
-    let(:user) { create(:user) }
+  describe '.team_list' do
     let(:organisation) { create(:organisation) }
-
-    before do
+    let(:invited_user) { create(:user, :with_organisation) }
+    let(:create_invitation) do
       create(:cross_organisation_invitation,
-             user: user,
+             user: invited_user,
              invited_by_id: create(:user).id,
              organisation: organisation,
              invitation_token: 'abc123')
     end
 
-    it 'lists all the users pending joining the organisation' do
-      expect(organisation.invited_users).to eq([user])
+    context 'with confirmed users only' do
+      it 'includes the users' do
+        user = create(:user, organisations: [organisation])
+        expect(organisation.team_list).to eq([user])
+      end
+    end
+
+    context 'with cross-organisation invited users only' do
+      before { create_invitation }
+
+      it 'lists all the users pending joining the organisation' do
+        expect(organisation.team_list).to eq([invited_user])
+      end
+    end
+
+    context 'with users and cross-organisation invited_users' do
+      before { create_invitation }
+
+      it 'lists all the users pending joining the organisation' do
+        user = create(:user, organisations: [organisation])
+        expect(organisation.team_list).to eq([invited_user, user])
+      end
     end
   end
 end

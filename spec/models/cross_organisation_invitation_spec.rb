@@ -1,7 +1,4 @@
 describe CrossOrganisationInvitation do
-  it { is_expected.to belong_to(:organisation) }
-  it { is_expected.to belong_to(:user) }
-
   let(:inviter) { create(:user) }
   let(:user) { create(:user) }
   let(:organisation) { create(:organisation) }
@@ -12,6 +9,9 @@ describe CrossOrganisationInvitation do
            invitation_token: 'some_token',
            invited_by_id: inviter.id)
   end
+
+  it { is_expected.to belong_to(:organisation) }
+  it { is_expected.to belong_to(:user) }
 
   describe '.confirm!' do
     before do

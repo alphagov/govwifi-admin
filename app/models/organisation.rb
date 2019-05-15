@@ -21,8 +21,8 @@ class Organisation < ApplicationRecord
     ).execute.sort
   end
 
-  def invited_users
-    User.where(id: pending_invitations.pluck(:user_id))
+  def team_list
+    User.where(id: users.pluck(:id) + pending_invitations.pluck(:user_id))
   end
 
 private
