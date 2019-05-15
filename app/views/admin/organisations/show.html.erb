@@ -23,7 +23,7 @@
     <% end %>
 
     <%= render 'section', heading: 'Team' do %>
-      <%= link_to "Add team member", new_user_invitation_path(id: @organisation.id), class: "govuk-button" %>
+      <%= link_to "Add team member", new_user_invitation_path(organisation_id: @organisation.id), class: "govuk-button" %>
       <%= render 'team', team: @team %>
     <% end %>
 
