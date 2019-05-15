@@ -9,11 +9,7 @@ class Users::InvitationsController < Devise::InvitationsController
 private
 
   def ensure_organisation_added
-    organisation_id = if super_admin?
-                        params[:organisation_id]
-                      else
-                        current_organisation.id
-                      end
+    organisation_id = super_admin? ? params[:organisation_id] : current_organisation.id
 
     organisation = Organisation.find(organisation_id)
     user = User.find_by(email: invite_params[:email])
