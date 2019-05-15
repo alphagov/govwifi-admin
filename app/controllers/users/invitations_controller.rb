@@ -3,6 +3,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   before_action :set_target_organisation, if: :super_admin?, only: %i(create new)
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
+  before_action :return_user_to_invite_page, if: :user_is_invalid?, only: :create
   after_action :ensure_organisation_added, only: :create
 
 private
@@ -55,6 +56,13 @@ private
 
   def set_target_organisation
     @target_organisation = Organisation.find(params[:id] || params[:organisation_id])
+  end
+
+  def user_is_invalid?
+    # This is an indirect solution to preventing a user being re-invited when they belong
+    # to another organisation.
+    self.resource = resource_class.new(invite_params)
+    resource.invalid?
   end
 
   def invited_user
