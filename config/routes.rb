@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     get 'username', on: :new
     get 'location', on: :new
   end
-  resources :organisations, only: %i[edit update]
+  resources :organisations, only: %i[new create edit update]
   resources :setup_instructions, only: %i[index] do
     collection do
       get 'initial', to: 'setup_instructions#index', as: :new_organisation
