@@ -9,7 +9,7 @@ private
 
   def ensure_organisation_added
     organisation_id = if super_admin?
-                        invite_params[:organisation_id]
+                        params[:organisation_id]
                       else
                         current_organisation.id
                       end
@@ -54,7 +54,7 @@ private
   end
 
   def set_target_organisation
-    @target_organisation = Organisation.find(params[:id] || invite_params[:organisation_id])
+    @target_organisation = Organisation.find(params[:id] || params[:organisation_id])
   end
 
   def invited_user
@@ -67,7 +67,7 @@ private
 
   def after_invite_path_for(_resource)
     if super_admin?
-      admin_organisation_path(invite_params[:organisation_id])
+      admin_organisation_path(params[:organisation_id])
     else
       resending_invite? ? recreated_invite_team_members_path : created_invite_team_members_path
     end
@@ -95,7 +95,7 @@ private
 
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105
   def invite_params
-    params.require(:user).permit(:email, :organisation_id, permission_attributes: %i(
+    params.require(:user).permit(:email, permission_attributes: %i(
       can_manage_team
       can_manage_locations
     ))

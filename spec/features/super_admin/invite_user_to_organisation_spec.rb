@@ -1,7 +1,7 @@
 require 'support/invite_use_case'
 require 'support/notifications_service'
 
-describe "Inviting a team member as a super admin", type: :feature, focus: true do
+describe "Inviting a team member as a super admin", type: :feature do
   let(:organisation) { create(:organisation, name: "Gov Org 3") }
   let(:super_admin) { create(:user, :super_admin) }
   let(:email) { 'barry@gov.uk' }
