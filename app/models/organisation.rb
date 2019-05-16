@@ -5,6 +5,9 @@ class Organisation < ApplicationRecord
   has_many :ips, through: :locations
   has_many :cross_organisation_invitations
 
+  has_many :invited_users
+  has_many :invited_users, through: :cross_organisation_invitations, source: :user
+
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :service_email, format: { with: Devise.email_regexp, message: "must be a valid email address" }
   validate :validate_in_register?, unless: Proc.new { |org| org.name.blank? }
@@ -22,6 +25,7 @@ class Organisation < ApplicationRecord
   end
 
   def team_list
-    User.where(id: users.pluck(:id) + cross_organisation_invitations.pending.pluck(:user_id))
+    binding.pry
+    invited_users.merge(users)
   end
 end
