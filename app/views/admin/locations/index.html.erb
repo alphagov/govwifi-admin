@@ -1,5 +1,32 @@
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
-    <h1 class="govuk-heading-l">GovWifi locations </h1>
- </div>
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">GovWifi locations</h1>
+    <p><input type="search" id="filter-input" placeholder="Search for an address or postcode" class="govuk-input"></p>
+
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th class="govuk-table__header">Address</th>
+            <th class="govuk-table__header">Postcode</th>
+          </tr>
+        </thead>
+      <tbody class="govuk-table__body">
+        <% @locations.each do |location| %>
+          <tr class="govuk-table__row result-row">
+            <td class="govuk-table__cell filter-by">
+              <%= location.address %>
+            </td>
+            <td class="govuk-table__cell filter-by">
+              <%= location.postcode %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+      <p class="govuk-body" id="no-results" style="display: none">
+        <strong>No results found</strong>
+      </p>
+  </div>
 </div>
+
+<%= render "shared/filter_search" %>
