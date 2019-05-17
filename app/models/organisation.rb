@@ -25,7 +25,6 @@ class Organisation < ApplicationRecord
   end
 
   def team_list
-    binding.pry
-    invited_users.merge(users)
+    users + invited_users
   end
 end
