@@ -14,14 +14,8 @@ describe 'View and search locations', type: :feature, focus: true do
   end
 
   context 'view all the locations details' do
-
-    it 'lists the address of the location' do
-      expect(page).to have_content("69 Garry Street, London")
+    it 'lists the full address of the location' do
+      expect(page).to have_content("69 Garry Street, London, HA7 2BL")
     end
-
-    it 'lists the postcode of the location' do
-      expect(page).to have_content("HA7 2BL")
-    end
-
   end
 end

@@ -7,17 +7,13 @@
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
             <th class="govuk-table__header">Address</th>
-            <th class="govuk-table__header">Postcode</th>
           </tr>
         </thead>
       <tbody class="govuk-table__body">
         <% @locations.each do |location| %>
           <tr class="govuk-table__row result-row">
             <td class="govuk-table__cell filter-by">
-              <%= location.address %>
-            </td>
-            <td class="govuk-table__cell filter-by">
-              <%= location.postcode %>
+              <%= location.full_address %>
             </td>
           </tr>
         <% end %>
