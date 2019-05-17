@@ -9,6 +9,7 @@
   <div class='govuk-grid-column-two-thirds govuk-grid-column-one-half-from-desktop govuk-!-padding-0 nav-links'>
     <nav class='govuk-body govuk-!-margin-bottom-0'>
       <% if super_admin? %>
+        <%= link_to 'Locations', admin_locations_path, class: active_tab(admin_locations_path) %>
         <%= link_to 'Organisations', admin_organisations_path, class: active_tab(admin_organisations_path) %>
         <%= link_to 'Whitelist', new_admin_whitelist_path, class: active_tab('whitelist') %>
         <%= link_to 'MOU', admin_mou_index_path, class: active_tab(admin_mou_index_path) %>
