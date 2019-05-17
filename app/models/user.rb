@@ -1,9 +1,9 @@
 class User < ApplicationRecord
-  has_and_belongs_to_many :organisations
-  has_many :cross_organisation_invitations
+  has_many :memberships, inverse_of: :user
+  has_many :organisations, through: :memberships, inverse_of: :users
 
   has_one :permission, dependent: :destroy
-  accepts_nested_attributes_for :permission, :organisations
+  accepts_nested_attributes_for :permission, :memberships, :organisations
 
   delegate :can_manage_locations?, :can_manage_team?, to: :permission
 
@@ -29,6 +29,11 @@ class User < ApplicationRecord
   def invitation_pending?
     invitation_sent_at && !invitation_accepted?
   end
+
+  def membership_pending?(organisation)
+    memberships.pending.where(organisation: organisation).any?
+  end
+
 
 private
 

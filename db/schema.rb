@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_14_134147) do
+ActiveRecord::Schema.define(version: 2019_05_17_152315) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -39,18 +39,6 @@ ActiveRecord::Schema.define(version: 2019_05_14_134147) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "cross_organisation_invitations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "organisation_id", null: false
-    t.string "invitation_token", null: false
-    t.bigint "user_id", null: false
-    t.integer "invited_by_id", null: false
-    t.datetime "confirmed_at"
-    t.index ["organisation_id"], name: "index_cross_organisation_invitations_on_organisation_id"
-    t.index ["user_id"], name: "index_cross_organisation_invitations_on_user_id"
-  end
-
   create_table "custom_organisation_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -74,6 +62,18 @@ ActiveRecord::Schema.define(version: 2019_05_14_134147) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organisation_id"], name: "index_locations_on_organisation_id"
+  end
+
+  create_table "memberships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "organisation_id"
+    t.string "invitation_token"
+    t.bigint "user_id"
+    t.integer "invited_by_id"
+    t.datetime "confirmed_at"
+    t.index ["organisation_id"], name: "index_memberships_on_organisation_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "mou_templates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
