@@ -1,7 +1,6 @@
 class Admin::LocationsController < AdminController
   def index
-    @locations = Location.all
-    .order("#{sort_column} #{sort_direction}")
+    @locations = Location.order("#{sort_column} #{sort_direction}")
   end
 
 private
