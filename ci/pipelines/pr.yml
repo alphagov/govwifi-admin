@@ -1,3 +1,11 @@
+groups:
+- name: pr
+  jobs:
+  - lint & test
+- name: self-update
+  jobs:
+  - self-update
+
 resource_types:
 - name: pull-request
   type: registry-image
@@ -5,6 +13,16 @@ resource_types:
     repository: teliaoss/github-pr-resource
 
 resources:
+  - name: tech-ops
+    type: git
+    source:
+      uri: https://github.com/alphagov/tech-ops.git
+
+  - name: govwifi-admin
+    type: git
+    source:
+      uri: https://github.com/alphagov/govwifi-admin.git
+
   - name: pull-request
     type: pull-request
     check_every: 1m
@@ -39,6 +57,23 @@ resources:
       tag: alpine
 
 jobs:
+  - name: self-update
+    serial: true
+    plan:
+    - get: tech-ops
+      params:
+        submodules: none
+    - get: govwifi-admin
+      trigger: true
+    - task: set-pipelines
+      file: tech-ops/ci/tasks/self-updating-pipeline.yaml
+      input_mapping: {repository: govwifi-admin}
+      params:
+        CONCOURSE_TEAM: govwifi
+        CONCOURSE_PASSWORD: ((readonly_local_user_password))
+        PIPELINE_PATH: ci/pipelines/pr.yml
+        PIPELINE_NAME: admin-pr
+
   - name: lint & test
     interruptible: true
     disable_manual_trigger: true
