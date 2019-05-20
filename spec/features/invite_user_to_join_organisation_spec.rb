@@ -21,7 +21,7 @@ describe 'Inviting an existing user', type: :feature do
     end
 
     it 'creates a join organisation invitation' do
-      expect(betty.memberships.count).to eq(2)
+      expect(betty.cross_organisation_invitations.count).to eq(1)
     end
 
     it 'notifies the user with a success message' do

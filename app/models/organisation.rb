@@ -1,7 +1,6 @@
 class Organisation < ApplicationRecord
   has_one_attached :signed_mou
-  has_many :memberships, inverse_of: :organisation
-  has_many :users, through: :memberships, inverse_of: :organisations
+  has_and_belongs_to_many :users, inverse_of: :organisation
   has_many :locations, dependent: :destroy
   has_many :ips, through: :locations
 

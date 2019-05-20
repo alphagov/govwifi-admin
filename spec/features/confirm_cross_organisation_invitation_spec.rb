@@ -6,14 +6,14 @@ describe 'Confirming a cross organisation invitation', type: :feature do
 
   context 'with an existing user' do
     before do
-      create(:membership,
+      create(:cross_organisation_invitation,
              user: invited_user,
              invited_by_id: user.id,
              organisation: organisation,
              invitation_token: token)
 
       sign_in_user invited_user
-      visit memberships_path(token: token)
+      visit confirm_cross_organisation_invitations_path(token: token)
     end
 
     it 'Confirms the invitation' do
