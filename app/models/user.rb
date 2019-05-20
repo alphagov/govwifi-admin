@@ -30,11 +30,6 @@ class User < ApplicationRecord
     invitation_sent_at && !invitation_accepted?
   end
 
-  def membership_pending?(organisation)
-    memberships.pending.where(organisation: organisation).any?
-  end
-
-
 private
 
   def create_default_permissions
