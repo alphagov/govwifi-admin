@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     get 'removed/location', to: 'ips#index', on: :collection
   end
 
-  get 'confirm_cross_organisation_invitations', to: 'users/cross_organisation_confirmations#create'
+  get 'memberships', to: 'users/memberships#create'
 
   resources :help, only: %i[create new] do
     get '/', on: :collection, to: 'help#new'
@@ -70,6 +70,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :govwifi_map, only: %i[index]
+    resources :locations, only: %i[index]
     resources :mou, only: %i[index update create]
     resources :organisations, only: %i[index show destroy]
     resource :whitelist, only: %i[new create] do
