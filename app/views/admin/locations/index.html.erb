@@ -1,0 +1,32 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">GovWifi locations</h1>
+    <%= link_to 'GovWifi map', admin_govwifi_map_index_path, class: "govuk-link" %>
+    <p><input type="search" id="filter-input" placeholder="Search for an address or postcode" class="govuk-input"></p>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header">Address</th>
+          <th class="govuk-table__header">Organisation</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <% @locations.each do |location| %>
+          <tr class="govuk-table__row result-row">
+            <td class="govuk-table__cell filter-by">
+              <%= location.full_address %>
+            </td>
+            <td class="govuk-table__cell filter-by">
+              <%= link_to location.organisation.name, admin_organisation_path(location.organisation.id), class: "govuk-link" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <p class="govuk-body" id="no-results" style="display: none">
+      <strong>No results found</strong>
+    </p>
+  </div>
+</div>
+<%= render "shared/filter_search" %>

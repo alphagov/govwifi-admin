@@ -1,4 +1,4 @@
-describe CrossOrganisationInvitation do
+describe Membership do
   it { is_expected.to belong_to(:organisation) }
   it { is_expected.to belong_to(:user) }
 
@@ -8,7 +8,7 @@ describe CrossOrganisationInvitation do
     let(:organisation) { create(:organisation) }
 
     let(:invitation) do
-      create(:cross_organisation_invitation,
+      create(:membership,
              user: user,
              organisation: organisation,
              invitation_token: 'some_token',
@@ -20,7 +20,11 @@ describe CrossOrganisationInvitation do
     end
 
     it 'converts the invitation to an organisation' do
-      expect(user.organisations).to eq([organisation])
+      expect(user.organisations.first).to eq(organisation)
+    end
+
+    it 'will only have one organisation' do
+      expect(user.organisations.length).to eq(1)
     end
 
     it 'confirms the invitation' do
