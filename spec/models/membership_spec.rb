@@ -23,6 +23,10 @@ describe Membership do
       expect(user.organisations.first).to eq(organisation)
     end
 
+    it 'will only have one organisation' do
+      expect(user.organisations.length).to eq(1)
+    end
+
     it 'confirms the invitation' do
       expect(invitation.confirmed_at).not_to be_nil
     end
