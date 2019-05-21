@@ -1,5 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
-  prepend_before_action :create_cross_organisation_invitation, if: :user_belongs_to_other_organisations?, only: :create
+  prepend_before_action :create_membership, if: :user_belongs_to_other_organisations?, only: :create
 
   before_action :set_target_organisation, if: :super_admin?, only: %i(create new)
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
@@ -18,15 +18,15 @@ private
     end
   end
 
-  def create_cross_organisation_invitation
+  def create_membership
     token = Devise.friendly_token[0, 20]
-    invited_user.cross_organisation_invitations.create!(
+    invited_user.create_membership.create!(
       invited_by_id: current_user.id,
       organisation: current_organisation,
       invitation_token: token
     )
 
-    AuthenticationMailer.cross_organisation_invitation_instructions(invited_user, token, organisation: current_organisation).deliver_now
+    AuthenticationMailer.membership_instructions(invited_user, token, organisation: current_organisation).deliver_now
 
     redirect_to team_members_path, notice: "#{invited_user.email} has been invited to join #{current_organisation.name}"
   end
