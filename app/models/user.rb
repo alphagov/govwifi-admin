@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :memberships, inverse_of: :user
-	has_many :organisations, through: :memberships, inverse_of: :users
+  has_many :organisations, through: :memberships, inverse_of: :users
 
   has_one :permission, dependent: :destroy
   accepts_nested_attributes_for :permission, :memberships, :organisations

@@ -20,7 +20,7 @@ describe Membership do
     end
 
     it 'converts the invitation to an organisation' do
-      expect(user.organisations.first).to eq([organisation])
+      expect(user.organisations.first).to eq(organisation)
     end
 
     it 'confirms the invitation' do

@@ -13,7 +13,7 @@ describe 'Confirming a cross organisation invitation', type: :feature do
              invitation_token: token)
 
       sign_in_user invited_user
-      visit membership(token: token)
+      visit memberships_path(token: token)
     end
 
     it 'Confirms the invitation' do

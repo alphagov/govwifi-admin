@@ -20,7 +20,7 @@ private
 
   def create_membership
     token = Devise.friendly_token[0, 20]
-    invited_user.create_membership.create!(
+    invited_user.memberships.create!(
       invited_by_id: current_user.id,
       organisation: current_organisation,
       invitation_token: token
