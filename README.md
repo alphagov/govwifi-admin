@@ -57,7 +57,6 @@ The application also provides the following data for the RADIUS configuration vi
 ### Setup and serve the app locally
 
 ```shell
-make setup
 make serve
 ```
 
