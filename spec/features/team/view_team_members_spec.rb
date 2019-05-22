@@ -52,7 +52,7 @@ describe 'View team members of my organisation', type: :feature do
       end
 
       it 'renders all team members within my organisation in alphabetical order' do
-        expect(page.body).to match(/#{user_2.email}.*#{user_1.email}.*#{user.email}.*#{user_3.email}/m)
+        expect(page.body).to match(/#{user_2.name}.*#{user_1.email}.*#{user.name}.*#{user_3.name}/m)
       end
     end
 
