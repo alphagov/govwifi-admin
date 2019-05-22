@@ -12,7 +12,7 @@ describe UseCases::Administrator::SendCrossOrganisationInviteEmail do
       email_reply_to_id: nil,
       locals: {
         invite_url: invite_url,
-        organisation: organisation
+        organisation: organisation.name
       },
       template_id: template_id,
       reference: 'invite_email'
