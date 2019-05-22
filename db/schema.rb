@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_21_104004) do
+ActiveRecord::Schema.define(version: 2019_05_22_085656) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -37,18 +37,6 @@ ActiveRecord::Schema.define(version: 2019_05_21_104004) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "cross_organisation_invitations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "organisation_id", null: false
-    t.string "invitation_token", null: false
-    t.bigint "user_id", null: false
-    t.integer "invited_by_id", null: false
-    t.datetime "confirmed_at"
-    t.index ["organisation_id"], name: "index_cross_organisation_invitations_on_organisation_id"
-    t.index ["user_id"], name: "index_cross_organisation_invitations_on_user_id"
   end
 
   create_table "custom_organisation_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -99,14 +87,6 @@ ActiveRecord::Schema.define(version: 2019_05_21_104004) do
     t.datetime "updated_at", null: false
     t.string "service_email"
     t.boolean "super_admin", default: false
-  end
-
-  create_table "organisations_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "organisation_id", null: false
-    t.index ["organisation_id", "user_id"], name: "index_organisations_users_on_organisation_id_and_user_id", unique: true
-    t.index ["organisation_id"], name: "index_organisations_users_on_organisation_id"
-    t.index ["user_id"], name: "index_organisations_users_on_user_id"
   end
 
   create_table "permissions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
