@@ -1,7 +1,7 @@
 require 'support/invite_use_case'
 require 'support/confirmation_use_case'
 
-describe 'Inviting an existing user which belongs to an organisation', type: :feature do
+describe 'Inviting an existing user which belongs to an organisation', type: :feature, focus: true do
   include_context 'when using the notifications service'
 
   let!(:organisation) { create(:organisation) }
@@ -20,7 +20,7 @@ describe 'Inviting an existing user which belongs to an organisation', type: :fe
     end
 
     it 'will show pending users which have been invited to an organisation' do
-      expect(page).to have_content('inviteme@gov.uk (invited')
+      expect(page).to have_content('inviteme@gov.uk (invited)')
     end
   end
 end
