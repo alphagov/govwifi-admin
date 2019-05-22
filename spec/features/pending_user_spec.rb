@@ -1,7 +1,7 @@
 require 'support/invite_use_case'
 require 'support/confirmation_use_case'
 
-describe 'Inviting an existing user which belongs to an organisation', type: :feature, focus: true do
+describe 'Inviting an existing user which belongs to an organisation', type: :feature do
   include_context 'when using the notifications service'
 
   let!(:organisation) { create(:organisation) }
