@@ -19,7 +19,7 @@ describe 'Inviting an existing user which belongs to an organisation', type: :fe
       click_on 'Send invitation email'
     end
 
-    it 'will pending users which have been invited to an organisation' do
+    it 'will show pending users which have been invited to an organisation' do
       expect(page).to have_content('inviteme@gov.uk (invited')
     end
   end
