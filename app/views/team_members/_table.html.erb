@@ -3,6 +3,7 @@
     <li>
       <div class='govuk-grid-row'>
         <div class='govuk-grid-column-two-thirds'>
+
           <% if member.invitation_pending? || member.pending_membership_for?(organisation: current_organisation) %>
             <h3 class='govuk-heading-m text-light-grey govuk-!-margin-bottom-0'><%= member.name %>
               <span class='govuk-!-padding-left-1 govuk-body text-light-grey'><%= member.email %> (invited)</span>
