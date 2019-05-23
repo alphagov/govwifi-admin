@@ -14,4 +14,14 @@ describe User do
       expect(user).to be_can_manage_locations
     end
   end
+
+  context 'when checking if a membership is pending' do
+    subject(:user) { create(:user, organisations: [organisation]) }
+
+    let(:organisation) { create(:organisation) }
+
+    it 'returns true if the membership is pending' do
+      expect(user.pending_membership_for?(organisation: organisation)).to eq(true)
+    end
+  end
 end
