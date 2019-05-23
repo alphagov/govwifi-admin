@@ -12,6 +12,7 @@
               <span class='govuk-!-padding-left-1 govuk-body text-light-grey'><%= member.email %></span>
             </h3>
           <% end %>
+
           <ul class='govuk-list' id='member-<%= member.id %>-permissions'>
             <li>
               <%= image_tag 'tick.svg', class: 'list-item-padding', height: '30', alt: 'allowed' %>
