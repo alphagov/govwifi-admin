@@ -1,6 +1,7 @@
 describe 'Removing an IP', type: :feature do
-  let(:user) { create(:user, :with_organisation) }
-  let(:location) { create(:location, organisation: user.organisations.first) }
+  let(:organisation) { create(:organisation) }
+  let(:user) { create(:user, organisations: [organisation]) }
+  let(:location) { create(:location, organisation: organisation) }
   let!(:ip) { create(:ip, location: location) }
 
   before do
@@ -42,7 +43,7 @@ describe 'Removing an IP', type: :feature do
 
   context "with incorrect permissions" do
     before do
-      user.permission.update!(can_manage_locations: false)
+      user.membership_for(organisation).update!(can_manage_locations: false)
     end
 
     it "does not show the remove button" do

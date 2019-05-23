@@ -3,13 +3,14 @@ require 'support/notifications_service'
 describe 'Invite a team member', type: :feature do
   include_context 'with a mocked notifications client'
 
-  let(:user) { create(:user, :with_organisation) }
+  let(:organisation) { create(:organisation) }
+  let(:user) { create(:user, organisations: [organisation]) }
 
   before { sign_in_user user }
 
   context 'with the .manage_team permission' do
     before do
-      user.permission.update!(can_manage_team: true)
+      user.membership_for(organisation).update!(can_manage_team: true)
       visit team_members_path
     end
 
@@ -33,7 +34,7 @@ describe 'Invite a team member', type: :feature do
 
   context 'without the .manage_team permission' do
     before do
-      user.permission.update!(can_manage_team: false)
+      user.membership_for(organisation).update!(can_manage_team: false)
       sign_in_user user
     end
 

@@ -1,17 +1,18 @@
 describe 'Edit user permissions', type: :feature do
-  let(:user) { create(:user, :with_organisation) }
+  let(:organisation) { create(:organisation) }
+  let(:user) { create(:user, organisations: [organisation]) }
   let(:invited_user_other_org) { User.find_by(email: 'invited_other_org@gov.uk') }
   let(:invited_user_same_org) { User.find_by(email: 'invited_same_org@gov.uk') }
 
   before do
     create(:user, email: 'invited_other_org@gov.uk')
-    create(:user, email: 'invited_same_org@gov.uk', organisations: user.organisations)
+    create(:user, email: 'invited_same_org@gov.uk', organisations: [organisation])
     sign_in_user user
   end
 
   context 'without the .can_manage_team permission' do
     before do
-      user.permission.update!(can_manage_team: false)
+      user.membership_for(organisation).update!(can_manage_team: false)
     end
 
     it 'does not show the edit team member link' do
@@ -37,11 +38,11 @@ describe 'Edit user permissions', type: :feature do
       end
 
       it 'correctly sets the manage team permissions' do
-        expect(invited_user_same_org.can_manage_team?).to eq(false)
+        expect(invited_user_same_org.can_manage_team?(organisation)).to eq(false)
       end
 
       it 'correctly sets the manage locations permissions' do
-        expect(invited_user_same_org.can_manage_locations?).to eq(false)
+        expect(invited_user_same_org.can_manage_locations?(organisation)).to eq(false)
       end
 
       it 'sets the correct success message' do

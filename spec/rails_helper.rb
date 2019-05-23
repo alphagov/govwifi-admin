@@ -33,7 +33,7 @@ RSpec.configure do |config|
   end
 
   config.before do
-    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.strategy = :truncation
     Session.delete_all
   end
 

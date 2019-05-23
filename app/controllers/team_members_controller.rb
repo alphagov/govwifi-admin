@@ -15,15 +15,6 @@ class TeamMembersController < ApplicationController
     redirect_to removed_team_members_path, notice: "Team member has been removed"
   end
 
-  def edit; end
-
-  def update
-    @user.permission.update!(permission_params[:permission_attributes])
-
-    flash[:notice] = 'Permissions updated'
-    redirect_to updated_permissions_team_members_path
-  end
-
 private
 
   def sorted_team_members(organisation)
@@ -37,7 +28,7 @@ private
   end
 
   def validate_can_manage_team
-    unless users_belong_to_same_org && current_user.can_manage_team?
+    unless users_belong_to_same_org && current_user.can_manage_team?(current_organisation)
       raise ActionController::RoutingError.new('Not Found')
     end
   end
@@ -46,7 +37,7 @@ private
     @user.organisations.include?(current_organisation)
   end
 
-  def permission_params
-    params.require(:user).permit(permission_attributes: %i[can_manage_team can_manage_locations])
+  def membership_params
+    params.require(:user).permit(memberships_attributes: %i[can_manage_team can_manage_locations id])
   end
 end

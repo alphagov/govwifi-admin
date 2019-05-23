@@ -36,11 +36,11 @@ describe 'Inviting an existing user', type: :feature do
       end
 
       it 'does not change their manage team permissions' do
-        expect(betty.permission.can_manage_team?).to eq(true)
+        expect(betty.membership_for(organisation).can_manage_team?).to eq(true)
       end
 
       it 'does not change their manage location permissions' do
-        expect(betty.permission.can_manage_locations?).to eq(true)
+        expect(betty.membership_for(organisation).can_manage_locations?).to eq(true)
       end
     end
   end
