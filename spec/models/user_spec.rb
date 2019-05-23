@@ -16,8 +16,9 @@ describe User do
   end
 
   context 'when checking if a membership is pending' do
-    let!(:organisation) { create(:organisation) }
     subject(:user) { create(:user, organisations: [organisation]) }
+
+    let(:organisation) { create(:organisation) }
 
     it 'returns true if the membership is pending' do
       expect(user.pending_membership_for?(organisation: organisation)).to eq(true)

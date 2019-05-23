@@ -3,7 +3,6 @@
     <li>
       <div class='govuk-grid-row'>
         <div class='govuk-grid-column-two-thirds'>
-
           <% if member.invitation_pending? || member.pending_membership_for?(organisation: current_organisation) %>
             <h3 class='govuk-heading-m text-light-grey govuk-!-margin-bottom-0'><%= member.name %>
               <span class='govuk-!-padding-left-1 govuk-body text-light-grey'><%= member.email %> (invited)</span>
@@ -13,7 +12,6 @@
               <span class='govuk-!-padding-left-1 govuk-body text-light-grey'><%= member.email %></span>
             </h3>
           <% end %>
-
           <ul class='govuk-list' id='member-<%= member.id %>-permissions'>
             <li>
               <%= image_tag 'tick.svg', class: 'list-item-padding', height: '30', alt: 'allowed' %>
