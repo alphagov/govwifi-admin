@@ -31,7 +31,7 @@ class User < ApplicationRecord
   end
 
   def pending_membership_for?(organisation:)
-    memberships.pending.where(organisation: organisation)
+    memberships.pending.where(organisation: organisation).present?
   end
 
 private
