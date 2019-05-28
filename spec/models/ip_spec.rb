@@ -93,6 +93,10 @@ describe Ip do
 
   context 'when checking if inactive' do
     context 'with no sessions for the last 10 days' do
+      before do
+        create(:session, start: Date.today - 11.days, username: 'abc123', siteIP: ip_address.address)
+      end
+
       it { is_expected.to be_inactive }
     end
 

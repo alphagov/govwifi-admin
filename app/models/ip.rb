@@ -7,7 +7,7 @@ class Ip < ApplicationRecord
   def inactive?
     Session
       .where(siteIP: self.address)
-      .where("start > #{Date.today - 10.days}")
+      .where("start > ?", Date.today - 10.days)
       .limit(1)
       .empty?
   end
