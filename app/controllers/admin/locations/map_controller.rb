@@ -1,4 +1,4 @@
-class Admin::GovwifiMapController < AdminController
+class Admin::Locations::MapController < AdminController
   def index
     @postcodes = Location.pluck(:postcode)
     @coordinates = convert_postcodes_to_coordinates
