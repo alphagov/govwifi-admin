@@ -29,15 +29,6 @@ class User < ApplicationRecord
     memberships.pending.where(organisation: organisation).present?
   end
 
-  def confirm
-    memberships.find_or_create_by(
-      organisation: organisations.first,
-      can_manage_team: true,
-      can_manage_locations: true
-    )
-    super
-  end
-
   def can_manage_team?(organisation)
     membership_for(organisation).can_manage_team?
   end

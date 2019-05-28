@@ -69,7 +69,7 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def invited_user
-    @user ||= User.find_by(email: invite_params[:email])
+    @invited_user ||= User.find_by(email: invite_params[:email])
   end
 
   def resending_invite?
@@ -77,9 +77,11 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def after_invite_path_for(_resource)
-    return admin_organisation_path(params[:organisation_id]) if super_admin?
-      
-    resending_invite? ? recreated_invite_team_members_path : created_invite_team_members_path
+    if super_admin?
+      admin_organisation_path(params[:organisation_id])
+    else
+      resending_invite? ? recreated_invite_team_members_path : created_invite_team_members_path
+    end
   end
 
   def user_should_be_cleared?
