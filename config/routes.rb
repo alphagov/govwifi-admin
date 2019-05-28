@@ -69,8 +69,11 @@ Rails.application.routes.draw do
   resources :overview, only: %i[index]
 
   namespace :admin do
-    resources :govwifi_map, only: %i[index]
-    resources :locations, only: %i[index]
+    resources :locations, only: %i[index] do
+      collection do
+        get 'map', to: 'locations/map#index'
+      end
+    end
     resources :mou, only: %i[index update create]
     resources :organisations, only: %i[index show destroy]
     resource :whitelist, only: %i[new create] do
