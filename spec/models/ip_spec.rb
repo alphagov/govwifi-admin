@@ -104,4 +104,18 @@ describe Ip do
       it { is_expected.not_to be_inactive }
     end
   end
+
+  context 'when checking if unused' do
+    context 'with an IP which has activity' do
+      before do
+        create(:session, start: Date.today, username: 'abc123', siteIP: ip_address.address)
+      end
+
+      it { is_expected.not_to be_unused }
+    end
+
+    context 'with an IP which has no activity' do
+      it { is_expected.to be_unused }
+    end
+  end
 end

@@ -16,6 +16,13 @@ class Ip < ApplicationRecord
     created_at < Date.today.beginning_of_day
   end
 
+  def unused?
+    Session
+      .where(siteIP: self.address)
+      .limit(1)
+      .empty?
+  end
+
 private
 
   def address_must_be_valid_ip
