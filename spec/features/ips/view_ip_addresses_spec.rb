@@ -24,7 +24,7 @@ describe 'Viewing IP addresses', type: :feature do
 
   context 'with IPs' do
     let(:location) { create(:location, organisation: user.organisations.first) }
-    let!(:ip) { create(:ip, location: location) }
+    let!(:ip) { create(:ip, location: location, created_at: 9.days.ago) }
 
     before do
       sign_in_user user
@@ -44,9 +44,22 @@ describe 'Viewing IP addresses', type: :feature do
     end
 
     context 'with inactive IPs' do
+      before do
+        create(:session, start: (Date.today - 11.days), username: 'abc123', siteIP: ip.address)
+        visit ips_path
+      end
+
       it 'labels the IP as inactive' do
         within("#ips-row-#{ip.id}") do
-          expect(page).to have_content('Inactive (no traffic for the last 10 days)')
+          expect(page).to have_content('No traffic for the last 10 days')
+        end
+      end
+    end
+
+    context 'with newly created IPs with no activity' do
+      it 'labels the IP as created but unused' do
+        within("#ips-row-#{ip.id}") do
+          expect(page).to have_content('No traffic received yet')
         end
       end
     end
@@ -59,7 +72,13 @@ describe 'Viewing IP addresses', type: :feature do
 
       it 'Does not label the IP as inactive' do
         within("#ips-row-#{ip.id}") do
-          expect(page).not_to have_content('Inactive (no traffic for the last 10 days)')
+          expect(page).not_to have_content('No traffic for the last 10 days')
+        end
+      end
+
+      it 'Does not label the IP as unused' do
+        within("#ips-row-#{ip.id}") do
+          expect(page).not_to have_content('No traffic received yet')
         end
       end
     end
