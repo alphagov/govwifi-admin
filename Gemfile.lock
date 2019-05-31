@@ -320,7 +320,7 @@ GEM
       thread_safe (~> 0.1)
     tzinfo-data (1.2019.1)
       tzinfo (>= 1.0.0)
-    uk_postcode (2.1.3)
+    uk_postcode (2.1.4)
     unicode-display_width (1.5.0)
     warden (1.2.8)
       rack (>= 2.0.6)
@@ -375,7 +375,7 @@ DEPENDENCIES
   simplecov-console
   timecop (~> 0.9.1)
   tzinfo-data
-  uk_postcode (~> 2.1, >= 2.1.3)
+  uk_postcode (~> 2.1)
   webmock (~> 3.5.1)
   zendesk_api
 
