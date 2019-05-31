@@ -8,10 +8,10 @@ class TeamMembersController < ApplicationController
   end
 
   def destroy
-    user = current_organisation.users.find_by(id: params.fetch(:id))
-    redirect_to team_members_path && return unless user
+    membership = current_organisation.memberships.find_by(user_id: params.fetch(:id))
+    redirect_to team_members_path && return unless membership
 
-    user.destroy
+    membership.destroy
     redirect_to removed_team_members_path, notice: "Team member has been removed"
   end
 

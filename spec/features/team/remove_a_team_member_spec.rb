@@ -20,8 +20,8 @@ describe "Remove a team member", type: :feature do
       expect(page).not_to have_content("Remove user from service")
     end
 
-    it "deletes the user" do
-      expect { click_on "Yes, remove this team member" }.to change(User, :count).by(-1)
+    it "deletes the membership" do
+      expect { click_on "Yes, remove this team member" }.to change(Membership, :count).by(-1)
     end
 
     it 'redirects to "after user removed" team members page for analytics' do
