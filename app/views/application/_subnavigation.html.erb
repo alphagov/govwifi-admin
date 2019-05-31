@@ -1,7 +1,7 @@
 <div class='govuk-grid-row subnav govuk-!-margin-0'>
   <div class='govuk-grid-column-one-third govuk-grid-column-one-half-from-desktop govuk-!-padding-left-0 organisation-name'>
     <p class='govuk-body govuk-!-margin-0 govuk-!-padding-0'>
-      <strong class="govuk-!-margin-right-1"><%= current_organisation.name %></strong>
+      <strong class="govuk-!-margin-right-1"><%= current_organisation.name if current_organisation %></strong>
       <%= link_to 'switch', change_organisation_path, class: "govuk-link govuk-body-s" %>
     </p>
   </div>
@@ -16,7 +16,7 @@
         <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
       <% else %>
         <%= link_to 'Overview', overview_index_path, class: active_tab(overview_index_path) %>
-        <% if current_organisation.ips.empty? %>
+        <% if current_organisation&.ips&.empty? %>
           <%= link_to 'Setup', new_organisation_setup_instructions_path, class: active_tab(new_organisation_setup_instructions_path) + active_tab('mou') %>
         <% else %>
           <%= link_to 'Setup', setup_instructions_path, class: active_tab(setup_instructions_path) + active_tab('mou') %>
