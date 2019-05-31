@@ -34,8 +34,10 @@
           </td>
         <% end %>
         <td class="govuk-table__cell govuk-!-width-one-quarter text-red">
-          <% if ip.inactive? %>
-            Inactive (no traffic for the last 10 days)
+          <% if ip.unused? %>
+            No traffic received yet
+          <% elsif ip.inactive? %>
+            No traffic for the last 10 days
           <% end %>
         </td>
         <td class="govuk-table__cell text-right">
