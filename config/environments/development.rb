@@ -3,6 +3,9 @@ require 'action_mailer/railtie'
 # rubocop:disable Metrics/BlockLength
 Rails.application.configure do
   config.active_storage.service = :local
+
+  Bullet.enable = true
+  Bullet.alert = true
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
