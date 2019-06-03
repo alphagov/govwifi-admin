@@ -1,6 +1,6 @@
 module UseCases
   module Administrator
-    class SendCrossOrganisationInviteEmail
+    class SendMembershipInviteEmail
       REFERENCE = 'invite_email'.freeze
 
       def initialize(notifications_gateway:)
