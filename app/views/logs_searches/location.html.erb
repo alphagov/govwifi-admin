@@ -10,8 +10,8 @@
   <div class='govuk-grid-column-two-thirds'>
     <%= form_for @search do |f| %>
       <div class='govuk-form-group'>
-        <%= f.label :term, "Select one of your organisation's locations", class: 'govuk-label' %>
-        <%= collection_select :logs_search, :term, @locations, :id, :full_address, {}, class: 'govuk-select' %>
+        <%= f.label :search_term, "Select one of your organisation's locations", class: 'govuk-label' %>
+        <%= collection_select :logs_search, :search_term, @locations, :id, :full_address, {}, class: 'govuk-select' %>
       </div>
       <%= f.hidden_field :filter %>
       <%= f.submit 'Show logs', class: 'govuk-button' %>
