@@ -5,18 +5,18 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     unless user_is_invalid?
       self.resource = invite_resource
-      render :new and return 
+      render :new and return
     end
 
     unless user_belongs_to_other_organisations?
-      self.resource = invite_resource 
+      self.resource = invite_resource
     end
 
     organisation = Organisation.find(super_admin? ? params[:organisation_id] : current_organisation.id)
 
     if user_belongs_to_our_organisation?(organisation)
       self.resource = invite_resource
-      render :new and return 
+      render :new and return
     end
 
     invite_user(organisation)
@@ -69,7 +69,7 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def invited_user
-    @invited_user ||= User.find_by(email: invite_params[:email])
+    User.find_by(email: invite_params[:email])
   end
 
   def resending_invite?
