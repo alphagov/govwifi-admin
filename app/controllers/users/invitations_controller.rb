@@ -80,14 +80,6 @@ private
     !!params[:resend]
   end
 
-  def after_invite_path_for(_resource)
-    if super_admin?
-      admin_organisation_path(params[:organisation_id])
-    else
-      resending_invite? ? recreated_invite_memberships_path : created_invite_memberships_path
-    end
-  end
-
   def user_should_be_cleared?
     resending_invite? || unconfirmed_user_with_no_org?
   end
