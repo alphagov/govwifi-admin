@@ -19,14 +19,7 @@ describe "DELETE /memberships/:id", type: :request do
   context "when the team member belongs to another team" do
     let!(:other_team_member) { create(:user, :with_organisation) }
 
-    it "does not delete the membership" do
-      membership = other_team_member.memberships.first
-      expect {
-        delete membership_path(membership)
-      }.to raise_error(ActiveRecord::RecordNotFound)
-    end
-
-    it "does not delete the user" do
+    it "raises an error" do
       membership = other_team_member.memberships.first
       expect {
         delete membership_path(membership)

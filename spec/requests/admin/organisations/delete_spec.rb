@@ -1,9 +1,9 @@
 describe "DELETE /organisations/:id", type: :request do
   let(:organisation) { create(:organisation) }
-  let!(:user) { create(:user, organisations: [organisation]) }
   let(:admin_user) { create(:user, :super_admin) }
 
   before do
+    create(:user, organisations: [organisation])
     login_as(admin_user, scope: :user)
     https!
   end

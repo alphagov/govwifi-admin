@@ -5,7 +5,8 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     unless user_is_invalid?
       self.resource = invite_resource
-      render :new and return
+      render :new
+      return
     end
 
     unless user_belongs_to_other_organisations?
@@ -16,12 +17,13 @@ class Users::InvitationsController < Devise::InvitationsController
 
     if user_belongs_to_our_organisation?(organisation)
       self.resource = invite_resource
-      render :new and return
+      render :new
+      return
     end
 
     invite_user(organisation)
 
-    redirect_to(after_path(organisation), notice: "#{invited_user.email} has been invited to join #{organisation.name}") and return
+    redirect_to(after_path(organisation), notice: "#{invited_user.email} has been invited to join #{organisation.name}")
   end
 
 private
@@ -53,7 +55,9 @@ private
 
   def authenticate_inviter!
     # https://github.com/scambra/devise_invitable#controller-filter
-    redirect_to(root_path) and return unless current_user&.can_manage_team?(current_organisation)
+    unless current_user&.can_manage_team?(current_organisation)
+      redirect_to(root_path)
+    end
   end
 
   def delete_user_record
