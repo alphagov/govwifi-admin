@@ -8,10 +8,10 @@ describe "DELETE /team_members/:id", type: :request do
   end
 
   context "when the user has permissions to delete a team member" do
-    it "deletes the team member" do
+    it "deletes the team membership" do
       expect {
         delete team_member_path(team_member)
-      }.to change(User, :count).by(-1)
+      }.to change(Membership, :count).by(-1)
     end
   end
 
