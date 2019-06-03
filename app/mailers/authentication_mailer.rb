@@ -58,7 +58,7 @@ class AuthenticationMailer < ::Devise::Mailer
   end
 
   def membership_instructions(record, token, opts = {})
-    invite_link = memberships_url(token: token)
+    invite_link = confirm_new_membership_url(token: token)
     template_id = GOV_NOTIFY_CONFIG['cross_organisation_invitation']['template_id']
 
     UseCases::Administrator::SendMembershipInviteEmail.new(

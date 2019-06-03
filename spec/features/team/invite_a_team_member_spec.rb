@@ -46,7 +46,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it 'redirects to the "after user invited" path for analytics' do
-        expect(page).to have_current_path('/team_members/created/invite')
+        expect(page).to have_current_path('/memberships/created/invite')
       end
     end
 
@@ -71,7 +71,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it 'redirects to the "after user invited" path for analytics' do
-        expect(page).to have_current_path('/team_members/created/invite')
+        expect(page).to have_current_path('/memberships/created/invite')
       end
     end
 
@@ -113,12 +113,12 @@ describe "Inviting a team member", type: :feature do
         expect(InviteUseCaseSpy.invite_count).to eq(1)
       end
 
-      it "sets the invitees organisation" do
-        expect(invited_user.organisations).to eq(user.organisations)
+      it "sets the invitees pending organisation" do
+        expect(invited_user.pending_membership_for?(organisation: user.organisations.first)).to eq(true)
       end
 
       it 'redirects to the "after user invited" path for analytics' do
-        expect(page).to have_current_path('/team_members/created/invite')
+        expect(page).to have_current_path('/memberships/created/invite')
       end
     end
 
@@ -132,10 +132,6 @@ describe "Inviting a team member", type: :feature do
 
       it "does not send an invite" do
         expect(InviteUseCaseSpy.invite_count).to eq(0)
-      end
-
-      it "displays the correct error message" do
-        expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
       end
     end
 

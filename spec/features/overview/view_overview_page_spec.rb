@@ -65,7 +65,7 @@ describe 'Viewing the overview page', type: :feature do
       it 'redirects to the team members page when Team Members is clicked on' do
         click_link 'Team Members'
 
-        expect(page).to have_current_path(team_members_path)
+        expect(page).to have_current_path(memberships_path)
       end
 
       it 'redirects to the IPs page when Locations is clicked on' do

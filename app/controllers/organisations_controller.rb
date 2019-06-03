@@ -24,8 +24,7 @@ class OrganisationsController < ApplicationController
 
   def update
     if @organisation.update(organisation_params)
-      redirect_to team_members_path
-      flash[:notice] = 'Service email updated'
+      redirect_to memberships_path, notice: 'Service email updated'
     else
       render :edit
     end

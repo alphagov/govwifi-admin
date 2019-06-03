@@ -1,5 +1,6 @@
 describe 'Add an IP', type: :feature do
-  let(:user) { create(:user, :with_organisation) }
+  let(:organisation) { create(:organisation) }
+  let(:user) { create(:user, organisations: [organisation]) }
 
   before do
     sign_in_user user
@@ -7,7 +8,7 @@ describe 'Add an IP', type: :feature do
 
   context 'with .can_manage_locations permission' do
     before do
-      user.permission.update!(can_manage_locations: true)
+      user.membership_for(organisation).update!(can_manage_locations: true)
     end
 
     context 'when visiting the add IP page directly' do
@@ -39,7 +40,7 @@ describe 'Add an IP', type: :feature do
 
   context 'without .can_manage_locations permission' do
     before do
-      user.permission.update!(can_manage_locations: false)
+      user.membership_for(organisation).update!(can_manage_locations: false)
     end
 
     it 'hides the add new IP link' do
