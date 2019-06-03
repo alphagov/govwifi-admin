@@ -12,7 +12,7 @@ describe 'Resending an invitation to a team member', type: :feature do
   before do
     sign_in_user user
     invite_user(invited_user_email)
-    visit team_members_path
+    visit memberships_path
   end
 
   it 'shows that the invitation is pending' do

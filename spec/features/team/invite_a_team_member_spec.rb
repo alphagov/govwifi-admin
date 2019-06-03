@@ -46,7 +46,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it 'redirects to the "after user invited" path for analytics' do
-        expect(page).to have_current_path('/team_members/created/invite')
+        expect(page).to have_current_path('/memberships/created/invite')
       end
     end
 
@@ -71,7 +71,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it 'redirects to the "after user invited" path for analytics' do
-        expect(page).to have_current_path('/team_members/created/invite')
+        expect(page).to have_current_path('/memberships/created/invite')
       end
     end
 
@@ -118,7 +118,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it 'redirects to the "after user invited" path for analytics' do
-        expect(page).to have_current_path('/team_members/created/invite')
+        expect(page).to have_current_path('/memberships/created/invite')
       end
     end
 

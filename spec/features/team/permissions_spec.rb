@@ -11,7 +11,7 @@ describe 'Invite a team member', type: :feature do
   context 'with the .manage_team permission' do
     before do
       user.membership_for(organisation).update!(can_manage_team: true)
-      visit team_members_path
+      visit memberships_path
     end
 
     it 'shows the invite team member link' do
@@ -26,7 +26,7 @@ describe 'Invite a team member', type: :feature do
     it 'allows re-sending invites' do
       another_user = create(:user, invitation_sent_at: Date.today)
       another_user.organisations << user.organisations.first
-      visit team_members_path
+      visit memberships_path
 
       expect(page).to have_button('Resend invite')
     end
@@ -39,7 +39,7 @@ describe 'Invite a team member', type: :feature do
     end
 
     it 'hides the invite team member link' do
-      visit team_members_path
+      visit memberships_path
 
       expect(page).not_to have_link('Invite team member')
     end
@@ -55,7 +55,7 @@ describe 'Invite a team member', type: :feature do
     it 'does not allow re-sending invites' do
       another_user = create(:user, invitation_sent_at: Date.today)
       another_user.organisations << user.organisations.first
-      visit team_members_path
+      visit memberships_path
 
       expect(page).not_to have_button('Resend invite')
     end

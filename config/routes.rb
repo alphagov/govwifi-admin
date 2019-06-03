@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     put 'users/confirmations', to: 'users/confirmations#update'
     get 'users/confirmations/pending', to: 'users/confirmations#pending'
   end
+  get 'confirm_new_membership', to: 'users/memberships#create'
 
   get '/healthcheck', to: 'monitoring#healthcheck'
   get 'change_organisation', to: 'current_organisation#edit'
@@ -27,8 +28,6 @@ Rails.application.routes.draw do
     get 'removed/location', to: 'ips#index', on: :collection
   end
 
-  get 'memberships', to: 'users/memberships#create'
-
   resources :help, only: %i[create new] do
     get '/', on: :collection, to: 'help#new'
     get 'signed_in', on: :new
@@ -40,14 +39,20 @@ Rails.application.routes.draw do
     get 'remove', to: 'ips#index'
     get 'rotate_key', to: 'ips#index'
   end
-  resources :memberships, only: %i[edit update]
-  resources :team_members, only: %i[index edit update destroy] do
+  resources :memberships, only: %i[edit update index destroy] do
     collection do
-      get 'created/invite', to: 'team_members#index'
-      get 'updated/permissions', to: 'team_members#index'
-      get 'removed', to: 'team_members#index'
+      get 'created/invite', to: 'memberships#index'
+      get 'updated/permissions', to: 'memberships#index'
+      get 'removed', to: 'memberships#index'
     end
   end
+  # resources :team_members, only: %i[edit update destroy] do
+  #   collection do
+  #     get 'created/invite', to: 'team_members#index'
+  #     get 'updated/permissions', to: 'team_members#index'
+  #     get 'removed', to: 'team_members#index'
+  #   end
+  # end
   resources :mou, only: %i[index create] do
     collection do
       get 'created', to: 'mou#index'

@@ -21,10 +21,10 @@ class Users::InvitationsController < Devise::InvitationsController
 
     invite_user(organisation)
 
-    redirect_to(after_path(organisation), notice: "#{invited_user.email} has been invited to join #{current_organisation.name}") and return
+    redirect_to(after_path(organisation), notice: "#{invited_user.email} has been invited to join #{organisation.name}") and return
   end
 
-  private
+private
 
   def invite_user(organisation)
     membership = invited_user.memberships.find_or_create_by(invited_by_id: current_user.id, organisation: organisation)
@@ -38,11 +38,11 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def after_path(organisation)
-    super_admin? ? admin_organisation_path(organisation) : created_invite_team_members_path
+    super_admin? ? admin_organisation_path(organisation) : created_invite_memberships_path
   end
 
   def user_belongs_to_our_organisation?(organisation)
-    invited_user.confirmed? and invited_user.organisations.include?(organisation)
+    invited_user.confirmed? && invited_user.organisations.include?(organisation)
   end
 
   def user_belongs_to_other_organisations?
@@ -80,7 +80,7 @@ class Users::InvitationsController < Devise::InvitationsController
     if super_admin?
       admin_organisation_path(params[:organisation_id])
     else
-      resending_invite? ? recreated_invite_team_members_path : created_invite_team_members_path
+      resending_invite? ? recreated_invite_memberships_path : created_invite_memberships_path
     end
   end
 

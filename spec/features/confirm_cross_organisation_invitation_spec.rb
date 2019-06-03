@@ -10,10 +10,9 @@ describe 'Confirming a cross organisation invitation', type: :feature do
   end
 
   context 'with an existing user' do
-
     before do
       sign_in_user invited_user
-      visit memberships_path(token: membership.invitation_token)
+      visit confirm_new_membership_path(token: membership.invitation_token)
     end
 
     it 'Confirms the invitation' do

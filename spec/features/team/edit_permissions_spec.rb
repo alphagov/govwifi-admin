@@ -16,7 +16,7 @@ describe 'Edit user permissions', type: :feature do
     end
 
     it 'does not show the edit team member link' do
-      visit team_members_path
+      visit memberships_path
       expect(page).not_to have_link('Edit permissions')
     end
 
@@ -31,7 +31,7 @@ describe 'Edit user permissions', type: :feature do
   context 'with the .can_manage_team permission' do
     context 'when the user belongs to my organisation' do
       before do
-        visit team_members_path
+        visit memberships_path
         click_link 'Edit permissions'
         uncheck 'Add and remove team members'
         uncheck 'Add and remove locations and IPs'
@@ -51,7 +51,7 @@ describe 'Edit user permissions', type: :feature do
       end
 
       it 'redirects to "after permission updated" team members page for analytics' do
-        expect(page).to have_current_path('/team_members/updated/permissions')
+        expect(page).to have_current_path('/memberships/updated/permissions')
       end
     end
 
