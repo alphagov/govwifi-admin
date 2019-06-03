@@ -17,6 +17,10 @@ describe Organisation do
     it 'removes all associated ip addresses' do
       expect { ip.reload }.to raise_error ActiveRecord::RecordNotFound
     end
+
+    it 'removes all associated memberships' do
+      expect(Membership.find_by(organisation_id: org.id)).to be_nil
+    end
   end
 
   context 'when name already exists' do
