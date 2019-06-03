@@ -3,7 +3,7 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
 
   def create
-    if user_is_valid?
+    if user_is_invalid?
       self.resource = invite_resource
       render :new
       return
@@ -68,8 +68,8 @@ private
     @target_organisation = Organisation.find(params[:organisation_id])
   end
 
-  def user_is_valid?
-    invite_params[:email].match? Devise.email_regexp
+  def user_is_invalid?
+    !invite_params[:email].match? Devise.email_regexp
   end
 
   def invited_user
