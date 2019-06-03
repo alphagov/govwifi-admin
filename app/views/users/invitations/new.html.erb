@@ -45,7 +45,7 @@
                     <label class="govuk-label govuk-checkboxes__label">View team members</label>
                   </div>
                   <div class="govuk-checkboxes__item">
-                    <%= check_box_tag :can_manage_team, true, class: 'govuk-checkboxes__input' %>
+                    <%= check_box_tag :can_manage_team, true, true, class: 'govuk-checkboxes__input' %>
                   <label class="govuk-label govuk-checkboxes__label"><%= label_tag :can_manage_team, 'Add and remove team members' %></label>
                   </div>
                   <div class="govuk-checkboxes__item">
@@ -53,7 +53,7 @@
                     <label class="govuk-label govuk-checkboxes__label">View locations and IPs</label>
                   </div>
                   <div class="govuk-checkboxes__item">
-                    <%= check_box_tag :can_manage_locations, true, class: 'govuk-checkboxes__input' %>
+                    <%= check_box_tag :can_manage_locations, true, true, class: 'govuk-checkboxes__input' %>
                     <label class="govuk-label govuk-checkboxes__label"><%= label_tag :can_manage_locations, 'Add and remove locations and IPs' %></label>
                   </div>
                   <% if super_admin? %>
