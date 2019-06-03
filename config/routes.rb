@@ -40,8 +40,8 @@ Rails.application.routes.draw do
     get 'remove', to: 'ips#index'
     get 'rotate_key', to: 'ips#index'
   end
+  resources :memberships, only: %i[edit update]
   resources :team_members, only: %i[index edit update destroy] do
-    resources :memberships, only: %i[edit update]
     collection do
       get 'created/invite', to: 'team_members#index'
       get 'updated/permissions', to: 'team_members#index'

@@ -5,7 +5,7 @@ describe 'Edit user permissions', type: :feature do
   let(:invited_user_same_org) { User.find_by(email: 'invited_same_org@gov.uk') }
 
   before do
-    create(:user, email: 'invited_other_org@gov.uk')
+    create(:user, :with_organisation, email: 'invited_other_org@gov.uk')
     create(:user, email: 'invited_same_org@gov.uk', organisations: [organisation])
     sign_in_user user
   end
@@ -21,8 +21,9 @@ describe 'Edit user permissions', type: :feature do
     end
 
     it 'prevents visiting the edit permissions page directly' do
+      membership = invited_user_same_org.membership_for(organisation)
       expect {
-        visit edit_team_member_path(invited_user_same_org)
+        visit edit_membership_path(membership)
       }.to raise_error(ActionController::RoutingError)
     end
   end
@@ -56,9 +57,10 @@ describe 'Edit user permissions', type: :feature do
 
     context 'when the user does not belong to my organisation' do
       it 'restricts editing to only users in my organisation' do
+        membership = invited_user_other_org.memberships.first
         expect {
-          visit edit_team_member_path(invited_user_other_org)
-        }.to raise_error(ActionController::RoutingError)
+          visit edit_membership_path(membership)
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

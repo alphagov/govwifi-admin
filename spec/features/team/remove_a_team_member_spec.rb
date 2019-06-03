@@ -9,7 +9,7 @@ describe "Remove a team member", type: :feature do
 
   context "with the correct permissions" do
     before do
-      visit edit_team_member_membership_path(another_user, another_user.membership_for(organisation))
+      visit edit_membership_path(another_user.membership_for(organisation))
       click_on "Remove user from GovWifi admin"
     end
 
@@ -39,7 +39,7 @@ describe "Remove a team member", type: :feature do
     context "when visiting remove team member url directly" do
       it 'does not show the page' do
         expect {
-          visit edit_team_member_membership_path(another_user, another_user.membership_for(organisation), remove_team_member: true)
+          visit edit_membership_path(another_user.membership_for(organisation), remove_team_member: true)
         }.to raise_error(ActionController::RoutingError)
       end
     end
