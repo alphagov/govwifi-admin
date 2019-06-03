@@ -17,7 +17,7 @@ class LogsSearchesController < ApplicationController
 
   def term_choice
     if @search.valid?
-      redirect_to logs_path(@search.filter.to_sym => @search.term)
+      redirect_to logs_path(@search.filter.to_sym => @search.search_term)
     else
       render @search.filter
     end
@@ -39,7 +39,9 @@ class LogsSearchesController < ApplicationController
 private
 
   def search_params
-    params.require(:logs_search).permit(:filter, :term, :first_step)
+    params.require(:logs_search)
+      .permit(:filter, :first_step, :search_term)
+      .each { |_, v| v.strip! }
   end
 
   def ordered_locations
