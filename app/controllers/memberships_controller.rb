@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: %i[edit update destroy]
-  before_action :validate_can_manage_team, only: %i[edit update]
+  before_action :validate_can_manage_team, only: %i[edit update destroy]
 
   def edit; end
 

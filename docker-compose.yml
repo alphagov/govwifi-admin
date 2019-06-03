@@ -6,8 +6,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: root
-    ports:
-      - "13306:3306"
+    expose:
+      - "3306"
 
   rr_db:
     build: ./mysql
