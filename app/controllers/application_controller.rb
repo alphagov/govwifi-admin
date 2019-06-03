@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 protected
 
   def authorise_manage_locations
-    redirect_to(root_path) unless current_user.can_manage_locations?
+    redirect_to(root_path) unless current_user.can_manage_locations?(current_organisation)
   end
 
   def configure_devise_permitted_parameters

@@ -1,4 +1,4 @@
-describe "DELETE /team_members/:id", type: :request do
+describe "DELETE /memberships/:id", type: :request do
   let(:user) { create(:user, :with_organisation) }
   let!(:team_member) { create(:user, organisations: user.organisations) }
 
@@ -9,19 +9,21 @@ describe "DELETE /team_members/:id", type: :request do
 
   context "when the user has permissions to delete a team member" do
     it "deletes the team membership" do
+      membership = team_member.memberships.first
       expect {
-        delete team_member_path(team_member)
+        delete membership_path(membership)
       }.to change(Membership, :count).by(-1)
     end
   end
 
   context "when the team member belongs to another team" do
-    let!(:other_team_member) { create(:user) }
+    let!(:other_team_member) { create(:user, :with_organisation) }
 
-    it "does not delete the user" do
+    it "raises an error" do
+      membership = other_team_member.memberships.first
       expect {
-        delete team_member_path(other_team_member)
-      }.to change(User, :count).by(0)
+        delete membership_path(membership)
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

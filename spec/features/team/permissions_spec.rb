@@ -3,14 +3,15 @@ require 'support/notifications_service'
 describe 'Invite a team member', type: :feature do
   include_context 'with a mocked notifications client'
 
-  let(:user) { create(:user, :with_organisation) }
+  let(:organisation) { create(:organisation) }
+  let(:user) { create(:user, organisations: [organisation]) }
 
   before { sign_in_user user }
 
   context 'with the .manage_team permission' do
     before do
-      user.permission.update!(can_manage_team: true)
-      visit team_members_path
+      user.membership_for(organisation).update!(can_manage_team: true)
+      visit memberships_path
     end
 
     it 'shows the invite team member link' do
@@ -25,7 +26,7 @@ describe 'Invite a team member', type: :feature do
     it 'allows re-sending invites' do
       another_user = create(:user, invitation_sent_at: Date.today)
       another_user.organisations << user.organisations.first
-      visit team_members_path
+      visit memberships_path
 
       expect(page).to have_button('Resend invite')
     end
@@ -33,12 +34,12 @@ describe 'Invite a team member', type: :feature do
 
   context 'without the .manage_team permission' do
     before do
-      user.permission.update!(can_manage_team: false)
+      user.membership_for(organisation).update!(can_manage_team: false)
       sign_in_user user
     end
 
     it 'hides the invite team member link' do
-      visit team_members_path
+      visit memberships_path
 
       expect(page).not_to have_link('Invite team member')
     end
@@ -54,7 +55,7 @@ describe 'Invite a team member', type: :feature do
     it 'does not allow re-sending invites' do
       another_user = create(:user, invitation_sent_at: Date.today)
       another_user.organisations << user.organisations.first
-      visit team_members_path
+      visit memberships_path
 
       expect(page).not_to have_button('Resend invite')
     end
