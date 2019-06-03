@@ -1,12 +1,13 @@
 describe LogsSearch do
-  subject(:log_search) { described_class.new }
+  subject(:log_search) { described_class.new(filter: filter, search_term: search_term) }
+
+  let(:search_term) { '' }
+  let(:filter) { '' }
 
   context 'when searching by username' do
-    before { log_search.filter = 'username' }
+    let(:filter) { 'username' }
 
     context 'with blank term' do
-      before { log_search.term = '' }
-
       it { is_expected.not_to be_valid }
 
       it 'explains it is blank' do
@@ -16,7 +17,7 @@ describe LogsSearch do
     end
 
     context 'with 4 characters' do
-      before { log_search.term = 'abcd' }
+      let(:search_term) { 'abcd' }
 
       it { is_expected.not_to be_valid }
 
@@ -27,19 +28,19 @@ describe LogsSearch do
     end
 
     context 'with 5 characters' do
-      before { log_search.term = 'abcde' }
+      let(:search_term) { 'abcde' }
 
       it { is_expected.to be_valid }
     end
 
     context 'with 6 characters' do
-      before { log_search.term = 'abcdef' }
+      let(:search_term) { 'abcdef' }
 
       it { is_expected.to be_valid }
     end
 
     context 'with 7 characters' do
-      before { log_search.term = 'abcdefg' }
+      let(:search_term) { 'abcdefg' }
 
       it { is_expected.not_to be_valid }
 
@@ -51,11 +52,9 @@ describe LogsSearch do
   end
 
   context 'when searching by IP' do
-    before { log_search.filter = 'ip' }
+    let(:filter) { 'ip' }
 
     context 'with blank term' do
-      before { log_search.term = '' }
-
       it { is_expected.not_to be_valid }
 
       it 'explains it is blank' do
@@ -65,7 +64,7 @@ describe LogsSearch do
     end
 
     context 'with a search term containing only letters' do
-      before { log_search.term = 'badger' }
+      let(:search_term) { 'badger' }
 
       it { is_expected.not_to be_valid }
 
@@ -76,7 +75,7 @@ describe LogsSearch do
     end
 
     context 'with a search term containing a mix of letters and numbers' do
-      before { log_search.term = '10.x.20.30' }
+      let(:search_term) { '10.x.20.30' }
 
       it { is_expected.not_to be_valid }
 
@@ -87,7 +86,7 @@ describe LogsSearch do
     end
 
     context 'with a search term that is a valid IPv4 address' do
-      before { log_search.term = '11.22.33.44' }
+      let(:search_term) { '11.22.33.44' }
 
       it { is_expected.to be_valid }
     end
