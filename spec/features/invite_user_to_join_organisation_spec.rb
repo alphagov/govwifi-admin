@@ -33,7 +33,7 @@ describe 'Inviting an existing user', type: :feature do
       before do
         sign_out
         sign_in_user betty
-        visit confirm_new_membership_url(token: betty.membership_for(inviter_organisation).invitation_token) 
+        visit confirm_new_membership_url(token: betty.membership_for(inviter_organisation).invitation_token)
       end
 
       it "changes your current organisation to this organisation" do
