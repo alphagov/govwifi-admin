@@ -45,6 +45,24 @@ describe 'Register an additional organisation', type: :feature do
         expect(page).to have_content(organisation_2_name)
       end
     end
+
+    it 'confirms the membership that joins the user to the organisation' do
+      click_on 'Create organisation'
+      organisation = user.organisations.find_by(name: organisation_2_name)
+      expect(user.membership_for(organisation)).to be_confirmed
+    end
+
+    it 'gives the user can_manage_team privileges' do
+      click_on 'Create organisation'
+      organisation = user.organisations.find_by(name: organisation_2_name)
+      expect(user.can_manage_team?(organisation)).to eq(true)
+    end
+
+    it 'gives the user can_manage_locations privileges' do
+      click_on 'Create organisation'
+      organisation = user.organisations.find_by(name: organisation_2_name)
+      expect(user.can_manage_locations?(organisation)).to eq(true)
+    end
   end
 
   context 'when submitting the form with invalid data' do

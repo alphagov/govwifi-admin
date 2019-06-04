@@ -47,7 +47,10 @@ private
   end
 
   def assign_user_to_organisation(organisation)
-    current_user.organisations << organisation
+    current_user.memberships.create(
+      organisation: organisation,
+      confirmed_at: Time.zone.now
+    )
   end
 
   def set_as_current_organisation(organisation)
