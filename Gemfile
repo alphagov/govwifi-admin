@@ -42,9 +42,9 @@ group :test do
 end
 
 group :development, :test do
+  gem 'bullet', '~> 5.0'
   gem 'byebug', '~> 11'
   gem 'listen', '~> 3'
   gem 'pry'
   gem 'rack-mini-profiler', require: false
-  gem 'bullet', '~> 5.0'
 end

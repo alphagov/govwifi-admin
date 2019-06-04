@@ -29,7 +29,7 @@ private
   def sorted_team_members(organisation)
     UseCases::Administrator::SortUsers.new(
       users_gateway: Gateways::OrganisationUsers.new(organisation: organisation)
-    ).execute
+    ).execute.includes(:permission)
   end
 
   def set_user
