@@ -1,6 +1,6 @@
 class Admin::LocationsController < AdminController
   def index
-    @locations = Location.order("#{sort_column} #{sort_direction}")
+    @locations = Location.order("#{sort_column} #{sort_direction}").includes(:organisation)
   end
 
 private
