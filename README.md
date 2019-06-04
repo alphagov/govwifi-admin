@@ -2,7 +2,7 @@
 
 This is the admin platform, a website where organisations can create and manage their GovWifi installation within their organisation.
 
-N.B. The private GovWifi [terraform repository][terraform-repo] contains information on how to build GovWifi end-to-end - the sites, services and infrastructure.
+N.B. The GovWifi [terraform repository][terraform-repo] contains information on how to build GovWifi end-to-end - the sites, services and infrastructure.
 
 ## Table of Contents
 
