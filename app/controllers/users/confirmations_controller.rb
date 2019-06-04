@@ -9,7 +9,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   def update
     with_unconfirmed_confirmable do
       if @confirmable.update(user_params)
-        confirm_user
+        confirm_user_and_membership
       else
         render_show_page
       end
@@ -49,8 +49,9 @@ protected
     render 'users/confirmations/new'
   end
 
-  def confirm_user
+  def confirm_user_and_membership
     @confirmable.confirm
+    @confirmable.default_membership.confirm!
     set_flash_message :notice, :confirmed
     sign_in_and_redirect(resource_name, @confirmable)
   end

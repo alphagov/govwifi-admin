@@ -40,4 +40,8 @@ class User < ApplicationRecord
   def membership_for(organisation)
     memberships.where(organisation: organisation).first
   end
+
+  def default_membership
+    memberships.first
+  end
 end
