@@ -21,22 +21,27 @@ class Users::InvitationsController < Devise::InvitationsController
       return
     end
 
-    invite_user(organisation)
+    add_user_to_organisation(organisation)
 
     redirect_to(after_path(organisation), notice: "#{invited_user.email} has been invited to join #{organisation.name}")
   end
 
 private
 
-  def invite_user(organisation)
+  def add_user_to_organisation(organisation)
     membership = invited_user.memberships.find_or_create_by(invited_by_id: current_user.id, organisation: organisation)
     membership.update_attributes(can_manage_team: params[:can_manage_team], can_manage_locations: params[:can_manage_locations])
-
-    send_invitation_email(membership)
+    send_membership_invite_to_confirmed_users_only(membership)
   end
 
-  def send_invitation_email(membership)
-    AuthenticationMailer.membership_instructions(invited_user, membership.invitation_token, organisation: current_organisation).deliver_now
+  def send_membership_invite_to_confirmed_users_only(membership)
+    if invited_user.confirmed?
+      AuthenticationMailer.membership_instructions(
+        invited_user,
+        membership.invitation_token,
+        organisation: current_organisation
+      ).deliver_now
+    end
   end
 
   def after_path(organisation)
