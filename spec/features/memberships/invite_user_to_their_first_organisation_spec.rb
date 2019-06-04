@@ -33,10 +33,10 @@ describe "Inviting a user to their first organisation", type: :feature do
 
       before do
         membership = user.membership_for(organisation)
-        visit confirm_new_membership_path(token: membership.invitation_token)
-        fill_in "name", with: "Invitee"
-        fill_in "password", with: "password"
-        click_on "Save"
+        visit InviteUseCaseSpy.last_invite_url
+        fill_in "Your name", with: "Invitee"
+        fill_in "Password", with: "password"
+        click_on "Create my account"
       end
 
       it 'allows the user to sign in successfully' do
