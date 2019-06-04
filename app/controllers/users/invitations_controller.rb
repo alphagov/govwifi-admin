@@ -1,6 +1,7 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :set_target_organisation, if: :super_admin?, only: %i(create new)
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
+  after_action :confirm_new_user_membership, only: :update
 
   def create
     if user_is_invalid?
@@ -105,6 +106,10 @@ private
 
   def invited_user_has_no_org?
     invited_user.organisations.empty?
+  end
+
+  def confirm_new_user_membership
+    current_user.memberships.first.confirm!
   end
 
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105
