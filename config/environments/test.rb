@@ -1,4 +1,8 @@
 Rails.application.configure do
+  Bullet.enable = true
+  Bullet.unused_eager_loading_enable = true
+  Bullet.n_plus_one_query_enable     = true
+
   Faker::Config.locale = 'en-GB'
   # Settings specified here will take precedence over those in config/application.rb.
 

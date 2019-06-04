@@ -2,7 +2,7 @@
 
 This is the admin platform, a website where organisations can create and manage their GovWifi installation within their organisation.
 
-N.B. The private GovWifi [build repository][build-repo] contains information on how to build GovWifi end-to-end - the sites, services and infrastructure.
+N.B. The GovWifi [terraform repository][terraform-repo] contains information on how to build GovWifi end-to-end - the sites, services and infrastructure.
 
 ## Table of Contents
 
@@ -36,8 +36,10 @@ The application allows users to perform the following tasks:
 The application also includes a "Super Admin" login feature that allows a GDS administrator to:
 
 - View all organisations signed up to GovWifi
+- View all locations that use of GovWifi
 - See specific information on each of these organisations
 - Add custom organisation names to the allowed register
+- Invite users to organisations
 
 The application uses a few third party services, including:
 
@@ -141,6 +143,6 @@ This codebase is released under [the MIT License][mit].
 [registers]:https://www.registers.service.gov.uk
 [notify]:https://www.notifications.service.gov.uk
 [zendesk]:https://govuk.zendesk.com/hc/en-us
-[build-repo]:https://github.com/alphagov/govwifi-build
+[terraform-repo]:https://github.com/alphagov/govwifi-terraform
 [gds-concourse]: https://cd.gds-reliability.engineering/
 [prod-deploy-pipeline]: https://cd.gds-reliability.engineering/teams/govwifi/pipelines/admin-deploy?groups=Production
