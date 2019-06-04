@@ -12,4 +12,8 @@ class Membership < ApplicationRecord
   def set_invitation_token
     self.invitation_token = Devise.friendly_token[0, 20]
   end
+
+  def confirmed?
+    !!confirmed_at
+  end
 end
