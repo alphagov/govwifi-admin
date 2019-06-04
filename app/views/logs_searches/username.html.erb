@@ -10,13 +10,13 @@
   <div class='govuk-grid-column-two-thirds'>
     <%= form_for @search do |f| %>
       <div class='govuk-form-group <%= field_error(@search, :search_term) %>'>
-        <%= f.label :term, 'Username', class: 'govuk-label' %>
+        <%= f.label :search_term, 'Username', class: 'govuk-label' %>
         <span class='govuk-hint'>
           This is an end user's 5- or 6-character username, like 'abcdef'
         </span>
         <%= render 'error_message', key: :search_term, message: 'Enter a valid username' %>
 
-        <%= f.text_field :term, class: 'govuk-input govuk-input--width-10' %>
+        <%= f.text_field :search_term, class: 'govuk-input govuk-input--width-10' %>
       </div>
       <%= f.hidden_field :filter %>
       <%= f.submit 'Show logs', class: 'govuk-button' %>

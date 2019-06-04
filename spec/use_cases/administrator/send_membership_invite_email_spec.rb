@@ -1,4 +1,4 @@
-describe UseCases::Administrator::SendCrossOrganisationInviteEmail do
+describe UseCases::Administrator::SendMembershipInviteEmail do
   subject(:use_case) { described_class.new(notifications_gateway: gateway_spy) }
 
   let(:gateway_spy) { instance_spy('EmailGateway', send: nil) }

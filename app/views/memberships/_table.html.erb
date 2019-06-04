@@ -23,7 +23,7 @@
               <span class='govuk-!-padding-left-1'>View team members</span>
             </li>
             <li>
-              <% if member.can_manage_team? %>
+              <% if member.can_manage_team?(current_organisation) %>
                 <%= image_tag 'tick.svg', class: 'list-item-padding', height: '30', alt: 'allowed' %>
                 <span class='govuk-!-padding-left-1'>Add and remove team members</span>
               <% else %>
@@ -36,7 +36,7 @@
               <span class='govuk-!-padding-left-1'>View locations and IPs</span>
             </li>
             <li>
-              <% if member.can_manage_locations? %>
+              <% if member.can_manage_locations?(current_organisation) %>
                 <%= image_tag 'tick.svg', class: 'list-item-padding', height: '30', alt: 'allowed' %>
                 <span class='govuk-!-padding-left-1'>Add and remove locations and IPs</span>
               <% else %>
@@ -48,10 +48,10 @@
         </div>
 
         <div class='govuk-grid-column-one-third govuk-list govuk-!-padding-right-4 text-right'>
-          <% if current_user.can_manage_team? && member.id != current_user.id %>
-            <%= link_to 'Edit permissions', edit_team_member_path(member), class: "govuk-link govuk-!-padding-right-1" %>
+          <% if current_user.can_manage_team?(current_organisation) && member.id != current_user.id %>
+            <%= link_to 'Edit permissions', edit_membership_path(member.membership_for(current_organisation)), class: "govuk-link govuk-!-padding-right-1" %>
 
-            <% if member.invitation_pending? && current_user.can_manage_team? %>
+            <% if member.invitation_pending? && current_user.can_manage_team?(current_organisation) %>
             <%= button_to("Resend invite",
               user_invitation_path(user: { email: member.email }, resend: true),
               method: :post, class: 'button-as-link govuk-body govuk-!-padding-right-1') %>

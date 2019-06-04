@@ -13,7 +13,7 @@ describe 'Inviting an existing user which belongs to an organisation', type: :fe
   context 'with a user that already belongs to an organisation' do
     before do
       sign_in_user user
-      visit team_members_path
+      visit memberships_path
       click_on 'Invite team member'
       fill_in 'Email', with: user_2.email
       click_on 'Send invitation email'

@@ -1,6 +1,6 @@
 describe 'View team members of my organisation', type: :feature do
   context 'when logged out' do
-    before { visit team_members_path }
+    before { visit memberships_path }
 
     it_behaves_like 'not signed in'
   end
@@ -27,7 +27,7 @@ describe 'View team members of my organisation', type: :feature do
 
       before do
         sign_in_user user
-        visit team_members_path
+        visit memberships_path
       end
 
       it 'shows the users email' do
@@ -48,7 +48,7 @@ describe 'View team members of my organisation', type: :feature do
 
       before do
         sign_in_user user
-        visit team_members_path
+        visit memberships_path
       end
 
       it 'renders all team members within my organisation in alphabetical order' do
@@ -61,7 +61,7 @@ describe 'View team members of my organisation', type: :feature do
         other_organisation = create(:organisation, name: 'Gov Org 2')
         create(:user, email: 'stranger@example.gov.uk', organisations: [other_organisation])
         sign_in_user user
-        visit team_members_path
+        visit memberships_path
       end
 
       it 'does not include users from other organisations' do

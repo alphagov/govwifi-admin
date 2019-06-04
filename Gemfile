@@ -19,7 +19,7 @@ gem 'rails', '~> 5.2.3'
 gem 'sass-rails', '~> 5.0'
 gem 'sentry-raven'
 gem 'tzinfo-data'
-gem 'uk_postcode', '~> 2.1', '>= 2.1.3'
+gem 'uk_postcode', '~> 2.1'
 gem 'zendesk_api'
 
 group :test do
