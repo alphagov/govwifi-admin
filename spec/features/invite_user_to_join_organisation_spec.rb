@@ -3,7 +3,8 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
 describe 'Inviting an existing user', type: :feature do
-  let(:betty) { create(:user, :with_organisation) }
+  let(:inviter_organisation) { create(:organisation) }
+  let(:betty) { create(:user, organisations: [inviter_organisation]) }
   let(:confirmed_user) { create(:user, :with_organisation) }
 
   include_examples 'when sending a membership invite email'
@@ -26,6 +27,20 @@ describe 'Inviting an existing user', type: :feature do
 
     it 'notifies the user with a success message' do
       expect(page).to have_content("#{betty.email} has been invited to join #{confirmed_user.organisations.first.name}")
+    end
+
+    context 'when I confirm the invitation' do
+      before do
+        sign_out
+        sign_in_user betty
+        visit confirm_new_membership_url(token: betty.membership_for(inviter_organisation).invitation_token)
+      end
+
+      it "changes your current organisation to this organisation" do
+        within('.govuk-header') do
+          expect(page.html).to include(inviter_organisation.name)
+        end
+      end
     end
   end
 end
