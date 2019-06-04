@@ -31,17 +31,19 @@ private
   def add_user_to_organisation(organisation)
     membership = invited_user.memberships.find_or_create_by(invited_by_id: current_user.id, organisation: organisation)
     membership.update_attributes(can_manage_team: params[:can_manage_team], can_manage_locations: params[:can_manage_locations])
-    send_membership_invite_to_confirmed_users_only(membership)
+    send_invite_email(membership) if user_has_confirmed_account?
   end
 
-  def send_membership_invite_to_confirmed_users_only(membership)
-    if invited_user.confirmed?
-      AuthenticationMailer.membership_instructions(
-        invited_user,
-        membership.invitation_token,
-        organisation: current_organisation
-      ).deliver_now
-    end
+  def send_invite_email(membership)
+    AuthenticationMailer.membership_instructions(
+      invited_user,
+      membership.invitation_token,
+      organisation: current_organisation
+    ).deliver_now
+  end
+
+  def user_has_confirmed_account?
+    invited_user.confirmed?
   end
 
   def after_path(organisation)
