@@ -7,21 +7,32 @@ describe 'A confirmed user with no organisation memberships logs in', type: :fea
       visit root_path
     end
 
-    it 'redirects to the change organisation path' do
-      expect(current_path).to eq(new_organisation_path)
+    it 'redirects to the help path' do
+      expect(page).to have_current_path(signed_in_new_help_path)
     end
 
     it 'prints an instruction' do
-      expect(page).to have_content("Please select your organisation")
+      expect(page).to have_content("You do not belong to an organisation")
     end
 
-    context 'when the user opts to contact support' do
+    context 'when the user selects a specific type of support' do
+      let(:zendesk_client) { instance_double(Gateways::ZendeskSupportTickets) }
+
       before do
-        visit technical_support_new_help_path
+        allow(Gateways::ZendeskSupportTickets).to receive(:new)
+          .and_return(zendesk_client)
+        allow(zendesk_client).to receive(:create)
       end
 
-      it 'presents the user with a support form' do
-        expect(page).to have_content("Network administrator technical support")
+      it 'presents the user with a support request form' do
+        expect(page).to have_content('Get support')
+      end
+
+      it 'allows the user to submit a support request' do
+        fill_in 'Tell us about your issue', with: 'Help!'
+        click_on 'Send support request'
+
+        expect(page).to have_http_status(200)
       end
     end
   end
