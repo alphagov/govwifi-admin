@@ -1,5 +1,5 @@
 describe 'Rotate RADIUS secret key', type: :feature do
-  context 'when a user has the correct permissions' do
+  context 'when it is a company that I belong to' do
     let(:user_1) { create(:user, :with_organisation) }
     let!(:location_1) { create(:location, organisation: user_1.organisations.first) }
     let(:radius_key) { "ABC" }
@@ -21,12 +21,13 @@ describe 'Rotate RADIUS secret key', type: :feature do
     end
   end
 
-  context 'when a user has the incorrect permissions' do
-    let(:user_2) { create(:user, :with_organisation) }
+  context 'when it is a company that I do not belong to' do
+    let(:organisation) { create(:organisation) }
+    let(:user_2) { create(:user, organisations: [organisation]) }
     let(:location_2) { create(:location, organisation: user_2.organisations.first) }
 
     before do
-      user_2.permission.update!(can_manage_locations: false)
+      user_2.membership_for(organisation).update!(can_manage_locations: false)
       sign_in_user user_2
       visit ips_path
     end

@@ -1,53 +1,75 @@
 class Users::InvitationsController < Devise::InvitationsController
-  prepend_before_action :create_membership, if: :user_belongs_to_other_organisations?, only: :create
-
   before_action :set_target_organisation, if: :super_admin?, only: %i(create new)
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
-  before_action :return_user_to_invite_page, if: :user_is_invalid?, only: :create
-  after_action :ensure_organisation_added, only: :create
+  after_action :confirm_new_user_membership, only: :update
+
+  def create
+    if user_is_invalid?
+      self.resource = invite_resource
+      render :new
+      return
+    end
+
+    unless user_belongs_to_other_organisations?
+      self.resource = invite_resource
+    end
+
+    organisation = Organisation.find(super_admin? ? params[:organisation_id] : current_organisation.id)
+
+    if user_belongs_to_our_organisation?(organisation)
+      self.resource = invite_resource
+      render :new
+      return
+    end
+
+    add_user_to_organisation(organisation)
+
+    redirect_to(after_path(organisation), notice: "#{invited_user.email} has been invited to join #{organisation.name}")
+  end
 
 private
 
-  def ensure_organisation_added
-    organisation_id = super_admin? ? params[:organisation_id] : current_organisation.id
-
-    organisation = Organisation.find(organisation_id)
-    user = User.find_by(email: invite_params[:email])
-    if user.organisations.empty?
-      user.organisations << organisation
-    end
+  def add_user_to_organisation(organisation)
+    membership = invited_user.memberships.find_or_create_by(invited_by_id: current_user.id, organisation: organisation)
+    membership.update_attributes(can_manage_team: params[:can_manage_team], can_manage_locations: params[:can_manage_locations])
+    send_invite_email(membership) if user_has_confirmed_account?
   end
 
-  def create_membership
-    token = Devise.friendly_token[0, 20]
-    invited_user.memberships.create!(
-      invited_by_id: current_user.id,
-      organisation: current_organisation,
-      invitation_token: token
-    )
+  def send_invite_email(membership)
+    AuthenticationMailer.membership_instructions(
+      invited_user,
+      membership.invitation_token,
+      organisation: current_organisation
+    ).deliver_now
+  end
 
-    AuthenticationMailer.membership_instructions(invited_user, token, organisation: current_organisation).deliver_now
+  def user_has_confirmed_account?
+    invited_user.confirmed?
+  end
 
-    redirect_to team_members_path, notice: "#{invited_user.email} has been invited to join #{current_organisation.name}"
+  def after_path(organisation)
+    super_admin? ? admin_organisation_path(organisation) : created_invite_memberships_path
+  end
+
+  def user_belongs_to_our_organisation?(organisation)
+    invited_user.confirmed? && invited_user.organisations.include?(organisation)
   end
 
   def user_belongs_to_other_organisations?
     invited_user.present? &&
-      invited_user.organisations.present? &&
+      invited_user.confirmed? &&
       invited_user.organisations.pluck(:id).exclude?(current_organisation.id)
   end
 
   def authenticate_inviter!
     # https://github.com/scambra/devise_invitable#controller-filter
-    redirect_to(root_path) unless current_user&.can_manage_team?
+    unless current_user&.can_manage_team?(current_organisation)
+      redirect_to(root_path)
+    end
   end
 
   def delete_user_record
     invited_user.destroy!
-  end
-
-  def return_user_to_invite_page
-    respond_with_navigational(resource) { render :new }
   end
 
   def set_target_organisation
@@ -55,26 +77,15 @@ private
   end
 
   def user_is_invalid?
-    # This is an indirect solution to preventing a user being re-invited when they belong
-    # to another organisation.
-    self.resource = resource_class.new(invite_params)
-    resource.invalid?
+    !invite_params[:email].match? Devise.email_regexp
   end
 
   def invited_user
-    @invited_user ||= User.find_by(email: invite_params[:email])
+    User.find_by(email: invite_params[:email])
   end
 
   def resending_invite?
     !!params[:resend]
-  end
-
-  def after_invite_path_for(_resource)
-    if super_admin?
-      admin_organisation_path(params[:organisation_id])
-    else
-      resending_invite? ? recreated_invite_team_members_path : created_invite_team_members_path
-    end
   end
 
   def user_should_be_cleared?
@@ -97,11 +108,12 @@ private
     invited_user.organisations.empty?
   end
 
+  def confirm_new_user_membership
+    current_user.memberships.first.confirm!
+  end
+
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105
   def invite_params
-    params.require(:user).permit(:email, permission_attributes: %i(
-      can_manage_team
-      can_manage_locations
-    ))
+    params.require(:user).permit(:email)
   end
 end

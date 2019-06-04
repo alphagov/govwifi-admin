@@ -1,45 +1,19 @@
 class LogsSearch
   include ActiveModel::Model
 
-  attr_accessor :filter, :first_step
-  attr_writer :term
+  attr_accessor :filter, :first_step, :search_term
 
-  validate :validate_term, :validate_presence
-
-  def term
-    @term&.strip
-  end
+  validates :search_term, presence: { message: 'cannot be empty' }
+  validates :search_term,
+            length: { in: 5..6, message: 'must be 5 or 6 characters' },
+            if: -> { filter == 'username' }
+  validates :search_term, with: :validate_ip, if: -> { filter == 'ip' }
 
 private
 
-  def validate_term
-    case filter
-    when 'username'
-      validate_username
-    when 'ip'
-      validate_ip
-    end
-  end
-
-  def validate_presence
-    self.errors.add(:search_term, 'cannot be empty') if term.empty?
-  end
-
-  def validate_username
-    if term_is_present_but_incorrect_length
-      self.errors.add(:search_term, 'must be 5 or 6 characters')
-    end
-  end
-
-  def term_is_present_but_incorrect_length
-    term.present? && term.length != 5 && term.length != 6
-  end
-
   def validate_ip
-    validate_presence if term.empty? && return
-
-    checker = UseCases::Administrator::CheckIfValidIp.new
-    unless checker.execute(self.term)[:success]
+    ip_check = UseCases::Administrator::CheckIfValidIp.new.execute(search_term)
+    unless ip_check[:success]
       errors.add(:search_term, 'must be a valid IP address')
     end
   end

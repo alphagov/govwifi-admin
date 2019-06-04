@@ -2,10 +2,7 @@ class User < ApplicationRecord
   has_many :memberships, inverse_of: :user
   has_many :organisations, through: :memberships, inverse_of: :users
 
-  has_one :permission, dependent: :destroy
-  accepts_nested_attributes_for :permission, :memberships, :organisations
-
-  delegate :can_manage_locations?, :can_manage_team?, to: :permission
+  accepts_nested_attributes_for :organisations, :memberships
 
   devise :invitable, :confirmable, :database_authenticatable, :registerable, :recoverable,
     :rememberable, :trackable, :timeoutable, :validatable, :lockable
@@ -14,8 +11,6 @@ class User < ApplicationRecord
   validates :password, presence: true,
     length: { within: 6..80 },
     on: :update
-
-  after_create :create_default_permissions
 
   def only_if_unconfirmed
     pending_any_confirmation { yield }
@@ -34,13 +29,15 @@ class User < ApplicationRecord
     memberships.pending.where(organisation: organisation).present?
   end
 
-private
+  def can_manage_team?(organisation)
+    membership_for(organisation).can_manage_team?
+  end
 
-  def create_default_permissions
-    Permission.create(
-      user: self,
-      can_manage_team: true,
-      can_manage_locations: true
-    )
+  def can_manage_locations?(organisation)
+    membership_for(organisation).can_manage_locations?
+  end
+
+  def membership_for(organisation)
+    memberships.where(organisation: organisation).first
   end
 end

@@ -12,7 +12,7 @@ describe 'Resending an invitation to a team member', type: :feature do
   before do
     sign_in_user user
     invite_user(invited_user_email)
-    visit team_members_path
+    visit memberships_path
   end
 
   it 'shows that the invitation is pending' do
@@ -22,11 +22,6 @@ describe 'Resending an invitation to a team member', type: :feature do
   it 'sends an invitation' do
     expect { click_on 'Resend invite' }.to \
       change(InviteUseCaseSpy, :invite_count).by(1)
-  end
-
-  it 'redirects to the "after resending invite" path for analytics' do
-    click_on 'Resend invite'
-    expect(page).to have_current_path('/team_members/recreated/invite')
   end
 
   context 'when signing up from the resent invitation' do

@@ -1,4 +1,4 @@
-require 'support/cross_organisation_invite_use_case'
+require 'support/membership_invite_use_case'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
@@ -6,7 +6,7 @@ describe 'Inviting an existing user', type: :feature do
   let(:betty) { create(:user, :with_organisation) }
   let(:confirmed_user) { create(:user, :with_organisation) }
 
-  include_examples 'when sending a cross organisation invite email'
+  include_examples 'when sending a membership invite email'
 
   context 'with a confirmed user' do
     before do
@@ -17,7 +17,7 @@ describe 'Inviting an existing user', type: :feature do
     end
 
     it 'sends an invitation' do
-      expect(CrossOrganisationInviteUseCaseSpy.invite_count).to eq(1)
+      expect(MembershipInviteUseCaseSpy.invite_count).to eq(1)
     end
 
     it 'creates a join organisation invitation' do

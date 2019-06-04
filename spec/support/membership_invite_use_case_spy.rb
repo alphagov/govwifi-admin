@@ -1,5 +1,5 @@
 # rubocop:disable Style/ClassVars
-class CrossOrganisationInviteUseCaseSpy
+class MembershipInviteUseCaseSpy
   @@last_invite_url = nil
   @@invite_count = 0
 

@@ -13,7 +13,7 @@
         </div>
       </div>
     <% else %>
-      <%= link_to "Back to list", team_members_path, class: "govuk-back-link" %>
+      <%= link_to "Back to list", memberships_path, class: "govuk-back-link" %>
       <h2 class="govuk-heading-l">Invite a team member</h2>
       <div class="govuk-details">
         <div class="govuk-details__text">
@@ -36,7 +36,6 @@
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--m"><span class="govuk-label">Permissions </span></legend>
               <div class="govuk-checkboxes">
-                <%= f.fields_for :permission, resource.permission || resource.build_permission(can_manage_team: true, can_manage_locations: true) do |p| %>
                   <div class="govuk-checkboxes__item">
                     <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
                     <label class="govuk-label govuk-checkboxes__label">View logs</label>
@@ -46,20 +45,19 @@
                     <label class="govuk-label govuk-checkboxes__label">View team members</label>
                   </div>
                   <div class="govuk-checkboxes__item">
-                    <%= p.check_box :can_manage_team, class: 'govuk-checkboxes__input' %>
-                    <label class="govuk-label govuk-checkboxes__label"><%= p.label :can_manage_team, 'Add and remove team members' %></label>
+                    <%= check_box_tag :can_manage_team, true, true, class: 'govuk-checkboxes__input' %>
+                  <label class="govuk-label govuk-checkboxes__label"><%= label_tag :can_manage_team, 'Add and remove team members' %></label>
                   </div>
                   <div class="govuk-checkboxes__item">
                     <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
                     <label class="govuk-label govuk-checkboxes__label">View locations and IPs</label>
                   </div>
                   <div class="govuk-checkboxes__item">
-                    <%= p.check_box :can_manage_locations, class: 'govuk-checkboxes__input' %>
-                    <label class="govuk-label govuk-checkboxes__label"><%= p.label :can_manage_locations, 'Add and remove locations and IPs' %></label>
+                    <%= check_box_tag :can_manage_locations, true, true, class: 'govuk-checkboxes__input' %>
+                    <label class="govuk-label govuk-checkboxes__label"><%= label_tag :can_manage_locations, 'Add and remove locations and IPs' %></label>
                   </div>
                   <% if super_admin? %>
                     <%= hidden_field_tag :organisation_id, @target_organisation.id %>
-                  <% end %>
                 <% end %>
               </div>
             </fieldset>
