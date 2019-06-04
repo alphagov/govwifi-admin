@@ -40,8 +40,10 @@ describe 'Sign up as an organisation', type: :feature do
         expect(page).to have_content 'Sign out'
       end
 
-      it 'creates an organisation for the user' do
-        expect(User.last.organisations.first.name).to eq('Gov Org 1')
+      it 'creates a confirmed membership joining the user to the org' do
+        user = User.find_by(email: email)
+        organisation = Organisation.find_by(name: 'Gov Org 1')
+        expect(user.membership_for(organisation)).to be_confirmed
       end
     end
 
