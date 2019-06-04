@@ -29,14 +29,15 @@ describe "Inviting a user to their first organisation", type: :feature do
     end
 
     context 'when the invited user accepts the invitation' do
-      let(:user) { User.find_by(email: invitee_email) }
-
       before do
-        membership = user.membership_for(organisation)
         visit InviteUseCaseSpy.last_invite_url
         fill_in "Your name", with: "Invitee"
         fill_in "Password", with: "password"
         click_on "Create my account"
+      end
+
+      it 'confirms the user' do
+        expect(User.find_by(email: invitee_email)).to be_confirmed
       end
 
       it 'allows the user to sign in successfully' do
