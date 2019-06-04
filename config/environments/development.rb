@@ -5,7 +5,9 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   Bullet.enable = true
-  Bullet.alert = true
+  Bullet.unused_eager_loading_enable = false
+  Bullet.n_plus_one_query_enable     = false
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
