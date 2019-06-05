@@ -18,6 +18,15 @@ services:
     expose:
       - "3306"
 
+  wifi_user_db:
+    build: ./mysql_user
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: root
+      MYSQL_DATABASE: wifi_user_govwifi
+    expose:
+      - "3306"
+
   govuk-fake-registers:
     build:
       context: govuk_fake_register
@@ -32,6 +41,7 @@ services:
     links:
       - db
       - rr_db
+      - wifi_user_db
     expose:
     - "3000"
     depends_on:
