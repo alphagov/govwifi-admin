@@ -2,7 +2,7 @@ require 'support/membership_invite_use_case'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
-describe 'Inviting an existing user', type: :feature, focus: true do
+describe 'Inviting an existing user', type: :feature do
   let(:inviter_organisation) { create(:organisation) }
   let(:betty) { create(:user, organisations: [inviter_organisation]) }
   let(:confirmed_user) { create(:user, :with_organisation) }
@@ -45,16 +45,16 @@ describe 'Inviting an existing user', type: :feature, focus: true do
   end
 
   context 'when a super admin does not have can_manage_team permissions' do
-    let(:admin_without_permission) { create(:user, :super_admin) }
+    let(:super_admin_without_permission) { create(:user, :super_admin) }
 
     before do
-      admin_without_permission.memberships.update(can_manage_team: false)
-      sign_in_user admin_without_permission
+      super_admin_without_permission.memberships.update(can_manage_team: false)
+      sign_in_user super_admin_without_permission
       visit admin_organisation_path(inviter_organisation)
     end
 
     it 'will not show the add team member button' do
-      expect(page).to_not have_content("Add team member")
+      expect(page).not_to have_content("Add team member")
     end
   end
 end
