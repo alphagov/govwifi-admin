@@ -2,6 +2,8 @@
 
 This is the admin platform, a website where organisations can create and manage their GovWifi installation within their organisation.
 
+The GovWifi [developer documentation][dev-docs] contains technical documentation for the Govwifi team in the Government Digital Service.
+
 N.B. The GovWifi [terraform repository][terraform-repo] contains information on how to build GovWifi end-to-end - the sites, services and infrastructure.
 
 ## Table of Contents
@@ -140,6 +142,7 @@ The Production deploy will wait for the Tests and Staging deploy to finish befor
 This codebase is released under [the MIT License][mit].
 
 [mit]: LICENCE
+[dev-docs]:https://govwifi-dev-docs.cloudapps.digital
 [registers]:https://www.registers.service.gov.uk
 [notify]:https://www.notifications.service.gov.uk
 [zendesk]:https://govuk.zendesk.com/hc/en-us
