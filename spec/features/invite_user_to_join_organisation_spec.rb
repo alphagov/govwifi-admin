@@ -43,4 +43,18 @@ describe 'Inviting an existing user', type: :feature do
       end
     end
   end
+
+  context 'when a super admin does not have can_manage_team permissions' do
+    let(:super_admin_without_permission) { create(:user, :super_admin) }
+
+    before do
+      super_admin_without_permission.memberships.update(can_manage_team: false)
+      sign_in_user super_admin_without_permission
+      visit admin_organisation_path(inviter_organisation)
+    end
+
+    it 'will not show the add team member button' do
+      expect(page).not_to have_content("Add team member")
+    end
+  end
 end
