@@ -11,7 +11,7 @@
       <li>
         Direct them to <%= link_to 'our guidance on common issues', SITE_CONFIG['end_user_troubleshooting_link'], class: "govuk-link" %>.
       </li>
-      <% unless current_organisation.locations.empty? %>
+      <% unless current_organisation&.locations&.empty? %>
         <li>
           <%= link_to 'Search our logs', username_new_logs_search_path, class: "govuk-link" %> to confirm they are reaching our service
         </li>
@@ -32,7 +32,7 @@
       <li>
         Check your <%= link_to 'IPs and RADIUS secret keys', ips_path, class: "govuk-link" %> match your local configuration
       </li>
-      <% unless current_organisation.locations.empty? %>
+      <% unless current_organisation&.locations&.empty? %>
         <li>
           <%= link_to 'Search our logs', location_new_logs_search_path, class: "govuk-link" %> to confirm traffic from you is reaching our service
         </li>
