@@ -80,6 +80,9 @@ Rails.application.routes.draw do
         resources :organisation_names, only: %i[index create destroy]
       end
     end
+
+    post 'wifi_user_search', to: 'wifi_user_search#search'
+    get 'wifi_user_search', to: 'wifi_user_search#lookup'
   end
 
   %w(404 422 500).each do |code|

@@ -27,9 +27,10 @@ prebuild:
 	$(DOCKER_COMPOSE) up --no-start
 
 serve: stop build
-	$(DOCKER_COMPOSE) up -d govuk-fake-registers db rr_db
+	$(DOCKER_COMPOSE) up -d govuk-fake-registers db rr_db wifi_user_db
 	./mysql/bin/wait_for_mysql
 	./mysql/bin/wait_for_rr_db
+	./mysql_user/bin/wait_for_wifi_user_db
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
 	$(DOCKER_COMPOSE) up -d app
 
@@ -46,9 +47,10 @@ autocorrect-erb: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec erblint --lint-all --autocorrect
 
 test: stop build
-	$(DOCKER_COMPOSE) up -d db rr_db
+	$(DOCKER_COMPOSE) up -d db rr_db wifi_user_db
 	./mysql/bin/wait_for_mysql
 	./mysql/bin/wait_for_rr_db
+	./mysql_user/bin/wait_for_wifi_user_db
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load db:migrate
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 

@@ -26,7 +26,11 @@ ENV \
   RR_DB_USER=root \
   RR_DB_PASS=root \
   RR_DB_HOST=rr_db \
-  RR_DB_NAME=rr_govwifi
+  RR_DB_NAME=rr_govwifi \
+  USER_DB_USER=root \
+  USER_DB_PASS=root \
+  USER_DB_HOST=wifi_user_db \
+  USER_DB_NAME=wifi_user_govwifi
 
 WORKDIR /usr/src/app
 
