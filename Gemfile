@@ -34,7 +34,7 @@ group :test do
   gem 'nokogiri'
   gem 'rack_session_access'
   gem 'rspec-rails', '~> 3'
-  gem 'shoulda-matchers', '~> 4.0'
+  gem 'shoulda-matchers', '~> 4.1'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
   gem 'timecop', '~> 0.9.1'
