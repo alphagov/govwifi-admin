@@ -3,8 +3,6 @@ describe 'Lookup wifi user contact details', type: :feature do
   let(:search_term) { '' }
   let(:contact) { 'wifi.user@govwifi.org' }
 
-  after { WifiUser.destroy_all }
-
   before do
     create(:wifi_user, username: 'zZyYxX', contact: contact)
 
