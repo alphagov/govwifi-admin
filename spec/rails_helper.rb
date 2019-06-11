@@ -29,12 +29,12 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.before do
+    DatabaseCleaner.add_cleaner(:active_record)
+    DatabaseCleaner.add_cleaner(:active_record, model: ReadReplicaBase)
+    DatabaseCleaner.add_cleaner(:active_record, model: WifiUser)
     DatabaseCleaner.strategy = :transaction
-    Session.delete_all
+
+    DatabaseCleaner.clean_with(:truncation)
   end
 
   # This block must be here, do not combine with the other `before(:each)` block.
@@ -45,7 +45,6 @@ RSpec.configure do |config|
   config.after do
     Warden.test_reset!
     DatabaseCleaner.clean
-    Session.delete_all
   end
 end
 
