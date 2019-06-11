@@ -40,5 +40,14 @@
       <input type='hidden' name='logs_search[first_step]' value='true'>
       <%= form.submit 'Go to search', class: 'govuk-button' %>
     <% end %>
+
+    <% if super_admin? %>
+      <div>
+        <p class="govuk-body">
+          You can also <%= link_to "search for a username or user contact details.",
+            admin_wifi_user_search_path, class: "govuk-link" %>
+        </p>
+      </div>
+    <% end %>
   </div>
 </div>
