@@ -5,10 +5,8 @@ ifdef DEPLOYMENT
   BUNDLE_FLAGS = --without test development
 endif
 
-ifndef JENKINS_URL
-  ifndef ON_CONCOURSE
-    DOCKER_COMPOSE += -f docker-compose.development.yml
-  endif
+ifndef ON_CONCOURSE
+	DOCKER_COMPOSE += -f docker-compose.development.yml
 endif
 
 ifdef ON_CONCOURSE
