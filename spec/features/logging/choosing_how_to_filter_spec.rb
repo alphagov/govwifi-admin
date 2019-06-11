@@ -29,4 +29,23 @@ describe 'Choosing how to filter', type: :feature do
       end
     end
   end
+
+  context 'when viewing the link to the username and user details search' do
+    context 'with admin privileges' do
+      it 'hides then link' do
+        expect(page).not_to have_link('search for a username or user contact details.')
+      end
+    end
+
+    context 'with super admin privileges' do
+      before do
+        sign_in_user create(:user, :super_admin)
+        visit new_logs_search_path
+      end
+
+      it 'shows me the link to the username and user details search' do
+        expect(page).to have_link('search for a username or user contact details.')
+      end
+    end
+  end
 end
