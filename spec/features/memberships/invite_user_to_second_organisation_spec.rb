@@ -1,13 +1,15 @@
+require 'support/invite_use_case'
 require 'support/membership_invite_use_case'
 require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
-describe 'Inviting an existing user', type: :feature do
+describe 'Inviting a user to their second or subsequent organisation', type: :feature do
   let(:inviter_organisation) { create(:organisation) }
   let(:betty) { create(:user, organisations: [inviter_organisation]) }
   let(:confirmed_user) { create(:user, :with_organisation) }
 
   include_examples 'when sending a membership invite email'
+  include_examples 'when sending an invite email'
 
   context 'with a confirmed user' do
     before do
@@ -17,8 +19,12 @@ describe 'Inviting an existing user', type: :feature do
       click_on 'Send invitation email'
     end
 
-    it 'sends an invitation' do
+    it 'sends a membership invitation' do
       expect(MembershipInviteUseCaseSpy.invite_count).to eq(1)
+    end
+
+    it 'does not send a new user invite' do
+      expect(InviteUseCaseSpy.invite_count).to eq(0)
     end
 
     it 'creates a join organisation invitation' do
@@ -29,7 +35,7 @@ describe 'Inviting an existing user', type: :feature do
       expect(page).to have_content("#{betty.email} has been invited to join #{confirmed_user.organisations.first.name}")
     end
 
-    context 'when I confirm the invitation' do
+    context 'when the invited user signs in aftwards' do
       before do
         sign_out
         sign_in_user betty
@@ -44,17 +50,21 @@ describe 'Inviting an existing user', type: :feature do
     end
   end
 
-  context 'when a super admin does not have can_manage_team permissions' do
-    let(:super_admin_without_permission) { create(:user, :super_admin) }
+  context 'with an unconfirmed user' do
+    let(:unconfirmed_email) { 'notconfirmedyet@gov.uk' }
+
+    include_context 'when using the notifications service'
 
     before do
-      super_admin_without_permission.memberships.update(can_manage_team: false)
-      sign_in_user super_admin_without_permission
-      visit admin_organisation_path(inviter_organisation)
+      sign_up_for_account(email: unconfirmed_email)
+      sign_in_user confirmed_user
+      visit new_user_invitation_path
+      fill_in 'Email', with: unconfirmed_email
+      click_on 'Send invitation email'
     end
 
-    it 'will not show the add team member button' do
-      expect(page).not_to have_content("Add team member")
+    it 'sends an invitation' do
+      expect(InviteUseCaseSpy.invite_count).to eq(1)
     end
   end
 end
