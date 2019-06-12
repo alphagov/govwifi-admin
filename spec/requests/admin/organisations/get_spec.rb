@@ -10,7 +10,7 @@ describe "GET /admin/organisations", type: :request do
 
   context 'when request format is CSV' do
     it "gets all the service emails" do
-      get admin_organisations_path(format: 'csv')
+      get super_admin_organisations_path(format: 'csv')
       expect(response.body).to eq("email address\n#{organisation_1.service_email}\n#{organisation_2.service_email}\n#{user.organisations.first.service_email}")
     end
   end

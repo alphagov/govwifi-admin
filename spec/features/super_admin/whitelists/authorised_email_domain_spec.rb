@@ -1,7 +1,7 @@
 describe 'Authorising Email Domains', type: :feature do
   before do
     sign_in_user admin_user
-    visit new_admin_whitelist_email_domain_path
+    visit new_super_admin_whitelist_email_domain_path
   end
 
   let(:admin_user) { create(:user, :super_admin) }
@@ -99,7 +99,7 @@ describe 'Authorising Email Domains', type: :feature do
       %w(a b c).each do |letter|
         create(:authorised_email_domain, name: "#{letter}gov.some.test.uk")
       end
-      visit admin_whitelist_email_domains_path
+      visit super_admin_whitelist_email_domains_path
     end
 
     it 'displays the list of all domains in alphabetical order' do
@@ -112,7 +112,7 @@ describe 'Authorising Email Domains', type: :feature do
 
     before do
       sign_in_user normal_user
-      visit new_admin_whitelist_email_domain_path
+      visit new_super_admin_whitelist_email_domain_path
     end
 
     it_behaves_like 'shows the setup instructions page'
@@ -121,7 +121,7 @@ describe 'Authorising Email Domains', type: :feature do
   context 'when logged out' do
     before do
       sign_out
-      visit new_admin_whitelist_email_domain_path
+      visit new_super_admin_whitelist_email_domain_path
     end
 
     it_behaves_like 'not signed in'

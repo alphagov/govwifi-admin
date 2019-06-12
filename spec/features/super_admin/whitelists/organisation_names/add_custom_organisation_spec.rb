@@ -10,7 +10,7 @@ describe 'Adding a custom organisation name', type: :feature do
       %w(1 2 3 4).each do |num|
         CustomOrganisationName.create(name: 'Custom Org ' + num)
       end
-      visit admin_whitelist_organisation_names_path
+      visit super_admin_whitelist_organisation_names_path
     end
 
     it 'displays the list of all custom organisations in alphabetical order' do
@@ -24,7 +24,7 @@ describe 'Adding a custom organisation name', type: :feature do
 
   context "when adding a new custom organisation name" do
     before do
-      visit admin_whitelist_organisation_names_path
+      visit super_admin_whitelist_organisation_names_path
       fill_in "Enter the organisation's full name", with: name
     end
 

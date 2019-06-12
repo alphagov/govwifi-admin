@@ -1,0 +1,56 @@
+<h1 class="govuk-heading-l">All organisations</h1>
+<h3 class="govuk-body">
+  GovWifi is in
+  <span class="govuk-!-font-weight-bold">
+    <%= pluralize(@location_count, 'location') %>
+  </span>
+   across
+  <span class="govuk-!-font-weight-bold">
+    <%= pluralize(@organisations.length, 'organisation') %>.
+  </span>
+</h3>
+
+<div class="govuk-!-margin-top-1"><%= link_to 'Download all service emails', super_admin_organisations_path(format: 'csv'), class: "govuk-link" %></div>
+<p><input type="search" id="filter-input" placeholder="Search by organisation name" class="govuk-input"></p>
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th class="govuk-table__header govuk-!-width-one-half"><%= sort_link "name" %></th>
+      <th class="govuk-table__header"><%= sort_link "created_at", "Created on" %></th>
+      <th class="govuk-table__header govuk-table__header"><%= sort_link "active_storage_attachments.created_at", "MoU Signed" %></th>
+      <th class="govuk-table__header govuk-table__header--numeric">Locations</th>
+      <th class="govuk-table__header govuk-table__header--numeric">IPs</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <% @organisations.each do |organisation| %>
+      <tr class="govuk-table__row result-row">
+        <td class="govuk-table__cell govuk-!-width-one-half" scope="row">
+          <%= link_to organisation.name, super_admin_organisation_path(organisation), class: "govuk-link filter-by" %>
+        </td>
+        <td class="govuk-table__cell" scope="row">
+          <%= organisation.created_at.strftime('%e %b %Y') %>
+        </td>
+        <td class="govuk-table__cell govuk-table__cell" scope="row">
+          <% if organisation.signed_mou.attached? %>
+            <%= organisation.signed_mou.attachment.created_at.strftime('%e %b %Y') %>
+          <% else %>
+            -
+          <% end %>
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric" scope="row">
+          <%= organisation.locations.count %>
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric" scope="row">
+          <%= organisation.ips.count %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p class="govuk-body" id="no-results" style="display: none">
+  <strong>No results found</strong>
+</p>
+
+<%= render "shared/filter_search" %>

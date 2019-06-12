@@ -3,7 +3,7 @@ describe 'Upload and download the MOU template', type: :feature do
 
   before do
     sign_in_user super_admin
-    visit admin_mou_index_path
+    visit super_admin_mou_index_path
   end
 
   context 'when uploading an MOU' do
@@ -43,7 +43,7 @@ describe 'Upload and download the MOU template', type: :feature do
     before do
       sign_out
       sign_in_user create(:user, :with_organisation)
-      visit admin_mou_index_path
+      visit super_admin_mou_index_path
     end
 
     it_behaves_like 'shows the setup instructions page'
@@ -51,7 +51,7 @@ describe 'Upload and download the MOU template', type: :feature do
 
   context 'when an organisation exists with no MOU' do
     before do
-      visit(admin_organisation_path(Organisation.first))
+      visit(super_admin_organisation_path(Organisation.first))
     end
 
     context 'when I attach an MOU' do

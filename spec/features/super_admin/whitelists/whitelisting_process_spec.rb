@@ -1,7 +1,7 @@
 describe 'Whitelisting an organisation', type: :feature do
   before do
     sign_in_user create(:user, :super_admin)
-    visit new_admin_whitelist_path
+    visit new_super_admin_whitelist_path
   end
 
   it 'displays the start page' do
@@ -52,7 +52,7 @@ describe 'Whitelisting an organisation', type: :feature do
 
       before do
         CustomOrganisationName.create(name: organisation_name)
-        visit new_admin_whitelist_path(step: "fourth")
+        visit new_super_admin_whitelist_path(step: "fourth")
         fill_in 'Organisation name', with: organisation_name
         click_on 'Continue'
       end
@@ -71,7 +71,7 @@ describe 'Whitelisting an organisation', type: :feature do
 
       before do
         AuthorisedEmailDomain.create(name: email_domain)
-        visit new_admin_whitelist_path(
+        visit new_super_admin_whitelist_path(
           whitelist: {
             step: 'fifth',
             organisation_name: 'Made Tech Limited'
@@ -94,7 +94,7 @@ describe 'Whitelisting an organisation', type: :feature do
   context 'when saving the results of the setup process' do
     context 'with all correct data' do
       before do
-        visit new_admin_whitelist_path(
+        visit new_super_admin_whitelist_path(
           whitelist: {
             step: 'fifth',
             organisation_name: 'Made Tech Limited'
@@ -117,7 +117,7 @@ describe 'Whitelisting an organisation', type: :feature do
 
     context 'without an organisation name' do
       before do
-        visit new_admin_whitelist_path(
+        visit new_super_admin_whitelist_path(
           whitelist: {
             step: 'fifth',
             organisation_name: ''
@@ -140,7 +140,7 @@ describe 'Whitelisting an organisation', type: :feature do
 
     context 'without an email domain' do
       before do
-        visit new_admin_whitelist_path(
+        visit new_super_admin_whitelist_path(
           whitelist: {
             step: 'fifth',
             organisation_name: 'Made Tech'
@@ -163,7 +163,7 @@ describe 'Whitelisting an organisation', type: :feature do
 
     context 'when viewing the summary step' do
       before do
-        visit new_admin_whitelist_path(
+        visit new_super_admin_whitelist_path(
           whitelist: {
             step: 'sixth',
             organisation_name: 'Made Tech',

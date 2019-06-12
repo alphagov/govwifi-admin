@@ -10,13 +10,13 @@ describe "DELETE /organisations/:id", type: :request do
 
   it "deletes the organisation" do
     expect {
-      delete admin_organisation_path(organisation)
+      delete super_admin_organisation_path(organisation)
     }.to change(Organisation, :count).by(-1)
   end
 
   it "deletes all memberships to that organisation" do
     expect {
-      delete admin_organisation_path(organisation)
+      delete super_admin_organisation_path(organisation)
     }.to change(Membership, :count).by(-1)
   end
 end

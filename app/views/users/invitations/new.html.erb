@@ -3,7 +3,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% if super_admin? %>
-      <%= link_to "Back to organisation", admin_organisation_path(@target_organisation.id), class: "govuk-back-link" %>
+      <%= link_to "Back to organisation", super_admin_organisation_path(@target_organisation.id), class: "govuk-back-link" %>
       <h2 class="govuk-heading-l">Invite a team member to <%= @target_organisation.name %> </h2>
       <div class="govuk-details">
         <div class="govuk-details__text">

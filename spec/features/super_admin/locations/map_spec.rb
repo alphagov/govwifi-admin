@@ -6,7 +6,7 @@ describe 'GovWifi locations map', type: :feature do
       to_return(status: 200, body: { 'result': [] }.to_json)
     user = create(:user, :super_admin)
     sign_in_user user
-    visit map_admin_locations_path
+    visit map_super_admin_locations_path
   end
 
   it 'shows a map of locations' do
