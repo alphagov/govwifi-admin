@@ -66,7 +66,7 @@ Rails.application.routes.draw do
   end
   resources :overview, only: %i[index]
 
-  namespace :admin do
+  namespace :super_admin do
     resources :locations, only: %i[index] do
       collection do
         get 'map', to: 'locations/map#index'

@@ -1,0 +1,9 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-quarter">
+    <%= render "super_admin/whitelists/side_nav" %>
+  </div>
+  <div class="govuk-grid-column-three-quarters">
+    <% next_step = params.dig(:step) || params.dig(:whitelist, :step) || "first" %>
+    <%= render "super_admin/whitelists/steps/#{next_step}" %>
+  </div>
+</div>

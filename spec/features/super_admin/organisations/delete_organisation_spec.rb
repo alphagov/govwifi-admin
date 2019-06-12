@@ -5,7 +5,7 @@ describe 'Deleting an organisation', type: :feature do
   context 'when visiting the organisations page' do
     before do
       sign_in_user admin_user
-      visit admin_organisation_path(organisation)
+      visit super_admin_organisation_path(organisation)
       click_on 'Delete organisation'
     end
 

@@ -5,7 +5,7 @@ describe 'Delete a custom organisation name', type: :feature do
     create(:custom_organisation_name, name: 'DummyOrg1')
     create(:custom_organisation_name, name: 'DummyOrg2')
     sign_in_user admin_user
-    visit admin_whitelist_organisation_names_path
+    visit super_admin_whitelist_organisation_names_path
   end
 
   context 'when deleting a custom organisation name' do

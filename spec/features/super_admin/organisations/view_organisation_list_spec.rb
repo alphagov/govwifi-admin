@@ -1,7 +1,7 @@
 describe 'View a list of signed up organisations', type: :feature do
   before do
     login_as user
-    visit admin_organisations_path
+    visit super_admin_organisations_path
   end
 
   context 'when not logged in' do
@@ -30,7 +30,7 @@ describe 'View a list of signed up organisations', type: :feature do
         )
         create_list(:location, 2, organisation: org)
         create_list(:ip, 3, location: Location.first)
-        visit admin_organisations_path
+        visit super_admin_organisations_path
       end
 
       it 'shows their name' do
@@ -71,7 +71,7 @@ describe 'View a list of signed up organisations', type: :feature do
           create_list(:location, 3, organisation: organisation)
         end
 
-        visit admin_organisations_path
+        visit super_admin_organisations_path
       end
 
       it 'summarises the totals' do

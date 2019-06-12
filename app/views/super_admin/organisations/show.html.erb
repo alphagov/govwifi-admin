@@ -1,0 +1,42 @@
+<div class="govuk-grid-row">
+  <%= render "confirm_remove_organisation" if params[:remove_organisation] %>
+
+  <div class="govuk-grid-column-two-thirds">
+    <%= link_to "Back to list", super_admin_organisations_path, class: "govuk-back-link" %>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2 govuk-!-margin-top-2">
+      <%= @organisation.name %>
+    </h1>
+
+    <p class="govuk-body govuk-!-margin-bottom-8">
+      GovWifi organisation since <%= @organisation.created_at.strftime(
+                                       "#{@organisation.created_at.day.ordinalize} of %B, %Y"
+      ) %>
+    </p>
+
+    <%= render 'section', heading: 'Usage' do %>
+      <%= render 'usage', organisation: @organisation %>
+    <% end %>
+
+    <%= render 'section', heading: 'Service Email' do %>
+      <p class="govuk-body"><%= @organisation.service_email %></p>
+    <% end %>
+
+    <%= render 'section', heading: 'Team' do %>
+      <% if current_user.can_manage_team?(current_organisation) %>
+        <%= link_to "Add team member", new_user_invitation_path(organisation_id: @organisation.id), class: "govuk-button" %>
+      <% end %>
+      <%= render 'team', team: @team %>
+    <% end %>
+
+    <%= render 'section', heading: 'MoU' do %>
+      <%= render 'mou_form', organisation: @organisation %>
+    <% end %>
+
+    <%= render 'section', heading: 'Locations' do %>
+      <%= render 'locations', locations: @locations %>
+    <% end %>
+
+    <%= link_to 'Delete organisation', super_admin_organisation_path(@organisation, remove_organisation: true), class: "govuk-button red-button" %>
+  </div>
+</div>

@@ -3,7 +3,7 @@ describe 'Downloading all the service emails', type: :feature do
 
   before do
     sign_in_user user
-    visit admin_organisations_path
+    visit super_admin_organisations_path
   end
 
   it 'will have the link to download all service emails' do

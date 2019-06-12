@@ -27,20 +27,20 @@ describe "POST /admin/whitelist", type: :request do
 
     it "creates the related whitelist objects" do
       expect {
-        post admin_whitelist_path, params: valid_params
+        post super_admin_whitelist_path, params: valid_params
       }.to change(CustomOrganisationName, :count).by(1)
       .and change(AuthorisedEmailDomain, :count).by(1)
     end
 
     it 'publishes the email domain regex to S3' do
-      post admin_whitelist_path, params: valid_params
+      post super_admin_whitelist_path, params: valid_params
       expect(regex_gateway).to have_received(:write)
     end
 
     it 'publishes the email domain list to S3' do
       allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
       allow(presenter).to receive(:execute).and_return(data)
-      post admin_whitelist_path, params: valid_params
+      post super_admin_whitelist_path, params: valid_params
       expect(email_domains_gateway).to have_received(:write).with(data: data)
     end
   end
@@ -58,7 +58,7 @@ describe "POST /admin/whitelist", type: :request do
 
     it "does not create the related whitelist objects" do
       expect {
-        post admin_whitelist_path, params: empty_params
+        post super_admin_whitelist_path, params: empty_params
       }.to change(CustomOrganisationName, :count).by(0)
       .and change(AuthorisedEmailDomain, :count).by(0)
     end
@@ -84,7 +84,7 @@ describe "POST /admin/whitelist", type: :request do
 
     it "does not create the related whitelist objects" do
       expect {
-        post admin_whitelist_path, params: invalid_params
+        post super_admin_whitelist_path, params: invalid_params
       }.to change(CustomOrganisationName, :count).by(0)
       .and change(AuthorisedEmailDomain, :count).by(0)
     end
