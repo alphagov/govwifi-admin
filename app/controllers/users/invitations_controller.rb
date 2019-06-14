@@ -4,23 +4,13 @@ class Users::InvitationsController < Devise::InvitationsController
   after_action :confirm_new_user_membership, only: :update
 
   def create
-    if user_is_invalid?
+    if user_is_invalid? || user_belongs_to_our_organisation?(organisation)
       self.resource = invite_resource
       render :new
       return
     end
 
-    unless user_belongs_to_other_organisations?
-      self.resource = invite_resource
-    end
-
-    organisation = Organisation.find(super_admin? ? params[:organisation_id] : current_organisation.id)
-
-    if user_belongs_to_our_organisation?(organisation)
-      self.resource = invite_resource
-      render :new
-      return
-    end
+    self.resource = invite_resource unless user_belongs_to_other_organisations?
 
     add_user_to_organisation(organisation)
 
@@ -28,6 +18,10 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
 private
+
+  def organisation
+    @organisation ||= Organisation.find(super_admin? ? params[:organisation_id] : current_organisation.id)
+  end
 
   def add_user_to_organisation(organisation)
     membership = invited_user.memberships.find_or_create_by(invited_by_id: current_user.id, organisation: organisation)
@@ -52,7 +46,7 @@ private
   end
 
   def user_belongs_to_our_organisation?(organisation)
-    invited_user.confirmed? && invited_user.organisations.include?(organisation)
+    invited_user&.confirmed? && invited_user.organisations.include?(organisation)
   end
 
   def user_belongs_to_other_organisations?
