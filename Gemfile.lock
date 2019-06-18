@@ -57,8 +57,8 @@ GEM
     aws-sdk-kms (1.22.0)
       aws-sdk-core (~> 3, >= 3.56.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-route53 (1.25.0)
-      aws-sdk-core (~> 3, >= 3.53.0)
+    aws-sdk-route53 (1.26.0)
+      aws-sdk-core (~> 3, >= 3.56.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-s3 (1.43.0)
       aws-sdk-core (~> 3, >= 3.56.0)
@@ -348,7 +348,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk-route53 (~> 1.25.0)
+  aws-sdk-route53 (~> 1.26.0)
   aws-sdk-s3 (~> 1)
   bullet (~> 6.0)
   byebug (~> 11)
