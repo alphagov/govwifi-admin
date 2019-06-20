@@ -20,7 +20,7 @@ class Users::InvitationsController < Devise::InvitationsController
 private
 
   def organisation
-    @organisation ||= super_admin? ? @target_organisation : current_organisation
+    @organisation = super_admin? ? @target_organisation : current_organisation
   end
 
   def add_user_to_organisation(organisation)
@@ -66,9 +66,11 @@ private
     invited_user.destroy!
   end
 
-  def set_target_organisation
-    @target_organisation = Organisation.find(params[:organisation_id])
+  def target_organisation
+    @target_organisation ||= Organisation.find(params[:organisation_id])
   end
+
+  alias_method :set_target_organisation, :target_organisation
 
   def user_is_invalid?
     !invite_params[:email].match? Devise.email_regexp
