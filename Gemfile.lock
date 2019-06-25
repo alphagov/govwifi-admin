@@ -211,7 +211,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     public_suffix (3.1.0)
-    puma (3.12.1)
+    puma (4.0.0)
+      nio4r (~> 2.0)
     rack (2.0.7)
     rack-mini-profiler (1.0.2)
       rack (>= 1.2.0)
@@ -391,7 +392,7 @@ DEPENDENCIES
   nokogiri
   notifications-ruby-client (~> 3.1.0)
   pry
-  puma (~> 3.12)
+  puma (~> 4.0)
   rack-mini-profiler
   rack_session_access
   rails (~> 5.2.3)
