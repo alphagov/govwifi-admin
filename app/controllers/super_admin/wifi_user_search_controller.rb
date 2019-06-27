@@ -6,7 +6,7 @@ class SuperAdmin::WifiUserSearchController < SuperAdminController
       @wifi_user = WifiUser.search(search_term.gsub(' ', ''))
     end
 
-    render action: 'lookup'
+    render 'logs_searches/contact'
   end
 
 private
