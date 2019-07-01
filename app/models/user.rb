@@ -5,7 +5,9 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :organisations, :memberships
 
   devise :invitable, :confirmable, :database_authenticatable, :registerable, :recoverable,
-    :rememberable, :trackable, :timeoutable, :validatable, :lockable
+    :rememberable, :trackable, :timeoutable, :validatable, :lockable, :two_factor_authenticatable
+
+  has_one_time_password(encrypted: true)
 
   validates :name, presence: true, on: :update
   validates :password, presence: true,
@@ -43,5 +45,29 @@ class User < ApplicationRecord
 
   def default_membership
     memberships.first
+  end
+
+  def super_admin?
+    membership_for(Organisation.super_admins) != nil
+  end
+
+  def need_two_factor_authentication?(request)
+    request.env['warden'].user.super_admin?
+  end
+
+  # No-Op
+  # We don't send the otp code to the user, this is a presumption in the two_factor_authentication gem.
+  # The method has to be defined to avoid a NotImplementedError.
+  # Our workflow is different as we force the user to setup via a bespoke controller.
+  def send_two_factor_authentication_code(code); end
+
+  # No-Op
+  # We don't store the direct otp code for a user as totp is setup
+  # via Users::TwoFactorAuthenticationSetupController so this mechanism is bypassed.
+  def create_direct_otp(options = {}); end
+
+  # Indicate to two_factor_authentication gem that we are using TOTP
+  def direct_otp
+    false
   end
 end
