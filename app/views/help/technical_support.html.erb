@@ -1,15 +1,16 @@
-<% content_for :page_title, "Administrator technical support - GovWifi" %>
-<% content_for :meta_description, "Contact us for technical help and support managing GovWifi in your organisation" %>
+<% content_for :page_title, "Set up GovWifi in your organisation support - GovWifi" %>
+<% content_for :meta_description, "Contact us for technical help and support setting up GovWifi in your organisation" %>
 
 <%= render "layouts/form_errors", resource: @support_form %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= link_to 'Back', new_help_path, class: "govuk-back-link" %>
-    <h2 class="govuk-heading-l">Network administrator technical support</h2>
+    <h2 class="govuk-heading-l">Set up GovWifi in your organisation support</h2>
+    <p class="govuk-body">Contact us for technical help and support setting up GovWifi in your organisation for the first time.</p>
     <p class="govuk-inset-text">
-      If you are experiencing difficulty setting up or accessing an existing GovWifi administrator account, please use our
-      <%= link_to 'administrator account', admin_account_new_help_path, class: "govuk-link" %>
+      If you are experiencing difficulty managing an existing GovWifi installation in your organisation, please use our
+      <%= link_to 'managing GovWifi support form', admin_account_new_help_path, class: "govuk-link" %>
     </p>
 
     <%= form_for @support_form, url: { action: "create" }  do |f| %>
@@ -26,7 +27,7 @@
         <%= f.text_field :organisation, class: "govuk-input" %>
       </div>
       <div class="govuk-form-group <%= field_error(@support_form, :details) %>">
-        <%= f.label :details, "Tell us a bit more about your issue", class: "govuk-label" %>
+        <%= f.label :details, "Tell us a bit more about your issue setting up GovWifi in your organisation", class: "govuk-label" %>
         <%= f.text_area :details, class: "govuk-textarea", size: "30x10" %>
       </div>
       <div class="govuk-form-group">
