@@ -1,16 +1,16 @@
 <% content_for :page_title, "User account support - GovWifi" %>
-<% content_for :meta_description, "Contact us for help and support with your GovWifi user account" %>
+<% content_for :meta_description, "Contact us for help and support with users connecting to GovWifi in your organisation" %>
 
 <%= render "layouts/form_errors", resource: @support_form %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= link_to 'Back', new_help_path, class: "govuk-back-link" %>
-    <h2 class="govuk-heading-l">Connecting to GovWifi user support</h2>
-    <p class="govuk-body">Contact us for help and support with your GovWifi username or password.</p>
+    <h2 class="govuk-heading-l">User account support</h2>
+    <p class="govuk-body">Contact us for help and support with users connecting to GovWifi in your organisation. We can assist with user log information and whitelisting public sector email domains.</p>
     <p class="govuk-inset-text">
-      If you are having trouble connecting your device to GovWifi, see our
-      <%= link_to 'user support guidance', 'https://www.wifi.service.gov.uk/support', class: "govuk-link" %> on common issues
+      If users in your organisation are having trouble connecting devices to GovWifi, please advise them to review our
+      <%= link_to 'device support guidance', 'https://www.wifi.service.gov.uk/support', class: "govuk-link" %> on common issues
     </p>
     <%= form_for @support_form, url: { action: "create" }  do |f| %>
       <div class="govuk-two-thirds">
