@@ -41,7 +41,7 @@ protected
   end
 
   def current_action_is_valid?
-    controller_name == 'help' && valid_help_actions.include?(action_name)
+    devise_controller? || (controller_name == 'help' && valid_help_actions.include?(action_name))
   end
 
   def valid_help_actions
