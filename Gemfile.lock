@@ -159,7 +159,7 @@ GEM
     jaro_winkler (1.5.2)
     jmespath (1.4.0)
     json (2.2.0)
-    jwt (2.1.0)
+    jwt (2.2.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     listen (3.1.5)
@@ -192,7 +192,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    notifications-ruby-client (3.1.0)
+    notifications-ruby-client (4.0.0)
       jwt (>= 1.5, < 3)
     orm_adapter (0.5.0)
     parallel (1.17.0)
@@ -367,7 +367,7 @@ DEPENDENCIES
   listen (~> 3)
   mysql2 (~> 0.5.2)
   nokogiri
-  notifications-ruby-client (~> 3.1.0)
+  notifications-ruby-client (~> 4.0.0)
   pry
   puma (~> 4.0)
   rack-mini-profiler
