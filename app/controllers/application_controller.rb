@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!, except: :error
+  before_action :confirm_two_factor_setup
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
   before_action :redirect_user_with_no_organisation, unless: :current_action_is_valid?
 
@@ -46,5 +47,14 @@ protected
 
   def valid_help_actions
     @valid_help_actions ||= %w(signed_in create).freeze
+  end
+
+  def confirm_two_factor_setup
+    user = request.env['warden'].user
+    return unless user &&
+      user.need_two_factor_authentication?(request) &&
+      !user.totp_enabled?
+
+    redirect_to users_two_factor_authentication_setup_path
   end
 end
