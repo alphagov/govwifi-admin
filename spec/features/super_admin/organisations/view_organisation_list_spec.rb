@@ -1,17 +1,19 @@
 describe 'View a list of signed up organisations', type: :feature do
-  before do
-    login_as user
-    visit super_admin_organisations_path
-  end
-
   context 'when not logged in' do
-    let(:user) { nil }
+    before do
+      visit super_admin_organisations_path
+    end
 
     it_behaves_like 'not signed in'
   end
 
   context 'when logged in as a normal user' do
     let(:user) { create(:user, :with_organisation) }
+
+    before do
+      login_as user
+      visit super_admin_organisations_path
+    end
 
     it 'redirects me to the landing guidance' do
       expect(page).to have_content 'If you have trouble setting up GovWifi'
@@ -20,6 +22,11 @@ describe 'View a list of signed up organisations', type: :feature do
 
   context 'when logged in as an admin' do
     let(:user) { create(:user, :super_admin) }
+
+    before do
+      login_as user
+      visit super_admin_organisations_path
+    end
 
     context 'when one organisation exists' do
       let(:org) { create(:organisation, created_at: '1 Feb 2014') }
