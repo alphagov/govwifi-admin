@@ -4,7 +4,7 @@ describe "DELETE /organisations/:id", type: :request do
 
   before do
     create(:user, organisations: [organisation])
-    login_as(admin_user, scope: :user)
+    sign_in_user(admin_user)
     https!
   end
 

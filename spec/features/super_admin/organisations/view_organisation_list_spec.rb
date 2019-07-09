@@ -11,7 +11,7 @@ describe 'View a list of signed up organisations', type: :feature do
     let(:user) { create(:user, :with_organisation) }
 
     before do
-      login_as user
+      sign_in_user user
       visit super_admin_organisations_path
     end
 
@@ -24,7 +24,7 @@ describe 'View a list of signed up organisations', type: :feature do
     let(:user) { create(:user, :super_admin) }
 
     before do
-      login_as user
+      sign_in_user user
       visit super_admin_organisations_path
     end
 

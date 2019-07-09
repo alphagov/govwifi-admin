@@ -4,7 +4,7 @@ describe "GET /admin/organisations", type: :request do
   let(:user) { create(:user, :super_admin) }
 
   before do
-    login_as(user, scope: :user)
+    sign_in_user(user)
     https!
   end
 

@@ -3,7 +3,7 @@ describe "POST /admin/whitelist", type: :request do
 
   before do
     https!
-    login_as(user, scope: :user)
+    sign_in_user(user)
   end
 
   context "with valid params" do
