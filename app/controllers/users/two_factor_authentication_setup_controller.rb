@@ -15,7 +15,10 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
       current_user.otp_secret_key = @otp_secret_key
       current_user.save(validate: false)
 
-      flash[:message] = 'Two factor authentication setup successful'
+      # Ensures the user doesn't go through 2FA check again.
+      request.env['warden'].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
+
+      flash[:notice] = 'Two factor authentication setup successful'
       redirect_to stored_location_for(:user) || root_path
     else
       flash[:alert] = 'Six digit code is not valid'
