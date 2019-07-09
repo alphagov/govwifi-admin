@@ -9,8 +9,8 @@ describe "Set up two factor authentication", type: :feature do
   end
 
   context "with a super admin user" do
-    it "2FA setup is enforced" do
-      expect(current_path).to eq(users_two_factor_authentication_setup_path)
+    it "enforces 2FA setup" do
+      expect(page).to have_current_path(users_two_factor_authentication_setup_path)
     end
 
     it "presents the setup page" do
@@ -29,26 +29,39 @@ describe "Set up two factor authentication", type: :feature do
       expect(page).to have_field(:code)
     end
 
-    context "navigating to another page" do
+    context "when navigating to another page" do
       before { visit root_path }
 
       it "redirects the user back to setup" do
-        expect(current_path).to eq(users_two_factor_authentication_setup_path)
+        expect(page).to have_current_path(users_two_factor_authentication_setup_path)
       end
     end
 
-    context "submitting a valid code" do
+    context "when submitting a valid code" do
+      let(:totp_double) { instance_double(ROTP::TOTP) }
+
+      before do
+        allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
+        allow(totp_double).to receive(:verify).and_return(true)
+
+        fill_in :code, with: '999999'
+        click_on "Complete setup"
+      end
+
       it "authenticates the user" do
+        expect(user.reload.totp_enabled?).to be true
       end
 
       it "shows a success message" do
+        expect(page).to have_content("Two factor authentication setup successful")
       end
 
       it "redirects the user to the admin app" do
+        expect(page).to have_current_path(super_admin_organisations_path)
       end
     end
 
-    context "submitting an invalid code" do
+    context "when submitting an invalid code" do
       before do
         fill_in :code, with: '123456'
         click_on "Complete setup"
@@ -72,7 +85,7 @@ describe "Set up two factor authentication", type: :feature do
     let(:user) { create(:user, organisations: [organisation]) }
 
     it "2FA setup is not enforced" do
-      expect(current_path).to eq(new_organisation_setup_instructions_path)
+      expect(page).to have_current_path(new_organisation_setup_instructions_path)
     end
   end
 end
