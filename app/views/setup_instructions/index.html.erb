@@ -1,7 +1,15 @@
 <div class="govuk-grid-row">
   <h2 class="govuk-heading-l govuk-grid-column-full" id="setup-header">Get GovWifi access in your organisation</h2>
   <div class="govuk-grid-column-two-thirds">
-    <h3 class="govuk-heading-m"> 1. Add IPs </h3>
+    <h3 class="govuk-heading-m"> 1. Sign the GovWifi Memorandum of understanding </h3>
+    <p class="govuk-body">
+      <%= link_to "Sign the memorandum of understanding (MOU)", mou_index_path, class: "govuk-link" %> with the Government Digital Service (GDS).
+    </p>
+    <p class="govuk-body">This must be done by someone in your organisation who has permission to sign off and procure services.</p>
+
+    <hr class="govuk-section-break--m govuk-section-break--visible">
+
+    <h3 class="govuk-heading-m"> 2. Add IPs </h3>
       <% if @locations.empty? %>
         <% if current_user.can_manage_locations?(current_organisation) %>
           <p class="govuk-body">
@@ -26,7 +34,7 @@
 
     <hr class="govuk-section-break--m govuk-section-break--visible">
 
-    <h3 class="govuk-heading-m"> 2. Configure your authenticator(s) </h3>
+    <h3 class="govuk-heading-m"> 3. Configure your authenticator(s) </h3>
 
     <p class="govuk-body">
       Typically, your authenticators are wireless access points or network switches.
@@ -40,13 +48,13 @@
 
     <hr class="govuk-section-break--m govuk-section-break--visible">
 
-    <h3 class="govuk-heading-m"> 3. Check authentication requests from your network can reach GovWifi </h3>
+    <h3 class="govuk-heading-m"> 4. Check authentication requests from your network can reach GovWifi </h3>
     <p class="govuk-body"> You must check your firewall allows traffic on UDP ports 1812/1813. </p>
     <p class="govuk-body"> There may also be additional configuration to allow outbound traffic, depending on your local network. </p>
 
     <hr class="govuk-section-break--m govuk-section-break--visible">
 
-    <h3 class="govuk-heading-m"> 4. Create and name the 'GovWifi' network </h3>
+    <h3 class="govuk-heading-m"> 5. Create and name the 'GovWifi' network </h3>
     <p class="govuk-body"> You must create an SSID using these details</p>
     <ul class="govuk-list govuk-list">
       <li>Name: <strong>GovWifi</strong></li>
@@ -56,11 +64,8 @@
 
     <hr class="govuk-section-break--m govuk-section-break--visible">
 
-    <h3 class="govuk-heading-m"> 5. Check the connection works </h3>
+    <h3 class="govuk-heading-m"> 6. Check the connection works </h3>
     <p class="govuk-body"> Connect to your new GovWifi network, and sign in with an individual account. </p>
-    <p class=govuk-body>
-      <%= link_to "Download a poster to advertise GovWifi is available in your building(s)", asset_path('govwifi-poster.png'), download: "", class: "govuk-link" %>
-    </p>
     <details class="govuk-details govuk-!-margin-bottom-0">
       <summary class="govuk-details__summary">
         <span class="govuk-details__summary-text">What if I don't have a individual account?</span>
@@ -78,16 +83,18 @@
 
     <hr class="govuk-section-break--m govuk-section-break--visible">
 
-    <h3 class="govuk-heading-m"> 6. Sign your agreement </h3>
-    <p class="govuk-body">
-      <%= link_to "Sign a memorandum of understanding (MOU)", mou_index_path, class: "govuk-link" %> with the Government Digital Service (GDS).
+    <h3 class="govuk-heading-m"> 7. Advertise GovWifi in your organisation </h3>
+    <p class=govuk-body>
+      <%= link_to "Download a poster to advertise GovWifi is available in your building(s)", asset_path('govwifi-poster.png'), download: "", class: "govuk-link" %>
     </p>
-    <p class="govuk-body">This must be done by someone in your organisation who has permission to sign off and procure services'.</p>
+    <p class="govuk-body">The posters provide information for end users on how they can connect to GovWifi in your organisation.</p>
 
     <hr class="govuk-section-break--m govuk-section-break--visible">
-
+    
     <p class="govuk-body">
       If you have trouble setting up GovWifi, <%= link_to "contact us", signed_in_new_help_path, class: 'govuk-link govuk-body' %>.
     </p>
+    
+    
   </div>
 </div>
