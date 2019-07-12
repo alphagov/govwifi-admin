@@ -103,7 +103,7 @@ private
   end
 
   def confirm_new_user_membership
-    current_user.default_membership.confirm!
+    current_user.default_membership.confirm! if current_user
   end
 
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105
