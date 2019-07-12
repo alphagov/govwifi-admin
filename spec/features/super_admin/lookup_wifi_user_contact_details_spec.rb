@@ -7,7 +7,10 @@ describe 'Lookup wifi user contact details', type: :feature do
     create(:wifi_user, username: 'zZyYxX', contact: contact)
 
     sign_in_user user
-    visit super_admin_wifi_user_search_path
+    visit new_logs_search_path
+
+    choose 'Email address'
+    click_on 'Go to search'
 
     fill_in 'search_term', with: search_term
     click_on 'Find user details'

@@ -35,19 +35,24 @@
               IP address
             </label>
           </div>
+          <% if super_admin? %>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="choice-email" name="logs_search[filter]" type="radio" value="contact">
+              <label class="govuk-label govuk-radios__label" for="choice-email">
+                Email address
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="choice-phone" name="logs_search[filter]" type="radio" value="contact">
+              <label class="govuk-label govuk-radios__label" for="choice-phone">
+                Phone number
+              </label>
+            </div>
+          <% end %>
         </div>
       </div>
       <input type='hidden' name='logs_search[first_step]' value='true'>
       <%= form.submit 'Go to search', class: 'govuk-button' %>
-    <% end %>
-
-    <% if super_admin? %>
-      <div>
-        <p class="govuk-body">
-          You can also <%= link_to "search for a username or user contact details.",
-            super_admin_wifi_user_search_path, class: "govuk-link" %>
-        </p>
-      </div>
     <% end %>
   </div>
 </div>

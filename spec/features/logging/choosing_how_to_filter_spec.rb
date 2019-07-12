@@ -30,21 +30,29 @@ describe 'Choosing how to filter', type: :feature do
     end
   end
 
-  context 'when viewing the link to the username and user details search' do
-    context 'with admin privileges' do
-      it 'hides then link' do
-        expect(page).not_to have_link('search for a username or user contact details.')
-      end
-    end
-
-    context 'with super admin privileges' do
+  context 'when choosing filter by email or contact number' do
+    context 'with super admin permissions' do
       before do
         sign_in_user create(:user, :super_admin)
         visit new_logs_search_path
       end
 
-      it 'shows me the link to the username and user details search' do
-        expect(page).to have_link('search for a username or user contact details.')
+      it 'shows the option to filter by email' do
+        expect(page).to have_css('input[type=radio]#choice-email')
+      end
+
+      it 'shows the option to filter by contact number' do
+        expect(page).to have_css('#choice-phone')
+      end
+    end
+
+    context 'with admin permissions' do
+      it 'hides the options to filter by email' do
+        expect(page).not_to have_css('#choice-email')
+      end
+
+      it 'hides the options to filter by contact number' do
+        expect(page).not_to have_css('#choice-phone')
       end
     end
   end
