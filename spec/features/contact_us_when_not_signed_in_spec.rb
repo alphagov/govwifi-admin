@@ -20,7 +20,7 @@ describe 'Contact us when not signed in', type: :feature do
 
   context 'when having trouble signing up' do
     before do
-      choose 'Network administrator technical support'
+      choose 'Setting up GovWifi in your organisation support'
       click_on 'Continue'
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
@@ -34,7 +34,7 @@ describe 'Contact us when not signed in', type: :feature do
 
   context 'when something is wrong with their admin account' do
     before do
-      choose 'Network administrator account support'
+      choose 'Managing GovWifi in your organisation support'
       click_on 'Continue'
       fill_in 'Your email address', with: email
       fill_in 'Tell us a bit more about your issue', with: details
@@ -54,7 +54,7 @@ describe 'Contact us when not signed in', type: :feature do
 
   context 'when there is a question or feedback' do
     before do
-      choose 'Connecting to GovWifi user support'
+      choose 'Request GovWifi user information'
       click_on 'Continue'
       fill_in 'Your message', with: details
       fill_in 'Your email address', with: email
