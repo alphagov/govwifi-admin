@@ -63,5 +63,50 @@ describe 'Sorting the organisations list', type: :feature do
         expect(page.body).to match(/Gov Org 3.*Gov Org 1.*Gov Org 4/m)
       end
     end
+
+    context 'when sorting by location count' do
+      before do
+        create(:location, organisation: Organisation.find_by(name: 'Gov Org 1'))
+        org3 = Organisation.find_by(name: 'Gov Org 3')
+        create(:location, organisation: org3)
+        create(:location, organisation: org3)
+      end
+
+      it 'sorts the list by number of locations ascending' do
+        within('.govuk-table__head') { click_link 'Locations' }
+
+        expect(page.text).to match(/Gov Org 2.*Gov Org 1.*Gov Org 3/)
+      end
+
+      it 'sorts the list by number of locations descending' do
+        within('.govuk-table__head') { 2.times { click_link 'Locations' } }
+
+        expect(page.text).to match(/Gov Org 3.*Gov Org 1.*Gov Org 2/)
+      end
+    end
+
+    context 'when sorting by ip count' do
+      before do
+        location1 = create(:location, organisation: Organisation.find_by(name: 'Gov Org 1'))
+        org3 = Organisation.find_by(name: 'Gov Org 3')
+        create(:location, organisation: org3)
+        location3 = create(:location, organisation: org3)
+        create(:ip, location: location1)
+        create(:ip, location: location1)
+        create(:ip, location: location3)
+      end
+
+      it 'sorts the list by number of ips ascending' do
+        within('.govuk-table__head') { click_link 'IPs' }
+
+        expect(page.text).to match(/Gov Org 2.*Gov Org 3.*Gov Org 1/)
+      end
+
+      it 'sorts the list by number of ips descending' do
+        within('.govuk-table__head') { 2.times { click_link 'IPs' } }
+
+        expect(page.text).to match(/Gov Org 1.*Gov Org 3.*Gov Org 2/)
+      end
+    end
   end
 end

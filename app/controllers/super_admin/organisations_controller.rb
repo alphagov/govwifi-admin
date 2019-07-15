@@ -3,9 +3,7 @@ class SuperAdmin::OrganisationsController < SuperAdminController
   CSV_HEADER = "email address".freeze
 
   def index
-    @organisations = Organisation
-      .includes(:signed_mou_attachment)
-      .order("#{sort_column} #{sort_direction}")
+    @organisations = Organisation.sortable_with_child_counts(sort_column, sort_direction)
 
     @location_count = Location.count
 
@@ -53,7 +51,7 @@ private
   end
 
   def sortable_columns
-    %w[name created_at active_storage_attachments.created_at]
+    %w[name created_at locations_count ips_count active_storage_attachments.created_at]
   end
 
   def sort_column

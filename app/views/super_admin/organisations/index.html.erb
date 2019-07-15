@@ -19,8 +19,8 @@
       <th class="govuk-table__header govuk-!-width-one-half"><%= sort_link "name" %></th>
       <th class="govuk-table__header"><%= sort_link "created_at", "Created on" %></th>
       <th class="govuk-table__header govuk-table__header"><%= sort_link "active_storage_attachments.created_at", "MoU Signed" %></th>
-      <th class="govuk-table__header govuk-table__header--numeric">Locations</th>
-      <th class="govuk-table__header govuk-table__header--numeric">IPs</th>
+      <th class="govuk-table__header govuk-table__header--numeric"><%= sort_link "locations_count", "Locations" %></th>
+      <th class="govuk-table__header govuk-table__header--numeric"><%= sort_link "ips_count", "IPs" %></th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
