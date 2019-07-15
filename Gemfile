@@ -7,14 +7,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'aws-sdk-route53', '~> 1.26.0'
+gem 'aws-sdk-route53', '~> 1.27.0'
 gem 'aws-sdk-s3', '~> 1'
 gem 'devise', '~> 4.6.2'
 gem 'devise_invitable', '~> 2.0.1'
 gem 'httparty', '~> 0.17.0'
 gem 'mysql2', '~> 0.5.2'
-gem 'notifications-ruby-client', '~> 3.1.0'
-gem 'puma', '~> 3.12'
+gem 'notifications-ruby-client', '~> 4.0.0'
+gem 'puma', '~> 4.0'
 gem 'rails', '~> 5.2.3'
 gem 'sass-rails', '~> 5.0'
 gem 'sentry-raven'

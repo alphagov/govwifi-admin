@@ -66,7 +66,7 @@ describe 'Sign up as an organisation', type: :feature do
         visit new_user_registration_path
         click_on "Sign up"
         click_on "contact us"
-        expect(page).to have_content("Network administrator technical support")
+        expect(page).to have_content("Setting up GovWifi in your organisation support")
       end
     end
 
