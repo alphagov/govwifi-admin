@@ -9,6 +9,15 @@ class Organisation < ApplicationRecord
   validates :service_email, format: { with: Devise.email_regexp, message: "must be a valid email address" }
   validate :validate_in_register?, unless: Proc.new { |org| org.name.blank? }
 
+  scope :sortable_with_child_counts, ->(sort_column, sort_direction) {
+    select("organisations.*, COUNT(locations.organisation_id) AS locations_count, COUNT(ips.location_id) AS ips_count")
+    .joins("LEFT OUTER JOIN locations ON locations.organisation_id = organisations.id")
+    .joins("LEFT OUTER JOIN ips ON ips.location_id = locations.id")
+    .joins("LEFT OUTER JOIN active_storage_attachments ON active_storage_attachments.record_id = organisations.id")
+    .group("organisations.id, active_storage_attachments.created_at")
+    .order("#{sort_column} #{sort_direction}")
+  }
+
   def validate_in_register?
     unless Organisation.fetch_organisations_from_register.include?(name)
       errors.add(:base, "#{name} isn't a whitelisted organisation")
