@@ -63,7 +63,9 @@ describe 'Viewing the overview page', type: :feature do
       end
 
       it 'redirects to the team members page when Team Members is clicked on' do
-        click_link 'Team Members'
+        within('.leftnav') do
+          click_link 'Team members'
+        end
 
         expect(page).to have_current_path(memberships_path)
       end
@@ -76,7 +78,7 @@ describe 'Viewing the overview page', type: :feature do
 
       it 'redirects to the IPs page when IPs is clicked on' do
         within('div#ips') do
-          click_link 'IPs'
+          click_link 'IP addresses'
         end
         expect(page).to have_current_path(ips_path)
       end

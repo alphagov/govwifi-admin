@@ -103,11 +103,25 @@
     </header>
 
     <div class="govuk-width-container">
-      <%= render "subnavigation" if user_signed_in? %>
-      <main class="govuk-main-wrapper govuk-!-padding-top-8" id="main-content" role="main">
-        <%= render "layouts/flash_notices" %>
-        <%= yield %>
-      </main>
+      <% if user_signed_in? %>
+        <%= render "subnavigation" %>
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-quarter">
+            <%= render "left_navigation" %>
+          </div>
+          <div class="govuk-grid-column-three-quarters">
+            <main class="govuk-main-wrapper govuk-!-padding-top-8" id="main-content" role="main">
+              <%= render "layouts/flash_notices" %>
+              <%= yield %>
+            </main>
+          </div>
+        </div>
+      <% else %>
+        <main class="govuk-main-wrapper govuk-!-padding-top-8" id="main-content" role="main">
+          <%= render "layouts/flash_notices" %>
+          <%= yield %>
+        </main>
+      <% end %>
     </div>
 
     <footer class="govuk-footer " role="contentinfo">

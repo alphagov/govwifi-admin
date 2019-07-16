@@ -28,7 +28,7 @@ describe 'Guidance after sign in', type: :feature do
       before do
         create(:ip, address: ip_address, location: location)
         visit setup_instructions_path
-        click_on '1 IP'
+        click_on '1 IP address'
       end
 
       it 'displays the IP address' do
@@ -38,7 +38,7 @@ describe 'Guidance after sign in', type: :feature do
 
     context 'with no IPs' do
       it 'allows user to add new IPs' do
-        click_on 'add the IPs'
+        click_on 'add the IP addresses'
         expect(page).to have_content('Enter IP address')
       end
     end

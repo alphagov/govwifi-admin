@@ -1,19 +1,19 @@
 <ul class='govuk-list govuk-width-container govuk-!-margin-left-0'>
   <% team_members.each do |member| %>
-    <li>
+    <li class='govuk-!-margin-bottom-1'>
       <div class='govuk-grid-row'>
         <div class='govuk-grid-column-two-thirds'>
           <% if member.invitation_pending? || member.pending_membership_for?(organisation: current_organisation) %>
-            <h3 class='govuk-heading-m text-light-grey govuk-!-margin-bottom-0'><%= member.name %>
+            <h3 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
               <span class='govuk-!-padding-left-1 govuk-body text-light-grey'><%= member.email %> (invited)</span>
             </h3>
             <% else %>
-            <h3 class='govuk-heading-m govuk-!-margin-bottom-0'><%= member.name %>
+            <h3 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
               <span class='govuk-!-padding-left-1 govuk-body text-light-grey'><%= member.email %></span>
             </h3>
           <% end %>
 
-          <ul class='govuk-list' id='member-<%= member.id %>-permissions'>
+          <ul class='govuk-list govuk-!-margin-bottom-2 govuk-!-margin-top-1' id='member-<%= member.id %>-permissions'>
             <li>
               <%= image_tag 'tick.svg', class: 'list-item-padding', height: '30', alt: 'allowed' %>
               <span class='govuk-!-padding-left-1'>View logs</span>
@@ -47,19 +47,19 @@
           </ul>
         </div>
 
-        <div class='govuk-grid-column-one-third govuk-list govuk-!-padding-right-4 text-right'>
+        <div class='govuk-grid-column-one-third govuk-list govuk-!-padding-right-4 govuk-!-margin-top-0 text-right'>
           <% if current_user.can_manage_team?(current_organisation) && member.id != current_user.id %>
-            <%= link_to 'Edit permissions', edit_membership_path(member.membership_for(current_organisation)), class: "govuk-link govuk-!-padding-right-1" %>
+            <%= link_to 'Edit permissions', edit_membership_path(member.membership_for(current_organisation)), class: "govuk-link govuk-link--no-visited-state" %>
 
             <% if member.invitation_pending? && current_user.can_manage_team?(current_organisation) %>
             <%= button_to("Resend invite",
               user_invitation_path(user: { email: member.email }, resend: true),
-              method: :post, class: 'button-as-link govuk-body govuk-!-padding-right-1') %>
+              method: :post, class: 'button-as-link govuk-body') %>
             <% end %>
           <% end %>
       </div>
-      </li>
+    </li>
 
-    <hr class='govuk-section-break--l govuk-!-margin-top-0'>
+    <div class='govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-0 govuk-!-margin-bottom-4'></div>
   <% end %>
 </ul>

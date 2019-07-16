@@ -33,7 +33,7 @@ describe 'Add an IP', type: :feature do
 
       it 'has a link to add new IP addresses' do
         visit root_path
-        expect(page).to have_link('add the IPs')
+        expect(page).to have_link('add the IP addresses')
       end
     end
   end
