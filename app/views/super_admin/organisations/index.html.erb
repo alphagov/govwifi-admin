@@ -11,7 +11,16 @@
 </h3>
 
 <div class="govuk-!-margin-top-1"><%= link_to 'Download all service emails', super_admin_organisations_path(format: 'csv'), class: "govuk-link" %></div>
-<p><input type="search" id="filter-input" placeholder="Search by organisation name" class="govuk-input"></p>
+<p>
+  <input type="search" id="filter-text-input" placeholder="Search by Organisation name" class="govuk-input filter-input filter-text-input">
+  <select id="filter-field-input" class="govuk-input filter-input filter-field-input">
+    <option value="0">Organisation name</option>
+    <option value="1">Created on</option>
+    <option value="2">MOU signed</option>
+    <option value="3">Locations</option>
+    <option value="4">IPs</option>
+  </select>
+</p>
 
 <table class="govuk-table">
   <thead class="govuk-table__head">
@@ -29,20 +38,20 @@
         <td class="govuk-table__cell govuk-!-width-one-half" scope="row">
           <%= link_to organisation.name, super_admin_organisation_path(organisation), class: "govuk-link filter-by" %>
         </td>
-        <td class="govuk-table__cell" scope="row">
+        <td class="govuk-table__cell filter-by" scope="row">
           <%= organisation.created_at.strftime('%e %b %Y') %>
         </td>
-        <td class="govuk-table__cell govuk-table__cell" scope="row">
+        <td class="govuk-table__cell govuk-table__cell filter-by" scope="row">
           <% if organisation.signed_mou.attached? %>
             <%= organisation.signed_mou.attachment.created_at.strftime('%e %b %Y') %>
           <% else %>
             -
           <% end %>
         </td>
-        <td class="govuk-table__cell govuk-table__cell--numeric" scope="row">
+        <td class="govuk-table__cell govuk-table__cell--numeric filter-by" scope="row">
           <%= organisation.locations.count %>
         </td>
-        <td class="govuk-table__cell govuk-table__cell--numeric" scope="row">
+        <td class="govuk-table__cell govuk-table__cell--numeric filter-by" scope="row">
           <%= organisation.ips.count %>
         </td>
       </tr>

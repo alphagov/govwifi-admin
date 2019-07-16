@@ -1,18 +1,28 @@
 <script>
-  var filterInput = document.getElementById('filter-input');
+  var filterInput = document.getElementById('filter-text-input');
+  var filterFieldInput = document.getElementById('filter-field-input');
   filterInput.addEventListener('keyup', filterResults);
   filterInput.addEventListener('search', filterResults);
+  filterFieldInput.addEventListener('change', updatePlaceholderText);
 
   function filterResults() {
     var filterValue = filterInput.value.toUpperCase();
+    var selectedFilterOption = filterFieldInput.options[filterFieldInput.selectedIndex];
+    var filterFieldIndex = parseInt(selectedFilterOption.value);
     var rows = document.querySelectorAll('.result-row');
 
     for(var i = 0; i < rows.length; i++) {
-      var text = rows[i].querySelectorAll('.filter-by')[0].innerHTML.toUpperCase();
+      var text = rows[i].querySelectorAll('.filter-by')[filterFieldIndex].innerHTML.toUpperCase();
       rows[i].style.display = text.indexOf(filterValue) > -1 ? '' : 'none';
     }
 
     displayResultsMessage(rows);
+  }
+
+  function updatePlaceholderText() {
+    var selectedFilterOption = filterFieldInput.options[filterFieldInput.selectedIndex];
+    var filterFieldLabel = selectedFilterOption.text;
+    filterInput.setAttribute('placeholder', 'Search by ' + filterFieldLabel);
   }
 
   function displayResultsMessage(results) {
