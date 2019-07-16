@@ -1,73 +1,55 @@
 <%= render "layouts/form_errors" %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <% if super_admin? %>
-      <%= link_to "Back to organisation", super_admin_organisation_path(@target_organisation.id), class: "govuk-back-link" %>
-      <h2 class="govuk-heading-l">Invite a team member to <%= @target_organisation.name %> </h2>
-      <div class="govuk-details">
-        <div class="govuk-details__text">
-          <p class="govuk-body">
-            Team members will receive an email invitation to join <%= @target_organisation.name %>'s GovWifi admin account.
-          </p>
-        </div>
-      </div>
-    <% else %>
-      <%= link_to "Back to list", memberships_path, class: "govuk-back-link" %>
-      <h2 class="govuk-heading-l">Invite a team member</h2>
-      <div class="govuk-details">
-        <div class="govuk-details__text">
-          <p class="govuk-body">
-            Team members will receive an email invitation to join your organisation's GovWifi admin dashboard.
-          </p>
-        </div>
-      </div>
-    <% end %>
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, novalidate: '' } do |f| %>
+<% if super_admin? %>
+  <%= link_to "Back to organisation", super_admin_organisation_path(@target_organisation.id), class: "govuk-back-link" %>
+  <h2 class="govuk-heading-l">Invite a team member to <%= @target_organisation.name %> </h2>
+<% else %>
+  <%= link_to "Back to list", memberships_path, class: "govuk-back-link" %>
+  <h2 class="govuk-heading-l">Invite a team member</h2>
+<% end %>
+<div class="govuk-grid-column-full govuk-!-padding-left-0">
+  <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, novalidate: '' } do |f| %>
 
-        <div class="govuk-form-group <%= field_error(resource, :email) %>">
-          <%= f.label :email, "Email address", class: "govuk-label" %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input" %>
-        </div>
-
-        <div class="actions">
-          <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m"><span class="govuk-label">Permissions </span></legend>
-              <div class="govuk-checkboxes">
-                  <div class="govuk-checkboxes__item">
-                    <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
-                    <label class="govuk-label govuk-checkboxes__label">View logs</label>
-                  </div>
-                  <div class="govuk-checkboxes__item">
-                    <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
-                    <label class="govuk-label govuk-checkboxes__label">View team members</label>
-                  </div>
-                  <div class="govuk-checkboxes__item">
-                    <%= check_box_tag :can_manage_team, true, true, class: 'govuk-checkboxes__input' %>
-                  <label class="govuk-label govuk-checkboxes__label"><%= label_tag :can_manage_team, 'Add and remove team members' %></label>
-                  </div>
-                  <div class="govuk-checkboxes__item">
-                    <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
-                    <label class="govuk-label govuk-checkboxes__label">View locations and IPs</label>
-                  </div>
-                  <div class="govuk-checkboxes__item">
-                    <%= check_box_tag :can_manage_locations, true, true, class: 'govuk-checkboxes__input' %>
-                    <label class="govuk-label govuk-checkboxes__label"><%= label_tag :can_manage_locations, 'Add and remove locations and IPs' %></label>
-                  </div>
-                  <% if super_admin? %>
-                    <%= hidden_field_tag :organisation_id, @target_organisation.id %>
-                <% end %>
-              </div>
-            </fieldset>
-          </div>
-        </div>
-
-        <div class="actions">
-          <%= f.submit "Send invitation email", class: "govuk-button govuk-!-margin-top-4" %>
-        </div>
-      <% end %>
+    <div class="govuk-form-group <%= field_error(resource, :email) %>">
+      <%= f.label :email, "Email address", class: "govuk-label" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input" %>
     </div>
-  </div>
+
+    <div class="actions">
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-1"><span class="govuk-label">Permissions </span></legend>
+          <div class="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
+                <label class="govuk-label govuk-checkboxes__label">View logs</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
+                <label class="govuk-label govuk-checkboxes__label">View team members</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <%= check_box_tag :can_manage_team, true, true, class: 'govuk-checkboxes__input' %>
+              <label class="govuk-label govuk-checkboxes__label"><%= label_tag :can_manage_team, 'Add and remove team members' %></label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
+                <label class="govuk-label govuk-checkboxes__label">View locations and IPs</label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <%= check_box_tag :can_manage_locations, true, true, class: 'govuk-checkboxes__input' %>
+                <label class="govuk-label govuk-checkboxes__label"><%= label_tag :can_manage_locations, 'Add and remove locations and IPs' %></label>
+              </div>
+              <% if super_admin? %>
+                <%= hidden_field_tag :organisation_id, @target_organisation.id %>
+            <% end %>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Send invitation email", class: "govuk-button govuk-!-margin-top-0 govuk-!-margin-bottom-8" %>
+    </div>
+  <% end %>
 </div>
