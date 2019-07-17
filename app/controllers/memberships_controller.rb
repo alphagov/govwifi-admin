@@ -16,7 +16,14 @@ class MembershipsController < ApplicationController
 
   def destroy
     @membership.destroy
-    redirect_to removed_memberships_path, notice: "Team member has been removed"
+
+    redirect_path = if current_organisation.super_admin?
+                      super_admin_organisation_path(@membership.organisation)
+                    else
+                      removed_memberships_path
+                    end
+
+    redirect_to redirect_path, notice: "Team member has been removed"
   end
 
 private
