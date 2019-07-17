@@ -22,7 +22,8 @@ class MembershipsController < ApplicationController
 private
 
   def set_membership
-    @membership = current_organisation.memberships.find(params.fetch(:id))
+    scope = current_organisation.super_admin? ? Membership : current_organisation.memberships
+    @membership = scope.find(params.fetch(:id))
   end
 
   def validate_can_manage_team
