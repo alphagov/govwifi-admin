@@ -16,8 +16,9 @@ class MembershipsController < ApplicationController
 
   def destroy
     @membership.destroy
+    @membership.user.destroy unless @membership.user.memberships.any?
 
-    redirect_path = if current_organisation.super_admin?
+    redirect_path = if current_organisation&.super_admin?
                       super_admin_organisation_path(@membership.organisation)
                     else
                       removed_memberships_path

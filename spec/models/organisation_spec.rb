@@ -170,7 +170,7 @@ describe Organisation do
       let(:sort_column) { 'ips_count' }
 
       it 'orders results by number of ips' do
-        expect(sorted_results).to eq([first_organisation, second_organisation])
+        expect(sorted_results).to eq([second_organisation, first_organisation])
       end
     end
 
