@@ -6,7 +6,7 @@
     </p>
   </div>
 
-  <div class='govuk-grid-column-two-thirds govuk-grid-column-one-half-from-desktop govuk-!-padding-0 nav-links'>
+  <div class='govuk-grid-column-two-thirds govuk-!-padding-0 nav-links'>
     <nav class='govuk-body govuk-!-margin-bottom-0'>
       <% if super_admin? %>
         <%= link_to 'Locations', super_admin_locations_path, class: active_tab(super_admin_locations_path) %>
@@ -14,6 +14,7 @@
         <%= link_to 'Whitelist', new_super_admin_whitelist_path, class: active_tab('whitelist') %>
         <%= link_to 'MOU', super_admin_mou_index_path, class: active_tab(super_admin_mou_index_path) %>
         <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
+        <%= link_to 'Admin Support', signed_in_new_help_path, class: active_tab('support') %>
       <% else %>
         <%= link_to 'Overview', overview_index_path, class: active_tab(overview_index_path) %>
         <% if current_organisation&.ips&.empty? %>
@@ -24,6 +25,7 @@
         <%= link_to 'IPs', ips_path, id: 'nav-ips', class: active_tab('ips') + active_tab('locations') %>
         <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
         <%= link_to 'Team', memberships_path, class: active_tab('team') + active_tab('user') %>
+        <%= link_to 'Admin Support', signed_in_new_help_path, class: active_tab('support') %>
       <% end %>
     </nav>
   </div>
