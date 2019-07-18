@@ -64,7 +64,7 @@ class HelpController < ApplicationController
 private
 
   def redirect_signed_in_user
-    return redirect_to signed_in_new_help_path if current_user
+    redirect_to signed_in_new_help_path if current_user
   end
 
   def support_form_params
