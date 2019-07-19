@@ -4,8 +4,8 @@ require 'faker'
 
 CustomOrganisationName.create(name: 'GovWifi Super Administrators')
 
-def create_user_for_organisation(
-  organisation,
+def create_user_for_organisations(
+  organisations,
   email: nil,
   confirmed_at: nil
 )
@@ -17,48 +17,42 @@ def create_user_for_organisation(
     password: "password",
     name: first_name + " " + last_name,
     confirmed_at:  confirmed_at,
-    organisations: [organisation]
+    organisations: organisations
   )
 end
 
 super_admin_organisation = Organisation.create!(
   name: 'GovWifi Super Administrators', service_email: 'it@gds.com', super_admin: true
 )
+organisation = Organisation.create(
+  name: 'UKTI Education', service_email: 'it@parks.com'
+)
+empty_organisation = Organisation.create(
+  name: 'Academy for Social Justice Commissioning', service_email: 'empty@example.net'
+)
 
-create_user_for_organisation(
-  super_admin_organisation,
+create_user_for_organisations(
+  [super_admin_organisation],
   email: 'admin@gov.uk',
   confirmed_at: Time.zone.now
 )
 
-organisation = Organisation.create(
-  name: 'UKTI Education', service_email: 'it@parks.com'
-)
-
-create_user_for_organisation(
-  organisation,
+create_user_for_organisations(
+  [organisation, empty_organisation],
   email: 'test@gov.uk',
   confirmed_at: Time.zone.now
 )
 
 3.times do
-  create_user_for_organisation(organisation, confirmed_at: Time.zone.now)
+  create_user_for_organisations([organisation], confirmed_at: Time.zone.now)
 end
 
 2.times do
-  create_user_for_organisation(organisation)
+  create_user_for_organisations([organisation])
 end
 
-empty_organisation = Organisation.create(
-  name: 'Empty organisation', service_email: 'empty@example.net'
-)
-create_user_for_organisation(
-  empty_organisation,
-  email: 'empty@gov.uk',
-  confirmed_at: Time.zone.now
-)
-
-location_zero = Location.create!(
+# Location with no IP addresses
+Location.create!(
   address: 'The White Chapel Building, London',
   postcode: 'E1 8QS',
   organisation_id: organisation.id
