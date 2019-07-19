@@ -1,6 +1,5 @@
 class SuperAdmin::OrganisationsController < SuperAdminController
   helper_method :sort_column, :sort_direction
-  CSV_HEADER = "email address".freeze
 
   def index
     @organisations = Organisation.sortable_with_child_counts(sort_column, sort_direction)
@@ -9,7 +8,13 @@ class SuperAdmin::OrganisationsController < SuperAdminController
 
     respond_to do |format|
       format.html
-      format.csv { send_data service_emails_csv, filename: "service_emails.csv" }
+      format.csv { send_data Organisation.all_as_csv, filename: "organisations.csv" }
+    end
+  end
+
+  def service_emails
+    respond_to do |format|
+      format.csv { send_data Organisation.service_emails_as_csv, filename: "service_emails.csv" }
     end
   end
 
@@ -27,11 +32,6 @@ class SuperAdmin::OrganisationsController < SuperAdminController
   end
 
 private
-
-  def service_emails_csv
-    service_emails = Organisation.pluck(:service_email)
-    service_emails.prepend(CSV_HEADER).join("\n")
-  end
 
   def sorted_team_members(organisation)
     UseCases::Administrator::SortUsers.new(
