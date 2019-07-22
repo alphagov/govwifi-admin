@@ -17,7 +17,7 @@
 
     <% if current_user.can_manage_locations?(current_organisation) && location.ips.empty? %>
       <p class="govuk-body govuk-!-margin-bottom-1">
-        <%= link_to 'Remove this location', location_remove_path(location, remove: true), class: "govuk-link" %>
+        <%= link_to 'Remove this location', location_remove_path(location, remove: true), class: "red-link" %>
       </p>
     <% end %>
   </caption>
