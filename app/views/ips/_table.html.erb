@@ -25,29 +25,28 @@
   <tbody class="govuk-table__body" id="ips-table">
     <% location.ips.each do |ip| %>
       <tr class="govuk-table__row" id="ips-row-<%= ip.id %>">
-        <td class="govuk-table__cell govuk-!-width-one-quarter">
+        <td class="govuk-table__cell govuk-!-width-one-third">
           <span class="ip-address"><% ip.address.split('.')[0...-1].each do |chunk| -%><%= chunk -%><span class="ip-address-separator">.</span><% end -%><%= ip.address.split('.').last %></span>
         </td>
         <% if ip.available? %>
-          <td class="govuk-table__cell govuk-!-width-one-quarter">Available</td>
+          <td class="govuk-table__cell ">
+            <% if ip.unused? %>
+              No traffic received yet
+            <% elsif ip.inactive? %>
+              No traffic in the last 10 days
+            <% else %>
+              Receiving traffic (<%= link_to 'view logs', logs_path(ip: ip.address), class: "govuk-link" %>)
+            <% end %>
+          </td>
         <% else %>
-          <td class="govuk-table__cell govuk-!-width-one-quarter text-red">Not available until 6am tomorrow
+          <td class="govuk-table__cell text-light-grey">
+            Available at 6am tomorrow
           </td>
         <% end %>
-        <td class="govuk-table__cell govuk-!-width-one-quarter text-red">
-          <% if ip.unused? %>
-            No traffic received yet
-          <% elsif ip.inactive? %>
-            No traffic for the last 10 days
-          <% end %>
-        </td>
         <td class="govuk-table__cell text-right">
           <% if current_user.can_manage_locations?(current_organisation) %>
             <%= link_to 'Remove', ip_remove_path(ip), class: "govuk-link" %>
           <% end %>
-        </td>
-        <td class="govuk-table__cell text-right">
-          <%= link_to 'View logs', logs_path(ip: ip.address), class: "govuk-link" %>
         </td>
       </tr>
     <% end %>

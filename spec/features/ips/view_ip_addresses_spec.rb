@@ -51,7 +51,7 @@ describe 'Viewing IP addresses', type: :feature do
 
       it 'labels the IP as inactive' do
         within("#ips-row-#{ip.id}") do
-          expect(page).to have_content('No traffic for the last 10 days')
+          expect(page).to have_content('No traffic in the last 10 days')
         end
       end
     end

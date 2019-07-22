@@ -16,7 +16,7 @@ describe 'Wiew whether IPs are ready', type: :feature do
       before { visit ips_path }
 
       it 'shows it is activating tomorrow' do
-        expect(page).to have_content('Not available until 6am tomorrow')
+        expect(page).to have_content('Available at 6am tomorrow')
       end
     end
 
@@ -30,7 +30,7 @@ describe 'Wiew whether IPs are ready', type: :feature do
       end
 
       it 'shows it as available' do
-        expect(page).to have_content('Available')
+        expect(page).to have_content('No traffic received yet')
       end
 
       it 'does not shpow any IPs as available tomorrow' do
