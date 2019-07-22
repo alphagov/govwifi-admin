@@ -1,0 +1,38 @@
+.leftnav {
+
+  ul {
+
+    margin: 0;
+    padding: govuk-spacing(3) 0 0 0;
+
+    li {
+      list-style: none;
+      margin: 0;
+    }
+
+  }
+
+  a {
+
+    @include govuk-link-common;
+    @include govuk-link-style-no-visited-state;
+    padding: govuk-spacing(1) 0 govuk-spacing(1) 0;
+    display: block;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.active {
+      font-weight: bold;
+      // These three lines stop the width of the item jumping so much
+      // between selected and unselected states
+      position: relative;
+      left: -0.5px;
+      letter-spacing: -0.01em;
+    }
+
+  }
+
+}

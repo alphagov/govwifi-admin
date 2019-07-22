@@ -1,8 +1,8 @@
 <%= render "layouts/form_errors", resource: @support_form %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-l">Get support</h2>
+  <div class="govuk-grid-column-three-quarters">
+    <h2 class="govuk-heading-l">Support</h2>
 
     <p class="govuk-body">
       If an <strong>individual user</strong> is having trouble connecting to GovWifi:
@@ -50,7 +50,7 @@
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
     <p class="govuk-body">
-      If you <strong> can't resolve your issue</strong>, send us a support request.
+      If you <strong> can’t resolve your issue</strong>, send us a support request.
     </p>
     <%= form_for @support_form, url: { action: "create" }  do |f| %>
       <div class="govuk-form-group <%= field_error(@support_form, :details) %>">

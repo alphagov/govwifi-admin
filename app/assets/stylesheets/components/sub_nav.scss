@@ -1,64 +1,41 @@
 .subnav {
-  border-bottom: 1px solid $colour-black;
 
-  // Flexbox used at desktop widths to keep the subnav links anchored to the
-  // bottom of their div.
-  @media (min-width: 640px) {
-    display: flex;
-  }
+  border-bottom: 1px solid $govuk-border-colour;
 
   .organisation-name {
     // Organisation name centred on mobile
     text-align: center;
-    margin-top: 14px;
+    margin: 14px 0 11px 0;
+    font-weight: bold;
+
+    .govuk-body {
+      font-weight: bold;
+    }
 
     // Organisation name aligned left on desktop and top margin reduced.
     @media (min-width: 640px) {
       text-align: left;
-      margin: 10px 0;
-    }
-  }
-
-  .nav-links {
-    // Subnav links centred on mobile
-    display: flex;
-    justify-content: space-around;
-
-    // Subnav links aligned right on desktop
-    @media (min-width: 640px) {
-      justify-content: flex-end;
-      align-self: flex-end;
     }
   }
 
   nav {
-    text-align: right;
-    // This margin is required to keep the left and right columns the same height.
-    // Flexbox cannot be used on mobile as it breaks the design system styles.
-    margin-top: 4px;
 
-    // Margin that separates subnav links is not required on first link
-    > :first-child {
-      margin-left: 0;
-    }
+    text-align: right;
 
     a {
-      // Margin bottom replaced by bottom border when active
-      margin-bottom: 5px;
-      // Spacing between subnav links
-      margin-left: 15px;
-      padding-top: 10px;
-      padding-bottom: 5px;
+
+      @include govuk-link-common;
+      @include govuk-link-style-no-visited-state;
+      @include govuk-responsive-padding(3, "top", $adjustment: -1px);
+      @include govuk-responsive-padding(2, "bottom", $adjustment: 1px);
       display: inline-block;
       text-decoration: none;
-      font-size: 16px;
+      margin: 0;
 
-      // Active state conveys the current page to the user. Bottom margin is
-      // replaced with a thick black bottom border
-      &.active {
-        border-bottom: 5px solid $colour-black;
-        margin-bottom: 0;
+      &:hover {
+        text-decoration: underline;
       }
+
     }
   }
 }
