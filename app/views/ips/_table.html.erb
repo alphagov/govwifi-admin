@@ -6,11 +6,10 @@
     <div class="govuk-body govuk-!-margin-bottom-2">
       RADIUS secret key:
       <div class="inline-block">
-        <%= location.radius_secret_key %>
+        <%= location.radius_secret_key %><% if current_user.can_manage_locations?(current_organisation) %>&ensp;<%= link_to 'Rotate secret key', location_rotate_key_path(location, rotate: true), class: "red-link" %><% end %>
       </div>
     </div>
     <% if current_user.can_manage_locations?(current_organisation) %>
-      <%= link_to 'Rotate secret key', location_rotate_key_path(location, rotate: true), class: "govuk-button red-button" %>
       <p class="govuk-body govuk-!-margin-bottom-1">
         <%= link_to "Add IP to this location", new_ip_path(location: location), class: "govuk-link" %>
       </p>
