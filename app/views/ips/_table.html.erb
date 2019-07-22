@@ -43,7 +43,7 @@
         <% end %>
         <td class="govuk-table__cell text-right">
           <% if current_user.can_manage_locations?(current_organisation) %>
-            <%= link_to 'Remove', ip_remove_path(ip), class: "govuk-link" %>
+            <%= link_to 'Remove', ip_remove_path(ip), class: "govuk-link govuk-link--no-visited-state" %>
           <% end %>
         </td>
       </tr>
