@@ -18,9 +18,11 @@
     </div>
   </div>
 
-  <div class="govuk-!-padding-bottom-7">
-    <input type="search" id="filter-input" placeholder="Search by location or postcode" class="govuk-input">
-  </div>
+  <% if current_organisation.locations.length > 1 %>
+    <div class="govuk-!-padding-bottom-7">
+      <input type="search" id="filter-input" placeholder="Search by location or postcode" class="govuk-input">
+    </div>
+  <% end %>
 
   <% if current_organisation.locations.empty? %>
     <p class="govuk-body">
