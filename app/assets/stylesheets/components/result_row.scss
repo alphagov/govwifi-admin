@@ -2,4 +2,11 @@
   tbody {
     border-top: 1px solid $govuk-border-colour;
   }
+
+  &-empty {
+    border-top: 1px solid $govuk-border-colour;
+    border-bottom: 1px solid $govuk-border-colour;
+    padding: 10px 20px 10px 0;
+    color: $govuk-secondary-text-colour;
+  }
 }
