@@ -27,7 +27,7 @@
     <% location.ips.each do |ip| %>
       <tr class="govuk-table__row" id="ips-row-<%= ip.id %>">
         <td class="govuk-table__cell govuk-!-width-one-quarter">
-          <% ip.address.split('.')[0...-1].each do |chunk| -%><%= chunk -%>.<% end -%><%= ip.address.split('.').last %>
+          <span class="ip-address"><% ip.address.split('.')[0...-1].each do |chunk| -%><%= chunk -%><span class="ip-address-separator">.</span><% end -%><%= ip.address.split('.').last %></span>
         </td>
         <% if ip.available? %>
           <td class="govuk-table__cell govuk-!-width-one-quarter">Available</td>

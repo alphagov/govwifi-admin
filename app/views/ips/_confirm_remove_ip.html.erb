@@ -8,7 +8,7 @@
       <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
           <td class="govuk-table__cell govuk-!-width-one-third">IP Address</td>
-          <td class="govuk-table__cell govuk-!-width-one-third"><%= @ip_to_delete.address %></td>
+          <td class="govuk-table__cell govuk-!-width-one-third"><span class="ip-address"><% @ip_to_delete.address.split('.')[0...-1].each do |chunk| -%><%= chunk -%><span class="ip-address-separator">.</span><% end -%><%= @ip_to_delete.address.split('.').last %></span></td>
         </tr>
         <tr class="govuk-table__row">
           <td class="govuk-table__cell govuk-!-width-one-third">From Location</td>
