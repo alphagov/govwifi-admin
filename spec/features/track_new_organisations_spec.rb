@@ -25,9 +25,9 @@ describe 'Tracking new organisations', type: :feature do
     let(:ip_address) { '120.0.129.150' }
 
     before do
-      visit new_ip_path(location: location)
-      fill_in 'address', with: ip_address
-      click_on 'Add new IP address'
+      visit location_add_ips_path(location_id: location.id)
+      fill_in 'location[ips_attributes][0][address]', with: ip_address
+      click_on 'Add IP addresses'
       click_on 'Setup'
     end
 

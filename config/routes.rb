@@ -25,7 +25,6 @@ Rails.application.routes.draw do
     get 'remove', to: 'ips#index'
     get 'created', to: 'ips#index', on: :collection
     get 'created/location', to: 'ips#index', on: :collection
-    get 'created/location/with-ip', to: 'ips#index', on: :collection
     get 'removed', to: 'ips#index', on: :collection
     get 'removed/location', to: 'ips#index', on: :collection
   end
@@ -40,6 +39,8 @@ Rails.application.routes.draw do
   resources :locations, only: %i[new create destroy update] do
     get 'remove', to: 'ips#index'
     get 'rotate_key', to: 'ips#index'
+    get 'add_ips', to: 'add_ips'
+    patch 'update_ips', to: 'update_ips'
   end
   resources :memberships, only: %i[edit update index destroy] do
     collection do

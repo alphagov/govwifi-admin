@@ -3,13 +3,13 @@ describe 'Wiew whether IPs are ready', type: :feature do
 
   context 'when one IP has been added' do
     let(:user) { create(:user, :with_organisation) }
+    let!(:location) { create(:location, organisation: user.organisations.first) }
 
     before do
-      create :location, organisation: user.organisations.first
       sign_in_user user
-      visit new_ip_path
-      fill_in 'address', with: '141.0.149.130'
-      click_on 'Add new IP address'
+      visit location_add_ips_path(location_id: location.id)
+      fill_in 'location[ips_attributes][0][address]', with: '141.0.149.130'
+      click_on 'Add IP addresses'
     end
 
     context 'when viewing the new IP immediately' do

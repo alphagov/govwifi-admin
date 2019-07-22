@@ -39,7 +39,7 @@ describe 'Guidance after sign in', type: :feature do
     context 'with no IPs' do
       it 'allows user to add new IPs' do
         click_on 'add the IP addresses'
-        expect(page).to have_content('Enter IP address')
+        expect(page).to have_content('Locations')
       end
     end
 

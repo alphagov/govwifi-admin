@@ -1,0 +1,64 @@
+<%= render "layouts/form_errors", resource: @ip %>
+
+<% if @location.ips_unable_to_be_persisted || @location.errors.any? %>
+  <div class="govuk-error-summary">
+    <h2 class="govuk-error-summary__title">There is a problem</h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <% if @location.ips_unable_to_be_persisted %>
+          <li>Enter at least one IP address</li>
+        <% elsif @location.errors.keys.include?(:"ips.address") %>
+          <li>There’s a problem with these IP addresses</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
+    <%= link_to "Back to locations", ips_path, class: "govuk-back-link" %>
+
+    <h2 class="govuk-heading-l">
+      Add IP addresses
+    </h2>
+
+    <p class="govuk-heading-s">
+      <%= @location.address %>, <%= @location.postcode %>
+    </p>
+
+    <p class="govuk-body">
+      Add the IP addresses of your authenticators.
+    </p>
+
+    <p class="govuk-body">
+      If your authenticators have dynamic IP addresses, use firewall NAT rules so your requests come from consistent IP addresses.
+    </p>
+
+    <%= form_for @location, url: location_update_ips_path(location_id: @location.id) do |form| %>
+      <%= label_tag :ip, 'Enter up to five IP addresses ', class: 'govuk-label' %>
+      <span class="govuk-hint">
+        IPv4 only
+      </span>
+      <%= form.fields_for(:ips, @location.blank_ips) do |ip| %>
+        <div class='govuk-!-margin-bottom-3'>
+          <% style = "govuk-input govuk-input--width-10" + (ip.object.errors.has_key?(:address) ? " govuk-input--error" : "") %>
+          <% if ip.object.errors.has_key?(:address) %>
+            <span class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span> <%= ip.object.errors.full_messages_for(:address).first %>
+            </span>
+          <% end %>
+          <label class='label-inside-input'>
+            <span class='govuk-body'><%= ip.index + 1 %>.</span>
+            <%= ip.text_field :address, class: style %>
+          </label>
+        </div>
+      <% end %>
+
+      <div>
+        <%= form.submit "Add IP addresses", class: "govuk-button" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>
