@@ -8,7 +8,7 @@ describe 'Add new location', type: :feature do
   before do
     sign_in_user user
     visit ips_path
-    click_on 'Add IP address'
+    click_on 'Add a location'
   end
 
   it 'displays an instruction to add the first location' do

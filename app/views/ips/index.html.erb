@@ -9,11 +9,7 @@
     </div>
     <div class="govuk-grid-column-one-third text-right">
       <% if current_user.can_manage_locations?(current_organisation) %>
-        <% if current_organisation.locations.empty? %>
-          <%= link_to 'Add IP address', new_location_path, class: "govuk-button govuk-!-margin-bottom-0" %>
-        <% else %>
-          <%= link_to 'Add IP address', new_ip_path, class: "govuk-button govuk-!-margin-bottom-0" %>
-        <% end %>
+        <%= link_to 'Add a location', new_location_path, class: "govuk-button govuk-!-margin-bottom-0" %>
       <% end %>
     </div>
   </div>

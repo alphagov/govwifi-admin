@@ -23,7 +23,7 @@ describe 'Add an IP', type: :feature do
 
     it 'displays the add new IP link' do
       visit ips_path
-      expect(page).to have_link('Add IP address')
+      expect(page).to have_link('Add a location')
     end
 
     context 'when viewing homepage instructions' do
