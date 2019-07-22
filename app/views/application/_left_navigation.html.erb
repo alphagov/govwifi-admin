@@ -30,10 +30,10 @@
         </li>
       <% end %>
       <li>
-        <%= link_to 'IP addresses', ips_path, id: 'nav-ips', class: active_tab('ips') + active_tab('locations') %>
+        <%= link_to 'IP addresses', ips_path, id: 'nav-ips', class: active_tab(ips_path) + active_tab('locations') %>
       </li>
       <li>
-        <%= link_to 'Team members', memberships_path, class: active_tab('team') + active_tab('user') %>
+        <%= link_to 'Team members', memberships_path, class: active_tab(memberships_path) + active_tab('/users') %>
       </li>
       <li>
         <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
