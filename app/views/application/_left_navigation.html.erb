@@ -1,0 +1,43 @@
+<nav class='govuk-body leftnav'>
+  <ul>
+    <% if super_admin? %>
+      <li>
+        <%= link_to 'Locations', super_admin_locations_path, class: active_tab(super_admin_locations_path) %>
+      </li>
+      <li>
+        <%= link_to 'Organisations', super_admin_organisations_path, class: active_tab(super_admin_organisations_path) %>
+      </li>
+      <li>
+        <%= link_to 'Whitelist', new_super_admin_whitelist_path, class: active_tab('whitelist') %>
+      </li>
+      <li>
+        <%= link_to 'MOU', super_admin_mou_index_path, class: active_tab(super_admin_mou_index_path) %>
+      </li>
+      <li>
+        <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to 'Overview', overview_index_path, class: active_tab(overview_index_path) %>
+      </li>
+      <% if current_organisation&.ips&.empty? %>
+        <li>
+          <%= link_to 'Setup', new_organisation_setup_instructions_path, class: active_tab(new_organisation_setup_instructions_path) + active_tab('mou') %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to 'Setup', setup_instructions_path, class: active_tab(setup_instructions_path) + active_tab('mou') %>
+        </li>
+      <% end %>
+      <li>
+        <%= link_to 'IP addresses', ips_path, id: 'nav-ips', class: active_tab('ips') + active_tab('locations') %>
+      </li>
+      <li>
+        <%= link_to 'Team members', memberships_path, class: active_tab('team') + active_tab('user') %>
+      </li>
+      <li>
+        <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

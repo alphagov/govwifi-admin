@@ -14,7 +14,7 @@ describe 'Multiple organisations', type: :feature do
     before do
       user.organisations << organisation_2
       visit root_path
-      click_on 'switch'
+      click_on 'Switch organisation'
     end
 
     it 'displays a button for organisation one' do

@@ -25,7 +25,7 @@ describe 'A confirmed user with no organisation memberships logs in', type: :fea
       end
 
       it 'presents the user with a support request form' do
-        expect(page).to have_content('Get support')
+        expect(page).to have_content('Support')
       end
 
       it 'allows the user to submit a support request' do

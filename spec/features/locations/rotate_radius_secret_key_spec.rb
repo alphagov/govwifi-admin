@@ -2,7 +2,7 @@ describe 'Rotate RADIUS secret key', type: :feature do
   context 'when it is a company that I belong to' do
     let(:user_1) { create(:user, :with_organisation) }
     let!(:location_1) { create(:location, organisation: user_1.organisations.first) }
-    let(:radius_key) { "ABC" }
+    let(:radius_key) { "AAAAAAAAAA1111111111" }
     let(:set_secret_key) { location_1.update!(radius_secret_key: radius_key) }
 
     before do

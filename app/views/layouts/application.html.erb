@@ -84,9 +84,15 @@
               <li class="govuk-header__navigation-item">
                 <%= link_to 'Offer GovWifi', SITE_CONFIG['organisation_docs_link'], class: "govuk-header__link" %>
               </li>
-              <li class="govuk-header__navigation-item">
-                <%= link_to 'Support', SITE_CONFIG['support_link'], class: "govuk-header__link" %>
-              </li>
+              <% if user_signed_in? %>
+                <li class="govuk-header__navigation-item">
+                  <%= link_to 'Support', signed_in_new_help_path, class: "govuk-header__link" %>
+                </li>
+              <% else %>
+                <li class="govuk-header__navigation-item">
+                  <%= link_to 'Support', SITE_CONFIG['support_link'], class: "govuk-header__link" %>
+                </li>
+              <% end %>
               <% if user_signed_in? %>
                 <li class="govuk-header__navigation-item">
                   <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "govuk-header__link" %>
@@ -103,11 +109,25 @@
     </header>
 
     <div class="govuk-width-container">
-      <%= render "subnavigation" if user_signed_in? %>
-      <main class="govuk-main-wrapper govuk-!-padding-top-8" id="main-content" role="main">
-        <%= render "layouts/flash_notices" %>
-        <%= yield %>
-      </main>
+      <% if user_signed_in? %>
+        <%= render "subnavigation" %>
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-quarter">
+            <%= render "left_navigation" %>
+          </div>
+          <div class="govuk-grid-column-three-quarters">
+            <main class="govuk-main-wrapper govuk-!-padding-top-8" id="main-content" role="main">
+              <%= render "layouts/flash_notices" %>
+              <%= yield %>
+            </main>
+          </div>
+        </div>
+      <% else %>
+        <main class="govuk-main-wrapper govuk-!-padding-top-8" id="main-content" role="main">
+          <%= render "layouts/flash_notices" %>
+          <%= yield %>
+        </main>
+      <% end %>
     </div>
 
     <footer class="govuk-footer " role="contentinfo">
