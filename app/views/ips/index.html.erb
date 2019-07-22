@@ -21,11 +21,9 @@
   <% end %>
 
   <% if current_organisation.locations.empty? %>
-    <p class="govuk-body">
-      You need to add the IPs of your authenticator(s).
+    <p class="govuk-body result-row-empty">
+      You need to add at least one location to offer GovWifi
     </p>
-    <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
-
   <% else %>
     <p class="govuk-body" id="no-results" style="display: none">
       <strong>No results found</strong>

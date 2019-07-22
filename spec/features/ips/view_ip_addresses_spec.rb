@@ -10,7 +10,7 @@ describe 'Viewing IP addresses', type: :feature do
 
     it 'shows no IPs' do
       visit ips_path
-      expect(page).to have_content 'You need to add the IPs of your authenticator(s)'
+      expect(page).to have_content 'You need to add at least one location to offer GovWifi'
     end
 
     it 'redirects the user to the setting up page' do
