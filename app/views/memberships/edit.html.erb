@@ -1,4 +1,4 @@
-<%= link_to "Back to list", memberships_path, class: "govuk-back-link" %>
+<%= link_to "Back", :back, class: "govuk-back-link" %>
 <%= render "confirm_remove_team_member" if params[:remove_team_member] %>
 
 <h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-3"><%= @membership.user.name %></h1>
