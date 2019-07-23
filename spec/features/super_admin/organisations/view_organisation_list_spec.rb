@@ -69,6 +69,14 @@ describe 'View a list of signed up organisations', type: :feature do
           expect(page).to have_content(org.signed_mou.attachment.created_at.strftime('%e %b %Y'))
         end
       end
+
+      it 'shows a link to download as CSV' do
+        expect(page).to have_link('Download all organisations in CSV format')
+      end
+
+      it 'shows a link to download service emails as CSV' do
+        expect(page).to have_link('Download all service emails in CSV format')
+      end
     end
 
     context 'with multiple organisations with multiple locations each' do

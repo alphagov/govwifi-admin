@@ -196,4 +196,64 @@ describe Organisation do
       expect(described_class.super_admins).not_to include(organisation)
     end
   end
+
+  describe '.all_as_csv' do
+    subject(:csv) { CSV.parse(described_class.all_as_csv, headers: true) }
+
+    let(:org1) { create(:organisation) }
+    let(:org2) { create(:organisation) }
+    let(:location1) { create(:location, organisation: org1) }
+    let(:location2) { create(:location, organisation: org1) }
+    let(:location3) { create(:location, organisation: org2) }
+    let(:ip1) { create(:ip, location: location1) }
+    let(:ip2) { create(:ip, location: location1) }
+    let(:ip3) { create(:ip, location: location1) }
+    let(:ip4) { create(:ip, location: location2) }
+    let(:ip5) { create(:ip, location: location3) }
+
+    before { ip1; ip2; ip3; ip4; ip5 }
+
+    it 'exports organisation names' do
+      expect(csv.first["Name"]).to eq(org1.name)
+    end
+
+    it 'exports organisation created dates' do
+      expect(csv.first["Created At"]).to eq(org1.created_at.to_s)
+    end
+
+    it 'exports location counts' do
+      expect(csv.first["Locations"]).to eq('2')
+    end
+
+    it 'exports IP counts' do
+      expect(csv.first["IPs"]).to eq('4')
+    end
+  end
+
+  describe '.service_emails_as_csv' do
+    subject(:csv) { CSV.parse(described_class.service_emails_as_csv, headers: true) }
+
+    let(:org1) { create(:organisation) }
+    let(:org2) { create(:organisation) }
+    let(:user1) { create(:user, email: org1.service_email) }
+    let(:user2) { create(:user, email: org2.service_email) }
+
+    before { user1; user2 }
+
+    it 'exports service email addresses for each organisation' do
+      expect(csv.first["Service email address"]).to eq(org1.service_email)
+    end
+
+    it 'exports organisation names' do
+      expect(csv.first["Org name"]).to eq(org1.name)
+    end
+
+    it 'exports the service admin user name' do
+      expect(csv.first["User name"]).to eq(user1.name)
+    end
+
+    it 'exports the organisation created date' do
+      expect(csv.first["Created at"]).to eq(org1.created_at.to_s)
+    end
+  end
 end
