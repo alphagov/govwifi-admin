@@ -98,4 +98,89 @@ describe Organisation do
       ])
     end
   end
+
+  describe 'sortable_with_child_counts scope' do
+    subject(:sorted_results) { described_class.sortable_with_child_counts(sort_column, sort_direction) }
+
+    let(:first_organisation) { create(:organisation, name: 'An org', created_at: 1.day.ago) }
+    let(:second_organisation) { create(:organisation, name: 'This org', created_at: 2.days.ago) }
+    let(:first_location) { create(:location, organisation: first_organisation) }
+    let(:second_location) { create(:location, organisation: second_organisation) }
+    let(:third_location) { create(:location, organisation: second_organisation) }
+    let(:first_ip) { create(:ip, location: first_location) }
+    let(:second_ip) { create(:ip, location: first_location) }
+    let(:third_ip) { create(:ip, location: second_location) }
+    let(:fourth_ip) { create(:ip, location: third_location) }
+    let(:sort_direction) { 'asc' }
+
+    before do
+      allow(described_class).to receive(:fetch_organisations_from_register)
+        .and_return(['An org', 'This org'])
+
+      first_location.ips = [first_ip, second_ip]
+      second_location.ips << third_ip
+      third_location.ips << fourth_ip
+
+      first_organisation.locations << first_location
+      second_organisation.locations = [second_location, third_location]
+
+      first_organisation.signed_mou.attach(
+        io: File.open(Rails.root + "spec/fixtures/mou.pdf"), filename: "mou.pdf"
+      )
+      second_organisation.signed_mou.attach(
+        io: File.open(Rails.root + "spec/fixtures/mou.pdf"), filename: "mou.pdf"
+      )
+
+      second_organisation.signed_mou_attachment.update(created_at: 3.months.ago)
+    end
+
+    context 'when sorting by name' do
+      let(:sort_column) { 'name' }
+
+      it 'orders results alphabetically' do
+        expect(sorted_results).to eq([first_organisation, second_organisation])
+      end
+    end
+
+    context 'when sorting by created_at' do
+      let(:sort_column) { 'created_at' }
+
+      it 'orders results by date' do
+        expect(sorted_results).to eq([second_organisation, first_organisation])
+      end
+    end
+
+    context 'when sorting by signed mou' do
+      let(:sort_column) { 'active_storage_attachments.created_at' }
+
+      it 'orders results by date mou was signed' do
+        expect(sorted_results).to eq([second_organisation, first_organisation])
+      end
+    end
+
+    context 'when sorting by locations_count' do
+      let(:sort_column) { 'locations_count' }
+
+      it 'orders results by number of locations' do
+        expect(sorted_results).to eq([first_organisation, second_organisation])
+      end
+    end
+
+    context 'when sorting by ips_count' do
+      let(:sort_column) { 'ips_count' }
+
+      it 'orders results by number of ips' do
+        expect(sorted_results).to eq([first_organisation, second_organisation])
+      end
+    end
+
+    context 'when sorting in descending order' do
+      let(:sort_column) { 'locations_count' }
+      let(:sort_direction) { 'desc' }
+
+      it 'orders results in descending order' do
+        expect(sorted_results).to eq([second_organisation, first_organisation])
+      end
+    end
+  end
 end
