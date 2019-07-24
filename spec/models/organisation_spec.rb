@@ -110,7 +110,6 @@ describe Organisation do
     let(:first_ip) { create(:ip, location: first_location) }
     let(:second_ip) { create(:ip, location: first_location) }
     let(:third_ip) { create(:ip, location: second_location) }
-    let(:fourth_ip) { create(:ip, location: third_location) }
     let(:sort_direction) { 'asc' }
 
     before do
@@ -119,7 +118,6 @@ describe Organisation do
 
       first_location.ips = [first_ip, second_ip]
       second_location.ips << third_ip
-      third_location.ips << fourth_ip
 
       first_organisation.locations << first_location
       second_organisation.locations = [second_location, third_location]
@@ -170,7 +168,7 @@ describe Organisation do
       let(:sort_column) { 'ips_count' }
 
       it 'orders results by number of ips' do
-        expect(sorted_results).to eq([first_organisation, second_organisation])
+        expect(sorted_results).to eq([second_organisation, first_organisation])
       end
     end
 
