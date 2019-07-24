@@ -38,4 +38,26 @@ describe User do
       end
     end
   end
+
+  describe 'need_two_factor_authentication?' do
+    subject(:user) { create(:user, organisations: [organisation]) }
+
+    let(:warden) { instance_double(Warden::Proxy, user: subject) }
+    let(:request) { instance_double(ActionDispatch::Request, env: { 'warden' => warden }) }
+    let(:organisation) { create(:organisation) }
+
+    context 'with super admins membership' do
+      let(:organisation) { create(:organisation, super_admin: true) }
+
+      it 'is true' do
+        expect(user.need_two_factor_authentication?(request)).to be true
+      end
+    end
+
+    context 'with a normal admin user' do
+      it 'is false' do
+        expect(user.need_two_factor_authentication?(request)).to be false
+      end
+    end
+  end
 end

@@ -23,6 +23,7 @@ ENV \
   LOGGING_API_SEARCH_ENDPOINT='https://govwifi-logging-api.gov.uk/search/' \
   S3_MOU_BUCKET='StubMouBucket' \
   GOOGLE_MAPS_PUBLIC_API_KEY='google-api-key' \
+  OTP_SECRET_ENCRYPTION_KEY='otp-secret-key-must-be-at-least-32-bytes-long' \
   RR_DB_USER=root \
   RR_DB_PASS=root \
   RR_DB_HOST=rr_db \

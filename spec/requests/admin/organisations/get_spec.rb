@@ -6,7 +6,7 @@ describe "GET /admin/organisations", type: :request do
 
   before do
     another_user; organisation_1; organisation_2
-    login_as(user, scope: :user)
+    sign_in_user(user)
     https!
   end
 

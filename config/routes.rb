@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     put 'users/confirmations', to: 'users/confirmations#update'
     get 'users/confirmations/pending', to: 'users/confirmations#pending'
+    put 'users/two_factor_authentication_setup', to: 'users/two_factor_authentication_setup#update'
+    get 'users/two_factor_authentication_setup', to: 'users/two_factor_authentication_setup#show'
   end
   get 'confirm_new_membership', to: 'users/memberships#create'
 

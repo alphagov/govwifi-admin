@@ -12,6 +12,8 @@ services:
       - "node_modules:/usr/src/app/node_modules"
     ports:
       - "8080:3000"
+    stdin_open: true
+    tty: true
 
 volumes:
   tmp:

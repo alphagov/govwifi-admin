@@ -27,3 +27,8 @@
     color: $govuk-link-hover-colour;
   }
 }
+
+.mfa-code {
+  box-sizing: content-box;
+  width: 6ch;
+}

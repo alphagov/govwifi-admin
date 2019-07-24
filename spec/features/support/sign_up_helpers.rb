@@ -1,4 +1,5 @@
 require 'support/confirmation_use_case_spy'
+require 'warden'
 
 def sign_up_for_account(email: 'default@gov.uk')
   visit new_user_registration_path
@@ -32,9 +33,18 @@ def confirmation_email_received?
   !ConfirmationUseCaseSpy.last_confirmation_url.nil?
 end
 
-def sign_in_user(user)
+def sign_in_user(user, pass_through_two_factor: true)
   user.confirm unless user.confirmed?
   login_as(user, scope: :user)
+
+  Warden.on_next_request do |proxy|
+    perform_two_factor_auth = proxy.session(:user)[two_factor_session_key] && !pass_through_two_factor
+    proxy.session(:user)[two_factor_session_key] = perform_two_factor_auth
+  end
+end
+
+def two_factor_session_key
+  TwoFactorAuthentication::NEED_AUTHENTICATION
 end
 
 def sign_out
