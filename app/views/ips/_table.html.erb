@@ -29,7 +29,7 @@
     <% location.sorted_ip_addresses.each do |ip| %>
       <tr class="govuk-table__row" id="ips-row-<%= ip.id %>">
         <td class="govuk-table__cell govuk-!-width-one-third">
-          <span class="ip-address"><% ip.address.split('.')[0...-1].each do |chunk| -%><%= chunk -%><span class="ip-address-separator">.</span><% end -%><%= ip.address.split('.').last %></span>
+          <%= render partial: 'ip_address', locals: { ip: ip.address } %>
         </td>
         <% if ip.available? %>
           <td class="govuk-table__cell ">
