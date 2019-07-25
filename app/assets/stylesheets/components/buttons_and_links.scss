@@ -32,3 +32,9 @@
   box-sizing: content-box;
   width: 6ch;
 }
+
+.govuk-table__cell {
+  .govuk-button {
+    margin: 0;
+  }
+}

@@ -110,7 +110,6 @@ describe Organisation do
     let(:first_ip) { create(:ip, location: first_location) }
     let(:second_ip) { create(:ip, location: first_location) }
     let(:third_ip) { create(:ip, location: second_location) }
-    let(:sort_direction) { 'asc' }
 
     before do
       allow(described_class).to receive(:fetch_organisations_from_register)
@@ -134,6 +133,7 @@ describe Organisation do
 
     context 'when sorting by name' do
       let(:sort_column) { 'name' }
+      let(:sort_direction) { 'asc' }
 
       it 'orders results alphabetically' do
         expect(sorted_results).to eq([first_organisation, second_organisation])
@@ -142,6 +142,7 @@ describe Organisation do
 
     context 'when sorting by created_at' do
       let(:sort_column) { 'created_at' }
+      let(:sort_direction) { 'asc' }
 
       it 'orders results by date' do
         expect(sorted_results).to eq([second_organisation, first_organisation])
@@ -150,6 +151,7 @@ describe Organisation do
 
     context 'when sorting by signed mou' do
       let(:sort_column) { 'active_storage_attachments.created_at' }
+      let(:sort_direction) { 'asc' }
 
       it 'orders results by date mou was signed' do
         expect(sorted_results).to eq([second_organisation, first_organisation])
@@ -158,6 +160,7 @@ describe Organisation do
 
     context 'when sorting by locations_count' do
       let(:sort_column) { 'locations_count' }
+      let(:sort_direction) { 'asc' }
 
       it 'orders results by number of locations' do
         expect(sorted_results).to eq([first_organisation, second_organisation])
@@ -166,6 +169,7 @@ describe Organisation do
 
     context 'when sorting by ips_count' do
       let(:sort_column) { 'ips_count' }
+      let(:sort_direction) { 'asc' }
 
       it 'orders results by number of ips' do
         expect(sorted_results).to eq([second_organisation, first_organisation])

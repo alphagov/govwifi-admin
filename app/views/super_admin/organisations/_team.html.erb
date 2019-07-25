@@ -7,6 +7,11 @@
         <tr class="govuk-table__row">
           <td class="govuk-table__cell" scope="row"><%= user.name %></td>
           <td class="govuk-table__cell text-right" scope="row"><%= user.email %></td>
+          <td class="govuk-table__cell text-right" scope="row">
+            <%= link_to 'Remove user',
+                edit_membership_path(user.membership_for(@organisation), remove_team_member: true),
+                class: 'govuk-button red-button' %>
+          </td>
         </tr>
       <% end %>
     </tbody>
