@@ -5,26 +5,25 @@
     <%= render "confirm_rotate_radius_key" if @key_to_rotate && current_user.can_manage_locations?(current_organisation) %>
 
     <div class="govuk-grid-column-two-thirds">
-      <input type="search" id="filter-input" placeholder="Search by location or postcode" class="govuk-input">
-      <h1 class="govuk-heading-l  govuk-!-padding-top-5">IP addresses</h1>
+      <h1 class="govuk-heading-l">Locations</h1>
     </div>
     <div class="govuk-grid-column-one-third text-right">
       <% if current_user.can_manage_locations?(current_organisation) %>
-        <% if current_organisation.locations.empty? %>
-          <%= link_to 'Add IP address', new_location_path, class: "govuk-button" %>
-        <% else %>
-          <%= link_to 'Add IP address', new_ip_path, class: "govuk-button" %>
-        <% end %>
+        <%= link_to 'Add a location', new_location_path, class: "govuk-button govuk-!-margin-bottom-0" %>
       <% end %>
     </div>
   </div>
 
-  <% if current_organisation.locations.empty? %>
-    <p class="govuk-body">
-      You need to add the IPs of your authenticator(s).
-    </p>
-    <p class="govuk-body">If your authenticators are allocated IPs dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
+  <% if current_organisation.locations.length > 1 %>
+    <div class="govuk-!-padding-bottom-7">
+      <input type="search" id="filter-input" placeholder="Search by location or postcode" class="govuk-input">
+    </div>
+  <% end %>
 
+  <% if current_organisation.locations.empty? %>
+    <p class="govuk-body result-row-empty">
+      You need to add at least one location to offer GovWifi
+    </p>
   <% else %>
     <p class="govuk-body" id="no-results" style="display: none">
       <strong>No results found</strong>

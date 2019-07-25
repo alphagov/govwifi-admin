@@ -71,7 +71,9 @@ describe 'Viewing the overview page', type: :feature do
       end
 
       it 'redirects to the IPs page when Locations is clicked on' do
-        click_link 'Locations'
+        within('div#locations') do
+          click_link 'Locations'
+        end
 
         expect(page).to have_current_path(ips_path)
       end
