@@ -64,84 +64,84 @@
               </svg>
               <span class="govuk-header__logotype-text">
                 GOV.UK
-	      </span>
-	    </span>
-	    <%- end %>
-	</div>
-	<div class="govuk-header__content">
-	  <a href="#" class="govuk-header__link govuk-header__link--service-name">
-	    GovWifi
-	  </a>
+              </span>
+            </span>
+            <%- end %>
+        </div>
+        <div class="govuk-header__content">
+          <a href="#" class="govuk-header__link govuk-header__link--service-name">
+            GovWifi
+          </a>
           <button
-	    type="button"
-	    role="button"
-	    class="govuk-header__menu-button govuk-js-header-toggle"
-	    aria-controls="navigation"
-	    aria-label="Show or hide Top Level Navigation">
-	    Menu
-	  </button>
+            type="button"
+            role="button"
+            class="govuk-header__menu-button govuk-js-header-toggle"
+            aria-controls="navigation"
+            aria-label="Show or hide Top Level Navigation">
+            Menu
+          </button>
           <nav>
-	    <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
-	      <li class="govuk-header__navigation-item">
+            <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
+              <li class="govuk-header__navigation-item">
                 <%= link_to 'Connect to GovWifi', SITE_CONFIG['connect_to_govwifi_link'], class: "govuk-header__link" %>
-	      </li>
-	      <li class="govuk-header__navigation-item">
+              </li>
+              <li class="govuk-header__navigation-item">
                 <%= link_to 'Offer GovWifi', SITE_CONFIG['organisation_docs_link'], class: "govuk-header__link" %>
-	      </li>
-	      <% if user_signed_in? %>
-	      <li class="govuk-header__navigation-item">
+              </li>
+              <% if user_signed_in? %>
+              <li class="govuk-header__navigation-item">
                 <%= link_to 'Support', signed_in_new_help_path, class: "govuk-header__link" %>
-	      </li>
-	      <% else %>
-	      <li class="govuk-header__navigation-item">
+              </li>
+              <% else %>
+              <li class="govuk-header__navigation-item">
                 <%= link_to 'Support', SITE_CONFIG['support_link'], class: "govuk-header__link" %>
-	      </li>
-	      <% end %>
-	      <% if user_signed_in? %>
-	      <li class="govuk-header__navigation-item">
+              </li>
+              <% end %>
+              <% if user_signed_in? %>
+              <li class="govuk-header__navigation-item">
                 <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "govuk-header__link" %>
-	      </li>
-	      <% else %>
-	      <li class="govuk-header__navigation-item">
+              </li>
+              <% else %>
+              <li class="govuk-header__navigation-item">
                 <%= link_to 'Admin', new_user_session_path, class: "govuk-header__link #{active_tab(new_user_session_path)}" %>
-	      </li>
-	      <% end %>
-	    </ul>
+              </li>
+              <% end %>
+            </ul>
           </nav>
-	</div>
+        </div>
       </div>
     </header>
 
     <div class="govuk-width-container">
       <div class="govuk-phase-banner">
-	<p class="govuk-phase-banner__content">
-	  <strong class="govuk-tag govuk-phase-banner__content__tag">
-	    beta
-	  </strong>
-	  <span class="govuk-phase-banner__text">
-	    This is a new service.
-	  </span>
-	</p>
+        <p class="govuk-phase-banner__content">
+          <strong class="govuk-tag govuk-phase-banner__content__tag">
+            beta
+          </strong>
+          <span class="govuk-phase-banner__text">
+            This is a new service.
+          </span>
+        </p>
       </div>
     </div>
-
 
     <div class="govuk-width-container">
       <% if user_signed_in? %>
         <%= render "subnavigation" %>
+        <hr class="govuk-section-break govuk-section-break--xs govuk-section-break--visible">
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-one-quarter">
             <%= render "left_navigation" %>
           </div>
           <div class="govuk-grid-column-three-quarters">
-            <main class="govuk-main-wrapper govuk-!-padding-top-8" id="main-content" role="main">
+            <main class="govuk-main-wrapper govuk-!-padding-top-4" id="main-content" role="main">
               <%= render "layouts/flash_notices" %>
               <%= yield %>
             </main>
           </div>
         </div>
       <% else %>
-        <main class="govuk-main-wrapper govuk-!-padding-top-8" id="main-content" role="main">
+        <main class="govuk-main-wrapper" id="main-content" role="main">
           <%= render "layouts/flash_notices" %>
           <%= yield %>
         </main>
@@ -151,8 +151,8 @@
     <footer class="govuk-footer " role="contentinfo">
       <div class="govuk-width-container ">
         <div class="govuk-footer__navigation">
-          <div class="govuk-grid-column-one-third govuk-!-margin-bottom-5">
-            <h2>About</h2>
+          <div class="govuk-footer__section">
+            <h2 class="govuk-footer__heading govuk-heading-m">About</h2>
             <ul class="govuk-footer__list govuk-footer__list--columns-1">
               <li class="govuk-footer__list-item">
                 <%= link_to 'Our service', 'https://www.wifi.service.gov.uk/about-govwifi/', class: "govuk-footer__link" %>

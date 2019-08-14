@@ -4,10 +4,10 @@ module ApplicationHelper
   end
 
   def active_tab(identifier)
-    if request.path.include?(identifier)
-      "active"
-    else
-      ""
-    end
+    classes = %w(govuk-link govuk-link--no-visited-state)
+
+    classes << "active" if request.path.include?(identifier)
+
+    classes.join(" ")
   end
 end
