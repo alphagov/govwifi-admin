@@ -43,7 +43,7 @@
     </script>
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
-    <header class="govuk-header" role="banner" data-module="header">
+    <header class="govuk-header" role="banner" data-module="govuk-header">
       <div class="govuk-header__container govuk-width-container">
         <div class="govuk-header__logo">
           <%= link_to SITE_CONFIG['product_page_link'], class: "govuk-header__link govuk-header__link--homepage" do %>
@@ -64,47 +64,51 @@
               </svg>
               <span class="govuk-header__logotype-text">
                 GOV.UK
-                <span class="product-name">GovWifi</span>
-                <strong class="govuk-tag govuk-phase-banner__content__tag beta-logo">
-                  beta
-                </strong>
-              </span>
-            </span>
-          <% end %>
-        </div>
-
-        <div class="govuk-header__content main-nav">
-          <span></span>
-          <button type="button" role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+	      </span>
+	    </span>
+	    <%- end %>
+	</div>
+	<div class="govuk-header__content">
+	  <a href="#" class="govuk-header__link govuk-header__link--service-name">
+	    GovWifi
+	  </a>
+          <button
+	    type="button"
+	    role="button"
+	    class="govuk-header__menu-button govuk-js-header-toggle"
+	    aria-controls="navigation"
+	    aria-label="Show or hide Top Level Navigation">
+	    Menu
+	  </button>
           <nav>
-            <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
-              <li class="govuk-header__navigation-item">
+	    <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
+	      <li class="govuk-header__navigation-item">
                 <%= link_to 'Connect to GovWifi', SITE_CONFIG['connect_to_govwifi_link'], class: "govuk-header__link" %>
-              </li>
-              <li class="govuk-header__navigation-item">
+	      </li>
+	      <li class="govuk-header__navigation-item">
                 <%= link_to 'Offer GovWifi', SITE_CONFIG['organisation_docs_link'], class: "govuk-header__link" %>
-              </li>
-              <% if user_signed_in? %>
-                <li class="govuk-header__navigation-item">
-                  <%= link_to 'Support', signed_in_new_help_path, class: "govuk-header__link" %>
-                </li>
-              <% else %>
-                <li class="govuk-header__navigation-item">
-                  <%= link_to 'Support', SITE_CONFIG['support_link'], class: "govuk-header__link" %>
-                </li>
-              <% end %>
-              <% if user_signed_in? %>
-                <li class="govuk-header__navigation-item">
-                  <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "govuk-header__link" %>
-                </li>
-              <% else %>
-                <li class="govuk-header__navigation-item">
-                  <%= link_to 'Admin', new_user_session_path, class: "govuk-header__link #{active_tab(new_user_session_path)}" %>
-                </li>
-              <% end %>
-            </ul>
+	      </li>
+	      <% if user_signed_in? %>
+	      <li class="govuk-header__navigation-item">
+                <%= link_to 'Support', signed_in_new_help_path, class: "govuk-header__link" %>
+	      </li>
+	      <% else %>
+	      <li class="govuk-header__navigation-item">
+                <%= link_to 'Support', SITE_CONFIG['support_link'], class: "govuk-header__link" %>
+	      </li>
+	      <% end %>
+	      <% if user_signed_in? %>
+	      <li class="govuk-header__navigation-item">
+                <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "govuk-header__link" %>
+	      </li>
+	      <% else %>
+	      <li class="govuk-header__navigation-item">
+                <%= link_to 'Admin', new_user_session_path, class: "govuk-header__link #{active_tab(new_user_session_path)}" %>
+	      </li>
+	      <% end %>
+	    </ul>
           </nav>
-        </div>
+	</div>
       </div>
     </header>
 

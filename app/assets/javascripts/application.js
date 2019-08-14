@@ -1,3 +1,5 @@
 //= require all.js
 
-window.GOVUKFrontend.initAll();
+window.addEventListener("DOMContentLoaded", () => {
+  window.GOVUKFrontend.initAll();
+});
