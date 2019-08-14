@@ -17,12 +17,13 @@ gem 'notifications-ruby-client', '~> 4.0.0'
 gem 'puma', '~> 4.0'
 gem 'rails', '~> 5.2.3'
 gem 'rqrcode'
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 gem 'sentry-raven'
 gem 'two_factor_authentication'
 gem 'tzinfo-data'
 gem 'uk_postcode', '~> 2.1'
 gem 'zendesk_api'
+gem 'sprockets', '4.0.0beta10'
 
 group :test do
   gem 'capybara'
@@ -31,7 +32,6 @@ group :test do
   gem 'erb_lint', require: false
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker'
-  gem 'govuk-lint', '~> 3'
   gem 'guard-rspec'
   gem 'nokogiri'
   gem 'rack_session_access'
@@ -48,5 +48,5 @@ group :development, :test do
   gem 'byebug', '~> 11'
   gem 'listen', '~> 3'
   gem 'pry'
-  gem 'rack-mini-profiler', require: false
+  gem 'rack-mini-profiler', github: "MiniProfiler/rack-mini-profiler", require: false
 end
