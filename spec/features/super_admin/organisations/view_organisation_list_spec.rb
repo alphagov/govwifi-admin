@@ -15,9 +15,7 @@ describe 'View a list of signed up organisations', type: :feature do
       visit super_admin_organisations_path
     end
 
-    it 'redirects me to the landing guidance' do
-      expect(page).to have_selector('h2', text: 'Get GovWifi access in your organisation')
-    end
+    it_behaves_like 'shows the setup instructions page'
   end
 
   context 'when logged in as an admin' do

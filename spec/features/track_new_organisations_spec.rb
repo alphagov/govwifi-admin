@@ -13,7 +13,7 @@ describe 'Tracking new organisations', type: :feature do
   end
 
   context 'when a user clicks on the setup sub-navigation link ' do
-    before { click_on 'Setup' }
+    before { click_on 'Settings' }
 
     it 'displays the initial tag on the URL' do
       expect(page).to have_current_path('/setup_instructions/initial')
@@ -28,7 +28,7 @@ describe 'Tracking new organisations', type: :feature do
       visit location_add_ips_path(location_id: location.id)
       fill_in 'location[ips_attributes][0][address]', with: ip_address
       click_on 'Add IP addresses'
-      click_on 'Setup'
+      click_on 'Settings'
     end
 
     it 'does not display the initial tag on the URL' do

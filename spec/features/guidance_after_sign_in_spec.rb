@@ -19,9 +19,7 @@ describe 'Guidance after sign in', type: :feature do
       visit root_path
     end
 
-    it 'displays the landing guidance' do
-      expect(page).to have_content 'Get GovWifi'
-    end
+    it_behaves_like 'shows the setup instructions page'
 
     context 'with radius IPs in env-vars' do
       let(:radius_ip_1) { '111.111.111.111' }
