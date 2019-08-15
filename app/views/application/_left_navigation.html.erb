@@ -20,6 +20,12 @@
       <li>
         <%= link_to 'Overview', overview_index_path, class: active_tab(overview_index_path) %>
       </li>
+      <li>
+        <%= link_to 'Locations', ips_path, id: 'nav-ips', class: active_tab(ips_path) + active_tab('locations') %>
+      </li>
+      <li>
+        <%= link_to 'Team members', memberships_path, class: active_tab(memberships_path) + active_tab('/users') %>
+      </li>
       <% if current_organisation&.ips&.empty? %>
         <li>
           <%= link_to 'Settings', new_organisation_setup_instructions_path, class: active_tab(new_organisation_setup_instructions_path) + active_tab('mou') %>
@@ -29,12 +35,6 @@
           <%= link_to 'Settings', setup_instructions_path, class: active_tab(setup_instructions_path) + active_tab('mou') %>
         </li>
       <% end %>
-      <li>
-        <%= link_to 'Locations', ips_path, id: 'nav-ips', class: active_tab(ips_path) + active_tab('locations') %>
-      </li>
-      <li>
-        <%= link_to 'Team members', memberships_path, class: active_tab(memberships_path) + active_tab('/users') %>
-      </li>
       <li>
         <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
       </li>
