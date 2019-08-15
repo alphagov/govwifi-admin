@@ -1,52 +1,64 @@
-<div class="govuk-grid-row">
-  <h2 class="govuk-heading-l govuk-grid-column-full" id="setup-header">Settings</h2>
-    <div class="govuk-grid-column-three-quarters">
-    <h3 class="govuk-heading-m">Sign the GovWifi Memorandum of understanding </h3>
-    <p class="govuk-body">
-      <%= link_to "Sign the memorandum of understanding (MOU)", mou_index_path, class: "govuk-link" %> with the Government Digital Service (GDS).
-    </p>
-    <p class="govuk-body">This must be done by someone in your organisation who has permission to sign off and procure services.</p>
+<h2 class="govuk-heading-l" id="setup-header">Settings</h2>
 
-    <div class="govuk-section-break--m govuk-section-break--visible"></div>
+<div class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-0"></div>
 
-    <h3 class="govuk-heading-m">Connection details </h3>
-
-    <p class="govuk-body">
-      Typically, your authenticators are wireless access points or network switches.
-    </p>
-
-    <p class="govuk-body">
-      Authenticators can usually be configured to connect to more than one RADIUS server. The extras are commonly known as "backups" or "failovers".
-    </p>
-
-    <p class="govuk-body">
-      We recommend using all of our RADIUS servers, so that you'll be protected from a single server being unavailable. If you can't use them all, try to use at least one from each region.
-    </p>
-
-    <% if current_organisation.locations.empty? %>
-      <p class="govuk-body">Your RADIUS secret keys will be generated when you <%= link_to 'add your first IP address', new_ip_path, class: "govuk-link" %></p>
-    <% else %>
-      <p class="govuk-body">Your RADIUS secret keys are shown under <%= link_to "your organisation's locations", ips_path, class: "govuk-link" %>.</p>
-    <% end %>
-
-    <h4 class="govuk-heading-s">London</h4>
-    <ul class="plain-list" id="london-radius-ips">
-      <% @london_radius_ips.each do |ip| %>
-        <li><p class="govuk-body"><%= render partial: 'ips/ip_address', locals: { ip: ip } %></li>
+<table class="govuk-table">
+  <caption class="govuk-visually-hidden" id="setup-header">Settings</caption>
+  <thead class="govuk-table__head govuk-visually-hidden">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half">Setting</th>
+      <th scope="col" class="govuk-table__header">Value</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+        Memorandum of understanding
+      </th>
+      <% if @current_org_signed_mou %>
+        <td class="govuk-table__cell">
+          Signed
+        </td>
+        <td class="govuk-table__cell">
+          <%= link_to "Update", mou_index_path, class: "govuk-link" %>
+        </td>
+      <% else %>
+        <td class="govuk-table__cell">
+          Not signed
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">
+          <%= link_to "Change", mou_index_path, class: "govuk-link" %>
+        </td>
       <% end %>
-    </ul>
-
-    <h4 class="govuk-heading-s">Dublin</h4>
-    <ul class="plain-list" id="dublin-radius-ips">
-      <% @dublin_radius_ips.each do |ip| %>
-        <li><p class="govuk-body"><%= render partial: 'ips/ip_address', locals: { ip: ip } %></li>
-      <% end %>
-    </ul>
-
-    <div class="govuk-section-break--m govuk-section-break--visible"></div>
-
-    <p class="govuk-body"> You must check your firewall allows traffic on UDP ports 1812/1813. </p>
-    <p class="govuk-body"> There may also be additional configuration to allow outbound traffic, depending on your local network. </p>
-
-  </div>
-</div>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+        London RADIUS servers
+      </th>
+      <td class="govuk-table__cell">
+        <ul class="ip-address-list govuk-!-margin-top-0 govuk-!-margin-bottom-0" id="london-radius-ips">
+          <% @london_radius_ips.each do |ip| %>
+            <li><%= render partial: 'ips/ip_address', locals: { ip: ip } %></li>
+          <% end %>
+        </ul>
+      </td>
+      <td class="govuk-table__cell">
+      </td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+        Dublin RADIUS servers
+      </th>
+      <td class="govuk-table__cell">
+        <ul class="ip-address-list govuk-!-margin-top-0 govuk-!-margin-bottom-0" id="dublin-radius-ips">
+          <% @dublin_radius_ips.each do |ip| %>
+            <li><%= render partial: 'ips/ip_address', locals: { ip: ip } %></li>
+          <% end %>
+        </ul>
+      </td>
+      <td class="govuk-table__cell">
+      </td>
+    </tr>
+  </tbody>
+</table>

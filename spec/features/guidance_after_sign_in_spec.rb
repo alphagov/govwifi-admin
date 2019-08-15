@@ -8,8 +8,12 @@ describe 'Guidance after sign in', type: :feature do
   context 'without locations' do
     before { visit root_path }
 
-    it 'displays message to inform user to add IPs and locations' do
-      expect(page).to have_content 'RADIUS secret keys will be generated'
+    it 'displays London servers' do
+      expect(page).to have_content 'London RADIUS servers'
+    end
+
+    it 'displays Dublin servers' do
+      expect(page).to have_content 'Dublin RADIUS servers'
     end
   end
 
