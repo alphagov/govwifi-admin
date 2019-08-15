@@ -14,33 +14,13 @@ describe 'Guidance after sign in', type: :feature do
   end
 
   context 'with locations' do
-    let!(:location) { create(:location, organisation: user.organisations.first) }
-
-    before { visit root_path }
+    before do
+      create(:location, organisation: user.organisations.first)
+      visit root_path
+    end
 
     it 'displays the landing guidance' do
       expect(page).to have_content 'Get GovWifi'
-    end
-
-    context 'with one IP' do
-      let(:ip_address) { '141.0.149.130' }
-
-      before do
-        create(:ip, address: ip_address, location: location)
-        visit setup_instructions_path
-        click_on '1 IP address'
-      end
-
-      it 'displays the IP address' do
-        expect(page).to have_content(ip_address)
-      end
-    end
-
-    context 'with no IPs' do
-      it 'allows user to add new IPs' do
-        click_on 'add the IP addresses'
-        expect(page).to have_content('Locations')
-      end
     end
 
     context 'with radius IPs in env-vars' do

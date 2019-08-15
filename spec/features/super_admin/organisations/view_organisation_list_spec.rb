@@ -16,7 +16,7 @@ describe 'View a list of signed up organisations', type: :feature do
     end
 
     it 'redirects me to the landing guidance' do
-      expect(page).to have_content 'If you have trouble setting up GovWifi'
+      expect(page).to have_selector('h2', text: 'Get GovWifi access in your organisation')
     end
   end
 
