@@ -138,6 +138,10 @@ GEM
     formatador (0.2.5)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    govuk-lint (3.11.3)
+      rubocop (~> 0.64)
+      rubocop-rspec (~> 1.28)
+      scss_lint
     guard (2.15.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -281,9 +285,16 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.6)
+    rubocop-rspec (1.35.0)
+      rubocop (>= 0.60.0)
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
     safe_yaml (1.0.5)
+    sass (3.7.4)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
@@ -293,6 +304,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    scss_lint (0.58.0)
+      rake (>= 0.9, < 13)
+      sass (~> 3.5, >= 3.5.5)
     sentry-raven (2.9.0)
       faraday (>= 0.7.6, < 1.0)
     shellany (0.0.1)
@@ -368,6 +382,7 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails (~> 5.0)
   faker
+  govuk-lint (~> 3)
   guard-rspec
   httparty (~> 0.17.0)
   listen (~> 3)
