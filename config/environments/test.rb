@@ -46,6 +46,9 @@ Rails.application.configure do
   config.route53_aws_config = { stub_responses: true }
 
   config.middleware.use RackSessionAccess::Middleware
+
+  # Set a css_compressor so sassc-rails does not overwrite the compressor when running the tests
+  config.assets.css_compressor = nil
 end
 
 ActionMailer::Base.delivery_method = :test
