@@ -1,5 +1,5 @@
 shared_context 'with a mocked notifications client' do
-  class NotificationsMock
+  class NotificationsMock # rubocop:disable RSpec/LeakyConstantDeclaration
     class << self
       attr_accessor :notifications
     end
