@@ -8,12 +8,8 @@ describe 'Guidance after sign in', type: :feature do
   context 'without locations' do
     before { visit root_path }
 
-    it 'displays London servers' do
-      expect(page).to have_content 'London RADIUS servers'
-    end
-
-    it 'displays Dublin servers' do
-      expect(page).to have_content 'Dublin RADIUS servers'
+    it 'displays information about GovWifi servers' do
+      expect(page).to have_selector('h3', text: 'GovWifi servers')
     end
   end
 
