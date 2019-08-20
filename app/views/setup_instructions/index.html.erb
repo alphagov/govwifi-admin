@@ -26,9 +26,10 @@
       <% else %>
         <td class="govuk-table__cell">
           Not signed
+          <p class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">You must sign the memorandum of understanding to use GovWifi</p>
         </td>
         <td class="govuk-table__cell govuk-table__cell--numeric">
-          <%= link_to "Change", mou_index_path, class: "govuk-link" %>
+          <%= link_to "Change", mou_index_path, class: "govuk-link govuk-link--no-visited-state" %>
         </td>
       <% end %>
     </tr>
