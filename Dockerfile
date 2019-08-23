@@ -36,7 +36,7 @@ ENV \
 WORKDIR /usr/src/app
 
 RUN apk add --no-cache --virtual .build-deps build-base && \
-  apk add --no-cache nodejs yarn mysql-dev bash
+  apk add --no-cache nodejs yarn mysql-dev bash git
 
 COPY Gemfile Gemfile.lock .ruby-version ./
 ARG BUNDLE_INSTALL_FLAGS

@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/MiniProfiler/rack-mini-profiler.git
+  revision: 5d0618e5a1c69ff39510806d2742607078cd0efa
+  specs:
+    rack-mini-profiler (1.0.2)
+      rack (>= 1.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -110,7 +117,6 @@ GEM
     diff-lcs (1.3)
     docile (1.3.2)
     encryptor (3.0.0)
-    equatable (0.6.0)
     erb_lint (0.0.28)
       activesupport
       better_html (~> 1.0.7)
@@ -132,7 +138,7 @@ GEM
     formatador (0.2.5)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    govuk-lint (3.11.2)
+    govuk-lint (3.11.3)
       rubocop (~> 0.64)
       rubocop-rspec (~> 1.28)
       scss_lint
@@ -208,8 +214,6 @@ GEM
     puma (4.0.1)
       nio4r (~> 2.0)
     rack (2.0.7)
-    rack-mini-profiler (1.0.2)
-      rack (>= 1.2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rack_session_access (0.2.0)
@@ -281,7 +285,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.6)
-    rubocop-rspec (1.32.0)
+    rubocop-rspec (1.35.0)
       rubocop (>= 0.60.0)
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
@@ -291,12 +295,15 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.0.7)
-      railties (>= 4.0.0, < 6)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
+    sassc (2.0.1)
+      ffi (~> 1.9)
+      rake
+    sassc-rails (2.1.2)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     scss_lint (0.58.0)
       rake (>= 0.9, < 13)
       sass (~> 3.5, >= 3.5.5)
@@ -315,7 +322,7 @@ GEM
       terminal-table
     simplecov-html (0.10.2)
     smart_properties (1.13.1)
-    sprockets (3.7.2)
+    sprockets (4.0.0.beta10)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.1)
@@ -328,14 +335,6 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.9)
     timecop (0.9.1)
-    tty-color (0.5.0)
-    tty-pager (0.12.1)
-      strings (~> 0.1.4)
-      tty-screen (~> 0.6)
-      tty-which (~> 0.4)
-    tty-screen (0.6.5)
-    tty-tree (0.3.0)
-    tty-which (0.4.1)
     two_factor_authentication (2.2.0)
       devise
       encryptor
@@ -392,16 +391,17 @@ DEPENDENCIES
   notifications-ruby-client (~> 4.0.0)
   pry
   puma (~> 4.0)
-  rack-mini-profiler
+  rack-mini-profiler!
   rack_session_access
   rails (~> 5.2.3)
   rqrcode
   rspec-rails (~> 3)
-  sass-rails (~> 5.0)
+  sassc-rails
   sentry-raven
   shoulda-matchers (~> 4.1)
   simplecov
   simplecov-console
+  sprockets (= 4.0.0beta10)
   timecop (~> 0.9.1)
   two_factor_authentication
   tzinfo-data
