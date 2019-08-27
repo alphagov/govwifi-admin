@@ -49,5 +49,5 @@ group :development, :test do
   gem 'byebug', '~> 11'
   gem 'listen', '~> 3'
   gem 'pry'
-  gem 'rack-mini-profiler', github: "MiniProfiler/rack-mini-profiler", require: false
+  gem 'rack-mini-profiler', require: false
 end
