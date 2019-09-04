@@ -2,7 +2,22 @@ describe 'Adding an IP to an existing location', type: :feature do
   let(:user) { create(:user, :with_organisation) }
   let(:location) { create(:location, organisation: user.organisations.first) }
 
-  context 'when selecting a location' do
+  context 'when viewing the form' do
+    before do
+      sign_in_user user
+      visit location_add_ips_path(location_id: location.id)
+    end
+
+    it 'shows no error summary' do
+      page.assert_no_selector('.govuk-error-summary')
+    end
+
+    it 'shows no individual errors' do
+      page.assert_no_selector('.govuk-error-message')
+    end
+  end
+
+  context 'when entering an IP address' do
     before do
       sign_in_user user
       visit location_add_ips_path(location_id: location.id)
