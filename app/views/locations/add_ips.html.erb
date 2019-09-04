@@ -1,13 +1,13 @@
 <%= render "layouts/form_errors", resource: @ip %>
 
-<% if @location.ips_unable_to_be_persisted || @location.errors.any? %>
+<% if action_name == 'update_ips' %>
   <div class="govuk-error-summary">
     <h2 class="govuk-error-summary__title">There is a problem</h2>
     <div class="govuk-error-summary__body">
       <ul class="govuk-list govuk-error-summary__list">
-        <% if @location.ips_unable_to_be_persisted %>
+        <% if @location.ips_unable_to_be_persisted.empty? %>
           <li>Enter at least one IP address</li>
-        <% elsif @location.errors.keys.include?(:"ips.address") %>
+        <% else %>
           <li>There’s a problem with these IP addresses</li>
         <% end %>
       </ul>

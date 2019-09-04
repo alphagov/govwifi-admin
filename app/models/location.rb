@@ -31,7 +31,7 @@ class Location < ApplicationRecord
   end
 
   def ips_unable_to_be_persisted
-    blank_ips.reject(&:address)
+    blank_ips.select(&:address)
   end
 
 private
