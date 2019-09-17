@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/healthcheck', to: 'monitoring#healthcheck'
   get 'change_organisation', to: 'current_organisation#edit'
   patch 'change_organisation', to: 'current_organisation#update'
+  get '/setup_instructions/poster', to: 'setup_instructions#poster'
 
   resources :status, only: %i[index]
   resources :ips, only: %i[index new create destroy] do
