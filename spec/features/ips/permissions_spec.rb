@@ -15,17 +15,6 @@ describe 'Add an IP', type: :feature do
       visit ips_path
       expect(page).to have_link('Add a location')
     end
-
-    context 'when viewing homepage instructions' do
-      before do
-        Ip.delete_all
-      end
-
-      it 'has a link to add new IP addresses' do
-        visit root_path
-        expect(page).to have_link('add the IP addresses')
-      end
-    end
   end
 
   context 'without .can_manage_locations permission' do

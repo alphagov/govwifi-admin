@@ -1,17 +1,34 @@
-describe 'Downloading the GovWifi poster', type: :feature do
+describe 'Downloading the poster', type: :feature do
   let(:user) { create(:user, :with_organisation) }
 
-  before do
-    sign_in_user user
-    visit root_path
+  context "when signed in" do
+    before do
+      sign_in_user user
+      visit setup_instructions_poster_path
+    end
+
+    it 'sends an OK status' do
+      expect(page).to have_http_status(200)
+    end
+
+    it 'sets the filename of the download' do
+      expect(page.response_headers["Content-Disposition"]).to eq(
+        "inline; filename=\"GovWifi-poster.png\""
+      )
+    end
+
+    it 'sets the content type of the download' do
+      expect(page.response_headers["Content-Type"]).to eq(
+        "image/png"
+      )
+    end
   end
 
-  it 'displays the download poster link' do
-    expect(page).to have_link('Download a poster to advertise GovWifi is available in your building(s)')
-  end
+  context 'when signed out' do
+    before do
+      visit setup_instructions_poster_path
+    end
 
-  it 'allows the user to click on link and download the poster' do
-    click_on 'Download a poster to advertise GovWifi is available in your building(s)'
-    expect(page.response_headers['Content-Type']).to eq('image/png')
+    it_behaves_like 'not signed in'
   end
 end
