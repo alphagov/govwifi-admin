@@ -15,11 +15,14 @@
 <% end %>
 
 <div class='govuk-grid-row'>
-  <div class='govuk-grid-column-full'>
-    <%= link_to 'Back to list', ips_path, class: 'govuk-back-link' %>
-    <h2 class='govuk-heading-l'>Add a location</h2>
-  </div>
-  <div class='govuk-grid-column-full'>
+  <div class='<% if @organisation_specific %>govuk-grid-column-full<% else %>govuk-grid-column-two-thirds<% end %>'>
+    <% if @first %>
+      <h2 class='govuk-heading-l'>Where do you want to offer GovWifi?</h2>
+      <p class="govuk-body govuk-!-margin-bottom-6">You can add more locations later.</p>
+    <% else %>
+      <%= link_to 'Back to list', ips_path, class: 'govuk-back-link' %>
+      <h2 class='govuk-heading-l'>Add a location</h2>
+    <% end %>
     <%= form_for @location, html: { autocomplete: "off" } do |f| %>
       <div class="govuk-form-group">
         <%= f.label :address, class: 'govuk-label' %>

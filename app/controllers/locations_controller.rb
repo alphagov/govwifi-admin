@@ -2,7 +2,10 @@ class LocationsController < ApplicationController
   before_action :authorise_manage_locations
 
   def new
+    @first = params[:first] == "true"
+    @organisation_specific = !@first
     @location = Location.new
+    render :new
   end
 
   def create

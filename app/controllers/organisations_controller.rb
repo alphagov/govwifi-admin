@@ -15,7 +15,7 @@ class OrganisationsController < ApplicationController
       assign_user_to_organisation(@organisation)
       set_as_current_organisation(@organisation)
 
-      redirect_to root_path, notice: "#{@organisation.name} created"
+      redirect_to new_location_path(first: true)
     else
       @register_organisations = Organisation.fetch_organisations_from_register
       @organisation_specific = false
