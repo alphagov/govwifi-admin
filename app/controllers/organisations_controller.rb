@@ -5,6 +5,8 @@ class OrganisationsController < ApplicationController
   def new
     @organisation = Organisation.new
     @register_organisations = Organisation.fetch_organisations_from_register
+    @organisation_specific = false
+    render :new
   end
 
   def create
@@ -16,6 +18,7 @@ class OrganisationsController < ApplicationController
       redirect_to root_path, notice: "#{@organisation.name} created"
     else
       @register_organisations = Organisation.fetch_organisations_from_register
+      @organisation_specific = false
       render :new
     end
   end
