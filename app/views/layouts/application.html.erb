@@ -115,18 +115,21 @@
     <div class="govuk-width-container">
       <% if user_signed_in? %>
         <%= render "subnavigation" %>
-        <hr class="govuk-section-break govuk-section-break--xs govuk-section-break--visible">
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-one-quarter">
-            <%= render "left_navigation" %>
-          </div>
-          <div class="govuk-grid-column-three-quarters">
+        <% if !defined?(@organisation_specific) || @organisation_specific %>
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-quarter">
+                <%= render "left_navigation" %>
+            </div>
+            <div class="govuk-grid-column-three-quarters">
+        <% end %>
             <main class="govuk-main-wrapper govuk-!-padding-top-4" id="main-content" role="main">
               <%= render "layouts/flash_notices" %>
               <%= yield %>
             </main>
+        <% if !defined?(@organisation_specific) || @organisation_specific %>
+            </div>
           </div>
-        </div>
+        <% end %>
       <% else %>
         <main class="govuk-main-wrapper" id="main-content" role="main">
           <%= render "layouts/flash_notices" %>
