@@ -16,10 +16,7 @@ class LocationsController < ApplicationController
     )
 
     if @location.save
-      redirect_to(
-        @location.ips.any? ? created_location_with_ip_ips_path : created_location_ips_path,
-        notice: "Added #{@location.full_address}"
-      )
+      redirect_to created_location_ips_path
     else
       render :new
     end

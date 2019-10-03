@@ -26,7 +26,9 @@ describe 'Add location', type: :feature do
 
       it 'displays the success message to the user' do
         click_on 'Add location'
-        expect(page).to have_content('Added 30 Square, W1A 2AB')
+        within('caption') do
+          expect(page).to have_content('30 Square, W1A 2AB')
+        end
       end
 
       it 'redirects to "After location created" path' do
