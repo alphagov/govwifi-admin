@@ -1,6 +1,7 @@
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-l">Sign your agreement</h2>
+  <div class="govuk-grid-column-three-quarters">
+    <%= link_to "Back to settings", setup_instructions_path, class: "govuk-back-link" %>
+    <h2 class="govuk-heading-l">Sign the memorandum of understanding</h2>
     <p class="govuk-body">You must sign a memorandum of understanding (MOU) to use GovWifi.</p>
     <% if @mou %>
       <ul class="govuk-list govuk-list">
@@ -8,6 +9,7 @@
         <li>2. Sign the document</li>
         <li>3. Upload your signed MOU</li>
       </ul>
+      <p class="govuk-body">The MoU must be signed by someone in your organisation who has permission to sign off and procure services.</p>
     <% else %>
       <p class="govuk-body">
         The MOU template is not yet available for download. Contact us via our

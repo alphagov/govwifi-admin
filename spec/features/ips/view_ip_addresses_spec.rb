@@ -13,12 +13,12 @@ describe 'Viewing IP addresses', type: :feature do
       expect(page).to have_content 'You need to add at least one location to offer GovWifi'
     end
 
-    it 'redirects the user to the setting up page' do
-      visit root_path
-
-      within("#setup-header") do
-        expect(page).to have_content("Get GovWifi access in your organisation")
+    context 'when visiting the root path' do
+      before do
+        visit root_path
       end
+
+      it_behaves_like 'shows the setup instructions page'
     end
   end
 

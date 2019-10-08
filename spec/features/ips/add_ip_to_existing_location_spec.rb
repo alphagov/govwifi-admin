@@ -18,7 +18,10 @@ describe 'Adding an IP to an existing location', type: :feature do
   end
 
   context 'when entering an IP address' do
+    let(:publish_ip) { instance_spy(Facades::Ips::Publish, execute: nil) }
+
     before do
+      allow(Facades::Ips::Publish).to receive(:new).and_return(publish_ip)
       sign_in_user user
       visit location_add_ips_path(location_id: location.id)
       fill_in 'location[ips_attributes][0][address]', with: ip_address
@@ -40,6 +43,10 @@ describe 'Adding an IP to an existing location', type: :feature do
 
       it 'redirects to the "after IP created" path for Analytics' do
         expect(page).to have_current_path('/ips/created')
+      end
+
+      it 'triggers the publishing of the config file' do
+        expect(publish_ip).to have_received(:execute)
       end
     end
 
