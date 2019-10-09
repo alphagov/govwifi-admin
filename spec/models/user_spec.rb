@@ -59,5 +59,15 @@ describe User do
         expect(user.need_two_factor_authentication?(request)).to be false
       end
     end
+
+    context 'when bypassed with an environment variable' do
+      let(:organisation) { create(:organisation, super_admin: true) }
+
+      before { allow(ENV).to receive(:key?).with('BYPASS_2FA').and_return(true) }
+
+      it 'is false' do
+        expect(user.need_two_factor_authentication?(request)).to be false
+      end
+    end
   end
 end

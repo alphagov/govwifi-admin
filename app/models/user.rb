@@ -52,7 +52,7 @@ class User < ApplicationRecord
   end
 
   def need_two_factor_authentication?(request)
-    request.env['warden'].user.super_admin?
+    !ENV.key?('BYPASS_2FA') && request.env['warden'].user.super_admin?
   end
 
   # No-Op
