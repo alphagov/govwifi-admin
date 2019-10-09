@@ -6,7 +6,7 @@ describe 'View authentication requests for an IP', type: :feature do
 
   before do
     create(:session, start: 3.days.ago, username: username, siteIP: ip, success: true)
-    create(:ip, location_id: location.id, address: ip)
+    create(:ip, location_id: location.id, address: ip, created_at: 5.days.ago)
     sign_in_user admin_user
   end
 
@@ -15,7 +15,7 @@ describe 'View authentication requests for an IP', type: :feature do
       visit ips_path
 
       within('#ips-table') do
-        click_on 'View logs'
+        click_on 'view logs'
       end
     end
 

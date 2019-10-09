@@ -44,12 +44,12 @@ describe 'Invite a team member', type: :feature do
       expect(page).not_to have_link('Invite team member')
     end
 
-    it 'prevents visiting the invites page directly' do
-      visit new_user_invitation_path
-
-      within("#setup-header") do
-        expect(page).to have_content("Get GovWifi access in your organisation")
+    context 'when visiting the new user invitation page' do
+      before do
+        visit new_user_invitation_path
       end
+
+      it_behaves_like 'shows the setup instructions page'
     end
 
     it 'does not allow re-sending invites' do

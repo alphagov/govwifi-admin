@@ -8,40 +8,18 @@ describe 'Guidance after sign in', type: :feature do
   context 'without locations' do
     before { visit root_path }
 
-    it 'displays message to inform user to add IPs and locations' do
-      expect(page).to have_content 'RADIUS secret keys will be generated'
+    it 'displays information about GovWifi servers' do
+      expect(page).to have_selector('h3', text: 'GovWifi servers')
     end
   end
 
   context 'with locations' do
-    let!(:location) { create(:location, organisation: user.organisations.first) }
-
-    before { visit root_path }
-
-    it 'displays the landing guidance' do
-      expect(page).to have_content 'Get GovWifi'
+    before do
+      create(:location, organisation: user.organisations.first)
+      visit root_path
     end
 
-    context 'with one IP' do
-      let(:ip_address) { '141.0.149.130' }
-
-      before do
-        create(:ip, address: ip_address, location: location)
-        visit setup_instructions_path
-        click_on '1 IP address'
-      end
-
-      it 'displays the IP address' do
-        expect(page).to have_content(ip_address)
-      end
-    end
-
-    context 'with no IPs' do
-      it 'allows user to add new IPs' do
-        click_on 'add the IP addresses'
-        expect(page).to have_content('Enter IP address')
-      end
-    end
+    it_behaves_like 'shows the setup instructions page'
 
     context 'with radius IPs in env-vars' do
       let(:radius_ip_1) { '111.111.111.111' }

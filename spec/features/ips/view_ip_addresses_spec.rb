@@ -10,15 +10,15 @@ describe 'Viewing IP addresses', type: :feature do
 
     it 'shows no IPs' do
       visit ips_path
-      expect(page).to have_content 'You need to add the IPs of your authenticator(s)'
+      expect(page).to have_content 'You need to add at least one location to offer GovWifi'
     end
 
-    it 'redirects the user to the setting up page' do
-      visit root_path
-
-      within("#setup-header") do
-        expect(page).to have_content("Get GovWifi access in your organisation")
+    context 'when visiting the root path' do
+      before do
+        visit root_path
       end
+
+      it_behaves_like 'shows the setup instructions page'
     end
   end
 
@@ -51,7 +51,7 @@ describe 'Viewing IP addresses', type: :feature do
 
       it 'labels the IP as inactive' do
         within("#ips-row-#{ip.id}") do
-          expect(page).to have_content('No traffic for the last 10 days')
+          expect(page).to have_content('No traffic in the last 10 days')
         end
       end
     end

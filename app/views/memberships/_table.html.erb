@@ -1,3 +1,5 @@
+<div class='govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-0 govuk-!-margin-bottom-3'></div>
+
 <ul class='govuk-list govuk-width-container govuk-!-margin-left-0'>
   <% team_members.each do |member| %>
     <li class='govuk-!-margin-bottom-1'>
@@ -5,11 +7,11 @@
         <div class='govuk-grid-column-two-thirds'>
           <% if member.invitation_pending? || member.pending_membership_for?(organisation: current_organisation) %>
             <h3 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
-              <span class='govuk-!-padding-left-1 govuk-body text-light-grey'><%= member.email %> (invited)</span>
+              <span class='govuk-!-padding-left-1 govuk-body text-dark-grey'><%= member.email %> (invited)</span>
             </h3>
             <% else %>
             <h3 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
-              <span class='govuk-!-padding-left-1 govuk-body text-light-grey'><%= member.email %></span>
+              <span class='govuk-!-padding-left-1 govuk-body text-dark-grey'><%= member.email %></span>
             </h3>
           <% end %>
 
@@ -28,7 +30,7 @@
                 <span class='govuk-!-padding-left-1'>Add and remove team members</span>
               <% else %>
                 <%= image_tag 'cross.svg', class: 'list-item-padding', height: '30', alt: 'not allowed' %>
-                <span class='govuk-!-padding-left-1 text-light-grey'>Add and remove team members</span>
+                <span class='govuk-!-padding-left-1 text-dark-grey'>Add and remove team members</span>
               <% end %>
             </li>
             <li>
@@ -41,7 +43,7 @@
                 <span class='govuk-!-padding-left-1'>Add and remove locations and IPs</span>
               <% else %>
                 <%= image_tag 'cross.svg', class: 'list-item-padding', height: '30', alt: 'not allowed' %>
-                <span class='govuk-!-padding-left-1 text-light-grey'>Add and remove locations and IPs</span>
+                <span class='govuk-!-padding-left-1 text-dark-grey'>Add and remove locations and IPs</span>
               <% end %>
             </li>
           </ul>

@@ -1,7 +1,28 @@
 $govuk-image-url-function: "image-url";
 $govuk-font-url-function: "font-url";
 
-@import "../../../node_modules/govuk-frontend/all";
+@import "../../../node_modules/govuk-frontend/govuk/all";
+
+
+.govuk-header__content,
+.govuk-header__logo {
+  @include govuk-media-query($from: desktop) {
+    width: 50%;
+  }
+}
+
+// remove the default 5px vertical padding on the nav as it
+// pushes it down in an uncentered fashion
+.govuk-header__navigation--end {
+  padding: 0;
+}
+
+// let the beta phase banner breathe and align it
+.govuk-phase-banner__content__tag {
+  margin-left: 5px;
+  vertical-align: top;
+}
+
 @import "./utilities/colours";
 @import "./components/*";
 @import "./utilities/*";

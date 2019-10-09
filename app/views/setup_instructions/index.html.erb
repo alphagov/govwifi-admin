@@ -1,97 +1,111 @@
-<div class="govuk-grid-row">
-  <h2 class="govuk-heading-l govuk-grid-column-full" id="setup-header">Get GovWifi access in your organisation</h2>
-    <div class="govuk-grid-column-three-quarters">
-    <h3 class="govuk-heading-m"> 1. Sign the GovWifi Memorandum of understanding </h3>
-    <p class="govuk-body">
-      <%= link_to "Sign the memorandum of understanding (MOU)", mou_index_path, class: "govuk-link" %> with the Government Digital Service (GDS).
-    </p>
-    <p class="govuk-body">This must be done by someone in your organisation who has permission to sign off and procure services.</p>
+<h2 class="govuk-heading-l" id="setup-header">Settings</h2>
 
-    <div class="govuk-section-break--m govuk-section-break--visible"></div>
+<div class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-0"></div>
 
-    <h3 class="govuk-heading-m"> 2. Add IP addresses </h3>
-      <% if @locations.empty? %>
-        <% if current_user.can_manage_locations?(current_organisation) %>
-          <p class="govuk-body">
-            You need to <%= link_to "add the IP addresses", new_location_path, class: "govuk-link" %> of your authenticator(s).
-          </p>
-        <% end %>
-      <% elsif @ips.empty? %>
-        <% if current_user.can_manage_locations?(current_organisation) %>
-          <p class="govuk-body">
-            You need to <%= link_to "add the IP addresses", new_ip_path, class: "govuk-link" %> of your authenticator(s).
-          </p>
-        <% end %>
+<table class="govuk-table govuk-!-margin-bottom-7">
+  <caption class="govuk-visually-hidden" id="setup-header">Settings</caption>
+  <thead class="govuk-table__head govuk-visually-hidden">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half">Setting</th>
+      <th scope="col" class="govuk-table__header">Value</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+        Service email
+      </th>
+      <td class="govuk-table__cell">
+        <%= current_organisation.service_email %>
+      </td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">
+        <%= link_to "Change", edit_organisation_path(current_organisation.id), class: "govuk-link govuk-link--no-visited-state" %>
+      </td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+        Memorandum of understanding
+      </th>
+      <% if @current_org_signed_mou %>
+        <td class="govuk-table__cell">
+          Signed
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">
+          <%= link_to "Review", mou_index_path, class: "govuk-link govuk-link--no-visited-state" %>
+        </td>
       <% else %>
-        <p class="govuk-body">
-          You have <%= link_to "#{pluralize(@ips.count, 'IP address')} configured.", ips_path, class: "govuk-link" %>
-        </p>
+        <td class="govuk-table__cell" colspan="2">
+          Not signed
+          <p class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">
+            You must <%= link_to "sign the memorandum of understanding", mou_index_path, class: "govuk-link govuk-link--no-visited-state" %> to use GovWifi
+          </p>
+        </td>
       <% end %>
-      <p class="govuk-body">If your authenticators are allocated IP addresses dynamically, you can use Firewall NAT rules, so that your requests come from consistent IPs.</p>
-      <p class="govuk-body">
-        New IP addresses will not be activated until<strong class="govuk-!-font-weight-bold"> the next day. </strong>
-      </p>
+    </tr>
+  </tbody>
+</table>
 
-    <div class="govuk-section-break--m govuk-section-break--visible"></div>
+<h3 class="govuk-heading-m govuk-!-margin-bottom-3" id="setup-header">GovWifi servers</h3>
 
-    <h3 class="govuk-heading-m"> 3. Configure your authenticator(s) </h3>
+<div class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-0"></div>
 
-    <p class="govuk-body">
-      Typically, your authenticators are wireless access points or network switches.
-    </p>
-
-    <p class="govuk-body">
-      Authenticators can usually be configured to connect to more than one RADIUS server. The extras are commonly known as "backups" or "failovers".
-    </p>
-
-    <%= render "radius_details", london_ips: @london_radius_ips, dublin_ips: @dublin_radius_ips %>
-
-    <div class="govuk-section-break--m govuk-section-break--visible"></div>
-
-    <h3 class="govuk-heading-m"> 4. Check authentication requests from your network can reach GovWifi </h3>
-    <p class="govuk-body"> You must check your firewall allows traffic on UDP ports 1812/1813. </p>
-    <p class="govuk-body"> There may also be additional configuration to allow outbound traffic, depending on your local network. </p>
-
-    <div class="govuk-section-break--m govuk-section-break--visible"></div>
-
-    <h3 class="govuk-heading-m"> 5. Create and name the 'GovWifi' network </h3>
-    <p class="govuk-body"> You must create an SSID using these details</p>
-    <ul class="govuk-list govuk-list">
-      <li>Name: <strong>GovWifi</strong></li>
-      <li>Type: <strong>WPA2-Enterprise (AES encryption)</strong></li>
-      <li>Inner Encryption: <strong>MsChapV2</strong> </li>
-    </ul>
-
-    <div class="govuk-section-break--m govuk-section-break--visible"></div>
-
-    <h3 class="govuk-heading-m"> 6. Check the connection works </h3>
-    <p class="govuk-body"> Connect to your new GovWifi network, and sign in with an individual account. </p>
-    <details class="govuk-details govuk-!-margin-bottom-0">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">What if I don't have a individual account?</span>
-      </summary>
-      <div class="govuk-details__text">
-        <p class="govuk-body">
-          Send a blank email from your government email address to <strong>signup@wifi.service.gov.uk</strong>.
+<table class="govuk-table govuk-!-margin-bottom-3">
+  <caption class="govuk-visually-hidden" id="setup-header">Settings</caption>
+  <thead class="govuk-table__head govuk-visually-hidden">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half">Setting</th>
+      <th scope="col" class="govuk-table__header">Value</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+        London
+      </th>
+      <td class="govuk-table__cell">
+        <ul class="ip-address-list govuk-!-margin-top-0 govuk-!-margin-bottom-0" id="london-radius-ips">
+          <% @london_radius_ips.each do |ip| %>
+            <li><%= render partial: 'ips/ip_address', locals: { ip: ip } %></li>
+          <% end %>
+        </ul>
+      </td>
+      <td class="govuk-table__cell">
+      </td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+        Dublin
+      </th>
+      <td class="govuk-table__cell">
+        <ul class="ip-address-list govuk-!-margin-top-0 govuk-!-margin-bottom-0" id="dublin-radius-ips">
+          <% @dublin_radius_ips.each do |ip| %>
+            <li><%= render partial: 'ips/ip_address', locals: { ip: ip } %></li>
+          <% end %>
+        </ul>
+      </td>
+      <td class="govuk-table__cell">
+      </td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+        <span class="govuk-visually-hidden">Documentation</span>
+      </th>
+      <td class="govuk-table__cell">
+        <p class="govuk-hint govuk-!-margin-top-0 govuk-!-margin-bottom-0">
+          The
+          <%= link_to "offer GovWifi documentation", "https://docs.wifi.service.gov.uk/set_up/#step-3-create-a-new-wifi-installation", class: "govuk-link govuk-link--no-visited-state" %> explains how to connect your authenticators to these servers
         </p>
-        <p class="govuk-body"> You’ll receive your username and password in reply. </p>
-        <p>
-          See our <%= link_to "full guidance", SITE_CONFIG['end_user_docs_link'], class: "govuk-link" %> for individuals.
-        </p>
-      </div>
-    </details>
+      </td>
+      <td class="govuk-table__cell">
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-    <div class="govuk-section-break--m govuk-section-break--visible"></div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
 
-    <h3 class="govuk-heading-m"> 7. Advertise GovWifi in your organisation </h3>
-    <p class=govuk-body>
-      <%= link_to "Download a poster to advertise GovWifi is available in your building(s)", asset_path('govwifi-poster.png'), download: "", class: "govuk-link" %>
-    </p>
-    <p class="govuk-body">The posters provide information for end users on how they can connect to GovWifi in your organisation.</p>
-
-    <div class="govuk-section-break--m govuk-section-break--visible"></div>
-    <p class="govuk-body">
-      If you have trouble setting up GovWifi, <%= link_to "contact us", signed_in_new_help_path, class: 'govuk-link govuk-body' %>.
-    </p>
   </div>
 </div>
