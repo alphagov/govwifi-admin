@@ -84,6 +84,25 @@ describe 'Viewing the overview page', type: :feature do
         end
         expect(page).to have_current_path(ips_path)
       end
+
+      context 'if mou has not been uploaded' do
+        it 'shows warning that mou must be uploaded' do
+          expect(page).to have_selector("#mou-warning")
+        end
+      end
+
+      context 'if mou has already been uploaded' do
+        before do
+          visit mou_index_path
+          attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
+          click_on 'Upload'
+          visit root_path
+        end
+
+        it 'does not show mou warning' do
+          expect(page).not_to have_selector("#mou-warning")
+        end
+      end
     end
   end
 end
