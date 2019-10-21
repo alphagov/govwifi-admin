@@ -10,6 +10,32 @@ describe 'Viewing the overview page', type: :feature do
     it_behaves_like 'shows the setup instructions page'
   end
 
+  context 'when viewing the overview section' do
+    before do
+      sign_in_user user
+      visit overview_index_path
+    end
+
+    context 'without having mou uploaded' do
+      it 'shows warning that mou must be uploaded' do
+        expect(page).to have_selector("#mou-warning")
+      end
+    end
+
+    context 'with having mou already uploaded' do
+      before do
+        visit mou_index_path
+        attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
+        click_on 'Upload'
+        visit overview_index_path
+      end
+
+      it 'does not show mou warning' do
+        expect(page).not_to have_selector("#mou-warning")
+      end
+    end
+  end
+
   context 'with at least one IP' do
     let(:ip_one) { '141.0.149.130' }
     let(:ip_two) { '141.0.149.131' }
@@ -83,25 +109,6 @@ describe 'Viewing the overview page', type: :feature do
           click_link 'IP addresses'
         end
         expect(page).to have_current_path(ips_path)
-      end
-
-      context 'if mou has not been uploaded' do
-        it 'shows warning that mou must be uploaded' do
-          expect(page).to have_selector("#mou-warning")
-        end
-      end
-
-      context 'if mou has already been uploaded' do
-        before do
-          visit mou_index_path
-          attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
-          click_on 'Upload'
-          visit root_path
-        end
-
-        it 'does not show mou warning' do
-          expect(page).not_to have_selector("#mou-warning")
-        end
       end
     end
   end
