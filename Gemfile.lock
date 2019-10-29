@@ -97,7 +97,6 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
-    database_cleaner (1.7.0)
     devise (4.6.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -371,7 +370,6 @@ DEPENDENCIES
   byebug (~> 11)
   capybara
   capybara-screenshot
-  database_cleaner
   devise (~> 4.6.2)
   devise_invitable (~> 2.0.1)
   erb_lint
