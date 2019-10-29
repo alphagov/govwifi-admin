@@ -1,5 +1,5 @@
 # rubocop:disable Metrics/BlockLength
-guard :rspec, cmd: "bundle exec rspec" do
+guard :rspec, cmd: "bundle exec bin/rspec" do
   require "guard/rspec/dsl"
   dsl = Guard::RSpec::Dsl.new(self)
 
