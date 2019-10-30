@@ -1,5 +1,4 @@
-# rubocop:disable Metrics/BlockLength
-guard :rspec, cmd: "bundle exec rspec" do
+guard :rspec, cmd: "bundle exec bin/rspec" do
   require "guard/rspec/dsl"
   dsl = Guard::RSpec::Dsl.new(self)
 
@@ -36,11 +35,4 @@ guard :rspec, cmd: "bundle exec rspec" do
   # Capybara features specs
   watch(rails.view_dirs)     { |m| rspec.spec.call("features/#{m[1]}") }
   watch(rails.layouts)       { |m| rspec.spec.call("features/#{m[1]}") }
-
-  # Turnip features and steps
-  watch(%r{^spec/acceptance/(.+)\.feature$})
-  watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$}) do |m|
-    Dir[File.join("**/#{m[1]}.feature")][0] || "spec/acceptance"
-  end
 end
-# rubocop:enable Metrics/BlockLength

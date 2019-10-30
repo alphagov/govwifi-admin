@@ -23,29 +23,10 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
 
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
 
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-
-  config.before(:suite) do
-    DatabaseCleaner.add_cleaner(:active_record)
-    DatabaseCleaner.add_cleaner(:active_record, model: ReadReplicaBase)
-    DatabaseCleaner.add_cleaner(:active_record, model: WifiUser)
-    DatabaseCleaner.strategy = :transaction
-
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  # This block must be here, do not combine with the other `before(:each)` block.
-  # This makes it so Capybara can see the database.
-  config.before do
-    DatabaseCleaner.start
-  end
-  config.after do
-    Warden.test_reset!
-    DatabaseCleaner.clean
-  end
 end
 
 Shoulda::Matchers.configure do |config|

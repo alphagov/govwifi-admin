@@ -27,8 +27,6 @@ gem 'zendesk_api'
 
 group :test do
   gem 'capybara'
-  gem 'capybara-screenshot'
-  gem 'database_cleaner'
   gem 'erb_lint', require: false
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker'
@@ -50,4 +48,5 @@ group :development, :test do
   gem 'listen', '~> 3'
   gem 'pry'
   gem 'rack-mini-profiler', require: false
+  gem 'spring-commands-rspec'
 end

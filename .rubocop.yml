@@ -2,6 +2,11 @@ inherit_gem:
   govuk-lint: configs/rubocop/all.yml
 require: rubocop-rspec
 
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'db/schema.rb'
+
 # The suggested alignment is awful so disable this cop
 Layout/AlignArguments:
   Enabled: false
