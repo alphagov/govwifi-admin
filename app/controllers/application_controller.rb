@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     render :error, code: params[:code]
   end
 
+  def new_super_admin?
+    current_user&.is_super_admin?
+  end
+
   def super_admin?
     current_organisation&.super_admin?
   end
@@ -35,6 +39,8 @@ protected
   end
 
   def redirect_user_with_no_organisation
+    return if new_super_admin?
+
     if current_user&.organisations&.empty?
       msg = "You do not belong to an organisation. Please mention this in your support request."
       redirect_to signed_in_new_help_path, notice: msg

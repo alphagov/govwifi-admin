@@ -32,6 +32,12 @@ empty_organisation = Organisation.create(
 )
 
 create_user_for_organisations(
+  [],
+  email: 'loneadmin@gov.uk',
+  confirmed_at: Time.zone.now,
+).update!(is_super_admin: true)
+
+create_user_for_organisations(
   [super_admin_organisation],
   email: 'admin@gov.uk',
   confirmed_at: Time.zone.now
