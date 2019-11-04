@@ -27,7 +27,7 @@ describe User do
       end
     end
 
-    describe 'when the user has the superadmin attribute' do
+    context 'when the user has the superadmin attribute' do
       it 'is true' do
         user.update!(is_super_admin: true)
 
@@ -35,7 +35,7 @@ describe User do
       end
     end
 
-    describe 'when the user is not part of the superadmin org' do
+    context 'when the user is not part of the superadmin org' do
       it 'is false' do
         user.organisations << organisation
 
@@ -43,9 +43,27 @@ describe User do
       end
     end
 
-    describe 'when the user is not superadmin' do
+    context 'when the user is not superadmin' do
       it 'is false' do
         expect(user).not_to be_super_admin
+      end
+    end
+  end
+
+  describe '.new_super_admin?' do
+    let(:user) { create(:user, :new_admin) }
+
+    context 'with no organisations memberships' do
+      it 'returns true' do
+        expect(user).to be_new_super_admin
+      end
+    end
+
+    context 'with a membership' do
+      it 'returns false' do
+        user.organisations << create(:organisation)
+
+        expect(user).not_to be_new_super_admin
       end
     end
   end
