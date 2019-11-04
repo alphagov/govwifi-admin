@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :redirect_user_with_no_organisation, unless: :current_action_is_valid?
 
   helper_method :current_organisation, :super_admin?
+  helper_method :sidebar
 
   def current_organisation
     if session[:organisation_id] && current_user.organisations.pluck(:id).include?(session[:organisation_id].to_i)
@@ -25,6 +26,10 @@ class ApplicationController < ActionController::Base
   end
 
 protected
+
+  def sidebar
+    :default
+  end
 
   def authorise_manage_locations
     redirect_to(root_path) unless current_user.can_manage_locations?(current_organisation)
