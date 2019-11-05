@@ -22,5 +22,9 @@ describe 'Signing in as a (new) super admin', type: :feature do
     it 'renders a link to give feedback' do
       expect(page).to have_content('your feedback will help us to improve it')
     end
+
+    it 'does not render an organization name' do
+      expect(page.find(".organisation-name").text).to eq ''
+    end
   end
 end

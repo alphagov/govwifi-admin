@@ -3,6 +3,8 @@ class SuperAdmin::NeoController < SuperAdminController
 
 protected
 
+  def current_organisation; end
+
   def sidebar
     :super_admin
   end
