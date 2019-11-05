@@ -16,6 +16,12 @@ describe 'Signing in as a super admin', type: :feature do
       expect(page).to have_content 'Whitelist'
     end
 
+    it 'has a way to access the new dashboard' do
+      page.click_on 'Manage GovWifi'
+
+      expect(page).to have_content 'new dashboard'
+    end
+
     context 'when visiting a normal organisation' do
       before do
         user.organisations << organisation
