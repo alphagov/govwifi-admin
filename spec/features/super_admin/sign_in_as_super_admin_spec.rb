@@ -16,24 +16,35 @@ describe 'Signing in as a super admin', type: :feature do
       expect(page).to have_content 'Whitelist'
     end
 
+    it 'renders the super admin overview' do
+      expect(page.find('.govuk-heading-l')).to have_content 'All organisations'
+    end
+
     it 'has a way to access the new dashboard' do
       page.click_on 'Manage GovWifi'
 
       expect(page).to have_content 'new dashboard'
     end
 
+
     context 'when visiting a normal organisation' do
       before do
         user.organisations << organisation
-      end
 
-      it 'shows the normal organisation sidebar' do
         visit root_path
 
         click_on "Switch organisation"
         click_on "Gov Org 2"
+      end
 
-        expect(page).not_to have_content 'Team Members'
+      it 'shows the normal organisation sidebar' do
+        expect(page).to have_content 'Team members'
+      end
+
+      it 'renders the normal organisation overview' do
+        expect(page.find('.govuk-heading-l'))
+          .to have_content('Overview')
+                .or have_content('Settings')
       end
     end
   end
