@@ -38,10 +38,10 @@ describe "GET /home", type: :request do
       sign_in_user admin
     end
 
-    it 'redirects to the new neo admin dashboard' do
+    it 'redirects to the help page for no organisations' do
       get root_path
 
-      expect(response).to redirect_to('/super_admin/neo/dashboard')
+      expect(response).to redirect_to signed_in_new_help_path
     end
   end
 
