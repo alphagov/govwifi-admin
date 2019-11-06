@@ -126,7 +126,9 @@
             </p>
           </div>
         <% end %>
-        <%= render "subnavigation" %>
+        <% unless current_user.organisations.empty? %>
+          <%= render "subnavigation" %>
+        <% end %>
         <hr class="govuk-section-break govuk-section-break--xs govuk-section-break--visible">
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-one-quarter">

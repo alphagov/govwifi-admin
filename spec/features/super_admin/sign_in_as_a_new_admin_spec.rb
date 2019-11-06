@@ -23,8 +23,8 @@ describe 'Signing in as a (new) super admin', type: :feature do
       expect(page).to have_content('your feedback will help us to improve it')
     end
 
-    it 'does not render an organization name' do
-      expect(page.find(".organisation-name").text).to eq ''
+    it 'does not render the subnavigation' do
+      expect(page).not_to have_selector '.subnav'
     end
   end
 end
