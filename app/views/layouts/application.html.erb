@@ -114,21 +114,7 @@
     </header>
     <div class="govuk-width-container">
       <% if user_signed_in? %>
-        <% if controller_name == 'neo' %>
-          <div class="govuk-phase-banner">
-            <p class="govuk-phase-banner__content">
-              <strong class="govuk-tag govuk-phase-banner__content__tag">
-                alpha
-              </strong>
-              <span class="govuk-phase-banner__text">
-                This is the new dashboard for super administrators – your <a class="govuk-link" href="mailto:<%= t('support.email') %>?subject='New%20admin%20feedback#">feedback</a> will help us to improve it.
-              </span>
-            </p>
-          </div>
-        <% end %>
-        <% unless current_user.organisations.empty? %>
-          <%= render "subnavigation" %>
-        <% end %>
+        <%= render "shared/subnav/#{subnav}" %>
         <hr class="govuk-section-break govuk-section-break--xs govuk-section-break--visible">
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-one-quarter">

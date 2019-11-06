@@ -3,6 +3,10 @@ class SuperAdmin::NeoController < SuperAdminController
 
 protected
 
+  def subnav
+    :neo
+  end
+
   def current_organisation; end
 
   def sidebar

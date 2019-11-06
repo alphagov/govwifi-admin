@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_organisation, :super_admin?
   helper_method :sidebar
+  helper_method :subnav
 
   def current_organisation
     if session[:organisation_id] && current_user.organisations.pluck(:id).include?(session[:organisation_id].to_i)
@@ -26,6 +27,10 @@ class ApplicationController < ActionController::Base
   end
 
 protected
+
+  def subnav
+    :default
+  end
 
   def sidebar
     :default
