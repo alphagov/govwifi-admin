@@ -34,16 +34,12 @@ describe 'Register an additional organisation', type: :feature do
       expect(user.reload.organisations.map(&:name)).to eq([organisation_1.name, organisation_2_name])
     end
 
-    it 'displays the success message to the user' do
-      click_on 'Create organisation'
-      expect(page).to have_content("#{organisation_2_name} created")
-    end
-
     it 'sets the new organisation as the current organisation' do
       click_on 'Create organisation'
-      within ".subnav" do
-        expect(page).to have_content(organisation_2_name)
-      end
+      fill_in 'Address', with: '30 Square'
+      fill_in 'Postcode', with: 'W1A 2AB'
+      click_on 'Add location'
+      within('.subnav') { expect(page).to have_content(organisation_2_name) }
     end
 
     it 'confirms the membership that joins the user to the organisation' do

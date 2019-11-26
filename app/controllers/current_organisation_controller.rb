@@ -1,5 +1,7 @@
 class CurrentOrganisationController < ApplicationController
-  def edit; end
+  def edit
+    @organisation_specific = false
+  end
 
   def update
     session[:organisation_id] = params[:organisation_id]
