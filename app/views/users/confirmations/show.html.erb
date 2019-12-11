@@ -13,7 +13,7 @@
           <div class="govuk-form-group <%= field_error(resource, "organisation.name") %>">
             <%= organisation_form.label :name, "Organisation name", class: "govuk-label" %>
             <div class="govuk-hint">If your organisation name does not appear below <%= link_to "contact us", technical_support_new_help_path, class: "govuk-link" %>.</div>
-            <%= organisation_form.select :name, options_for_select(@register_organisations << '', ''), {}, class: "govuk-select" %>
+            <%= organisation_form.select :name, options_for_select(@register_organisations << '', ''), {}, class: "govuk-select", id: 'organisations_register' %>
           </div>
 
           <div class="govuk-form-group <%= field_error(resource, "organisation.service_email") %>">
