@@ -1,4 +1,7 @@
 en:
+  support:
+    email: 'govwifi-tech@digital.cabinet-office.gov.uk'
+
   activerecord:
     errors:
       models:

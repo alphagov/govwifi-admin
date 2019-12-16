@@ -31,6 +31,10 @@ describe 'Multiple organisations', type: :feature do
         expect(page).to have_content(organisation_2.name)
       end
     end
+
+    it 'does not display a sidebar' do
+      expect(page.find(".leftnav").text).to eq ''
+    end
   end
 
   context "when the session is updated manually" do

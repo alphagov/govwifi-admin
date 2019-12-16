@@ -1,7 +1,20 @@
 class HomeController < ApplicationController
   def index
-    return redirect_to super_admin_organisations_path if super_admin?
+    destination =
+      if current_user.super_admin?
+        if current_user.new_super_admin?
+          super_admin_neo_dashboard_path
+        elsif current_organisation.super_admin?
+          super_admin_organisations_path
+        else
+          overview_index_path
+        end
+      elsif current_organisation.ips.empty?
+        new_organisation_setup_instructions_path
+      else
+        overview_index_path
+      end
 
-    redirect_to(current_organisation.ips.empty? ? new_organisation_setup_instructions_path : overview_index_path)
+    redirect_to destination
   end
 end

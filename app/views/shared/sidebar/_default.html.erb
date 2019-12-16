@@ -1,22 +1,5 @@
 <nav class="govuk-body leftnav">
   <ul class="govuk-list">
-    <% if super_admin? %>
-      <li>
-        <%= link_to 'Locations', super_admin_locations_path, class: active_tab(super_admin_locations_path) %>
-      </li>
-      <li>
-        <%= link_to 'Organisations', super_admin_organisations_path, class: active_tab(super_admin_organisations_path) %>
-      </li>
-      <li>
-        <%= link_to 'Whitelist', new_super_admin_whitelist_path, class: active_tab('whitelist') %>
-      </li>
-      <li>
-        <%= link_to 'MOU', super_admin_mou_index_path, class: active_tab(super_admin_mou_index_path) %>
-      </li>
-      <li>
-        <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
-      </li>
-    <% else %>
       <li>
         <%= link_to 'Overview', overview_index_path, class: active_tab(overview_index_path) %>
       </li>
@@ -38,6 +21,5 @@
       <li>
         <%= link_to 'Logs', new_logs_search_path, class: active_tab('logs') %>
       </li>
-    <% end %>
   </ul>
 </nav>

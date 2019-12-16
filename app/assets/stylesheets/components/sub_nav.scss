@@ -1,5 +1,4 @@
 .subnav {
-
   .organisation-name {
     // Organisation name centred on mobile
     text-align: center;
@@ -21,11 +20,11 @@
     text-align: right;
 
     a {
-
       @include govuk-link-common;
       @include govuk-link-style-no-visited-state;
       @include govuk-responsive-padding(3, "top", $adjustment: -1px);
       @include govuk-responsive-padding(2, "bottom", $adjustment: 1px);
+      @include govuk-responsive-padding(3, "left", $adjustment: -1px);
       display: inline-block;
       text-decoration: none;
       margin: 0;

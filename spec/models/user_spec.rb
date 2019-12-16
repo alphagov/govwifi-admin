@@ -15,6 +15,59 @@ describe User do
     end
   end
 
+  describe '.super_admin?' do
+    let(:superorg) { create(:organisation, super_admin: true) }
+    let(:user) { create(:user) }
+
+    describe 'when the user is part of the superadmin org' do
+      it 'is true' do
+        user.organisations << superorg
+
+        expect(user).to be_super_admin
+      end
+    end
+
+    context 'when the user has the superadmin attribute' do
+      it 'is true' do
+        user.update!(is_super_admin: true)
+
+        expect(user).to be_super_admin
+      end
+    end
+
+    context 'when the user is not part of the superadmin org' do
+      it 'is false' do
+        user.organisations << organisation
+
+        expect(user).not_to be_super_admin
+      end
+    end
+
+    context 'when the user is not superadmin' do
+      it 'is false' do
+        expect(user).not_to be_super_admin
+      end
+    end
+  end
+
+  describe '.new_super_admin?' do
+    let(:user) { create(:user, :new_admin) }
+
+    context 'with no organisations memberships' do
+      it 'returns true' do
+        expect(user).to be_new_super_admin
+      end
+    end
+
+    context 'with a membership' do
+      it 'returns false' do
+        user.organisations << create(:organisation)
+
+        expect(user).not_to be_new_super_admin
+      end
+    end
+  end
+
   describe '.default_membership' do
     context 'with no memberships' do
       let(:user) { create(:user) }

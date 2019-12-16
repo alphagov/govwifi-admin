@@ -5,4 +5,10 @@ class CurrentOrganisationController < ApplicationController
     session[:organisation_id] = params[:organisation_id]
     redirect_to root_path
   end
+
+protected
+
+  def sidebar
+    :empty
+  end
 end

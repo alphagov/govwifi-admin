@@ -47,8 +47,12 @@ class User < ApplicationRecord
     memberships.first
   end
 
+  def new_super_admin?
+    memberships.empty? && is_super_admin?
+  end
+
   def super_admin?
-    membership_for(Organisation.super_admins) != nil
+    membership_for(Organisation.super_admins) != nil || is_super_admin?
   end
 
   def need_two_factor_authentication?(request)
