@@ -86,7 +86,7 @@ describe "Resetting a password", type: :feature do
 
     context "when entering a password that is 6 to 80 characters long" do
       before do
-        fill_in "user_password", with: "new_password"
+        fill_in "user_password", with: "newBUT str0ng passsssssword"
         click_on "Change my password"
       end
 
