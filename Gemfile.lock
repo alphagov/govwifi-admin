@@ -104,6 +104,9 @@ GEM
     devise_invitable (2.0.1)
       actionmailer (>= 5.0)
       devise (>= 4.6)
+    devise_zxcvbn (5.1.0)
+      devise
+      zxcvbn-js (~> 4.4.1)
     diff-lcs (1.3)
     docile (1.3.2)
     encryptor (3.0.0)
@@ -115,6 +118,7 @@ GEM
       rubocop (~> 0.51)
       smart_properties
     erubi (1.8.0)
+    execjs (2.7.0)
     factory_bot (5.0.2)
       activesupport (>= 4.2.0)
     factory_bot_rails (5.0.2)
@@ -159,6 +163,7 @@ GEM
     jmespath (1.4.0)
     json (2.2.0)
     jwt (2.2.1)
+    libv8 (3.16.14.19)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -239,6 +244,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    ref (2.0.0)
     regexp_parser (1.5.1)
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
@@ -321,6 +327,9 @@ GEM
       sprockets (>= 3.0.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
+    therubyracer (0.12.3)
+      libv8 (~> 3.16.14.15)
+      ref
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
@@ -355,6 +364,8 @@ GEM
       inflection
       mime-types
       multipart-post (~> 2.0)
+    zxcvbn-js (4.4.3)
+      execjs
 
 PLATFORMS
   ruby
@@ -368,6 +379,7 @@ DEPENDENCIES
   capybara
   devise (~> 4.6.2)
   devise_invitable (~> 2.0.1)
+  devise_zxcvbn
   erb_lint
   factory_bot_rails (~> 5.0)
   faker
@@ -392,6 +404,7 @@ DEPENDENCIES
   simplecov-console
   spring-commands-rspec
   sprockets (= 4.0.0beta10)
+  therubyracer
   timecop (~> 0.9.1)
   two_factor_authentication
   tzinfo-data

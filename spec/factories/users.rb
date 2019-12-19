@@ -3,7 +3,7 @@ FactoryBot.define do
     sequence :email do |n|
       "test#{n}@gov.uk"
     end
-    password { '123456' }
+    password { 'strong lemonade 1475 p4o6d09' }
     name { "bob" }
     confirmed_at { Time.zone.now }
 

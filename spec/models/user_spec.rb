@@ -8,10 +8,12 @@ describe User do
       expect(user).to be_valid
     end
 
-    it 'does not accept weak password' do
-      user.update(password: 'password123')
+    ['password123', 'my password', 'pa55w0rd'].each do |weak_pass|
+      it "does not accept a weak password (#{weak_pass})" do
+        user.update(password: weak_pass)
 
-      expect(user).to_not be_valid
+        expect(user).to_not be_valid
+      end
     end
   end
 
