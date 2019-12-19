@@ -12,7 +12,7 @@ describe User do
       it "does not accept a weak password (#{weak_pass})" do
         user.update(password: weak_pass)
 
-        expect(user).to_not be_valid
+        expect(user).not_to be_valid
       end
     end
   end
@@ -112,7 +112,7 @@ describe User do
     subject(:user) { create(:user, organisations: [organisation]) }
 
     let(:warden) { instance_double(Warden::Proxy, user: subject) }
-    let(:request) { instance_double(ActionDispatch::Request, env: {'warden' => warden}) }
+    let(:request) { instance_double(ActionDispatch::Request, env: { 'warden' => warden }) }
     let(:organisation) { create(:organisation) }
 
     context 'with super admins membership' do

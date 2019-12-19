@@ -28,8 +28,8 @@ describe "Sign up from invitation", type: :feature do
       expect(page).to have_content("Create your account")
     end
 
-    context 'password checks' do
-      ['password'].each do |weak_pass|
+    context 'when setting password' do
+      %w[password].each do |weak_pass|
         before do
           fill_in "Your name", with: "Ron Swanson"
           fill_in "Password", with: weak_pass
@@ -41,7 +41,7 @@ describe "Sign up from invitation", type: :feature do
         end
 
         it "does not confirm the user" do
-          expect(invited_user).to_not be_confirmed
+          expect(invited_user).not_to be_confirmed
         end
       end
     end
