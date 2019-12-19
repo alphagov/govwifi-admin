@@ -163,7 +163,6 @@ GEM
     jmespath (1.4.0)
     json (2.2.0)
     jwt (2.2.1)
-    libv8 (3.16.14.19)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -244,7 +243,6 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    ref (2.0.0)
     regexp_parser (1.5.1)
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
@@ -327,9 +325,6 @@ GEM
       sprockets (>= 3.0.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
@@ -379,7 +374,7 @@ DEPENDENCIES
   capybara
   devise (~> 4.6.2)
   devise_invitable (~> 2.0.1)
-  devise_zxcvbn
+  devise_zxcvbn (~> 5.1.0)
   erb_lint
   factory_bot_rails (~> 5.0)
   faker
@@ -404,7 +399,6 @@ DEPENDENCIES
   simplecov-console
   spring-commands-rspec
   sprockets (= 4.0.0beta10)
-  therubyracer
   timecop (~> 0.9.1)
   two_factor_authentication
   tzinfo-data
