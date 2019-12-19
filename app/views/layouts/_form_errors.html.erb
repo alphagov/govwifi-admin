@@ -7,12 +7,6 @@
           <% resource.errors.full_messages.each do |message| %>
             <li id="error-message"><%= message.html_safe %></li>
           <% end %>
-
-          <% if resource.errors.details[:password] %>
-            <% resource.errors.details[:password].each do |err| %>
-              <li class="error-feedback"><%= err[:feedback] %></li>
-            <% end %>
-          <% end %>
         </ul>
       </div>
     </div>

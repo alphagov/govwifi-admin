@@ -65,3 +65,4 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+      weak_password: "is not strong enough (scored %{score}, required at least %{min_password_score}). %{feedback}"
