@@ -1,6 +1,20 @@
 describe User do
   let(:organisation) { create(:organisation) }
 
+  describe 'validation' do
+    let(:user) { create(:user) }
+
+    it 'has a valid factory user' do
+      expect(user).to be_valid
+    end
+
+    it 'does not accept weak password' do
+      user.update(password: 'password123')
+
+      expect(user).to_not be_valid
+    end
+  end
+
   it { is_expected.to have_many(:organisations).through(:memberships) }
   it { is_expected.to have_many(:memberships) }
   it { is_expected.to validate_presence_of(:name).on(:update) }
@@ -96,7 +110,7 @@ describe User do
     subject(:user) { create(:user, organisations: [organisation]) }
 
     let(:warden) { instance_double(Warden::Proxy, user: subject) }
-    let(:request) { instance_double(ActionDispatch::Request, env: { 'warden' => warden }) }
+    let(:request) { instance_double(ActionDispatch::Request, env: {'warden' => warden}) }
     let(:organisation) { create(:organisation) }
 
     context 'with super admins membership' do

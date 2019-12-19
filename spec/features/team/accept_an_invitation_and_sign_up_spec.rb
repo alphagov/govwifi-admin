@@ -28,6 +28,20 @@ describe "Sign up from invitation", type: :feature do
       expect(page).to have_content("Create your account")
     end
 
+    context 'password checks' do
+      ['password'].each do |weak_pass|
+        before do
+          fill_in "Your name", with: "Ron Swanson"
+          fill_in "Password", with: weak_pass
+          click_on "Create my account"
+        end
+
+        it "rejects a weak password like #{weak_pass}" do
+          expect(page).to have_content "password not strong enough"
+        end
+      end
+    end
+
     context "when signing up as an invited user" do
       before do
         fill_in "Your name", with: "Ron Swanson"
