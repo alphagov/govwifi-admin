@@ -3,7 +3,7 @@ require 'support/notifications_service'
 describe 'Locking a user account', type: :feature do
   include_context 'with a mocked notifications client'
 
-  let(:correct_password) { 'password' }
+  let(:correct_password) { 'rupaul 9232 !!foo' }
   let(:incorrect_password) { 'incorrectpassword' }
   let(:user) { create(:user, password: correct_password) }
 

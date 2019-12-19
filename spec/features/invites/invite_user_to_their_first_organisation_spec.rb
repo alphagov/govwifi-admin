@@ -32,7 +32,7 @@ describe "Inviting a user to their first organisation", type: :feature do
       before do
         visit InviteUseCaseSpy.last_invite_url
         fill_in "Your name", with: "Invitee"
-        fill_in "Password", with: "password"
+        fill_in "Password", with: "beatles RUPAUL!qwe"
         click_on "Create my account"
       end
 

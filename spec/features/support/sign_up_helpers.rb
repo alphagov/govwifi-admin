@@ -8,7 +8,7 @@ def sign_up_for_account(email: 'default@gov.uk')
 end
 
 def update_user_details(
-  password: 'supersecret',
+  password: 'actually1 strongPassw0rd !!',
   name: 'bob',
   service_email: 'admin@gov.uk',
   organisation_name: 'Org 1'

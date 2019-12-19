@@ -1,6 +1,22 @@
 describe User do
   let(:organisation) { create(:organisation) }
 
+  describe 'validation' do
+    let(:user) { create(:user) }
+
+    it 'has a valid factory user' do
+      expect(user).to be_valid
+    end
+
+    ['password123', 'my password', 'pa55w0rd'].each do |weak_pass|
+      it "does not accept a weak password (#{weak_pass})" do
+        user.update(password: weak_pass)
+
+        expect(user).not_to be_valid
+      end
+    end
+  end
+
   it { is_expected.to have_many(:organisations).through(:memberships) }
   it { is_expected.to have_many(:memberships) }
   it { is_expected.to validate_presence_of(:name).on(:update) }

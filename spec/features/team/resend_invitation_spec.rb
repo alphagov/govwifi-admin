@@ -39,7 +39,7 @@ describe 'Resending an invitation to a team member', type: :feature do
     context 'when filling in the sign up page' do
       before do
         fill_in 'Your name', with: 'Ron Swanson'
-        fill_in 'Password', with: 'password'
+        fill_in 'Password', with: 'strong&SEKure p44sw0rd'
         click_on 'Create my account'
       end
 

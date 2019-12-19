@@ -2,7 +2,7 @@ require 'support/notifications_service'
 require 'support/confirmation_use_case'
 
 describe 'Logging in after signing up', type: :feature do
-  let(:correct_password) { 'f1uffy-bu44ies' }
+  let(:correct_password) { 'f1uffy-bu44ies!~plant' }
 
   include_context 'when sending a confirmation email'
   include_context 'when using the notifications service'

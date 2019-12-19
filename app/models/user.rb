@@ -4,8 +4,18 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :organisations, :memberships
 
-  devise :invitable, :confirmable, :database_authenticatable, :registerable, :recoverable,
-    :rememberable, :trackable, :timeoutable, :validatable, :lockable, :two_factor_authenticatable
+  devise :invitable,
+         :confirmable,
+         :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :trackable,
+         :timeoutable,
+         :validatable,
+         :lockable,
+         :two_factor_authenticatable,
+         :zxcvbnable
 
   has_one_time_password(encrypted: true)
 
@@ -13,6 +23,8 @@ class User < ApplicationRecord
   validates :password, presence: true,
     length: { within: 6..80 },
     on: :update
+
+  validate :strong_password, on: :update
 
   def only_if_unconfirmed
     pending_any_confirmation { yield }
