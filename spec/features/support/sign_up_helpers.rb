@@ -23,6 +23,14 @@ def update_user_details(
   fill_in "Your name", with: name
   fill_in "Password", with: password
   click_on "Create my account"
+
+  skip_two_factor_authentication
+end
+
+def skip_two_factor_authentication
+  Warden.on_next_request do |proxy|
+    proxy.session(:user)[two_factor_session_key] = false
+  end
 end
 
 def confirmation_email_link

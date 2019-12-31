@@ -1,5 +1,5 @@
 describe "GET /home", type: :request do
-  let(:user) { create(:user, :with_organisation) }
+  let(:user) { create(:user, :with_2fa, :with_organisation) }
   let(:classic_admin) { create(:user, :super_admin) }
   let(:admin) { create(:user, :new_admin) }
   let(:both) { create(:user, :new_admin, :super_admin) }

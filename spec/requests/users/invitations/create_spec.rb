@@ -2,7 +2,7 @@ require "support/invite_use_case"
 require "support/notifications_service"
 
 describe "POST /users/invitation", type: :request do
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :with_2fa, organisations: [organisation]) }
   let(:organisation) { create(:organisation) }
 
   before do
