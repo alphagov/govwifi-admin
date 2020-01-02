@@ -17,6 +17,10 @@ describe 'Multiple organisations', type: :feature do
       click_on 'Switch organisation'
     end
 
+    it 'does not display the sidenav' do
+      expect(page).not_to have_selector '.leftnav'
+    end
+
     it 'displays a button for organisation one' do
       expect(page).to have_button(organisation_1.name)
     end
@@ -30,10 +34,6 @@ describe 'Multiple organisations', type: :feature do
       within ".subnav" do
         expect(page).to have_content(organisation_2.name)
       end
-    end
-
-    it 'does not display a sidebar' do
-      expect(page.find(".leftnav").text).to eq ''
     end
   end
 

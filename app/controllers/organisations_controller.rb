@@ -2,15 +2,18 @@ class OrganisationsController < ApplicationController
   before_action :set_organisation, only: %i[edit update]
   before_action :validate_user_is_part_of_organisation, only: %i[edit update]
 
+  attr_reader :hide_sidebar
+
   def new
     @organisation = Organisation.new
     @register_organisations = Organisation.fetch_organisations_from_register
-    @organisation_specific = false
-    render :new
+
+    @hide_sidebar = true
   end
 
   def create
     @organisation = Organisation.new(organisation_params)
+
     if @organisation.save
       assign_user_to_organisation(@organisation)
       set_as_current_organisation(@organisation)
@@ -18,7 +21,7 @@ class OrganisationsController < ApplicationController
       redirect_to root_path, notice: "#{@organisation.name} created"
     else
       @register_organisations = Organisation.fetch_organisations_from_register
-      @organisation_specific = false
+
       render :new
     end
   end
@@ -34,6 +37,10 @@ class OrganisationsController < ApplicationController
   end
 
 private
+
+  def sidebar
+    @hide_sidebar ? :empty : super
+  end
 
   def set_organisation
     @organisation = Organisation.find(params.fetch(:id))
