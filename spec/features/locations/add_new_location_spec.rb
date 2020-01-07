@@ -67,6 +67,22 @@ describe "Add location", type: :feature do
     end
   end
 
+  context "when trying to update a different location" do
+    let(:other_loc) { create(:location, organisation: create(:organisation)) }
+
+    before do
+      visit location_add_ips_path(other_loc.id)
+    end
+
+    it "redirects to current organisation locations panel" do
+      expect(page).to have_current_path(ips_path)
+    end
+
+    it "displays a message to the user" do
+      expect(page).to have_content "not authorised to edit this location"
+    end
+  end
+
   context "when logged out" do
     before do
       sign_out

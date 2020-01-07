@@ -30,7 +30,15 @@ class LocationsController < ApplicationController
 
   def add_ips
     @location = Location.find(params[:location_id])
-    @location.add_blank_ips(5)
+
+    if !current_organisation.locations.include? @location
+      redirect_to(
+        ips_path,
+        notice: "You are not authorised to edit this location",
+      )
+    else
+      @location.add_blank_ips(5)
+    end
   end
 
   def update_ips
