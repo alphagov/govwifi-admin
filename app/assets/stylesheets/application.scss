@@ -23,6 +23,11 @@ $govuk-font-url-function: "font-url";
   vertical-align: top;
 }
 
+// set correct font for the autocomplete
+.autocomplete__wrapper {
+  @extend %govuk-body-m;
+}
+
 @import "./utilities/colours";
 @import "./components/*";
 @import "./utilities/*";
