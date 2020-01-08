@@ -74,12 +74,8 @@ describe "Add location", type: :feature do
       visit location_add_ips_path(other_loc.id)
     end
 
-    it "redirects to current organisation locations panel" do
-      expect(page).to have_current_path(ips_path)
-    end
-
-    it "displays a message to the user" do
-      expect(page).to have_content "not authorised to edit this location"
+    it "does not render the add_ips_path" do
+      expect(page).to_not have_current_path(location_add_ips_path)
     end
   end
 

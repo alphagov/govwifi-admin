@@ -39,6 +39,23 @@ describe Ability do
           end
         end
       end
+
+      describe "editing locations" do
+        let(:location) { create(:location, organisation: user.organisations.first) }
+        let(:other_location) { create(:location) }
+
+        context "when the user belongs to the parent organisation" do
+          it "can edit the location" do
+            expect(ability.can?(:edit, location)).to be true
+          end
+        end
+
+        context "when the user does not belong to the parent organisation" do
+          it "cannot edit the location" do
+            expect(ability.can?(:edit, other_location)).to be false
+          end
+        end
+      end
     end
 
     context "with a superadmin account" do

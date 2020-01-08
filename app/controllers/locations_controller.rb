@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
   before_action :authorise_manage_locations
+  before_action :authorise_manage_current_location, only: %i[add_ips update_ips update]
 
   def new
     @location = Location.new
@@ -30,20 +31,13 @@ class LocationsController < ApplicationController
 
   def add_ips
     @location = Location.find(params[:location_id])
-
-    if !current_organisation.locations.include? @location
-      redirect_to(
-        ips_path,
-        notice: "You are not authorised to edit this location",
-      )
-    else
-      @location.add_blank_ips(5)
-    end
+    @location.add_blank_ips(5)
   end
 
   def update_ips
     @location = Location.find(params[:location_id])
     length_of_ips_before = @location.ips.length
+
     if !present_ips.empty? && @location.update(ips_attributes: present_ips)
       Facades::Ips::Publish.new.execute
       length_of_ips_added = @location.ips.length - length_of_ips_before
@@ -76,8 +70,15 @@ private
     location_params = params
       .require(:location)
       .permit(ips_attributes: [:address])
+
     location_params[:ips_attributes].reject do |_, a|
       a["address"].blank? || @location.ips.map(&:address).include?(a["address"])
+    end
+  end
+
+  def authorise_manage_current_location
+    unless can? :edit, Location.find(params[:location_id] || params[:id])
+      redirect_to root_path, error: "You are not allowed to perform this operation"
     end
   end
 end
