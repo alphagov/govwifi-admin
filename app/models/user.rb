@@ -20,11 +20,17 @@ class User < ApplicationRecord
   has_one_time_password(encrypted: true)
 
   validates :name, presence: true, on: :update
-  validates :password, presence: true,
-    length: { within: 6..80 },
-    on: :update
+  validates :password,
+            presence: true,
+            length: { within: 6..80 },
+            on: :update,
+            if: :password_present?
 
-  validate :strong_password, on: :update
+  validate :strong_password, on: :update, if: :password_present?
+
+  def password_present?
+    password.present?
+  end
 
   def only_if_unconfirmed
     pending_any_confirmation { yield }
