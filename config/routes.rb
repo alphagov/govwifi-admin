@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     get 'users/confirmations/pending', to: 'users/confirmations#pending'
     put 'users/two_factor_authentication_setup', to: 'users/two_factor_authentication_setup#update'
     get 'users/two_factor_authentication_setup', to: 'users/two_factor_authentication_setup#show'
+    get 'users/:id/two_factor_authentication/edit', to: 'users/two_factor_authentication_setup#edit'
+    delete 'users/two_factor_authentication_setup/:id', to: 'users/two_factor_authentication_setup#destroy'
   end
   get 'confirm_new_membership', to: 'users/memberships#create'
 
