@@ -3,6 +3,11 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   skip_before_action :handle_two_factor_authentication
   # Skips 2FA setup confirmation callback in ApplicationController.
   skip_before_action :confirm_two_factor_setup
+  before_action :validate_can_manage_team, only: %i[edit destroy]
+
+  def edit
+    @user = User.find(params[:id])
+  end
 
   def show
     # Used to populate the QR code used in setup.
@@ -23,6 +28,28 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
     else
       flash[:alert] = 'Six digit code is not valid'
       render 'show'
+    end
+  end
+
+  def destroy
+    user = User.find(params.fetch(:id))
+    user.second_factor_attempts_count = nil
+    user.encrypted_otp_secret_key = nil
+    user.encrypted_otp_secret_key_iv = nil
+    user.encrypted_otp_secret_key_salt = nil
+    user.totp_timestamp = nil
+    user.otp_secret_key = nil
+    user.save!
+  end
+
+  def validate_can_manage_team
+    if super_admin?
+      return true
+    end
+
+    user = User.find(params.fetch(:id))
+    unless current_user.can_manage_team?(current_organisation) && user.membership_for(current_organisation)
+      raise ActionController::RoutingError.new('Not Found')
     end
   end
 
