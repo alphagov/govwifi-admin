@@ -40,6 +40,14 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
     user.totp_timestamp = nil
     user.otp_secret_key = nil
     user.save!
+
+    redirect_path = if current_organisation&.super_admin?
+                      super_admin_organisations_path
+                    else
+                      memberships_path
+                    end
+
+    redirect_to redirect_path, notice: "Two factor authentication has been reset"
   end
 
   def validate_can_manage_team
