@@ -29,7 +29,7 @@ class User < ApplicationRecord
   validate :strong_password, on: :update, if: :password_present?
 
   def password_present?
-    password.present?
+    not password.nil?
   end
 
   def only_if_unconfirmed
