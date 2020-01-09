@@ -15,7 +15,7 @@
           <td class="govuk-table__cell text-right" scope="row">
             <% if user.totp_enabled? %>
             <%= link_to 'Reset 2FA',
-                { controller: "users/two_factor_authentication_setup", action: "edit", id: user},
+                { controller: "users/two_factor_authentication_setup", action: "edit", id: user },
                 class: "govuk-button govuk-button--secondary" %>
             <% end %>
           </td>
