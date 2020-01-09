@@ -54,7 +54,7 @@
             <%= link_to 'Edit permissions', edit_membership_path(member.membership_for(current_organisation)), class: "govuk-link govuk-link--no-visited-state" %>
             <% if member.totp_enabled? %>
             <%= link_to 'Reset 2FA',
-                { controller: "users/two_factor_authentication_setup", action: "edit", id: member},
+                { controller: "users/two_factor_authentication_setup", action: "edit", id: member },
                 class: "govuk-link govuk-link--no-visited-state" %>
             <% end %>
 
