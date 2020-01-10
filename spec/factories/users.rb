@@ -27,6 +27,10 @@ FactoryBot.define do
       end
     end
 
+    trait :with_2fa do
+      otp_secret_key { 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' } # 2FA is set up
+    end
+
     trait :unconfirmed do
       confirmed_at { nil }
     end
