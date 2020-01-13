@@ -5,7 +5,9 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   skip_before_action :confirm_two_factor_setup
   before_action :validate_can_manage_team, only: %i[edit destroy]
 
-  def edit; end
+  def edit
+    @user = User.find(params.fetch(:id))
+  end
 
   def show
     # Used to populate the QR code used in setup.
@@ -30,6 +32,8 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   end
 
   def destroy
+    @user = User.find(params.fetch(:id))
+
     @user.reset_2fa!
 
     redirect_path = if current_organisation&.super_admin?
@@ -44,11 +48,7 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   def validate_can_manage_team
     user = User.find(params.fetch(:id))
 
-    if current_user.can_manage_other_user_for_org?(user, current_organisation)
-      @user = user
-    else
-      redirect_to root_path
-    end
+    redirect_to root_path unless current_user.can_manage_other_user_for_org?(user, current_organisation)
   end
 
   def qr_code_uri

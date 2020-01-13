@@ -15,10 +15,6 @@ RSpec.shared_context 'when using validate_can_manage_team' do
     it 'redirects to the home page' do
       expect(response).to redirect_to root_path
     end
-
-    it 'does not assign the user variable' do
-      expect(assigns(:user)).to be_nil
-    end
   end
 
   context 'when the user is allowed to edit' do
@@ -27,8 +23,8 @@ RSpec.shared_context 'when using validate_can_manage_team' do
       @response = get action, params: { id: teammate.id }
     end
 
-    it 'assigns the user variable' do
-      expect(assigns(:user)).to eq teammate
+    it 'does not redirect to the home page' do
+      expect(response).not_to redirect_to root_path
     end
   end
 
@@ -38,8 +34,8 @@ RSpec.shared_context 'when using validate_can_manage_team' do
       @response = get action, params: { id: teammate.id }
     end
 
-    it 'assigns the user variable' do
-      expect(assigns(:user)).to eq teammate
+    it 'does not redirect to the home page' do
+      expect(response).not_to redirect_to root_path
     end
   end
 end
