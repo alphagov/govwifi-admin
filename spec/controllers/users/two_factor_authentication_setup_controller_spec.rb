@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+require 'support/filters/validate_can_manage_team'
+
 RSpec.describe Users::TwoFactorAuthenticationSetupController, type: :controller do
   let(:organisation) { create(:organisation) }
 
@@ -9,53 +11,28 @@ RSpec.describe Users::TwoFactorAuthenticationSetupController, type: :controller 
   let(:teammate) { create(:user, organisations: [organisation]) }
 
   describe 'edit' do
-    context 'when the current_user is not allowed to edit' do
-      before do
-        sign_in stranger
-        @response = get :edit, params: { id: teammate.id }
-      end
-
-      it 'redirects to the home page' do
-        expect(response).to redirect_to root_path
-      end
-
-      it 'does not assign the user variable' do
-        expect(assigns(:user)).to be_nil
-      end
+    it_behaves_like 'when using validate_can_manage_team' do
+      let(:action) { :edit }
     end
 
-    context 'when the user is allowed to edit' do
-      before do
-        sign_in admin
-        @response = get :edit, params: { id: teammate.id }
-      end
-
-      it 'renders the right view' do
-        expect(response).to render_template 'edit'
-      end
-
-      it 'assigns the user variable' do
-        expect(assigns(:user)).to eq teammate
-      end
-    end
-
-    context 'when the user is a super admin' do
+    context 'when the filter passes' do
       before do
         sign_in superadmin
-        @response = get :edit, params: { id: teammate.id }
       end
 
-      it 'renders the right view' do
+      it 'renders the correct template' do
+        response = get(:edit, params: { id: teammate.id })
+
         expect(response).to render_template 'edit'
-      end
-
-      it 'assigns the user variable' do
-        expect(assigns(:user)).to eq teammate
       end
     end
   end
 
   describe 'delete' do
+    it_behaves_like 'when using validate_can_manage_team' do
+      let(:action) { :destroy }
+    end
+
     before do
       allow(User).to receive(:find).and_return teammate
       allow(teammate).to receive :reset_2fa!
