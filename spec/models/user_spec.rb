@@ -187,4 +187,16 @@ describe User do
       end
     end
   end
+
+  describe 'reset_2fa!' do
+    let(:user) { create(:user, :with_2fa) }
+
+    before do
+      user.reset_2fa!
+    end
+
+    it 'resets the two factor auth' do
+      expect(user).not_to be_totp_enabled
+    end
+  end
 end

@@ -81,6 +81,17 @@ class User < ApplicationRecord
     !ENV.key?('BYPASS_2FA') && request.env['warden'].user.super_admin?
   end
 
+  def reset_2fa!
+    update!(
+      second_factor_attempts_count: nil,
+      encrypted_otp_secret_key: nil,
+      encrypted_otp_secret_key_iv: nil,
+      encrypted_otp_secret_key_salt: nil,
+      totp_timestamp: nil,
+      otp_secret_key: nil
+    )
+  end
+
   # No-Op
   # We don't send the otp code to the user, this is a presumption in the two_factor_authentication gem.
   # The method has to be defined to avoid a NotImplementedError.

@@ -5,9 +5,7 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   skip_before_action :confirm_two_factor_setup
   before_action :validate_can_manage_team, only: %i[edit destroy]
 
-  def edit
-    @user = User.find(params[:id])
-  end
+  def edit; end
 
   def show
     # Used to populate the QR code used in setup.
@@ -32,14 +30,7 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   end
 
   def destroy
-    user = User.find(params.fetch(:id))
-    user.second_factor_attempts_count = nil
-    user.encrypted_otp_secret_key = nil
-    user.encrypted_otp_secret_key_iv = nil
-    user.encrypted_otp_secret_key_salt = nil
-    user.totp_timestamp = nil
-    user.otp_secret_key = nil
-    user.save!
+    @user.reset_2fa!
 
     redirect_path = if current_organisation&.super_admin?
                       super_admin_organisations_path
