@@ -42,7 +42,7 @@ group :test do
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
   gem 'timecop', '~> 0.9.1'
-  gem 'webmock', '~> 3.6.0'
+  gem 'webmock', '~> 3.7.6'
 end
 
 group :development, :test do
