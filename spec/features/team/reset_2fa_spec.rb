@@ -1,14 +1,14 @@
 describe "Reset two factor authentication", type: :feature do
   let(:organisation) { create(:organisation) }
-  let(:org_admin_user_1) { create(:user, :with_2fa, organisations: [organisation]) }
+  let!(:org_admin_user_1) { create(:user, :with_2fa, organisations: [organisation]) }
   let(:org_admin_user_2) { create(:user, :with_2fa, organisations: [organisation]) }
+  let(:org_admin_user_3) { create(:user, organisations: [organisation]) } # no 2fa
 
   let(:super_admin_user) { create(:user, :super_admin) }
 
   context "when logged in as a super admin user" do
     before do
       sign_in_user(super_admin_user)
-      org_admin_user_1
     end
 
     it "only shows the option to reset 2FA for org members who have 2FA enabled" do
