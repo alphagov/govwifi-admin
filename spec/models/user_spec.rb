@@ -139,4 +139,52 @@ describe User do
       end
     end
   end
+
+  describe 'can_manage_other_user_for_org?' do
+    let(:organisation) { create(:organisation) }
+
+    let(:superadmin) { create(:user, :new_admin) }
+    let(:admin) { create(:user, organisations: [organisation]) }
+    let(:user) { create(:user, organisations: [organisation]) }
+    let(:colleague) { create(:user, organisations: [organisation]) }
+
+    context 'when the operator is a super admin' do
+      it 'returns true' do
+        expect(superadmin.can_manage_other_user_for_org?(user, organisation))
+          .to be true
+      end
+    end
+
+    context 'when the operator is not entitled to manage the team' do
+      before do
+        colleague.membership_for(organisation).update!(can_manage_team: false)
+      end
+
+      it 'returns false' do
+        expect(colleague.can_manage_other_user_for_org?(user, organisation))
+          .to be false
+      end
+    end
+
+    context 'when the operator can manage the team' do
+      it 'returns true' do
+        expect(admin.can_manage_other_user_for_org?(user, organisation))
+          .to be true
+      end
+    end
+
+    context 'when the user is not part of the same org' do
+      it 'returns false' do
+        expect(admin.can_manage_other_user_for_org?(create(:user, :with_organisation), organisation))
+          .to be false
+      end
+    end
+
+    context 'when the operator is not part of the same org' do
+      it 'returns false' do
+        expect(create(:user, :with_organisation).can_manage_other_user_for_org?(user, organisation))
+          .to be false
+      end
+    end
+  end
 end

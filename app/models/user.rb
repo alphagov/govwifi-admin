@@ -50,7 +50,7 @@ class User < ApplicationRecord
   end
 
   def can_manage_team?(organisation)
-    membership_for(organisation).can_manage_team?
+    membership_for(organisation)&.can_manage_team?
   end
 
   def can_manage_locations?(organisation)
@@ -63,6 +63,10 @@ class User < ApplicationRecord
 
   def default_membership
     memberships.first
+  end
+
+  def can_manage_other_user_for_org?(user, org)
+    super_admin? || !!(can_manage_team?(org) && user.membership_for(org))
   end
 
   def new_super_admin?
