@@ -51,13 +51,12 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   end
 
   def validate_can_manage_team
-    if super_admin?
-      return true
-    end
-
     user = User.find(params.fetch(:id))
-    unless current_user.can_manage_team?(current_organisation) && user.membership_for(current_organisation)
-      raise ActionController::RoutingError.new('Not Found')
+
+    if current_user.can_manage_other_user_for_org?(user, current_organisation)
+      @user = user
+    else
+      redirect_to root_path
     end
   end
 
