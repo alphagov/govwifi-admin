@@ -20,11 +20,17 @@ class User < ApplicationRecord
   has_one_time_password(encrypted: true)
 
   validates :name, presence: true, on: :update
-  validates :password, presence: true,
-    length: { within: 6..80 },
-    on: :update
+  validates :password,
+            presence: true,
+            length: { within: 6..80 },
+            on: :update,
+            if: :password_present?
 
-  validate :strong_password, on: :update
+  validate :strong_password, on: :update, if: :password_present?
+
+  def password_present?
+    not password.nil?
+  end
 
   def only_if_unconfirmed
     pending_any_confirmation { yield }
@@ -44,7 +50,7 @@ class User < ApplicationRecord
   end
 
   def can_manage_team?(organisation)
-    membership_for(organisation).can_manage_team?
+    membership_for(organisation)&.can_manage_team?
   end
 
   def can_manage_locations?(organisation)
@@ -59,6 +65,10 @@ class User < ApplicationRecord
     memberships.first
   end
 
+  def can_manage_other_user_for_org?(user, org)
+    super_admin? || !!(can_manage_team?(org) && user.membership_for(org))
+  end
+
   def new_super_admin?
     memberships.empty? && is_super_admin?
   end
@@ -69,6 +79,17 @@ class User < ApplicationRecord
 
   def need_two_factor_authentication?(request)
     !ENV.key?('BYPASS_2FA') && request.env['warden'].user.super_admin?
+  end
+
+  def reset_2fa!
+    update!(
+      second_factor_attempts_count: nil,
+      encrypted_otp_secret_key: nil,
+      encrypted_otp_secret_key_iv: nil,
+      encrypted_otp_secret_key_salt: nil,
+      totp_timestamp: nil,
+      otp_secret_key: nil
+    )
   end
 
   # No-Op
