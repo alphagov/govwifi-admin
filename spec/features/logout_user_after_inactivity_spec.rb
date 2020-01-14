@@ -3,11 +3,11 @@ require 'timecop'
 describe 'Logout users after period of inactivity', type: :feature do
   let(:user) { create(:user, :with_organisation) }
 
-  context 'when a signed in user has been inactive for 59 minutes' do
+  context 'when a signed in user has been inactive for 29 minutes' do
     before do
       sign_in_user user
       visit root_path
-      Timecop.travel(Time.now + 59.minutes) { visit root_path }
+      Timecop.travel(Time.now + 29.minutes) { visit root_path }
     end
 
     after { Timecop.return }
@@ -19,11 +19,11 @@ describe 'Logout users after period of inactivity', type: :feature do
     end
   end
 
-  context 'when a signed in user has been inactive for an hour' do
+  context 'when a signed in user has been inactive for half an hour' do
     before do
       sign_in_user user
       visit root_path
-      Timecop.travel(Time.now + 1.hour) { visit root_path }
+      Timecop.travel(Time.now + 30.minutes) { visit root_path }
     end
 
     after { Timecop.return }
