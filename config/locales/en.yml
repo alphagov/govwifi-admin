@@ -17,3 +17,9 @@ en:
               existing GovWifi installation, you must be invited to that \n
               organisation's team. <a class='govuk-link' href='/help/new'>Contact us</a> \n
               if you need help."
+
+  users:
+    two_factor_authentication_setup:
+      show:
+        complete_setup: "Complete setup"
+        skip_setup: "Remind me next time"
