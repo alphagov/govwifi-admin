@@ -25,7 +25,6 @@ describe "Upload and download the MOU template", type: :feature do
       end
 
       it "shows the user an error message" do
-        pending("check is implemented")
         expect(page).to have_content("Unsupported file type. MOU template should be a PDF.")
       end
     end
@@ -88,7 +87,6 @@ describe "Upload and download the MOU template", type: :feature do
         end
 
         it "shows the user an error message" do
-          pending("check is implemented")
           expect(page).to have_content("Unsupported file type. Signed MOU should be a PDF.")
         end
       end

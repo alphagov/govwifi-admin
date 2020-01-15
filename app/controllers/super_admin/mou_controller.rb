@@ -17,8 +17,13 @@ private
 
   def attach_to_organisation(organisation)
     if params[:signed_mou]
-      organisation.signed_mou.attach(params[:signed_mou])
-      flash[:notice] = "MOU uploaded successfully."
+      mime_type = Marcel::MimeType.for(params[:signed_mou])
+      if mime_type.to_s == "application/pdf"
+        organisation.signed_mou.attach(params[:signed_mou])
+        flash[:notice] = "MOU uploaded successfully."
+      else
+        flash[:alert] = "Unsupported file type. Signed MOU should be a PDF."
+      end
     else
       flash[:alert] = "No MoU file selected. Please select a file and try again."
     end
@@ -26,8 +31,13 @@ private
 
   def attach_to_template
     if params[:unsigned_document]
-      AdminConfig.mou.unsigned_document.attach(params[:unsigned_document])
-      flash[:notice] = "MOU template uploaded successfully."
+      mime_type = Marcel::MimeType.for(params[:unsigned_document])
+      if mime_type.to_s == "application/pdf"
+        AdminConfig.mou.unsigned_document.attach(params[:unsigned_document])
+        flash[:notice] = "MOU template uploaded successfully."
+      else
+        flash[:alert] = "Unsupported file type. MOU template should be a PDF."
+      end
     else
       flash[:alert] = "No MoU template selected. Please select a file and try again."
     end
