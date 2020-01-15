@@ -35,18 +35,18 @@ private
 
   def sorted_team_members(organisation)
     UseCases::Administrator::SortUsers.new(
-      users_gateway: Gateways::OrganisationUsers.new(organisation: organisation)
+      users_gateway: Gateways::OrganisationUsers.new(organisation: organisation),
     ).execute
   end
 
   def publish_organisation_names
     UseCases::Administrator::PublishOrganisationNames.new(
       destination_gateway: Gateways::S3.new(
-        bucket: ENV.fetch('S3_PRODUCT_PAGE_DATA_BUCKET'),
-        key: ENV.fetch('S3_ORGANISATION_NAMES_OBJECT_KEY')
+        bucket: ENV.fetch("S3_PRODUCT_PAGE_DATA_BUCKET"),
+        key: ENV.fetch("S3_ORGANISATION_NAMES_OBJECT_KEY"),
       ),
       source_gateway: Gateways::OrganisationNames.new,
-      presenter: UseCases::Administrator::FormatOrganisationNames.new
+      presenter: UseCases::Administrator::FormatOrganisationNames.new,
     ).execute
   end
 

@@ -1,4 +1,4 @@
-require 'support/notifications_service'
+require "support/notifications_service"
 
 describe EmailGateway do
   subject(:email_gateway) { described_class.new }
@@ -6,21 +6,21 @@ describe EmailGateway do
   let(:notification) { instance_spy(Notifications::Client, send_email: nil) }
 
   before do
-    ENV['NOTIFY_API_KEY'] = 'dummy_key-00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000'
+    ENV["NOTIFY_API_KEY"] = "dummy_key-00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000"
     allow(Notifications::Client).to receive(:new).and_return(notification)
   end
 
-  context 'when sending a confirmation email' do
-    let(:email) { 'test@example.com' }
-    let(:confirmation_url) { 'http://example.com/confirm?token=123' }
+  context "when sending a confirmation email" do
+    let(:email) { "test@example.com" }
+    let(:confirmation_url) { "http://example.com/confirm?token=123" }
     let(:template_id) { 1 }
-    let(:reference) { 'confirmation_email' }
+    let(:reference) { "confirmation_email" }
     let(:notifications_payload) do
       {
-        email_address: 'test@example.com',
+        email_address: "test@example.com",
         template_id: 1,
-        personalisation: { confirmation_url: 'http://example.com/confirm?token=123' },
-        reference: 'confirmation_email'
+        personalisation: { confirmation_url: "http://example.com/confirm?token=123" },
+        reference: "confirmation_email",
       }
     end
 
@@ -29,11 +29,11 @@ describe EmailGateway do
         email: email,
         template_id: template_id,
         locals: { confirmation_url: confirmation_url },
-        reference: reference
+        reference: reference,
       )
     end
 
-    it 'calls the Notify client' do
+    it "calls the Notify client" do
       expect(notification).to have_received(:send_email).with(notifications_payload)
     end
   end

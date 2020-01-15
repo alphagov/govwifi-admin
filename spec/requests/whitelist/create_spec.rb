@@ -14,10 +14,10 @@ describe "POST /admin/whitelist", type: :request do
     let(:valid_params) do
       {
         whitelist: {
-          step: 'sixth',
-          organisation_name: 'Made Tech',
-          email_domain: 'madetech.com'
-        }
+          step: "sixth",
+          organisation_name: "Made Tech",
+          email_domain: "madetech.com",
+        },
       }
     end
 
@@ -32,12 +32,12 @@ describe "POST /admin/whitelist", type: :request do
       .and change(AuthorisedEmailDomain, :count).by(1)
     end
 
-    it 'publishes the email domain regex to S3' do
+    it "publishes the email domain regex to S3" do
       post super_admin_whitelist_path, params: valid_params
       expect(regex_gateway).to have_received(:write)
     end
 
-    it 'publishes the email domain list to S3' do
+    it "publishes the email domain list to S3" do
       allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
       allow(presenter).to receive(:execute).and_return(data)
       post super_admin_whitelist_path, params: valid_params
@@ -49,10 +49,10 @@ describe "POST /admin/whitelist", type: :request do
     let(:empty_params) do
       {
         whitelist: {
-          step: 'sixth',
-          organisation_name: '',
-          email_domain: ''
-        }
+          step: "sixth",
+          organisation_name: "",
+          email_domain: "",
+        },
       }
     end
 
@@ -70,10 +70,10 @@ describe "POST /admin/whitelist", type: :request do
     let(:invalid_params) do
       {
         whitelist: {
-          step: 'sixth',
+          step: "sixth",
           organisation_name: organisation_name,
-          email_domain: email_domain
-        }
+          email_domain: email_domain,
+        },
       }
     end
 

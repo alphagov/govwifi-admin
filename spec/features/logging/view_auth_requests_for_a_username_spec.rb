@@ -1,5 +1,5 @@
 describe "View authentication requests for a username", type: :feature do
-  context 'when an organisation with no ips searches logs' do
+  context "when an organisation with no ips searches logs" do
     let(:organisation_with_no_ips) { create(:organisation) }
     let(:admin_user) { create(:user, organisations: [organisation_with_no_ips]) }
     let(:username) { "AAAAAA" }

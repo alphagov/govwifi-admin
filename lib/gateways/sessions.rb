@@ -8,7 +8,7 @@ module Gateways
 
     def search(username: nil, ips: nil)
       results = Session
-                  .where('start >= ?', 2.weeks.ago)
+                  .where("start >= ?", 2.weeks.ago)
                   .order(start: :desc)
                   .limit(MAXIMUM_RESULTS_COUNT)
 
@@ -23,7 +23,7 @@ module Gateways
           mac: log.mac,
           site_ip: log.siteIP,
           start: log.start,
-          success: log.success
+          success: log.success,
         }
       end
     end

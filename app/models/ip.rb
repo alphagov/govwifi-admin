@@ -7,13 +7,13 @@ class Ip < ApplicationRecord
   def inactive?
     Session
       .where(siteIP: self.address)
-      .where("start > ?", Date.today - 10.days)
+      .where("start > ?", Time.zone.today - 10.days)
       .limit(1)
       .empty?
   end
 
   def available?
-    created_at < Date.today.beginning_of_day
+    created_at < Time.zone.today.beginning_of_day
   end
 
   def unused?
@@ -32,6 +32,6 @@ private
   end
 
   def address_not_present?
-    self.address.nil? || self.address.empty?
+    self.address.blank?
   end
 end

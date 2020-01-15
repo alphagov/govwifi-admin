@@ -10,7 +10,7 @@ class SetupInstructionsController < ApplicationController
 
   def poster
     send_file(
-      Rails.root.join("app", "assets", "images", "govwifi-poster.png"),
+      Rails.root.join("app/assets/images/govwifi-poster.png"),
       type: "image/png",
       disposition: "inline",
       filename: "GovWifi-poster.png",

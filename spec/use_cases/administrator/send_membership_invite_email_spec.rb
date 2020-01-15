@@ -1,10 +1,10 @@
 describe UseCases::Administrator::SendMembershipInviteEmail do
   subject(:use_case) { described_class.new(notifications_gateway: gateway_spy) }
 
-  let(:gateway_spy) { instance_spy('EmailGateway', send: nil) }
-  let(:email) { 'test@example.com' }
-  let(:invite_url) { 'https://example.com' }
-  let(:template_id) { GOV_NOTIFY_CONFIG['cross_organisation_invitation']['template_id'] }
+  let(:gateway_spy) { instance_spy("EmailGateway", send: nil) }
+  let(:email) { "test@example.com" }
+  let(:invite_url) { "https://example.com" }
+  let(:template_id) { GOV_NOTIFY_CONFIG["cross_organisation_invitation"]["template_id"] }
   let(:organisation) { create(:organisation) }
   let(:valid_args) do
     {
@@ -12,10 +12,10 @@ describe UseCases::Administrator::SendMembershipInviteEmail do
       email_reply_to_id: nil,
       locals: {
         invite_url: invite_url,
-        organisation: organisation.name
+        organisation: organisation.name,
       },
       template_id: template_id,
-      reference: 'invite_email'
+      reference: "invite_email",
     }
   end
 
@@ -24,11 +24,11 @@ describe UseCases::Administrator::SendMembershipInviteEmail do
       email: email,
       invite_url: invite_url,
       template_id: template_id,
-      organisation: organisation
+      organisation: organisation,
     )
   end
 
-  it 'calls notifications gateway with valid data' do
+  it "calls notifications gateway with valid data" do
     expect(gateway_spy).to have_received(:send).with(valid_args)
   end
 end

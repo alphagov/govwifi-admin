@@ -19,7 +19,7 @@
 
     <% if @current_org_signed_mou %>
       <p class="govuk-body">
-        A signed MoU was uploaded on <%= @current_org_signed_mou.created_at.strftime('%e %b %Y') %>,
+        A signed MoU was uploaded on <%= @current_org_signed_mou.created_at.strftime("%e %b %Y") %>,
         <%= link_to "download and view the document.", rails_blob_path(@current_org_signed_mou, disposition: "attachment"), class: "govuk-link" %>
       </p>
       <h3 class="govuk-heading-m">Replace MoU</h3>
@@ -29,15 +29,15 @@
     <% end %>
 
     <div>
-      <%= form_with url: mou_index_path, method: 'post' do |form| %>
+      <%= form_with url: mou_index_path, method: "post" do |form| %>
         <div class="govuk-form-group">
-          <%= form.file_field(:signed_mou, class: 'govuk-file-upload') %>
+          <%= form.file_field(:signed_mou, class: "govuk-file-upload") %>
         </div>
-        <% submit_text = @current_org_signed_mou ? 'Replace MOU' : 'Upload MOU' %>
-        <%= form.submit(submit_text, class: 'govuk-button') %>
+        <% submit_text = @current_org_signed_mou ? "Replace MOU" : "Upload MOU" %>
+        <%= form.submit(submit_text, class: "govuk-button") %>
       <% end %>
     </div>
   </div>
 </div>
 
-<%= link_to "Getting help", help_index_path, class: 'govuk-link' %>
+<%= link_to "Getting help", help_index_path, class: "govuk-link" %>

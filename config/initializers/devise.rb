@@ -10,7 +10,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  config.secret_key = ENV.fetch('DEVISE_SECRET_KEY')
+  config.secret_key = ENV.fetch("DEVISE_SECRET_KEY")
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -20,13 +20,13 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
-  config.mailer = 'AuthenticationMailer'
+  config.mailer = "AuthenticationMailer"
 
   # Configure the parent class responsible to send e-mails.
-  config.parent_mailer = 'ActionMailer::Base'
+  config.parent_mailer = "ActionMailer::Base"
 
   config.min_password_score = 4
 
@@ -34,7 +34,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -340,8 +340,8 @@ Devise.setup do |config|
   config.allowed_otp_drift_seconds = 30 # Allowed TOTP time drift between client and server.
   config.otp_length = 6 # TOTP code length
   config.remember_otp_session_for_seconds = 86400 # Time before browser has to perform 2fA again. Default is 0.
-  config.otp_secret_encryption_key = ENV['OTP_SECRET_ENCRYPTION_KEY']
-  config.second_factor_resource_id = 'id' # Field or method name used to set value for 2fA remember cookie
+  config.otp_secret_encryption_key = ENV["OTP_SECRET_ENCRYPTION_KEY"]
+  config.second_factor_resource_id = "id" # Field or method name used to set value for 2fA remember cookie
   config.delete_cookie_on_logout = false # Delete cookie when user signs out, to force 2fA again on login
 end
 

@@ -43,7 +43,7 @@ module UseCases
       end
 
       def address_does_not_allows_all?
-        !address.match?('0.0.0.0')
+        !address.match?("0.0.0.0")
       end
 
       def address_is_not_subnet?

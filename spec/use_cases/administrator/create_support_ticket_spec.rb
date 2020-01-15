@@ -13,13 +13,13 @@ describe UseCases::Administrator::CreateSupportTicket do
       requester: {
         email: email,
         name: name,
-        organisation: 'Parks & Rec'
+        organisation: "Parks & Rec",
       },
-      details: body
+      details: body,
     )
   end
 
-  it 'passes the requester to the gateway' do
+  it "passes the requester to the gateway" do
     expect(tickets_gateway_spy).to have_received(:create).with(expected_arguments)
   end
 end

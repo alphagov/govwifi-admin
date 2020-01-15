@@ -14,7 +14,7 @@ module UseCases
 
         attr_reader :fetch_health_checks_use_case, :route53_gateway
 
-        SUCCESS_STATUS = 'Success: HTTP Status Code 200, OK'.freeze
+        SUCCESS_STATUS = "Success: HTTP Status Code 200, OK".freeze
 
         def status_for_ip(ip)
           health_check = health_check_for_ip(ip)
@@ -23,7 +23,7 @@ module UseCases
 
           {
             ip_address: health_check.health_check_config.ip_address,
-            status: status(route53_gateway.get_health_check_status(health_check_id: health_check.id))
+            status: status(route53_gateway.get_health_check_status(health_check_id: health_check.id)),
           }
         end
 

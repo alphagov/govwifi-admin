@@ -1,4 +1,4 @@
-class ReadReplicaBase < ActiveRecord::Base
+class ReadReplicaBase < ApplicationRecord
   self.abstract_class = true
 
   establish_connection READ_REPLICA_DB

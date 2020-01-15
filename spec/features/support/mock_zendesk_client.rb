@@ -1,5 +1,5 @@
-shared_context 'with a mocked support tickets client' do
-  class ZendeskClientMock # rubocop:disable RSpec/LeakyConstantDeclaration
+shared_context "with a mocked support tickets client" do
+  class ZendeskClientMock
     class << self
       attr_accessor :config
       attr_accessor :support_tickets
@@ -26,7 +26,7 @@ shared_context 'with a mocked support tickets client' do
         subject: subject,
         requester: requester,
         comment: comment,
-        tags: tags
+        tags: tags,
       }
     end
   end
@@ -41,7 +41,7 @@ shared_context 'with a mocked support tickets client' do
   let(:support_ticket_credentials) do
     {
       username: ZendeskClientMock.config&.username,
-      token: ZendeskClientMock.config&.token
+      token: ZendeskClientMock.config&.token,
     }
   end
 end

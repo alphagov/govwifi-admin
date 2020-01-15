@@ -1,12 +1,12 @@
 module UseCases
   module Administrator
     class FormatEmailDomainsRegex
-      NOOP_REGEX = '^$'.freeze
+      NOOP_REGEX = "^$".freeze
 
       def execute(domains)
         return NOOP_REGEX if domains.empty?
 
-        SIGNUP_WHITELIST_PREFIX_MATCHER + domains_list(domains) + '$'
+        SIGNUP_WHITELIST_PREFIX_MATCHER + domains_list(domains) + "$"
       end
 
     private

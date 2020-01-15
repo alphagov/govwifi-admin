@@ -1,4 +1,4 @@
-describe 'Remove a location', type: :feature do
+describe "Remove a location", type: :feature do
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
   let!(:location) { create(:location, organisation: organisation) }
@@ -34,7 +34,7 @@ describe 'Remove a location', type: :feature do
 
       it 'redirects to the "after location removed" path for analytics' do
         click_on "Yes, remove this location"
-        expect(page).to have_current_path('/ips/removed/location')
+        expect(page).to have_current_path("/ips/removed/location")
       end
     end
 

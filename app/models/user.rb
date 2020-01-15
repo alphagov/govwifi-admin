@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :memberships, inverse_of: :user
+  has_many :memberships, inverse_of: :user # rubocop:disable Rails/HasManyOrHasOneDependent
   has_many :organisations, through: :memberships, inverse_of: :users
 
   accepts_nested_attributes_for :organisations, :memberships
@@ -58,7 +58,7 @@ class User < ApplicationRecord
   end
 
   def membership_for(organisation)
-    memberships.where(organisation: organisation).first
+    memberships.find_by(organisation: organisation)
   end
 
   def default_membership
@@ -78,7 +78,7 @@ class User < ApplicationRecord
   end
 
   def need_two_factor_authentication?(request)
-    !ENV.key?('BYPASS_2FA') && request.env['warden'].user.super_admin?
+    !ENV.key?("BYPASS_2FA") && request.env["warden"].user.super_admin?
   end
 
   def reset_2fa!
@@ -88,7 +88,7 @@ class User < ApplicationRecord
       encrypted_otp_secret_key_iv: nil,
       encrypted_otp_secret_key_salt: nil,
       totp_timestamp: nil,
-      otp_secret_key: nil
+      otp_secret_key: nil,
     )
   end
 

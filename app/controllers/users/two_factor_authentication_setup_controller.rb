@@ -21,13 +21,13 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
       current_user.save(validate: false)
 
       # Ensures the user doesn't go through 2FA check again.
-      request.env['warden'].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
+      request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
 
-      flash[:notice] = 'Two factor authentication setup successful'
+      flash[:notice] = "Two factor authentication setup successful"
       redirect_to stored_location_for(:user) || root_path
     else
-      flash[:alert] = 'Six digit code is not valid'
-      render 'show'
+      flash[:alert] = "Six digit code is not valid"
+      render "show"
     end
   end
 
@@ -55,7 +55,7 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
     provisioning_uri = current_user.provisioning_uri(
       current_user.email,
       otp_secret_key: @otp_secret_key,
-      issuer: "GovWifi (#{ENV['RACK_ENV']})"
+      issuer: "GovWifi (#{ENV['RACK_ENV']})",
     )
     qr_code = RQRCode::QRCode.new(provisioning_uri, level: :m)
     qr_code.as_png(size: 180, fill: ChunkyPNG::Color::TRANSPARENT).to_data_url

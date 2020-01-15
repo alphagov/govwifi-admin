@@ -12,11 +12,11 @@
     <p class="govuk-body">
       If you manage public sector IT services and would like to make GovWifi
       available in your organisation, please review our
-      <%= link_to "technical requirements.", SITE_CONFIG['organisation_docs_link'], class: "govuk-link" %>
+      <%= link_to "technical requirements.", SITE_CONFIG["organisation_docs_link"], class: "govuk-link" %>
     </p>
 
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { novalidate: '' }) do |f| %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { novalidate: "" }) do |f| %>
 
         <div class="govuk-form-group">
           <%= f.label :email, class: "govuk-label" %>

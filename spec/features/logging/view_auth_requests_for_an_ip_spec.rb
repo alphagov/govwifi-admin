@@ -1,6 +1,6 @@
-describe 'View authentication requests for an IP', type: :feature do
-  let(:ip) { '1.2.3.4' }
-  let(:username) { 'ABCDEF' }
+describe "View authentication requests for an IP", type: :feature do
+  let(:ip) { "1.2.3.4" }
+  let(:username) { "ABCDEF" }
   let(:admin_user) { create(:user, :with_organisation) }
   let(:location) { create(:location, organisation: admin_user.organisations.first) }
 
@@ -10,21 +10,21 @@ describe 'View authentication requests for an IP', type: :feature do
     sign_in_user admin_user
   end
 
-  context 'when using a link' do
+  context "when using a link" do
     before do
       visit ips_path
 
-      within('#ips-table') do
-        click_on 'view logs'
+      within("#ips-table") do
+        click_on "view logs"
       end
     end
 
-    it 'displays the authentication requests' do
+    it "displays the authentication requests" do
       expect(page).to have_content("Found 1 result for \"#{ip}\"")
     end
   end
 
-  context 'when searching for an IP address' do
+  context "when searching for an IP address" do
     before do
       visit ip_new_logs_search_path
       fill_in "IP address", with: search_string
@@ -34,7 +34,7 @@ describe 'View authentication requests for an IP', type: :feature do
     context "with a correct IP" do
       let(:search_string) { ip }
 
-      it 'displays the authentication requests' do
+      it "displays the authentication requests" do
         expect(page).to have_content("Found 1 result for \"#{ip}\"")
       end
     end

@@ -14,8 +14,8 @@ module UseCases
 
       def build_order_query
         Arel::Nodes::NamedFunction.new("COALESCE", [
-          User.arel_table['name'],
-          User.arel_table['email']
+          User.arel_table["name"],
+          User.arel_table["email"],
         ]).asc
       end
     end

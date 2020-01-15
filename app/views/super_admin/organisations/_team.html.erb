@@ -8,15 +8,15 @@
           <td class="govuk-table__cell" scope="row"><%= user.name %></td>
           <td class="govuk-table__cell text-right" scope="row"><%= user.email %></td>
           <td class="govuk-table__cell text-right" scope="row">
-            <%= link_to 'Remove user',
-                edit_membership_path(user.membership_for(@organisation), remove_team_member: true),
-                class: 'govuk-button red-button' %>
+            <%= link_to "Remove user",
+                        edit_membership_path(user.membership_for(@organisation), remove_team_member: true),
+                        class: "govuk-button red-button" %>
           </td>
           <td class="govuk-table__cell text-right" scope="row">
             <% if user.totp_enabled? %>
-            <%= link_to 'Reset 2FA',
-                { controller: "users/two_factor_authentication_setup", action: "edit", id: user },
-                class: "govuk-button govuk-button--secondary" %>
+            <%= link_to "Reset 2FA",
+                        { controller: "users/two_factor_authentication_setup", action: "edit", id: user },
+                        class: "govuk-button govuk-button--secondary" %>
             <% end %>
           </td>
         </tr>

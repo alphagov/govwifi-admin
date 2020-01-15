@@ -1,7 +1,7 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :set_target_organisation, if: :super_admin?, only: %i(create new)
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
-  after_action :confirm_new_user_membership, only: :update
+  after_action :confirm_new_user_membership, only: :update # rubocop:disable Rails/LexicallyScopedActionFilter
 
   def create
     if user_is_invalid? || user_belongs_to_current_organisation?
@@ -25,7 +25,7 @@ private
 
   def add_user_to_organisation(organisation)
     membership = invited_user.memberships.find_or_create_by(invited_by_id: current_user.id, organisation: organisation)
-    membership.update_attributes(can_manage_team: params[:can_manage_team], can_manage_locations: params[:can_manage_locations])
+    membership.update!(can_manage_team: params[:can_manage_team], can_manage_locations: params[:can_manage_locations])
     send_invite_email(membership) if user_has_confirmed_account?
   end
 
@@ -33,7 +33,7 @@ private
     AuthenticationMailer.membership_instructions(
       invited_user,
       membership.invitation_token,
-      organisation: current_organisation
+      organisation: current_organisation,
     ).deliver_now
   end
 

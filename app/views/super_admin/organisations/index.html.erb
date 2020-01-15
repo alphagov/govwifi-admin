@@ -2,22 +2,22 @@
 <h3 class="govuk-body">
   GovWifi is in
   <span class="govuk-!-font-weight-bold">
-    <%= pluralize(@location_count, 'location') %>
+    <%= pluralize(@location_count, "location") %>
   </span>
    across
   <span class="govuk-!-font-weight-bold">
-    <%= pluralize(@organisations.length, 'organisation') %>.
+    <%= pluralize(@organisations.length, "organisation") %>.
   </span>
 </h3>
 
 <div class="govuk-!-margin-top-1">
-  <%= link_to 'Download all organisations in CSV format',
-      super_admin_organisations_path(format: 'csv'),
-      class: "govuk-link" %>
+  <%= link_to "Download all organisations in CSV format",
+              super_admin_organisations_path(format: "csv"),
+              class: "govuk-link" %>
   <br />
-  <%= link_to 'Download all service emails in CSV format',
-      service_emails_super_admin_organisations_path(format: 'csv'),
-      class: "govuk-link" %>
+  <%= link_to "Download all service emails in CSV format",
+              service_emails_super_admin_organisations_path(format: "csv"),
+              class: "govuk-link" %>
 </div>
 <p><input type="search" id="filter-input" placeholder="Search by organisation name" class="govuk-input"></p>
 
@@ -38,11 +38,11 @@
           <%= link_to organisation.name, super_admin_organisation_path(organisation), class: "govuk-link filter-by" %>
         </td>
         <td class="govuk-table__cell" scope="row">
-          <%= organisation.created_at.strftime('%e %b %Y') %>
+          <%= organisation.created_at.strftime("%e %b %Y") %>
         </td>
         <td class="govuk-table__cell govuk-table__cell" scope="row">
           <% if organisation.signed_mou.attached? %>
-            <%= organisation.signed_mou.attachment.created_at.strftime('%e %b %Y') %>
+            <%= organisation.signed_mou.attachment.created_at.strftime("%e %b %Y") %>
           <% else %>
             -
           <% end %>

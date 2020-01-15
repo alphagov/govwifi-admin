@@ -13,12 +13,12 @@
     <% end %>
     <p class="govuk-body"> </p>
     <p class="govuk-body"> </p>
-    <%= form_with url: super_admin_mou_index_path, method: 'post', class: 'govuk-form-group' do |form| %>
-      <%= form.label :unsigned_mou, 'Select template file', class: 'govuk-label' %>
+    <%= form_with url: super_admin_mou_index_path, method: "post", class: "govuk-form-group" do |form| %>
+      <%= form.label :unsigned_mou, "Select template file", class: "govuk-label" %>
       <%= form.file_field(:unsigned_document) %>
       <p>
-        <% submit_text = @mou.unsigned_document.attached? ? 'Replace MOU' : 'Upload MOU' %>
-        <%= form.submit(submit_text, class: 'govuk-button') %>
+        <% submit_text = @mou.unsigned_document.attached? ? "Replace MOU" : "Upload MOU" %>
+        <%= form.submit(submit_text, class: "govuk-button") %>
       </p>
     <% end %>
     <div class="govuk-inset-text">
@@ -28,4 +28,4 @@
   </div>
 </div>
 
-<%= link_to "Getting help", help_index_path, class: 'govuk-link' %>
+<%= link_to "Getting help", help_index_path, class: "govuk-link" %>

@@ -9,7 +9,7 @@
     </div>
     <div class="govuk-grid-column-one-third text-right">
       <% if current_user.can_manage_locations?(current_organisation) %>
-        <%= link_to 'Add a location', new_location_path, class: "govuk-button govuk-!-margin-bottom-0" %>
+        <%= link_to "Add a location", new_location_path, class: "govuk-button govuk-!-margin-bottom-0" %>
       <% end %>
     </div>
   </div>

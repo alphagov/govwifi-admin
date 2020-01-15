@@ -6,7 +6,7 @@ describe "DELETE /ips/:id", type: :request do
   before do
     https!
     login_as(user, scope: :user)
-    stub_request(:get, 'http://169.254.169.254/latest/meta-data/iam/security-credentials/')
+    stub_request(:get, "http://169.254.169.254/latest/meta-data/iam/security-credentials/")
     stub_request(:put, /s3.eu-west-2/)
   end
 

@@ -22,7 +22,7 @@
         <% error_class = @organisation.errors.key?(:service_email) ? "govuk-input--error" : "" %>
         <%= form.text_field :service_email, class: "govuk-input #{error_class}" %>
       </div>
-      <%= form.submit 'Save', class: 'govuk-button' %>
+      <%= form.submit "Save", class: "govuk-button" %>
     <% end %>
   </div>
 </div>
