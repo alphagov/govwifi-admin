@@ -122,7 +122,36 @@ describe "Uploading and downloading an MOU", type: :feature do
         expect(page).to have_current_path("/mou/replaced")
       end
     end
+
+    context "when uploading a file that is not a PDF" do
+      before do
+        visit mou_index_path
+        attach_file("signed_mou", Rails.root + "spec/fixtures/not_a_pdf.pdf")
+        click_on "Upload"
+      end
+
+      it "shows the user an error message" do
+        pending("check is implemented")
+        expect(page).to have_content("Unsupported file type. Signed MOU should be a PDF.")
+      end
+    end
+
+    context "when replacing with a file that is not a PDF" do
+      before do
+        visit mou_index_path
+        attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
+        click_on "Upload"
+        attach_file("signed_mou", Rails.root + "spec/fixtures/not_a_pdf.pdf")
+        click_on "Replace MOU"
+      end
+
+      it "shows the user an error message" do
+        pending("check is implemented")
+        expect(page).to have_content("Unsupported file type. Signed MOU should be a PDF.")
+      end
+    end
   end
+
 
   context "when signed out" do
     before do
