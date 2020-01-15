@@ -5,14 +5,14 @@ describe UseCases::Radius::GenerateRadiusIpWhitelist do
   let(:configuration_result) { described_class.new.execute }
 
   before do
-    create(:ip, address: '1.1.1.1', location: location1)
-    create(:ip, address: '1.2.2.1', location: location1)
-    create(:ip, address: '2.2.2.2', location: location2)
-    location1.update(radius_secret_key: 'radkey1')
-    location2.update(radius_secret_key: 'radkey2')
+    create(:ip, address: "1.1.1.1", location: location1)
+    create(:ip, address: "1.2.2.1", location: location1)
+    create(:ip, address: "2.2.2.2", location: location2)
+    location1.update(radius_secret_key: "radkey1")
+    location2.update(radius_secret_key: "radkey2")
   end
 
-  context 'with locations and IPs' do
+  context "with locations and IPs" do
     let(:correct_configuration) do
       'client 1-1-1-1 {
       ipaddr = 1.1.1.1
@@ -29,12 +29,12 @@ describe UseCases::Radius::GenerateRadiusIpWhitelist do
     '
     end
 
-    it 'returns the correct configuration' do
+    it "returns the correct configuration" do
       expect(configuration_result).to eq(correct_configuration)
     end
   end
 
-  context 'with no location' do
+  context "with no location" do
     let(:correct_configuration) do
       'client 2-2-2-2 {
       ipaddr = 2.2.2.2
@@ -47,12 +47,12 @@ describe UseCases::Radius::GenerateRadiusIpWhitelist do
       location1.destroy
     end
 
-    it 'omits this IP' do
+    it "omits this IP" do
       expect(configuration_result).to eq(correct_configuration)
     end
   end
 
-  context 'when a location has no IPs' do
+  context "when a location has no IPs" do
     let(:correct_configuration) do
       'client 1-2-2-1 {
       ipaddr = 1.2.2.1
@@ -69,7 +69,7 @@ describe UseCases::Radius::GenerateRadiusIpWhitelist do
       Ip.first.destroy
     end
 
-    it 'omits IP entry' do
+    it "omits IP entry" do
       expect(configuration_result).to eq(correct_configuration)
     end
   end

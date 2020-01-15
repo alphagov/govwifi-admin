@@ -42,16 +42,16 @@ class HelpController < ApplicationController
     end
 
     if @support_form.valid?
-      if ENV['ZENDESK_API_ENDPOINT'].present?
+      if ENV["ZENDESK_API_ENDPOINT"].present?
         UseCases::Administrator::CreateSupportTicket.new(
-          tickets_gateway: Gateways::ZendeskSupportTickets.new
+          tickets_gateway: Gateways::ZendeskSupportTickets.new,
         ).execute(
           requester: {
             email: sender_email,
             name: params[:support_form][:name] || current_user&.name,
-            organisation: sender_organisation_name
+            organisation: sender_organisation_name,
           },
-          details: params[:support_form][:details]
+          details: params[:support_form][:details],
         )
       end
 
@@ -73,9 +73,9 @@ private
 
   def redirect_to_homepage
     if current_user.nil?
-      redirect_to new_user_session_path, notice: 'Your support request has been submitted.'
+      redirect_to new_user_session_path, notice: "Your support request has been submitted."
     else
-      redirect_to root_path, notice: 'Your support request has been submitted.'
+      redirect_to root_path, notice: "Your support request has been submitted."
     end
   end
 

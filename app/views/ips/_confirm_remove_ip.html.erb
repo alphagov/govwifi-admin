@@ -9,7 +9,7 @@
         <tr class="govuk-table__row">
           <td class="govuk-table__cell govuk-!-width-one-third">IP Address</td>
           <td class="govuk-table__cell govuk-!-width-one-third">
-            <%= render partial: 'ip_address', locals: { ip: @ip_to_delete.address } %>
+            <%= render partial: "ip_address", locals: { ip: @ip_to_delete.address } %>
           </td>
         </tr>
         <tr class="govuk-table__row">
@@ -19,6 +19,6 @@
       </tbody>
     </table>
 
-    <%= button_to 'Yes, remove this IP', ip_path(@ip_to_delete), method: :delete, class: "govuk-button red-button" %>
+    <%= button_to "Yes, remove this IP", ip_path(@ip_to_delete), method: :delete, class: "govuk-button red-button" %>
   </div>
 </div>

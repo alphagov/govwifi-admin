@@ -3,7 +3,7 @@ Rails.application.configure do
   Bullet.unused_eager_loading_enable = true
   Bullet.n_plus_one_query_enable     = true
 
-  Faker::Config.locale = 'en-GB'
+  Faker::Config.locale = "en-GB"
   # Settings specified here will take precedence over those in config/application.rb.
 
   config.active_storage.service = :test
@@ -22,7 +22,7 @@ Rails.application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    'Cache-Control' => "public, max-age=#{1.hour.seconds.to_i}"
+    "Cache-Control" => "public, max-age=#{1.hour.seconds.to_i}",
   }
 
   # Show full error reports and disable caching.

@@ -5,8 +5,8 @@
     Are you sure you want to reset two factor authentication for <%= @user.name %>?
   </h2>
   <div class="govuk-error-summary__body">
-    <%= button_to 'Yes, reset two factor authentication',
-                { controller: "users/two_factor_authentication_setup", action: "destroy" }, method: :delete,
+    <%= button_to "Yes, reset two factor authentication",
+                  { controller: "users/two_factor_authentication_setup", action: "destroy" }, method: :delete,
                 id: @user, class: "govuk-button red-button" %>
   </div>
 </div>

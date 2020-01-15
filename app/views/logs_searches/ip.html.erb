@@ -10,15 +10,15 @@
   <div class='govuk-grid-column-two-thirds'>
     <%= form_for @search do |f| %>
       <div class='govuk-form-group <%= field_error(@search, :search_term) %>'>
-        <%= f.label :search_term, 'IP address', class: 'govuk-label' %>
-        <%= render 'error_message', key: :search_term, message: 'Enter a valid IP address' %>
+        <%= f.label :search_term, "IP address", class: "govuk-label" %>
+        <%= render "error_message", key: :search_term, message: "Enter a valid IP address" %>
 
-        <%= f.text_field :search_term, class: 'govuk-input govuk-input--width-10' %>
+        <%= f.text_field :search_term, class: "govuk-input govuk-input--width-10" %>
       </div>
       <%= f.hidden_field :filter %>
-      <%= f.submit 'Show logs', class: 'govuk-button' %>
+      <%= f.submit "Show logs", class: "govuk-button" %>
     <% end %>
 
-    <p class='govuk-body'> Or, click "view logs" from <%= link_to 'your list of IP addresses', ips_path %></p>
+    <p class='govuk-body'> Or, click "view logs" from <%= link_to "your list of IP addresses", ips_path %></p>
   </div>
 </div>

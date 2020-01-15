@@ -50,7 +50,7 @@ describe "Reset two factor authentication", type: :feature do
       expect(page).to have_content("Two factor authentication has been reset")
     end
 
-    context 'when visiting the superadmin team' do
+    context "when visiting the superadmin team" do
       it "shows a link to reset their own 2FA" do
         visit super_admin_organisation_path(super_admin_user.organisations.first)
 

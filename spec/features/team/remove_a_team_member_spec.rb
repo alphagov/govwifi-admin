@@ -27,7 +27,7 @@ describe "Remove a team member", type: :feature do
 
     it 'redirects to "after user removed" team members page for analytics' do
       click_on "Yes, remove this team member"
-      expect(page).to have_current_path('/memberships/removed')
+      expect(page).to have_current_path("/memberships/removed")
     end
   end
 
@@ -37,7 +37,7 @@ describe "Remove a team member", type: :feature do
     end
 
     context "when visiting remove team member url directly" do
-      it 'does not show the page' do
+      it "does not show the page" do
         expect {
           visit edit_membership_path(another_user.membership_for(organisation), remove_team_member: true)
         }.to raise_error(ActionController::RoutingError)

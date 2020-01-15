@@ -1,5 +1,5 @@
 describe "DELETE /authorised_email_domains/:id", type: :request do
-  let!(:email_domain) { create(:authorised_email_domain, name: 'some.domain.org.uk') }
+  let!(:email_domain) { create(:authorised_email_domain, name: "some.domain.org.uk") }
   let(:regex_gateway) { instance_spy(Gateways::S3, write: nil) }
   let(:email_domains_gateway) { instance_spy(Gateways::S3) }
 
@@ -18,12 +18,12 @@ describe "DELETE /authorised_email_domains/:id", type: :request do
       }.to change(AuthorisedEmailDomain, :count).by(-1)
     end
 
-    it 'publishes the new regex list of authorised domains to S3' do
+    it "publishes the new regex list of authorised domains to S3" do
       delete super_admin_whitelist_email_domain_path(email_domain)
       expect(regex_gateway).to have_received(:write)
     end
 
-    it 'publishes the new list of email domains to S3' do
+    it "publishes the new list of email domains to S3" do
       delete super_admin_whitelist_email_domain_path(email_domain)
       expect(email_domains_gateway).to have_received(:write)
     end

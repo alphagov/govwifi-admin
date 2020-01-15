@@ -1,14 +1,14 @@
-require 'support/invite_use_case_spy'
-require 'support/invite_use_case'
-require 'support/notifications_service'
+require "support/invite_use_case_spy"
+require "support/invite_use_case"
+require "support/notifications_service"
 
 describe "Sign up from invitation", type: :feature do
   let(:invited_user_email) { "invited@gov.uk" }
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
 
-  include_context 'when sending an invite email'
-  include_context 'when using the notifications service'
+  include_context "when sending an invite email"
+  include_context "when using the notifications service"
 
   before do
     sign_in_user user
@@ -28,7 +28,7 @@ describe "Sign up from invitation", type: :feature do
       expect(page).to have_content("Create your account")
     end
 
-    context 'when setting password' do
+    context "when setting password" do
       %w[password].each do |weak_pass|
         before do
           fill_in "Your name", with: "Ron Swanson"

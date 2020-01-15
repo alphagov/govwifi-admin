@@ -1,4 +1,4 @@
-require 'action_mailer/railtie'
+require "action_mailer/railtie"
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.configure do
@@ -22,12 +22,12 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
-  if Rails.root.join('tmp/caching-dev.txt').exist?
+  if Rails.root.join("tmp/caching-dev.txt").exist?
     config.action_controller.perform_caching = true
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
+      "Cache-Control" => "public, max-age=#{2.days.seconds.to_i}",
     }
   else
     config.action_controller.perform_caching = false
@@ -56,7 +56,7 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: "localhost:3000" }
   config.action_mailer.perform_deliveries = false
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default charset: "utf-8"
@@ -66,50 +66,50 @@ Rails.application.configure do
     stub_responses: {
       put_object: {},
       get_object: {
-        body: '^[a-zA-Z0-9\.-]+@([a-zA-Z0-9-]+\.)*(gov\.uk)$'
-      }
-    }
+        body: '^[a-zA-Z0-9\.-]+@([a-zA-Z0-9-]+\.)*(gov\.uk)$',
+      },
+    },
   }
   config.route53_aws_config = {
     stub_responses: {
       get_health_check_status: {
         health_check_observations: [
           {
-            region: 'ap-southeast-2',
-            ip_address: '39.239.222.111',
+            region: "ap-southeast-2",
+            ip_address: "39.239.222.111",
             status_report: {
-              status: 'Success: HTTP Status Code 200, OK'
-            }
-          }
-        ]
+              status: "Success: HTTP Status Code 200, OK",
+            },
+          },
+        ],
       },
       list_health_checks: {
         max_items: 10,
-        marker: 'PageMarker',
+        marker: "PageMarker",
         is_truncated: false,
         health_checks: [
           {
-            caller_reference: 'AdminMonitoring',
-            id: 'abc123',
+            caller_reference: "AdminMonitoring",
+            id: "abc123",
             health_check_version: 1,
             health_check_config: {
-              ip_address: '111.111.111.111',
+              ip_address: "111.111.111.111",
               measure_latency: false,
-              type: 'HTTP',
-            }
+              type: "HTTP",
+            },
           }, {
-            caller_reference: 'AdminMonitoring',
-            id: 'xyz789',
+            caller_reference: "AdminMonitoring",
+            id: "xyz789",
             health_check_version: 1,
             health_check_config: {
-              ip_address: '222.222.222.222',
+              ip_address: "222.222.222.222",
               measure_latency: false,
-              type: 'HTTP',
-            }
+              type: "HTTP",
+            },
           }
-        ]
-      }
-    }
+        ],
+      },
+    },
   }
 end
 # rubocop:enable Metrics/BlockLength

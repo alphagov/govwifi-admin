@@ -44,7 +44,7 @@ describe "Set up two factor authentication", type: :feature do
         allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
         allow(totp_double).to receive(:verify).and_return(true)
 
-        fill_in :code, with: '999999'
+        fill_in :code, with: "999999"
         click_on "Complete setup"
       end
 
@@ -63,7 +63,7 @@ describe "Set up two factor authentication", type: :feature do
 
     context "when submitting an invalid code" do
       before do
-        fill_in :code, with: '123456'
+        fill_in :code, with: "123456"
         click_on "Complete setup"
       end
 

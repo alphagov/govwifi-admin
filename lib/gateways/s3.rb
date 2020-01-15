@@ -22,7 +22,7 @@ module Gateways
 
   private
 
-    DEFAULT_REGION = 'eu-west-2'.freeze
+    DEFAULT_REGION = "eu-west-2".freeze
 
     attr_reader :bucket, :key, :client
 

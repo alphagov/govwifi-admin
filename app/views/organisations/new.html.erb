@@ -5,15 +5,15 @@
   <div class="govuk-form-group <%= field_error(@organisation, "name") %>">
     <%= form.label :name, "Organisation name", class: "govuk-label" %>
     <div class="govuk-hint">If your organisation name does not appear below <%= link_to "contact us", technical_support_new_help_path, class: "govuk-link" %></div>
-    <%= form.select :name, options_for_select(@register_organisations << '', ''), {}, class: "govuk-select" %>
+    <%= form.select :name, options_for_select(@register_organisations << "", ""), {}, class: "govuk-select" %>
   </div>
 
   <div class="govuk-form-group <%= field_error(@organisation, "service_email") %>">
     <%= form.label :service_email, "Service email", class: "govuk-label" %>
     <div class="govuk-hint">A shared and monitored email so we can contact your organisation about GovWifi</div>
     <%= form.text_field :service_email,
-      class: 'govuk-input',
-      value: (params || {}).dig(:user, :organisation_attributes, :service_email) %>
+                        class: "govuk-input",
+                        value: (params || {}).dig(:user, :organisation_attributes, :service_email) %>
   </div>
 
   <div class="actions">

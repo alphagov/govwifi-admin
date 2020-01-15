@@ -1,8 +1,8 @@
-<%= link_to 'Back', root_path, class: "govuk-back-link" %>
+<%= link_to "Back", root_path, class: "govuk-back-link" %>
 
 <h1 class="govuk-heading-l float-left">
   GovWifi Status
 </h1>
 
-<%= render 'result', region: 'London', health_checks: @health_checks_london %>
-<%= render 'result', region: 'Dublin', health_checks: @health_checks_dublin %>
+<%= render "result", region: "London", health_checks: @health_checks_london %>
+<%= render "result", region: "Dublin", health_checks: @health_checks_dublin %>

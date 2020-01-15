@@ -1,7 +1,7 @@
 describe Gateways::OrganisationUsers do
   subject(:gateway) { described_class.new(organisation: organisation) }
 
-  context 'with users' do
+  context "with users" do
     let(:organisation) { create(:organisation) }
     let(:result) do
       organisation.users
@@ -12,19 +12,19 @@ describe Gateways::OrganisationUsers do
       create(:user, :with_organisation)
     end
 
-    it 'fetches the users for the organisation' do
+    it "fetches the users for the organisation" do
       expect(gateway.fetch).to eq(result)
     end
 
-    it 'returns an ActiveRecord collection' do
+    it "returns an ActiveRecord collection" do
       expect(gateway.fetch.class.ancestors).to include(ActiveRecord::Relation)
     end
   end
 
-  context 'without users' do
+  context "without users" do
     let(:organisation) { create(:organisation) }
 
-    it 'returns an empty collection' do
+    it "returns an empty collection" do
       expect(gateway.fetch).to eq([])
     end
   end

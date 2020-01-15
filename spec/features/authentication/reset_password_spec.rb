@@ -1,7 +1,7 @@
-require 'support/notifications_service'
+require "support/notifications_service"
 
 describe "Resetting a password", type: :feature do
-  include_context 'with a mocked notifications client'
+  include_context "with a mocked notifications client"
 
   it "displays the forgot password link at login" do
     visit root_path
@@ -25,7 +25,7 @@ describe "Resetting a password", type: :feature do
       expect(page).to have_content("If you have an account with us, you will receive an email with a password reset link shortly.")
     end
 
-    it 'sends no email' do
+    it "sends no email" do
       expect(notifications).to be_empty
     end
   end

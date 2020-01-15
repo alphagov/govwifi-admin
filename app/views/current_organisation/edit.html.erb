@@ -5,13 +5,13 @@
       <% current_user.organisations.each do | organisation | %>
         <li>
           <%= button_to organisation.name, change_organisation_path(organisation_id: organisation.id),
-            method: :patch, class: "govuk-heading-m button-as-link govuk-!-margin-bottom-4" %>
+                        method: :patch, class: "govuk-heading-m button-as-link govuk-!-margin-bottom-4" %>
         </li>
       <% end %>
     </ul>
 
     <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m">
     <%= button_to "Add new organisation", new_organisation_path,
-      method: :get, class: "govuk-button govuk-button--secondary" %>
+                  method: :get, class: "govuk-button govuk-button--secondary" %>
   </div>
 </div>

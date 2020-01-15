@@ -3,7 +3,7 @@
 <% if @logs.present? %>
   <h1 class="govuk-heading-l">Found <%= pluralize(@logs.count, "result") %> for "<%= params[:username] || params[:ip] || @location_address %>"</h1>
 
-  <%= render 'logs/filtered_results_explanation', logs: @logs %>
+  <%= render "logs/filtered_results_explanation", logs: @logs %>
 
   <table class="govuk-table">
     <caption class="govuk-table__caption"></caption>
@@ -25,7 +25,7 @@
           <td class="govuk-table__cell"><%= log.fetch(:mac) %></td>
           <td class="govuk-table__cell"><%= log.fetch(:site_ip) %></td>
           <td class="govuk-table__cell"><%= log.fetch(:start) %></td>
-          <td class="govuk-table__cell"><%= log.fetch(:success) ? 'successful' : 'failed' %></td>
+          <td class="govuk-table__cell"><%= log.fetch(:success) ? "successful" : "failed" %></td>
         </tr>
       <% end %>
     </tbody>
@@ -42,8 +42,8 @@
       <% end %>
     </h1>
 
-    <%= render 'logs/filtered_results_explanation', logs: @logs %>
+    <%= render "logs/filtered_results_explanation", logs: @logs %>
 
-    <%= render 'logs/no_logs_explanation' %>
+    <%= render "logs/no_logs_explanation" %>
   </div>
 <% end %>

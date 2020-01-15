@@ -6,7 +6,7 @@ class MembershipsController < ApplicationController
 
   def update
     @membership.update(membership_params)
-    flash[:notice] = 'Permissions updated'
+    flash[:notice] = "Permissions updated"
     redirect_to updated_permissions_memberships_path
   end
 
@@ -36,13 +36,13 @@ private
 
   def validate_can_manage_team
     unless current_user.can_manage_team?(current_organisation)
-      raise ActionController::RoutingError.new('Not Found')
+      raise ActionController::RoutingError.new("Not Found")
     end
   end
 
   def sorted_team_members(organisation)
     UseCases::Administrator::SortUsers.new(
-      users_gateway: Gateways::OrganisationUsers.new(organisation: organisation)
+      users_gateway: Gateways::OrganisationUsers.new(organisation: organisation),
     ).execute
   end
 

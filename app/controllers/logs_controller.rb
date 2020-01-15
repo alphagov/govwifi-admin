@@ -12,7 +12,7 @@ class LogsController < ApplicationController
 
     @logs = get_auth_requests.execute(
       ips: location_ips || params[:ip],
-      username: params[:username]
+      username: params[:username],
     ).fetch(:results)
   end
 
@@ -25,8 +25,8 @@ private
   def get_auth_requests
     UseCases::Administrator::GetAuthRequests.new(
       authentication_logs_gateway: Gateways::Sessions.new(
-        ip_filter: super_admin? ? nil : current_organisation.ips.map(&:address)
-      )
+        ip_filter: super_admin? ? nil : current_organisation.ips.map(&:address),
+      ),
     )
   end
 end

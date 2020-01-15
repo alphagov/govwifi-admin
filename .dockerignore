@@ -9,6 +9,7 @@ coverage
 !.rspec
 !.rubocop.yml
 !.ruby-version
+!.scss-lint.yml
 
 # Ignore host node_modules
 node_modules

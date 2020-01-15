@@ -1,4 +1,4 @@
-require_relative 'boot'
+require_relative "boot"
 
 require "rails"
 # Pick the frameworks you want:
@@ -9,7 +9,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
-require 'active_storage/engine' unless ENV['ASSET_PRECOMPILATION_ONLY']
+require "active_storage/engine" unless ENV["ASSET_PRECOMPILATION_ONLY"]
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -29,8 +29,8 @@ module GovwifiAdmin
     config.force_ssl = true
     config.ssl_options = {
       redirect: {
-        exclude: ->(request) { request.path =~ /healthcheck/ }
-      }
+        exclude: ->(request) { request.path =~ /healthcheck/ },
+      },
     }
 
     # https://github.com/alphagov/govuk-frontend/issues/1350
@@ -42,6 +42,6 @@ module GovwifiAdmin
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-    config.eager_load_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join("lib")
   end
 end

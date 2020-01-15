@@ -1,7 +1,7 @@
 module UseCases
   module Administrator
     class SendConfirmationEmail
-      REFERENCE = 'confirmation_email'.freeze
+      REFERENCE = "confirmation_email".freeze
 
       def initialize(notifications_gateway:)
         @notifications_gateway = notifications_gateway
@@ -13,7 +13,7 @@ module UseCases
           locals: { confirmation_url: confirmation_url },
           template_id: template_id,
           reference: REFERENCE,
-          email_reply_to_id: nil
+          email_reply_to_id: nil,
         }
         notifications_gateway.send(opts)
       end

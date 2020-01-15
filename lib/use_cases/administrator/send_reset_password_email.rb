@@ -1,7 +1,7 @@
 module UseCases
   module Administrator
     class SendResetPasswordEmail
-      REFERENCE = 'reset_password_email'.freeze
+      REFERENCE = "reset_password_email".freeze
 
       def initialize(notifications_gateway:)
         @notifications_gateway = notifications_gateway
@@ -13,7 +13,7 @@ module UseCases
           locals: { reset_url: reset_url },
           template_id: template_id,
           reference: REFERENCE,
-          email_reply_to_id: nil
+          email_reply_to_id: nil,
         }
 
         notifications_gateway.send(opts)

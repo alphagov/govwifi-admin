@@ -5,10 +5,10 @@ class UseCases::Administrator::CreateSupportTicket
 
   def execute(requester:, details:)
     @tickets_gateway.create(
-      subject: 'Admin support request',
+      subject: "Admin support request",
       email: requester[:email],
       name: requester[:name],
-      body: details
+      body: details,
     )
   end
 end

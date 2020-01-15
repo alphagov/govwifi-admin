@@ -30,7 +30,7 @@ class OrganisationsController < ApplicationController
 
   def update
     if @organisation.update(organisation_params)
-      redirect_to setup_instructions_path, notice: 'Service email updated'
+      redirect_to setup_instructions_path, notice: "Service email updated"
     else
       render :edit
     end
@@ -48,7 +48,7 @@ private
 
   def validate_user_is_part_of_organisation
     unless user_belongs_to_same_org
-      raise ActionController::RoutingError.new('Not Found')
+      raise ActionController::RoutingError.new("Not Found")
     end
   end
 
@@ -59,7 +59,7 @@ private
   def assign_user_to_organisation(organisation)
     current_user.memberships.create(
       organisation: organisation,
-      confirmed_at: Time.zone.now
+      confirmed_at: Time.zone.now,
     )
   end
 

@@ -15,7 +15,7 @@ class LocationsController < ApplicationController
     if @location.save
       redirect_to(
         @location.ips.any? ? created_location_with_ip_ips_path : created_location_ips_path,
-        notice: "Added #{@location.full_address}"
+        notice: "Added #{@location.full_address}",
       )
     else
       render :new
@@ -25,7 +25,7 @@ class LocationsController < ApplicationController
   def update
     location = Location.find(params[:id])
     location.update(radius_secret_key: rotate_radius_secret_key)
-    redirect_to(ips_path, notice: 'RADIUS secret key has been successfully rotated')
+    redirect_to(ips_path, notice: "RADIUS secret key has been successfully rotated")
   end
 
   def add_ips
@@ -41,7 +41,7 @@ class LocationsController < ApplicationController
       length_of_ips_added = @location.ips.length - length_of_ips_before
       redirect_to(
         created_ips_path,
-        notice: "Added #{length_of_ips_added} #{'IP address'.pluralize(length_of_ips_added)} to #{@location.full_address}"
+        notice: "Added #{length_of_ips_added} #{'IP address'.pluralize(length_of_ips_added)} to #{@location.full_address}",
       )
     else
       @location.add_blank_ips(5)
@@ -69,7 +69,7 @@ private
       .require(:location)
       .permit(ips_attributes: [:address])
     location_params[:ips_attributes].reject do |_, a|
-      a['address'].blank? || @location.ips.map(&:address).include?(a['address'])
+      a["address"].blank? || @location.ips.map(&:address).include?(a["address"])
     end
   end
 end

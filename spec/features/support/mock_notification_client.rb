@@ -1,5 +1,5 @@
-shared_context 'with a mocked notifications client' do
-  class NotificationsMock # rubocop:disable RSpec/LeakyConstantDeclaration
+shared_context "with a mocked notifications client" do
+  class NotificationsMock
     class << self
       attr_accessor :notifications
     end
@@ -13,7 +13,7 @@ shared_context 'with a mocked notifications client' do
       self.class.notifications << {
         type: args[:template_id],
         link: find_link(args),
-        personalisation: args[:personalisation]
+        personalisation: args[:personalisation],
       }
     end
 

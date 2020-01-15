@@ -3,17 +3,17 @@ describe Gateways::AuthorisedEmailDomains do
 
   let(:result) do
     [
-      'gov.uk',
-      'eukri.gsi.com'
+      "gov.uk",
+      "eukri.gsi.com",
     ]
   end
 
   before do
-    create(:authorised_email_domain, name: 'gov.uk')
-    create(:authorised_email_domain, name: 'eukri.gsi.com')
+    create(:authorised_email_domain, name: "gov.uk")
+    create(:authorised_email_domain, name: "eukri.gsi.com")
   end
 
-  it 'fetches the locations ips' do
+  it "fetches the locations ips" do
     expect(domain_gateway.fetch_domains).to eq(result)
   end
 end

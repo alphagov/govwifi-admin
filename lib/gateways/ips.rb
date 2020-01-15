@@ -4,7 +4,7 @@ module Gateways
       Ip.all.map do |ip|
         {
           ip: ip.address,
-          location_id: ip.location_id
+          location_id: ip.location_id,
         }
       end
     end
