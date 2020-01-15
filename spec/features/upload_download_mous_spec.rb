@@ -35,6 +35,21 @@ describe "Uploading and downloading an MOU", type: :feature do
       it 'redirects to "after MOU uploaded" path for analytics' do
         expect(page).to have_current_path("/mou/created")
       end
+
+      context "when someone is not authenticated and tries to get the link" do
+        before do
+          visit mou_index_path
+          @link = page.find("a", text: "download and view the document.")[:href]
+
+          sign_out
+        end
+
+        it "asks the user to authenticate" do
+          visit @link
+
+          expect(page).to have_current_path(new_user_session_path)
+        end
+      end
     end
 
     context "when replacing the signed mou" do
