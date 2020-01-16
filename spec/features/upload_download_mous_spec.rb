@@ -36,18 +36,43 @@ describe "Uploading and downloading an MOU", type: :feature do
         expect(page).to have_current_path("/mou/created")
       end
 
-      context "when someone is not authenticated and tries to get the link" do
+      describe "access control" do
         before do
           visit mou_index_path
           @link = page.find("a", text: "download and view the document.")[:href]
-
-          sign_out
         end
 
-        it "asks the user to authenticate" do
-          visit @link
+        context "when someone is not authenticated" do
+          before do
+            sign_out
+          end
 
-          expect(page).to have_current_path(new_user_session_path)
+          it "asks the user to authenticate" do
+            visit @link
+
+            expect(page).to have_current_path(new_user_session_path)
+          end
+        end
+
+        context "when someone is not part of the mou's organisations" do
+          before do
+            sign_in_user create(:user, :with_organisation)
+          end
+
+          it "redirects the user to the overview with a message" do
+            visit @link
+
+            expect(page).to have_current_path(overview_index_path)
+            expect(page).to have_content("You are not allowed to see this MoU.")
+          end
+        end
+
+        context "when someone is a rightful member of the organisation" do
+          it "lets them download the MoU" do
+            visit @link
+
+            expect(page).to have_current_path(@link)
+          end
         end
       end
     end
