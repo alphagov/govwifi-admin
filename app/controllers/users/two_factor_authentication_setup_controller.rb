@@ -15,9 +15,9 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   end
 
   def update
-    if params[:commit] == 'Remind me next time'
+    if params[:commit] == "Remind me next time"
       # Ensures the user doesn't go through 2FA check again.
-      request.env['warden'].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
+      request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
       flash[:notice] = "Two factor authentication setup skipped until next time"
       redirect_to stored_location_for(:user) || root_path
       return
