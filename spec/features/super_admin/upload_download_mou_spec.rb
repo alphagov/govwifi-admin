@@ -40,7 +40,7 @@ describe "Upload and download the MOU template", type: :feature do
     end
   end
 
-  context "when dowloading the MOU template" do
+  context "when downloading the MOU template" do
     before do
       attach_file("unsigned_document", Rails.root + "spec/fixtures/mou.pdf")
       click_on "Upload"
@@ -108,10 +108,10 @@ end
 # Capybara does not support content that is not HTML, so we use PDFReader
 # to convert a (simple) PDF body into HTML to validate our PDF blobs
 def convert_pdf_to_page
-  temp_pdf = Tempfile.new('pdf')
-  temp_pdf << page.source.force_encoding('UTF-8')
+  temp_pdf = Tempfile.new("pdf")
+  temp_pdf << page.source.force_encoding("UTF-8")
   reader = PDF::Reader.new(temp_pdf)
   pdf_text = reader.pages.map(&:text)
   temp_pdf.close
-  page.driver.response.instance_variable_set('@body', pdf_text)
+  page.driver.response.instance_variable_set("@body", pdf_text)
 end

@@ -34,6 +34,7 @@ group :test do
   gem "faker"
   gem "guard-rspec"
   gem "nokogiri"
+  gem "pdf-reader"
   gem "rack_session_access"
   gem "rails-controller-testing"
   gem "rspec-rails", "~> 3"
@@ -44,7 +45,6 @@ group :test do
   gem "simplecov-console", require: false
   gem "timecop", "~> 0.9.1"
   gem "webmock", "~> 3.6.0"
-  gem "pdf-reader"
 end
 
 group :development, :test do
