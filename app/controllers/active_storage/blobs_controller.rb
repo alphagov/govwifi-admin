@@ -37,15 +37,14 @@ class ActiveStorage::BlobsController < ActiveStorage::BaseController
     if current_user.nil?
       redirect_to new_user_session_path
     else
-      # current_organisation is not available here
-      org = Organisation.find(
-        ActiveStorage::Attachment
-          .find_by(blob: @blob)
-          .record_id
-      )
+      attachment = ActiveStorage::Attachment.find_by(blob: @blob)
 
-      unless can? :read_mou, org
-        redirect_to overview_index_path, alert: "You are not allowed to see this MoU."
+      if attachment.name == "signed_mou"
+        org = Organisation.find attachment.record_id
+
+        unless can? :read_mou, org
+          redirect_to overview_index_path, alert: "You are not allowed to see this MoU."
+        end
       end
     end
   end

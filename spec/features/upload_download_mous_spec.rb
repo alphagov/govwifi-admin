@@ -71,7 +71,8 @@ describe "Uploading and downloading an MOU", type: :feature do
           it "lets them download the MoU" do
             visit @link
 
-            expect(page).to have_current_path(@link)
+            # as we're running locally, the actual asset lives under rails/active_storage/disk
+            expect(page.current_path).to start_with("/rails/active_storage/disk")
           end
         end
       end
