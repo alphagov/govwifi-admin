@@ -48,7 +48,7 @@ describe "Upload and download the MOU template", type: :feature do
     end
 
     it "downloads the MOU" do
-      pending("support testing actual pdf instead of prior plain text")
+      convert_pdf_to_page
       expect(page).to have_content("12334567 signed mou with content")
     end
   end
@@ -100,4 +100,18 @@ describe "Upload and download the MOU template", type: :feature do
       end
     end
   end
+end
+
+##
+# Reference: https://content.pivotal.io/blog/how-to-test-pdfs-with-capybara
+# Reference: https://gist.github.com/joemasilotti/6045144
+# Capybara does not support content that is not HTML, so we use PDFReader
+# to convert a (simple) PDF body into HTML to validate our PDF blobs
+def convert_pdf_to_page
+  temp_pdf = Tempfile.new('pdf')
+  temp_pdf << page.source.force_encoding('UTF-8')
+  reader = PDF::Reader.new(temp_pdf)
+  pdf_text = reader.pages.map(&:text)
+  temp_pdf.close
+  page.driver.response.instance_variable_set('@body', pdf_text)
 end
