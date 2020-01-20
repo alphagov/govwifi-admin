@@ -25,7 +25,7 @@ describe "Uploading and downloading an MOU", type: :feature do
       it "allows users to download the MOU template" do
         click_on "Download a copy of the MOU"
 
-        expect(page.current_path).to start_with "/rails/active_storage/disk/"
+        expect(page).to download_file AdminConfig.mou.unsigned_document
       end
     end
 
@@ -95,7 +95,7 @@ describe "Uploading and downloading an MOU", type: :feature do
             visit @link
 
             # as we're running locally, the actual asset lives under rails/active_storage/disk
-            expect(page.current_path).to start_with("/rails/active_storage/disk")
+            expect(page).to download_file user.organisations.first.signed_mou
           end
         end
       end
