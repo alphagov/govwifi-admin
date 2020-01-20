@@ -34,7 +34,6 @@ group :test do
   gem "faker"
   gem "guard-rspec"
   gem "nokogiri"
-  gem "pdf-reader"
   gem "rack_session_access"
   gem "rails-controller-testing"
   gem "rspec-rails", "~> 3"

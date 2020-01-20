@@ -30,7 +30,7 @@ private
 
   def attach_to_template
     if params[:unsigned_document]
-      if params[:signed_mou].content_type == "application/pdf"
+      if params[:unsigned_document].content_type == "application/pdf"
         AdminConfig.mou.unsigned_document.attach(params[:unsigned_document])
         flash[:notice] = "MOU template uploaded successfully."
       else
