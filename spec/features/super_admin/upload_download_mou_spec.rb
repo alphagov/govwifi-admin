@@ -7,13 +7,26 @@ describe "Upload and download the MOU template", type: :feature do
   end
 
   context "when uploading an MOU" do
-    before do
-      attach_file("unsigned_document", Rails.root + "spec/fixtures/mou.pdf")
-      click_on "Upload"
+    context "and the file is a PDF" do
+      before do
+        attach_file("unsigned_document", Rails.root + "spec/fixtures/mou.pdf")
+        click_on "Upload"
+      end
+
+      it "uploads the mou template" do
+        expect(page).to have_content("MOU template uploaded successfully.")
+      end
     end
 
-    it "uploads the mou template" do
-      expect(page).to have_content("MOU template uploaded successfully.")
+    context "and the file is not a PDF" do
+      before do
+        attach_file("unsigned_document", Rails.root + "spec/fixtures/not_a_pdf.pdf")
+        click_on "Upload"
+      end
+
+      it "shows the user an error message" do
+        expect(page).to have_content("Unsupported file type. MOU template should be a PDF.")
+      end
     end
   end
 
@@ -27,7 +40,7 @@ describe "Upload and download the MOU template", type: :feature do
     end
   end
 
-  context "when dowloading the MOU template" do
+  context "when downloading the MOU template" do
     before do
       attach_file("unsigned_document", Rails.root + "spec/fixtures/mou.pdf")
       click_on "Upload"
@@ -35,7 +48,7 @@ describe "Upload and download the MOU template", type: :feature do
     end
 
     it "downloads the MOU" do
-      expect(page).to have_content("12334567 signed mou with content")
+      expect(page).to download_file AdminConfig.mou.unsigned_document
     end
   end
 
@@ -55,11 +68,26 @@ describe "Upload and download the MOU template", type: :feature do
     end
 
     context "when I attach an MOU" do
-      it "uploads the MOU" do
-        attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
-        click_on "Upload MOU"
+      context "and the file is a PDF" do
+        before do
+          attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
+          click_on "Upload MOU"
+        end
 
-        expect(page).to have_content("MOU uploaded successfully.")
+        it "uploads the MOU" do
+          expect(page).to have_content("MOU uploaded successfully.")
+        end
+      end
+
+      context "and the file is not a PDF" do
+        before do
+          attach_file("signed_mou", Rails.root + "spec/fixtures/not_a_pdf.pdf")
+          click_on "Upload MOU"
+        end
+
+        it "shows the user an error message" do
+          expect(page).to have_content("Unsupported file type. Signed MOU should be a PDF.")
+        end
       end
     end
 
