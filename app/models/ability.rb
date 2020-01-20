@@ -6,7 +6,11 @@ class Ability
   def initialize(user)
     if user.present?
       can :administrate, :all # FIXME: we can probaly scope this to user orgs
+      can :read_mou, Organisation do |org|
+        user.membership_for(org)
+      end
 
+      # :manage is a reserved can-can word to represent ALL actions
       if user.super_admin?
         can :manage, :all
       end
