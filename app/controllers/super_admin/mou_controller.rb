@@ -17,8 +17,7 @@ private
 
   def attach_to_organisation(organisation)
     if params[:signed_mou]
-      mime_type = Marcel::MimeType.for(params[:signed_mou])
-      if mime_type.to_s == "application/pdf"
+      if params[:signed_mou].content_type == "application/pdf"
         organisation.signed_mou.attach(params[:signed_mou])
         flash[:notice] = "MOU uploaded successfully."
       else
@@ -31,8 +30,7 @@ private
 
   def attach_to_template
     if params[:unsigned_document]
-      mime_type = Marcel::MimeType.for(params[:unsigned_document])
-      if mime_type.to_s == "application/pdf"
+      if params[:signed_mou].content_type == "application/pdf"
         AdminConfig.mou.unsigned_document.attach(params[:unsigned_document])
         flash[:notice] = "MOU template uploaded successfully."
       else
