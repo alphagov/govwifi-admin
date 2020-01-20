@@ -1,9 +1,32 @@
 describe "Uploading and downloading an MOU", type: :feature do
   let(:user) { create(:user, :with_organisation) }
+  let(:superadmin) { create(:user, :super_admin) }
 
   context "when signed in" do
     before do
       sign_in_user user
+    end
+
+    describe "MOU template" do
+      before do
+        visit root_path
+        sign_out
+
+        sign_in_user superadmin
+        visit super_admin_mou_index_path
+        attach_file("unsigned_document", Rails.root + "spec/fixtures/mou.pdf")
+        click_on "Upload"
+        sign_out
+
+        sign_in_user user
+        visit mou_index_path
+      end
+
+      it "allows users to download the MOU template" do
+        click_on "Download a copy of the MOU"
+
+        expect(page.current_path).to start_with "/rails/active_storage/disk/"
+      end
     end
 
     context "when no file is chosen to upload" do
