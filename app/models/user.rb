@@ -81,7 +81,7 @@ class User < ApplicationRecord
     return false if ENV.key?("BYPASS_2FA")
 
     needs_auth = request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION]
-    needs_auth.nil? || needs_auth || request.env["warden"].user.super_admin?
+    (needs_auth != false) || super_admin?
   end
 
   def reset_2fa!
