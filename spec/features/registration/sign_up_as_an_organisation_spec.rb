@@ -12,6 +12,8 @@ describe "Sign up as an organisation", type: :feature do
     }
   end
 
+  after { Warden.test_reset! }
+
   include_context "when sending a confirmation email"
   include_context "when using the notifications service"
 

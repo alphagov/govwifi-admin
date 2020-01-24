@@ -1,10 +1,11 @@
 describe "DELETE /locations/:id", type: :request do
-  let(:user) { create(:user, :with_organisation) }
+  let(:user) { create(:user, :with_2fa, :with_organisation) }
   let!(:location) { create(:location, organisation: user.organisations.first) }
 
   before do
     https!
     login_as(user, scope: :user)
+    skip_two_factor_authentication
   end
 
   context "when the user owns the location" do

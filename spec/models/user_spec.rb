@@ -115,6 +115,10 @@ describe User do
     let(:request) { instance_double(ActionDispatch::Request, env: { "warden" => warden }) }
     let(:organisation) { create(:organisation) }
 
+    before do
+      allow(warden).to receive(:session).with(:user) { Hash[two_factor_session_key => nil] }
+    end
+
     context "with super admins membership" do
       let(:organisation) { create(:organisation, super_admin: true) }
 
@@ -124,7 +128,15 @@ describe User do
     end
 
     context "with a normal admin user" do
+      it "is true" do
+        expect(user.need_two_factor_authentication?(request)).to be true
+      end
+    end
+
+    context "when skipped for later" do
       it "is false" do
+        allow(warden).to receive(:session).with(:user) { Hash[two_factor_session_key => false] }
+
         expect(user.need_two_factor_authentication?(request)).to be false
       end
     end

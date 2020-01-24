@@ -15,16 +15,18 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   end
 
   def update
+    if params[:commit] == "Remind me next time"
+      flash[:notice] = "Two factor authentication setup skipped until next time"
+      disable_2fa_checks_for_session
+      return
+    end
+
     @otp_secret_key = params[:otp_secret_key]
     if current_user.authenticate_totp(params[:code], otp_secret_key: @otp_secret_key)
       current_user.otp_secret_key = @otp_secret_key
       current_user.save(validate: false)
-
-      # Ensures the user doesn't go through 2FA check again.
-      request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
-
       flash[:notice] = "Two factor authentication setup successful"
-      redirect_to stored_location_for(:user) || root_path
+      disable_2fa_checks_for_session
     else
       flash[:alert] = "Six digit code is not valid"
       render "show"
@@ -61,4 +63,12 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
     qr_code.as_png(size: 180, fill: ChunkyPNG::Color::TRANSPARENT).to_data_url
   end
   helper_method :qr_code_uri
+
+private
+
+  def disable_2fa_checks_for_session
+    # Ensures the user doesn't go through 2FA check again.
+    request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
+    redirect_to stored_location_for(:user) || root_path
+  end
 end
