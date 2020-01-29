@@ -1,0 +1,25 @@
+<%= render "layouts/form_errors", resource: resource %>
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+    <h1 class="govuk-fieldset__heading">
+      Change your password
+    </h1>
+  </legend>
+
+<%= form_with model: current_user, url: user_registration_path, method: :put do |f| %>
+  <div class="govuk-form-group">
+    <%= f.label :current_password, class: "govuk-label" %>
+    <%= f.password_field :current_password, class: "govuk-input" %>
+  </div>
+  <div class="govuk-form-group">
+    <%= f.label :password, class: "govuk-label" %>
+    <%= f.password_field :password, class: "govuk-input" %>
+  </div>
+  <div class="govuk-form-group">
+    <%= f.label :password_confirmation, class: "govuk-label" %>
+    <%= f.password_field :password_confirmation, class: "govuk-input" %>
+  </div>
+  <%= f.submit "Submit", class: "govuk-button" %>
+<% end %>
+</fieldset>
