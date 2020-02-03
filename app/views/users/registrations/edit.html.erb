@@ -7,7 +7,7 @@
     </h1>
   </legend>
 
-<%= form_with model: current_user, url: user_registration_path, method: :put do |f| %>
+<%= form_for(current_user, url: user_registration_path, method: :put) do |f| %>
   <div class="govuk-form-group">
     <%= f.label :current_password, class: "govuk-label" %>
     <%= f.password_field :current_password, class: "govuk-input" %>
