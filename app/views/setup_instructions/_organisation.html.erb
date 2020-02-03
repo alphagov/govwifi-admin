@@ -1,0 +1,45 @@
+<h3 class="govuk-heading-m">Organisation</h3>
+
+<table class="govuk-table">
+  <caption class="govuk-visually-hidden" id="setup-header">Settings</caption>
+  <thead class="govuk-table__head govuk-visually-hidden">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half">Setting</th>
+      <th scope="col" class="govuk-table__header">Value</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+        Service email
+      </th>
+      <td class="govuk-table__cell">
+        <%= current_organisation.service_email %>
+      </td>
+      <td class="govuk-table__cell govuk-table__cell--numeric">
+        <%= link_to "Change", edit_organisation_path(current_organisation.id), class: "govuk-link govuk-link--no-visited-state" %>
+      </td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+        Memorandum of understanding
+      </th>
+      <% if @current_org_signed_mou %>
+        <td class="govuk-table__cell">
+          Signed
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">
+          <%= link_to "Review", mou_index_path, class: "govuk-link govuk-link--no-visited-state" %>
+        </td>
+      <% else %>
+        <td class="govuk-table__cell" colspan="2">
+          Not signed
+          <p class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">
+            You must <%= link_to "sign the memorandum of understanding", mou_index_path, class: "govuk-link govuk-link--no-visited-state" %> to use GovWifi
+          </p>
+        </td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
