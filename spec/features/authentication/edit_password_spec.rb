@@ -1,6 +1,13 @@
 describe "Editing password", type: :feature do
   let(:user) { create(:user, :with_2fa, :with_organisation) }
-  let(:pw) { Faker::Internet.password }
+  let(:pw) {
+    Faker::Internet.password(
+      min_length: 10,
+      max_length: 20,
+      mix_case: true,
+      special_characters: true,
+    )
+  }
 
   before do
     sign_in_user user
@@ -22,6 +29,8 @@ describe "Editing password", type: :feature do
     fill_in "Password confirmation", with: pw
 
     click_on "Submit"
+
+    expect(page).to have_content "Your account has been updated successfully."
 
     sign_out
 
