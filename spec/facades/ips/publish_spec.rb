@@ -10,11 +10,11 @@ describe Facades::Ips::Publish do
     facade.execute
   end
 
-  it 'executes the publish location & ips usecase' do
+  it "executes the publish location & ips usecase" do
     expect(publish_location_ips).to have_received(:execute)
   end
 
-  it 'executes the publish whitelist usecase' do
+  it "executes the publish whitelist usecase" do
     expect(publish_whitelist).to have_received(:execute)
   end
 end

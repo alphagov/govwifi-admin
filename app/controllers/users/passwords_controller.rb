@@ -1,5 +1,5 @@
 class Users::PasswordsController < Devise::PasswordsController
-  append_before_action :validate_user_is_confirmed, only: :create
+  append_before_action :validate_user_is_confirmed, only: :create # rubocop:disable Rails/LexicallyScopedActionFilter
 
 protected
 

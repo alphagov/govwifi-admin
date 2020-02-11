@@ -1,6 +1,6 @@
 <h1 class="govuk-heading-l">Add the organisation's email domain to the whitelist</h1>
 
-<%= render 'layouts/form_errors', resource: @email_domain %>
+<%= render "layouts/form_errors", resource: @email_domain %>
 <%= form_with model: @whitelist, url: new_super_admin_whitelist_path, method: :get do |form| %>
   <div class="govuk-form-group">
     <%= form.label :email_domain, value: "Email domain", for: :email_domain, class: "govuk-label" %>

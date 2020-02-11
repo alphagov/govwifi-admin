@@ -2,14 +2,14 @@ describe UseCases::PublishWhitelist do
   subject(:use_case) do
     described_class.new(
       destination_gateway: s3_gateway,
-      generate_whitelist: generate_whitelist
+      generate_whitelist: generate_whitelist,
     )
   end
 
   let(:generate_whitelist) do
     instance_double(
       UseCases::Radius::GenerateRadiusIpWhitelist,
-      execute: whitelist
+      execute: whitelist,
     )
   end
   let(:s3_gateway) { instance_spy(Gateways::S3) }

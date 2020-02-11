@@ -52,7 +52,7 @@ protected
   end
 
   def current_action_is_valid?
-    devise_controller? || (controller_name == 'help' && valid_help_actions.include?(action_name))
+    devise_controller? || (controller_name == "help" && valid_help_actions.include?(action_name))
   end
 
   def valid_help_actions
@@ -60,7 +60,7 @@ protected
   end
 
   def confirm_two_factor_setup
-    user = request.env['warden'].user
+    user = request.env["warden"].user
     return unless user &&
       user.need_two_factor_authentication?(request) &&
       !user.totp_enabled?

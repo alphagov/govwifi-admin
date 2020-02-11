@@ -4,7 +4,7 @@ FactoryBot.define do
       "test#{n}@gov.uk"
     end
 
-    username { ('a'..'z').to_a.sample(6).join }
+    username { ("a".."z").to_a.sample(6).join }
 
     trait :phone_contact do
       sequence :contact do |n|

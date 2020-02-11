@@ -9,17 +9,17 @@ class SuperAdmin::WhitelistsController < SuperAdminController
   def create
     @whitelist = Whitelist.new(
       organisation_name: whitelist_params[:organisation_name],
-      email_domain: whitelist_params[:email_domain]
+      email_domain: whitelist_params[:email_domain],
     )
     if @whitelist.save
       publish_email_domains_regex
       publish_email_domains_list
 
       redirect_to new_super_admin_whitelist_path,
-        notice: "Organisation has been whitelisted"
+                  notice: "Organisation has been whitelisted"
     else
       redirect_to new_super_admin_whitelist_path(step: "fourth"),
-        notice: 'There was an error, please try again'
+                  notice: "There was an error, please try again"
     end
   end
 
@@ -28,22 +28,22 @@ private
   def publish_email_domains_regex
     UseCases::Administrator::PublishSignupWhitelist.new(
       destination_gateway: Gateways::S3.new(
-        bucket: ENV.fetch('S3_SIGNUP_WHITELIST_BUCKET'),
-        key: ENV.fetch('S3_SIGNUP_WHITELIST_OBJECT_KEY')
+        bucket: ENV.fetch("S3_SIGNUP_WHITELIST_BUCKET"),
+        key: ENV.fetch("S3_SIGNUP_WHITELIST_OBJECT_KEY"),
       ),
       source_gateway: Gateways::AuthorisedEmailDomains.new,
-      presenter: UseCases::Administrator::FormatEmailDomainsRegex.new
+      presenter: UseCases::Administrator::FormatEmailDomainsRegex.new,
     ).execute
   end
 
   def publish_email_domains_list
     UseCases::Administrator::PublishSignupWhitelist.new(
       destination_gateway: Gateways::S3.new(
-        bucket: ENV.fetch('S3_PRODUCT_PAGE_DATA_BUCKET'),
-        key: ENV.fetch('S3_EMAIL_DOMAINS_OBJECT_KEY')
+        bucket: ENV.fetch("S3_PRODUCT_PAGE_DATA_BUCKET"),
+        key: ENV.fetch("S3_EMAIL_DOMAINS_OBJECT_KEY"),
       ),
       source_gateway: Gateways::AuthorisedEmailDomains.new,
-      presenter: UseCases::Administrator::FormatEmailDomainsList.new
+      presenter: UseCases::Administrator::FormatEmailDomainsList.new,
     ).execute
   end
 

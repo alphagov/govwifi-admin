@@ -1,5 +1,5 @@
 class Organisation < ApplicationRecord
-  CSV_HEADER = ['Name', 'Created At', 'MOU Signed', 'Locations', 'IPs'].freeze
+  CSV_HEADER = ["Name", "Created At", "MOU Signed", "Locations", "IPs"].freeze
   has_one_attached :signed_mou
   has_many :memberships, inverse_of: :organisation, dependent: :destroy
   has_many :users, through: :memberships, inverse_of: :organisations
@@ -28,15 +28,15 @@ class Organisation < ApplicationRecord
 
   def self.fetch_organisations_from_register
     UseCases::Organisation::FetchOrganisationRegister.new(
-      organisations_gateway: Gateways::GovukOrganisationsRegisterGateway.new
+      organisations_gateway: Gateways::GovukOrganisationsRegisterGateway.new,
     ).execute.sort
   end
 
   def self.all_as_csv
     CSV.generate do |csv|
       csv << CSV_HEADER
-      Organisation.sortable_with_child_counts('name', 'asc').each do |o|
-        mou_signed_at = o.signed_mou.attached? ? o.signed_mou.attachment.created_at : '-'
+      Organisation.sortable_with_child_counts("name", "asc").each do |o|
+        mou_signed_at = o.signed_mou.attached? ? o.signed_mou.attachment.created_at : "-"
         csv << [o.name, o.created_at, mou_signed_at, o.locations_count, o.ips_count]
       end
     end
@@ -44,10 +44,10 @@ class Organisation < ApplicationRecord
 
   def self.service_emails_as_csv
     CSV.generate do |csv|
-      csv << ['Service email address', 'Org name', 'User name', 'Created at']
+      csv << ["Service email address", "Org name", "User name", "Created at"]
       Organisation
-        .select('organisations.*, users.name AS user_name')
-        .joins('LEFT OUTER JOIN users ON users.email = organisations.service_email').each do |o|
+        .select("organisations.*, users.name AS user_name")
+        .joins("LEFT OUTER JOIN users ON users.email = organisations.service_email").each do |o|
         csv << [o.service_email, o.name, o.user_name, o.created_at]
       end
     end

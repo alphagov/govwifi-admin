@@ -2,7 +2,7 @@ describe UseCases::PerformancePlatform::PublishLocationsIps do
   subject(:use_case) do
     described_class.new(
       destination_gateway: s3_gateway,
-      source_gateway: source_gateway
+      source_gateway: source_gateway,
     )
   end
 
@@ -12,10 +12,10 @@ describe UseCases::PerformancePlatform::PublishLocationsIps do
     [
       {
         ip: "127.0.0.1",
-        location_id: 1
+        location_id: 1,
       }, {
         ip: "186.3.1.1",
-        location_id: 2
+        location_id: 2,
       }
     ]
   end

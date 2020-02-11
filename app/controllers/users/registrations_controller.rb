@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :validate_email_on_whitelist, only: :create
+  before_action :validate_email_on_whitelist, only: :create # rubocop:disable Rails/LexicallyScopedActionFilter
 
 protected
 
@@ -12,8 +12,8 @@ protected
 
   def validate_email_on_whitelist
     gateway = Gateways::S3.new(
-      bucket: ENV.fetch('S3_SIGNUP_WHITELIST_BUCKET'),
-      key: ENV.fetch('S3_SIGNUP_WHITELIST_OBJECT_KEY')
+      bucket: ENV.fetch("S3_SIGNUP_WHITELIST_BUCKET"),
+      key: ENV.fetch("S3_SIGNUP_WHITELIST_OBJECT_KEY"),
     )
     checker = UseCases::Administrator::CheckIfWhitelistedEmail.new(gateway: gateway)
     whitelisted = checker.execute(sign_up_params[:email])[:success]

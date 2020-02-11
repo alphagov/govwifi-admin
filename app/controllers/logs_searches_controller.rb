@@ -11,7 +11,7 @@ class LogsSearchesController < ApplicationController
       render @search.filter
     else
       @search.errors.add(:filter, "can't be blank")
-      render 'new'
+      render "new"
     end
   end
 
@@ -24,15 +24,15 @@ class LogsSearchesController < ApplicationController
   end
 
   def ip
-    @search = LogsSearch.new(filter: 'ip')
+    @search = LogsSearch.new(filter: "ip")
   end
 
   def username
-    @search = LogsSearch.new(filter: 'username')
+    @search = LogsSearch.new(filter: "username")
   end
 
   def location
-    @search = LogsSearch.new(filter: 'location')
+    @search = LogsSearch.new(filter: "location")
     @locations = ordered_locations
   end
 

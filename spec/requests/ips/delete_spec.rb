@@ -1,12 +1,13 @@
 describe "DELETE /ips/:id", type: :request do
-  let(:user) { create(:user, :with_organisation) }
+  let(:user) { create(:user, :with_2fa, :with_organisation) }
   let(:location) { create(:location, organisation: user.organisations.first) }
   let!(:ip) { create(:ip, location: location) }
 
   before do
     https!
     login_as(user, scope: :user)
-    stub_request(:get, 'http://169.254.169.254/latest/meta-data/iam/security-credentials/')
+    skip_two_factor_authentication
+    stub_request(:get, "http://169.254.169.254/latest/meta-data/iam/security-credentials/")
     stub_request(:put, /s3.eu-west-2/)
   end
 

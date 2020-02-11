@@ -1,63 +1,63 @@
-require 'support/notifications_service'
+require "support/notifications_service"
 
-describe 'Invite a team member', type: :feature do
-  include_context 'with a mocked notifications client'
+describe "Invite a team member", type: :feature do
+  include_context "with a mocked notifications client"
 
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
 
   before { sign_in_user user }
 
-  context 'with the .manage_team permission' do
+  context "with the .manage_team permission" do
     before do
       user.membership_for(organisation).update!(can_manage_team: true)
       visit memberships_path
     end
 
-    it 'shows the invite team member link' do
-      expect(page).to have_link('Invite team member')
+    it "shows the invite team member link" do
+      expect(page).to have_link("Invite team member")
     end
 
-    it 'allows visiting the invites page directly' do
+    it "allows visiting the invites page directly" do
       visit new_user_invitation_path
       expect(page).to have_current_path(new_user_invitation_path)
     end
 
-    it 'allows re-sending invites' do
-      another_user = create(:user, invitation_sent_at: Date.today)
+    it "allows re-sending invites" do
+      another_user = create(:user, invitation_sent_at: Time.zone.today)
       another_user.organisations << user.organisations.first
       visit memberships_path
 
-      expect(page).to have_button('Resend invite')
+      expect(page).to have_button("Resend invite")
     end
   end
 
-  context 'without the .manage_team permission' do
+  context "without the .manage_team permission" do
     before do
       user.membership_for(organisation).update!(can_manage_team: false)
       sign_in_user user
     end
 
-    it 'hides the invite team member link' do
+    it "hides the invite team member link" do
       visit memberships_path
 
-      expect(page).not_to have_link('Invite team member')
+      expect(page).not_to have_link("Invite team member")
     end
 
-    context 'when visiting the new user invitation page' do
+    context "when visiting the new user invitation page" do
       before do
         visit new_user_invitation_path
       end
 
-      it_behaves_like 'shows the setup instructions page'
+      it_behaves_like "shows the setup instructions page"
     end
 
-    it 'does not allow re-sending invites' do
-      another_user = create(:user, invitation_sent_at: Date.today)
+    it "does not allow re-sending invites" do
+      another_user = create(:user, invitation_sent_at: Time.zone.today)
       another_user.organisations << user.organisations.first
       visit memberships_path
 
-      expect(page).not_to have_button('Resend invite')
+      expect(page).not_to have_button("Resend invite")
     end
   end
 end

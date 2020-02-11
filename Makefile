@@ -36,7 +36,7 @@ lint: lint-ruby lint-sass lint-erb
 lint-ruby: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec rubocop
 lint-sass: build
-	$(DOCKER_COMPOSE) run --rm app bundle exec govuk-lint-sass app/assets/stylesheets
+	$(DOCKER_COMPOSE) run --rm app bundle exec scss-lint app/assets/stylesheets
 lint-erb: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec erblint --lint-all
 

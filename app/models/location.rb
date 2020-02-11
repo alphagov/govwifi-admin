@@ -18,7 +18,7 @@ class Location < ApplicationRecord
   end
 
   def sorted_ip_addresses
-    ips.sort_by { |ip| ip.address.split('.').map(&:to_i) }
+    ips.sort_by { |ip| ip.address.split(".").map(&:to_i) }
   end
 
   def add_blank_ips(number_to_add)
@@ -38,7 +38,7 @@ private
 
   def validate_postcode
     unless UKPostcode.parse(postcode.to_s).valid?
-      errors.add(:postcode, 'must be valid')
+      errors.add(:postcode, "must be valid")
     end
   end
 

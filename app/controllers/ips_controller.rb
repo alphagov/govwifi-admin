@@ -1,6 +1,4 @@
 class IpsController < ApplicationController
-  before_action :authorise_manage_locations, only: %i(create new)
-
   def index
     set_ip_or_location_to_delete
     set_radius_key_rotation

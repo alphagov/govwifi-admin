@@ -1,12 +1,10 @@
+# .rubocop.yml
 inherit_gem:
-  govuk-lint: configs/rubocop/all.yml
-require: rubocop-rspec
+  rubocop-govuk:
+    - config/default.yml
+    - config/rails.yml
 
 AllCops:
   Exclude:
-    - 'bin/*'
+    - 'db/migrate/2019*' # don't backport migrations
     - 'db/schema.rb'
-
-# The suggested alignment is awful so disable this cop
-Layout/AlignArguments:
-  Enabled: false

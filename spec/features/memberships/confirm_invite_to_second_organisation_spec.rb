@@ -1,4 +1,4 @@
-describe 'Confirming an invite to a second or subsequent organisation', type: :feature do
+describe "Confirming an invite to a second or subsequent organisation", type: :feature do
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
   let(:invited_user) { create(:user, :with_organisation) }
@@ -9,17 +9,17 @@ describe 'Confirming an invite to a second or subsequent organisation', type: :f
            organisation: organisation)
   end
 
-  context 'with an existing user' do
+  context "with an existing user" do
     before do
       sign_in_user invited_user
       visit confirm_new_membership_path(token: membership.invitation_token)
     end
 
-    it 'Confirms the invitation' do
+    it "Confirms the invitation" do
       expect(invited_user.organisations).to include(organisation)
     end
 
-    it 'prints a success message' do
+    it "prints a success message" do
       expect(page).to have_content("You have successfully joined #{organisation.name}")
     end
   end

@@ -1,8 +1,8 @@
 if ENV["COVERAGE"]
-  require 'simplecov'
-  require 'simplecov-console'
+  require "simplecov"
+  require "simplecov-console"
 
-  SimpleCov.start 'rails'
+  SimpleCov.start "rails"
   SimpleCov.minimum_coverage 100
 
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
@@ -30,11 +30,11 @@ RSpec.configure do |config|
     FactoryBot.reload
     ActionMailer::Base.deliveries.clear
 
-    stub_request(:get, 'https://government-organisation.register.gov.uk/records.json?page-size=5000').
-     to_return(status: 200, body: File.read("#{Rails.root}/spec/fixtures/gov_orgs_payload.json"))
+    stub_request(:get, "https://government-organisation.register.gov.uk/records.json?page-size=5000").
+     to_return(status: 200, body: File.read(Rails.root.join("spec/fixtures/gov_orgs_payload.json")))
 
-    stub_request(:get, 'https://local-authority-eng.register.gov.uk/records.json?page-size=5000').
-      to_return(status: 200, body: File.read("#{Rails.root}/spec/fixtures/local_auths_payload.json"))
+    stub_request(:get, "https://local-authority-eng.register.gov.uk/records.json?page-size=5000").
+      to_return(status: 200, body: File.read(Rails.root.join("spec/fixtures/local_auths_payload.json")))
   end
 
   config.around do |example|

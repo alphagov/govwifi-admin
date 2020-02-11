@@ -14,7 +14,7 @@ module Gateways
 
           {
             latitude: o["result"]["latitude"],
-            longitude: o["result"]["longitude"]
+            longitude: o["result"]["longitude"],
           }
         end
       end

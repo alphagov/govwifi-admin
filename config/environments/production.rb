@@ -1,7 +1,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  unless ENV['ASSET_PRECOMPILATION_ONLY']
+  unless ENV["ASSET_PRECOMPILATION_ONLY"]
     config.active_storage.service = :amazon
   end
 
@@ -25,7 +25,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Compress CSS.
   # config.assets.css_compressor = :sass

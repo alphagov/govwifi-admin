@@ -1,4 +1,4 @@
-describe 'Removing an IP', type: :feature do
+describe "Removing an IP", type: :feature do
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
   let(:location) { create(:location, organisation: organisation) }
@@ -37,7 +37,7 @@ describe 'Removing an IP', type: :feature do
 
     it 'redirects to the "after IP removed" path for Analytics' do
       click_on "Yes, remove this IP"
-      expect(page).to have_current_path('/ips/removed')
+      expect(page).to have_current_path("/ips/removed")
     end
   end
 

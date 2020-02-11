@@ -8,17 +8,17 @@ describe Ip do
   context "when validating address" do
     let(:location) { create(:location, organisation: create(:organisation)) }
 
-    it 'does not allow the address 0.0.0.0' do
-      ip = described_class.create(address: '0.0.0.0', location: location)
+    it "does not allow the address 0.0.0.0" do
+      ip = described_class.create(address: "0.0.0.0", location: location)
       expect(ip.errors.full_messages).to eq([
-        "Address '0.0.0.0' is not a valid IP address"
+        "Address '0.0.0.0' is not a valid IP address",
       ])
     end
 
-    it 'does not allow a blank address' do
-      ip = described_class.create(address: '', location: location)
+    it "does not allow a blank address" do
+      ip = described_class.create(address: "", location: location)
       expect(ip.errors.full_messages).to eq([
-        "Address can't be blank"
+        "Address can't be blank",
       ])
     end
 
@@ -31,7 +31,7 @@ describe Ip do
 
       it "displays an error message" do
         expect(ip.errors.full_messages).to eq([
-          "Address 'invalidIP' is not a valid IP address"
+          "Address 'invalidIP' is not a valid IP address",
         ])
       end
     end
@@ -57,7 +57,7 @@ describe Ip do
 
       it "displays an error message" do
         expect(ip.errors.full_messages).to eq([
-          "Address '2001:db8:0:1234:0:567:8:1' is an IPv6 address. Only IPv4 addresses can be added."
+          "Address '2001:db8:0:1234:0:567:8:1' is an IPv6 address. Only IPv4 addresses can be added.",
         ])
       end
     end
@@ -71,54 +71,54 @@ describe Ip do
 
       it "displays an error message" do
         expect(ip.errors.full_messages).to eq([
-          "Address '192.168.0.0' is a private IP address. Only public IPv4 addresses can be added."
+          "Address '192.168.0.0' is a private IP address. Only public IPv4 addresses can be added.",
         ])
       end
     end
   end
 
-  context 'when checking availability' do
-    context 'with an IP created at or after the midnight restart' do
-      before { ip_address.created_at = Date.today.beginning_of_day }
+  context "when checking availability" do
+    context "with an IP created at or after the midnight restart" do
+      before { ip_address.created_at = Time.zone.today.beginning_of_day }
 
       it { is_expected.not_to be_available }
     end
 
-    context 'with an IP created before the midnight restart' do
-      before { ip_address.created_at = Date.today.beginning_of_day - 1.second }
+    context "with an IP created before the midnight restart" do
+      before { ip_address.created_at = Time.zone.today.beginning_of_day - 1.second }
 
       it { is_expected.to be_available }
     end
   end
 
-  context 'when checking if inactive' do
-    context 'with no sessions for the last 10 days' do
+  context "when checking if inactive" do
+    context "with no sessions for the last 10 days" do
       before do
-        create(:session, start: Date.today - 11.days, username: 'abc123', siteIP: ip_address.address)
+        create(:session, start: Time.zone.today - 11.days, username: "abc123", siteIP: ip_address.address)
       end
 
       it { is_expected.to be_inactive }
     end
 
-    context 'with sessions in the last 10 days' do
+    context "with sessions in the last 10 days" do
       before do
-        create(:session, start: Date.today, username: 'abc123', siteIP: ip_address.address)
+        create(:session, start: Time.zone.today, username: "abc123", siteIP: ip_address.address)
       end
 
       it { is_expected.not_to be_inactive }
     end
   end
 
-  context 'when checking if unused' do
-    context 'with an IP which has activity' do
+  context "when checking if unused" do
+    context "with an IP which has activity" do
       before do
-        create(:session, start: Date.today, username: 'abc123', siteIP: ip_address.address)
+        create(:session, start: Time.zone.today, username: "abc123", siteIP: ip_address.address)
       end
 
       it { is_expected.not_to be_unused }
     end
 
-    context 'with an IP which has no activity' do
+    context "with an IP which has no activity" do
       it { is_expected.to be_unused }
     end
   end

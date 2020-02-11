@@ -1,5 +1,5 @@
-describe 'Tracking new organisations', type: :feature do
-  include_context 'with a mocked notifications client'
+describe "Tracking new organisations", type: :feature do
+  include_context "with a mocked notifications client"
 
   let(:user) { create(:user, :with_organisation) }
 
@@ -8,31 +8,31 @@ describe 'Tracking new organisations', type: :feature do
     visit root_path
   end
 
-  it 'displays an initial tag on the URL when logged in' do
-    expect(page).to have_current_path('/setup_instructions/initial')
+  it "displays an initial tag on the URL when logged in" do
+    expect(page).to have_current_path("/setup_instructions/initial")
   end
 
-  context 'when a user clicks on the setup sub-navigation link ' do
-    before { click_on 'Settings' }
+  context "when a user clicks on the setup sub-navigation link " do
+    before { click_on "Settings" }
 
-    it 'displays the initial tag on the URL' do
-      expect(page).to have_current_path('/setup_instructions/initial')
+    it "displays the initial tag on the URL" do
+      expect(page).to have_current_path("/setup_instructions/initial")
     end
   end
 
-  context 'when a user adds their first IP, then clicks setup link' do
+  context "when a user adds their first IP, then clicks setup link" do
     let!(:location) { create(:location, organisation: user.organisations.first) }
-    let(:ip_address) { '120.0.129.150' }
+    let(:ip_address) { "120.0.129.150" }
 
     before do
       visit location_add_ips_path(location_id: location.id)
-      fill_in 'location[ips_attributes][0][address]', with: ip_address
-      click_on 'Add IP addresses'
-      click_on 'Settings'
+      fill_in "location[ips_attributes][0][address]", with: ip_address
+      click_on "Add IP addresses"
+      click_on "Settings"
     end
 
-    it 'does not display the initial tag on the URL' do
-      expect(page).to have_current_path('/setup_instructions')
+    it "does not display the initial tag on the URL" do
+      expect(page).to have_current_path("/setup_instructions")
     end
   end
 end

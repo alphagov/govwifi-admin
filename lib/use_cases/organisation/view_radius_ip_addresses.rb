@@ -20,12 +20,12 @@ module UseCases
       end
 
       def london_ips
-        ips = ENV.fetch('LONDON_RADIUS_IPS').split(',')
+        ips = ENV.fetch("LONDON_RADIUS_IPS").split(",")
         order_by_organisation(ips)
       end
 
       def dublin_ips
-        ips = ENV.fetch('DUBLIN_RADIUS_IPS').split(',')
+        ips = ENV.fetch("DUBLIN_RADIUS_IPS").split(",")
         order_by_organisation(ips)
       end
 

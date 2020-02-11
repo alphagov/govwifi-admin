@@ -1,7 +1,7 @@
 module UseCases
   module Administrator
     class SendUnlockEmail
-      REFERENCE = 'unlock_account'.freeze
+      REFERENCE = "unlock_account".freeze
 
       def initialize(notifications_gateway:)
         @notifications_gateway = notifications_gateway
@@ -13,7 +13,7 @@ module UseCases
           locals: { unlock_url: unlock_url },
           template_id: template_id,
           reference: REFERENCE,
-          email_reply_to_id: nil
+          email_reply_to_id: nil,
         }
         notifications_gateway.send(opts)
       end

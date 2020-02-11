@@ -1,28 +1,36 @@
-require 'support/confirmation_use_case_spy'
-require 'warden'
+require "support/confirmation_use_case_spy"
+require "warden"
 
-def sign_up_for_account(email: 'default@gov.uk')
+def sign_up_for_account(email: "default@gov.uk")
   visit new_user_registration_path
-  fill_in 'user_email', with: email
-  click_on 'Sign up'
+  fill_in "user_email", with: email
+  click_on "Sign up"
 end
 
 def update_user_details(
-  password: 'actually1 strongPassw0rd !!',
-  name: 'bob',
-  service_email: 'admin@gov.uk',
-  organisation_name: 'Org 1'
+  password: "actually1 strongPassw0rd !!",
+  name: "bob",
+  service_email: "admin@gov.uk",
+  organisation_name: "Org 1"
 )
   return unless confirmation_email_received?
 
   visit confirmation_email_link
 
-  select organisation_name, from: 'Organisation name'
+  select organisation_name, from: "Organisation name"
 
-  fill_in 'Service email', with: service_email
-  fill_in 'Your name', with: name
-  fill_in 'Password', with: password
-  click_on 'Create my account'
+  fill_in "Service email", with: service_email
+  fill_in "Your name", with: name
+  fill_in "Password", with: password
+  click_on "Create my account"
+
+  skip_two_factor_authentication
+end
+
+def skip_two_factor_authentication
+  Warden.on_next_request do |proxy|
+    proxy.session(:user)[two_factor_session_key] = false
+  end
 end
 
 def confirmation_email_link

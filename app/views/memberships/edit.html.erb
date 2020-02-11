@@ -19,23 +19,23 @@
               <label class="govuk-label govuk-checkboxes__label">View team members</label>
             </div>
             <div class="govuk-checkboxes__item">
-              <%= form.check_box :can_manage_team, class: 'govuk-checkboxes__input' %>
-              <label class="govuk-label govuk-checkboxes__label"><%= form.label :can_manage_team, 'Add and remove team members' %></label>
+              <%= form.check_box :can_manage_team, class: "govuk-checkboxes__input" %>
+              <label class="govuk-label govuk-checkboxes__label"><%= form.label :can_manage_team, "Add and remove team members" %></label>
             </div>
             <div class="govuk-checkboxes__item">
               <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
               <label class="govuk-label govuk-checkboxes__label">View locations and IPs</label>
             </div>
             <div class="govuk-checkboxes__item">
-              <%= form.check_box :can_manage_locations, class: 'govuk-checkboxes__input' %>
-              <label class="govuk-label govuk-checkboxes__label"><%= form.label :can_manage_locations, 'Add and remove locations and IPs' %></label>
+              <%= form.check_box :can_manage_locations, class: "govuk-checkboxes__input" %>
+              <label class="govuk-label govuk-checkboxes__label"><%= form.label :can_manage_locations, "Add and remove locations and IPs" %></label>
             </div>
           <div class="govuk-!-margin-top-6">
-            <%= form.submit 'Save', class: "govuk-button govuk-!-margin-0 govuk-!-margin-right-4 inline-block" %>
+            <%= form.submit "Save", class: "govuk-button govuk-!-margin-0 govuk-!-margin-right-4 inline-block" %>
 
             <% unless params[:remove_team_member] %>
               <div class="govuk-body govuk-!-margin-top-2 inline-block">
-                <%= link_to 'Remove user from GovWifi admin', edit_membership_path(@membership, remove_team_member: true), class: 'govuk-link red-link' %>
+                <%= link_to "Remove user from GovWifi admin", edit_membership_path(@membership, remove_team_member: true), class: "govuk-link red-link" %>
               </div>
             <% end %>
           </div>
