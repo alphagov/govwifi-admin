@@ -1,4 +1,6 @@
 //= require all.js
+//= require jquery
+//= require zxcvbn.js
 //= require govwifi-shared-frontend.js
 
 const GA_ID = "<%= SITE_CONFIG["google_analytics_script_id"] %>";
@@ -11,3 +13,26 @@ window.addEventListener("DOMContentLoaded", () => {
     window['ga-disable-' + GA_ID] = true;
   }
 });
+
+if ($('input[name="user[password]"]').length) {
+  console.log('Found!');
+  $('body').on('keyup', 'input[name="user[password]"]', function(e) {
+    const result = zxcvbn(this.value);
+    console.log(result);
+    const score = 100 * result.score / 4;
+    const scoreText = score < 25
+      ? 'extremely weak'
+      : (score < 50 ? 'very weak' : (score < 75 ? 'weak' : (score < 100 ? 'medium' : 'strong')));
+    const suggestion = result.feedback.suggestions.join(', ');
+    const feedback = `Password is ${scoreText} (score: ${score}). ${suggestion}`;
+    if (this.value.length) {
+      $('.password-strength')
+        .css('display', 'inline-block')
+        .css('background-position', score + '% 0%')
+        .text(feedback);
+         // .text(`Score: ${score} (${feedback})`);
+    } else {
+      $('.password-strength').css('display', 'none');
+    }
+  })
+}
