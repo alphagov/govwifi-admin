@@ -67,6 +67,18 @@ describe "Add location", type: :feature do
     end
   end
 
+  context "when trying to update a different location" do
+    let(:other_loc) { create(:location, organisation: create(:organisation)) }
+
+    before do
+      visit location_add_ips_path(other_loc.id)
+    end
+
+    it "does not render the add_ips_path" do
+      expect(page).to_not have_current_path(location_add_ips_path(other_loc.id))
+    end
+  end
+
   context "when logged out" do
     before do
       sign_out
