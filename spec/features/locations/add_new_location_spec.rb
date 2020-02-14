@@ -75,7 +75,7 @@ describe "Add location", type: :feature do
     end
 
     it "does not render the add_ips_path" do
-      expect(page).to_not have_current_path(location_add_ips_path)
+      expect(page).to_not have_current_path(location_add_ips_path(other_loc.id))
     end
   end
 
