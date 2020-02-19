@@ -39,7 +39,7 @@ group :test do
   gem "rspec-rails", "~> 3"
   gem "rubocop-govuk"
   gem "scss_lint-govuk"
-  gem "shoulda-matchers", "~> 4.1"
+  gem "shoulda-matchers", "~> 4.3"
   gem "simplecov", require: false
   gem "simplecov-console", require: false
   gem "timecop", "~> 0.9.1"
