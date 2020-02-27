@@ -17,5 +17,6 @@ Rails.application.config.assets.paths += [
   Rails.root.join("node_modules/govuk-frontend/govuk/assets/images"),
   Rails.root.join("node_modules/govuk-frontend/govuk/assets/fonts"),
   Rails.root.join("node_modules/govuk-frontend/govuk"),
+  Rails.root.join("node_modules/govwifi-shared-frontend/dist"),
   Rails.root.join("node_modules/html5shiv/dist"),
 ]
