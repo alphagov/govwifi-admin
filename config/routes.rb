@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get "users/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#show"
     get "users/:id/two_factor_authentication/edit", to: "users/two_factor_authentication_setup#edit"
     delete "users/:id/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#destroy"
+    get "users/two_factor_authentication/setup", to: "users/two_factor_authentication/setup#show"
   end
   get "confirm_new_membership", to: "users/memberships#create"
 

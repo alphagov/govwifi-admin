@@ -65,6 +65,6 @@ protected
       user.need_two_factor_authentication?(request) &&
       !user.totp_enabled?
 
-    redirect_to users_two_factor_authentication_setup_path
+    redirect_to "/users/two_factor_authentication/setup"
   end
 end
