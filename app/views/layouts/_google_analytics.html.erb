@@ -3,17 +3,13 @@
 
 <script>
  window.dataLayer = [{
-       'signedIn': '<%= user_signed_in?.to_json %>',
+     'signedIn': '<%= user_signed_in?.to_json %>',
      'hasIPs': '<%= (!!current_user && current_organisation&.ips&.any?).to_json %>'
  }];
 </script>
 
 <!-- Google Tag Manager -->
 <script>
- if (!GovWifi.cookies.isCategoryAllowed("tracking")) {
-     window['ga-disable-<%= SITE_CONFIG["google_analytics_script_id"] %>'] = true;
- }
-
  window.dataLayer = window.dataLayer || [];
  function gtag(){dataLayer.push(arguments);}
  gtag('js', new Date());
