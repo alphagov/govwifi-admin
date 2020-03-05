@@ -65,6 +65,10 @@ protected
       user.need_two_factor_authentication?(request) &&
       !user.totp_enabled?
 
-    redirect_to "/users/two_factor_authentication/setup"
+    if Rails.configuration.enable_enhanced_2fa_experience
+      redirect_to "/users/two_factor_authentication/setup"
+    else
+      redirect_to users_two_factor_authentication_setup_path
+    end
   end
 end
