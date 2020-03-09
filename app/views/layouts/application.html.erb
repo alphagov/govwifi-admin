@@ -3,7 +3,7 @@
   <head>
     <!-- test post please ignore -->
 
-    <%#= render 'layouts/google_analytics' %>
+    <%= render "layouts/google_analytics" %>
 
     <title><%= content_for?(:page_title) ? yield(:page_title) : SITE_CONFIG["default_page_title"] %></title>
 
@@ -36,7 +36,7 @@
   </head>
 
   <body class="govuk-template__body app-body-class">
-    <%#= render 'layouts/google_tag_manager_no_script' %>
+    <%= render "layouts/google_tag_manager_no_script" %>
 
     <script>
         document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
