@@ -4,7 +4,11 @@ inherit_gem:
     - config/default.yml
     - config/rails.yml
 
+# this means we add our excludes to the default ones
+inherit_mode:
+  merge:
+    - Exclude
+
 AllCops:
   Exclude:
     - 'db/migrate/2019*' # don't backport migrations
-    - 'db/schema.rb'
