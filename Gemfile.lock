@@ -408,7 +408,6 @@ DEPENDENCIES
   simplecov
   simplecov-console
   spring-commands-rspec
-  sprockets (= 4.0.0)
   timecop (~> 0.9.1)
   two_factor_authentication
   tzinfo-data
