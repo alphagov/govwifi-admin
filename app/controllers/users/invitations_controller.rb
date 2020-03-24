@@ -67,7 +67,12 @@ private
   end
 
   def set_target_organisation
-    @target_organisation = Organisation.find(params[:organisation_id])
+    @target_organisation =
+      if params[:organisation_id].present?
+        Organisation.find(params[:organisation_id])
+      else
+        current_organisation
+      end
   end
 
   def user_is_invalid?

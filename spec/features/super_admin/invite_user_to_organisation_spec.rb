@@ -87,4 +87,24 @@ describe "Inviting a team member as a super admin", type: :feature do
       end
     end
   end
+
+  describe "going through the normal invite flow" do
+    let(:other_organisation) { create(:organisation) }
+
+    before do
+      super_admin.memberships.create!(organisation: other_organisation).confirm!
+
+      click_on "Switch organisation"
+      click_on other_organisation.name
+
+      visit memberships_path
+    end
+
+    it "sets the correct target organisation" do
+      click_on "Invite team member"
+
+      expect(page).to have_current_path(new_user_invitation_path)
+      expect(page).to have_content "Invite a team member to #{other_organisation.name}"
+    end
+  end
 end
