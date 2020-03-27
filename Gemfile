@@ -35,7 +35,7 @@ group :test do
   gem "nokogiri"
   gem "rack_session_access"
   gem "rails-controller-testing"
-  gem "rspec-rails", "~> 3"
+  gem "rspec-rails", "~> 4"
   gem "rubocop-govuk"
   gem "scss_lint-govuk"
   gem "shoulda-matchers", "~> 4.3"
