@@ -1,7 +1,7 @@
 class Ip < ApplicationRecord
   belongs_to :location
 
-  validates :address, presence: true, uniqueness: true
+  validates :address, presence: true, uniqueness: { case_sensitive: true }
   validate :address_must_be_valid_ip
 
   def inactive?
