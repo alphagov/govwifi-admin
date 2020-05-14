@@ -19,8 +19,12 @@ Bundler.require(*Rails.groups)
 module GovwifiAdmin
   class Application < Rails::Application
     config.exceptions_app = self.routes
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+
+    config.load_defaults 6.0
+
+    # our lib/ folder doesn't follow the Zeitwerk conventions for
+    # autoloading, so rely the classic loader instead.
+    config.autoloader = :classic
 
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]

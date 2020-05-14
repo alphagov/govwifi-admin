@@ -12,7 +12,7 @@ describe "Downloading the poster", type: :feature do
     end
 
     it "sets the filename of the download" do
-      expect(page.response_headers["Content-Disposition"]).to eq(
+      expect(page.response_headers["Content-Disposition"]).to include(
         "inline; filename=\"GovWifi-poster.png\"",
       )
     end
