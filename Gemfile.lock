@@ -114,7 +114,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise_invitable (2.0.1)
+    devise_invitable (2.0.2)
       actionmailer (>= 5.0)
       devise (>= 4.6)
     devise_zxcvbn (5.1.0)
@@ -397,7 +397,7 @@ DEPENDENCIES
   cancancan
   capybara
   devise (~> 4.7.1)
-  devise_invitable (~> 2.0.1)
+  devise_invitable (~> 2.0.2)
   devise_zxcvbn (~> 5.1.0)
   erb_lint
   factory_bot_rails (~> 5.2)
