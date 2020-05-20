@@ -3,7 +3,7 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = "1.0"
 
-Rails.application.config.assets.precompile += %w(
+Rails.application.config.assets.precompile += %w[
   govuk-logotype-crown.png
   application_ie8.css
   html5shiv.js
@@ -11,7 +11,7 @@ Rails.application.config.assets.precompile += %w(
   accessible-autocomplete.min.css
   tick.svg
   cross.svg
-)
+]
 
 Rails.application.config.assets.paths += [
   Rails.root.join("node_modules/govuk-frontend/govuk/assets/images"),

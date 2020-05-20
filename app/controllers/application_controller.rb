@@ -56,7 +56,7 @@ protected
   end
 
   def valid_help_actions
-    @valid_help_actions ||= %w(signed_in create).freeze
+    @valid_help_actions ||= %w[signed_in create].freeze
   end
 
   def confirm_two_factor_setup
