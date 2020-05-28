@@ -12,9 +12,10 @@
     <%= f.label :current_password, class: "govuk-label" %>
     <%= f.password_field :current_password, class: "govuk-input" %>
   </div>
-  <div class="govuk-form-group">
+  <div id="password" class="govuk-form-group">
     <%= f.label :password, class: "govuk-label" %>
-    <span class="password-strength" style="display: none; width: 100%; margin-bottom: 5px; background: linear-gradient(90deg, red, blue, green) 100% 0 / 500% 100%; transition: background-position 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0s; border-radius: 3px; padding: 0.5rem; color: #ddd; font-family: 'GDS Transport', Arial, sans-serif; text-align: center"></span>
+    <span class="password-strength govuk-hint"></span>
+    <span class="govuk-error-message"></span>
     <%= f.password_field :password, class: "govuk-input" %>
   </div>
   <div class="govuk-form-group">

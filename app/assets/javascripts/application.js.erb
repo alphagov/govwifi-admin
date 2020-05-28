@@ -14,25 +14,41 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+const getPasswordStrength = password => {
+  const result = zxcvbn(password);
+  const score = 100 * result.score / 4;
+  const scoreText = score < 50 ? 'weak' : (score < 100 ? 'medium' : 'good');
+  const rawSuggestion = result.feedback.suggestions.join(', ');
+  // zxcvbn-js sometimes fails to return a suggestion even when the password is too weak, so we need to perform some coercion.
+  const suggestion = (!rawSuggestion) ? 'Choose a password that is harder to guess' : rawSuggestion;
+  return { score, scoreText, suggestion };
+};
+
 if ($('input[name="user[password]"]').length) {
-  console.log('Found!');
   $('body').on('keyup', 'input[name="user[password]"]', function(e) {
-    const result = zxcvbn(this.value);
-    console.log(result);
-    const score = 100 * result.score / 4;
-    const scoreText = score < 25
-      ? 'extremely weak'
-      : (score < 50 ? 'very weak' : (score < 75 ? 'weak' : (score < 100 ? 'medium' : 'strong')));
-    const suggestion = result.feedback.suggestions.join(', ');
-    const feedback = `Password is ${scoreText} (score: ${score}). ${suggestion}`;
+    const { score, scoreText } = getPasswordStrength(this.value)
+    const feedback = `Password strength: ${scoreText}`;
     if (this.value.length) {
       $('.password-strength')
         .css('display', 'inline-block')
-        .css('background-position', score + '% 0%')
         .text(feedback);
-         // .text(`Score: ${score} (${feedback})`);
     } else {
       $('.password-strength').css('display', 'none');
     }
-  })
+  });
+
+  $('body').on('blur', 'input[name="user[password]"]', function(e) {
+    const { score, suggestion } = getPasswordStrength(this.value)
+    if (this.value.length && score < 100) {
+      $('#password').addClass('govuk-form-group--error');
+      $('#password').find('input').addClass('govuk-input--error');
+      $('.govuk-error-message')
+        .css('display', 'inline-block')
+        .html(`<span class="govuk-visually-hidden">Error:</span> ${suggestion}`);
+    } else {
+      $('#password').removeClass('govuk-form-group--error');
+      $('#password').find('input').removeClass('govuk-input--error');
+      $('.govuk-error-message').css('display', 'none');
+    }
+  });
 }
