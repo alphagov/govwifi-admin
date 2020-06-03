@@ -24,5 +24,4 @@ class Users::TwoFactorAuthenticationController < ApplicationController
 
     redirect_to root_path unless current_user.can_manage_other_user_for_org?(user, current_organisation)
   end
-
 end

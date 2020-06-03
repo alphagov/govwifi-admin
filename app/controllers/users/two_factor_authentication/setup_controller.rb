@@ -18,7 +18,8 @@ class Users::TwoFactorAuthentication::SetupController < ApplicationController
     if params[:method] == "email"
       save_two_factor_method "email"
       send_email
-      redirect_to "/users/two_factor_authentication/email" and return
+      redirect_to "/users/two_factor_authentication/email"
+      return
     end
 
     @otp_secret_key = params[:otp_secret_key]
@@ -37,16 +38,16 @@ class Users::TwoFactorAuthentication::SetupController < ApplicationController
 
   def qr_code_uri
     provisioning_uri = current_user.provisioning_uri(
-        current_user.email,
-        otp_secret_key: @otp_secret_key,
-        issuer: "GovWifi (#{ENV['RACK_ENV']})",
-        )
+      current_user.email,
+      otp_secret_key: @otp_secret_key,
+      issuer: "GovWifi (#{ENV['RACK_ENV']})",
+    )
     qr_code = RQRCode::QRCode.new(provisioning_uri, level: :m)
     qr_code.as_png(size: 180, fill: ChunkyPNG::Color::TRANSPARENT).to_data_url
   end
   helper_method :qr_code_uri
 
-  private
+private
 
   def save_two_factor_method(method)
     # TODO: This will be implemented in future.

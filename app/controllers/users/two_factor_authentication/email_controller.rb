@@ -20,7 +20,7 @@ class Users::TwoFactorAuthentication::EmailController < ApplicationController
     end
   end
 
-  private
+private
 
   def send_email
     # TODO: This will be implemented in future.
