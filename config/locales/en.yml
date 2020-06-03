@@ -19,6 +19,19 @@ en:
               if you need help."
 
   users:
+    two_factor_authentication:
+      setup:
+        show_app:
+          complete_setup: "Complete setup"
+          go_back: "Back"
+        show_email:
+          complete_setup: "Complete setup"
+          go_back: "Back"
+      email:
+        show:
+          resend_link: "click here"
+        show_resend:
+          resend_button: "Resend email"
     two_factor_authentication_setup:
       show:
         complete_setup: "Complete setup"

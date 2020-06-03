@@ -1,0 +1,18 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h2 class="govuk-heading-l">Two-factor authentication email</h2>
+    <% if @resent %>
+      <p class="govuk-body">We have emailed you another link to sign in to GovWifi.</p>
+    <% else %>
+      <p class="govuk-body">We have emailed you a link to sign in to GovWifi.</p>
+    <% end %>
+
+    <p class="govuk-body">
+      Clicking the link will open a new browser window and sign you in, so you can close this one.
+    </p>
+    <p class="govuk-body">
+      If you do not receive the email within a few minutes,
+      <%= link_to t(".resend_link"), "/users/two_factor_authentication/email?resend=true", class: "govuk-link govuk-link--no-visited-state", id: "resend-email" %>
+    </p>
+  </div>
+</div>

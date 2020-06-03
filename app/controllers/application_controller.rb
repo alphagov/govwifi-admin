@@ -66,6 +66,7 @@ protected
       !user.totp_enabled?
 
     if Rails.configuration.enable_enhanced_2fa_experience
+      # TODO: Replace with route helper once fully migrated to enhanced 2FA.
       redirect_to "/users/two_factor_authentication/setup"
     else
       redirect_to users_two_factor_authentication_setup_path
