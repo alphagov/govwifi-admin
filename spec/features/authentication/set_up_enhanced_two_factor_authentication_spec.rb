@@ -9,21 +9,141 @@ describe "Set up two factor authentication", type: :feature do
     visit root_path
   end
 
-  context "when admin user has not configured 2FA yet" do
-    it "presents the setup page" do
+  it "presents the setup page" do
+    expect(page).to have_current_path("/users/two_factor_authentication/setup")
+  end
+
+  it "explains the setup step" do
+    expect(page).to have_content("Set up two-factor authentication")
+  end
+
+  it "provides the option to receive 2FA codes via email" do
+    expect(page).to have_css("#email")
+  end
+
+  it "provides the option to generate 2FA codes by authentication app" do
+    expect(page).to have_css("#app")
+  end
+
+  context "when navigating to another page" do
+    before { visit logs_path }
+
+    it "redirects the user back to setup" do
       expect(page).to have_current_path("/users/two_factor_authentication/setup")
     end
+  end
 
-    it "explains the setup step" do
-      expect(page).to have_content("Set up two-factor authentication")
+  #########
+  # Email #
+  #########
+
+  context "when admin user chooses email as the 2FA method" do
+    before do
+      choose "Email"
+      click_on "Continue"
     end
 
-    it "provides the option to receive security codes via email" do
-      expect(page).to have_css("#email")
+    it "explains that 2FA codes will be sent by email" do
+      expect(page).to have_content("Two-factor authentication")
+      expect(page).to have_button("Complete setup")
+      expect(page).to have_link("Back")
+    end
+  end
+
+  context "when admin user completes email-based 2FA setup" do
+    before do
+      choose "Email"
+      click_on "Continue"
+      click_on "Complete setup"
     end
 
-    it "provides the option to generate security codes by authentication app" do
-      expect(page).to have_css("#app")
+    it "confirms that an email with 2FA code has been sent" do
+      expect(page).to have_content("We have emailed you a link to sign in to GovWifi")
+    end
+
+    it "explains what can be done in case email is not received" do
+      expect(page).to have_css("#resend-email")
+    end
+  end
+
+  context "when admin user requests to re-send TOTP email" do
+    before do
+      choose "Email"
+      click_on "Continue"
+      click_on "Complete setup"
+      click_on "click here"
+    end
+
+    it "allows requesting to re-send TOTP email" do
+      expect(page).to have_button("Resend email")
+    end
+  end
+
+  #######
+  # App #
+  #######
+
+  context "when admin user chooses app as the 2FA method" do
+    before do
+      choose "app"
+      click_on "Continue"
+    end
+
+    it "shows QR code to scan" do
+      expect(page).to have_css("img[src*='data:image/png;base64']")
+    end
+
+    it "expects a TOTP code" do
+      expect(page).to have_field(:code)
+    end
+  end
+
+  context "when admin user completes app-based 2FA setup using a valid code" do
+    let(:totp_double) { instance_double(ROTP::TOTP) }
+
+    before do
+      choose "app"
+      click_on "Continue"
+
+      allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
+      allow(totp_double).to receive(:verify).and_return(true)
+
+      fill_in :code, with: "999999"
+      click_on "Complete setup"
+    end
+
+    it "authenticates the user" do
+      expect(user.reload.totp_enabled?).to be true
+    end
+
+    it "shows a success message" do
+      expect(page).to have_content("Two factor authentication setup successful")
+    end
+
+    it "redirects the user to the admin app" do
+      expect(page).to have_current_path(super_admin_organisations_path)
+    end
+  end
+
+  context "when admin user completes app-based 2FA setup using an invalid code" do
+    before do
+      choose "app"
+      click_on "Continue"
+
+      fill_in :code, with: "123456"
+      click_on "Complete setup"
+    end
+
+    it "returns an error" do
+      expect(page).to have_content("Six digit code is not valid")
+    end
+
+    it "returns to the 2FA screen" do
+      expect(page).to have_content("Scan the QR code")
+    end
+
+    it "doesn't store a totp for the user" do
+      expect(user.otp_secret_key).to be nil
     end
   end
 end
