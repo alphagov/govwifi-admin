@@ -52,3 +52,16 @@ if ($('input[name="user[password]"]').length) {
     }
   });
 }
+
+function toggleVisibility(buttonId, targetElementId) {
+  const button = $('#' + buttonId)
+  const targetElement = $('#' + targetElementId)
+  if (button.text() == 'Show') {
+    targetElement.attr('type', 'text');
+    button.html('Hide');
+  }
+  else {
+    targetElement.attr('type', 'password');
+    button.html('Show');
+  }
+}
