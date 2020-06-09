@@ -29,7 +29,7 @@ en:
           go_back: "Back"
       email:
         show:
-          resend_link: "click here"
+          resend_link: "we can try sending it again"
         show_resend:
           resend_button: "Resend email"
     two_factor_authentication_setup:

@@ -4,6 +4,8 @@ class Users::TwoFactorAuthentication::SetupController < ApplicationController
   # Skips 2FA setup confirmation callback in ApplicationController.
   skip_before_action :confirm_two_factor_setup
 
+  helper_method :qr_code_uri
+
   def show
     if params[:method] == "email"
       render_email_setup
@@ -45,7 +47,6 @@ class Users::TwoFactorAuthentication::SetupController < ApplicationController
     qr_code = RQRCode::QRCode.new(provisioning_uri, level: :m)
     qr_code.as_png(size: 180, fill: ChunkyPNG::Color::TRANSPARENT).to_data_url
   end
-  helper_method :qr_code_uri
 
 private
 

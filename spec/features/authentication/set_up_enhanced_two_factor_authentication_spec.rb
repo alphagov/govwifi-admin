@@ -18,11 +18,11 @@ describe "Set up two factor authentication", type: :feature do
   end
 
   it "provides the option to receive 2FA codes via email" do
-    expect(page).to have_css("#email")
+    expect(page).to have_field("Email")
   end
 
   it "provides the option to generate 2FA codes by authentication app" do
-    expect(page).to have_css("#app")
+    expect(page).to have_field("Authentication app for smartphone or tablet")
   end
 
   context "when navigating to another page" do
@@ -33,10 +33,6 @@ describe "Set up two factor authentication", type: :feature do
     end
   end
 
-  #########
-  # Email #
-  #########
-
   context "when admin user chooses email as the 2FA method" do
     before do
       choose "Email"
@@ -45,6 +41,7 @@ describe "Set up two factor authentication", type: :feature do
 
     it "explains that 2FA codes will be sent by email" do
       expect(page).to have_content("Two-factor authentication")
+      expect(page).to have_content("We can send security codes to the email address")
       expect(page).to have_button("Complete setup")
       expect(page).to have_link("Back")
     end
@@ -71,17 +68,13 @@ describe "Set up two factor authentication", type: :feature do
       choose "Email"
       click_on "Continue"
       click_on "Complete setup"
-      click_on "click here"
+      click_on "we can try sending it again"
     end
 
     it "allows requesting to re-send TOTP email" do
       expect(page).to have_button("Resend email")
     end
   end
-
-  #######
-  # App #
-  #######
 
   context "when admin user chooses app as the 2FA method" do
     before do
