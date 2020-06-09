@@ -26,7 +26,6 @@ gem "two_factor_authentication"
 gem "tzinfo-data"
 gem "uk_postcode", "~> 2.1"
 gem "zendesk_api"
-gem 'zxcvbn-js', require: 'zxcvbn'
 
 group :test do
   gem "capybara"
