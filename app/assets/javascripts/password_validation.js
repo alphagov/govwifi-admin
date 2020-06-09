@@ -1,5 +1,8 @@
 $("#user_password").on("ajax:success", (event, xhr) => {
-  const { score, suggestions } = xhr;
+  const { score } = xhr;
+  const suggestions = xhr.suggestions.length
+    ? xhr.suggestions
+    : "Choose a password that is harder to guess";
 
   if (score < 4) {
     $("#password").addClass("govuk-form-group--error");
