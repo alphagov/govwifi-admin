@@ -3,6 +3,15 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :validate_email_on_whitelist, only: :create # rubocop:disable Rails/LexicallyScopedActionFilter
 
+  def check_password_strength
+    test = Zxcvbn.test(params[:user][:password])
+
+    render json: {
+      score: test.score,
+      suggestions: test.feedback["suggestions"],
+    }
+  end
+
 protected
 
   # The path used after sign up for inactive accounts.
