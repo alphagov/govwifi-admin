@@ -11,18 +11,6 @@ const getPasswordStrength = password => {
 };
 
 if ($('input[name="user[password]"]').length) {
-  $("body").on("keyup", 'input[name="user[password]"]', function(e) {
-    const { score, scoreText } = getPasswordStrength(this.value);
-    const feedback = `Password strength: ${scoreText}`;
-    if (this.value.length) {
-      $(".password-strength")
-        .css("display", "inline-block")
-        .text(feedback);
-    } else {
-      $(".password-strength").css("display", "none");
-    }
-  });
-
   $("body").on("blur", 'input[name="user[password]"]', function(e) {
     const { score, suggestion } = getPasswordStrength(this.value);
     if (this.value.length && score < 100) {
