@@ -25,7 +25,7 @@
         <%= f.password_field :password, class: "govuk-input", data: { remote: true, url: check_password_strength_path, method: 'post' } %>
       </div>
       <div class="govuk-grid-column-one-quarter">
-        <button id="user_password_visibility_toggle" class="govuk-button govuk-button--secondary" type="button" onclick="toggleVisibility('user_password_visibility_toggle', 'user_password')">Show</button>
+        <button id="user_password_visibility_toggle" class="govuk-button govuk-button--secondary" type="button">Show</button>
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@
         <%= f.password_field :password_confirmation, class: "govuk-input" %>
       </div>
       <div class="govuk-grid-column-one-quarter">
-        <button id="user_password_confirmation_visbility_toggle" class="govuk-button govuk-button--secondary" type="button" onclick="toggleVisibility('user_password_confirmation_visbility_toggle', 'user_password_confirmation')">Show</button>
+        <button id="user_password_confirmation_visibility_toggle" class="govuk-button govuk-button--secondary" type="button">Show</button>
       </div>
     </div>
   </div>

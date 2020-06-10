@@ -21,6 +21,15 @@ $("#user_password").on("ajax:success", (event, xhr) => {
   }
 });
 
+$("#user_password_visibility_toggle").click(handleVisibilityButton);
+$("#user_password_confirmation_visibility_toggle").click(handleVisibilityButton);
+
+function handleVisibilityButton(clickEvent) {
+  const buttonId = clickEvent.target.id;
+  const visibilityTargetId = ("user_password_visibility_toggle" == buttonId) ? "user_password" : "user_password_confirmation";
+  toggleVisibility(buttonId, visibilityTargetId);
+}
+
 function toggleVisibility(buttonId, targetElementId) {
   const button = $("#" + buttonId);
   const targetElement = $("#" + targetElementId);
