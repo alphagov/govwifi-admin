@@ -19,7 +19,7 @@ gem "notifications-ruby-client", "~> 5.1.2"
 gem "puma", "~> 4.3"
 gem "rails", "~> 6.0.3"
 gem "rqrcode"
-gem "sass-rails", "~> 5.1"
+gem "sassc-rails"
 gem "sentry-raven"
 gem "two_factor_authentication"
 gem "tzinfo-data"
@@ -37,7 +37,6 @@ group :test do
   gem "rails-controller-testing"
   gem "rspec-rails", "~> 4"
   gem "rubocop-govuk"
-  gem "scss_lint-govuk"
   gem "shoulda-matchers", "~> 4.3"
   gem "simplecov", require: false
   gem "simplecov-console", require: false
