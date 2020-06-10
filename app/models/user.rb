@@ -24,7 +24,8 @@ class User < ApplicationRecord
             presence: true,
             length: { within: 6..80 },
             on: :update,
-            if: :password_present?
+            if: :password_present?,
+            confirmation: true
 
   validate :strong_password, on: :update, if: :password_present?
 
