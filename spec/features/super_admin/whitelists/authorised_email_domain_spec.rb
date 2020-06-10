@@ -96,7 +96,7 @@ describe "Authorising Email Domains", type: :feature do
 
   context "when viewing a list of domains" do
     before do
-      %w(a b c).each do |letter|
+      %w[a b c].each do |letter|
         create(:authorised_email_domain, name: "#{letter}gov.some.test.uk")
       end
       visit super_admin_whitelist_email_domains_path

@@ -8,7 +8,7 @@ describe UseCases::Administrator::PublishSignupWhitelist do
   let(:source_gateway) do
     instance_double(
       Gateways::AuthorisedEmailDomains,
-      fetch_domains: %i(gov.org.uk nhs.uk),
+      fetch_domains: %i[gov.org.uk nhs.uk],
     )
   end
   let(:s3_gateway) { instance_spy(Gateways::S3) }

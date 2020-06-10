@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def active_tab(*identifiers)
-    classes = %w(govuk-link govuk-link--no-visited-state)
+    classes = %w[govuk-link govuk-link--no-visited-state]
 
     classes << "active" if identifiers.any? { |i| request.path.include?(i) }
 

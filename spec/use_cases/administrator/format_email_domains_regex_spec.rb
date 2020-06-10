@@ -10,7 +10,7 @@ describe UseCases::Administrator::FormatEmailDomainsRegex do
   end
 
   context "when one domain" do
-    let(:authorised_domains) { %w(gov.uk) }
+    let(:authorised_domains) { %w[gov.uk] }
 
     it "escapes the fullstops" do
       expect(result).to include('\.')
@@ -22,7 +22,7 @@ describe UseCases::Administrator::FormatEmailDomainsRegex do
   end
 
   context "when multiple domains" do
-    let(:authorised_domains) { %w(gov.uk police.uk some.domain.org.uk) }
+    let(:authorised_domains) { %w[gov.uk police.uk some.domain.org.uk] }
 
     it "creates a whitelist with multiple entries" do
       expect(result).to eq(SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk|police\.uk|some\.domain\.org\.uk)$')

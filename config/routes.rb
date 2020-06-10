@@ -98,7 +98,7 @@ Rails.application.routes.draw do
     end
   end
 
-  %w(404 422 500).each do |code|
+  %w[404 422 500].each do |code|
     get code, to: "application#error", code: code
   end
 end
