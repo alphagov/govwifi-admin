@@ -10,15 +10,35 @@
 <%= form_for(current_user, url: user_registration_path, method: :put) do |f| %>
   <div class="govuk-form-group">
     <%= f.label :current_password, class: "govuk-label" %>
-    <%= f.password_field :current_password, class: "govuk-input" %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= f.password_field :current_password, class: "govuk-input" %>
+      </div>
+    </div>
   </div>
-  <div class="govuk-form-group">
+  <div id="password" class="govuk-form-group">
     <%= f.label :password, class: "govuk-label" %>
-    <%= f.password_field :password, class: "govuk-input" %>
+    <span class="password-strength govuk-hint"></span>
+    <span class="govuk-error-message"></span>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= f.password_field :password, class: "govuk-input", data: { remote: true, url: check_password_strength_path, method: "post" } %>
+      </div>
+      <div class="govuk-grid-column-one-quarter">
+        <button id="user_password_visibility_toggle" class="govuk-button govuk-button--secondary" type="button">Show</button>
+      </div>
+    </div>
   </div>
   <div class="govuk-form-group">
     <%= f.label :password_confirmation, class: "govuk-label" %>
-    <%= f.password_field :password_confirmation, class: "govuk-input" %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <%= f.password_field :password_confirmation, class: "govuk-input" %>
+      </div>
+      <div class="govuk-grid-column-one-quarter">
+        <button id="user_password_confirmation_visibility_toggle" class="govuk-button govuk-button--secondary" type="button">Show</button>
+      </div>
+    </div>
   </div>
   <%= f.submit "Submit", class: "govuk-button" %>
 <% end %>

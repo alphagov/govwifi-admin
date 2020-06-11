@@ -8,7 +8,10 @@ Rails.application.routes.draw do
     invitations: "users/invitations",
     passwords: "users/passwords",
   }
+
   devise_scope :user do
+    post "/check_password_strength", to: "users/registrations#check_password_strength"
+
     put "users/confirmations", to: "users/confirmations#update"
     get "users/confirmations/pending", to: "users/confirmations#pending"
     put "users/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#update"
