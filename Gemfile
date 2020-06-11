@@ -14,7 +14,7 @@ gem "devise", "~> 4.7.1"
 gem "devise_invitable", "~> 2.0.2"
 gem "devise_zxcvbn", "~> 5.1.0"
 gem "httparty", "~> 0.18.0"
-gem 'jquery-rails'
+gem "jquery-rails"
 gem "mysql2", "~> 0.5.2"
 gem "notifications-ruby-client", "~> 5.1.2"
 gem "puma", "~> 4.3"
