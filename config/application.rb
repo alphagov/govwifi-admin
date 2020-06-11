@@ -26,7 +26,7 @@ module GovwifiAdmin
     # autoloading, so rely the classic loader instead.
     config.autoloader = :classic
 
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W[#{config.root}/lib]
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     # Force HTTPS for all requests except healthcheck endpoint

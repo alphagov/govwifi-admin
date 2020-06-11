@@ -32,11 +32,9 @@ serve: stop build
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
 	$(DOCKER_COMPOSE) up -d app
 
-lint: lint-ruby lint-sass lint-erb
+lint: lint-ruby lint-erb
 lint-ruby: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec rubocop
-lint-sass: build
-	$(DOCKER_COMPOSE) run --rm app bundle exec scss-lint app/assets/stylesheets
 lint-erb: build
 	$(DOCKER_COMPOSE) run --rm app bundle exec erblint --lint-all
 

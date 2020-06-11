@@ -1,5 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
-  before_action :set_target_organisation, if: :super_admin?, only: %i(create new)
+  before_action :set_target_organisation, if: :super_admin?, only: %i[create new]
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
   after_action :confirm_new_user_membership, only: :update # rubocop:disable Rails/LexicallyScopedActionFilter
 
