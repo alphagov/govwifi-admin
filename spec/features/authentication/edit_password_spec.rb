@@ -41,4 +41,16 @@ describe "Editing password", type: :feature do
 
     expect(page).to have_content "Sign out"
   end
+
+  it "stays on the same page and does not change the password, if the confirmation does not match" do
+    visit edit_user_registration_path
+
+    fill_in "Current password", with: user.password
+    fill_in "Password", with: pw
+    fill_in "Password confirmation", with: "different password"
+
+    click_on "Submit"
+
+    expect(page).to have_content "Password confirmation doesn't match Password"
+  end
 end

@@ -3,6 +3,7 @@ describe User do
 
   describe "validation" do
     let(:user) { create(:user) }
+    let(:pw) { "this is 333 a strong !!! password" }
 
     it "has a valid factory user" do
       expect(user).to be_valid
@@ -11,6 +12,18 @@ describe User do
     ["password123", "my password", "pa55w0rd"].each do |weak_pass|
       it "does not accept a weak password (#{weak_pass})" do
         user.update(password: weak_pass)
+
+        expect(user).not_to be_valid
+      end
+
+      it "accepts a strong password" do
+        user.update(password: pw)
+
+        expect(user).to be_valid
+      end
+
+      it "checks for a password confirmation field" do
+        user.update(password: pw, password_confirmation: pw.reverse)
 
         expect(user).not_to be_valid
       end
