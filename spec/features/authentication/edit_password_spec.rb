@@ -52,14 +52,5 @@ describe "Editing password", type: :feature do
     click_on "Submit"
 
     expect(page).to have_content "Password confirmation doesn't match Password"
-
-    sign_out
-
-    fill_in "Email", with: user.email
-    fill_in "Password", with: pw
-
-    click_on "Continue"
-
-    expect(page).not_to have_content "Sign out"
   end
 end
