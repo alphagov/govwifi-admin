@@ -51,23 +51,25 @@ $('#user_password').on('ajax:success', event => {
   removeError();
 });
 
-$("#user_password_visibility_toggle").click(handleVisibilityButton);
-$("#user_password_confirmation_visibility_toggle").click(handleVisibilityButton);
+$('#user_password_visibility_toggle').click(onVisibilityButtonToggle);
+$('#user_password_confirmation_visibility_toggle').click(onVisibilityButtonToggle);
 
-function handleVisibilityButton(clickEvent) {
+function onVisibilityButtonToggle(clickEvent) {
   const buttonId = clickEvent.target.id;
-  const visibilityTargetId = ("user_password_visibility_toggle" == buttonId) ? "user_password" : "user_password_confirmation";
+  const visibilityTargetId = 'user_password_visibility_toggle' === buttonId
+    ? 'user_password'
+    : 'user_password_confirmation';
   toggleVisibility(buttonId, visibilityTargetId);
 }
 
 function toggleVisibility(buttonId, targetElementId) {
-  const button = $("#" + buttonId);
-  const targetElement = $("#" + targetElementId);
-  if (button.text() == "Show") {
-    targetElement.attr("type", "text");
-    button.html("Hide");
+  const button = $('#' + buttonId);
+  const targetElement = $('#' + targetElementId);
+  if (button.text() === 'Show') {
+    targetElement.attr('type', 'text');
+    button.html('Hide');
   } else {
-    targetElement.attr("type", "password");
-    button.html("Show");
+    targetElement.attr('type', 'password');
+    button.html('Show');
   }
 }
