@@ -35,7 +35,7 @@
   </tbody>
 </table>
 
-<%= form_with model: @whitelist, url: super_admin_whitelist_path do |form| %>
+<%= form_with model: @whitelist, url: super_admin_whitelist_path, local: true do |form| %>
   <div class="govuk-form-group">
     <%= form.hidden_field :organisation_name, value: params.dig(:whitelist, :organisation_name) %>
     <%= form.hidden_field :email_domain, value: params.dig(:whitelist, :email_domain) %>

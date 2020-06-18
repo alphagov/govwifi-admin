@@ -8,7 +8,7 @@
       Logs are kept for recent authentication requests made to the GovWifi service.
     </p>
 
-    <%= form_with url: logs_searches_path, method: :post do |form| %>
+    <%= form_with url: logs_searches_path, method: :post, local: true do |form| %>
       <div class="govuk-form-group">
         <p class="govuk-body">
           How do you want to filter these logs?
