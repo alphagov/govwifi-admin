@@ -19,7 +19,7 @@
   <div id="password" class="govuk-form-group">
     <%= f.label :password, class: "govuk-label" %>
     <span class="password-strength govuk-hint"></span>
-    <span class="govuk-error-message"></span>
+    <div class="password-error-message"></div>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-three-quarters">
         <%= f.password_field :password, class: "govuk-input", data: { remote: true, url: check_password_strength_path, method: "post" } %>
