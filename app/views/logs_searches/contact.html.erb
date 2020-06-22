@@ -8,7 +8,7 @@
   <h1 class='govuk-heading-l govuk-grid-column-full'>Search for user details</h1>
 
   <div class='govuk-grid-column-two-thirds'>
-    <%= form_with url: super_admin_wifi_user_search_path do |f| %>
+    <%= form_with url: super_admin_wifi_user_search_path, local: true do |f| %>
       <p>
         <%= f.label :search_term, "Username, email address or phone number", class: "govuk-label", for: :search_term %>
         <%= f.text_field :search_term, class: "govuk-input govuk-input--width-50" %>
