@@ -41,8 +41,8 @@ const removeError = () => {
 };
 
 $('#user_password').on('ajax:success', event => {
-  const { detail: [data, status] } = event;
-  if (!data || typeof data !== 'object' || status !== 'OK') return;
+  const { detail: [data] } = event;
+  if (!data || typeof data !== 'object') return;
   const { score, suggestions } = data;
   if (typeof score !== 'number') return;
   updateScore(score);
