@@ -29,6 +29,8 @@ class User < ApplicationRecord
 
   validate :strong_password, on: :update, if: :password_present?
 
+  enum second_factor_method: { email: "email", app: "app" }
+
   def password_present?
     !password.nil?
   end
