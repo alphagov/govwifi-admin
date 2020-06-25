@@ -2,13 +2,13 @@ require "rails_helper"
 
 require "support/filters/validate_can_manage_team"
 
-RSpec.describe Users::TwoFactorAuthenticationSetupController, type: :controller do
+RSpec.describe Users::TwoFactorAuthenticationController, type: :controller do
   let(:organisation) { create(:organisation) }
 
   let(:superadmin) { create(:user, :super_admin) }
-  let(:admin) { create(:user, organisations: [organisation]) }
-  let(:stranger) { create(:user, :with_organisation) }
-  let(:teammate) { create(:user, organisations: [organisation]) }
+  let(:admin) { create(:user, :with_2fa, organisations: [organisation]) }
+  let(:stranger) { create(:user, :with_organisation, :with_2fa) }
+  let(:teammate) { create(:user, :with_2fa, organisations: [organisation]) }
 
   describe "edit" do
     it_behaves_like "when using validate_can_manage_team" do

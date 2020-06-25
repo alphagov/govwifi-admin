@@ -4,6 +4,7 @@ describe "Set up two factor authentication", type: :feature do
   let(:user) { create(:user, organisations: [super_admin_organisation]) }
 
   before do
+    allow(Rails.application.config).to receive(:enable_enhanced_2fa_experience).and_return false
     sign_in_user(user, pass_through_two_factor: false)
     visit root_path
   end

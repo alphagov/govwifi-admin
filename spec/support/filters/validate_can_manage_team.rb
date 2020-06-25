@@ -2,9 +2,9 @@ RSpec.shared_context "when using validate_can_manage_team" do
   let(:organisation) { create(:organisation) }
 
   let(:superadmin) { create(:user, :super_admin) }
-  let(:admin) { create(:user, organisations: [organisation]) }
-  let(:stranger) { create(:user, :with_organisation) }
-  let(:teammate) { create(:user, organisations: [organisation]) }
+  let(:admin) { create(:user, :with_2fa, organisations: [organisation]) }
+  let(:stranger) { create(:user, :with_2fa, :with_organisation) }
+  let(:teammate) { create(:user, :with_2fa, organisations: [organisation]) }
 
   context "when the current_user is not allowed to edit" do
     before do

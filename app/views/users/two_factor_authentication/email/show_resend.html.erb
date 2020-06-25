@@ -1,0 +1,18 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">Resend two-factor authentication email</h1>
+    <p class="govuk-body">
+      Emails sometimes take a few minutes to arrive. If you do not receive the email, we can send you a new one.
+    </p>
+    <%= form_tag "/users/two_factor_authentication/email?resend=true", method: :post do %>
+      <%= submit_tag t(".resend_button"), class: "govuk-button" %>
+    <% end %>
+    <h3 class="govuk-heading-m">If your email address has changed</h3>
+    <p class="govuk-body">You will need to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>find a member of your team who has permission to manage team membership</li>
+      <li>ask them to change the email address for your account</li>
+      <li>click the button above to <strong>Resend email</strong></li>
+    </ul>
+  </div>
+</div>
