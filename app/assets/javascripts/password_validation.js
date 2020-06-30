@@ -13,7 +13,7 @@ const getSuggestionHtml = suggestions => {
 };
 
 const getScoreHtml = score => {
-  const scoreClassification = score < 2 ? 'weak' : (score < 4 ? 'medium' : 'good');
+  const scoreClassification = score < 2 ? 'weak' : (score < 3 ? 'good' : 'excellent');
   return `
     Password strength:
     <span class="password-strength-score score-${scoreClassification}">${scoreClassification}</span>
@@ -46,7 +46,7 @@ $('#user_password').on('ajax:success', event => {
   const { score, suggestions } = data;
   if (typeof score !== 'number') return;
   updateScore(score);
-  if (score < 4) {
+  if (score < 2) {
     updateError(suggestions);
     return;
   }

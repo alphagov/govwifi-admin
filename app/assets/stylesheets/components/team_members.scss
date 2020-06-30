@@ -24,11 +24,7 @@
       color: $govuk-error-colour;
     }
 
-    &.score-medium {
-      color: $govuk-brand-colour;
-    }
-
-    &.score-good {
+    &.score-good, &.score-excellent {
       color: $colour-green;
     }
   }
