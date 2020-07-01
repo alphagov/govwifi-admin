@@ -2,8 +2,8 @@ describe "GovWifi locations map", type: :feature do
   let!(:location) { create(:location, postcode: "SE10HS") }
 
   before do
-    stub_request(:post, "https://api.postcodes.io/postcodes").
-      to_return(status: 200, body: { 'result': [] }.to_json)
+    stub_request(:post, "https://api.postcodes.io/postcodes")
+      .to_return(status: 200, body: { 'result': [] }.to_json)
     user = create(:user, :super_admin)
     sign_in_user user
     visit map_super_admin_locations_path

@@ -5,8 +5,8 @@ describe Gateways::Coordinates do
     let(:postcodes) { %w[OX49 5NU M32 0JG] }
 
     before do
-      stub_request(:post, "https://api.postcodes.io/postcodes").
-      to_return(status: 200, body: {
+      stub_request(:post, "https://api.postcodes.io/postcodes")
+      .to_return(status: 200, body: {
         "status": 200,
         "result": [
             {
@@ -42,8 +42,8 @@ describe Gateways::Coordinates do
       let(:postcodes) { %w[not_a_valid_postcode] }
 
       before do
-        stub_request(:post, "https://api.postcodes.io/postcodes").
-        to_return(status: 200, body: {
+        stub_request(:post, "https://api.postcodes.io/postcodes")
+        .to_return(status: 200, body: {
             "status": 200,
             "result": [
                 {
@@ -64,8 +64,8 @@ describe Gateways::Coordinates do
       let(:postcodes) { %w[not_a_valid_postcode] }
 
       before do
-        stub_request(:post, "https://api.postcodes.io/postcodes").
-        to_return(status: 200, body: {
+        stub_request(:post, "https://api.postcodes.io/postcodes")
+        .to_return(status: 200, body: {
             "status": 200,
             "result": [
                 {
@@ -94,8 +94,8 @@ describe Gateways::Coordinates do
     let(:postcodes) { %w[HA72BL HA73BL HA74BL HA75BL] }
 
     before do
-      stub_request(:post, "https://api.postcodes.io/postcodes").
-      to_return(status: 200, body: {
+      stub_request(:post, "https://api.postcodes.io/postcodes")
+      .to_return(status: 200, body: {
         "status": 200,
         "result": [
             {
