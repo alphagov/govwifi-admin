@@ -150,7 +150,6 @@ describe "Uploading and downloading an MOU", type: :feature do
     end
   end
 
-
   context "when signed out" do
     before do
       visit mou_index_path

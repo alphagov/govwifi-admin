@@ -5,7 +5,6 @@ describe Gateways::S3 do
   let(:key) { "StubKey" }
   let(:data) { { blah: "foobar" }.to_json }
 
-
   it "writes the data to the S3 bucket" do
     expect(gateway.write(data: data)).to eq({})
   end
