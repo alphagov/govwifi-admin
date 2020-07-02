@@ -11,7 +11,7 @@
     <p class="govuk-body govuk-!-margin-bottom-8">
       GovWifi organisation since <%= @organisation.created_at.strftime(
                                        "#{@organisation.created_at.day.ordinalize} of %B, %Y",
-      ) %>
+                                     ) %>
     </p>
 
     <%= render "section", heading: "Usage" do %>

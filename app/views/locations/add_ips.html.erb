@@ -42,7 +42,7 @@
       </span>
       <%= form.fields_for(:ips, @location.blank_ips) do |ip| %>
         <div class='govuk-!-margin-bottom-3'>
-          <% style = "govuk-input govuk-input--width-10" + (ip.object.errors.has_key?(:address) ? " govuk-input--error" : "") %>
+          <% style = "govuk-input govuk-input--width-10" + (ip.object.errors.key?(:address) ? " govuk-input--error" : "") %>
           <% if ip.object.errors.has_key?(:address) %>
             <span class="govuk-error-message">
               <span class="govuk-visually-hidden">Error:</span> <%= ip.object.errors.full_messages_for(:address).first %>
