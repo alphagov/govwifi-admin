@@ -48,7 +48,7 @@ private
 
   def validate_user_is_part_of_organisation
     unless user_belongs_to_same_org
-      raise ActionController::RoutingError.new("Not Found")
+      raise ActionController::RoutingError, "Not Found"
     end
   end
 

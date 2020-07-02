@@ -36,7 +36,7 @@ private
 
   def validate_can_manage_team
     unless current_user.can_manage_team?(current_organisation)
-      raise ActionController::RoutingError.new("Not Found")
+      raise ActionController::RoutingError, "Not Found"
     end
   end
 
