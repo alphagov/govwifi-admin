@@ -12,7 +12,7 @@ def create_user_for_organisations(
 )
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
-  email = email || first_name + "." + last_name + "@example.gov.uk"
+  email ||= first_name + "." + last_name + "@example.gov.uk"
   User.create(
     email: email,
     password: "password",
