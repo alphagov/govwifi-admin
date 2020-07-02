@@ -10,7 +10,7 @@ describe UseCases::Administrator::SortUsers do
     let(:valid_order_query) do
       Arel::Nodes::NamedFunction.new("COALESCE", [
         User.arel_table["name"],
-          User.arel_table["email"],
+        User.arel_table["email"],
       ]).asc
     end
 

@@ -16,13 +16,13 @@ describe Gateways::Coordinates do
               "longitude": -1.069849,
             },
           },
-            {
-              "query": "M32 0JG",
-              "result": {
-                "latitude": 53.455654,
-                "longitude": -2.302836,
-              },
+          {
+            "query": "M32 0JG",
+            "result": {
+              "latitude": 53.455654,
+              "longitude": -2.302836,
             },
+          },
         ],
       }.to_json, headers: {})
     end
@@ -105,27 +105,27 @@ describe Gateways::Coordinates do
               "longitude": -1.069849,
             },
           },
-            {
-              "query": "HA7 3BL",
-              "result": {
-                "latitude": 52.455654,
-                "longitude": -2.302836,
-              },
+          {
+            "query": "HA7 3BL",
+            "result": {
+              "latitude": 52.455654,
+              "longitude": -2.302836,
             },
-            {
-              "query": "HA7 4BL",
-              "result": {
-                "latitude": 53.656146,
-                "longitude": -1.069849,
-              },
+          },
+          {
+            "query": "HA7 4BL",
+            "result": {
+              "latitude": 53.656146,
+              "longitude": -1.069849,
             },
-            {
-              "query": "HA7 5BL",
-              "result": {
-                "latitude": 54.656146,
-                "longitude": -1.069849,
-              },
+          },
+          {
+            "query": "HA7 5BL",
+            "result": {
+              "latitude": 54.656146,
+              "longitude": -1.069849,
             },
+          },
         ],
       }.to_json, headers: {})
     end
