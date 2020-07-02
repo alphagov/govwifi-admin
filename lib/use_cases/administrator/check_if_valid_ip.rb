@@ -51,19 +51,15 @@ module UseCases
       end
 
       def address_is_ipv4?
-        begin
-          IPAddr.new(address).ipv4?
-        rescue IPAddr::InvalidAddressError
-          false
-        end
+        IPAddr.new(address).ipv4?
+      rescue IPAddr::InvalidAddressError
+        false
       end
 
       def address_is_ipv6?
-        begin
-          IPAddr.new(address).ipv6?
-        rescue IPAddr::InvalidAddressError
-          false
-        end
+        IPAddr.new(address).ipv6?
+      rescue IPAddr::InvalidAddressError
+        false
       end
 
       def address_is_not_loopback?
