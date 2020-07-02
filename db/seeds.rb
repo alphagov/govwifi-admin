@@ -17,7 +17,7 @@ def create_user_for_organisations(
     email: email,
     password: "password",
     name: first_name + " " + last_name,
-    confirmed_at:  confirmed_at,
+    confirmed_at: confirmed_at,
     organisations: organisations,
     is_super_admin: is_super_admin,
   )

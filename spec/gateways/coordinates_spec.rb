@@ -45,12 +45,12 @@ describe Gateways::Coordinates do
         stub_request(:post, "https://api.postcodes.io/postcodes")
         .to_return(status: 200, body: {
           "status": 200,
-            "result": [
-              {
-                "query": "not_valid",
-                  "result": nil,
-              },
-            ],
+          "result": [
+            {
+              "query": "not_valid",
+              "result": nil,
+            },
+          ],
         }.to_json, headers: {})
       end
 
@@ -67,18 +67,18 @@ describe Gateways::Coordinates do
         stub_request(:post, "https://api.postcodes.io/postcodes")
         .to_return(status: 200, body: {
           "status": 200,
-            "result": [
-              {
-                "query": "not_valid",
-                  "result": nil,
-              }, {
-                "query": "M32 0JG",
-                  "result": {
-                    "latitude": 53.455654,
-                    "longitude": -2.302836,
-                  },
-              }
-            ],
+          "result": [
+            {
+              "query": "not_valid",
+              "result": nil,
+            }, {
+              "query": "M32 0JG",
+              "result": {
+                  "latitude": 53.455654,
+                  "longitude": -2.302836,
+                },
+            }
+          ],
         }.to_json, headers: {})
       end
 
