@@ -9,9 +9,9 @@ describe UseCases::Administrator::SortUsers do
   context "when calling execute" do
     let(:valid_order_query) do
       Arel::Nodes::NamedFunction.new("COALESCE", [
-          User.arel_table["name"],
+        User.arel_table["name"],
           User.arel_table["email"],
-        ]).asc
+      ]).asc
     end
 
     before do

@@ -9,13 +9,13 @@ describe Gateways::Coordinates do
       .to_return(status: 200, body: {
         "status": 200,
         "result": [
-            {
-              "query": "OX49 5NU",
-              "result": {
-                "latitude": 51.656146,
-                "longitude": -1.069849,
-                },
-            },
+          {
+            "query": "OX49 5NU",
+            "result": {
+              "latitude": 51.656146,
+              "longitude": -1.069849,
+              },
+          },
             {
               "query": "M32 0JG",
               "result": {
@@ -23,7 +23,7 @@ describe Gateways::Coordinates do
                 "longitude": -2.302836,
                 },
             },
-          ],
+        ],
         }.to_json, headers: {})
     end
 
@@ -46,10 +46,10 @@ describe Gateways::Coordinates do
         .to_return(status: 200, body: {
             "status": 200,
             "result": [
-                {
-                    "query": "not_valid",
-                    "result": nil,
-                },
+              {
+                  "query": "not_valid",
+                  "result": nil,
+              },
             ],
           }.to_json, headers: {})
       end
@@ -68,10 +68,10 @@ describe Gateways::Coordinates do
         .to_return(status: 200, body: {
             "status": 200,
             "result": [
-                {
-                    "query": "not_valid",
-                    "result": nil,
-                }, {
+              {
+                  "query": "not_valid",
+                  "result": nil,
+              }, {
                   "query": "M32 0JG",
                   "result": {
                     "latitude": 53.455654,
@@ -98,13 +98,13 @@ describe Gateways::Coordinates do
       .to_return(status: 200, body: {
         "status": 200,
         "result": [
-            {
-              "query": "HA7 2BL",
-              "result": {
-                "latitude": 51.656146,
-                "longitude": -1.069849,
-                },
-            },
+          {
+            "query": "HA7 2BL",
+            "result": {
+              "latitude": 51.656146,
+              "longitude": -1.069849,
+              },
+          },
             {
               "query": "HA7 3BL",
               "result": {
@@ -126,7 +126,7 @@ describe Gateways::Coordinates do
                 "longitude": -1.069849,
                 },
             },
-          ],
+        ],
         }.to_json, headers: {})
     end
 
