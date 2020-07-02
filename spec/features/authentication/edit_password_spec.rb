@@ -1,13 +1,13 @@
 describe "Editing password", type: :feature do
   let(:user) { create(:user, :with_2fa, :with_organisation) }
-  let(:pw) {
+  let(:pw) do
     Faker::Internet.password(
       min_length: 10,
       max_length: 20,
       mix_case: true,
       special_characters: true,
     )
-  }
+  end
 
   before do
     sign_in_user user

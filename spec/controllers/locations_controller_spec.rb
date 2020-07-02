@@ -20,7 +20,7 @@ RSpec.describe LocationsController, type: :controller do
   end
 
   describe "POST /update_ips" do
-    let(:params) {
+    let(:params) do
       {
         location: {
           ips_attributes: {
@@ -30,7 +30,7 @@ RSpec.describe LocationsController, type: :controller do
         },
         location_id: location.id,
       }
-    }
+    end
 
     context "when the update goes well" do
       before do
@@ -44,10 +44,10 @@ RSpec.describe LocationsController, type: :controller do
 
     context "when the user is trying to access a location they don't manage" do
       let(:other_location) {  create(:location) }
-      let(:other_params) {
+      let(:other_params) do
         params[:location_id] = other_location.id
         params
-      }
+      end
 
       before do
         @response = post :update_ips, params: other_params
