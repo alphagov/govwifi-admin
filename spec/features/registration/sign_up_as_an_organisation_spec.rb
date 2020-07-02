@@ -25,7 +25,7 @@ describe "Sign up as an organisation", type: :feature do
     it "instructs the user to check their confirmation email" do
       expect(page).to have_content(
         "A confirmation email has been sent to your email address.",
-        )
+      )
     end
   end
 

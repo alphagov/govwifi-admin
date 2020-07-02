@@ -71,13 +71,14 @@ describe Gateways::Coordinates do
             {
               "query": "not_valid",
               "result": nil,
-            }, {
+            },
+            {
               "query": "M32 0JG",
               "result": {
-                  "latitude": 53.455654,
-                  "longitude": -2.302836,
-                },
-            }
+                "latitude": 53.455654,
+                "longitude": -2.302836,
+              },
+            },
           ],
         }.to_json, headers: {})
       end

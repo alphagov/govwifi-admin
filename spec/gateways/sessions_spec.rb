@@ -30,14 +30,15 @@ describe Gateways::Sessions do
             start: today_date,
             success: true,
             username: "BOBABC",
-          }, {
+          },
+          {
             ap: nil,
             mac: nil,
             site_ip: "127.0.0.1",
             start: yesterday,
             success: true,
             username: "BOBABC",
-          }
+          },
         ]
       end
 
