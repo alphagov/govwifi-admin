@@ -75,7 +75,7 @@ class User < ApplicationRecord
   end
 
   def super_admin?
-    membership_for(Organisation.super_admins) != nil || is_super_admin?
+    !membership_for(Organisation.super_admins).nil? || is_super_admin?
   end
 
   def need_two_factor_authentication?(request)
