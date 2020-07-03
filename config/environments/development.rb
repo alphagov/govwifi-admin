@@ -99,7 +99,8 @@ Rails.application.configure do
               measure_latency: false,
               type: "HTTP",
             },
-          }, {
+          },
+          {
             caller_reference: "AdminMonitoring",
             id: "xyz789",
             health_check_version: 1,
@@ -108,7 +109,7 @@ Rails.application.configure do
               measure_latency: false,
               type: "HTTP",
             },
-          }
+          },
         ],
       },
     },

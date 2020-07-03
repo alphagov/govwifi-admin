@@ -8,10 +8,11 @@ describe Gateways::Ips do
       {
         ip: "186.3.1.2",
         location_id: location_1.id,
-      }, {
+      },
+      {
         ip: "186.3.1.1",
         location_id: location_2.id,
-      }
+      },
     ]
   end
 

@@ -5,7 +5,6 @@ describe Gateways::S3 do
   let(:key) { "StubKey" }
   let(:data) { { blah: "foobar" }.to_json }
 
-
   it "writes the data to the S3 bucket" do
     expect(gateway.write(data: data)).to eq({})
   end
@@ -14,7 +13,7 @@ describe Gateways::S3 do
     before do
       Rails.application.config.s3_aws_config = {
         stub_responses: {
-          get_object: ->(context) {
+          get_object: lambda { |context|
             if context.params.fetch(:bucket) == bucket && context.params.fetch(:key) == key
               { body: "some data" }
             end

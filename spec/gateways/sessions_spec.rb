@@ -21,7 +21,7 @@ describe Gateways::Sessions do
     end
 
     context "when recent log entries contain only one of my IP addresses" do
-      let(:expected_result) {
+      let(:expected_result) do
         [
           {
             ap: nil,
@@ -30,16 +30,17 @@ describe Gateways::Sessions do
             start: today_date,
             success: true,
             username: "BOBABC",
-          }, {
+          },
+          {
             ap: nil,
             mac: nil,
             site_ip: "127.0.0.1",
             start: yesterday,
             success: true,
             username: "BOBABC",
-          }
+          },
         ]
-      }
+      end
 
       before do
         create(:session, start: today_date, success: true, username: username, siteIP: "127.0.0.1")

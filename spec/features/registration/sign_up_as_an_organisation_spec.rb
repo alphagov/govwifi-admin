@@ -25,7 +25,7 @@ describe "Sign up as an organisation", type: :feature do
     it "instructs the user to check their confirmation email" do
       expect(page).to have_content(
         "A confirmation email has been sent to your email address.",
-        )
+      )
     end
   end
 
@@ -183,13 +183,13 @@ describe "Sign up as an organisation", type: :feature do
     it_behaves_like "errors in form"
 
     it "shows the user an error message" do
-      within("div#error-summary")do
+      within("div#error-summary") do
         expect(page).to have_content("Organisations name is already registered")
       end
     end
 
     it "displays a contact us link" do
-      within("div#error-summary")do
+      within("div#error-summary") do
         expect(page).to have_link("Contact us", href: new_help_path)
       end
     end

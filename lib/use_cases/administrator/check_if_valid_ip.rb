@@ -39,7 +39,7 @@ module UseCases
 
         return "'#{address}' is a private IP address. Only public IPv4 addresses can be added." if private_ip_address?
 
-        "'#{address}' is not a valid IP address" if !valid_ipv4_address?
+        "'#{address}' is not a valid IP address" unless valid_ipv4_address?
       end
 
       def address_does_not_allows_all?
@@ -51,19 +51,15 @@ module UseCases
       end
 
       def address_is_ipv4?
-        begin
-          IPAddr.new(address).ipv4?
-        rescue IPAddr::InvalidAddressError
-          false
-        end
+        IPAddr.new(address).ipv4?
+      rescue IPAddr::InvalidAddressError
+        false
       end
 
       def address_is_ipv6?
-        begin
-          IPAddr.new(address).ipv6?
-        rescue IPAddr::InvalidAddressError
-          false
-        end
+        IPAddr.new(address).ipv6?
+      rescue IPAddr::InvalidAddressError
+        false
       end
 
       def address_is_not_loopback?

@@ -30,7 +30,7 @@ class User < ApplicationRecord
   validate :strong_password, on: :update, if: :password_present?
 
   def password_present?
-    not password.nil?
+    !password.nil?
   end
 
   def only_if_unconfirmed
@@ -75,7 +75,7 @@ class User < ApplicationRecord
   end
 
   def super_admin?
-    membership_for(Organisation.super_admins) != nil || is_super_admin?
+    !membership_for(Organisation.super_admins).nil? || is_super_admin?
   end
 
   def need_two_factor_authentication?(request)

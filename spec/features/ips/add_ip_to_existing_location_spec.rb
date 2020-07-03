@@ -141,9 +141,9 @@ describe "Adding an IP to an existing location", type: :feature do
     end
 
     context "when filling in all 5 boxes" do
-      let(:ip_addresses) {
+      let(:ip_addresses) do
         ["123.0.0.1", "123.0.0.2", "123.0.0.3", "123.0.0.4", "123.0.0.5"]
-      }
+      end
 
       it "shows a success message" do
         within(".flash-message-notice") do
@@ -159,9 +159,9 @@ describe "Adding an IP to an existing location", type: :feature do
     end
 
     context "when filling entering non-consecutive boxes" do
-      let(:ip_addresses) {
+      let(:ip_addresses) do
         ["123.0.1.1", "", "123.0.1.2", "", "123.0.1.3"]
-      }
+      end
 
       it "adds the IP addresses" do
         within(".flash-message-notice") do
@@ -179,9 +179,9 @@ describe "Adding an IP to an existing location", type: :feature do
     end
 
     context "with IP addresses already in use" do
-      let(:ip_addresses) {
+      let(:ip_addresses) do
         ["123.0.0.2", "123.0.0.10"]
-      }
+      end
 
       it "adds the IP addresses" do
         within(".flash-message-notice") do

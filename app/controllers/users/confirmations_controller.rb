@@ -36,7 +36,7 @@ protected
   end
 
   def with_unconfirmed_confirmable
-    if !@confirmable.new_record?
+    unless @confirmable.new_record?
       @confirmable.only_if_unconfirmed { yield }
     end
   end

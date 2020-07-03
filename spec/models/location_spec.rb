@@ -52,7 +52,7 @@ describe Location do
   end
 
   context "when adding IPs with a mix of hash and strong parameters" do
-    let(:location) {
+    let(:location) do
       described_class.create(
         address: "6-8 HEMMING ST",
         postcode: "",
@@ -62,7 +62,7 @@ describe Location do
           "1" => ActionController::Parameters.new(address: "wrong"),
         ).permit!,
       )
-    }
+    end
 
     it "does not pass validation" do
       expect(location).not_to be_valid

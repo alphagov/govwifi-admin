@@ -6,7 +6,7 @@ class Ip < ApplicationRecord
 
   def inactive?
     Session
-      .where(siteIP: self.address)
+      .where(siteIP: address)
       .where("start > ?", Time.zone.today - 10.days)
       .limit(1)
       .empty?
@@ -18,7 +18,7 @@ class Ip < ApplicationRecord
 
   def unused?
     Session
-      .where(siteIP: self.address)
+      .where(siteIP: address)
       .limit(1)
       .empty?
   end
@@ -27,11 +27,11 @@ private
 
   def address_must_be_valid_ip
     checker = UseCases::Administrator::CheckIfValidIp.new
-    results = checker.execute(self.address)
+    results = checker.execute(address)
     errors.add(:address, results[:error_message]) unless results[:success] || address_not_present?
   end
 
   def address_not_present?
-    self.address.blank?
+    address.blank?
   end
 end

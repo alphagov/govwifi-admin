@@ -3,7 +3,6 @@ describe "DELETE /authorised_email_domains/:id", type: :request do
   let(:regex_gateway) { instance_spy(Gateways::S3, write: nil) }
   let(:email_domains_gateway) { instance_spy(Gateways::S3) }
 
-
   before { allow(Gateways::S3).to receive(:new).and_return(regex_gateway, email_domains_gateway) }
 
   context "when the user is a super admin" do

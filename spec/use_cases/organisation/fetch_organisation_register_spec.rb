@@ -50,9 +50,16 @@ describe UseCases::Organisation::FetchOrganisationRegister do
     end
     let(:expected_response) do
       [
-        "Gov Org 1", "Gov Org 2", "Gov Org 3", "Gov Org 4",
-        "Local Auth 1", "Local Auth 2", "Local Auth 3", "Local Auth 4",
-        "Custom Org 1", "Custom Org 2"
+        "Gov Org 1",
+        "Gov Org 2",
+        "Gov Org 3",
+        "Gov Org 4",
+        "Local Auth 1",
+        "Local Auth 2",
+        "Local Auth 3",
+        "Local Auth 4",
+        "Custom Org 1",
+        "Custom Org 2",
       ]
     end
 

@@ -8,9 +8,9 @@ class Organisation < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :service_email, format: { with: Devise.email_regexp, message: "must be a valid email address" }
-  validate :validate_in_register?, unless: Proc.new { |org| org.name.blank? }
+  validate :validate_in_register?, unless: proc { |org| org.name.blank? }
 
-  scope :sortable_with_child_counts, ->(sort_column, sort_direction) {
+  scope :sortable_with_child_counts, lambda { |sort_column, sort_direction|
     select("organisations.*, COUNT(DISTINCT(locations.id)) AS locations_count, COUNT(DISTINCT(ips.id)) AS ips_count")
     .joins("LEFT OUTER JOIN locations ON locations.organisation_id = organisations.id")
     .joins("LEFT OUTER JOIN ips ON ips.location_id = locations.id")
