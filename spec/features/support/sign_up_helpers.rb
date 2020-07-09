@@ -11,7 +11,8 @@ def update_user_details(
   password: "actually1 strongPassw0rd !!",
   name: "bob",
   service_email: "admin@gov.uk",
-  organisation_name: "Org 1"
+  organisation_name: "Org 1",
+  two_factor_method: "app"
 )
   return unless confirmation_email_received?
 
@@ -24,13 +25,24 @@ def update_user_details(
   fill_in "Password", with: password
   click_on "Create my account"
 
-  skip_two_factor_authentication
+  complete_two_factor_authentication(two_factor_method)
 end
 
+#TODO - Check whether this is still needed
 def skip_two_factor_authentication
   Warden.on_next_request do |proxy|
     proxy.session(:user)[two_factor_session_key] = false
   end
+end
+
+def complete_two_factor_authentication(two_factor_method)
+  totp_double = instance_double(ROTP::TOTP)
+
+  allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
+  allow(totp_double).to receive(:verify).and_return(true)
+
+  fill_in :code, with: "999999"
+  click_on "Complete setup"
 end
 
 def confirmation_email_link
