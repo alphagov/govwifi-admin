@@ -28,7 +28,7 @@ def update_user_details(
   complete_two_factor_authentication(two_factor_method)
 end
 
-#TODO - Check whether this is still needed
+# TODO: Check whether this is still needed
 def skip_two_factor_authentication
   Warden.on_next_request do |proxy|
     proxy.session(:user)[two_factor_session_key] = false
@@ -40,6 +40,9 @@ def complete_two_factor_authentication(two_factor_method)
 
   allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
   allow(totp_double).to receive(:verify).and_return(true)
+
+  choose "app"
+  click_on "Continue"
 
   fill_in :code, with: "999999"
   click_on "Complete setup"

@@ -61,15 +61,28 @@ protected
 
   def confirm_two_factor_setup
     user = request.env["warden"].user
+
+    if Rails.configuration.enable_enhanced_2fa_experience
+      return unless user
+
+      unless user.second_factor_method.nil?
+        # Handled by Devise's controller.
+        return if user.second_factor_method == "app"
+
+        # Handled by us.
+        redirect_to users_two_factor_authentication_email_path
+        return
+      end
+
+      # TODO: Replace with route helper once fully migrated to enhanced 2FA.
+      redirect_to "/users/two_factor_authentication/setup"
+      return
+    end
+
     return unless user &&
       user.need_two_factor_authentication?(request) &&
       !user.totp_enabled?
 
-    if Rails.configuration.enable_enhanced_2fa_experience
-      # TODO: Replace with route helper once fully migrated to enhanced 2FA.
-      redirect_to "/users/two_factor_authentication/setup"
-    else
-      redirect_to users_two_factor_authentication_setup_path
-    end
+    redirect_to users_two_factor_authentication_setup_path
   end
 end
