@@ -61,6 +61,15 @@ describe "Set up two factor authentication", type: :feature do
     it "explains what can be done in case email is not received" do
       expect(page).to have_css("#resend-email")
     end
+
+    it "asks for the email 2FA method when user logs in again" do
+      click_on "Sign out"
+
+      sign_in_user(user, pass_through_two_factor: false)
+      visit root_path
+
+      expect(page).to have_content("We have emailed you a link to sign in to GovWifi.")
+    end
   end
 
   context "when admin user requests to re-send TOTP email" do
@@ -115,6 +124,16 @@ describe "Set up two factor authentication", type: :feature do
 
     it "redirects the user to the admin app" do
       expect(page).to have_current_path(super_admin_organisations_path)
+    end
+
+    it "asks for the app 2FA method when user logs in again" do
+      click_on "Sign out"
+
+      sign_in_user(user, pass_through_two_factor: false)
+      visit root_path
+
+      expect(page).to have_content("Please enter your 6 digit two factor authentication code.")
+      expect(page).to have_button("Authenticate")
     end
   end
 
