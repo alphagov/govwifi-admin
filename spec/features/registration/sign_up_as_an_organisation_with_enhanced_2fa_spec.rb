@@ -162,6 +162,7 @@ describe "Sign up as an organisation", type: :feature do
     before do
       sign_up_for_account
       update_user_details
+      complete_two_factor_authentication
       visit confirmation_email_link
     end
 
