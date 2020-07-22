@@ -5,6 +5,7 @@ describe "Sign up as an organisation", type: :feature do
   let(:name) { "Sally" }
 
   before do
+    allow(Rails.application.config).to receive(:enable_enhanced_2fa_experience).and_return true
     Rails.application.config.s3_aws_config = {
       stub_responses: {
         get_object: { body: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$' },
@@ -32,7 +33,7 @@ describe "Sign up as an organisation", type: :feature do
   context "with correct data" do
     before do
       sign_up_for_account(email: email)
-      update_user_details(name: name, two_factor_method: nil)
+      update_user_details(name: name)
     end
 
     context "with a gov.uk email" do
@@ -93,7 +94,7 @@ describe "Sign up as an organisation", type: :feature do
   context "when password is too short" do
     before do
       sign_up_for_account
-      update_user_details(password: "1", two_factor_method: nil)
+      update_user_details(password: "1")
     end
 
     it_behaves_like "errors in form"
@@ -108,7 +109,7 @@ describe "Sign up as an organisation", type: :feature do
 
     before do
       sign_up_for_account
-      update_user_details(password: "", two_factor_method: nil)
+      update_user_details(password: "")
     end
 
     it_behaves_like "errors in form"
@@ -121,7 +122,7 @@ describe "Sign up as an organisation", type: :feature do
   context "when service email is not filled in" do
     before do
       sign_up_for_account
-      update_user_details(service_email: "", two_factor_method: nil)
+      update_user_details(service_email: "")
     end
 
     it_behaves_like "errors in form"
@@ -134,7 +135,7 @@ describe "Sign up as an organisation", type: :feature do
   context "when service email entered is not an email address" do
     before do
       sign_up_for_account
-      update_user_details(service_email: "InvalidEmail", two_factor_method: nil)
+      update_user_details(service_email: "InvalidEmail")
     end
 
     it_behaves_like "errors in form"
@@ -147,7 +148,7 @@ describe "Sign up as an organisation", type: :feature do
   context "when password is too short" do
     before do
       sign_up_for_account
-      update_user_details(password: "1", two_factor_method: nil)
+      update_user_details(password: "1")
     end
 
     it_behaves_like "errors in form"
@@ -160,7 +161,7 @@ describe "Sign up as an organisation", type: :feature do
   context "when account is already confirmed" do
     before do
       sign_up_for_account
-      update_user_details(two_factor_method: nil)
+      update_user_details
       visit confirmation_email_link
     end
 
@@ -177,7 +178,7 @@ describe "Sign up as an organisation", type: :feature do
     before do
       sign_up_for_account
       create(:organisation, name: existing_org_name)
-      update_user_details(organisation_name: existing_org_name, two_factor_method: nil)
+      update_user_details(organisation_name: existing_org_name)
     end
 
     it_behaves_like "errors in form"
@@ -212,7 +213,7 @@ describe "Sign up as an organisation", type: :feature do
     before { sign_up_for_account }
 
     it "displays one error message that the name cannot be left blank" do
-      update_user_details(organisation_name: org_name_left_blank, two_factor_method: nil)
+      update_user_details(organisation_name: org_name_left_blank)
       within("div#error-summary") do
         expect(page).to have_selector("li#error-message", count: 1, text: "Organisations name can't be blank")
       end
@@ -231,7 +232,7 @@ describe "Sign up as an organisation", type: :feature do
       allow(presenter).to receive(:execute).and_return(data)
 
       sign_up_for_account
-      update_user_details(organisation_name: "Org 1", two_factor_method: nil)
+      update_user_details(organisation_name: "Org 1")
     end
 
     it "publishes the updated list of organisation names to S3" do

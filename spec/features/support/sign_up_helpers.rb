@@ -25,7 +25,11 @@ def update_user_details(
   fill_in "Password", with: password
   click_on "Create my account"
 
-  complete_two_factor_authentication(two_factor_method)
+  if two_factor_method.nil?
+    skip_two_factor_authentication
+  else
+    complete_two_factor_authentication(two_factor_method)
+  end
 end
 
 # TODO: Check whether this is still needed
@@ -40,6 +44,7 @@ def complete_two_factor_authentication(two_factor_method)
 
   allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
   allow(totp_double).to receive(:verify).and_return(true)
+  allow(totp_double).to receive(:provisioning_uri).and_return("some-url")
 
   choose "app"
   click_on "Continue"
