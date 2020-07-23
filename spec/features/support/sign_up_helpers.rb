@@ -23,8 +23,6 @@ def update_user_details(
   fill_in "Your name", with: name
   fill_in "Password", with: password
   click_on "Create my account"
-
-  skip_two_factor_authentication
 end
 
 def skip_two_factor_authentication

@@ -10,6 +10,7 @@ describe "Logging in after signing up", type: :feature do
   before do
     sign_up_for_account(email: "tom@gov.uk")
     update_user_details(password: correct_password)
+    skip_two_factor_authentication
 
     click_on "Sign out"
 
