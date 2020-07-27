@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
     invitations: "users/invitations",
     passwords: "users/passwords",
+    two_factor_authentication: "users/two_factor_authentication"
   }
 
   devise_scope :user do

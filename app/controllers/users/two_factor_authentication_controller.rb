@@ -1,5 +1,13 @@
-class Users::TwoFactorAuthenticationController < ApplicationController
+class Users::TwoFactorAuthenticationController < Devise::TwoFactorAuthenticationController
   before_action :validate_can_manage_team, only: %i[edit destroy]
+
+  def show
+    user = warden.user(resource_name)
+    unless user&.totp_enabled?
+      redirect_to "/users/two_factor_authentication/email"
+      return
+    end
+  end
 
   def edit
     @user = User.find(params.fetch(:id))

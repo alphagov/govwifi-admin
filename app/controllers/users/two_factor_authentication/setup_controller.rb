@@ -3,6 +3,7 @@ class Users::TwoFactorAuthentication::SetupController < ApplicationController
   skip_before_action :handle_two_factor_authentication
   # Skips 2FA setup confirmation callback in ApplicationController.
   skip_before_action :confirm_two_factor_setup
+  skip_before_action :choose_two_factor_method
 
   helper_method :qr_code_uri
 
