@@ -5,6 +5,7 @@ describe "Sign up as an organisation", type: :feature do
   let(:name) { "Sally" }
 
   before do
+    allow(Rails.application.config).to receive(:enable_enhanced_2fa_experience).and_return true
     Rails.application.config.s3_aws_config = {
       stub_responses: {
         get_object: { body: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$' },
@@ -38,10 +39,6 @@ describe "Sign up as an organisation", type: :feature do
     context "with a gov.uk email" do
       let(:email) { "someone@gov.uk" }
 
-      before do
-        skip_two_factor_authentication
-      end
-
       it "signs me in" do
         expect(page).to have_content "Sign out"
       end
@@ -55,10 +52,6 @@ describe "Sign up as an organisation", type: :feature do
 
     context "with a email from a subdomain of gov.uk" do
       let(:email) { "someone@other.gov.uk" }
-
-      before do
-        skip_two_factor_authentication
-      end
 
       it "signs me in" do
         expect(page).to have_content "Sign out"
@@ -102,7 +95,6 @@ describe "Sign up as an organisation", type: :feature do
     before do
       sign_up_for_account
       update_user_details(password: "1")
-      skip_two_factor_authentication
     end
 
     it_behaves_like "errors in form"
@@ -118,7 +110,6 @@ describe "Sign up as an organisation", type: :feature do
     before do
       sign_up_for_account
       update_user_details(password: "")
-      skip_two_factor_authentication
     end
 
     it_behaves_like "errors in form"
@@ -132,7 +123,6 @@ describe "Sign up as an organisation", type: :feature do
     before do
       sign_up_for_account
       update_user_details(service_email: "")
-      skip_two_factor_authentication
     end
 
     it_behaves_like "errors in form"
@@ -146,7 +136,6 @@ describe "Sign up as an organisation", type: :feature do
     before do
       sign_up_for_account
       update_user_details(service_email: "InvalidEmail")
-      skip_two_factor_authentication
     end
 
     it_behaves_like "errors in form"
@@ -160,7 +149,6 @@ describe "Sign up as an organisation", type: :feature do
     before do
       sign_up_for_account
       update_user_details(password: "1")
-      skip_two_factor_authentication
     end
 
     it_behaves_like "errors in form"
@@ -174,7 +162,7 @@ describe "Sign up as an organisation", type: :feature do
     before do
       sign_up_for_account
       update_user_details
-      skip_two_factor_authentication
+      complete_two_factor_authentication
       visit confirmation_email_link
     end
 
@@ -192,7 +180,6 @@ describe "Sign up as an organisation", type: :feature do
       sign_up_for_account
       create(:organisation, name: existing_org_name)
       update_user_details(organisation_name: existing_org_name)
-      skip_two_factor_authentication
     end
 
     it_behaves_like "errors in form"
@@ -228,7 +215,6 @@ describe "Sign up as an organisation", type: :feature do
 
     it "displays one error message that the name cannot be left blank" do
       update_user_details(organisation_name: org_name_left_blank)
-      skip_two_factor_authentication
       within("div#error-summary") do
         expect(page).to have_selector("li#error-message", count: 1, text: "Organisations name can't be blank")
       end
@@ -248,7 +234,6 @@ describe "Sign up as an organisation", type: :feature do
 
       sign_up_for_account
       update_user_details(organisation_name: "Org 1")
-      skip_two_factor_authentication
     end
 
     it "publishes the updated list of organisation names to S3" do

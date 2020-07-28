@@ -51,7 +51,7 @@ class Users::TwoFactorAuthentication::SetupController < ApplicationController
 private
 
   def save_two_factor_method(method)
-    # TODO: This will be implemented in future.
+    current_user.update(second_factor_method: method)
   end
 
   def send_email

@@ -23,14 +23,26 @@ def update_user_details(
   fill_in "Your name", with: name
   fill_in "Password", with: password
   click_on "Create my account"
-
-  skip_two_factor_authentication
 end
 
 def skip_two_factor_authentication
   Warden.on_next_request do |proxy|
     proxy.session(:user)[two_factor_session_key] = false
   end
+end
+
+def complete_two_factor_authentication
+  totp_double = instance_double(ROTP::TOTP)
+
+  allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
+  allow(totp_double).to receive(:verify).and_return(true)
+  allow(totp_double).to receive(:provisioning_uri).and_return("some-url")
+
+  choose "app"
+  click_on "Continue"
+
+  fill_in :code, with: "999999"
+  click_on "Complete setup"
 end
 
 def confirmation_email_link

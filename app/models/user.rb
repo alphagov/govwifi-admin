@@ -29,6 +29,8 @@ class User < ApplicationRecord
 
   validate :strong_password, on: :update, if: :password_present?
 
+  enum second_factor_method: { email: "email", app: "app" }
+
   def password_present?
     !password.nil?
   end
@@ -79,6 +81,9 @@ class User < ApplicationRecord
   end
 
   def need_two_factor_authentication?(request)
+    # 2FA becomes mandatory with the new 2FA experience.
+    return true if Rails.configuration.enable_enhanced_2fa_experience
+
     return false if ENV.key?("BYPASS_2FA")
 
     needs_auth = request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION]
@@ -107,7 +112,7 @@ class User < ApplicationRecord
   # via Users::TwoFactorAuthenticationSetupController so this mechanism is bypassed.
   def create_direct_otp(options = {}); end
 
-  # Indicate to two_factor_authentication gem that we are using TOTP
+  # Indicate to two_factor_authentication gem whether we are using TOTP or direct OTP (email).
   def direct_otp
     false
   end

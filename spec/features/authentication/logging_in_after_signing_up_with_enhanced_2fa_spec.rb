@@ -8,9 +8,11 @@ describe "Logging in after signing up", type: :feature do
   include_context "when using the notifications service"
 
   before do
+    allow(Rails.application.config).to receive(:enable_enhanced_2fa_experience).and_return true
+
     sign_up_for_account(email: "tom@gov.uk")
     update_user_details(password: correct_password)
-    skip_two_factor_authentication
+    complete_two_factor_authentication
 
     click_on "Sign out"
 
