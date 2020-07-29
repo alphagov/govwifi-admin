@@ -2,12 +2,14 @@
 Rails.application.routes.draw do
   root "home#index"
 
-  devise_for :users, controllers: {
-    confirmations: "users/confirmations",
-    registrations: "users/registrations",
-    invitations: "users/invitations",
-    passwords: "users/passwords",
-  }
+  devise_for :users,
+             controllers: {
+                 confirmations: "users/confirmations",
+                 registrations: "users/registrations",
+                 invitations: "users/invitations",
+                 passwords: "users/passwords",
+                 two_factor_authentication: "users/two_factor_authentication",
+             }
 
   devise_scope :user do
     post "/check_password_strength", to: "users/registrations#check_password_strength"

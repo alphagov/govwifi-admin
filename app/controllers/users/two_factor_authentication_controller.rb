@@ -1,4 +1,4 @@
-class Users::TwoFactorAuthenticationController < ApplicationController
+class Users::TwoFactorAuthenticationController < Devise::TwoFactorAuthenticationController
   before_action :validate_can_manage_team, only: %i[edit destroy]
 
   def edit
