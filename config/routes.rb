@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
     get "users/:id/two_factor_authentication/edit", to: "users/two_factor_authentication#edit"
     delete "users/:id/two_factor_authentication", to: "users/two_factor_authentication#destroy"
+    get "users/two_factor_authentication/auth/:code", to: "users/two_factor_authentication#update", as: "users_two_factor_authentication_direct_otp"
   end
   get "confirm_new_membership", to: "users/memberships#create"
 
