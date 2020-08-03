@@ -1,12 +1,36 @@
+require "support/notifications_service"
+
 describe "Set up two factor authentication", type: :feature do
-  let(:organisation) { create(:organisation) }
-  let(:super_admin_organisation) { create(:organisation, super_admin: true) }
-  let(:user) { create(:user, organisations: [super_admin_organisation]) }
+  let(:correct_password) { "onetwo123!" }
+  let(:correct_totp_code) { "123456" }
+  let(:incorrect_totp_code) { "999999" }
+
+  include_context "when using the notifications service"
 
   before do
+    allow_any_instance_of(ROTP::TOTP).to receive(:verify).with(correct_totp_code, anything).and_return(true)
+    allow_any_instance_of(ROTP::TOTP).to receive(:verify).with(incorrect_totp_code, anything).and_return(false)
+
     allow(Rails.application.config).to receive(:enable_enhanced_2fa_experience).and_return true
-    sign_in_user(user, pass_through_two_factor: false)
+    @user = create(:user,
+                   email: "tom@gov.uk",
+                   password: correct_password,
+                   name: "tom",
+                   organisations: [create(:organisation)])
+    @user.confirm
+
     visit root_path
+
+    fill_in "Email", with: "tom@gov.uk"
+    fill_in "Password", with: correct_password
+
+    click_on "Continue"
+
+    visit root_path
+  end
+
+  it "does not send an email" do
+    expect(notification_instance).to_not have_received(:send_email)
   end
 
   it "presents the setup page" do
@@ -31,9 +55,13 @@ describe "Set up two factor authentication", type: :feature do
     it "redirects the user back to setup" do
       expect(page).to have_current_path("/users/two_factor_authentication/setup")
     end
+
+    it "does not send an email" do
+      expect(notification_instance).to_not have_received(:send_email)
+    end
   end
 
-  context "when admin user chooses email as the 2FA method" do
+  context "when user chooses email as the 2FA method" do
     before do
       choose "Email"
       click_on "Continue"
@@ -45,9 +73,13 @@ describe "Set up two factor authentication", type: :feature do
       expect(page).to have_button("Complete setup")
       expect(page).to have_link("Back")
     end
+
+    it "does not send an email" do
+      expect(notification_instance).to_not have_received(:send_email)
+    end
   end
 
-  context "when admin user completes email-based 2FA setup" do
+  context "when user completes email-based 2FA setup" do
     before do
       choose "Email"
       click_on "Continue"
@@ -62,17 +94,60 @@ describe "Set up two factor authentication", type: :feature do
       expect(page).to have_css("#resend-email")
     end
 
-    it "asks for the email 2FA method when user logs in again" do
-      click_on "Sign out"
+    it "sends an email" do
+      expect(notification_instance).to have_received(:send_email)
+    end
 
-      sign_in_user(user, pass_through_two_factor: false)
-      visit root_path
+    context "the user resends the email" do
+      before :each do
+        click_link "resend-email"
+      end
 
-      expect(page).to have_content("We have emailed you a link to sign in to GovWifi.")
+      it "explains the email can be sent again" do
+        expect(page).to have_content("Emails sometimes take a few minutes to arrive.")
+        expect(page).to have_content("If you do not receive the email, we can send you a new one.")
+      end
+
+      it "does not send further emails" do
+        expect(notification_instance).to have_received(:send_email).once
+      end
+
+      context "the user confirms" do
+        before :each do
+          click_on "Resend email"
+        end
+
+        it "sends another email" do
+          expect(notification_instance).to have_received(:send_email).twice
+        end
+
+        it "explains another email has been sent" do
+          expect(page).to have_content("We have emailed you another link to sign in to GovWifi.")
+        end
+      end
+    end
+
+    context "The user signs out and back in again" do
+      before :each do
+        click_on "Sign out"
+        visit root_path
+
+        fill_in "Email", with: "tom@gov.uk"
+        fill_in "Password", with: correct_password
+        click_on "Continue"
+      end
+
+      it "sends an email again" do
+        expect(notification_instance).to have_received(:send_email).twice
+      end
+
+      it "asks for the email 2FA method when user logs in again" do
+        expect(page).to have_content("We have emailed you a link to sign in to GovWifi.")
+      end
     end
   end
 
-  context "when admin user requests to re-send TOTP email" do
+  context "when user requests to re-send TOTP email" do
     before do
       choose "Email"
       click_on "Continue"
@@ -85,7 +160,7 @@ describe "Set up two factor authentication", type: :feature do
     end
   end
 
-  context "when admin user chooses app as the 2FA method" do
+  context "when user chooses app as the 2FA method" do
     before do
       choose "app"
       click_on "Continue"
@@ -100,22 +175,17 @@ describe "Set up two factor authentication", type: :feature do
     end
   end
 
-  context "when admin user completes app-based 2FA setup using a valid code" do
-    let(:totp_double) { instance_double(ROTP::TOTP) }
-
+  context "when user completes app-based 2FA setup using a valid code" do
     before do
       choose "app"
       click_on "Continue"
 
-      allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
-      allow(totp_double).to receive(:verify).and_return(true)
-
-      fill_in :code, with: "999999"
+      fill_in :code, with: correct_totp_code
       click_on "Complete setup"
     end
 
     it "authenticates the user" do
-      expect(user.reload.totp_enabled?).to be true
+      expect(@user.reload.totp_enabled?).to be true
     end
 
     it "shows a success message" do
@@ -123,26 +193,64 @@ describe "Set up two factor authentication", type: :feature do
     end
 
     it "redirects the user to the admin app" do
-      expect(page).to have_current_path(super_admin_organisations_path)
+      expect(page).to have_current_path(new_organisation_setup_instructions_path)
     end
 
     it "asks for the app 2FA method when user logs in again" do
       click_on "Sign out"
 
-      sign_in_user(user, pass_through_two_factor: false)
+      sign_in_user(@user, pass_through_two_factor: false)
       visit root_path
 
       expect(page).to have_content("Please enter your 6 digit two factor authentication code.")
       expect(page).to have_button("Authenticate")
     end
+
+    it "does not send an email" do
+      expect(notification_instance).to_not have_received(:send_email)
+    end
+
+    context "The user signs out and back in again" do
+      before do
+        click_on "Sign out"
+        visit root_path
+
+        fill_in "Email", with: "tom@gov.uk"
+        fill_in "Password", with: correct_password
+        click_on "Continue"
+      end
+
+      context "The user uses the correct code" do
+        before :each do
+          fill_in :code, with: correct_totp_code
+          click_on "Authenticate"
+        end
+
+        it "Authenticates the user and redirects to the new organisation setup instructions" do
+          expect(page).to have_current_path(Rails.application.routes.url_helpers.new_organisation_setup_instructions_path)
+          expect(page).to have_content("Memorandum of understanding")
+        end
+      end
+
+      context "The user uses an incorrect code" do
+        before :each do
+          fill_in :code, with: incorrect_totp_code
+          click_on "Authenticate"
+        end
+
+        it "Re-renders the authentication page" do
+          expect(page).to have_content("Please enter your 6 digit two factor authentication code.")
+        end
+      end
+    end
   end
 
-  context "when admin user completes app-based 2FA setup using an invalid code" do
+  context "when user completes app-based 2FA setup using an invalid code" do
     before do
       choose "app"
       click_on "Continue"
 
-      fill_in :code, with: "123456"
+      fill_in :code, with: incorrect_totp_code
       click_on "Complete setup"
     end
 
@@ -155,7 +263,11 @@ describe "Set up two factor authentication", type: :feature do
     end
 
     it "doesn't store a totp for the user" do
-      expect(user.otp_secret_key).to be nil
+      expect(@user.otp_secret_key).to be nil
+    end
+
+    it "does not send an email" do
+      expect(notification_instance).to_not have_received(:send_email)
     end
   end
 end
