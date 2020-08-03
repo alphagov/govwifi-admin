@@ -1,4 +1,6 @@
 class Users::TwoFactorAuthenticationController < Devise::TwoFactorAuthenticationController
+  helper_method :tfa_feature_flag?
+
   before_action :validate_can_manage_team, only: %i[edit destroy]
 
   def edit
