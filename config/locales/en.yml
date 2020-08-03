@@ -20,19 +20,21 @@ en:
 
   users:
     two_factor_authentication:
-      setup:
-        show_app:
-          complete_setup: "Complete setup"
-          go_back: "Back"
-        show_email:
-          complete_setup: "Complete setup"
-          go_back: "Back"
+      show_email:
+        resend_link: "we can try sending it again"
       email:
-        show:
-          resend_link: "we can try sending it again"
-        show_resend:
+        confirmation:
+          complete_setup: "Complete setup"
+          go_back: "Back"
+        resend_form:
           resend_button: "Resend email"
+      app:
+        totp_with_qr:
+          attempt_failed: "Six digit code is not valid"
+          complete_setup: "Complete setup"
+          go_back: "Back"
     two_factor_authentication_setup:
       show:
         complete_setup: "Complete setup"
         skip_setup: "Remind me next time"
+

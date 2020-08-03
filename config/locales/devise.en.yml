@@ -2,6 +2,9 @@
 
 en:
   devise:
+    two_factor_authentication:
+      success: "Two factor authentication setup successful."
+      attempt_failed: "Six digit code is not valid"
     confirmations:
       confirmed: ""
       send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."
