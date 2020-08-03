@@ -1,4 +1,5 @@
 namespace :repair_migrated_data do
+  desc "Adds missing default locations"
   task add_missing_default_location_to_organisations: :environment do
     missing_default_locations = Organisation.all.select do |org|
       org.locations.empty?
@@ -9,6 +10,7 @@ namespace :repair_migrated_data do
     end
   end
 
+  desc "Confirms and creates passwords for users"
   task confirm_and_create_passwords_for_users: :environment do
     User.all.each do |user|
       random_password = Devise.friendly_token.first(16)

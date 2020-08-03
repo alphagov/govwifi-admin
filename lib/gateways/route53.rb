@@ -4,9 +4,7 @@ module Gateways
       @client = Aws::Route53::Client.new(config)
     end
 
-    def list_health_checks
-      client.list_health_checks
-    end
+    delegate :list_health_checks, to: :client
 
     def get_health_check_status(health_check_id:)
       client.get_health_check_status(health_check_id: health_check_id)

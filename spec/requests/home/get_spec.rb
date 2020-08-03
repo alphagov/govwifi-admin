@@ -5,7 +5,9 @@ describe "GET /home", type: :request do
   let(:both) { create(:user, :new_admin, :super_admin) }
 
   before do
-    classic_admin; admin; both;
+    classic_admin
+    admin
+    both
     https!
   end
 
