@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     # Newer implementation: will supersede the above.
     get "users/two_factor_authentication/setup", to: "users/two_factor_authentication/setup#show"
     put "users/two_factor_authentication/setup", to: "users/two_factor_authentication/setup#update"
+    get "users/two_factor_authentication/email/resend_form", to: "users/two_factor_authentication/email#resend_form"
+    get "users/two_factor_authentication/email/confirmation", to: "users/two_factor_authentication/email#confirm_confirmation"
     get "users/two_factor_authentication/email", to: "users/two_factor_authentication/email#show"
     post "users/two_factor_authentication/email", to: "users/two_factor_authentication/email#update"
 

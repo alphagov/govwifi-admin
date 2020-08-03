@@ -5,27 +5,16 @@ class Users::TwoFactorAuthentication::EmailController < ApplicationController
   skip_before_action :confirm_two_factor_setup
   skip_before_action :choose_two_factor_method
 
-  def show
-    if params[:resend] == "true"
-      render :show_resend
-    else
-      @resent = true if params[:resent] == "true"
-      render :show
-    end
-  end
+  def confirmation; end
+
+  def resend_form; end
 
   def update
-    if params[:resend] == "true"
-      send_email
-      redirect_to "/users/two_factor_authentication/email?resent=true"
-    end
+    current_user.send_new_otp
+    redirect_to user_two_factor_authentication_path(resent: "true")
   end
 
 private
-
-  def send_email
-    # TODO: This will be implemented in future.
-  end
 
   def sidebar
     :empty
