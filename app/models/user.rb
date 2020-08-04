@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :memberships, inverse_of: :user # rubocop:disable Rails/HasManyOrHasOneDependent
+  has_many :memberships, inverse_of: :user, dependent: :destroy
   has_many :organisations, through: :memberships, inverse_of: :users
 
   accepts_nested_attributes_for :organisations, :memberships

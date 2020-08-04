@@ -213,7 +213,13 @@ describe Organisation do
     let(:ip4) { create(:ip, location: location2) }
     let(:ip5) { create(:ip, location: location3) }
 
-    before { ip1; ip2; ip3; ip4; ip5 }
+    before do
+      ip1
+      ip2
+      ip3
+      ip4
+      ip5
+    end
 
     it "exports organisation names" do
       expect(csv.first["Name"]).to eq(org1.name)
@@ -240,7 +246,10 @@ describe Organisation do
     let(:user1) { create(:user, email: org1.service_email) }
     let(:user2) { create(:user, email: org2.service_email) }
 
-    before { user1; user2 }
+    before do
+      user1
+      user2
+    end
 
     it "exports service email addresses for each organisation" do
       expect(csv.first["Service email address"]).to eq(org1.service_email)

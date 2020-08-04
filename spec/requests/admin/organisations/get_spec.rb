@@ -5,7 +5,9 @@ describe "GET /admin/organisations", type: :request do
   let(:another_user) { create(:user, email: organisation_1.service_email) }
 
   before do
-    another_user; organisation_1; organisation_2
+    another_user
+    organisation_1
+    organisation_2
     sign_in_user(user)
     https!
   end

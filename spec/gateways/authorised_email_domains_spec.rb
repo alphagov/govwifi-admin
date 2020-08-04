@@ -14,6 +14,6 @@ describe Gateways::AuthorisedEmailDomains do
   end
 
   it "fetches the locations ips" do
-    expect(domain_gateway.fetch_domains).to eq(result)
+    expect(domain_gateway.fetch_domains).to match_array(result)
   end
 end
