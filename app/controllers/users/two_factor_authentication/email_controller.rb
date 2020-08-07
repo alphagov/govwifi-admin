@@ -4,6 +4,7 @@ class Users::TwoFactorAuthentication::EmailController < ApplicationController
   # Skips 2FA setup confirmation callback in ApplicationController.
   skip_before_action :confirm_two_factor_setup
   skip_before_action :choose_two_factor_method
+  skip_before_action :redirect_user_with_no_organisation
 
   def confirmation; end
 

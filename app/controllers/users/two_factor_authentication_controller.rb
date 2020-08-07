@@ -4,6 +4,7 @@ class Users::TwoFactorAuthenticationController < Devise::TwoFactorAuthentication
   skip_before_action :choose_two_factor_method, only: :update
   before_action :validate_can_manage_team, only: %i[edit destroy]
   before_action :handle_missing_2fa_method, only: :update
+  skip_before_action :redirect_user_with_no_organisation
 
   def update
     super
