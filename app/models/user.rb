@@ -92,28 +92,27 @@ class User < ApplicationRecord
 
   def reset_2fa!
     update!(
-      second_factor_attempts_count: nil,
+      second_factor_attempts_count: 0,
       encrypted_otp_secret_key: nil,
       encrypted_otp_secret_key_iv: nil,
       encrypted_otp_secret_key_salt: nil,
       totp_timestamp: nil,
       otp_secret_key: nil,
+      second_factor_method: nil,
     )
   end
 
-  # No-Op
-  # We don't send the otp code to the user, this is a presumption in the two_factor_authentication gem.
-  # The method has to be defined to avoid a NotImplementedError.
-  # Our workflow is different as we force the user to setup via a bespoke controller.
-  def send_two_factor_authentication_code(code); end
+  def send_new_otp_after_login?
+    second_factor_method == "email" && direct_otp.present?
+  end
 
-  # No-Op
-  # We don't store the direct otp code for a user as totp is setup
-  # via Users::TwoFactorAuthenticationSetupController so this mechanism is bypassed.
-  def create_direct_otp(options = {}); end
-
-  # Indicate to two_factor_authentication gem whether we are using TOTP or direct OTP (email).
-  def direct_otp
-    false
+  def send_two_factor_authentication_code(code)
+    UseCases::Administrator::SendOtpEmail.new(
+      notifications_gateway: EmailGateway.new,
+       ).execute(
+         email_address: email,
+         name: name,
+         url: Rails.application.routes.url_helpers.users_two_factor_authentication_direct_otp_url(code: code),
+)
   end
 end

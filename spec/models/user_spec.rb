@@ -1,5 +1,9 @@
+require "support/notifications_service"
+
 describe User do
   let(:organisation) { create(:organisation) }
+
+  include_context "when using the notifications service"
 
   describe "validation" do
     let(:user) { create(:user) }
@@ -222,6 +226,43 @@ describe User do
 
     it "resets the two factor auth" do
       expect(user).not_to be_totp_enabled
+    end
+  end
+
+  describe "#send_new_otp_after_login?" do
+    it "does not send an email if the direct otp has not been set" do
+      user = create(:user, :with_organisation, second_factor_method: "email")
+      expect(user.send_new_otp_after_login?).to be false
+    end
+
+    it "it sends an email if the direct otp has been set" do
+      user = create(:user, :with_organisation, second_factor_method: "email")
+      user.create_direct_otp
+      expect(user.send_new_otp_after_login?).to be true
+    end
+
+    it "does not send an email if the user has chosen to 2fa through the app" do
+      user = create(:user, :with_organisation, second_factor_method: "app", otp_secret_key: "12345678")
+      expect(user.send_new_otp_after_login?).to be false
+    end
+  end
+
+  describe "#send_new_otp" do
+    let(:user) { create(:user, :with_organisation) }
+    context "the user has a direct otp set" do
+      before :each do
+        user.create_direct_otp
+        user.send_new_otp
+      end
+
+      it "sends an email" do
+        expect(notification_instance).to have_received(:send_email).
+                with(hash_including(personalisation:
+                                        {
+                                            name: user.name,
+                                            url: "https://example.com/users/two_factor_authentication/auth/#{user.direct_otp}",
+                                        }))
+      end
     end
   end
 end
