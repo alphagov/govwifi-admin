@@ -26,9 +26,9 @@ Rails.application.routes.draw do
     get "users/two_factor_authentication/setup", to: "users/two_factor_authentication/setup#show"
     put "users/two_factor_authentication/setup", to: "users/two_factor_authentication/setup#update"
 
+    get "users/two_factor_authentication/setup/email/confirmation", to: "users/two_factor_authentication/setup/email#confirmation"
+    get "users/two_factor_authentication/setup/app", to: "users/two_factor_authentication/setup/app#show"
     get "users/two_factor_authentication/email/resend_form", to: "users/two_factor_authentication/email#resend_form"
-    get "users/two_factor_authentication/email/confirmation", to: "users/two_factor_authentication/email#confirmation"
-    get "users/two_factor_authentication/app/totp_with_qr", to: "users/two_factor_authentication/app#totp_with_qr"
     put "users/two_factor_authentication/email", to: "users/two_factor_authentication/email#update"
 
     get "users/:id/two_factor_authentication/edit", to: "users/two_factor_authentication#edit"

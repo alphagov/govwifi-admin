@@ -1,4 +1,4 @@
-class Users::TwoFactorAuthentication::AppController < ApplicationController
+class Users::TwoFactorAuthentication::Setup::AppController < ApplicationController
   # Skips 2FA so User can set up the totp via QR code
   skip_before_action :handle_two_factor_authentication
   # Skips 2FA setup confirmation callback in ApplicationController.
@@ -8,7 +8,7 @@ class Users::TwoFactorAuthentication::AppController < ApplicationController
 
   helper_method :qr_code_uri
 
-  def totp_with_qr
+  def show
     @otp_secret_key = ROTP::Base32.random_base32
   end
 
