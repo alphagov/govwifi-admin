@@ -2,7 +2,7 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   # Skips 2FA so User can set up the totp via QR code
   skip_before_action :handle_two_factor_authentication
   # Skips 2FA setup confirmation callback in ApplicationController.
-  skip_before_action :confirm_two_factor_setup
+  skip_before_action :confirm_two_factor_setup, :redirect_user_with_no_organisation
 
   def show
     # Used to populate the QR code used in setup.

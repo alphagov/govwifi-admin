@@ -138,6 +138,8 @@ ActiveRecord::Schema.define(version: 2020_08_03_151856) do
     t.timestamp "totp_timestamp"
     t.boolean "is_super_admin", default: false, null: false
     t.string "second_factor_method"
+    t.string "direct_otp"
+    t.datetime "direct_otp_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["encrypted_otp_secret_key"], name: "index_users_on_encrypted_otp_secret_key", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

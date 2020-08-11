@@ -1,7 +1,11 @@
+require "support/notifications_service"
+
 describe "Set up two factor authentication", type: :feature do
   let(:organisation) { create(:organisation) }
   let(:super_admin_organisation) { create(:organisation, super_admin: true) }
   let(:user) { create(:user, organisations: [super_admin_organisation]) }
+
+  include_context "when using the notifications service"
 
   before do
     allow(Rails.application.config).to receive(:enable_enhanced_2fa_experience).and_return false
@@ -28,6 +32,10 @@ describe "Set up two factor authentication", type: :feature do
 
     it "expects a TOTP code" do
       expect(page).to have_field(:code)
+    end
+
+    it "does not send an email" do
+      expect(notification_instance).to_not have_received(:send_email)
     end
 
     context "when navigating to another page" do
@@ -60,6 +68,10 @@ describe "Set up two factor authentication", type: :feature do
       it "redirects the user to the admin app" do
         expect(page).to have_current_path(super_admin_organisations_path)
       end
+
+      it "does not send an email" do
+        expect(notification_instance).to_not have_received(:send_email)
+      end
     end
 
     context "when submitting an invalid code" do
@@ -79,6 +91,10 @@ describe "Set up two factor authentication", type: :feature do
       it "doesn't store a totp for the user" do
         expect(user.otp_secret_key).to be nil
       end
+
+      it "does not send an email" do
+        expect(notification_instance).to_not have_received(:send_email)
+      end
     end
   end
 
@@ -87,6 +103,10 @@ describe "Set up two factor authentication", type: :feature do
 
     it "enforces 2FA setup" do
       expect(page).to have_current_path(users_two_factor_authentication_setup_path)
+    end
+
+    it "does not send an email" do
+      expect(notification_instance).to_not have_received(:send_email)
     end
   end
 end

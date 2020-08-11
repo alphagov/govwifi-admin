@@ -4,7 +4,7 @@
     <p class="govuk-body">
       Emails sometimes take a few minutes to arrive. If you do not receive the email, we can send you a new one.
     </p>
-    <%= form_tag "/users/two_factor_authentication/email?resend=true", method: :post do %>
+    <%= form_tag "/users/two_factor_authentication/email", method: :put do %>
       <%= submit_tag t(".resend_button"), class: "govuk-button" %>
     <% end %>
     <h3 class="govuk-heading-m">If your email address has changed</h3>

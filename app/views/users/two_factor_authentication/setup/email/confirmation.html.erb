@@ -9,8 +9,8 @@
       Alternative, go back if you wish to receive security codes in another way.
     </p>
     <p class="govuk-body">
-      <%= form_tag "/users/two_factor_authentication/setup", method: :put do %>
-        <%= hidden_field_tag "method", "email" %>
+      <%= form_tag "/users/two_factor_authentication", method: :put do %>
+        <%= hidden_field_tag :method, "email" %>
         <%= submit_tag t(".complete_setup"), class: "govuk-button govuk-!-margin-right-1" %>
         <%= link_to t(".go_back"), :back, class: "govuk-button govuk-button--secondary govuk-!-margin-right-1" %>
       <% end %>

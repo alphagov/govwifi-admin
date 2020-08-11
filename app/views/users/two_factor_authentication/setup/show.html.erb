@@ -4,7 +4,7 @@
   You need to set up two-factor authentication (2FA) on your account, for additional security.
 </p>
 
-<%= form_with method: :get do |form| %>
+<%= form_with action: :update, method: :put do |form| %>
   <h2 class="govuk-heading-m">How do you want to receive security codes?</h2>
 
   <span id="event-name-hint" class="govuk-hint">You'll need to have access to the option you choose below, the next time you log in.</span>

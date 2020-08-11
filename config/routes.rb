@@ -2,12 +2,14 @@
 Rails.application.routes.draw do
   root "home#index"
 
-  devise_for :users, controllers: {
-    confirmations: "users/confirmations",
-    registrations: "users/registrations",
-    invitations: "users/invitations",
-    passwords: "users/passwords",
-  }
+  devise_for :users,
+             controllers: {
+                 confirmations: "users/confirmations",
+                 registrations: "users/registrations",
+                 invitations: "users/invitations",
+                 passwords: "users/passwords",
+                 two_factor_authentication: "users/two_factor_authentication",
+             }
 
   devise_scope :user do
     post "/check_password_strength", to: "users/registrations#check_password_strength"
@@ -23,11 +25,15 @@ Rails.application.routes.draw do
     # Newer implementation: will supersede the above.
     get "users/two_factor_authentication/setup", to: "users/two_factor_authentication/setup#show"
     put "users/two_factor_authentication/setup", to: "users/two_factor_authentication/setup#update"
-    get "users/two_factor_authentication/email", to: "users/two_factor_authentication/email#show"
-    post "users/two_factor_authentication/email", to: "users/two_factor_authentication/email#update"
+
+    get "users/two_factor_authentication/setup/email/confirmation", to: "users/two_factor_authentication/setup/email#confirmation"
+    get "users/two_factor_authentication/setup/app", to: "users/two_factor_authentication/setup/app#show"
+    get "users/two_factor_authentication/email/resend_form", to: "users/two_factor_authentication/email#resend_form"
+    put "users/two_factor_authentication/email", to: "users/two_factor_authentication/email#update"
 
     get "users/:id/two_factor_authentication/edit", to: "users/two_factor_authentication#edit"
     delete "users/:id/two_factor_authentication", to: "users/two_factor_authentication#destroy"
+    get "users/two_factor_authentication/auth/:code", to: "users/two_factor_authentication#update", as: "users_two_factor_authentication_direct_otp"
   end
   get "confirm_new_membership", to: "users/memberships#create"
 
