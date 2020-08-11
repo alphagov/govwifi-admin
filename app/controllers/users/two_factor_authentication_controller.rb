@@ -1,5 +1,5 @@
 class Users::TwoFactorAuthenticationController < Devise::TwoFactorAuthenticationController
-  helper_method :tfa_feature_flag?
+  helper_method :tfa_feature_flag?, :method
 
   skip_before_action :choose_two_factor_method, only: :update
   before_action :validate_can_manage_team, only: %i[edit destroy]
@@ -45,6 +45,10 @@ class Users::TwoFactorAuthenticationController < Devise::TwoFactorAuthentication
                     end
 
     redirect_to redirect_path, notice: "Two factor authentication has been reset"
+  end
+
+  def method
+    tfa_feature_flag? ? current_user&.second_factor_method : "app"
   end
 
   def validate_can_manage_team
