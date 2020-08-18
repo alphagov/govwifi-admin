@@ -130,22 +130,32 @@ describe "Set up two factor authentication", type: :feature do
         end
       end
 
-      context "The user signs out and back in again" do
+      context "The user signs in" do
         before :each do
-          click_on "Sign out"
-          visit root_path
-
-          fill_in "Email", with: "tom@gov.uk"
-          fill_in "Password", with: correct_password
-          click_on "Continue"
+          visit users_two_factor_authentication_direct_otp_path(code: @user.reload.direct_otp)
         end
 
-        it "sends an email again" do
-          expect(notification_instance).to have_received(:send_email).twice
+        it "sucessfully sets up 2fa" do
+          expect(page).to have_content("Two factor authentication setup successful")
         end
 
-        it "asks for the email 2FA method when user logs in again" do
-          expect(page).to have_content("We have emailed you a link to sign in to GovWifi.")
+        context "The user signs out and back in again" do
+          before :each do
+            click_on "Sign out"
+            visit root_path
+
+            fill_in "Email", with: "tom@gov.uk"
+            fill_in "Password", with: correct_password
+            click_on "Continue"
+          end
+
+          it "sends an email again" do
+            expect(notification_instance).to have_received(:send_email).twice
+          end
+
+          it "asks for the email 2FA method when user logs in again" do
+            expect(page).to have_content("We have emailed you a link to sign in to GovWifi.")
+          end
         end
       end
     end

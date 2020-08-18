@@ -103,7 +103,7 @@ class User < ApplicationRecord
   end
 
   def send_new_otp_after_login?
-    second_factor_method == "email" && direct_otp.present?
+    second_factor_method == "email"
   end
 
   def send_two_factor_authentication_code(code)
