@@ -25,7 +25,9 @@ class Users::TwoFactorAuthenticationController < Devise::TwoFactorAuthentication
       current_user.update(second_factor_method: "app", otp_secret_key: params[:otp_secret_key])
     else
       set_flash_message :alert, :attempt_failed
-      redirect_to "/users/two_factor_authentication/setup/app", params: params
+      redirect_to controller: "users/two_factor_authentication/setup/app",
+                  action: "show",
+                  otp_secret_key: params[:otp_secret_key]
     end
   end
 

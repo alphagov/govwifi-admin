@@ -262,7 +262,7 @@ describe "Set up two factor authentication", type: :feature do
       before do
         choose "app"
         click_on "Continue"
-
+        @qr_code = page.find("img")["src"]
         fill_in :code, with: incorrect_totp_code
         click_on "Complete setup"
       end
@@ -281,6 +281,10 @@ describe "Set up two factor authentication", type: :feature do
 
       it "does not send an email" do
         expect(notification_instance).to_not have_received(:send_email)
+      end
+
+      it "retains the qr code" do
+        expect(page.find("img")["src"]).to eq(@qr_code)
       end
     end
   end
