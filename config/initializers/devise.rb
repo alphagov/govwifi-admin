@@ -343,6 +343,7 @@ Devise.setup do |config|
   config.otp_secret_encryption_key = ENV["OTP_SECRET_ENCRYPTION_KEY"]
   config.second_factor_resource_id = "id" # Field or method name used to set value for 2fA remember cookie
   config.delete_cookie_on_logout = false # Delete cookie when user signs out, to force 2fA again on login
+  config.direct_otp_valid_for = 30.minutes
 end
 
 # rubocop:enable Metrics/BlockLength
