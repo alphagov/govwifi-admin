@@ -320,7 +320,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sentry-raven (3.0.0)
+    sentry-raven (3.0.2)
       faraday (>= 1.0)
     shellany (0.0.1)
     shoulda-matchers (4.3.0)
