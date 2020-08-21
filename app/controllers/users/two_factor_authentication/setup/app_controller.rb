@@ -9,10 +9,14 @@ class Users::TwoFactorAuthentication::Setup::AppController < ApplicationControll
   helper_method :qr_code_uri
 
   def show
-    @otp_secret_key = ROTP::Base32.random_base32
+    @otp_secret_key = otp_secret_key
   end
 
 private
+
+  def otp_secret_key
+    params[:otp_secret_key] =~ /^[A-Z0-9]{32}$/ ? params[:otp_secret_key] : ROTP::Base32.random_base32
+  end
 
   def qr_code_uri
     provisioning_uri = current_user.provisioning_uri(
