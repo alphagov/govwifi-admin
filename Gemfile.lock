@@ -360,7 +360,7 @@ GEM
       thread_safe (~> 0.1)
     tzinfo-data (1.2020.1)
       tzinfo (>= 1.0.0)
-    uk_postcode (2.1.5)
+    uk_postcode (2.1.6)
     unicode-display_width (1.6.1)
     uniform_notifier (1.13.0)
     warden (1.2.8)
