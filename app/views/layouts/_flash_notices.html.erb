@@ -4,7 +4,7 @@
 
   <% if name == 'notice' %>
     <div class='flash-holder'>
-      <%= content_tag :p, msg, class: "govuk-heading-m flash-message-notice" %>
+      <%= tag.p(msg, class: "govuk-heading-m flash-message-notice") %>
     </div>
   <% end %>
   <% if name == 'alert' %>
