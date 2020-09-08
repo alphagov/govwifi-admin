@@ -58,8 +58,8 @@
             <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "govuk-header__link" %>
           </li>
           <% else %>
-          <li class="govuk-header__navigation-item">
-            <%= link_to "Admin", new_user_session_path, class: "govuk-header__link #{active_tab(new_user_session_path)}" %>
+          <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
+            <%= link_to "Admin", new_user_session_path, class: "govuk-header__link govuk-header__link" %>
           </li>
           <% end %>
         </ul>

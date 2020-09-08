@@ -15,7 +15,7 @@
         </li>
       <% else %>
         <li>
-          <%= link_to "Settings", setup_instructions_path, class: active_tab(setup_instructions_path, new_organisation_setup_instructions_path) %>
+          <%= link_to "Settings", setup_instructions_path, class: active_tab(setup_instructions_path, new_organisation_setup_instructions_path, "mou", edit_organisation_path(current_organisation.id)) %>
         </li>
       <% end %>
       <li>
