@@ -14,6 +14,10 @@
   color: $colour-white;
 }
 
+.summary-link-colour:focus {
+  color: $colour-black;
+}
+
 .overview-section-alignment {
   padding-left: 0;
   padding-right: 0;
