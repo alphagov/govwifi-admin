@@ -1,3 +1,5 @@
+<% content_for :page_title, "Manage locations - GovWifi" %>
+
 <div id='wrapper'>
   <div class="govuk-grid-row">
     <%= render "confirm_remove_ip" if @ip_to_delete && current_user.can_manage_locations?(current_organisation) %>
