@@ -5,7 +5,7 @@
 
     <%= render "layouts/google_analytics" %>
 
-    <title><%= content_for?(:page_title) ? yield(:page_title) : SITE_CONFIG["default_page_title"] %></title>
+    <title><%= infer_page_title %></title>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
