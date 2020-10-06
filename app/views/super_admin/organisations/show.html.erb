@@ -1,3 +1,5 @@
+<% content_for :page_title, @organisation.name.to_s %>
+
 <div class="govuk-grid-row">
   <%= render "confirm_remove_organisation" if params[:remove_organisation] %>
 

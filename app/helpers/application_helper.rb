@@ -10,4 +10,11 @@ module ApplicationHelper
 
     classes.join(" ")
   end
+
+  def infer_page_title
+    [
+      content_for(:page_title),
+      SITE_CONFIG["default_page_title"],
+    ].reject(&:nil?).join(" - ")
+  end
 end
