@@ -42,7 +42,7 @@ group :test do
   gem "shoulda-matchers", "~> 4.4"
   gem "simplecov", require: false
   gem "simplecov-console", require: false
-  gem "timecop", "~> 0.9.1"
+  gem "timecop", "~> 0.9.2"
   gem "webmock", "~> 3.9.2"
 end
 
