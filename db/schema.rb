@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_03_151856) do
+ActiveRecord::Schema.define(version: 2020_10_20_154112) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 2020_08_03_151856) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.integer "second_factor_attempts_count"
+    t.integer "second_factor_attempts_count", default: 0, null: false
     t.string "encrypted_otp_secret_key"
     t.string "encrypted_otp_secret_key_iv"
     t.string "encrypted_otp_secret_key_salt"
