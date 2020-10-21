@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 2020_10_20_154112) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.integer "second_factor_attempts_count", default: 0, null: false
+    t.integer "second_factor_attempts_count", default: 0
     t.string "encrypted_otp_secret_key"
     t.string "encrypted_otp_secret_key_iv"
     t.string "encrypted_otp_secret_key_salt"
