@@ -10,7 +10,7 @@
       </div>
     </div>
     <% if current_user.can_manage_locations?(current_organisation) %>
-      <%= link_to "Add IP addressses", location_add_ips_path(location_id: location.id), class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5" %>
+      <%= link_to "Add IP addresses", location_add_ips_path(location_id: location.id), class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5" %>
       <% if location.ips.empty? %>
         <p class="result-row-empty govuk-body">
           Add the IP addresses of your authenticators to offer GovWifi at this location
