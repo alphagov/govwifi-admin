@@ -20,6 +20,8 @@ params:
   # Set this to custom image names for preloading the app image. see `docker-compose.concourse.yml`
   PREBUILT_TAG: 'app-prebuilt'
   PREBUILT_CACHED_DIR: 'docker-cache/app-prebuilt-cached'
+  DOCKER_HUB_USERNAME_ENV: '((docker_hub_username))'
+  DOCKER_HUB_AUTHTOKEN_ENV: '((docker_hub_authtoken))'
 
 run:
   path: docker-wrapper

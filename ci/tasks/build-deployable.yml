@@ -12,8 +12,6 @@ params:
   CONTEXT: src
   BUILD_ARG_BUNDLE_INSTALL_FLAGS: '--without test development'
   TAG:
-  DOCKER_HUB_USERNAME_ENV: '((docker_hub_username))'
-  DOCKER_HUB_AUTHTOKEN_ENV: '((docker_hub_authtoken))'
 
 inputs:
   - name: src
