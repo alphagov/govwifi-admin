@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include ActionView::Helpers::OutputSafetyHelper
+
   def field_error(resource, key)
     resource&.errors&.include?(key.to_sym) ? "govuk-form-group--error" : ""
   end
@@ -12,9 +14,6 @@ module ApplicationHelper
   end
 
   def infer_page_title
-    [
-      content_for(:page_title),
-      SITE_CONFIG["default_page_title"],
-    ].reject(&:nil?).join(" - ").html_safe
+    safe_join([content_for(:page_title), SITE_CONFIG["default_page_title"]].reject(&:nil?), " - ")
   end
 end
