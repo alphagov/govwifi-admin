@@ -3,6 +3,7 @@
 set -e -u -o pipefail
 
 ./src/ci/tasks/scripts/with-docker.sh
+echo "$DOCKER_HUB_AUTHTOKEN_ENV" | docker login -u $(echo $DOCKER_HUB_USERNAME_ENV) --password-stdin
 
 workspace_dir="${PWD}"
 prebuilt_dir="${workspace_dir}/docker-cache/${PREBUILT_TAG}"
