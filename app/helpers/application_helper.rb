@@ -15,6 +15,6 @@ module ApplicationHelper
     [
       content_for(:page_title),
       SITE_CONFIG["default_page_title"],
-    ].reject(&:nil?).join(" - ")
+    ].reject(&:nil?).join(" - ").html_safe
   end
 end
