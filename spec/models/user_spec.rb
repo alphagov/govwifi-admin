@@ -259,4 +259,28 @@ describe User do
       end
     end
   end
+
+  describe ".has_2fa?" do
+    let(:no_2fa) { create(:user) }
+    let(:app_2fa) { create(:user, :with_2fa) }
+    let(:email_2fa) { create(:user, :with_email_2fa) }
+
+    context "when no 2fa" do
+      it "returns false" do
+        expect(no_2fa.has_2fa?).to be false
+      end
+    end
+
+    context "when app 2fa" do
+      it "returns true" do
+        expect(app_2fa.has_2fa?).to be true
+      end
+    end
+
+    context "when email 2fa" do
+      it "returns true" do
+        expect(email_2fa.has_2fa?).to be true
+      end
+    end
+  end
 end

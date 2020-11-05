@@ -115,4 +115,8 @@ class User < ApplicationRecord
          url: Rails.application.routes.url_helpers.users_two_factor_authentication_direct_otp_url(code: code),
 )
   end
+
+  def has_2fa?
+    second_factor_method.present?
+  end
 end
