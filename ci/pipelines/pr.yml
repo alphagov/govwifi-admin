@@ -11,6 +11,8 @@ resource_types:
   type: registry-image
   source:
     repository: teliaoss/github-pr-resource
+    username: ((docker_hub_username))
+    password: ((docker_hub_authtoken))
 
 resources:
   - name: tech-ops
@@ -43,18 +45,24 @@ resources:
     source:
       repository: mysql
       tag: '5.7'
+      username: ((docker_hub_username))
+      password: ((docker_hub_authtoken))
 
   - name: ruby-image
     type: registry-image
     source:
       repository: ruby
       tag: '2.6.2'
+      username: ((docker_hub_username))
+      password: ((docker_hub_authtoken))
 
   - name: nginx-image
     type: registry-image
     source:
       repository: nginx
       tag: alpine
+      username: ((docker_hub_username))
+      password: ((docker_hub_authtoken))
 
 update-status-commands:
   update-status-base: &update-status-base
