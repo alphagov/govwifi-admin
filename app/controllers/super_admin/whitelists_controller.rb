@@ -16,7 +16,7 @@ class SuperAdmin::WhitelistsController < SuperAdminController
       publish_email_domains_list
 
       redirect_to new_super_admin_whitelist_path,
-                  notice: "Organisation has been whitelisted"
+                  notice: "Organisation has been added to the allow list"
     else
       redirect_to new_super_admin_whitelist_path(step: "fourth"),
                   notice: "There was an error, please try again"
