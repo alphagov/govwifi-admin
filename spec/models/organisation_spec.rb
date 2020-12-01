@@ -49,7 +49,7 @@ describe Organisation do
     it "explains why it is invalid" do
       organisation.valid?
       expect(organisation.errors.full_messages).to eq([
-        "#{organisation.name} isn't a whitelisted organisation",
+        "#{organisation.name} isn't in the organisations allow list",
       ])
     end
   end
