@@ -11,7 +11,7 @@ describe "GovWifi locations map", type: :feature do
 
   it "shows a map of locations" do
     expect(page).to have_content("GovWifi Map of Locations")
-    assert_requested :post, "https://api.postcodes.io/postcodes", body: "postcodes[]=SE10HS"
+    assert_requested :post, "https://api.postcodes.io/postcodes", body: "postcodes%5B%5D=SE10HS"
   end
 
   it "takes the super admin back to the locations page" do
