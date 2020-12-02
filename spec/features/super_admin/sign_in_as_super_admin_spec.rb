@@ -13,7 +13,7 @@ describe "Signing in as a super admin", type: :feature do
     end
 
     it "shows the super_org sidebar" do
-      expect(page).to have_content "Whitelist"
+      expect(page).to have_content "Allow list"
     end
 
     it "renders the super admin overview" do
