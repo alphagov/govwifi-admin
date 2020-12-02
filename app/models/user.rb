@@ -117,6 +117,6 @@ class User < ApplicationRecord
   end
 
   def has_2fa?
-    second_factor_method.present?
+    Rails.configuration.enable_enhanced_2fa_experience ? second_factor_method.present? : totp_enabled?
   end
 end

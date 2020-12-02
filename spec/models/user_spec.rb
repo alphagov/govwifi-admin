@@ -277,9 +277,19 @@ describe User do
       end
     end
 
-    context "when email 2fa" do
-      it "returns true" do
-        expect(email_2fa.has_2fa?).to be true
+    context "when enable_enhanced_2fa_experience is true" do
+      before do
+        allow(Rails.application.config).to receive(:enable_enhanced_2fa_experience).and_return true
+      end
+
+      after do
+        allow(Rails.application.config).to receive(:enable_enhanced_2fa_experience).and_call_original
+      end
+
+      context "when email 2fa" do
+        it "returns true" do
+          expect(email_2fa.has_2fa?).to be true
+        end
       end
     end
   end
