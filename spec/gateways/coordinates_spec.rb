@@ -134,8 +134,8 @@ describe Gateways::Coordinates do
     it "batches them to prevent rate limiting" do
       postcode_coordinates_gateway.fetch_coordinates(batch_size: 2)
 
-      assert_requested :post, "https://api.postcodes.io/postcodes", body: "postcodes[]=HA72BL&postcodes[]=HA73BL"
-      assert_requested :post, "https://api.postcodes.io/postcodes", body: "postcodes[]=HA74BL&postcodes[]=HA75BL"
+      assert_requested :post, "https://api.postcodes.io/postcodes", body: "postcodes%5B%5D=HA72BL&postcodes%5B%5D=HA73BL"
+      assert_requested :post, "https://api.postcodes.io/postcodes", body: "postcodes%5B%5D=HA74BL&postcodes%5B%5D=HA75BL"
     end
   end
 end
