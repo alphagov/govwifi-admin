@@ -12,6 +12,12 @@
   &:hover {
     color: lighten($govuk-error-colour, 10%) !important;
   }
+
+  &:focus,
+  &:active {
+    @include govuk-focused-text;
+    color: $govuk-focus-text-colour !important;
+  }
 }
 
 .button-as-link {
