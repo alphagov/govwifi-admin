@@ -9,13 +9,13 @@ describe "Whitelisting an organisation", type: :feature do
   end
 
   it "allows the user to see the list of whitelisted organisations" do
-    click_on "Organisations whitelist"
+    click_on "Organisations allow list"
     expect(page).to have_content("Custom Organisations that are already in our register")
   end
 
   it "allows the user to see the list of whitelisted email domains" do
-    click_on "Users whitelist"
-    expect(page).to have_content("Email domains that are already whitelisted")
+    click_on "Email domains allow list"
+    expect(page).to have_content("Email domains allow list")
   end
 
   context "when stepping through the setup steps" do
@@ -42,7 +42,7 @@ describe "Whitelisting an organisation", type: :feature do
       click_on "Yes"
       click_on "No"
       click_on "Continue"
-      expect(page).to have_content("Add the organisation's email domain to the whitelist")
+      expect(page).to have_content("Add the organisation's email domain to the allow list")
     end
   end
 
@@ -82,7 +82,7 @@ describe "Whitelisting an organisation", type: :feature do
       end
 
       it "rerenders the email domain form" do
-        expect(page).to have_content("Add the organisation's email domain to the whitelist")
+        expect(page).to have_content("Add the organisation's email domain to the allow list")
       end
 
       it "displays an error message to the user" do
@@ -111,7 +111,7 @@ describe "Whitelisting an organisation", type: :feature do
 
       it "displays a success message to the user" do
         click_on "Submit"
-        expect(page).to have_content("Organisation has been whitelisted")
+        expect(page).to have_content("Organisation has been added to the allow list")
       end
     end
 
@@ -134,7 +134,7 @@ describe "Whitelisting an organisation", type: :feature do
 
       it "displays a success message to the user" do
         click_on "Submit"
-        expect(page).to have_content("Organisation has been whitelisted")
+        expect(page).to have_content("Organisation has been added to the allow list")
       end
     end
 
@@ -157,7 +157,7 @@ describe "Whitelisting an organisation", type: :feature do
 
       it "displays a success message to the user" do
         click_on "Submit"
-        expect(page).to have_content("Organisation has been whitelisted")
+        expect(page).to have_content("Organisation has been added to the allow list")
       end
     end
 

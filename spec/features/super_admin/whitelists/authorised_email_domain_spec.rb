@@ -71,24 +71,24 @@ describe "Authorising Email Domains", type: :feature do
       end
 
       it "removes a domain" do
-        expect { click_on "Yes, remove #{some_domain} from the whitelist" }.to change(AuthorisedEmailDomain, :count).by(-1)
+        expect { click_on "Yes, remove #{some_domain} from the allow list" }.to change(AuthorisedEmailDomain, :count).by(-1)
       end
 
       it "tells the user the domain has been removed" do
-        click_on "Yes, remove #{some_domain} from the whitelist"
+        click_on "Yes, remove #{some_domain} from the allow list"
         expect(page).to have_content("#{some_domain} has been deleted")
       end
 
       it "publishes an updated regex list of authorised domains to S3" do
         allow(Gateways::S3).to receive(:new).and_return(regex_gateway)
-        click_on "Yes, remove #{some_domain} from the whitelist"
+        click_on "Yes, remove #{some_domain} from the allow list"
         expect(regex_gateway).to have_received(:write).with(data: "^$")
       end
 
       it "publishes an updated email domains list to S3" do
         allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
         allow(presenter).to receive(:execute).and_return(data)
-        click_on "Yes, remove #{some_domain} from the whitelist"
+        click_on "Yes, remove #{some_domain} from the allow list"
         expect(email_domains_gateway).to have_received(:write).with(data: data)
       end
     end
