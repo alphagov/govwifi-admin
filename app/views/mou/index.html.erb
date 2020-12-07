@@ -7,27 +7,27 @@
     <p class="govuk-body">You must sign a memorandum of understanding (MOU) to use GovWifi.</p>
     <% if @mou %>
       <ul class="govuk-list govuk-list">
-        <li>1. <%= link_to "Download a copy of the MOU", rails_blob_path(@mou, disposition: "attachment"), class: "govuk-link" %></li>
-        <li>2. Sign the document</li>
-        <li>3. Upload your signed MOU</li>
+        <li>1. <%= link_to "Download a copy of the MOU.", rails_blob_path(@mou, disposition: "attachment"), class: "govuk-link" %></li>
+        <li>2. Sign the document.</li>
+        <li>3. Upload your signed MOU.</li>
       </ul>
-      <p class="govuk-body">The MoU must be signed by someone in your organisation who has permission to sign off and procure services.</p>
+      <p class="govuk-body">The MOU must be signed by someone in your organisation who has permission to sign off and procure services.</p>
     <% else %>
       <p class="govuk-body">
-        The MOU template is not yet available for download. Contact us via our
-        <%= link_to "support form", help_index_path, class: "govuk-link" %> if you need a copy.
+        The MOU template is not yet available for download.
+        <%= link_to "Contact us", help_index_path, class: "govuk-link" %> if you need a copy.
       </p>
     <% end %>
 
     <% if @current_org_signed_mou %>
       <p class="govuk-body">
-        A signed MoU was uploaded on <%= @current_org_signed_mou.created_at.strftime("%e %b %Y") %>,
-        <%= link_to "download and view the document.", rails_blob_path(@current_org_signed_mou, disposition: "attachment"), class: "govuk-link" %>
+        A signed MOU was uploaded on <%= @current_org_signed_mou.created_at.strftime("%e %b %Y") %>,
+        <%= link_to "Download and view your signed MOU.", rails_blob_path(@current_org_signed_mou, disposition: "attachment"), class: "govuk-link" %>
       </p>
-      <h3 class="govuk-heading-m">Replace MoU</h3>
-      <p class="govuk-body">Manually replace your organisation's signed MoU. This will overwrite the existing document.</p>
+      <h3 class="govuk-heading-m">Replace your MOU</h3>
+      <p class="govuk-body">Manually replace your organisation's signed MOU. This will overwrite the existing document.</p>
     <% else %>
-      <p class="govuk-body">You have not uploaded a signed MoU yet</p>
+      <p class="govuk-body">You have not uploaded a signed MOU yet.</p>
     <% end %>
 
     <div>
@@ -43,4 +43,4 @@
   </div>
 </div>
 
-<%= link_to "Getting help", help_index_path, class: "govuk-link" %>
+<%= link_to "Contact GovWifi support", help_index_path, class: "govuk-link" %>

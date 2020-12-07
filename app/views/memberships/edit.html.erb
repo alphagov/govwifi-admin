@@ -26,11 +26,11 @@
             </div>
             <div class="govuk-checkboxes__item">
               <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
-              <label class="govuk-label govuk-checkboxes__label">View locations and IPs</label>
+              <label class="govuk-label govuk-checkboxes__label">View locations and IP addresses</label>
             </div>
             <div class="govuk-checkboxes__item">
               <%= form.check_box :can_manage_locations, class: "govuk-checkboxes__input" %>
-              <label class="govuk-label govuk-checkboxes__label"><%= form.label :can_manage_locations, "Add and remove locations and IPs" %></label>
+              <label class="govuk-label govuk-checkboxes__label"><%= form.label :can_manage_locations, "Add and remove locations and IP addresses" %></label>
             </div>
           <div class="govuk-!-margin-top-6">
             <%= form.submit "Save", class: "govuk-button govuk-!-margin-0 govuk-!-margin-right-4 inline-block" %>

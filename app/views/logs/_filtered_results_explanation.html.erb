@@ -1,19 +1,14 @@
 <div class="govuk-grid-column-two-thirds">
   <div class="govuk-inset-text govuk-!-margin-top-0">
-    <h4 class="govuk-heading-s">Filtered results</h4>
 
     <% if !super_admin? %>
       <p class="govuk-body">
-        Only logs from your organisation's IPs are shown.
+        Only logs from your organisation's IP addresses are shown.
       </p>
     <% end %>
 
     <p class="govuk-body">
-      Both successful and failed authentication logs are shown.
-    </p>
-
-    <p class="govuk-body">
-      Logs older than two weeks are not shown.
+      These results include successful and unsuccessful authentication requests for the past 2 weeks.
     </p>
 
     <% if logs.count >= Gateways::Sessions::MAXIMUM_RESULTS_COUNT %>
