@@ -75,7 +75,7 @@ describe "View details of an organisation", type: :feature do
 
     context "when an MoU does not exist" do
       it "says no MoU exists" do
-        expect(page).to have_content("This organisation has not uploaded an MoU.")
+        expect(page).to have_content("This organisation has not uploaded an MOU.")
       end
 
       it "has an Upload MoU button" do
@@ -99,7 +99,7 @@ describe "View details of an organisation", type: :feature do
 
       it "has upload date" do
         expect(page).to have_content(
-          "A signed MoU was uploaded on " +
+          "A signed MOU was uploaded on " +
             organisation.signed_mou.attachment.created_at.strftime("%-e %b %Y"),
         )
       end

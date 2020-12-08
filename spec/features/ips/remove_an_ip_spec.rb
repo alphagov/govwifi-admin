@@ -22,21 +22,29 @@ describe "Removing an IP", type: :feature do
 
     it "shows the remove IP button" do
       within(".govuk-error-summary") do
-        expect(page).to have_button("Yes, remove this IP")
+        expect(page).to have_button("Remove")
       end
     end
 
     it "removes the IP" do
-      expect { click_on "Yes, remove this IP" }.to change(Ip, :count).by(-1)
+      within(".govuk-error-summary") do
+        expect { click_on "Remove" }.to change(Ip, :count).by(-1)
+      end
     end
 
     it "displays the success message to the user" do
-      click_on "Yes, remove this IP"
+      within(".govuk-error-summary") do
+        click_on "Remove"
+      end
+
       expect(page).to have_content("Successfully removed IP address #{ip.address}")
     end
 
     it 'redirects to the "after IP removed" path for Analytics' do
-      click_on "Yes, remove this IP"
+      within(".govuk-error-summary") do
+        click_on "Remove"
+      end
+
       expect(page).to have_current_path("/ips/removed")
     end
   end

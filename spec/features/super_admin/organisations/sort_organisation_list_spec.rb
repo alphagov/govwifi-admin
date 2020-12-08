@@ -52,13 +52,13 @@ describe "Sorting the organisations list", type: :feature do
       end
 
       it "sorts the list by oldest to most recent, when MoU signed is clicked once" do
-        click_link "MoU Signed"
+        click_link "MOU Signed"
 
         expect(page.body).to match(/Gov Org 4.*Gov Org 1.*Gov Org 3/m)
       end
 
       it "sorts the list by most recent to oldest, when MoU signed is clicked twice" do
-        2.times { click_link "MoU Signed" }
+        2.times { click_link "MOU Signed" }
 
         expect(page.body).to match(/Gov Org 3.*Gov Org 1.*Gov Org 4/m)
       end

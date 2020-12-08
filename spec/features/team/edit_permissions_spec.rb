@@ -34,7 +34,7 @@ describe "Edit user permissions", type: :feature do
         visit memberships_path
         click_link "Edit permissions"
         uncheck "Add and remove team members"
-        uncheck "Add and remove locations and IPs"
+        uncheck "Add and remove locations and IP addresses"
         click_on "Save"
       end
 

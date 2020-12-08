@@ -30,7 +30,7 @@ describe "View authentication requests for a location", type: :feature do
 
     it "displays the no results message" do
       expect(page).to have_content("Traffic from #{location.address}"\
-        " isn't reaching the GovWifi service")
+        " is not reaching the GovWifi service")
     end
   end
 
