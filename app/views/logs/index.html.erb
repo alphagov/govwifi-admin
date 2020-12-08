@@ -36,11 +36,11 @@
   <div class="govuk-grid-row">
     <h1 class="govuk-heading-l govuk-grid-column-three-quarters">
       <% if params[:username].present? %>
-        "<%= params[:username] %>" <strong>isn't reaching the GovWifi service</strong>
+        The username "<%= params[:username] %>" <strong>is not reaching the GovWifi service</strong>
       <% elsif params[:location] %>
-        Traffic from <%= @location_address %> <strong>isn't reaching the GovWifi service</strong>
+        Traffic from <%= @location_address %> <strong>is not reaching the GovWifi service</strong>
       <% else %>
-        Traffic from <%= params[:ip] %> <strong>isn't reaching the GovWifi service</strong>
+        Traffic from <%= params[:ip] %> <strong>is not reaching the GovWifi service</strong>
       <% end %>
     </h1>
 

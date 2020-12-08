@@ -11,7 +11,7 @@ describe "Resetting a password", type: :feature do
   it "links to forgot password form" do
     visit root_path
     click_on "Forgot your password?"
-    expect(page).to have_content("Reset your GovWifi network admin account password")
+    expect(page).to have_content("Reset your GovWifi admin account password")
   end
 
   context "when the user has never signed up" do

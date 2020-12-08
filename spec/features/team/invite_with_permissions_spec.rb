@@ -32,7 +32,7 @@ describe "Set user permissions on invite", type: :feature do
 
   context "when setting only one permission" do
     before do
-      uncheck "Add and remove locations and IPs"
+      uncheck "Add and remove locations and IP addresses"
       click_on "Send invitation email"
     end
 
@@ -47,7 +47,7 @@ describe "Set user permissions on invite", type: :feature do
 
   context "when setting no permissions" do
     before do
-      uncheck "Add and remove locations and IPs"
+      uncheck "Add and remove locations and IP addresses"
       uncheck "Add and remove team members"
       click_on "Send invitation email"
     end

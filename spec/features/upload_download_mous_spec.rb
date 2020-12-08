@@ -43,7 +43,7 @@ describe "Uploading and downloading an MOU", type: :feature do
     context "when uploading the signed mou" do
       before do
         visit mou_index_path
-        attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
+        attach_file("signed_mou", Rails.root.join("spec/fixtures/mou.pdf"))
         click_on "Upload"
       end
 
@@ -52,7 +52,7 @@ describe "Uploading and downloading an MOU", type: :feature do
       end
 
       it "displays the download link" do
-        expect(page).to have_link("download and view the document.")
+        expect(page).to have_link("Download and view your signed MOU.")
       end
 
       it 'redirects to "after MOU uploaded" path for analytics' do
@@ -62,7 +62,7 @@ describe "Uploading and downloading an MOU", type: :feature do
       describe "access control" do
         before do
           visit mou_index_path
-          @link = page.find("a", text: "download and view the document.")[:href]
+          @link = page.find("a", text: "Download and view your signed MOU.")[:href]
         end
 
         context "when someone is not authenticated" do
@@ -115,7 +115,7 @@ describe "Uploading and downloading an MOU", type: :feature do
       end
 
       it "displays the download link" do
-        expect(page).to have_link("download and view the document.")
+        expect(page).to have_link("Download and view your signed MOU.")
       end
 
       it 'redirects to "after MOU uploaded" path for analytics' do

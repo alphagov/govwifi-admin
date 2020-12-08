@@ -1,14 +1,14 @@
-# Govwifi Admin Application
+# GovWifi admin application
 
-This is the admin platform, a website where organisations can create and manage their GovWifi installation within their organisation.
+This is the GovWifi admin site, where organisations can create and manage their GovWifi installation within their organisation.
 
-The GovWifi [developer documentation][dev-docs] contains technical documentation for the Govwifi team in the Government Digital Service.
+The GovWifi [developer documentation][dev-docs] contains technical documentation for the GovWifi team in the Government Digital Service.
 
 N.B. The GovWifi [terraform repository][terraform-repo] contains information on how to build GovWifi end-to-end - the sites, services and infrastructure.
 
 ## Table of Contents
 
-- [Govwifi Admin Application](#govwifi-admin-application)
+- [GovWifi admin application](#govwifi-admin-application)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Developing](#developing)
@@ -32,7 +32,7 @@ The application allows users to perform the following tasks:
 - Invite team members to their account.
 - View instructions on how to setup and configure GovWifi on their local network.
 - Add IP addresses of their access points to the GovWifi system.
-- View logs of authentication requests to GovWifi by IP and username.
+- View logs of authentication requests to GovWifi by IP address and username.
 - Make support ticket requests.
 
 The application also includes a "Super Admin" login feature that allows a GDS administrator to:
@@ -64,7 +64,7 @@ The application also provides the following data for the RADIUS configuration vi
 make serve
 ```
 
-The admin portal can be accessed at [http://localhost:8080](http://localhost:8080). Users and credentials are configured under [seeds.rb](db/seeds.rb)
+The GovWifi admin site can be accessed at [http://localhost:8080](http://localhost:8080). Users and credentials are configured under [seeds.rb](db/seeds.rb)
 
 ### Running the tests
 

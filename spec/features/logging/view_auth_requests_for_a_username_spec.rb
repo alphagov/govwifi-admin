@@ -14,7 +14,7 @@ describe "View authentication requests for a username", type: :feature do
     end
 
     it "displays no results" do
-      expect(page).to have_content("\"#{username}\" isn't reaching the GovWifi service")
+      expect(page).to have_content("\"#{username}\" is not reaching the GovWifi service")
     end
   end
 
@@ -108,7 +108,7 @@ describe "View authentication requests for a username", type: :feature do
     end
 
     it "displays the no results message" do
-      expect(page).to have_content("\"#{username}\" isn't reaching the GovWifi service")
+      expect(page).to have_content("\"#{username}\" is not reaching the GovWifi service")
     end
   end
 end

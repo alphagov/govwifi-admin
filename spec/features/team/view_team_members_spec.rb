@@ -20,8 +20,8 @@ describe "View team members of my organisation", type: :feature do
           "View logs",
           "View team members",
           "Add and remove team members",
-          "View locations and IPs",
-          "Add and remove locations and IPs",
+          "View locations and IP addresses",
+          "Add and remove locations and IP addresses",
         ]
       end
 

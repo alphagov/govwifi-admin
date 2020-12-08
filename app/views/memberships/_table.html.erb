@@ -35,15 +35,15 @@
             </li>
             <li>
               <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
-              <span class='govuk-!-padding-left-1'>View locations and IPs</span>
+              <span class='govuk-!-padding-left-1'>View locations and IP addresses</span>
             </li>
             <li>
               <% if member.can_manage_locations?(current_organisation) %>
                 <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
-                <span class='govuk-!-padding-left-1'>Add and remove locations and IPs</span>
+                <span class='govuk-!-padding-left-1'>Add and remove locations and IP addresses</span>
               <% else %>
                 <%= image_tag "cross.svg", class: "list-item-padding", height: "30", alt: "not allowed" %>
-                <span class='govuk-!-padding-left-1 text-dark-grey'>Add and remove locations and IPs</span>
+                <span class='govuk-!-padding-left-1 text-dark-grey'>Add and remove locations and IP addressess</span>
               <% end %>
             </li>
           </ul>
