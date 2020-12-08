@@ -6,11 +6,11 @@
     <h2 class="govuk-heading-l">Sign the memorandum of understanding</h2>
     <p class="govuk-body">You must sign a memorandum of understanding (MOU) to use GovWifi.</p>
     <% if @mou %>
-      <ul class="govuk-list govuk-list">
-        <li>1. <%= link_to "Download a copy of the MOU.", rails_blob_path(@mou, disposition: "attachment"), class: "govuk-link" %></li>
-        <li>2. Sign the document.</li>
-        <li>3. Upload your signed MOU.</li>
-      </ul>
+      <ol class="govuk-list govuk-list--number">
+        <li><%= link_to "Download a copy of the MOU.", rails_blob_path(@mou, disposition: "attachment"), class: "govuk-link" %></li>
+        <li>Sign the document.</li>
+        <li>Upload your signed MOU.</li>
+      </ol>
       <p class="govuk-body">The MOU must be signed by someone in your organisation who has permission to sign off and procure services.</p>
     <% else %>
       <p class="govuk-body">
