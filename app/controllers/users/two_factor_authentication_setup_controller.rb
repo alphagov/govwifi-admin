@@ -5,7 +5,6 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   skip_before_action :confirm_two_factor_setup, :redirect_user_with_no_organisation
 
   def show
-    # Used to populate the QR code used in setup.
     @otp_secret_key = ROTP::Base32.random_base32
   end
 
@@ -42,7 +41,6 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
 private
 
   def disable_2fa_checks_for_session
-    # Ensures the user doesn't go through 2FA check again.
     request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
     redirect_to stored_location_for(:user) || root_path
   end

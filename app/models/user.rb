@@ -29,8 +29,6 @@ class User < ApplicationRecord
 
   validate :strong_password, on: :update, if: :password_present?
 
-  enum second_factor_method: { email: "email", app: "app" }
-
   def password_present?
     !password.nil?
   end
@@ -98,25 +96,10 @@ class User < ApplicationRecord
       encrypted_otp_secret_key_salt: nil,
       totp_timestamp: nil,
       otp_secret_key: nil,
-      second_factor_method: nil,
     )
   end
 
   def send_new_otp_after_login?
-    second_factor_method == "email"
-  end
-
-  def send_two_factor_authentication_code(code)
-    UseCases::Administrator::SendOtpEmail.new(
-      notifications_gateway: EmailGateway.new,
-       ).execute(
-         email_address: email,
-         name: name,
-         url: Rails.application.routes.url_helpers.users_two_factor_authentication_direct_otp_url(code: code),
-)
-  end
-
-  def has_2fa?
-    Rails.configuration.enable_enhanced_2fa_experience ? second_factor_method.present? : totp_enabled?
+    false
   end
 end

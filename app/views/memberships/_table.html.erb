@@ -52,7 +52,7 @@
         <div class='govuk-grid-column-one-third govuk-list govuk-!-padding-right-4 govuk-!-margin-top-0 text-right'>
           <% if current_user.can_manage_team?(current_organisation) && member.id != current_user.id %>
             <%= link_to "Edit permissions", edit_membership_path(member.membership_for(current_organisation)), class: "govuk-link govuk-link--no-visited-state" %>
-            <% if member.has_2fa? %>
+            <% if member.totp_enabled? %>
               <%= link_to "Reset 2FA",
                           { controller: "users/two_factor_authentication", action: "edit", id: member },
                           class: "govuk-link govuk-link--no-visited-state" %>

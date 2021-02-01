@@ -133,7 +133,7 @@ describe User do
     let(:organisation) { create(:organisation) }
 
     before do
-      allow(warden).to receive(:session).with(:user) { Hash[two_factor_session_key => nil] }
+      allow(warden).to receive(:session).with(:user) { Hash[TwoFactorAuthentication::NEED_AUTHENTICATION => nil] }
     end
 
     context "with super admins membership" do
@@ -152,7 +152,7 @@ describe User do
 
     context "when skipped for later" do
       it "is false" do
-        allow(warden).to receive(:session).with(:user) { Hash[two_factor_session_key => false] }
+        allow(warden).to receive(:session).with(:user) { Hash[TwoFactorAuthentication::NEED_AUTHENTICATION => false] }
 
         expect(user.need_two_factor_authentication?(request)).to be false
       end
@@ -226,71 +226,6 @@ describe User do
 
     it "resets the two factor auth" do
       expect(user).not_to be_totp_enabled
-    end
-  end
-
-  describe "#send_new_otp_after_login?" do
-    it "it sends an email if the user has chosen to 2fa through email" do
-      user = create(:user, :with_organisation, second_factor_method: "email")
-      expect(user.send_new_otp_after_login?).to be true
-    end
-
-    it "does not send an email if the user has chosen to 2fa through the app" do
-      user = create(:user, :with_organisation, second_factor_method: "app")
-      expect(user.send_new_otp_after_login?).to be false
-    end
-  end
-
-  describe "#send_new_otp" do
-    let(:user) { create(:user, :with_organisation) }
-    context "the user has a direct otp set" do
-      before :each do
-        user.create_direct_otp
-        user.send_new_otp
-      end
-
-      it "sends an email" do
-        expect(notification_instance).to have_received(:send_email).
-                with(hash_including(personalisation:
-                                        {
-                                            name: user.name,
-                                            url: "https://example.com/users/two_factor_authentication/auth/#{user.direct_otp}",
-                                        }))
-      end
-    end
-  end
-
-  describe ".has_2fa?" do
-    let(:no_2fa) { create(:user) }
-    let(:app_2fa) { create(:user, :with_2fa) }
-    let(:email_2fa) { create(:user, :with_email_2fa) }
-
-    context "when no 2fa" do
-      it "returns false" do
-        expect(no_2fa.has_2fa?).to be false
-      end
-    end
-
-    context "when app 2fa" do
-      it "returns true" do
-        expect(app_2fa.has_2fa?).to be true
-      end
-    end
-
-    context "when enable_enhanced_2fa_experience is true" do
-      before do
-        allow(Rails.application.config).to receive(:enable_enhanced_2fa_experience).and_return true
-      end
-
-      after do
-        allow(Rails.application.config).to receive(:enable_enhanced_2fa_experience).and_call_original
-      end
-
-      context "when email 2fa" do
-        it "returns true" do
-          expect(email_2fa.has_2fa?).to be true
-        end
-      end
     end
   end
 end
