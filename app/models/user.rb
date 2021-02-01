@@ -79,13 +79,10 @@ class User < ApplicationRecord
   end
 
   def need_two_factor_authentication?(request)
-    # 2FA becomes mandatory with the new 2FA experience.
-    return true if Rails.configuration.enable_enhanced_2fa_experience
-
     return false if ENV.key?("BYPASS_2FA")
 
     needs_auth = request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION]
-    (needs_auth != false) || super_admin?
+    needs_auth.nil? || needs_auth || super_admin?
   end
 
   def reset_2fa!
