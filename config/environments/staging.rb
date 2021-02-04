@@ -21,5 +21,5 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "admin.staging.wifi.service.gov.uk" }
   config.s3_aws_config = {}
   config.route53_aws_config = {}
-  config.enable_enhanced_2fa_experience = true
+  config.enable_enhanced_2fa_experience = false
 end
