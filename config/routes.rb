@@ -17,23 +17,11 @@ Rails.application.routes.draw do
     put "users/confirmations", to: "users/confirmations#update"
     get "users/confirmations/pending", to: "users/confirmations#pending"
 
-    # Older implementation: will be superseded (and removed) by newer implementation once feature
-    # flag has been removed.
     put "users/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#update"
     get "users/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#show"
 
-    # Newer implementation: will supersede the above.
-    get "users/two_factor_authentication/setup", to: "users/two_factor_authentication/setup#show"
-    put "users/two_factor_authentication/setup", to: "users/two_factor_authentication/setup#update"
-
-    get "users/two_factor_authentication/setup/email/confirmation", to: "users/two_factor_authentication/setup/email#confirmation"
-    get "users/two_factor_authentication/setup/app", to: "users/two_factor_authentication/setup/app#show"
-    get "users/two_factor_authentication/email/resend_form", to: "users/two_factor_authentication/email#resend_form"
-    put "users/two_factor_authentication/email", to: "users/two_factor_authentication/email#update"
-
     get "users/:id/two_factor_authentication/edit", to: "users/two_factor_authentication#edit"
     delete "users/:id/two_factor_authentication", to: "users/two_factor_authentication#destroy"
-    get "users/two_factor_authentication/auth/:code", to: "users/two_factor_authentication#update", as: "users_two_factor_authentication_direct_otp"
   end
   get "confirm_new_membership", to: "users/memberships#create"
 

@@ -2,8 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!, except: :error
-  before_action :confirm_two_factor_setup, unless: :tfa_feature_flag?
-  before_action :choose_two_factor_method, if: :tfa_feature_flag?
+  before_action :confirm_two_factor_setup
 
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
   before_action :redirect_user_with_no_organisation, unless: :current_action_is_valid?
@@ -59,17 +58,6 @@ protected
 
   def valid_help_actions
     @valid_help_actions ||= %w[signed_in create].freeze
-  end
-
-  def tfa_feature_flag?
-    Rails.configuration.enable_enhanced_2fa_experience
-  end
-
-  def choose_two_factor_method
-    return if current_user.nil? || !current_user.second_factor_method.nil?
-
-    # TODO: Replace with route helper once fully migrated to enhanced 2FA.
-    redirect_to "/users/two_factor_authentication/setup"
   end
 
   def confirm_two_factor_setup

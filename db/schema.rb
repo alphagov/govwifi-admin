@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_20_154112) do
+ActiveRecord::Schema.define(version: 2021_02_01_122112) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(version: 2020_10_20_154112) do
     t.string "encrypted_otp_secret_key_salt"
     t.timestamp "totp_timestamp"
     t.boolean "is_super_admin", default: false, null: false
-    t.string "second_factor_method"
     t.string "direct_otp"
     t.datetime "direct_otp_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true

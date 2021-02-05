@@ -5,7 +5,6 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   skip_before_action :confirm_two_factor_setup, :redirect_user_with_no_organisation
 
   def show
-    # Used to populate the QR code used in setup.
     @otp_secret_key = ROTP::Base32.random_base32
   end
 
@@ -18,8 +17,8 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
 
     @otp_secret_key = params[:otp_secret_key]
     if current_user.authenticate_totp(params[:code], otp_secret_key: @otp_secret_key)
-      current_user.otp_secret_key = @otp_secret_key
-      current_user.save(validate: false)
+      current_user.update(otp_secret_key: @otp_secret_key)
+
       flash[:notice] = "Two factor authentication setup successful"
       disable_2fa_checks_for_session
     else
@@ -42,7 +41,6 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
 private
 
   def disable_2fa_checks_for_session
-    # Ensures the user doesn't go through 2FA check again.
     request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
     redirect_to stored_location_for(:user) || root_path
   end

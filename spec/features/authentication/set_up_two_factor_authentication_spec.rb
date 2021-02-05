@@ -8,7 +8,6 @@ describe "Set up two factor authentication", type: :feature do
   include_context "when using the notifications service"
 
   before do
-    allow(Rails.application.config).to receive(:enable_enhanced_2fa_experience).and_return false
     sign_in_user(user, pass_through_two_factor: false)
     visit root_path
   end
@@ -32,10 +31,6 @@ describe "Set up two factor authentication", type: :feature do
 
     it "expects a TOTP code" do
       expect(page).to have_field(:code)
-    end
-
-    it "does not send an email" do
-      expect(notification_instance).to_not have_received(:send_email)
     end
 
     context "when navigating to another page" do
@@ -68,10 +63,6 @@ describe "Set up two factor authentication", type: :feature do
       it "redirects the user to the admin app" do
         expect(page).to have_current_path(super_admin_organisations_path)
       end
-
-      it "does not send an email" do
-        expect(notification_instance).to_not have_received(:send_email)
-      end
     end
 
     context "when submitting an invalid code" do
@@ -91,22 +82,33 @@ describe "Set up two factor authentication", type: :feature do
       it "doesn't store a totp for the user" do
         expect(user.otp_secret_key).to be nil
       end
+    end
 
-      it "does not send an email" do
-        expect(notification_instance).to_not have_received(:send_email)
+    context "clicking on the remind me next time button" do
+      before do
+        click_on "Remind me next time"
+      end
+      it "redirects back to the 2fa setup page" do
+        expect(page).to have_current_path(users_two_factor_authentication_setup_path)
       end
     end
   end
 
-  context "with a normal admin user" do
+  context "with a regular non-super-admin user" do
     let(:user) { create(:user, organisations: [organisation]) }
 
-    it "enforces 2FA setup" do
+    it "redirects to the 2fa setup page" do
       expect(page).to have_current_path(users_two_factor_authentication_setup_path)
     end
 
-    it "does not send an email" do
-      expect(notification_instance).to_not have_received(:send_email)
+    context "clicking on the remind me next time button" do
+      before do
+        click_on "Remind me next time"
+      end
+      it "disables 2fa for the session" do
+        expect(page).to have_content("Two factor authentication setup skipped until next time")
+        expect(page).to_not have_current_path(users_two_factor_authentication_setup_path)
+      end
     end
   end
 end

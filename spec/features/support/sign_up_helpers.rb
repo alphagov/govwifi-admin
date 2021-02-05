@@ -27,22 +27,8 @@ end
 
 def skip_two_factor_authentication
   Warden.on_next_request do |proxy|
-    proxy.session(:user)[two_factor_session_key] = false
+    proxy.session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
   end
-end
-
-def complete_two_factor_authentication
-  totp_double = instance_double(ROTP::TOTP)
-
-  allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
-  allow(totp_double).to receive(:verify).and_return(true)
-  allow(totp_double).to receive(:provisioning_uri).and_return("some-url")
-
-  choose "app"
-  click_on "Continue"
-
-  fill_in :code, with: "999999"
-  click_on "Complete setup"
 end
 
 def confirmation_email_link
@@ -57,14 +43,7 @@ def sign_in_user(user, pass_through_two_factor: true)
   user.confirm unless user.confirmed?
   login_as(user, scope: :user)
 
-  Warden.on_next_request do |proxy|
-    perform_two_factor_auth = proxy.session(:user)[two_factor_session_key] && !pass_through_two_factor
-    proxy.session(:user)[two_factor_session_key] = perform_two_factor_auth
-  end
-end
-
-def two_factor_session_key
-  TwoFactorAuthentication::NEED_AUTHENTICATION
+  skip_two_factor_authentication if pass_through_two_factor
 end
 
 def sign_out
