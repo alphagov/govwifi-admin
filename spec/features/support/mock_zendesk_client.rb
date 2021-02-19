@@ -3,6 +3,7 @@ shared_context "with a mocked support tickets client" do
     class << self
       attr_accessor :config
       attr_accessor :support_tickets
+      attr_accessor :exception_to_raise
     end
 
     def initialize
@@ -14,6 +15,7 @@ shared_context "with a mocked support tickets client" do
     def self.reset!
       self.support_tickets = []
       self.config = Struct.new(:url, :username, :token).new
+      self.exception_to_raise = nil
     end
 
     def tickets
@@ -22,6 +24,8 @@ shared_context "with a mocked support tickets client" do
     end
 
     def create!(subject: nil, requester: nil, comment: nil, tags: nil)
+      raise self.class.exception_to_raise unless self.class.exception_to_raise.nil?
+
       self.class.support_tickets << {
         subject: subject,
         requester: requester,
