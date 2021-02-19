@@ -160,6 +160,18 @@ describe "Contact us when not signed in", type: :feature do
         expect(page).to have_content "Email is not a valid email address"
       end
     end
+
+    context "correct but rejected by Zendesk" do
+      let(:email) { "blah_blah%\#@\#$" }
+      before do
+        ZendeskClientMock.exception_to_raise = ZendeskAPI::Error::RecordInvalid.new({})
+        click_on "Submit"
+      end
+
+      it "does not submit the form" do
+        expect(page).to have_content "Email is not a valid email address"
+      end
+    end
   end
 end
 

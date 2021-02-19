@@ -59,6 +59,9 @@ class HelpController < ApplicationController
     else
       render @support_form.choice
     end
+  rescue ZendeskAPI::Error::RecordInvalid
+    @support_form.errors.add(:email, " is not a valid email address")
+    render @support_form.choice
   end
 
 private
