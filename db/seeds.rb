@@ -2,7 +2,7 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require "faker"
 
-CustomOrganisationName.create(name: "GovWifi Super Administrators")
+CustomOrganisationName.create!(name: "GovWifi Super Administrators")
 
 def create_user_for_organisations(
   organisations,
@@ -13,7 +13,7 @@ def create_user_for_organisations(
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
   email ||= first_name + "." + last_name + "@example.gov.uk"
-  User.create(
+  User.create!(
     email: email,
     password: "password",
     name: first_name + " " + last_name,
@@ -26,10 +26,10 @@ end
 super_admin_organisation = Organisation.create!(
   name: "GovWifi Super Administrators", service_email: "it@gds.com", super_admin: true,
 )
-organisation = Organisation.create(
+organisation = Organisation.create!(
   name: "UKTI Education", service_email: "it@parks.com",
 )
-empty_organisation = Organisation.create(
+empty_organisation = Organisation.create!(
   name: "Academy for Social Justice Commissioning", service_email: "empty@example.net",
 )
 

@@ -78,8 +78,8 @@ describe "POST /admin/whitelist", type: :request do
     end
 
     before do
-      AuthorisedEmailDomain.create(name: email_domain)
-      CustomOrganisationName.create(name: organisation_name)
+      AuthorisedEmailDomain.create!(name: email_domain)
+      CustomOrganisationName.create!(name: organisation_name)
     end
 
     it "does not create the related whitelist objects" do

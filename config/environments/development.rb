@@ -1,6 +1,4 @@
 require "action_mailer/railtie"
-
-# rubocop:disable Metrics/BlockLength
 Rails.application.configure do
   config.active_storage.service = :local
 
@@ -115,5 +113,5 @@ Rails.application.configure do
     },
   }
 end
-# rubocop:enable Metrics/BlockLength
+
 ActionMailer::Base.perform_deliveries = false

@@ -54,7 +54,7 @@ describe "Adding a custom organisation name", type: :feature do
       let(:name) { "Custom Org name" }
 
       before do
-        CustomOrganisationName.create(name: "Custom Org name")
+        CustomOrganisationName.create!(name: "Custom Org name")
         click_on "Allow organisation"
       end
 

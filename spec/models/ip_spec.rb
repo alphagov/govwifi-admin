@@ -9,14 +9,14 @@ describe Ip do
     let(:location) { create(:location, organisation: create(:organisation)) }
 
     it "does not allow the address 0.0.0.0" do
-      ip = described_class.create(address: "0.0.0.0", location: location)
+      ip = described_class.create!(address: "0.0.0.0", location: location)
       expect(ip.errors.full_messages).to eq([
         "Address '0.0.0.0' is not a valid IP address",
       ])
     end
 
     it "does not allow a blank address" do
-      ip = described_class.create(address: "", location: location)
+      ip = described_class.create!(address: "", location: location)
       expect(ip.errors.full_messages).to eq([
         "Address can't be blank",
       ])

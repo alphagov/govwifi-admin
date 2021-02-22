@@ -47,17 +47,17 @@ describe "Viewing the overview page", type: :feature do
     let(:radius_secret_key) { "E1EAB12AD10B8" }
 
     before do
-      location_one = create(:location,
-                            organisation: user.organisations.first,
-                            address: address_one,
-                            postcode: postcode_one)
+      location_one = create!(:location,
+                             organisation: user.organisations.first,
+                             address: address_one,
+                             postcode: postcode_one)
 
-      location_one.update(radius_secret_key: radius_secret_key)
+      location_one.update!(radius_secret_key: radius_secret_key)
 
-      location_two = create(:location,
-                            organisation: user.organisations.first,
-                            address: address_two,
-                            postcode: postcode_two)
+      location_two = create!(:location,
+                             organisation: user.organisations.first,
+                             address: address_two,
+                             postcode: postcode_two)
 
       create(:ip, address: ip_one, location: location_one)
       create(:ip, address: ip_two, location: location_one)
