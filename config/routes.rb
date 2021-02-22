@@ -1,14 +1,13 @@
-# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   root "home#index"
 
   devise_for :users,
              controllers: {
-                 confirmations: "users/confirmations",
-                 registrations: "users/registrations",
-                 invitations: "users/invitations",
-                 passwords: "users/passwords",
-                 two_factor_authentication: "users/two_factor_authentication",
+               confirmations: "users/confirmations",
+               registrations: "users/registrations",
+               invitations: "users/invitations",
+               passwords: "users/passwords",
+               two_factor_authentication: "users/two_factor_authentication",
              }
 
   devise_scope :user do
@@ -109,4 +108,3 @@ Rails.application.routes.draw do
     get code, to: "application#error", code: code
   end
 end
-# rubocop:enable Metrics/BlockLength
