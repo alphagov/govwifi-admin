@@ -15,7 +15,7 @@
     <% end %>
     <p class="govuk-body"> </p>
     <p class="govuk-body"> </p>
-    <%= form_with url: super_admin_mou_index_path, method: "post", class: "govuk-form-group" do |form| %>
+    <%= form_with url: super_admin_mou_index_path, local: true, method: "post", class: "govuk-form-group" do |form| %>
       <%= form.label :unsigned_mou, "Select template file", class: "govuk-label" %>
       <%= form.file_field(:unsigned_document) %>
       <p>
