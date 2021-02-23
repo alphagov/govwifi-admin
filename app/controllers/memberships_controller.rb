@@ -5,7 +5,7 @@ class MembershipsController < ApplicationController
   def edit; end
 
   def update
-    @membership.update(membership_params)
+    @membership.update!(membership_params)
     flash[:notice] = "Permissions updated"
     redirect_to updated_permissions_memberships_path
   end
@@ -15,8 +15,8 @@ class MembershipsController < ApplicationController
   end
 
   def destroy
-    @membership.destroy
-    @membership.user.destroy unless @membership.user.memberships.any?
+    @membership.destroy!
+    @membership.user.destroy! unless @membership.user.memberships.any?
 
     redirect_path = if current_organisation&.super_admin?
                       super_admin_organisation_path(@membership.organisation)

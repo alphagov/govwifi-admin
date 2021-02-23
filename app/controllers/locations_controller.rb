@@ -25,7 +25,7 @@ class LocationsController < ApplicationController
 
   def update
     location = Location.find(params[:id])
-    location.update(radius_secret_key: rotate_radius_secret_key)
+    location.update!(radius_secret_key: rotate_radius_secret_key)
     redirect_to(ips_path, notice: "RADIUS secret key has been successfully rotated")
   end
 
@@ -55,7 +55,7 @@ class LocationsController < ApplicationController
     location = current_organisation.locations.find_by(id: params.fetch(:id))
     redirect_to ips_path && return unless location && location.ips.empty?
 
-    location.destroy
+    location.destroy!
     redirect_to removed_location_ips_path, notice: "Successfully removed location #{location.address}"
   end
 

@@ -26,7 +26,7 @@ class SuperAdmin::OrganisationsController < SuperAdminController
 
   def destroy
     organisation = Organisation.find(params[:id])
-    organisation.destroy
+    organisation.destroy!
     publish_organisation_names
     redirect_to super_admin_organisations_path, notice: "Organisation has been removed"
   end
