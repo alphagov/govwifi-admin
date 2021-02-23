@@ -27,7 +27,7 @@
 # Note: These URLs are publicly accessible. If you need to enforce access protection beyond the
 # security-through-obscurity factor of the signed blob references, you'll need to implement your own
 # authenticated redirection controller.
-class ActiveStorage::BlobsController < ActiveStorage::BaseController
+class ActiveStorage::SecureBlobsController < ActiveStorage::BaseController
   include ActiveStorage::SetBlob
   include Rails.application.routes.url_helpers
 
@@ -51,6 +51,6 @@ class ActiveStorage::BlobsController < ActiveStorage::BaseController
 
   def show
     expires_in ActiveStorage.service_urls_expire_in
-    redirect_to @blob.service_url(disposition: params[:disposition])
+    redirect_to @blob.url(disposition: params[:disposition])
   end
 end
