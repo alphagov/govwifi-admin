@@ -52,7 +52,7 @@ describe "Viewing the overview page", type: :feature do
                             address: address_one,
                             postcode: postcode_one)
 
-      location_one.update(radius_secret_key: radius_secret_key)
+      location_one.update!(radius_secret_key: radius_secret_key)
 
       location_two = create(:location,
                             organisation: user.organisations.first,

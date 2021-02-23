@@ -8,8 +8,8 @@ describe UseCases::Radius::GenerateRadiusIpWhitelist do
     create(:ip, address: "1.1.1.1", location: location1)
     create(:ip, address: "1.2.2.1", location: location1)
     create(:ip, address: "2.2.2.2", location: location2)
-    location1.update(radius_secret_key: "radkey1")
-    location2.update(radius_secret_key: "radkey2")
+    location1.update!(radius_secret_key: "radkey1")
+    location2.update!(radius_secret_key: "radkey2")
   end
 
   context "with locations and IPs" do

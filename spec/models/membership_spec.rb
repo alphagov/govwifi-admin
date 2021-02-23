@@ -33,12 +33,12 @@ describe Membership do
 
   describe ".confirmed?" do
     it "is unconfirmed" do
-      membership.update(confirmed_at: nil)
+      membership.update!(confirmed_at: nil)
       expect(membership.confirmed?).to eq(false)
     end
 
     it "is confirmed" do
-      membership.update(confirmed_at: Time.zone.today)
+      membership.update!(confirmed_at: Time.zone.today)
       expect(membership.confirmed?).to eq(true)
     end
   end

@@ -8,7 +8,7 @@ describe Gateways::ZendeskSupportTickets do
       ENV["ZENDESK_API_USER"] = "example-zendesk-admin@user.com"
       ENV["ZENDESK_API_TOKEN"] = "abcdefghihgfedcba"
 
-      ticket_gateway.create(
+      ticket_gateway.create!(
         subject: "example subject",
         email: "alice@company.com",
         name: requester_name,
@@ -72,7 +72,7 @@ describe Gateways::ZendeskSupportTickets do
   context "when creating multiple tickets" do
     before do
       3.times do
-        ticket_gateway.create(
+        ticket_gateway.create!(
           subject: "example subject",
           email: "alice@company.com",
           name: "alice",

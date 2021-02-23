@@ -48,7 +48,7 @@ describe "Sorting the organisations list", type: :feature do
           io: File.open(Rails.root + "spec/fixtures/mou.pdf"), filename: "mou.pdf",
         )
 
-        Organisation.find_by(name: "Gov Org 3").signed_mou_attachment.update(created_at: 3.months.from_now)
+        Organisation.find_by(name: "Gov Org 3").signed_mou_attachment.update!(created_at: 3.months.from_now)
       end
 
       it "sorts the list by oldest to most recent, when MoU signed is clicked once" do

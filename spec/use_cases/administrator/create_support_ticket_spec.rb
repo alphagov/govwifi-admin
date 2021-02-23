@@ -20,6 +20,6 @@ describe UseCases::Administrator::CreateSupportTicket do
   end
 
   it "passes the requester to the gateway" do
-    expect(tickets_gateway_spy).to have_received(:create).with(expected_arguments)
+    expect(tickets_gateway_spy).to have_received(:create!).with(expected_arguments)
   end
 end

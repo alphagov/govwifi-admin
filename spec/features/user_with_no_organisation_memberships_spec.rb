@@ -21,7 +21,7 @@ describe "A confirmed user with no organisation memberships logs in", type: :fea
       before do
         allow(Gateways::ZendeskSupportTickets).to receive(:new)
           .and_return(zendesk_client)
-        allow(zendesk_client).to receive(:create)
+        allow(zendesk_client).to receive(:create!)
       end
 
       it "presents the user with a support request form" do
