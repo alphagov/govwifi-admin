@@ -427,7 +427,7 @@ DEPENDENCIES
   puma (~> 5.1)
   rack-mini-profiler
   rack_session_access
-  rails (~> 6.1.0)
+  rails (~> 6.1)
   rails-controller-testing
   rqrcode
   rspec-rails (~> 4)
