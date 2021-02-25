@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/BlockLength
-
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -345,5 +343,3 @@ Devise.setup do |config|
   config.delete_cookie_on_logout = false # Delete cookie when user signs out, to force 2fA again on login
   config.direct_otp_valid_for = 30.minutes
 end
-
-# rubocop:enable Metrics/BlockLength

@@ -64,8 +64,8 @@ describe UseCases::Organisation::FetchOrganisationRegister do
     end
 
     before do
-      CustomOrganisationName.create(name: "Custom Org 1")
-      CustomOrganisationName.create(name: "Custom Org 2")
+      CustomOrganisationName.create!(name: "Custom Org 1")
+      CustomOrganisationName.create!(name: "Custom Org 2")
     end
 
     it "returns the combined register of all orgs" do

@@ -5,6 +5,7 @@ describe Ip do
   it { is_expected.to validate_presence_of(:address) }
   it { is_expected.to validate_uniqueness_of(:address) }
 
+  # rubocop:disable Rails/SaveBang
   context "when validating address" do
     let(:location) { create(:location, organisation: create(:organisation)) }
 
@@ -76,6 +77,7 @@ describe Ip do
       end
     end
   end
+  # rubocop:enable Rails/SaveBang
 
   context "when checking availability" do
     context "with an IP created at or after the midnight restart" do

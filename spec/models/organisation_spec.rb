@@ -128,7 +128,7 @@ describe Organisation do
         io: File.open(Rails.root + "spec/fixtures/mou.pdf"), filename: "mou.pdf",
       )
 
-      second_organisation.signed_mou_attachment.update(created_at: 3.months.ago)
+      second_organisation.signed_mou_attachment.update!(created_at: 3.months.ago)
     end
 
     context "when sorting by name" do

@@ -51,7 +51,7 @@ describe "Whitelisting an organisation", type: :feature do
       let(:organisation_name) { "Made Tech Ltd" }
 
       before do
-        CustomOrganisationName.create(name: organisation_name)
+        CustomOrganisationName.create!(name: organisation_name)
         visit new_super_admin_whitelist_path(step: "fourth")
         fill_in "Organisation name", with: organisation_name
         click_on "Continue"
@@ -70,7 +70,7 @@ describe "Whitelisting an organisation", type: :feature do
       let(:email_domain) { "madetech.com" }
 
       before do
-        AuthorisedEmailDomain.create(name: email_domain)
+        AuthorisedEmailDomain.create!(name: email_domain)
         visit new_super_admin_whitelist_path(
           whitelist: {
             step: "fifth",

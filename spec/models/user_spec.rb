@@ -13,6 +13,7 @@ describe User do
       expect(user).to be_valid
     end
 
+    # rubocop:disable Rails/SaveBang
     ["password123", "my password", "pa55w0rd"].each do |weak_pass|
       it "does not accept a weak password (#{weak_pass})" do
         user.update(password: weak_pass)
@@ -32,6 +33,7 @@ describe User do
         expect(user).not_to be_valid
       end
     end
+    # rubocop:enable Rails/SaveBang
   end
 
   it { is_expected.to have_many(:organisations).through(:memberships) }

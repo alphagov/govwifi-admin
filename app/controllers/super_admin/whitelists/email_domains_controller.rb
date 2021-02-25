@@ -25,7 +25,7 @@ class SuperAdmin::Whitelists::EmailDomainsController < SuperAdminController
   def destroy
     authorised_email_domain = AuthorisedEmailDomain.find_by(id: params.fetch(:id))
 
-    authorised_email_domain.destroy
+    authorised_email_domain.destroy!
     publish_email_domains_regex
     publish_email_domains_list
 

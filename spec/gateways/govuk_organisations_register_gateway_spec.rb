@@ -13,8 +13,8 @@ describe Gateways::GovukOrganisationsRegisterGateway do
 
   context "when custom organisations are added" do
     before do
-      CustomOrganisationName.create(name: "Custom Org 1")
-      CustomOrganisationName.create(name: "Custom Org 2")
+      CustomOrganisationName.create!(name: "Custom Org 1")
+      CustomOrganisationName.create!(name: "Custom Org 2")
     end
 
     it "fetches the custom organisation names from the register" do

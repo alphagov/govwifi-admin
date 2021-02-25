@@ -31,7 +31,7 @@
     <% end %>
 
     <div>
-      <%= form_with url: mou_index_path, method: "post" do |form| %>
+      <%= form_with url: mou_index_path, local: true, method: "post" do |form| %>
         <div class="govuk-form-group">
           <%= form.label(:signed_mou, "Choose a file to upload:", class: "govuk-body") %>
           <%= form.file_field(:signed_mou, class: "govuk-file-upload") %>

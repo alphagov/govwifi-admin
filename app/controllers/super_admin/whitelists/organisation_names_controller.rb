@@ -22,7 +22,7 @@ class SuperAdmin::Whitelists::OrganisationNamesController < SuperAdminController
   def destroy
     custom_org = CustomOrganisationName.find(params.fetch(:id))
 
-    custom_org.destroy
+    custom_org.destroy!
     redirect_to super_admin_whitelist_organisation_names_path, notice: "Successfully removed #{custom_org.name}"
   end
 

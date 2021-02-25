@@ -7,7 +7,7 @@ class Gateways::ZendeskSupportTickets
     end
   end
 
-  def create(subject:, email:, name:, body:)
+  def create!(subject:, email:, name:, body:)
     name = "Unknown" if name.blank?
 
     @client.tickets.create!(

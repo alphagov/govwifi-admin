@@ -11,7 +11,7 @@ class IpsController < ApplicationController
     ip = current_organisation.ips.find_by(id: params.fetch(:id))
     redirect_to ips_path && return unless ip
 
-    ip.destroy
+    ip.destroy!
     Facades::Ips::Publish.new.execute
     redirect_to removed_ips_path, notice: "Successfully removed IP address #{ip.address}"
   end
