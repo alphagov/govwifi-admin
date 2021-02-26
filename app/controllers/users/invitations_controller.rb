@@ -63,7 +63,7 @@ private
   end
 
   def delete_user_record
-    invited_user.destroy!
+    invited_user.destroy! unless invited_user.nil?
   end
 
   def set_target_organisation
