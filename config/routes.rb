@@ -104,10 +104,6 @@ Rails.application.routes.draw do
     end
   end
 
-  scope ActiveStorage.routes_prefix do
-    get "/blobs/redirect/:signed_id/*filename" => "active_storage/secure_blobs#show"
-  end
-
   %w[404 422 500].each do |code|
     get code, to: "application#error", code: code
   end
