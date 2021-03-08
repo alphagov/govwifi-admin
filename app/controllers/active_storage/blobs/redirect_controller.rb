@@ -27,7 +27,7 @@
 # Note: These URLs are publicly accessible. If you need to enforce access protection beyond the
 # security-through-obscurity factor of the signed blob references, you'll need to implement your own
 # authenticated redirection controller.
-class ActiveStorage::SecureBlobsController < ActiveStorage::BaseController
+class ActiveStorage::Blobs::RedirectController < ActiveStorage::BaseController
   include ActiveStorage::SetBlob
   include Rails.application.routes.url_helpers
 
