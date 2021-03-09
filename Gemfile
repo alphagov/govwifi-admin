@@ -9,7 +9,7 @@ end
 
 gem "activerecord-session_store"
 gem "aws-sdk-route53", "~> 1.44.0"
-gem "aws-sdk-s3", "~> 1.86.0"
+gem "aws-sdk-s3", "~> 1.90.0"
 gem "cancancan"
 gem "devise", "~> 4.7.3"
 gem "devise_invitable", "~> 2.0.3"
