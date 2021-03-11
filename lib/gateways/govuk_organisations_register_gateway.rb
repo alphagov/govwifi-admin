@@ -3,7 +3,7 @@ require "json"
 
 module Gateways
   class GovukOrganisationsRegisterGateway
-    def government_orgs
+    GOVERNMENT_ORGS =
       [
         "Attorney General's Office",
         "Cabinet Office",
@@ -994,10 +994,9 @@ module Gateways
         "Single Financial Guidance Body",
         "Employment Agency Standards Inspectorate",
         "UK Council for Internet Safety",
-      ]
-    end
+      ].freeze
 
-    def local_authorities
+    LOCAL_AUTHORITIES =
       [
         "Bath and North East Somerset Council",
         "Blackburn with Darwen Borough Council",
@@ -1366,7 +1365,14 @@ module Gateways
         "Bournemouth, Christchurch and Poole Council",
         "Dorset Council",
         "Buckinghamshire Council",
-      ]
+      ].freeze
+
+    def government_orgs
+      GOVERNMENT_ORGS
+    end
+
+    def local_authorities
+      LOCAL_AUTHORITIES
     end
 
     def custom_orgs
