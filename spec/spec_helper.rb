@@ -35,6 +35,20 @@ RSpec.configure do |config|
 
     stub_request(:get, "https://local-authority-eng.register.gov.uk/records.json?page-size=5000")
       .to_return(status: 200, body: File.read(Rails.root.join("spec/fixtures/local_auths_payload.json")))
+
+    Gateways::GovukOrganisationsRegisterGateway::GOVERNMENT_ORGS = [
+      "Gov Org 1",
+      "Gov Org 2",
+      "Gov Org 3",
+      "Gov Org 4",
+    ].freeze
+
+    Gateways::GovukOrganisationsRegisterGateway::LOCAL_AUTHORITIES = [
+      "Local Auth 1",
+      "Local Auth 2",
+      "Local Auth 3",
+      "Local Auth 4",
+    ].freeze
   end
 
   config.around do |example|
