@@ -58,7 +58,7 @@ private
   def authenticate_inviter!
     # https://github.com/scambra/devise_invitable#controller-filter
     unless current_user&.can_manage_team?(current_organisation)
-      redirect_to(root_path)
+      redirect_to(root_path) and return
     end
   end
 
