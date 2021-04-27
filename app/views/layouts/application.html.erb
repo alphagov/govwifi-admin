@@ -46,7 +46,7 @@
     <%= render "shared/header" %>
 
     <div class="govuk-width-container">
-      <% if user_signed_in? %>
+      <% if user_signed_in? and not current_page?(:controller => 'two_factor_authentication_setup', :action => 'show') %>
         <%= render "shared/subnav/#{subnav}" %>
         <hr class="govuk-section-break govuk-section-break--xs govuk-section-break--visible">
         <div class="govuk-grid-row">
