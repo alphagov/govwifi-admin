@@ -25,7 +25,11 @@
                              autofocus: true %>
         </div>
         <%= submit_tag t(".complete_setup"), class: "govuk-button govuk-!-margin-right-1" %>
-        <%= submit_tag t(".skip_setup"), class: "govuk-button govuk-button--secondary" %>
+      <% end %>
+      <% if !super_admin? %>
+        <%= link_to t(".unable_2fa"),
+                    users_two_factor_authentication_unable_path,
+                    class: "govuk-link" %>
       <% end %>
     </div>
   </div>
