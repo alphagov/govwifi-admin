@@ -31,7 +31,7 @@ gem "zendesk_api"
 group :test do
   gem "capybara"
   gem "erb_lint", require: false
-  gem "factory_bot_rails", "~> 6.1"
+  gem "factory_bot_rails", "~> 6.2"
   gem "faker"
   gem "guard-rspec"
   gem "nokogiri"
