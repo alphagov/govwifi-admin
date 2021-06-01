@@ -26,9 +26,11 @@
         <% end %>
       </tbody>
     </table>
-    <p class="govuk-body" id="no-results" style="display: none">
-      <strong>No results found</strong>
-    </p>
+    <div aria-role="status">
+      <p class="govuk-body" id="no-results" style="display: none">
+        <strong>No results found</strong>
+      </p>
+    </div>
   </div>
 </div>
 <%= render "shared/filter_search" %>

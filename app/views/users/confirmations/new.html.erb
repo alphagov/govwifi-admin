@@ -12,7 +12,6 @@
       <div class="govuk-form-group <%= field_error(resource, :email) %>">
         <%= f.label :email, "Enter your email address", class: "govuk-label" %>
         <%= f.email_field :email,
-                          autofocus: true,
                           autocomplete: "email",
                           class: "govuk-input",
                           value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>

@@ -12,7 +12,7 @@
       <div class="govuk-form-group <%= field_error(resource, :email) %>">
         <%= f.label :email, "Enter your email address", class: "govuk-label" %>
         <div class="govuk-hint">The email address must be from a government or a public sector domain.</div>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "govuk-input" %>
+        <%= f.email_field :email, autocomplete: "email", class: "govuk-input" %>
       </div>
 
       <div class="actions">
