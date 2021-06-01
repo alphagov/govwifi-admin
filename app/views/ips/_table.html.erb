@@ -6,7 +6,8 @@
   <div class="govuk-body govuk-!-margin-bottom-2">
     RADIUS secret key:
     <div class="inline-block">
-      <span class="secret-key"><%= location.radius_secret_key %></span><% if current_user.can_manage_locations?(current_organisation) %><%= link_to "Rotate secret key", location_rotate_key_path(location, rotate: true), class: "red-link secret-key-rotate-link" %><% end %>
+      <span class="secret-key"><%= location.radius_secret_key %></span>
+      <% if current_user.can_manage_locations?(current_organisation) %><%= link_to "Rotate secret key", location_rotate_key_path(location, rotate: true), class: "red-link secret-key-rotate-link" %><% end %>
     </div>
   </div>
   <% if current_user.can_manage_locations?(current_organisation) %>
