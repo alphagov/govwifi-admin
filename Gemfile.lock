@@ -118,7 +118,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise_invitable (2.0.3)
+    devise_invitable (2.0.5)
       actionmailer (>= 5.0)
       devise (>= 4.6)
     devise_zxcvbn (5.1.0)
@@ -185,7 +185,7 @@ GEM
     listen (3.4.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.9.0)
+    loofah (2.9.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.2.8)
@@ -409,7 +409,7 @@ DEPENDENCIES
   cancancan
   capybara
   devise (~> 4.7.3)
-  devise_invitable (~> 2.0.3)
+  devise_invitable (~> 2.0.5)
   devise_zxcvbn (~> 5.1.0)
   erb_lint
   factory_bot_rails (~> 6.1)
