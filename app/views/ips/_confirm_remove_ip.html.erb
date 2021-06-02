@@ -7,13 +7,13 @@
     <table class="govuk-table">
       <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell govuk-!-width-one-third">IP address</td>
+          <th scope="row" class="govuk-table__cell govuk-body govuk-!-width-one-third">IP address</th>
           <td class="govuk-table__cell govuk-!-width-one-third">
             <%= render partial: "ip_address", locals: { ip: @ip_to_delete.address } %>
           </td>
         </tr>
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell govuk-!-width-one-third">Location</td>
+          <th scope="row" class="govuk-table__cell govuk-body govuk-!-width-one-third">Location</th>
           <td class="govuk-table__cell govuk-!-width-one-third"><%= @ip_to_delete.location.address %></td>
         </tr>
       </tbody>
