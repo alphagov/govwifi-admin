@@ -5,48 +5,66 @@
     <li class='govuk-!-margin-bottom-1'>
       <div class='govuk-grid-row'>
         <div class='govuk-grid-column-two-thirds'>
-          <% if member.invitation_pending? || member.pending_membership_for?(organisation: current_organisation) %>
-            <h3 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
-              <span class='govuk-!-padding-left-1 govuk-body text-dark-grey'><%= member.email %> (invited)</span>
-            </h3>
-            <% else %>
-            <h3 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
-              <span class='govuk-!-padding-left-1 govuk-body text-dark-grey'><%= member.email %></span>
-            </h3>
-          <% end %>
-
-          <ul class='govuk-list govuk-!-margin-bottom-2 govuk-!-margin-top-1' id='member-<%= member.id %>-permissions'>
-            <li>
-              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
-              <span class='govuk-!-padding-left-1'>View logs</span>
-            </li>
-            <li>
-              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
-              <span class='govuk-!-padding-left-1'>View team members</span>
-            </li>
-            <li>
-              <% if member.can_manage_team?(current_organisation) %>
-                <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
-                <span class='govuk-!-padding-left-1'>Add and remove team members</span>
-              <% else %>
-                <%= image_tag "cross.svg", class: "list-item-padding", height: "30", alt: "not allowed" %>
-                <span class='govuk-!-padding-left-1 text-dark-grey'>Add and remove team members</span>
-              <% end %>
-            </li>
-            <li>
-              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
-              <span class='govuk-!-padding-left-1'>View locations and IP addresses</span>
-            </li>
-            <li>
-              <% if member.can_manage_locations?(current_organisation) %>
-                <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
-                <span class='govuk-!-padding-left-1'>Add and remove locations and IP addresses</span>
-              <% else %>
-                <%= image_tag "cross.svg", class: "list-item-padding", height: "30", alt: "not allowed" %>
-                <span class='govuk-!-padding-left-1 text-dark-grey'>Add and remove locations and IP addressess</span>
-              <% end %>
-            </li>
-          </ul>
+          <h2 class='govuk-heading-m govuk-!-margin-bottom-0'>
+            <%= member.name %>
+          </h2>
+          <p class='govuk-body text-dark-grey'>
+            <%= member.email %>
+            <% if member.invitation_pending? || member.pending_membership_for?(organisation: current_organisation) %>(invited)<% end %>
+          </p>
+          <h3 class='govuk-heading-s'>
+            Permissions
+          </h3>
+          <dl class="govuk-summary-list govuk-summary-list--no-border">
+            <div class="govuk-summary-list__row">
+              <dt style="width:70%" class="govuk-summary-list__key govuk-!-font-weight-regular">
+                View logs
+              </dt>
+              <dd style="width:30%" class="govuk-summary-list__value">
+                Yes
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt style="width:70%" class="govuk-summary-list__key govuk-!-font-weight-regular">
+                View team members
+              </dt>
+              <dd style="width:30%" class="govuk-summary-list__value">
+                Yes
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt style="width:70%" class="govuk-summary-list__key govuk-!-font-weight-regular">
+                Add and remove team members
+              </dt>
+              <dd style="width:30%" class="govuk-summary-list__value">
+                <% if member.can_manage_team?(current_organisation) %>
+                  Yes
+                <% else %>
+                  No
+                <% end %>
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt style="width:70%" class="govuk-summary-list__key govuk-!-font-weight-regular">
+                View locations and IP addresses
+              </dt>
+              <dd style="width:30%" class="govuk-summary-list__value">
+                Yes
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt style="width:70%" class="govuk-summary-list__key govuk-!-font-weight-regular">
+                Add and remove locations and IP addresses
+              </dt>
+              <dd style="width:30%" class="govuk-summary-list__value">
+                <% if member.can_manage_locations?(current_organisation) %>
+                  Yes
+                <% else %>
+                  No
+                <% end %>
+              </dd>
+            </div>
+          </dl>
         </div>
 
         <div class='govuk-grid-column-one-third govuk-list govuk-!-padding-right-4 govuk-!-margin-top-0 text-right'>
