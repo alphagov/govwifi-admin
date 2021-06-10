@@ -230,7 +230,7 @@ describe "Sign up as an organisation", type: :feature do
       update_user_details(organisation_name: org_name_left_blank)
       skip_two_factor_authentication
       within("div#error-summary") do
-        expect(page).to have_selector("li#error-message", count: 1, text: "Organisations name can't be blank")
+        expect(page).to have_selector("li", count: 1, text: "Organisations name can't be blank")
       end
     end
   end
