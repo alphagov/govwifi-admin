@@ -563,7 +563,7 @@ module Gateways
         "South East Sheffield Education Action Zone",
         "National Probation Service",
         "Hearing Aid Council",
-        "Northern Ireland Court Service",
+        "Northern Ireland Courts & Tribunals Service",
         "Criminal Records Bureau",
         "Police Complaints Authority",
         "Countryside Agency",
