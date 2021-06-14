@@ -1,20 +1,33 @@
 <% content_for :page_title, "Enter two-factor authentication code" %>
 
 <div class="govuk-grid-row">
-  <h2 class="govuk-heading-l">Two factor authentication</h2>
-  <div class="govuk-body">
-    Please enter your 6 digit two factor authentication code.
-  </div>
   <div class="govuk-body">
     <%= form_tag user_two_factor_authentication_path, method: :put do %>
+      <h2 class="govuk-heading-l"><%= label nil, :code, "Enter your two factor authentication code" %></h2>
+      <p id="code-hint">This is the 6-digit code in your authenticator app.</p>
+
       <div class="govuk-form-group">
         <%= text_field_tag :code, nil,
                            class: "govuk-input mfa-code",
                            maxlength: 6,
                            placeholder: "123456",
-                           autocomplete: "off" %>
+                           autocomplete: "off",
+                           "aria-describedby" => "code-hint" %>
       </div>
       <input type="submit" class="govuk-button" value="Authenticate" />
     <% end %>
+
+    <details class="govuk-details" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          I cannot use my code
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        <p>Ask a team member to reset your two factor authentication. They can do this from the ‘Team members’ section of their GovWifi admin account.</p>
+        <p>Once they have done this, you can set up two factor authentication again the next time you sign in.</p>
+        <p>Contact <a href="mailto:govwifi-support@digital.cabinet-office.gov.uk">govwifi-support@digital.cabinet-office.gov.uk</a> if you’re having problems.</p>
+       </div>
+    </details>
   </div>
 </div>
