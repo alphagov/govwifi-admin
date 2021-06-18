@@ -3,7 +3,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-three-quarters">
     <%= link_to "Back to settings", setup_instructions_path, class: "govuk-back-link" %>
-    <h2 class="govuk-heading-l">Sign the memorandum of understanding</h2>
+    <h1 class="govuk-heading-l">Sign the memorandum of understanding</h1>
     <p class="govuk-body">You must sign a memorandum of understanding (MOU) to use GovWifi.</p>
     <% if @mou %>
       <ol class="govuk-list govuk-list--number">
@@ -24,7 +24,7 @@
         A signed MOU was uploaded on <%= @current_org_signed_mou.created_at.strftime("%e %b %Y") %>,
         <%= link_to "Download and view your signed MOU.", rails_blob_path(@current_org_signed_mou, disposition: "attachment"), class: "govuk-link" %>
       </p>
-      <h3 class="govuk-heading-m">Replace your MOU</h3>
+      <h2 class="govuk-heading-m">Replace your MOU</h2>
       <p class="govuk-body">Manually replace your organisation's signed MOU. This will overwrite the existing document.</p>
     <% else %>
       <p class="govuk-body">You have not uploaded a signed MOU yet.</p>
