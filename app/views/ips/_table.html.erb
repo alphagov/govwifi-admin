@@ -1,21 +1,21 @@
-<table class="govuk-table result-row govuk-!-margin-bottom-7">
-  <caption class="govuk-table__caption text-left govuk-!-font-size-24">
-    <div class="filter-by govuk-!-margin-bottom-2">
-      <%= location.full_address %>
+<div class="result-row">
+  <h2 class="filter-by govuk-heading-m govuk-!-margin-bottom-2">
+    <%= location.full_address %>
+  </h2>
+
+  <div class="govuk-body govuk-!-margin-bottom-2">
+    RADIUS secret key:
+    <div class="inline-block">
+      <span class="secret-key"><%= location.radius_secret_key %></span>
+      <% if current_user.can_manage_locations?(current_organisation) %><%= link_to "Rotate secret key", location_rotate_key_path(location, rotate: true), class: "red-link secret-key-rotate-link" %><% end %>
     </div>
-    <div class="govuk-body govuk-!-margin-bottom-2">
-      RADIUS secret key:
-      <div class="inline-block">
-        <span class="secret-key"><%= location.radius_secret_key %></span><% if current_user.can_manage_locations?(current_organisation) %><%= link_to "Rotate secret key", location_rotate_key_path(location, rotate: true), class: "red-link secret-key-rotate-link" %><% end %>
-      </div>
-    </div>
-    <% if current_user.can_manage_locations?(current_organisation) %>
-      <%= link_to "Add IP addresses", location_add_ips_path(location_id: location.id), class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5" %>
-      <% if location.ips.empty? %>
-        <p class="result-row-empty govuk-body">
-          Add the IP addresses of your authenticators to offer GovWifi at this location
-        </p>
-      <% end %>
+  </div>
+  <% if current_user.can_manage_locations?(current_organisation) %>
+    <%= link_to "Add IP addresses", location_add_ips_path(location_id: location.id), class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5" %>
+    <% if location.ips.empty? %>
+      <p class="result-row-empty govuk-body">
+        Add the IP addresses of your authenticators to offer GovWifi at this location
+      </p>
     <% end %>
 
     <% if current_user.can_manage_locations?(current_organisation) && location.ips.empty? %>
@@ -23,35 +23,37 @@
         <%= link_to "Remove this location", location_remove_path(location, remove: true), class: "red-link" %>
       </p>
     <% end %>
-  </caption>
+  <% end %>
 
-  <tbody class="govuk-table__body" id="ips-table">
-    <% location.sorted_ip_addresses.each do |ip| %>
-      <tr class="govuk-table__row" id="ips-row-<%= ip.id %>">
-        <td class="govuk-table__cell govuk-!-width-one-third">
-          <%= render partial: "ip_address", locals: { ip: ip.address } %>
-        </td>
-        <% if ip.available? %>
-          <td class="govuk-table__cell ">
-            <% if ip.unused? %>
-              No traffic received yet
-            <% elsif ip.inactive? %>
-              No traffic in the last 10 days
-            <% else %>
-              Receiving traffic (<%= link_to "view logs", logs_path(ip: ip.address), class: "govuk-link" %>)
+  <table class="govuk-table govuk-!-margin-bottom-7">
+    <tbody class="govuk-table__body" id="ips-table">
+      <% location.sorted_ip_addresses.each do |ip| %>
+        <tr class="govuk-table__row" id="ips-row-<%= ip.id %>">
+          <td class="govuk-table__cell govuk-!-width-one-third">
+            <%= render partial: "ip_address", locals: { ip: ip.address } %>
+          </td>
+          <% if ip.available? %>
+            <td class="govuk-table__cell ">
+              <% if ip.unused? %>
+                No traffic received yet
+              <% elsif ip.inactive? %>
+                No traffic in the last 10 days
+              <% else %>
+                Receiving traffic (<%= link_to "view logs", logs_path(ip: ip.address), class: "govuk-link" %>)
+              <% end %>
+            </td>
+          <% else %>
+            <td class="govuk-table__cell text-dark-grey">
+              Available at 6am tomorrow
+            </td>
+          <% end %>
+          <td class="govuk-table__cell text-right">
+            <% if current_user.can_manage_locations?(current_organisation) %>
+              <%= link_to "Remove", ip_remove_path(ip), class: "govuk-link govuk-link--no-visited-state" %>
             <% end %>
           </td>
-        <% else %>
-          <td class="govuk-table__cell text-dark-grey">
-            Available at 6am tomorrow
-          </td>
-        <% end %>
-        <td class="govuk-table__cell text-right">
-          <% if current_user.can_manage_locations?(current_organisation) %>
-            <%= link_to "Remove", ip_remove_path(ip), class: "govuk-link govuk-link--no-visited-state" %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

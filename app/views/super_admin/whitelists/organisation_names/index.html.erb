@@ -15,7 +15,7 @@
     <%= form_for(:custom_organisations, url: super_admin_whitelist_organisation_names_path, html: { novalidate: "" }) do |f| %>
       <div class="govuk-form-group <%= field_error(@custom_organisation, :name) %>">
         <%= f.label :name, "Enter the organisation's full name", class: "govuk-label  govuk-!-margin-top-6" %>
-        <%= f.text_field :name, autofocus: true, class: "govuk-input" %>
+        <%= f.text_field :name, class: "govuk-input" %>
       </div>
 
       <div class="actions">

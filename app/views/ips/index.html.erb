@@ -27,9 +27,11 @@
       You need to add at least one location to offer GovWifi
     </p>
   <% else %>
-    <p class="govuk-body" id="no-results" style="display: none">
-      <strong>No results found</strong>
-    </p>
+    <div role="status">
+      <p class="govuk-body" id="no-results" style="display: none">
+        <strong>No results found</strong>
+      </p>
+    </div>
     <% @locations.each do |location| %>
       <%= render "ips/table", location: location %>
     <% end %>
