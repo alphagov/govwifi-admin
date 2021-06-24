@@ -1,17 +1,6 @@
 <% content_for :page_title, "Edit service email" %>
 
-<% if @organisation.errors.any? %>
-  <div class="govuk-error-summary">
-    <h2 class="govuk-error-summary__title">There is a problem</h2>
-    <div class="govuk-error-summary__body">
-      <ul class="govuk-list govuk-error-summary__list">
-        <% @organisation.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-<% end %>
+<%= render "layouts/form_errors", resource: @organisation %>
 
 <%= link_to "Back to settings", setup_instructions_path, class: "govuk-back-link" %>
 <h1 class="govuk-heading-l">Edit service email</h1>
