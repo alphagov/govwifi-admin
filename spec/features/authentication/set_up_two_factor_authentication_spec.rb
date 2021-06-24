@@ -33,6 +33,15 @@ describe "Set up two factor authentication", type: :feature do
       expect(page).to have_field(:code)
     end
 
+    it "does not display a link to skip 2fa" do
+      expect(page).to_not have_link("I cannot set up two factor authentication")
+    end
+
+    it "rejects directly visiting the unable to two factor authentication page" do
+      visit users_two_factor_authentication_unable_path
+      expect(page).to_not have_current_path(users_two_factor_authentication_unable_path)
+    end
+
     context "when navigating to another page" do
       before { visit root_path }
 
@@ -83,15 +92,6 @@ describe "Set up two factor authentication", type: :feature do
         expect(user.otp_secret_key).to be nil
       end
     end
-
-    context "clicking on the remind me next time button" do
-      before do
-        click_on "Remind me next time"
-      end
-      it "redirects back to the 2fa setup page" do
-        expect(page).to have_current_path(users_two_factor_authentication_setup_path)
-      end
-    end
   end
 
   context "with a regular non-super-admin user" do
@@ -101,13 +101,36 @@ describe "Set up two factor authentication", type: :feature do
       expect(page).to have_current_path(users_two_factor_authentication_setup_path)
     end
 
-    context "clicking on the remind me next time button" do
+    context "clicking on I cannot set up 2fa" do
       before do
-        click_on "Remind me next time"
+        click_on "I cannot set up two factor authentication"
       end
-      it "disables 2fa for the session" do
-        expect(page).to have_content("Two factor authentication setup skipped until next time")
-        expect(page).to_not have_current_path(users_two_factor_authentication_setup_path)
+      it "goes to the 2fa unable page" do
+        expect(page).to have_current_path(users_two_factor_authentication_unable_path)
+      end
+      context "click on the setup 2fa button" do
+        before :each do
+          click_on "Setup two factor authentication"
+        end
+        it "shows the 2fa setup page" do
+          expect(page).to have_current_path(users_two_factor_authentication_setup_path)
+        end
+      end
+      context "click on the back link" do
+        before :each do
+          click_on "Back"
+        end
+        it "shows the 2fa setup page" do
+          expect(page).to have_current_path(users_two_factor_authentication_setup_path)
+        end
+      end
+      context "click on the Continue to GovWifi link" do
+        before :each do
+          click_on "Continue to GovWifi"
+        end
+        it "signs in" do
+          expect(page).to have_current_path new_organisation_setup_instructions_path
+        end
       end
     end
   end

@@ -1,4 +1,6 @@
-<div class="govuk-error-summary">
+<% content_for :page_title, "Remove IP address -  #{yield :page_title}", flush: true %>
+
+<div class="govuk-error-summary" role="alert">
   <h2 class="govuk-error-summary__title">
     Remove this IP address?
   </h2>
@@ -7,13 +9,13 @@
     <table class="govuk-table">
       <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell govuk-!-width-one-third">IP address</td>
+          <th scope="row" class="govuk-table__cell govuk-body govuk-!-width-one-third">IP address</th>
           <td class="govuk-table__cell govuk-!-width-one-third">
             <%= render partial: "ip_address", locals: { ip: @ip_to_delete.address } %>
           </td>
         </tr>
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell govuk-!-width-one-third">Location</td>
+          <th scope="row" class="govuk-table__cell govuk-body govuk-!-width-one-third">Location</th>
           <td class="govuk-table__cell govuk-!-width-one-third"><%= @ip_to_delete.location.address %></td>
         </tr>
       </tbody>
