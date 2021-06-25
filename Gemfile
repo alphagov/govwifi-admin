@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "aws-sdk-route53", "~> 1.44.0"
+gem "aws-sdk-route53", "~> 1.49.0"
 gem "aws-sdk-s3", "~> 1.96.1"
 gem "cancancan"
 gem "devise", "~> 4.8.0"
@@ -37,7 +37,7 @@ group :test do
   gem "nokogiri"
   gem "rack_session_access"
   gem "rails-controller-testing"
-  gem "rspec-rails", "~> 4.1.0"
+  gem "rspec-rails", "~> 5.0.1"
   gem "rubocop-govuk", "~> 3.17.2"
   gem "shoulda-matchers", "~> 4.4"
   gem "simplecov", require: false
