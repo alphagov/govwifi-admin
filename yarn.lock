@@ -2,24 +2,20 @@
 # yarn lockfile v1
 
 
-"govuk-frontend@^3.11.0":
-  "integrity" "sha512-1hW/3etYBtKPM+PNdWVOijvWVI3mpYL8eb7WLTtlh/Qxf2mCp6LkCsZk9I034n4EJBYQ5jlUWsUlTOOIypftpg=="
-  "resolved" "https://registry.npmjs.org/govuk-frontend/-/govuk-frontend-3.11.0.tgz"
-  "version" "3.11.0"
+govuk-frontend@^3.13.0:
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-3.13.0.tgz#c52f3a3d54edccf58439db038dd75bbee5df0efa"
 
 "govwifi-shared-frontend@https://github.com/alphagov/govwifi-shared-frontend/releases/download/v0.6.6/govwifi-shared-frontend-0.6.6.tgz":
-  "integrity" "sha512-CXZDGx3lH3aq5YrRsrCo8nd5jPI7Lp0Hg2ap7GetsnIKCu33FRnDrbLJpqE4NYf0y3DSQ+4J8oEZtNfuLk/d/A=="
-  "resolved" "https://github.com/alphagov/govwifi-shared-frontend/releases/download/v0.6.6/govwifi-shared-frontend-0.6.6.tgz"
-  "version" "0.6.6"
+  version "0.6.6"
+  resolved "https://github.com/alphagov/govwifi-shared-frontend/releases/download/v0.6.6/govwifi-shared-frontend-0.6.6.tgz"
   dependencies:
-    "js-cookie" "^2.2.1"
+    js-cookie "^2.2.1"
 
-"html5shiv@^3.7.3":
-  "integrity" "sha1-14qEo2e8uacQEA1XgCw4ewhGMdI="
-  "resolved" "https://registry.npmjs.org/html5shiv/-/html5shiv-3.7.3.tgz"
-  "version" "3.7.3"
+html5shiv@^3.7.3:
+  version "3.7.3"
+  resolved "https://registry.npmjs.org/html5shiv/-/html5shiv-3.7.3.tgz"
 
-"js-cookie@^2.2.1":
-  "integrity" "sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ=="
-  "resolved" "https://registry.npmjs.org/js-cookie/-/js-cookie-2.2.1.tgz"
-  "version" "2.2.1"
+js-cookie@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/js-cookie/-/js-cookie-2.2.1.tgz"

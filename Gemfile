@@ -18,7 +18,7 @@ gem "jquery-rails"
 gem "mysql2", "~> 0.5.2"
 gem "notifications-ruby-client", "~> 5.3.0"
 gem "puma", "~> 5.3"
-gem "rails", "~> 6.1.3.2"
+gem "rails", "~> 6.1.4"
 gem "rqrcode"
 gem "sassc-rails"
 gem "sentry-raven"
@@ -43,11 +43,11 @@ group :test do
   gem "simplecov", require: false
   gem "simplecov-console", require: false
   gem "timecop", "~> 0.9.2"
-  gem "webmock", "~> 3.10.0"
+  gem "webmock", "~> 3.13.0"
 end
 
 group :development, :test do
-  gem "bullet", "~> 6.0"
+  gem "bullet", "~> 6.1"
   gem "byebug", "~> 11"
   gem "listen", "~> 3"
   gem "pry"
