@@ -9,12 +9,6 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   end
 
   def update
-    if params[:commit] == "Remind me next time"
-      flash[:notice] = "Two factor authentication setup skipped until next time"
-      disable_2fa_checks_for_session
-      return
-    end
-
     @otp_secret_key = params[:otp_secret_key]
     if current_user.authenticate_totp(params[:code], otp_secret_key: @otp_secret_key)
       current_user.update!(otp_secret_key: @otp_secret_key)

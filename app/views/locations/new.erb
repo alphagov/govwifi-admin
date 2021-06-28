@@ -1,20 +1,6 @@
 <% content_for :page_title, "Add location" %>
 
-<% if @location.errors.any? %>
-  <div class="govuk-error-summary">
-    <h2 class="govuk-error-summary__title">There is a problem</h2>
-    <div class="govuk-error-summary__body">
-      <ul class="govuk-list govuk-error-summary__list">
-        <% @location.errors.full_messages_for(:address).each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        <% @location.errors.full_messages_for(:postcode).each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-<% end %>
+<%= render "layouts/form_errors", resource: @location %>
 
 <div class='govuk-grid-row'>
   <div class='govuk-grid-column-full'>

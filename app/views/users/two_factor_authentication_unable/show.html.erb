@@ -1,0 +1,19 @@
+<% content_for :page_title, "Enter two-factor authentication code" %>
+
+<div class="govuk-grid-column">
+  <%= link_to "Back", :back, class: "govuk-back-link" %>
+
+  <h2 class="govuk-heading-l">Two factor authentication will be mandatory from July 2021</h2>
+  <div class="govuk-body">
+    This is to keep GovWifi secure.
+  </div>
+  <div class="govuk-body">
+    You'll need to use an authentication app. If you cannot do this please email <a class="govuk-link" href="mailto:<%= t(".email") %>"><%= t(".email") %></a>
+  </div>
+  <div class="govuk-body">
+    <%= link_to t(".setup"), users_two_factor_authentication_setup_path, class: "govuk-button" %>
+  </div>
+  <div class="govuk-body">
+    <%= link_to t(".continue"), users_two_factor_authentication_unable_path, class: "govuk-link", method: :put %>
+  </div>
+</div>
