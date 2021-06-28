@@ -47,7 +47,7 @@ group :test do
 end
 
 group :development, :test do
-  gem "bullet", "~> 6.0"
+  gem "bullet", "~> 6.1"
   gem "byebug", "~> 11"
   gem "listen", "~> 3"
   gem "pry"
