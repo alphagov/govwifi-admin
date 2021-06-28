@@ -7,18 +7,18 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "aws-sdk-route53", "~> 1.44.0"
-gem "aws-sdk-s3", "~> 1.86.0"
+gem "aws-sdk-route53", "~> 1.49.0"
+gem "aws-sdk-s3", "~> 1.96.1"
 gem "cancancan"
-gem "devise", "~> 4.7.3"
-gem "devise_invitable", "~> 2.0.3"
+gem "devise", "~> 4.8.0"
+gem "devise_invitable", "~> 2.0.5"
 gem "devise_zxcvbn", "~> 5.1.0"
 gem "httparty", "~> 0.18.1"
 gem "jquery-rails"
 gem "mysql2", "~> 0.5.2"
 gem "notifications-ruby-client", "~> 5.3.0"
 gem "puma", "~> 5.3"
-gem "rails", "~> 6.1"
+gem "rails", "~> 6.1.4"
 gem "rqrcode"
 gem "sassc-rails"
 gem "sentry-raven"
@@ -31,19 +31,19 @@ gem "zendesk_api"
 group :test do
   gem "capybara"
   gem "erb_lint", require: false
-  gem "factory_bot_rails", "~> 6.1"
+  gem "factory_bot_rails", "~> 6.2.0"
   gem "faker"
   gem "guard-rspec"
   gem "nokogiri"
   gem "rack_session_access"
   gem "rails-controller-testing"
-  gem "rspec-rails", "~> 4"
-  gem "rubocop-govuk"
+  gem "rspec-rails", "~> 5.0.1"
+  gem "rubocop-govuk", "~> 3.17.2"
   gem "shoulda-matchers", "~> 4.4"
   gem "simplecov", require: false
   gem "simplecov-console", require: false
   gem "timecop", "~> 0.9.2"
-  gem "webmock", "~> 3.10.0"
+  gem "webmock", "~> 3.12.2"
 end
 
 group :development, :test do
