@@ -2,7 +2,7 @@
 
 <%= render "layouts/form_errors", resource: @organisation %>
 
-<h2 class="govuk-heading-l">Register an organisation for GovWifi</h2>
+<h1 class="govuk-heading-l">Register an organisation for GovWifi</h1>
 <%= form_for @organisation, url: organisations_path do |form| %>
   <div class="govuk-form-group <%= field_error(@organisation, "name") %>">
     <%= form.label :name, "Organisation name", class: "govuk-label" %>
