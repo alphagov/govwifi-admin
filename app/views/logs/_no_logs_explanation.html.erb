@@ -1,8 +1,8 @@
 <div class="govuk-grid-column-two-thirds">
   <% if super_admin? %>
-    <h3 class="govuk-body">
+    <p class="govuk-body">
       If you were expecting to see results, ask the organisation if:
-    </h3>
+    </p>
 
     <ul class="govuk-list govuk-list--bullet">
       <li>the IP addresses they entered into the GovWifi admin site match their access point IP addresses exactly?</li>
@@ -11,9 +11,9 @@
     </ul>
 
   <% else %>
-    <h3 class="govuk-body">
+    <p class="govuk-body">
       If you were expecting to see results:
-    </h3>
+    </p>
 
     <ul class="govuk-list govuk-list--bullet">
       <li>check your <%= link_to "configured IP addresses", ips_path, class: "govuk-link" %> match your authenticator IP addresses </li>
