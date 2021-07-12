@@ -31,27 +31,24 @@
   <div class="govuk-grid-column-three-quarters">
     <%= link_to "Back to locations", ips_path, class: "govuk-back-link" %>
 
+    <span class="govuk-caption-xl govuk-!-font-weight-bold">
+      <%= @location.address %>, <%= @location.postcode %>
+    </span>
     <h1 class="govuk-heading-l">
       Add IP addresses
     </h1>
 
-    <p class="govuk-heading-s">
-      <%= @location.address %>, <%= @location.postcode %>
+    <p class="govuk-body">
+      Add up to 5 IPv4 addresses.
     </p>
 
-    <p class="govuk-body">
-      Add the IP addresses of your authenticators.
-    </p>
-
-    <p class="govuk-body">
-      If your authenticators have dynamic IP addresses, use firewall NAT rules so your requests come from consistent IP addresses.
-    </p>
+    <div class="govuk-inset-text govuk-!-padding-top-0 govuk-!-padding-bottom-0 govuk-!-margin-top-4 govuk-!-margin-bottom-4">
+      <p class="govuk-body">
+        If your authenticators have dynamic IP addresses, use firewall NAT rules so your requests come from consistent IP addresses.
+      </p>
+    </div>
 
     <%= form_for @location, url: location_update_ips_path(location_id: @location.id) do |form| %>
-      <%= label_tag :ip, "Enter up to five IP addresses ", class: "govuk-label" %>
-      <span class="govuk-hint">
-        IPv4 only
-      </span>
       <%= form.fields_for(:ips, @location.blank_ips) do |ip| %>
         <div class='govuk-!-margin-bottom-3' id="ip_<%= ip.index + 1 %>">
           <% style = "govuk-input govuk-input--width-10" + (ip.object.errors.key?(:address) ? " govuk-input--error" : "") %>
@@ -60,14 +57,12 @@
               <span class="govuk-visually-hidden">Error:</span> <%= ip.object.errors.full_messages_for(:address).first %>
             </span>
           <% end %>
-          <label class='label-inside-input'>
-            <span class='govuk-body'><%= ip.index + 1 %>.</span>
-            <%= ip.text_field :address, class: style, "aria-described-by" => ip.object.errors.key?(:address) && "ip_#{ip.index + 1}_error" %>
-          </label>
+          <%= ip.label :address, "IP address #{ip.index + 1}", class: "govuk-label" %>
+          <%= ip.text_field :address, class: style, "aria-described-by" => ip.object.errors.key?(:address) && "ip_#{ip.index + 1}_error" %>
         </div>
       <% end %>
 
-      <div>
+      <div class="govuk-!-margin-top-6">
         <%= form.submit "Add IP addresses", class: "govuk-button" %>
       </div>
 
