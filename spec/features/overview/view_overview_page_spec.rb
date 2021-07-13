@@ -71,19 +71,19 @@ describe "Viewing the overview page", type: :feature do
       end
 
       it "shows the IPs summary" do
-        within("h1#ips-count") do
+        within("#ips-count") do
           expect(page).to have_content(3)
         end
       end
 
       it "shows the Locations summary" do
-        within("h1#locations-count") do
+        within("#locations-count") do
           expect(page).to have_content(2)
         end
       end
 
       it "displays the Team members summary" do
-        within("h1#team-members-count") do
+        within("#team-members-count") do
           expect(page).to have_content(1)
         end
       end

@@ -15,12 +15,12 @@
 <% end %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full overview-section-alignment" id="overview">
-    <h2 class="govuk-heading-l govuk-grid-column-full">Overview</h2>
+    <h1 class="govuk-heading-l govuk-grid-column-full">Overview</h1>
     <div class="govuk-grid-column-one-third" id="team-members">
       <div class="overview-stats-panel govuk-panel--confirmation summary-background">
-        <h1 class="govuk-panel__title text-left" id="team-members-count">
+        <p class="govuk-panel__title text-left" id="team-members-count">
           <%= @team_members.count %>
-        </h1>
+        </p>
         <p class="govuk-panel__body text-left govuk-!-font-size-27">
           <%= link_to "Team members", memberships_path, class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
         </p>
@@ -28,9 +28,9 @@
     </div>
     <div class="govuk-grid-column-one-third" id="locations">
       <div class="overview-stats-panel govuk-panel--confirmation summary-background">
-        <h1 class="govuk-panel__title text-left" id="locations-count">
+        <p class="govuk-panel__title text-left" id="locations-count">
           <%= @locations.count %>
-        </h1>
+        </p>
         <p class="govuk-panel__body text-left govuk-!-font-size-27">
           <%= link_to "Locations", ips_path, class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
         </p>
@@ -38,9 +38,9 @@
     </div>
     <div class="govuk-grid-column-one-third" id="ips">
       <div class="overview-stats-panel govuk-panel--confirmation summary-background">
-        <h1 class="govuk-panel__title text-left" id="ips-count">
+        <p class="govuk-panel__title text-left" id="ips-count">
           <%= @ips.count %>
-        </h1>
+        </p>
         <p class="govuk-panel__body text-left govuk-!-font-size-27">
           <%= link_to "IP addresses", ips_path, class: "govuk-link govuk-link--no-visited-state summary-link-colour" %>
         </p>

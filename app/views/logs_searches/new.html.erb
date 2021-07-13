@@ -12,46 +12,50 @@
 
     <%= form_with url: logs_searches_path, method: :post, local: true do |form| %>
       <div class="govuk-form-group">
-        <p class="govuk-body">
-          How do you want to filter these logs?
-        </p>
-        <div class="govuk-radios <%= field_error(@search, :filter) %>">
-          <%= render "error_message", key: :filter, message: "select an option" %>
-          <% if !super_admin? %>
-            <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="choice-location" name="logs_search[filter]" type="radio" value="location">
-              <label class="govuk-label govuk-radios__label" for="choice-location">
-                Location
-              </label>
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">
+              How do you want to filter these logs?
+            </legend>
+            <div class="govuk-radios <%= field_error(@search, :filter) %>">
+              <%= render "error_message", key: :filter, message: "select an option" %>
+              <% if !super_admin? %>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="choice-location" name="logs_search[filter]" type="radio" value="location">
+                  <label class="govuk-label govuk-radios__label" for="choice-location">
+                    Location
+                  </label>
+                </div>
+              <% end %>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="choice-username" name="logs_search[filter]" type="radio" value="username">
+                <label class="govuk-label govuk-radios__label" for="choice-username">
+                  Username
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="choice-ip" name="logs_search[filter]" type="radio" value="ip">
+                <label class="govuk-label govuk-radios__label" for="choice-ip">
+                  IP address
+                </label>
+              </div>
+              <% if super_admin? %>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="choice-email" name="logs_search[filter]" type="radio" value="contact">
+                  <label class="govuk-label govuk-radios__label" for="choice-email">
+                    Email address
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="choice-phone" name="logs_search[filter]" type="radio" value="contact">
+                  <label class="govuk-label govuk-radios__label" for="choice-phone">
+                    Phone number
+                  </label>
+                </div>
+              <% end %>
             </div>
-          <% end %>
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="choice-username" name="logs_search[filter]" type="radio" value="username">
-            <label class="govuk-label govuk-radios__label" for="choice-username">
-              Username
-            </label>
           </div>
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="choice-ip" name="logs_search[filter]" type="radio" value="ip">
-            <label class="govuk-label govuk-radios__label" for="choice-ip">
-              IP address
-            </label>
-          </div>
-          <% if super_admin? %>
-            <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="choice-email" name="logs_search[filter]" type="radio" value="contact">
-              <label class="govuk-label govuk-radios__label" for="choice-email">
-                Email address
-              </label>
-            </div>
-            <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="choice-phone" name="logs_search[filter]" type="radio" value="contact">
-              <label class="govuk-label govuk-radios__label" for="choice-phone">
-                Phone number
-              </label>
-            </div>
-          <% end %>
-        </div>
+        </fieldset>
       </div>
       <input type='hidden' name='logs_search[first_step]' value='true'>
       <%= form.submit "Go to search", class: "govuk-button" %>

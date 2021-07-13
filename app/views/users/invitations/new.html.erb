@@ -4,10 +4,10 @@
 
 <% if super_admin? %>
   <%= link_to "Back to organisation", super_admin_organisation_path(@target_organisation.id), class: "govuk-back-link" %>
-  <h2 class="govuk-heading-l">Invite a team member to <%= @target_organisation.name %> </h2>
+  <h1 class="govuk-heading-l">Invite a team member to <%= @target_organisation.name %> </h1>
 <% else %>
   <%= link_to "Back to list", memberships_path, class: "govuk-back-link" %>
-  <h2 class="govuk-heading-l">Invite a team member</h2>
+  <h1 class="govuk-heading-l">Invite a team member</h1>
 <% end %>
 <div class="govuk-grid-column-full govuk-!-padding-left-0">
   <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, novalidate: "" } do |f| %>

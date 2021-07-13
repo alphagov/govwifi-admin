@@ -1,7 +1,7 @@
 <% content_for :page_title, "All organisations" %>
 
 <h1 class="govuk-heading-l">All organisations</h1>
-<h3 class="govuk-body">
+<p class="govuk-body">
   GovWifi is in
   <span class="govuk-!-font-weight-bold">
     <%= pluralize(@location_count, "location") %>
@@ -10,7 +10,7 @@
   <span class="govuk-!-font-weight-bold">
     <%= pluralize(@organisations.length, "organisation") %>.
   </span>
-</h3>
+</p>
 
 <div class="govuk-!-margin-top-1">
   <%= link_to "Download all organisations in CSV format",

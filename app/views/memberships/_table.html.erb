@@ -6,13 +6,13 @@
       <div class='govuk-grid-row'>
         <div class='govuk-grid-column-two-thirds'>
           <% if member.invitation_pending? || member.pending_membership_for?(organisation: current_organisation) %>
-            <h3 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
+            <h2 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
               <span class='govuk-!-padding-left-1 govuk-body text-dark-grey'><%= member.email %> (invited)</span>
-            </h3>
+            </h2>
             <% else %>
-            <h3 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
+            <h2 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
               <span class='govuk-!-padding-left-1 govuk-body text-dark-grey'><%= member.email %></span>
-            </h3>
+            </h2>
           <% end %>
 
           <ul class='govuk-list govuk-!-margin-bottom-2 govuk-!-margin-top-1' id='member-<%= member.id %>-permissions'>
