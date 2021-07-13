@@ -6,11 +6,11 @@
     <%= link_to "download and view the document.", rails_blob_path(organisation.signed_mou, disposition: "attachment"), class: "govuk-link" %>
   </p>
 
-  <h3 class="govuk-heading-m">Replace MOU</h3>
+  <h2 class="govuk-heading-m">Replace MOU</h2>
   <p class="govuk-body">Manually replace this organisation's signed MOU. This will overwrite the existing document.</p>
 <% else %>
   <p class="govuk-body">This organisation has not uploaded an MOU.</p>
-  <h3 class="govuk-heading-m">Upload MOU</h3>
+  <h2 class="govuk-heading-m">Upload MOU</h2>
   <p class="govuk-body">Manually upload this organisation's signed MOU</p>
 <% end %>
 

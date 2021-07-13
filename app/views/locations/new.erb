@@ -5,19 +5,19 @@
 <div class='govuk-grid-row'>
   <div class='govuk-grid-column-full'>
     <%= link_to 'Back to list', ips_path, class: 'govuk-back-link' %>
-    <h2 class='govuk-heading-l'>Add a location</h2>
+    <h1 class='govuk-heading-l'>Add a location</h1>
   </div>
   <div class='govuk-grid-column-full'>
     <%= form_for @location, html: { autocomplete: "off" } do |f| %>
       <div class="govuk-form-group">
         <%= f.label :address, class: 'govuk-label' %>
-        <span class="govuk-hint">
+        <div id="address-hint" class="govuk-hint">
           For example, 10 High Street, London
-        </span>
+        </div>
         <% if @location.errors.attribute_names.include?(:address) %>
-          <%= f.text_field :address, class: 'govuk-input govuk-input--error' %>
+          <%= f.text_field :address, class: 'govuk-input govuk-input--error', 'aria-describedby': 'address-hint' %>
         <% else %>
-          <%= f.text_field :address, class: 'govuk-input' %>
+          <%= f.text_field :address, class: 'govuk-input', 'aria-describedby': 'address-hint' %>
         <% end %>
       </div>
       <div class="govuk-form-group">

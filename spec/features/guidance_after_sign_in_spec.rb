@@ -9,7 +9,7 @@ describe "Guidance after sign in", type: :feature do
     before { visit root_path }
 
     it "displays information about GovWifi servers" do
-      expect(page).to have_selector("h3", text: "GovWifi servers")
+      expect(page).to have_selector("h2", text: "GovWifi servers")
     end
   end
 
