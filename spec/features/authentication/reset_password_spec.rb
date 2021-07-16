@@ -90,8 +90,8 @@ describe "Resetting a password", type: :feature do
         click_on "Change my password"
       end
 
-      it "automatically signs them in using the new password" do
-        expect(page).to have_content("Sign out")
+      it "automatically signs them out" do
+        expect(page).to_not have_content("Sign out")
       end
 
       it "tells the user their password has been changed" do
