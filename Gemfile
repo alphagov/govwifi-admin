@@ -8,7 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem "aws-sdk-route53", "~> 1.49.0"
-gem "aws-sdk-s3", "~> 1.96.1"
+gem "aws-sdk-s3", "~> 1.96.2"
 gem "cancancan"
 gem "devise", "~> 4.8.0"
 gem "devise_invitable", "~> 2.0.5"
