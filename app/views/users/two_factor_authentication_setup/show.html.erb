@@ -1,9 +1,9 @@
 <%# TODO: This will be deleted once we fully migrate to using the newer 2FA experience. %>
-<% content_for :page_title, "Two factor authentication setup" %>
+<% content_for :page_title, "Set up two factor authentication" %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l">Two factor authentication setup</h1>
+    <h1 class="govuk-heading-l">Set up two factor authentication</h1>
     <div class="govuk-body">
       1. Scan the QR code below using an authentication app on your phone.
     </div>
@@ -26,11 +26,14 @@
           <%= text_field_tag :code, nil,
                              class: "govuk-input mfa-code",
                              maxlength: 6,
-                             placeholder: "123456",
                              autocomplete: "off" %>
         </div>
         <%= submit_tag t(".complete_setup"), class: "govuk-button govuk-!-margin-right-1" %>
       <% end %>
+
+      <div class="govuk-body">
+        If you cannot set up two factor authentication, contact <a href="mailto:govwifi-support@digital.cabinet-office.gov.uk" class="govuk-link">govwifi-support@digital.cabinet-office.gov.uk</a>
+      </div>
     </div>
   </div>
 </div>
