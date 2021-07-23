@@ -29,6 +29,14 @@ describe "Set up two factor authentication", type: :feature do
       expect(page).to have_css("img[src*='data:image/png;base64']")
     end
 
+    it "labels the text key" do
+      expect(page).to have_content("Or, enter this key into your authenticator app:")
+    end
+
+    it "presents a text key" do
+      expect(page).to have_content(/(([A-Z0-9]){4}  ){7}[A-Z0-9]{4}/)
+    end
+
     it "expects a TOTP code" do
       expect(page).to have_field(:code)
     end
