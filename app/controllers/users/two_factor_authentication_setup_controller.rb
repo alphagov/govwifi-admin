@@ -32,6 +32,11 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   end
   helper_method :qr_code_uri
 
+  def twofa_key
+    @otp_secret_key.scan(/.{4}/).join("&nbsp;&nbsp;").html_safe
+  end
+  helper_method :twofa_key
+
 private
 
   def disable_2fa_checks_for_session
