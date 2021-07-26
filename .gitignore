@@ -26,6 +26,10 @@ package-lock.json
 # Ignore mac specific file that stores custom attributes
 .DS_Store
 
+# Ignore IDE files
+
+.idea
+
 # Ignore storage files
 storage/
 
