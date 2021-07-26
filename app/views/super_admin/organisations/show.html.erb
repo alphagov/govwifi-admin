@@ -39,6 +39,12 @@
       <%= render "locations", locations: @locations %>
     <% end %>
 
+    <%= render "section", heading: "IPs" do %>
+      <% @locations.each do |location| %>
+        <%= render partial: "show_ips", locals: { location: location } %>
+      <% end %>
+    <% end %>
+
     <%= link_to "Delete organisation", super_admin_organisation_path(@organisation, remove_organisation: true), class: "govuk-button red-button" %>
   </div>
 </div>

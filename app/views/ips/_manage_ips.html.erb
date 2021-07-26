@@ -1,0 +1,28 @@
+<div class="result-row">
+  <h2 class="filter-by govuk-heading-m govuk-!-margin-bottom-2">
+    <%= location.full_address %>
+  </h2>
+
+  <div class="govuk-body govuk-!-margin-bottom-2">
+    RADIUS secret key:
+    <div class="inline-block">
+      <span class="secret-key"><%= location.radius_secret_key %></span>
+      <% if current_user.can_manage_locations?(current_organisation) %><%= link_to "Rotate secret key", location_rotate_key_path(location, rotate: true), class: "red-link secret-key-rotate-link" %><% end %>
+    </div>
+  </div>
+  <% if current_user.can_manage_locations?(current_organisation) %>
+    <%= link_to "Add IP addresses", location_add_ips_path(location_id: location.id), class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5" %>
+    <% if location.ips.empty? %>
+      <p class="result-row-empty govuk-body">
+        Add the IP addresses of your authenticators to offer GovWifi at this location
+      </p>
+    <% end %>
+
+    <% if current_user.can_manage_locations?(current_organisation) && location.ips.empty? %>
+      <p class="govuk-body govuk-!-margin-bottom-1">
+        <%= link_to "Remove this location", location_remove_path(location, remove: true), class: "red-link" %>
+      </p>
+    <% end %>
+  <% end %>
+  <%= render partial: "shared/ip_table", locals: { location: location } %>
+</div>
