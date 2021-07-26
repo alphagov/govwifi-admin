@@ -38,10 +38,4 @@ en:
     two_factor_authentication_setup:
       show:
         complete_setup: "Complete setup"
-        unable_2fa: "I cannot set up two factor authentication"
-    two_factor_authentication_unable:
-      show:
-        email: "govwifi-support@digital.cabinet-office.gov.uk"
-        setup: "Setup two factor authentication"
-        continue: "Continue to GovWifi admin"
 

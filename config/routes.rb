@@ -19,9 +19,6 @@ Rails.application.routes.draw do
     put "users/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#update"
     get "users/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#show"
 
-    get "users/two_factor_authentication_unable", to: "users/two_factor_authentication_unable#show"
-    put "users/two_factor_authentication_unable", to: "users/two_factor_authentication_unable#update"
-
     get "users/:id/two_factor_authentication/edit", to: "users/two_factor_authentication#edit"
     delete "users/:id/two_factor_authentication", to: "users/two_factor_authentication#destroy"
   end

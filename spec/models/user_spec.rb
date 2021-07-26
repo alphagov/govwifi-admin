@@ -152,14 +152,6 @@ describe User do
       end
     end
 
-    context "when skipped for later" do
-      it "is false" do
-        allow(warden).to receive(:session).with(:user) { Hash[TwoFactorAuthentication::NEED_AUTHENTICATION => false] }
-
-        expect(user.need_two_factor_authentication?(request)).to be false
-      end
-    end
-
     context "when bypassed with an environment variable" do
       let(:organisation) { create(:organisation, super_admin: true) }
 
