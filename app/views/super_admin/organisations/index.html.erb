@@ -21,7 +21,10 @@
               service_emails_super_admin_organisations_path(format: "csv"),
               class: "govuk-link" %>
 </div>
-<p><input type="search" id="filter-input" placeholder="Search by organisation name" class="govuk-input"></p>
+<p>
+  <label class="govuk-label" for="filter-input">Search by organisation name</label>
+  <input type="search" id="filter-input" class="govuk-input">
+</p>
 
 <table class="govuk-table">
   <thead class="govuk-table__head">
@@ -33,7 +36,7 @@
       <th class="govuk-table__header govuk-table__header--numeric"><%= sort_link "ips_count", "IPs" %></th>
     </tr>
   </thead>
-  <tbody class="govuk-table__body">
+  <tbody class="govuk-table__body" aria-live="polite">
     <% @organisations.each do |organisation| %>
       <tr class="govuk-table__row result-row">
         <td class="govuk-table__cell govuk-!-width-one-half" scope="row">
