@@ -18,7 +18,8 @@
 
   <% if current_organisation.locations.length > 1 %>
     <div class="govuk-!-padding-bottom-7">
-      <input type="search" id="filter-input" placeholder="Search by location or postcode" class="govuk-input">
+      <label class="govuk-label" for="filter-input">Search by location or postcode</label>
+      <input type="search" id="filter-input" class="govuk-input">
     </div>
   <% end %>
 
@@ -32,9 +33,11 @@
         <strong>No results found</strong>
       </p>
     </div>
-    <% @locations.each do |location| %>
-      <%= render "ips/table", location: location %>
-    <% end %>
+    <div aria-live="polite">
+      <% @locations.each do |location| %>
+        <%= render "ips/table", location: location %>
+      <% end %>
+    </div>
   <% end %>
 </div>
 <%= render "shared/filter_search" %>
