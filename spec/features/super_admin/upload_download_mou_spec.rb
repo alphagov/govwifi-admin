@@ -9,7 +9,7 @@ describe "Upload and download the MOU template", type: :feature do
   context "when uploading an MOU" do
     context "and the file is a PDF" do
       before do
-        attach_file("unsigned_document", "#{Rails.root}spec/fixtures/mou.pdf")
+        attach_file("unsigned_document", Rails.root.join("spec/fixtures/mou.pdf"))
         click_on "Upload"
       end
 
@@ -20,7 +20,7 @@ describe "Upload and download the MOU template", type: :feature do
 
     context "and the file is not a PDF" do
       before do
-        attach_file("unsigned_document", "#{Rails.root}spec/fixtures/not_a_pdf.pdf")
+        attach_file("unsigned_document", Rails.root.join("spec/fixtures/not_a_pdf.pdf"))
         click_on "Upload"
       end
 
@@ -42,7 +42,7 @@ describe "Upload and download the MOU template", type: :feature do
 
   context "when downloading the MOU template" do
     before do
-      attach_file("unsigned_document", "#{Rails.root}spec/fixtures/mou.pdf")
+      attach_file("unsigned_document", Rails.root.join("spec/fixtures/mou.pdf"))
       click_on "Upload"
       click_on "Download current template"
     end
@@ -70,7 +70,7 @@ describe "Upload and download the MOU template", type: :feature do
     context "when I attach an MOU" do
       context "and the file is a PDF" do
         before do
-          attach_file("signed_mou", "#{Rails.root}spec/fixtures/mou.pdf")
+          attach_file("signed_mou", Rails.root.join("spec/fixtures/mou.pdf"))
           click_on "Upload MOU"
         end
 
@@ -81,7 +81,7 @@ describe "Upload and download the MOU template", type: :feature do
 
       context "and the file is not a PDF" do
         before do
-          attach_file("signed_mou", "#{Rails.root}spec/fixtures/not_a_pdf.pdf")
+          attach_file("signed_mou", Rails.root.join("spec/fixtures/not_a_pdf.pdf"))
           click_on "Upload MOU"
         end
 

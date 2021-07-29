@@ -25,7 +25,7 @@ describe "Viewing the overview page", type: :feature do
     context "with having mou already uploaded" do
       before do
         visit mou_index_path
-        attach_file("signed_mou", "#{Rails.root}spec/fixtures/mou.pdf")
+        attach_file("signed_mou", Rails.root.join("spec/fixtures/mou.pdf"))
         click_on "Upload"
         visit overview_index_path
       end

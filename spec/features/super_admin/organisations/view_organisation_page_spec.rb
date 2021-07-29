@@ -88,7 +88,7 @@ describe "View details of an organisation", type: :feature do
     context "when an MoU exists" do
       before do
         organisation.signed_mou.attach(
-          io: File.open("#{Rails.root}spec/fixtures/mou.pdf"), filename: "mou.pdf",
+          io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
         )
         visit super_admin_organisation_path(organisation)
       end

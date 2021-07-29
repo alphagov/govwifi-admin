@@ -122,10 +122,10 @@ describe Organisation do
       second_organisation.locations = [second_location, third_location]
 
       first_organisation.signed_mou.attach(
-        io: File.open("#{Rails.root}spec/fixtures/mou.pdf"), filename: "mou.pdf",
+        io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
       )
       second_organisation.signed_mou.attach(
-        io: File.open("#{Rails.root}spec/fixtures/mou.pdf"), filename: "mou.pdf",
+        io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
       )
 
       second_organisation.signed_mou_attachment.update!(created_at: 3.months.ago)

@@ -31,7 +31,7 @@ describe "View a list of signed up organisations", type: :feature do
 
       before do
         org.signed_mou.attach(
-          io: File.open("#{Rails.root}spec/fixtures/mou.pdf"), filename: "mou.pdf",
+          io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
         )
         create_list(:location, 2, organisation: org)
         create_list(:ip, 3, location: Location.first)
