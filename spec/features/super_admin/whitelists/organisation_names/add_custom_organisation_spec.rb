@@ -8,7 +8,7 @@ describe "Adding a custom organisation name", type: :feature do
   context "when visiting the custom organisations page" do
     before do
       %w[1 2 3 4].each do |num|
-        CustomOrganisationName.create(name: "Custom Org " + num)
+        CustomOrganisationName.create(name: "Custom Org #{num}")
       end
       visit super_admin_whitelist_organisation_names_path
     end
