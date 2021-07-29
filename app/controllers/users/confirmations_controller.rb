@@ -35,9 +35,9 @@ protected
     self.resource = @confirmable
   end
 
-  def with_unconfirmed_confirmable
+  def with_unconfirmed_confirmable(&block)
     unless @confirmable.new_record?
-      @confirmable.only_if_unconfirmed { yield }
+      @confirmable.only_if_unconfirmed(&block)
     end
   end
 
