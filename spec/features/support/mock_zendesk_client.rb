@@ -1,9 +1,7 @@
 shared_context "with a mocked support tickets client" do
   class ZendeskClientMock
     class << self
-      attr_accessor :config
-      attr_accessor :support_tickets
-      attr_accessor :exception_to_raise
+      attr_accessor :config, :support_tickets, :exception_to_raise
     end
 
     def initialize
