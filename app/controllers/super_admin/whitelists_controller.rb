@@ -56,11 +56,11 @@ private
   end
 
   def organisation_name_not_yet_validated?
-    !!!whitelist_params.dig(:organisation_name_valid)
+    !!!whitelist_params[:organisation_name_valid]
   end
 
   def validate_organisation_name
-    @organisation_name = CustomOrganisationName.new(name: whitelist_params.dig(:organisation_name))
+    @organisation_name = CustomOrganisationName.new(name: whitelist_params[:organisation_name])
     if @organisation_name.invalid?
       send_user_back_to_organisation_name_form
     else
@@ -81,7 +81,7 @@ private
   end
 
   def validate_email_domain
-    @email_domain = AuthorisedEmailDomain.new(name: whitelist_params.dig(:email_domain))
+    @email_domain = AuthorisedEmailDomain.new(name: whitelist_params[:email_domain])
     if @email_domain.invalid?
       send_user_back_to_email_domain_form
     end
