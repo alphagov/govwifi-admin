@@ -7,11 +7,12 @@ describe Gateways::Sessions do
   let(:two_days_ago) { (Time.zone.now - 2.days).to_s }
   let(:three_weeks_ago) { (Time.zone.now - 3.weeks).to_s }
   let(:username) { "BOBABC" }
+  let(:task_id) { "arn:12345" }
 
   context "when searching by username" do
     context "when recent log entries contain none of my IP addresses" do
       before do
-        create(:session, start: today_date, username: username, siteIP: "7.7.7.7")
+        create(:session, start: today_date, username: username, siteIP: "7.7.7.7", task_id: task_id)
       end
 
       it "finds no results" do
@@ -30,6 +31,7 @@ describe Gateways::Sessions do
             start: today_date,
             success: true,
             username: "BOBABC",
+            task_id: task_id,
           },
           {
             ap: nil,
@@ -38,12 +40,13 @@ describe Gateways::Sessions do
             start: yesterday,
             success: true,
             username: "BOBABC",
+            task_id: task_id,
           },
         ]
       end
 
       before do
-        create(:session, start: today_date, success: true, username: username, siteIP: "127.0.0.1")
+        create(:session, start: today_date, success: true, username: username, siteIP: "127.0.0.1", task_id: task_id)
       end
 
       it "finds one result" do
@@ -53,7 +56,7 @@ describe Gateways::Sessions do
       end
 
       it "finds multiple results" do
-        create(:session, start: yesterday, success: true, username: username, siteIP: "127.0.0.1")
+        create(:session, start: yesterday, success: true, username: username, siteIP: "127.0.0.1", task_id: task_id)
 
         expect(session_gateway.search(username: "BOBABC")).to eq(expected_result)
       end

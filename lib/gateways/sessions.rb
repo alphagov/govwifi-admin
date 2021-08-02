@@ -24,6 +24,7 @@ module Gateways
           site_ip: log.siteIP,
           start: log.start,
           success: log.success,
+          task_id: log.task_id,
         }
       end
     end
