@@ -33,7 +33,7 @@ describe "Adding an IP to an existing location", type: :feature do
 
       it "adds the IP" do
         within(".flash-message-notice") do
-          expect(page).to have_content("Added 1 IP address to " + location.full_address)
+          expect(page).to have_content("Added 1 IP address to #{location.full_address}")
         end
       end
 
@@ -117,7 +117,7 @@ describe "Adding an IP to an existing location", type: :feature do
 
     it "adds the IP" do
       within(".flash-message-notice") do
-        expect(page).to have_content("Added 1 IP address to " + other_location.full_address)
+        expect(page).to have_content("Added 1 IP address to #{other_location.full_address}")
       end
     end
 
@@ -135,7 +135,7 @@ describe "Adding an IP to an existing location", type: :feature do
       sign_in_user user
       visit location_add_ips_path(location_id: location.id)
       ip_addresses.each_with_index do |ip, index|
-        fill_in "location[ips_attributes][" + index.to_s + "][address]", with: ip
+        fill_in "location[ips_attributes][#{index}][address]", with: ip
       end
       click_on "Add IP addresses"
     end
@@ -147,7 +147,7 @@ describe "Adding an IP to an existing location", type: :feature do
 
       it "shows a success message" do
         within(".flash-message-notice") do
-          expect(page).to have_content("Added 5 IP addresses to " + location.full_address)
+          expect(page).to have_content("Added 5 IP addresses to #{location.full_address}")
         end
       end
 
@@ -165,7 +165,7 @@ describe "Adding an IP to an existing location", type: :feature do
 
       it "adds the IP addresses" do
         within(".flash-message-notice") do
-          expect(page).to have_content("Added 3 IP addresses to " + location.full_address)
+          expect(page).to have_content("Added 3 IP addresses to #{location.full_address}")
         end
       end
 
@@ -185,7 +185,7 @@ describe "Adding an IP to an existing location", type: :feature do
 
       it "adds the IP addresses" do
         within(".flash-message-notice") do
-          expect(page).to have_content("Added 2 IP addresses to " + location.full_address)
+          expect(page).to have_content("Added 2 IP addresses to #{location.full_address}")
         end
       end
     end

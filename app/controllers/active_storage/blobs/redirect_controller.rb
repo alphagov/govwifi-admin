@@ -1,5 +1,5 @@
-# NOTE TO READER: this replacement of ActiveStorage's blob controller
-# is in place to enforce authentication with devise when accessing a
+# NOTE: this replacement of ActiveStorage's blob controller is in
+# place to enforce authentication with devise when accessing a
 # blob. At the time of writing, the `/rails/active_storage/blobs/XXX`
 # path is not protected which means the Rails app will happily
 # generate a valid link to the underlying service+asset and redirect

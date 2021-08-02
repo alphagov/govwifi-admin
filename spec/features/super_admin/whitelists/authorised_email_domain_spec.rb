@@ -33,7 +33,7 @@ describe "Authorising Email Domains", type: :feature do
 
       it "publishes the authorised domains regex to S3" do
         click_on "Save"
-        expect(regex_gateway).to have_received(:write).with(data: SIGNUP_WHITELIST_PREFIX_MATCHER + '(gov\.uk)$')
+        expect(regex_gateway).to have_received(:write).with(data: "#{SIGNUP_WHITELIST_PREFIX_MATCHER}(gov\\.uk)$")
       end
 
       it "publishes the list of domains to S3" do

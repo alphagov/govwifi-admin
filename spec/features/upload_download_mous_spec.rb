@@ -14,7 +14,7 @@ describe "Uploading and downloading an MOU", type: :feature do
 
         sign_in_user superadmin
         visit super_admin_mou_index_path
-        attach_file("unsigned_document", Rails.root + "spec/fixtures/mou.pdf")
+        attach_file("unsigned_document", Rails.root.join("spec/fixtures/mou.pdf"))
         click_on "Upload"
         sign_out
 
@@ -104,9 +104,9 @@ describe "Uploading and downloading an MOU", type: :feature do
     context "when replacing the signed mou" do
       before do
         visit mou_index_path
-        attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
+        attach_file("signed_mou", Rails.root.join("spec/fixtures/mou.pdf"))
         click_on "Upload"
-        attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
+        attach_file("signed_mou", Rails.root.join("spec/fixtures/mou.pdf"))
         click_on "Replace MOU"
       end
 
@@ -126,7 +126,7 @@ describe "Uploading and downloading an MOU", type: :feature do
     context "when uploading a file that is not a PDF" do
       before do
         visit mou_index_path
-        attach_file("signed_mou", Rails.root + "spec/fixtures/not_a_pdf.pdf")
+        attach_file("signed_mou", Rails.root.join("spec/fixtures/not_a_pdf.pdf"))
         click_on "Upload"
       end
 
@@ -138,9 +138,9 @@ describe "Uploading and downloading an MOU", type: :feature do
     context "when replacing with a file that is not a PDF" do
       before do
         visit mou_index_path
-        attach_file("signed_mou", Rails.root + "spec/fixtures/mou.pdf")
+        attach_file("signed_mou", Rails.root.join("spec/fixtures/mou.pdf"))
         click_on "Upload"
-        attach_file("signed_mou", Rails.root + "spec/fixtures/not_a_pdf.pdf")
+        attach_file("signed_mou", Rails.root.join("spec/fixtures/not_a_pdf.pdf"))
         click_on "Replace MOU"
       end
 

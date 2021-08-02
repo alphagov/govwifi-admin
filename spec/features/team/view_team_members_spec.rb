@@ -35,7 +35,7 @@ describe "View team members of my organisation", type: :feature do
       end
 
       it "displays all the permissions" do
-        selector = "#member-" + user.id.to_s + "-permissions"
+        selector = "#member-#{user.id}-permissions"
         array_of_permissions = find(selector).all("li").collect(&:text)
         expect(array_of_permissions).to eq(correct_permissions)
       end

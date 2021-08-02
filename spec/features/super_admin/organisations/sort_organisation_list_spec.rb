@@ -41,11 +41,11 @@ describe "Sorting the organisations list", type: :feature do
         create(:organisation, name: "Gov Org 4")
 
         Organisation.find_by(name: "Gov Org 1").signed_mou.attach(
-          io: File.open(Rails.root + "spec/fixtures/mou.pdf"), filename: "mou.pdf",
+          io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
         )
 
         Organisation.find_by(name: "Gov Org 3").signed_mou.attach(
-          io: File.open(Rails.root + "spec/fixtures/mou.pdf"), filename: "mou.pdf",
+          io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
         )
 
         Organisation.find_by(name: "Gov Org 3").signed_mou_attachment.update!(created_at: 3.months.from_now)

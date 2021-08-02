@@ -21,7 +21,7 @@ class UnlockAccountUseCaseSpy
 
     def last_unlock_path_with_query
       url_obj = URI.parse(last_unlock_url)
-      url_obj.path + "?" + url_obj.query
+      "#{url_obj.path}?#{url_obj.query}"
     end
 
     def unlock_count
