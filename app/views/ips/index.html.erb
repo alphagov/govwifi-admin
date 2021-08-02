@@ -35,7 +35,7 @@
     </div>
     <div aria-live="polite">
       <% @locations.each do |location| %>
-        <%= render "ips/manage_ips", location: location %>
+        <%= render partial: "shared/manage_ips", locals: { location: location, show_ip_controls: true } %>
       <% end %>
     </div>
   <% end %>
