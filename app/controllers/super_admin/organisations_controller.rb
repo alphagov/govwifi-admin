@@ -62,5 +62,4 @@ private
     directions = %w[desc asc]
     directions.include?(params[:direction]) ? params[:direction] : directions.first
   end
-
 end

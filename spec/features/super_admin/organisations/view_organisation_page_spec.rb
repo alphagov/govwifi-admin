@@ -2,9 +2,9 @@ describe "View details of an organisation", type: :feature do
   let(:organisation) { create(:organisation) }
 
   context "when logged in as a super-admin" do
-    let(:location_1) { create(:location, organisation: organisation, address: "Aarry Street") }
-    let(:location_2) { create(:location, organisation: organisation, address: "Carry Street") }
-    let(:location_3) { create(:location, organisation: organisation, address: "Barry Lane") }
+    let!(:location_1) { create(:location, organisation: organisation, address: "Aarry Street") }
+    let!(:location_2) { create(:location, organisation: organisation, address: "Carry Street") }
+    let!(:location_3) { create(:location, organisation: organisation, address: "Barry Lane") }
 
     let!(:user_1) { create(:user, name: "Aardvark", organisations: [organisation]) }
     let!(:user_2) { create(:user, name: "Zed", organisations: [organisation]) }
@@ -12,11 +12,6 @@ describe "View details of an organisation", type: :feature do
 
     before do
       create(:user, organisations: [organisation])
-
-      create(:ip, location: location_1)
-      create(:ip, location: location_2)
-      create(:ip, location: location_3)
-
       sign_in_user create(:user, :super_admin)
       visit super_admin_organisation_path(organisation)
     end
@@ -63,9 +58,33 @@ describe "View details of an organisation", type: :feature do
       expect(page.body).to match(/#{location_1.address}.*#{location_3.address}.*#{location_2.address}/m)
     end
 
-    it "shows the number of IPs" do
-      within("#ip-count") do
-        expect(page).to have_content("3")
+    context "without IPs" do
+      it "shows the number of IPs" do
+        within("#ip-count") do
+          expect(page).to have_content("0")
+        end
+      end
+    end
+
+    context "with IPs" do
+      let!(:ip_1) { create(:ip, location: location_1) }
+      let!(:ip_2) { create(:ip, location: location_2) }
+      let!(:ip_3) { create(:ip, location: location_3) }
+
+      before do
+        visit super_admin_organisation_path(organisation)
+      end
+
+      it "shows the number of IPs" do
+        within("#ip-count") do
+          expect(page).to have_content("3")
+        end
+      end
+
+      it "shows an IP" do
+        expect(page).to have_content(ip_1.address)
+        expect(page).to have_content(ip_2.address)
+        expect(page).to have_content(ip_3.address)
       end
     end
 
