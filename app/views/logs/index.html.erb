@@ -17,6 +17,9 @@
         <th class="govuk-table__header" scope="col">IP</th>
         <th class="govuk-table__header" scope="col">Time</th>
         <th class="govuk-table__header" scope="col">Status</th>
+        <% if super_admin? %>
+          <th class="govuk-table__header" scope="col">Radius Server</th>
+        <% end %>
       </tr>
     </thead>
     <tbody class="govuk-table__body">
@@ -28,6 +31,9 @@
           <td class="govuk-table__cell"><%= log.fetch(:site_ip) %></td>
           <td class="govuk-table__cell"><%= log.fetch(:start) %></td>
           <td class="govuk-table__cell"><%= log.fetch(:success) ? "successful" : "failed" %></td>
+          <% if super_admin? %>
+            <td class="govuk-table__cell"><%= log.fetch(:task_id) %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
