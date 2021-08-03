@@ -18,7 +18,9 @@
         <%= current_organisation.service_email %>
       </td>
       <td class="govuk-table__cell govuk-table__cell--numeric">
-        <%= link_to "Change", edit_organisation_path(current_organisation.id), class: "govuk-link govuk-link--no-visited-state" %>
+        <%= link_to edit_organisation_path(current_organisation.id), class: "govuk-link govuk-link--no-visited-state" do %>
+          Change <span class='govuk-visually-hidden'>service email</span>
+        <% end %>
       </td>
     </tr>
     <tr class="govuk-table__row">
@@ -30,7 +32,9 @@
           Signed
         </td>
         <td class="govuk-table__cell govuk-table__cell--numeric">
-          <%= link_to "Review", mou_index_path, class: "govuk-link govuk-link--no-visited-state" %>
+          <%= link_to mou_index_path, class: "govuk-link govuk-link--no-visited-state" do %>
+            Review <span class='govuk-visually-hidden'>memorandum of understanding</span>
+          <% end %>
         </td>
       <% else %>
         <td class="govuk-table__cell" colspan="2">
