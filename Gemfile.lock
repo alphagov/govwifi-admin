@@ -394,8 +394,8 @@ GEM
     uniform_notifier (1.14.2)
     warden (1.2.9)
       rack (>= 2.0.9)
-    webmock (3.13.0)
-      addressable (>= 2.3.6)
+    webmock (3.14.0)
+      addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     websocket-driver (0.7.5)
@@ -456,7 +456,7 @@ DEPENDENCIES
   two_factor_authentication
   tzinfo-data
   uk_postcode (~> 2.1)
-  webmock (~> 3.13.0)
+  webmock (~> 3.14.0)
   zendesk_api
 
 RUBY VERSION
