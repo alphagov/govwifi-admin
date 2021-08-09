@@ -7,12 +7,17 @@
       RADIUS secret key:
       <div class="inline-block">
         <span class="secret-key"><%= location.radius_secret_key %></span>
-        <% if current_user.can_manage_locations?(current_organisation) %><%= link_to "Rotate secret key", location_rotate_key_path(location, rotate: true), class: "red-link secret-key-rotate-link" %>
+        <% if current_user.can_manage_locations?(current_organisation) %>
+          <%= link_to location_rotate_key_path(location, rotate: true), class: "red-link secret-key-rotate-link" do %>
+            Rotate secret key <span class='govuk-visually-hidden'>for <%= location.full_address %></span>
+          <% end %>
         <% end %>
       </div>
     </div>
     <% if current_user.can_manage_locations?(current_organisation) %>
-      <%= link_to "Add IP addresses", location_add_ips_path(location_id: location.id), class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5" %>
+      <%= link_to location_add_ips_path(location_id: location.id), class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5" do %>
+        Add IP addresses <span class='govuk-visually-hidden'>for <%= location.full_address %></span>
+      <% end %>
       <% if location.ips.empty? %>
         <p class="result-row-empty govuk-body">
           Add the IP addresses of your authenticators to offer GovWifi at this location
@@ -21,7 +26,9 @@
 
       <% if current_user.can_manage_locations?(current_organisation) && location.ips.empty? %>
         <p class="govuk-body govuk-!-margin-bottom-1">
-          <%= link_to "Remove this location", location_remove_path(location, remove: true), class: "red-link" %>
+          <%= link_to location_remove_path(location, remove: true), class: "red-link" do %>
+            Remove this location <span class='govuk-visually-hidden'>- <%= location.full_address %></span>
+          <% end %>
         </p>
       <% end %>
     <% end %>
@@ -57,7 +64,9 @@
         <% end %>
         <td class="govuk-table__cell text-right">
           <% if show_ip_controls && current_user.can_manage_locations?(current_organisation) %>
-            <%= link_to "Remove", ip_remove_path(ip), class: "govuk-link govuk-link--no-visited-state" %>
+            <%= link_to ip_remove_path(ip), class: "govuk-link govuk-link--no-visited-state" do %>
+              Remove <span class='govuk-visually-hidden'><%= ip.address %> from <%= location.full_address %></span>
+            <% end %>
           <% end %>
         </td>
       </tr>

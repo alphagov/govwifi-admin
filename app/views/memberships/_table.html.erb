@@ -51,17 +51,20 @@
 
         <div class='govuk-grid-column-one-third govuk-list govuk-!-padding-right-4 govuk-!-margin-top-0 text-right'>
           <% if current_user.can_manage_team?(current_organisation) && member.id != current_user.id %>
-            <%= link_to "Edit permissions", edit_membership_path(member.membership_for(current_organisation)), class: "govuk-link govuk-link--no-visited-state" %>
+            <%= link_to edit_membership_path(member.membership_for(current_organisation)), class: "govuk-link govuk-link--no-visited-state" do %>
+              Edit permissions <span class='govuk-visually-hidden'>for <%= member.email %></span>
+            <% end %>
             <% if member.totp_enabled? %>
-              <%= link_to "Reset 2FA",
-                          { controller: "users/two_factor_authentication", action: "edit", id: member },
-                          class: "govuk-link govuk-link--no-visited-state" %>
+              <%= link_to({ controller: "users/two_factor_authentication", action: "edit", id: member },
+                          class: "govuk-link govuk-link--no-visited-state") do %>
+                Reset 2FA <span class='govuk-visually-hidden'>for <%= member.email %></span>
+              <% end %>
             <% end %>
 
             <% if member.invitation_pending? && current_user.can_manage_team?(current_organisation) %>
               <%= button_to("Resend invite",
                             user_invitation_path(user: { email: member.email }, resend: true),
-                            method: :post, class: "button-as-link govuk-body") %>
+                            "aria-label" => "Resend invite to #{member.email}", method: :post, class: "button-as-link govuk-body") %>
             <% end %>
           <% end %>
         </div>
