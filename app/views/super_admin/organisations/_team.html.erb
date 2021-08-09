@@ -10,14 +10,14 @@
           <td class="govuk-table__cell text-right" scope="row">
             <%= link_to edit_membership_path(user.membership_for(@organisation), remove_team_member: true),
                         class: "govuk-button red-button" do %>
-              Remove user <span class='govuk-visually-hidden'>- #{user.email}</span>
+              Remove user <span class='govuk-visually-hidden'>- <%= user.email %></span>
             <% end %>
           </td>
           <td class="govuk-table__cell text-right" scope="row">
             <% if user.totp_enabled? %>
               <%= link_to({ controller: "users/two_factor_authentication", action: "edit", id: user },
                           class: "govuk-button govuk-button--secondary") do %>
-                Reset 2FA <span class='govuk-visually-hidden'>for #{user.email}</span>
+                Reset 2FA <span class='govuk-visually-hidden'>for <%= user.email %></span>
               <% end %>
             <% end %>
           </td>
