@@ -5,7 +5,7 @@ class Ip < ApplicationRecord
   validate :address_must_be_valid_ip
 
   def inactive?
-    Session
+    @inactive ||= Session
       .where(siteIP: address)
       .where("start > ?", Time.zone.today - 10.days)
       .limit(1)
@@ -25,7 +25,7 @@ class Ip < ApplicationRecord
   end
 
   def unused?
-    Session
+    @unused ||= Session
       .where(siteIP: address)
       .limit(1)
       .empty?
