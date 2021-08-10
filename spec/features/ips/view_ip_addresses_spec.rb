@@ -25,7 +25,6 @@ describe "Viewing IP addresses", type: :feature do
   context "with IPs" do
     let(:location) { create(:location, organisation: user.organisations.first) }
     let!(:ip) { create(:ip, location: location, created_at: 9.days.ago) }
-
     before do
       sign_in_user user
       visit ips_path
@@ -54,6 +53,10 @@ describe "Viewing IP addresses", type: :feature do
           expect(page).to have_content("No traffic in the last 10 days")
         end
       end
+
+      it "does not show success rate" do
+        expect(page).to_not have_content("success rate")
+      end
     end
 
     context "with newly created IPs with no activity" do
@@ -80,6 +83,10 @@ describe "Viewing IP addresses", type: :feature do
         within("#ips-row-#{ip.id}") do
           expect(page).not_to have_content("No traffic received yet")
         end
+      end
+
+      it "shows the success rate" do
+        expect(page).to_not have_content("100% success rate")
       end
     end
   end

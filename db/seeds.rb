@@ -1,7 +1,9 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require "faker"
+require "factory_bot"
 
+FactoryBot.find_definitions
 CustomOrganisationName.create!(name: "GovWifi Super Administrators")
 
 def create_user_for_organisations(
@@ -88,6 +90,21 @@ location_two = Location.create!(
   )
 end
 
+ip = FactoryBot.create(:ip, address: Faker::Internet.unique.public_ip_v4_address,
+                            location: location_one,
+                            created_at: Time.zone.now - 10.days)
+FactoryBot.create_list(:session, 50,
+                       success: true,
+                       siteIP: ip.address,
+                       start: Time.zone.now,
+                       mac: Faker::Internet.mac_address,
+                       ap: Faker::Internet.mac_address,
+                       username: Faker::Name.first_name)
+FactoryBot.create_list(:session, 20,
+                       success: false,
+                       siteIP: ip.address,
+                       start: Time.zone.now)
+
 3.times do
   Ip.create!(
     address: Faker::Internet.unique.public_ip_v4_address,
@@ -95,21 +112,21 @@ end
   )
 end
 
-location_one.ips.each_with_index do |ip, index|
+location_one.ips.each_with_index do |location_one_ip, index|
   Session.create(
     start: (Time.zone.now - (index + 5).day).to_s,
     success: index.even?,
     username: "Gerry",
-    siteIP: ip.address,
+    siteIP: location_one_ip.address,
   )
 end
 
-location_two.ips.each_with_index do |ip, index|
+location_two.ips.each_with_index do |location_two_ip, index|
   Session.create(
     start: (Time.zone.now - index.day).to_s,
     success: index.even?,
     username: "Garry",
-    siteIP: ip.address,
+    siteIP: location_two_ip.address,
   )
 end
 

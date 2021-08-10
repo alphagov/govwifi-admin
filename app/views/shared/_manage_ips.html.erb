@@ -57,10 +57,16 @@
               Receiving traffic (<%= link_to "view logs", logs_path(ip: ip.address), class: "govuk-link" %>)
             <% end %>
           </td>
+          <td class="govuk-table__cell">
+            <% unless ip.unused? || ip.inactive? %>
+              <%= ip.percent_success %>% success rate
+            <% end %>
+          </td>
         <% else %>
           <td class="govuk-table__cell text-dark-grey">
             Available at 6am tomorrow
           </td>
+          <td class="govuk-table__cell"></td>
         <% end %>
         <td class="govuk-table__cell text-right">
           <% if show_ip_controls && current_user.can_manage_locations?(current_organisation) %>

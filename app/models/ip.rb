@@ -5,11 +5,19 @@ class Ip < ApplicationRecord
   validate :address_must_be_valid_ip
 
   def inactive?
-    Session
+    @inactive ||= Session
       .where(siteIP: address)
       .where("start > ?", Time.zone.today - 10.days)
       .limit(1)
       .empty?
+  end
+
+  def percent_success
+    all_count = sessions.count
+    return 0 if all_count.zero?
+
+    success_count = sessions.successful.count
+    (success_count * 100 / all_count)
   end
 
   def available?
@@ -17,13 +25,17 @@ class Ip < ApplicationRecord
   end
 
   def unused?
-    Session
+    @unused ||= Session
       .where(siteIP: address)
       .limit(1)
       .empty?
   end
 
 private
+
+  def sessions(within: 1.day)
+    Session.where(siteIp: address).where("start > ?", Time.zone.today - within)
+  end
 
   def address_must_be_valid_ip
     checker = UseCases::Administrator::CheckIfValidIp.new
