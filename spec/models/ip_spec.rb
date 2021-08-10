@@ -124,4 +124,37 @@ describe Ip do
       it { is_expected.to be_unused }
     end
   end
+
+  describe "#percent_success" do
+    context "No sessions" do
+      it "returns 0" do
+        expect(ip_address.percent_success).to eq(0)
+      end
+    end
+    context "Only successes" do
+      it "calculates 100% success" do
+        create_list(:session, 3, success: true, siteIP: ip_address.address, start: Time.zone.today)
+        expect(ip_address.percent_success).to eq(100)
+      end
+    end
+    context "3 successes, 2 failures" do
+      before :each do
+        create_list(:session, 3, success: true, siteIP: ip_address.address, start: Time.zone.today)
+        create_list(:session, 2, success: false, siteIP: ip_address.address, start: Time.zone.today)
+      end
+      it "calculates 3 success, 2 failed = 60%" do
+        expect(ip_address.percent_success).to eq(60)
+      end
+      it "ignores sessions older than 1 day" do
+        create_list(:session, 2, success: true, siteIP: ip_address.address, start: Time.zone.today - 2.days)
+        create_list(:session, 2, success: false, siteIP: ip_address.address, start: Time.zone.today - 2.days)
+        expect(ip_address.percent_success).to eq(60)
+      end
+      it "ignores sessions with a different IP address" do
+        create_list(:session, 2, success: true, siteIP: "4.5.6.7", start: Time.zone.today)
+        create_list(:session, 2, success: false, siteIP: "4.5.6.7", start: Time.zone.today)
+        expect(ip_address.percent_success).to eq(60)
+      end
+    end
+  end
 end

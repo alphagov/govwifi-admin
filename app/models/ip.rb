@@ -12,6 +12,14 @@ class Ip < ApplicationRecord
       .empty?
   end
 
+  def percent_success
+    all_count = sessions.count
+    return 0 if all_count.zero?
+
+    success_count = sessions.successful.count
+    (success_count * 100 / all_count)
+  end
+
   def available?
     created_at < Time.zone.today.beginning_of_day
   end
@@ -24,6 +32,10 @@ class Ip < ApplicationRecord
   end
 
 private
+
+  def sessions(within: 1.day)
+    Session.where(siteIp: address).where("start > ?", Time.zone.today - within)
+  end
 
   def address_must_be_valid_ip
     checker = UseCases::Administrator::CheckIfValidIp.new
