@@ -6,43 +6,52 @@
       <div class='govuk-grid-row'>
         <div class='govuk-grid-column-two-thirds'>
           <% if member.invitation_pending? || member.pending_membership_for?(organisation: current_organisation) %>
-            <h2 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
+            <h2 class='govuk-heading-m'><%= member.name %>
               <span class='govuk-!-padding-left-1 govuk-body text-dark-grey'><%= member.email %> (invited)</span>
             </h2>
             <% else %>
-            <h2 class='govuk-heading-s govuk-!-margin-bottom-0'><%= member.name %>
+            <h2 class='govuk-heading-m'><%= member.name %>
               <span class='govuk-!-padding-left-1 govuk-body text-dark-grey'><%= member.email %></span>
             </h2>
           <% end %>
 
-          <ul class='govuk-list govuk-!-margin-bottom-2 govuk-!-margin-top-1' id='member-<%= member.id %>-permissions'>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Permissions</h3>
+
+          <ul role="list" class='govuk-list govuk-!-margin-bottom-2 govuk-!-margin-top-1' id='member-<%= member.id %>-permissions'>
             <li>
-              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
+              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "" %>
+              <span class="govuk-visually-hidden">Can</span>
               <span class='govuk-!-padding-left-1'>View logs</span>
             </li>
             <li>
-              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
+              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "" %>
+              <span class="govuk-visually-hidden">Can</span>
               <span class='govuk-!-padding-left-1'>View team members</span>
             </li>
             <li>
               <% if member.can_manage_team?(current_organisation) %>
-                <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
+                <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "" %>
+                <span class="govuk-visually-hidden">Can</span>
                 <span class='govuk-!-padding-left-1'>Add and remove team members</span>
               <% else %>
-                <%= image_tag "cross.svg", class: "list-item-padding", height: "30", alt: "not allowed" %>
+                <%= image_tag "cross.svg", class: "list-item-padding", height: "30", alt: "" %>
+                <span class="govuk-visually-hidden">Cannot</span>
                 <span class='govuk-!-padding-left-1 text-dark-grey'>Add and remove team members</span>
               <% end %>
             </li>
             <li>
-              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
+              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "" %>
+              <span class="govuk-visually-hidden">Can</span>
               <span class='govuk-!-padding-left-1'>View locations and IP addresses</span>
             </li>
             <li>
               <% if member.can_manage_locations?(current_organisation) %>
-                <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "allowed" %>
+                <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "" %>
+                <span class="govuk-visually-hidden">Can</span>
                 <span class='govuk-!-padding-left-1'>Add and remove locations and IP addresses</span>
               <% else %>
-                <%= image_tag "cross.svg", class: "list-item-padding", height: "30", alt: "not allowed" %>
+                <%= image_tag "cross.svg", class: "list-item-padding", height: "30", alt: "" %>
+                <span class="govuk-visually-hidden">Cannot</span>
                 <span class='govuk-!-padding-left-1 text-dark-grey'>Add and remove locations and IP addressess</span>
               <% end %>
             </li>
