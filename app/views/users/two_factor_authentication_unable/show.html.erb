@@ -11,7 +11,7 @@
     You'll need to use an authentication app. If you cannot do this please email <a class="govuk-link" href="mailto:<%= t(".email") %>"><%= t(".email") %></a>
   </div>
   <div class="govuk-body">
-    <%= link_to t(".setup"), users_two_factor_authentication_setup_path, class: "govuk-button" %>
+    <%= link_to t(".setup"), users_two_factor_authentication_setup_path, class: "govuk-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
   </div>
   <div class="govuk-body">
     <%= link_to t(".continue"), users_two_factor_authentication_unable_path, class: "govuk-link", method: :put %>
