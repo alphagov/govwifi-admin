@@ -15,7 +15,7 @@
       </div>
     </div>
     <% if current_user.can_manage_locations?(current_organisation) %>
-      <%= link_to location_add_ips_path(location_id: location.id), class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5" do %>
+      <%= link_to location_add_ips_path(location_id: location.id), class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5", role: "button", draggable: "false", "data-module" => "govuk-button" do %>
         Add IP addresses <span class='govuk-visually-hidden'>for <%= location.full_address %></span>
       <% end %>
       <% if location.ips.empty? %>
