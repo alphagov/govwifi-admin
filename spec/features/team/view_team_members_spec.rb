@@ -17,11 +17,11 @@ describe "View team members of my organisation", type: :feature do
     context "when there is only one user in an organisation" do
       let(:correct_permissions) do
         [
-          "View logs",
-          "View team members",
-          "Add and remove team members",
-          "View locations and IP addresses",
-          "Add and remove locations and IP addresses",
+          "Can View logs",
+          "Can View team members",
+          "Can Add and remove team members",
+          "Can View locations and IP addresses",
+          "Can Add and remove locations and IP addresses",
         ]
       end
 
