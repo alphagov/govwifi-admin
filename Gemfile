@@ -38,7 +38,7 @@ group :test do
   gem "nokogiri"
   gem "rack_session_access"
   gem "rails-controller-testing"
-  gem "rspec-rails", "~> 5.0.1"
+  gem "rspec-rails", "~> 5.0.2"
   gem "rubocop-govuk", "~> 4"
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
