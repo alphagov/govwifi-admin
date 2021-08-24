@@ -7,6 +7,8 @@
 
   <%= render "logs/filtered_results_explanation", logs: @logs %>
 
+  <%= render "logs/filter_logs_select", ip: @ip, username: @username, success: @success %>
+
   <table class="govuk-table">
     <caption class="govuk-table__caption"></caption>
     <thead class="govuk-table__head">

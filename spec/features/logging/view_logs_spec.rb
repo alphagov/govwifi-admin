@@ -15,6 +15,15 @@ describe "View authentication requests for an IP", type: :feature do
            siteIP: ip,
            success: true,
            task_id: task_id)
+
+    create(:session,
+           ap: ap,
+           mac: mac,
+           start: time,
+           username: username,
+           siteIP: ip,
+           success: false,
+           task_id: task_id)
   end
 
   context "as a super admin" do
@@ -24,19 +33,45 @@ describe "View authentication requests for an IP", type: :feature do
       visit logs_path(ip: ip)
     end
     it "displays the log" do
-      expect(page).to have_content("Found 1 result for \"#{ip}\"")
+      expect(page).to have_content("Found 2 results for \"#{ip}\"")
       expect(page).to have_css("td", text: username)
       expect(page).to have_css("td", text: ap)
       expect(page).to have_css("td", text: mac)
       expect(page).to have_css("td", text: ip)
       expect(page).to have_css("td", text: time)
       expect(page).to have_css("td", text: "successful")
+      expect(page).to have_css("td", text: "failed")
     end
     it "displays the radius server" do
       expect(page).to have_css("th", text: "Radius Server")
       expect(page).to have_css("td", text: task_id)
     end
+
+    context "when fitering for successful requests" do
+      before do
+        select("Successful", from: "Status type:")
+        click_button("Filter")
+      end
+
+      it "shows only successful requests" do
+        expect(page).to have_css("td", text: "successful")
+        expect(page).to_not have_css("td", text: "failed")
+      end
+    end
+
+    context "when fitering for failed requests" do
+      before do
+        select("Failed", from: "Status type:")
+        click_button("Filter")
+      end
+
+      it "shows only successful requests" do
+        expect(page).to_not have_css("td", text: "successful")
+        expect(page).to have_css("td", text: "failed")
+      end
+    end
   end
+
   context "as a regular admin" do
     before do
       admin_user = create(:user, :with_organisation)
@@ -46,7 +81,7 @@ describe "View authentication requests for an IP", type: :feature do
       visit logs_path(ip: ip)
     end
     it "does not display the radius server" do
-      expect(page).to have_content("Found 1 result for \"#{ip}\"")
+      expect(page).to have_content("Found 2 results for \"#{ip}\"")
       expect(page).to_not have_css("td", text: task_id)
       expect(page).to_not have_css("th", text: "Radius Server")
     end
