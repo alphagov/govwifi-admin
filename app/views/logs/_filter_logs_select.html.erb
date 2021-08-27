@@ -1,0 +1,13 @@
+<div class="govuk-grid-column-two-thirds">
+  <%= form_with url: logs_path, method: "get", local: true do |form| %>
+    <div class="govuk-form-group">
+      <label class="govuk-label" for="success">
+        Status type:
+      </label>
+      <%= hidden_field_tag(:ip, ip) if ip %>
+      <%= hidden_field_tag(:username, username) if username %>
+      <%= select_tag(:success, options_for_select([["All", nil], %w[Successful true], %w[Failed false]], success), class: "govuk-select") %>
+    </div>
+      <%= form.submit "Filter", class: "govuk-button" %>
+  <% end %>
+</div>

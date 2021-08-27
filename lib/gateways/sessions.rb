@@ -6,7 +6,7 @@ module Gateways
       @ip_filter = ip_filter
     end
 
-    def search(username: nil, ips: nil)
+    def search(username: nil, ips: nil, success: nil)
       results = Session
                   .where("start >= ?", 2.weeks.ago)
                   .order(start: :desc)
@@ -15,6 +15,7 @@ module Gateways
       results = results.where(siteIP: ip_filter) if ip_filter
       results = results.where(username: username) if username.present?
       results = results.where(siteIP: ips) if ips.present?
+      results = results.where(success: success) if success.present?
 
       results.map do |log|
         {

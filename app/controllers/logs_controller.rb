@@ -10,9 +10,13 @@ class LogsController < ApplicationController
       @location_address = location.address
     end
 
+    @success = params[:success]
+    @ip = location_ips || params[:ip]
+    @username = params[:username]
     @logs = get_auth_requests.execute(
-      ips: location_ips || params[:ip],
-      username: params[:username],
+      ips: @ip,
+      username: @username,
+      success: @success,
     ).fetch(:results)
   end
 

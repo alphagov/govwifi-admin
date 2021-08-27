@@ -9,34 +9,40 @@ describe UseCases::Administrator::GetAuthRequests do
 
   context "when searching by username" do
     let(:username) { "AAAAAA" }
+    let(:success) { nil }
+    let(:ips) { nil }
 
     it "calls search on the gateway" do
       use_case.execute(username: username)
 
       expect(authentication_logs_gateway).to have_received(:search)
-        .with(username: username)
+        .with(username: username, success: success, ips: ips)
     end
   end
 
   context "when searching by ip address" do
     let(:ip) { "1.1.1.1" }
+    let(:username) { nil }
+    let(:success) { nil }
 
     it "calls search on the gateway" do
       use_case.execute(ips: ip)
 
       expect(authentication_logs_gateway).to have_received(:search)
-        .with(ips: ip)
+        .with(ips: ip, success: success, username: username)
     end
   end
 
   context "when searching by many ip addresses" do
     let(:ips) { ["1.1.1.1", "1.1.1.2", "1.1.1.3"] }
+    let(:username) { nil }
+    let(:success) { nil }
 
     it "calls search on the gateway" do
       use_case.execute(ips: ips)
 
       expect(authentication_logs_gateway).to have_received(:search)
-        .with(ips: ips)
+        .with(ips: ips, success: success, username: username)
     end
   end
 end
