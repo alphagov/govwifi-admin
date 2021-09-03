@@ -34,7 +34,7 @@ class Ip < ApplicationRecord
 private
 
   def sessions(within: 1.day)
-    Session.where(siteIp: address).where("start > ?", Time.zone.today - within)
+    Session.use_index(:sessions_start_username).where(siteIp: address).where("start > ?", Time.zone.today - within)
   end
 
   def address_must_be_valid_ip
