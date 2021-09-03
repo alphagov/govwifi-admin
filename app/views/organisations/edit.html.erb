@@ -7,11 +7,17 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @organisation do |form| %>
-      <div class="govuk-form-group">
+      <div class="govuk-form-group <%= field_error(@organisation, :service_email) %>">
         <%= form.label :service_email, "Service email", class: "govuk-label" %>
         <div class="govuk-hint">A shared and monitored email, so we can contact your organisation</div>
-        <% error_class = @organisation.errors.key?(:service_email) ? "govuk-input--error" : "" %>
-        <%= form.text_field :service_email, class: "govuk-input #{error_class}" %>
+        <% if @organisation.errors.attribute_names.include?(:service_email) %>
+          <span class="govuk-error-message" id="email_error">
+            <span class="govuk-visually-hidden">Error:</span><%= @organisation.errors.full_messages_for(:service_email).first %>
+          </span>
+          <%= form.text_field :service_email, class: "govuk-input govuk-input--error" %>
+        <% else %>
+          <%= form.text_field :service_email, class: "govuk-input" %>
+        <% end %>
       </div>
       <%= form.submit "Save", class: "govuk-button" %>
     <% end %>

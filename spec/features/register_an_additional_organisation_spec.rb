@@ -82,7 +82,7 @@ describe "Register an additional organisation", type: :feature do
 
       it "displays the correct error to the user" do
         click_on "Create organisation"
-        expect(page).to have_content("Service email must be a valid email address")
+        expect(page).to have_content("Service email must be a valid email address").twice
       end
     end
 
@@ -96,7 +96,7 @@ describe "Register an additional organisation", type: :feature do
 
       it "displays the correct error to the user" do
         click_on "Create organisation"
-        expect(page).to have_content("Name can't be blank")
+        expect(page).to have_content("Name can't be blank").twice
       end
     end
   end

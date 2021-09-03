@@ -15,8 +15,7 @@ en:
             name:
               taken: " is already registered. If you wish to administer an \n
               existing GovWifi installation, you must be invited to that \n
-              organisation's team. <a class='govuk-link' href='/help/new'>Contact us</a> \n
-              if you need help."
+              organisation's team."
 
   users:
     two_factor_authentication:
