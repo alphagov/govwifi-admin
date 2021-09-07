@@ -99,7 +99,7 @@ FactoryBot.create_list(:session, 50,
                        start: Time.zone.now,
                        mac: Faker::Internet.mac_address,
                        ap: Faker::Internet.mac_address,
-                       username: Faker::Name.first_name)
+                       username: SecureRandom.alphanumeric(6).downcase)
 FactoryBot.create_list(:session, 20,
                        success: false,
                        siteIP: ip.address,
