@@ -11,6 +11,8 @@ if ENV["COVERAGE"]
   ])
 end
 
+require_relative "../lib/gateways/govuk_organisations_register_gateway"
+
 RSpec.configure do |config|
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true

@@ -2,6 +2,8 @@ module PagyHelper
   include Pagy::Frontend
 
   def pagy_nav_govuk(pagy)
+    return "" if pagy.pages == 1
+
     link   = pagy_link_proc(pagy, link_extra: "class='govuk-link'")
     p_prev = pagy.prev
     p_next = pagy.next

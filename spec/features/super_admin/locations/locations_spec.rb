@@ -21,6 +21,10 @@ describe "View and search locations", type: :feature do
     it "lists the organisation the location belongs to" do
       expect(page).to have_content(organisation.name)
     end
+
+    it "does not show the pager because there is only one page" do
+      expect(page).to_not have_css(".pager__controls")
+    end
   end
 
   context "select an organisation with 41 locations" do
