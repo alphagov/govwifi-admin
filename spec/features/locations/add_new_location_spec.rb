@@ -62,7 +62,7 @@ describe "Add location", type: :feature do
       end
 
       it "displays an error about the invalid postcode" do
-        expect(page).to have_content("Postcode must be valid")
+        expect(page).to have_content("Postcode must be valid").twice
       end
     end
   end

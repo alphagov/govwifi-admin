@@ -147,7 +147,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "displays the correct error message" do
-        expect(page).to have_content("Email can't be blank")
+        expect(page).to have_content("Email can't be blank").twice
       end
     end
 
@@ -163,7 +163,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "displays the correct error message" do
-        expect(page).to have_content("Email must be a valid email address")
+        expect(page).to have_content("Email must be a valid email address").twice
       end
     end
   end

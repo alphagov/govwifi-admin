@@ -202,12 +202,6 @@ describe "Sign up as an organisation", type: :feature do
         expect(page).to have_content("Organisations name is already registered")
       end
     end
-
-    it "displays a contact us link" do
-      within("div#error-summary") do
-        expect(page).to have_link("Contact us", href: new_help_path)
-      end
-    end
   end
 
   context "with an already registered email" do

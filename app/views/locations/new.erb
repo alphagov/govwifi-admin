@@ -9,20 +9,28 @@
   </div>
   <div class='govuk-grid-column-full'>
     <%= form_for @location, html: { autocomplete: "off" } do |f| %>
-      <div class="govuk-form-group">
+      <div class="govuk-form-group <%= field_error(@location, :address) %>">
         <%= f.label :address, class: 'govuk-label' %>
         <div id="address-hint" class="govuk-hint">
           For example, 10 High Street, London
         </div>
         <% if @location.errors.attribute_names.include?(:address) %>
+          <span class="govuk-error-message" id="location_error">
+            <span class="govuk-visually-hidden">Error:</span><%= @location.errors.full_messages_for(:address).first %>
+          </span>
           <%= f.text_field :address, class: 'govuk-input govuk-input--error', 'aria-describedby': 'address-hint' %>
         <% else %>
           <%= f.text_field :address, class: 'govuk-input', 'aria-describedby': 'address-hint' %>
         <% end %>
       </div>
-      <div class="govuk-form-group">
+      <div class="govuk-form-group <%= field_error(@location, :postcode) %>">
         <%= f.label :postcode, class: 'govuk-label' %>
         <% if @location.errors.attribute_names.include?(:postcode) %>
+          <% @location.errors.where(:postcode).each_with_index do |error, index| %>
+            <span class="govuk-error-message" id="postcode-error-message-<%= "#{index + 1}" %>">
+              <span class="govuk-visually-hidden">Error:</span><%= error.full_message %>
+            </span>
+          <% end %>
           <%= f.text_field :postcode, class: 'govuk-input govuk-input--width-10 govuk-input--error' %>
         <% else %>
           <%= f.text_field :postcode, class: 'govuk-input govuk-input--width-10' %>
