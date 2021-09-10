@@ -2,9 +2,10 @@ class IpsController < ApplicationController
   def index
     set_ip_or_location_to_delete
     set_radius_key_rotation
-    @locations = Location.includes(:ips)
+    locations_scope = Location.includes(:ips)
       .where(organisation: current_organisation)
       .order(:address)
+    @pagy, @locations = pagy(locations_scope)
   end
 
   def destroy

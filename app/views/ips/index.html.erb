@@ -23,6 +23,7 @@
     </div>
   <% end %>
 
+  <%== pagy_nav_govuk(@pagy) %>
   <% if current_organisation.locations.empty? %>
     <p class="govuk-body result-row-empty">
       You need to add at least one location to offer GovWifi
@@ -39,5 +40,6 @@
       <% end %>
     </div>
   <% end %>
+  <%== pagy_nav_govuk(@pagy) %>
 </div>
 <%= render "shared/filter_search" %>
