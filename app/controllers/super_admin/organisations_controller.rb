@@ -21,7 +21,7 @@ class SuperAdmin::OrganisationsController < SuperAdminController
   def show
     @organisation = Organisation.find(params[:id])
     @team = sorted_team_members(@organisation)
-    @locations = @organisation.locations.order("address asc")
+    @pagy, @locations = pagy(@organisation.locations.order("address asc"))
   end
 
   def destroy
