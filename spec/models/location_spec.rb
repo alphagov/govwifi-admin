@@ -32,24 +32,32 @@ describe Location do
     end
   end
 
+  # rubocop:disable Rails/SaveBang
   context "when validating postcode" do
     subject(:location) { described_class.new }
 
     it "errors when the postcode does not match the correct format" do
-      location.postcode = "WHATEVER POSTCODE"
-      expect(location).not_to be_valid
+      location.update(postcode: "WHATEVER POSTCODE")
+      expect(location.errors[:postcode]).to eq([
+        "must be valid",
+      ])
     end
 
     it "errors when the postcode is empty" do
-      location.postcode = ""
-      expect(location).not_to be_valid
+      location.update(postcode: "")
+      expect(location.errors[:postcode]).to eq([
+        "can't be blank",
+      ])
     end
 
     it "errors when the postcode is nil" do
-      location.postcode = nil
-      expect(location).not_to be_valid
+      location.update(postcode: nil)
+      expect(location.errors[:postcode]).to eq([
+        "can't be blank",
+      ])
     end
   end
+  # rubocop:enable Rails/SaveBang
 
   context "when adding IPs with a mix of hash and strong parameters" do
     let(:location) do

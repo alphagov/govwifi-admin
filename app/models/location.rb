@@ -9,7 +9,7 @@ class Location < ApplicationRecord
   validates_associated :ips
 
   validates :address, :postcode, presence: true
-  validate :validate_postcode
+  validate :validate_postcode_format, if: ->(l) { l.postcode.present? }
 
   before_create :set_radius_secret_key
 
@@ -36,7 +36,7 @@ class Location < ApplicationRecord
 
 private
 
-  def validate_postcode
+  def validate_postcode_format
     unless UKPostcode.parse(postcode.to_s).valid?
       errors.add(:postcode, "must be valid")
     end
