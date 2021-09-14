@@ -4,7 +4,7 @@ describe "Downloading the poster", type: :feature do
   context "when signed in" do
     before do
       sign_in_user user
-      visit setup_instructions_poster_path
+      visit settings_poster_path
     end
 
     it "sends an OK status" do
@@ -26,7 +26,7 @@ describe "Downloading the poster", type: :feature do
 
   context "when signed out" do
     before do
-      visit setup_instructions_poster_path
+      visit settings_poster_path
     end
 
     it_behaves_like "not signed in"

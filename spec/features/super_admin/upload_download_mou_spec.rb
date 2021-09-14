@@ -59,7 +59,7 @@ describe "Upload and download the MOU template", type: :feature do
       visit super_admin_mou_index_path
     end
 
-    it_behaves_like "shows the setup instructions page"
+    it_behaves_like "shows the settings page"
   end
 
   context "when an organisation exists with no MOU" do

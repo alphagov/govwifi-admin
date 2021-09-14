@@ -7,7 +7,7 @@ describe "Viewing the overview page", type: :feature do
       visit root_path
     end
 
-    it_behaves_like "shows the setup instructions page"
+    it_behaves_like "shows the settings page"
   end
 
   context "when viewing the overview section" do

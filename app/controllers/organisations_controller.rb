@@ -30,7 +30,7 @@ class OrganisationsController < ApplicationController
 
   def update
     if @organisation.update(organisation_params)
-      redirect_to setup_instructions_path, notice: "Service email updated"
+      redirect_to settings_path, notice: "Service email updated"
     else
       render :edit
     end

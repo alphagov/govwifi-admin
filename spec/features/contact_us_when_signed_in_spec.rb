@@ -21,7 +21,7 @@ describe "Contact us when signed in", type: :feature do
       expect(page).to have_content("Your support request has been submitted")
     end
 
-    it_behaves_like "shows the setup instructions page"
+    it_behaves_like "shows the settings page"
 
     it "opens a support ticket" do
       expect(support_tickets.count).to eq 1
