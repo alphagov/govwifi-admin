@@ -115,7 +115,7 @@ describe "Authorising Email Domains", type: :feature do
       visit new_super_admin_whitelist_email_domain_path
     end
 
-    it_behaves_like "shows the setup instructions page"
+    it_behaves_like "shows the settings page"
   end
 
   context "when logged out" do

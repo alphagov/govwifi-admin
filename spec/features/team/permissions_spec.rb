@@ -49,7 +49,7 @@ describe "Invite a team member", type: :feature do
         visit new_user_invitation_path
       end
 
-      it_behaves_like "shows the setup instructions page"
+      it_behaves_like "shows the settings page"
     end
 
     it "does not allow re-sending invites" do

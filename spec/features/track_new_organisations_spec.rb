@@ -9,14 +9,14 @@ describe "Tracking new organisations", type: :feature do
   end
 
   it "displays an initial tag on the URL when logged in" do
-    expect(page).to have_current_path("/setup_instructions/initial")
+    expect(page).to have_current_path("/settings/initial")
   end
 
   context "when a user clicks on the setup sub-navigation link " do
     before { click_on "Settings" }
 
     it "displays the initial tag on the URL" do
-      expect(page).to have_current_path("/setup_instructions/initial")
+      expect(page).to have_current_path("/settings/initial")
     end
   end
 
@@ -32,7 +32,7 @@ describe "Tracking new organisations", type: :feature do
     end
 
     it "does not display the initial tag on the URL" do
-      expect(page).to have_current_path("/setup_instructions")
+      expect(page).to have_current_path("/settings")
     end
   end
 end

@@ -68,7 +68,7 @@ describe "Set up two factor authentication", type: :feature do
     end
 
     it "redirects the user to the settings page" do
-      expect(page).to have_current_path(new_organisation_setup_instructions_path)
+      expect(page).to have_current_path(new_organisation_settings_path)
     end
 
     context "with a super admin user" do

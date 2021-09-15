@@ -10,7 +10,7 @@ class HomeController < ApplicationController
           overview_index_path
         end
       elsif current_organisation.ips.empty?
-        new_organisation_setup_instructions_path
+        new_organisation_settings_path
       else
         overview_index_path
       end

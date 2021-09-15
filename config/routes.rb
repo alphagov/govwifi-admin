@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   get "/healthcheck", to: "monitoring#healthcheck"
   get "change_organisation", to: "current_organisation#edit"
   patch "change_organisation", to: "current_organisation#update"
-  get "/setup_instructions/poster", to: "setup_instructions#poster"
+  get "/settings/poster", to: "settings#poster"
 
   resources :status, only: %i[index]
   resources :ips, only: %i[index new create destroy] do
@@ -71,11 +71,13 @@ Rails.application.routes.draw do
     get "location", on: :new
   end
   resources :organisations, only: %i[new create edit update]
-  resources :setup_instructions, only: %i[index] do
+  resources :settings, only: %i[index] do
     collection do
-      get "initial", to: "setup_instructions#index", as: :new_organisation
+      get "initial", to: "settings#index", as: :new_organisation
     end
   end
+  get "setup_instructions/:path", to: redirect("settings/%{path}")
+
   resources :overview, only: %i[index]
 
   namespace :super_admin do

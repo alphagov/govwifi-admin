@@ -15,7 +15,7 @@ describe "View a list of signed up organisations", type: :feature do
       visit super_admin_organisations_path
     end
 
-    it_behaves_like "shows the setup instructions page"
+    it_behaves_like "shows the settings page"
   end
 
   context "when logged in as an admin" do
