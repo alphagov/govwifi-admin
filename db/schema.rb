@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_13_083000) do
+ActiveRecord::Schema.define(version: 2021_09_15_111502) do
 
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -98,15 +98,6 @@ ActiveRecord::Schema.define(version: 2021_08_13_083000) do
     t.string "service_email"
     t.boolean "super_admin", default: false
     t.index ["name"], name: "index_organisations_on_name", unique: true
-  end
-
-  create_table "permissions", charset: "utf8", force: :cascade do |t|
-    t.boolean "can_manage_team"
-    t.boolean "can_manage_locations"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_permissions_on_user_id"
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
