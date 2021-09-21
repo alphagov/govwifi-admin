@@ -8,15 +8,6 @@ class SettingsController < ApplicationController
     @current_org_signed_mou = current_organisation.signed_mou.attachment
   end
 
-  def poster
-    send_file(
-      Rails.root.join("app/assets/images/govwifi-poster.png"),
-      type: "image/png",
-      disposition: "inline",
-      filename: "GovWifi-poster.png",
-    )
-  end
-
 private
 
   def radius_ips
