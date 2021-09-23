@@ -11,6 +11,11 @@
     "stylelint-config-gds": "^0.1.0"
   },
   "stylelint": {
-    "extends": "stylelint-config-gds/scss"
+    "extends": "stylelint-config-gds/scss",
+    "rules": {
+      "selector-max-id": 1,
+      "max-nesting-depth": 3
+    }
+
   }
 }
