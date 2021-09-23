@@ -4,7 +4,7 @@
   .organisation-name {
     // Organisation name centred on mobile
     text-align: center;
-    margin: 14px 0 11px 0;
+    margin: 14px 0 11px;
     font-weight: bold;
 
     .govuk-body {
@@ -34,7 +34,6 @@
       &:hover {
         text-decoration: underline;
       }
-
     }
   }
 }
