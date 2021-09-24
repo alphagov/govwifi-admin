@@ -4,8 +4,11 @@ class IpsController < ApplicationController
     set_radius_key_rotation
     locations_scope = Location.includes(:ips)
       .where(organisation: current_organisation)
-      .order(:address)
-    @pagy, @locations = pagy(locations_scope)
+    if params[:search].present?
+      locations_scope = locations_scope.where("postcode like ?", "%#{params[:search]}%")
+                                       .or(locations_scope.where("address like ?", "%#{params[:search]}%"))
+    end
+    @pagy, @locations = pagy(locations_scope.order(:address))
   end
 
   def destroy
