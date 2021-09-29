@@ -18,8 +18,17 @@
 
   <% if current_organisation.locations.length > 1 %>
     <div class="govuk-!-padding-bottom-7">
-      <label class="govuk-label" for="filter-input">Search by location or postcode</label>
-      <input type="search" id="filter-input" class="govuk-input" autocomplete="off">
+      <%= form_with url: ips_path, method: "get", local: true, class: "govuk-form-group" do |form| %>
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend--m govuk-fieldset">
+            Search by location or postcode
+          </legend>
+          <span id="search_input-hint" class="govuk-hint">For example, 'SW1A 2AA' or 'High Street'</span>
+          <%= form.label :search, "Search by location or postcode", class: "govuk-label govuk-label--m govuk-visually-hidden" %>
+          <%= form.text_field :search, class: "govuk-input govuk-input--width-10" %>
+          <%= form.submit "Search", name: nil, class: "govuk-button" %>
+        </fieldset>
+      <% end %>
     </div>
   <% end %>
 
@@ -42,4 +51,3 @@
   <% end %>
   <%== pagy_nav_govuk(@pagy) %>
 </div>
-<%= render "shared/filter_search" %>
