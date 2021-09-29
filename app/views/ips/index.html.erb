@@ -25,7 +25,7 @@
           </legend>
           <span id="search_input-hint" class="govuk-hint">For example, 'SW1A 2AA' or 'High Street'</span>
           <%= form.label :search, "Search by location or postcode", class: "govuk-label govuk-label--m govuk-visually-hidden" %>
-          <%= form.text_field :search, class: "govuk-input govuk-input--width-10" %>
+          <%= form.text_field :search, value: params.fetch(:search, ""), class: "govuk-input govuk-input--width-10" %>
           <%= form.submit "Search", name: nil, class: "govuk-button" %>
         </fieldset>
       <% end %>
