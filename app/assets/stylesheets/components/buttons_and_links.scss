@@ -6,6 +6,7 @@
   }
 }
 
+// stylelint-disable declaration-no-important
 .red-link {
   color: $govuk-error-colour !important;
 
@@ -13,6 +14,7 @@
     color: lighten($govuk-error-colour, 10%) !important;
   }
 }
+// stylelint-enable declaration-no-important
 
 .button-as-link {
   margin: 0;

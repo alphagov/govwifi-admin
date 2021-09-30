@@ -9,10 +9,10 @@
     &:hover {
       text-decoration: underline;
     }
+  }
 
-    &.active {
-      font-weight: bold;
-      text-decoration: none;
-    }
+  .active {
+    font-weight: bold;
+    text-decoration: none;
   }
 }

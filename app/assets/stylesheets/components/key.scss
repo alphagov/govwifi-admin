@@ -1,11 +1,10 @@
 .secret-key {
 
   @include govuk-font($size: false, $tabular: true);
-  letter-spacing: 0.03em;
+  letter-spacing: .03em;
 
   &-rotate-link {
     display: inline-block;
     padding-left: 15px;
   }
-
 }
