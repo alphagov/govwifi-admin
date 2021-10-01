@@ -24,7 +24,8 @@
       color: $govuk-error-colour;
     }
 
-    &.score-good, &.score-excellent {
+    &.score-good,
+    &.score-excellent {
       color: $colour-green;
     }
   }
