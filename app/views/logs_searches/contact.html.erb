@@ -1,28 +1,25 @@
 <% content_for :page_title, "Search logs by user details" %>
 
-<%= render "layouts/form_errors", resource: @search %>
+<%= form_with model: @search, url: super_admin_wifi_user_search_path, local: true,
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+  <%= f.govuk_error_summary %>
+  <div class='govuk-grid-row'>
+    <div class='govuk-grid-column-two-thirds'>
+      <%= link_to "Back to search options", new_logs_search_path, class: "govuk-back-link" %>
+    </div>
+    <h1 class='govuk-heading-l govuk-grid-column-full'>Search for user details</h1>
+    <div class='govuk-grid-column-two-thirds'>
+      <%= f.govuk_text_field :search_term, label: { text: "Username, email address or phone number" } %>
+      <%= f.govuk_submit "Find user details" %>
+    </div>
+  </div>
+<% end %>
 
 <div class='govuk-grid-row'>
   <div class='govuk-grid-column-two-thirds'>
-    <%= link_to "Back to search options", new_logs_search_path, class: "govuk-back-link" %>
-  </div>
-
-  <h1 class='govuk-heading-l govuk-grid-column-full'>Search for user details</h1>
-
-  <div class='govuk-grid-column-two-thirds'>
-    <%= form_with url: super_admin_wifi_user_search_path, local: true do |f| %>
-      <p>
-        <%= f.label :search_term, "Username, email address or phone number", class: "govuk-label", for: :search_term %>
-        <%= f.text_field :search_term, class: "govuk-input govuk-input--width-50" %>
-      </p>
-      <p>
-        <%= f.submit "Find user details", class: "govuk-button" %>
-      </p>
-    <% end %>
-
     <div class="govuk-body">
       <% if @wifi_user %>
-        <h3>User details for '<%= params[:search_term] %>'</h3>
+        <h3>User details for '<%= @search.search_term %>'</h3>
         <p>
           Username: <%= link_to @wifi_user.username,
                                 logs_path(username: @wifi_user.username),
@@ -31,8 +28,8 @@
         <p>
           Contact: <%= @wifi_user.contact %>
         </p>
-      <% elsif !params[:search_term].blank? %>
-        <h3>Nothing found for '<%= params[:search_term] %>'</h3>
+      <% elsif !@search.search_term.blank? %>
+        <h3>Nothing found for '<%= @search.search_term %>'</h3>
       <% end %>
     </div>
   </div>

@@ -1,9 +1,8 @@
 class SuperAdmin::WifiUserSearchController < SuperAdminController
   def search
-    if search_term.blank?
-      flash.now[:alert] = "Search term can't be blank"
-    else
-      @wifi_user = WifiUser.search(search_term.gsub(" ", ""))
+    @search = LogsSearch.new(search_params)
+    if @search.valid?
+      @wifi_user = WifiUser.search(@search.search_term.gsub(" ", ""))
     end
 
     render "logs_searches/contact"
@@ -11,7 +10,7 @@ class SuperAdmin::WifiUserSearchController < SuperAdminController
 
 private
 
-  def search_term
-    params[:search_term]
+  def search_params
+    params.require(:logs_search).permit(:search_term)
   end
 end

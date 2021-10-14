@@ -10,13 +10,10 @@
   <h1 class='govuk-heading-l govuk-grid-column-full'>Search logs by location </h1>
 
   <div class='govuk-grid-column-two-thirds'>
-    <%= form_for @search do |f| %>
-      <div class='govuk-form-group'>
-        <%= f.label :search_term, "Select one of your organisation's locations", class: "govuk-label" %>
-        <%= collection_select :logs_search, :search_term, @locations, :id, :full_address, {}, class: "govuk-select" %>
-      </div>
+    <%= form_with model: @search, local: true, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+      <%= f.govuk_collection_select :search_term, @locations, :id, :full_address, label: { text: "Select one of your organisation's locations" } %>
       <%= f.hidden_field :filter %>
-      <%= f.submit "Show logs", class: "govuk-button" %>
+      <%= f.govuk_submit "Show logs" %>
     <% end %>
   </div>
 </div>

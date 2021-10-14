@@ -12,7 +12,7 @@ describe "Lookup wifi user contact details", type: :feature do
     choose "Email address"
     click_on "Go to search"
 
-    fill_in "search_term", with: search_term
+    fill_in "Username, email address or phone number", with: search_term
     click_on "Find user details"
   end
 
