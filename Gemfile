@@ -14,7 +14,7 @@ gem "devise", "~> 4.8.1"
 gem "devise_invitable", "~> 2.0.6"
 gem "devise_zxcvbn", "~> 6.0.0"
 gem "google-apis-drive_v3"
-gem 'govuk_design_system_formbuilder'
+gem "govuk_design_system_formbuilder"
 gem "httparty", "~> 0.20.0"
 gem "mysql2", "~> 0.5.2"
 gem "notifications-ruby-client", "~> 5.3.0"

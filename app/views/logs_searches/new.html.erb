@@ -1,64 +1,23 @@
 <% content_for :page_title, "Start logs search" %>
 
-<%= render "layouts/form_errors", resource: @search %>
-
 <div class='govuk-grid-row'>
   <h1 class='govuk-heading-l govuk-grid-column-full'>Logs</h1>
-
   <div class='govuk-grid-column-full'>
-    <p class='govuk-body'>
-      Logs are kept for recent authentication requests made to the GovWifi service.
-    </p>
-
-    <%= form_with url: logs_searches_path, method: :post, local: true do |form| %>
-      <div class="govuk-form-group">
-        <div class="govuk-form-group">
-          <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend">
-              How do you want to filter these logs?
-            </legend>
-            <div class="govuk-radios <%= field_error(@search, :filter) %>">
-              <%= render "error_message", key: :filter, message: "select an option" %>
-              <% if !super_admin? %>
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="choice-location" name="logs_search[filter]" type="radio" value="location">
-                  <label class="govuk-label govuk-radios__label" for="choice-location">
-                    Location
-                  </label>
-                </div>
-              <% end %>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="choice-username" name="logs_search[filter]" type="radio" value="username">
-                <label class="govuk-label govuk-radios__label" for="choice-username">
-                  Username
-                </label>
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="choice-ip" name="logs_search[filter]" type="radio" value="ip">
-                <label class="govuk-label govuk-radios__label" for="choice-ip">
-                  IP address
-                </label>
-              </div>
-              <% if super_admin? %>
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="choice-email" name="logs_search[filter]" type="radio" value="contact">
-                  <label class="govuk-label govuk-radios__label" for="choice-email">
-                    Email address
-                  </label>
-                </div>
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="choice-phone" name="logs_search[filter]" type="radio" value="contact">
-                  <label class="govuk-label govuk-radios__label" for="choice-phone">
-                    Phone number
-                  </label>
-                </div>
-              <% end %>
-            </div>
-          </fieldset>
-        </div>
-      </div>
-      <input type='hidden' name='logs_search[first_step]' value='true'>
-      <%= form.submit "Go to search", class: "govuk-button" %>
+    <%= form_with model: @search, url: logs_searches_path, method: :post, local: true,
+                  builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+      <%= form.govuk_error_summary %>
+      <p class='govuk-body'>
+        Logs are kept for recent authentication requests made to the GovWifi service.
+      </p>
+      <%= form.govuk_radio_buttons_fieldset :filter, legend: { text: "How do you want to filter these logs?" } do %>
+        <%= form.govuk_radio_button :filter, :location, label: { text: "Location" }, link_errors: true unless super_admin? %>
+        <%= form.govuk_radio_button :filter, :username, label: { text: "Username" }, link_errors: super_admin? %>
+        <%= form.govuk_radio_button :filter, :ip, label: { text: "IP address" } %>
+        <%= form.govuk_radio_button :filter, :email, label: { text: "Email address" } if super_admin? %>
+        <%= form.govuk_radio_button :filter, :phone, label: { text: "Phone number" } if super_admin? %>
+      <% end %>
+      <%= form.hidden_field :first_step, value: true %>
+      <%= form.govuk_submit "Go to search" %>
     <% end %>
   </div>
 </div>

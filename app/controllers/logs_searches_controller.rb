@@ -1,4 +1,8 @@
 class LogsSearchesController < ApplicationController
+  def new
+    @search = LogsSearch.new
+  end
+
   def create
     @search = LogsSearch.new(search_params)
     @locations = ordered_locations
@@ -8,9 +12,9 @@ class LogsSearchesController < ApplicationController
 
   def filter_choice
     if @search.filter.present?
-      render @search.filter
+      render @search.view_to_render
     else
-      @search.errors.add(:filter, "can't be blank")
+      @search.errors.add(:filter, "select an option")
       render "new"
     end
   end
@@ -19,7 +23,7 @@ class LogsSearchesController < ApplicationController
     if @search.valid?
       redirect_to logs_path(@search.filter.to_sym => @search.search_term)
     else
-      render @search.filter
+      render @search.view_to_render
     end
   end
 

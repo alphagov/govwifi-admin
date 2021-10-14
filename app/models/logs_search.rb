@@ -9,6 +9,16 @@ class LogsSearch
             if: -> { filter == "username" }
   validates :search_term, with: :validate_ip, if: -> { filter == "ip" }
 
+  def view_to_render
+    {
+      email: :contact,
+      phone: :contact,
+      ip: :ip,
+      username: :username,
+      location: :location,
+    }.fetch(filter.to_sym)
+  end
+
 private
 
   def validate_ip

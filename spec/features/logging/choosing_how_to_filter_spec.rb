@@ -38,21 +38,21 @@ describe "Choosing how to filter", type: :feature do
       end
 
       it "shows the option to filter by email" do
-        expect(page).to have_css("input[type=radio]#choice-email")
+        expect(page).to have_selector "label", text: "Email address", exact_text: true
       end
 
       it "shows the option to filter by contact number" do
-        expect(page).to have_css("#choice-phone")
+        expect(page).to have_selector "label", text: "Phone number", exact_text: true
       end
     end
 
     context "with admin permissions" do
       it "hides the options to filter by email" do
-        expect(page).not_to have_css("#choice-email")
+        expect(page).to_not have_selector "label", text: "Email address", exact_text: true
       end
 
       it "hides the options to filter by contact number" do
-        expect(page).not_to have_css("#choice-phone")
+        expect(page).to_not have_selector "label", text: "Phone number", exact_text: true
       end
     end
   end
