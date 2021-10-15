@@ -47,10 +47,6 @@ describe "View authentication requests for an IP", type: :feature do
       it "displays an error summary" do
         expect(page).to have_content("Search term must be a valid IP address")
       end
-
-      it "prompts to the user for a valid IP address" do
-        expect(page).to have_content("Enter a valid IP address")
-      end
     end
   end
 end

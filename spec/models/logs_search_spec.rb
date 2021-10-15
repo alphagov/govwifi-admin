@@ -12,7 +12,7 @@ describe LogsSearch do
 
       it "explains it is blank" do
         log_search.valid?
-        expect(log_search.errors.full_messages.first).to eq "Search term cannot be empty"
+        expect(log_search.errors.first.message).to eq "Search term cannot be empty"
       end
     end
 
@@ -59,7 +59,7 @@ describe LogsSearch do
 
       it "explains it is blank" do
         log_search.valid?
-        expect(log_search.errors.full_messages.first).to eq "Search term cannot be empty"
+        expect(log_search.errors.first.message).to eq "Search term can't be blank'"
       end
     end
 
@@ -70,7 +70,7 @@ describe LogsSearch do
 
       it "explains it is invalid" do
         log_search.valid?
-        expect(log_search.errors.full_messages.first).to eq "Search term must be a valid IP address"
+        expect(log_search.errors.first.message).to eq "Search term must be a valid IP address"
       end
     end
 
@@ -81,7 +81,7 @@ describe LogsSearch do
 
       it "explains it is invalid" do
         log_search.valid?
-        expect(log_search.errors.full_messages.first).to eq "Search term must be a valid IP address"
+        expect(log_search.errors.first.message).to eq "Search term must be a valid IP address"
       end
     end
 

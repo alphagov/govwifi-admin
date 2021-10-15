@@ -3,7 +3,7 @@ class LogsSearch
 
   attr_accessor :filter, :first_step, :search_term
 
-  validates :search_term, presence: { message: "cannot be empty" }
+  validates :search_term, presence: { message: "Search term can't be blank'" }
   validates :search_term,
             length: { in: 5..6, message: "must be 5 or 6 characters" },
             if: -> { filter == "username" }
@@ -24,7 +24,7 @@ private
   def validate_ip
     ip_check = UseCases::Administrator::CheckIfValidIp.new.execute(search_term)
     unless ip_check[:success]
-      errors.add(:search_term, "must be a valid IP address")
+      errors.add(:search_term, "Search term must be a valid IP address")
     end
   end
 end
