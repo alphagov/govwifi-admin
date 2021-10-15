@@ -12,7 +12,7 @@ describe LogsSearch do
 
       it "explains it is blank" do
         log_search.valid?
-        expect(log_search.errors.first.message).to eq "Search term cannot be empty"
+        expect(log_search.errors.first.message).to eq "Search term can't be blank'"
       end
     end
 
@@ -23,7 +23,7 @@ describe LogsSearch do
 
       it "explains the required length" do
         log_search.valid?
-        expect(log_search.errors.full_messages.first).to eq "Search term must be 5 or 6 characters"
+        expect(log_search.errors.first.message).to eq "Search term must be 5 or 6 characters"
       end
     end
 
@@ -46,7 +46,7 @@ describe LogsSearch do
 
       it "explains the required length" do
         log_search.valid?
-        expect(log_search.errors.full_messages.first).to eq "Search term must be 5 or 6 characters"
+        expect(log_search.errors.first.message).to eq "Search term must be 5 or 6 characters"
       end
     end
   end

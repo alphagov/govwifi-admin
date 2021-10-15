@@ -5,7 +5,7 @@ class LogsSearch
 
   validates :search_term, presence: { message: "Search term can't be blank'" }
   validates :search_term,
-            length: { in: 5..6, message: "must be 5 or 6 characters" },
+            length: { in: 5..6, message: "Search term must be 5 or 6 characters" },
             if: -> { filter == "username" }
   validates :search_term, with: :validate_ip, if: -> { filter == "ip" }
 

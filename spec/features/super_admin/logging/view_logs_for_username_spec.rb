@@ -60,7 +60,7 @@ describe "View authentication requests for a username", type: :feature do
     end
 
     it "prompts the user for a valid username" do
-      expect(page).to have_content("Enter a valid username")
+      expect(page).to have_content("Search term must be 5 or 6 characters")
     end
   end
 end
