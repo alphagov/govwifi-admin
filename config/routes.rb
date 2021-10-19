@@ -75,6 +75,7 @@ Rails.application.routes.draw do
       get "initial", to: "settings#index", as: :new_organisation
     end
   end
+  get "setup_instructions", to: redirect("settings")
   get "setup_instructions/:path", to: redirect("settings/%{path}")
 
   resources :overview, only: %i[index]
