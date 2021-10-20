@@ -56,6 +56,19 @@
               <% end %>
             </li>
           </ul>
+          <% if member.organisations.count > 1 %>
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Other organisations</h3>
+            <ul role="list" class='govuk-list govuk-!-margin-bottom-2 govuk-!-margin-top-1' id='member-<%= member.id %>-other-orgs'>
+              <% member.organisations.each do |org| %>
+                <% if org != current_organisation %>
+                  <li><%= org.name %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+
+
+
         </div>
 
         <div class='govuk-grid-column-one-third govuk-list govuk-!-padding-right-4 govuk-!-margin-top-0 text-right'>
