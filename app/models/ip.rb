@@ -33,8 +33,8 @@ class Ip < ApplicationRecord
 
 private
 
-  def sessions(within: 1.day)
-    Session.where(siteIp: address).where("start > ?", Time.zone.today - within)
+  def sessions(within: 6.hours)
+    Session.where(siteIp: address).where("start > ?", Time.zone.now - within)
   end
 
   def address_must_be_valid_ip
