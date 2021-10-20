@@ -49,6 +49,14 @@ create_user_for_organisations(
   is_super_admin: true,
 )
 
+3.times do
+  create_user_for_organisations(
+    [super_admin_organisation, organisation],
+    confirmed_at: Time.zone.now,
+    is_super_admin: true,
+    )
+end
+
 create_user_for_organisations(
   [organisation, empty_organisation],
   email: "test@gov.uk",
