@@ -22,9 +22,6 @@
       <span class="govuk-header__product-name">
         GovWifi
         <% if Rails.env.production? %>
-          <strong class="govuk-tag govuk-phase-banner__content__tag">
-            live
-          </strong>
         <% else %>
           <strong class="govuk-tag govuk-tag--yellow govuk-phase-banner__content__tag">
             <%= Rails.env %>

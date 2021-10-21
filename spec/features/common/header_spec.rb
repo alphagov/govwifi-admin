@@ -15,8 +15,8 @@ describe "Page header", type: :feature do
       visit root_path
     end
 
-    it "contains the expected live tag" do
-      expect(page).to have_content("GOV.UK GovWifi live")
+    it "does not contain the service stage (beta) in the banner" do
+      expect(page).to_not have_content("GOV.UK GovWifi beta")
     end
   end
 end
