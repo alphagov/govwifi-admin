@@ -15,8 +15,8 @@ describe "Signing in as a (new) super admin", type: :feature do
       expect(page).to have_content("New features!")
     end
 
-    it "renders an alpha warning" do
-      expect(page).to have_content("alpha")
+    it "does not render an alpha warning" do
+      expect(page).to_not have_content("alpha")
     end
 
     it "renders a link to give feedback" do

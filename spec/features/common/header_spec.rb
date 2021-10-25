@@ -15,8 +15,8 @@ describe "Page header", type: :feature do
       visit root_path
     end
 
-    it "contains the expected beta tag" do
-      expect(page).to have_content("GOV.UK GovWifi beta")
+    it "does not contain the expected beta tag" do
+      expect(page).to_not have_content("GOV.UK GovWifi beta")
     end
   end
 end
