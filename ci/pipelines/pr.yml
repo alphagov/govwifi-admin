@@ -95,7 +95,7 @@ jobs:
     - get: govwifi-admin
       trigger: true
     - set_pipeline: admin-pr
-      file: govwifi-admin/ci/pipeline.yml
+      file: govwifi-admin/ci/pipelines/pr.yml
 
   - name: lint & test
     interruptible: true
