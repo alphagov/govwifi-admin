@@ -18,7 +18,7 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
   config.active_record.dump_schema_after_migration = false
-  config.action_mailer.default_url_options = { host: "admin.staging.wifi.service.gov.uk" }
+  config.action_mailer.default_url_options = { host: "admin.staging-temp.wifi.service.gov.uk" }
   config.s3_aws_config = {}
   config.route53_aws_config = {}
   config.enable_enhanced_2fa_experience = false
