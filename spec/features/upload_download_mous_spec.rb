@@ -70,10 +70,21 @@ describe "Uploading and downloading an MOU", type: :feature do
             sign_out
           end
 
-          it "asks the user to authenticate" do
+          it "denies direct access to the link" do
             visit @link
 
-            expect(page).to have_current_path(new_user_session_path)
+            expect(page).to have_http_status 401
+          end
+
+          context "someone has not completed 2FA" do
+            before do
+              sign_in_user user, pass_through_two_factor: false
+            end
+            it "denies direct access to the link" do
+              visit @link
+
+              expect(page).to have_http_status 401
+            end
           end
         end
 
