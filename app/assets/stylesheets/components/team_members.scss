@@ -15,18 +15,3 @@
 .govuk-table__cell:last-child {
   padding-right: 20px;
 }
-
-#password {
-  .password-strength-score {
-    font-weight: bold;
-
-    &.score-weak {
-      color: $govuk-error-colour;
-    }
-
-    &.score-good,
-    &.score-excellent {
-      color: $colour-green;
-    }
-  }
-}
