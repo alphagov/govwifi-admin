@@ -59,8 +59,6 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default charset: "utf-8"
 
-  config.enable_enhanced_2fa_experience = false
-
   config.force_ssl = false
   config.s3_aws_config = {
     stub_responses: {
