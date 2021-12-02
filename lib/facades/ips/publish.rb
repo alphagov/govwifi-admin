@@ -19,7 +19,7 @@ module Facades
       end
 
       def publish_radius_whitelist
-        PublishWhitelist.new(
+        UseCases::Radius::PublishWhitelist.new(
           destination_gateway: Gateways::S3.new(
             bucket: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET"),
             key: ENV.fetch("S3_WHITELIST_OBJECT_KEY"),

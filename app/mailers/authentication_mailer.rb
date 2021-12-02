@@ -8,7 +8,7 @@ class AuthenticationMailer < ::Devise::Mailer
     template_id = GOV_NOTIFY_CONFIG["confirmation_email"]["template_id"]
 
     UseCases::Administrator::SendConfirmationEmail.new(
-      notifications_gateway: EmailGateway.new,
+      notifications_gateway: Gateways::EmailGateway.new,
     ).execute(
       email: record.email,
       confirmation_url: confirmation_link,
@@ -22,7 +22,7 @@ class AuthenticationMailer < ::Devise::Mailer
     template_id = GOV_NOTIFY_CONFIG["reset_password_email"]["template_id"]
 
     UseCases::Administrator::SendResetPasswordEmail.new(
-      notifications_gateway: EmailGateway.new,
+      notifications_gateway: Gateways::EmailGateway.new,
     ).execute(
       email: record.email,
       reset_url: reset_link,
@@ -35,7 +35,7 @@ class AuthenticationMailer < ::Devise::Mailer
     template_id = GOV_NOTIFY_CONFIG["unlock_account"]["template_id"]
 
     UseCases::Administrator::SendUnlockEmail.new(
-      notifications_gateway: EmailGateway.new,
+      notifications_gateway: Gateways::EmailGateway.new,
     ).execute(
       email: record.email,
       unlock_url: unlock_link,
@@ -48,7 +48,7 @@ class AuthenticationMailer < ::Devise::Mailer
     template_id = GOV_NOTIFY_CONFIG["invite_email"]["template_id"]
 
     UseCases::Administrator::SendInviteEmail.new(
-      notifications_gateway: EmailGateway.new,
+      notifications_gateway: Gateways::EmailGateway.new,
     ).execute(
       email: record.email,
       invite_url: invite_link,
@@ -61,7 +61,7 @@ class AuthenticationMailer < ::Devise::Mailer
     template_id = GOV_NOTIFY_CONFIG["cross_organisation_invitation"]["template_id"]
 
     UseCases::Administrator::SendMembershipInviteEmail.new(
-      notifications_gateway: EmailGateway.new,
+      notifications_gateway: Gateways::EmailGateway.new,
     ).execute(
       email: record.email,
       invite_url: invite_link,

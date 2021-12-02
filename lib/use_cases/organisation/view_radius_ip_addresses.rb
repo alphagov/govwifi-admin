@@ -1,6 +1,6 @@
 module UseCases
   module Organisation
-    class ViewRadiusIPAddresses
+    class ViewRadiusIpAddresses
       def initialize(organisation_id:)
         @organisation_id = organisation_id
       end

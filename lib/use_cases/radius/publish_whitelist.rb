@@ -1,4 +1,4 @@
-class PublishWhitelist
+class UseCases::Radius::PublishWhitelist
   def initialize(destination_gateway:, generate_whitelist:)
     @destination_gateway = destination_gateway
     @generate_whitelist = generate_whitelist
