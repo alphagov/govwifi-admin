@@ -21,13 +21,7 @@ module GovwifiAdmin
     config.exceptions_app = routes
 
     config.load_defaults 6.0
-
-    # our lib/ folder doesn't follow the Zeitwerk conventions for
-    # autoloading, so rely the classic loader instead.
-    config.autoloader = :classic
-
-    config.autoload_paths += %W[#{config.root}/lib]
-    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.autoloader = :zeitwerk
 
     # Force HTTPS for all requests except healthcheck endpoint
     config.force_ssl = true
