@@ -48,8 +48,6 @@ module GovwifiAdmin
     config.generators.system_tests = nil
     config.eager_load_paths << Rails.root.join("lib")
 
-    config.enable_enhanced_2fa_experience = false
-
     # Disable IP spoofing check as we get too many false positives due to proxies
     config.action_dispatch.ip_spoofing_check = false
   end
