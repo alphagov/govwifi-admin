@@ -11,7 +11,7 @@ class SettingsController < ApplicationController
 private
 
   def radius_ips
-    view_radius = UseCases::Organisation::ViewRadiusIPAddresses.new(organisation_id: current_organisation.id)
+    view_radius = UseCases::Organisation::ViewRadiusIpAddresses.new(organisation_id: current_organisation.id)
     view_radius.execute
   end
 end

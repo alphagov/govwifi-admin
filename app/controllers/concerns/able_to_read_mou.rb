@@ -1,4 +1,4 @@
-module AbleToReadMOU
+module AbleToReadMou
   extend ActiveSupport::Concern
 
   included do

@@ -1,4 +1,4 @@
-describe UseCases::PublishWhitelist do
+describe UseCases::Radius::PublishWhitelist do
   subject(:use_case) do
     described_class.new(
       destination_gateway: s3_gateway,

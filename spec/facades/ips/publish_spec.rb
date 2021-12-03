@@ -2,11 +2,11 @@ describe Facades::Ips::Publish do
   subject(:facade) { described_class.new }
 
   let(:publish_location_ips) { instance_spy(UseCases::PerformancePlatform::PublishLocationsIps, execute: nil) }
-  let(:publish_whitelist) { instance_spy(PublishWhitelist, execute: nil) }
+  let(:publish_whitelist) { instance_spy(UseCases::Radius::PublishWhitelist, execute: nil) }
 
   before do
     allow(UseCases::PerformancePlatform::PublishLocationsIps).to receive(:new).and_return(publish_location_ips)
-    allow(PublishWhitelist).to receive(:new).and_return(publish_whitelist)
+    allow(UseCases::Radius::PublishWhitelist).to receive(:new).and_return(publish_whitelist)
     facade.execute
   end
 

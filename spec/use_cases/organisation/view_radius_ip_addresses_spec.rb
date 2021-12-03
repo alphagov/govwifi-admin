@@ -1,4 +1,4 @@
-describe UseCases::Organisation::ViewRadiusIPAddresses do
+describe UseCases::Organisation::ViewRadiusIpAddresses do
   subject(:use_case) { described_class.new(organisation_id: org_id) }
 
   let(:radius_ip_1) { "111.111.111.111" }
