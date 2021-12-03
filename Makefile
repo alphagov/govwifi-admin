@@ -25,7 +25,7 @@ prebuild:
 	$(DOCKER_COMPOSE) up --no-start
 
 serve: stop build
-	$(DOCKER_COMPOSE) up -d govuk-fake-registers db rr_db wifi_user_db
+	$(DOCKER_COMPOSE) up -d db rr_db wifi_user_db
 	./mysql/bin/wait_for_mysql
 	./mysql/bin/wait_for_rr_db
 	./mysql_user/bin/wait_for_wifi_user_db

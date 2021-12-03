@@ -32,12 +32,6 @@ RSpec.configure do |config|
     FactoryBot.reload
     ActionMailer::Base.deliveries.clear
 
-    stub_request(:get, "https://government-organisation.register.gov.uk/records.json?page-size=5000")
-     .to_return(status: 200, body: File.read(Rails.root.join("spec/fixtures/gov_orgs_payload.json")))
-
-    stub_request(:get, "https://local-authority-eng.register.gov.uk/records.json?page-size=5000")
-      .to_return(status: 200, body: File.read(Rails.root.join("spec/fixtures/local_auths_payload.json")))
-
     stub_const("Gateways::GovukOrganisationsRegisterGateway::GOVERNMENT_ORGS", [
       "Gov Org 1",
       "Gov Org 2",
