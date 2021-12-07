@@ -6,15 +6,11 @@ default: &default
   connect_to_govwifi_link: 'https://www.wifi.service.gov.uk/connect-to-govwifi/'
   cookies_docs_link: 'https://www.wifi.service.gov.uk/cookies'
   product_page_link: 'https://wifi.service.gov.uk'
-  organisation_register_url: 'https://government-organisation.register.gov.uk/records.json?page-size=5000'
-  local_auth_register_url: 'https://local-authority-eng.register.gov.uk/records.json?page-size=5000'
   default_page_title: 'GovWifi admin'
   default_meta_description: 'GovWifi - Administration Platform'
 
 development:
   <<: *default
-  organisation_register_url: 'http://govuk-fake-registers:7000/organisation_records.json'
-  local_auth_register_url: 'http://govuk-fake-registers:7000/local_auths_records.json'
 
 test:
   <<: *default

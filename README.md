@@ -45,8 +45,6 @@ The application also includes a "Super Admin" login feature that allows a GDS ad
 
 The application uses a few third party services, including:
 
-- [GOV.UK Registers][registers] as a resource for Government organisations to select their names from a predetermined list of registered organisations as they create their accounts.
-
 - [GOV.UK Notify][notify] to handle sending out situational emails to users.
 
 - [GOV.UK Zendesk][zendesk] to handle forms submitted by the user within the app.
@@ -143,7 +141,6 @@ This codebase is released under [the MIT License][mit].
 
 [mit]: LICENCE
 [dev-docs]:https://govwifi-dev-docs.cloudapps.digital
-[registers]:https://www.registers.service.gov.uk
 [notify]:https://www.notifications.service.gov.uk
 [zendesk]:https://govuk.zendesk.com/hc/en-us
 [terraform-repo]:https://github.com/alphagov/govwifi-terraform

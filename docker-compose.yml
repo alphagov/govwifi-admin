@@ -27,12 +27,6 @@ services:
     expose:
       - "3306"
 
-  govuk-fake-registers:
-    build:
-      context: govuk_fake_register
-    expose:
-      - "7000"
-
   app:
     build:
       context: .
@@ -44,5 +38,3 @@ services:
       - wifi_user_db
     expose:
     - "3000"
-    depends_on:
-      - 'govuk-fake-registers'
