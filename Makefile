@@ -25,30 +25,22 @@ prebuild:
 	$(DOCKER_COMPOSE) up --no-start
 
 serve: stop build
-	$(DOCKER_COMPOSE) up -d db rr_db wifi_user_db
-	./mysql/bin/wait_for_mysql
-	./mysql/bin/wait_for_rr_db
-	./mysql_user/bin/wait_for_wifi_user_db
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
 	$(DOCKER_COMPOSE) up -d app
 
 lint: lint-ruby lint-erb lint-scss
 lint-ruby: build
-	$(DOCKER_COMPOSE) run --rm app bundle exec rubocop
+	$(DOCKER_COMPOSE) run  --no-deps --rm app bundle exec rubocop
 lint-erb: build
-	$(DOCKER_COMPOSE) run --rm app bundle exec erblint --lint-all
+	$(DOCKER_COMPOSE) run  --no-deps --rm app bundle exec erblint --lint-all
 lint-scss: build
-	$(DOCKER_COMPOSE) run --rm app node ./node_modules/stylelint/bin/stylelint.js "**/*.scss"
+	$(DOCKER_COMPOSE) run  --no-deps --rm app node ./node_modules/stylelint/bin/stylelint.js "**/*.scss"
 
 autocorrect: autocorrect-erb
 autocorrect-erb: build
-	$(DOCKER_COMPOSE) run --rm app bundle exec erblint --lint-all --autocorrect
+	$(DOCKER_COMPOSE) run --rm --no-deps app bundle exec erblint --lint-all --autocorrect
 
 test: stop build
-	$(DOCKER_COMPOSE) up -d db rr_db wifi_user_db
-	./mysql/bin/wait_for_mysql
-	./mysql/bin/wait_for_rr_db
-	./mysql_user/bin/wait_for_wifi_user_db
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load db:migrate
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
