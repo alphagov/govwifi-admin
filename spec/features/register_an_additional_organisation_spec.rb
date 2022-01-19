@@ -16,6 +16,11 @@ describe "Register an additional organisation", type: :feature do
     expect(page).to have_content("Register an organisation for GovWifi")
   end
 
+  it "does not display the sidebar menu" do
+    click_on "Add new organisation"
+    expect(page).not_to have_css("div.leftnav")
+  end
+
   context "when submitting the form with correct info" do
     let(:organisation_2_name) { "Gov Org 3" }
 
@@ -78,6 +83,10 @@ describe "Register an additional organisation", type: :feature do
 
       it "does not create the organisation" do
         expect { click_on "Create organisation" }.to change(Organisation, :count).by(0)
+      end
+
+      it "does not display the sidebar menu" do
+        expect(page).not_to have_css("div.leftnav")
       end
 
       it "displays the correct error to the user" do
