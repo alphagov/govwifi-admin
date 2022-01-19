@@ -1,8 +1,8 @@
-<% content_for :page_title, "Register an organisation" %>
+<% content_for :page_title, "Add an organisation" %>
 
 <%= render "layouts/form_errors", resource: @organisation %>
 
-<h1 class="govuk-heading-l">Register an organisation for GovWifi</h1>
+<h1 class="govuk-heading-l">Add an organisation to GovWifi</h1>
 <%= form_for @organisation, url: organisations_path do |form| %>
   <div class="govuk-form-group <%= field_error(@organisation, "name") %>">
     <%= form.label :name, "Organisation name", class: "govuk-label" %>
@@ -39,7 +39,7 @@
     <% end %>
   </div>
   <div class="actions">
-    <%= form.submit "Create organisation", class: "govuk-button govuk-!-margin-top-2" %>
+    <%= form.submit "Add organisation", class: "govuk-button govuk-!-margin-top-2" %>
   </div>
 <% end %>
 

@@ -13,7 +13,7 @@ describe "Register an additional organisation", type: :feature do
 
   it "displays the new organisation form" do
     click_on "Add new organisation"
-    expect(page).to have_content("Register an organisation for GovWifi")
+    expect(page).to have_content("Add an organisation to GovWifi")
   end
 
   it "does not display the sidebar menu" do
@@ -31,40 +31,40 @@ describe "Register an additional organisation", type: :feature do
     end
 
     it "creates the organisation" do
-      expect { click_on "Create organisation" }.to change(Organisation, :count).by(1)
+      expect { click_on "Add organisation" }.to change(Organisation, :count).by(1)
     end
 
     it "associates the organisation to the user" do
-      click_on "Create organisation"
+      click_on "Add organisation"
       expect(user.reload.organisations.map(&:name)).to eq([organisation_1.name, organisation_2_name])
     end
 
     it "displays the success message to the user" do
-      click_on "Create organisation"
+      click_on "Add organisation"
       expect(page).to have_content("#{organisation_2_name} created")
     end
 
     it "sets the new organisation as the current organisation" do
-      click_on "Create organisation"
+      click_on "Add organisation"
       within ".subnav" do
         expect(page).to have_content(organisation_2_name)
       end
     end
 
     it "confirms the membership that joins the user to the organisation" do
-      click_on "Create organisation"
+      click_on "Add organisation"
       organisation = user.organisations.find_by(name: organisation_2_name)
       expect(user.membership_for(organisation)).to be_confirmed
     end
 
     it "gives the user can_manage_team privileges" do
-      click_on "Create organisation"
+      click_on "Add organisation"
       organisation = user.organisations.find_by(name: organisation_2_name)
       expect(user.can_manage_team?(organisation)).to eq(true)
     end
 
     it "gives the user can_manage_locations privileges" do
-      click_on "Create organisation"
+      click_on "Add organisation"
       organisation = user.organisations.find_by(name: organisation_2_name)
       expect(user.can_manage_locations?(organisation)).to eq(true)
     end
@@ -82,7 +82,7 @@ describe "Register an additional organisation", type: :feature do
       let(:service_email) { "" }
 
       it "does not create the organisation" do
-        expect { click_on "Create organisation" }.to change(Organisation, :count).by(0)
+        expect { click_on "Add organisation" }.to change(Organisation, :count).by(0)
       end
 
       it "does not display the sidebar menu" do
@@ -90,7 +90,7 @@ describe "Register an additional organisation", type: :feature do
       end
 
       it "displays the correct error to the user" do
-        click_on "Create organisation"
+        click_on "Add organisation"
         expect(page).to have_content("Service email must be a valid email address").twice
       end
     end
@@ -100,11 +100,11 @@ describe "Register an additional organisation", type: :feature do
       let(:service_email) { "info@gov.uk" }
 
       it "does not create the organisation" do
-        expect { click_on "Create organisation" }.to change(Organisation, :count).by(0)
+        expect { click_on "Add organisation" }.to change(Organisation, :count).by(0)
       end
 
       it "displays the correct error to the user" do
-        click_on "Create organisation"
+        click_on "Add organisation"
         expect(page).to have_content("Name can't be blank").twice
       end
     end
