@@ -21,6 +21,11 @@ describe "Register an additional organisation", type: :feature do
     expect(page).not_to have_css("div.leftnav")
   end
 
+  it "displays a cancel link" do
+    click_on "Add new organisation"
+    expect(page).to have_link("Cancel", href: "https://www.example.com/change_organisation")
+  end
+
   context "when submitting the form with correct info" do
     let(:organisation_2_name) { "Gov Org 3" }
 
