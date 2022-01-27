@@ -42,7 +42,7 @@ describe "Editing an organisations details", type: :feature do
     end
 
     it "will display an error to the user" do
-      expect(page).to have_content("Service email must be a valid email address").twice
+      expect(page).to have_content("Service email must be in the correct format, like name@example.com").twice
     end
   end
 end

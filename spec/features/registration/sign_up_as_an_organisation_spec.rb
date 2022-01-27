@@ -138,7 +138,7 @@ describe "Sign up as an organisation", type: :feature do
     it_behaves_like "errors in form"
 
     it "tells the user that the service email must be present" do
-      expect(page).to have_content "Organisations service email must be a valid email address"
+      expect(page).to have_content "Organisations service email must be in the correct format, like name@example.com"
     end
   end
 
@@ -152,7 +152,7 @@ describe "Sign up as an organisation", type: :feature do
     it_behaves_like "errors in form"
 
     it "tells the user that the service email must be a valid email address" do
-      expect(page).to have_content "Organisations service email must be a valid email address"
+      expect(page).to have_content "Organisations service email must be in the correct format, like name@example.com"
     end
   end
 
