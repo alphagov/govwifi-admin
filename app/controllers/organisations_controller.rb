@@ -22,6 +22,7 @@ class OrganisationsController < ApplicationController
     else
       @register_organisations = Organisation.fetch_organisations_from_register
 
+      @hide_sidebar = true
       render :new
     end
   end
