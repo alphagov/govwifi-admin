@@ -2,10 +2,10 @@ name: admin lint and test
 on:
   push:
     branches:
-      - create-github-workflow
+      - master
   pull_request:
     branches:
-      - create-github-workflow
+      - master
 
 jobs:
   lint:
