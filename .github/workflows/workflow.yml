@@ -1,0 +1,35 @@
+name: admin lint and test
+on:
+  push:
+    branches:
+      - create-github-workflow
+  pull_request:
+    branches:
+      - create-github-workflow
+
+jobs:
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.3
+      - name: Install dependencies
+        run: bundle install
+      - name: Run lint
+        run: make lint
+
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.3
+      - name: Install dependencies
+        run: bundle install
+      - name: Run tests
+        run: make test
