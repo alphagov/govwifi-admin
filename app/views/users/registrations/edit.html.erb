@@ -10,27 +10,48 @@
   </legend>
 
 <%= form_for(current_user, url: user_registration_path, method: :put) do |f| %>
-  <div class="govuk-form-group">
+  <div class="govuk-form-group <%= field_error(resource, :current_password) %>">
     <%= f.label :current_password, class: "govuk-label" %>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-three-quarters">
-        <%= f.password_field :current_password, class: "govuk-input" %>
+        <% if resource.errors.attribute_names.include?(:current_password) %>
+          <span class="govuk-error-message" id="current_password_error">
+            <span class="govuk-visually-hidden">Error:</span>
+            <%= resource.errors.full_messages_for(:current_password).first %>
+          </span>
+        <% end %>
+
+        <%= f.password_field :current_password, class: "govuk-input #{input_error(resource, :current_password)}" %>
       </div>
     </div>
   </div>
-  <div id="password" class="govuk-form-group">
+  <div id="password" class="govuk-form-group <%= field_error(resource, :password) %>">
     <%= f.label :password, class: "govuk-label" %>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-three-quarters">
-        <%= f.password_field :password, class: "govuk-input" %>
+        <% if resource.errors.attribute_names.include?(:password) %>
+          <span class="govuk-error-message" id="password_error">
+            <span class="govuk-visually-hidden">Error:</span>
+            <%= resource.errors.full_messages_for(:password).first %>
+          </span>
+        <% end %>
+
+        <%= f.password_field :password, class: "govuk-input #{input_error(resource, :password)}" %>
       </div>
     </div>
   </div>
-  <div class="govuk-form-group">
+  <div class="govuk-form-group <%= field_error(resource, :password_confirmation) %>">
     <%= f.label :password_confirmation, class: "govuk-label" %>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-three-quarters">
-        <%= f.password_field :password_confirmation, class: "govuk-input" %>
+        <% if resource.errors.attribute_names.include?(:password_confirmation) %>
+          <span class="govuk-error-message" id="password_confirmation_error">
+            <span class="govuk-visually-hidden">Error:</span>
+            <%= resource.errors.full_messages_for(:password_confirmation).first %>
+          </span>
+        <% end %>
+
+        <%= f.password_field :password_confirmation, class: "govuk-input #{input_error(resource, :password_confirmation)}" %>
       </div>
     </div>
   </div>
