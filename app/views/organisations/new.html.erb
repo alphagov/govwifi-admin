@@ -14,10 +14,10 @@
         <span class="govuk-visually-hidden">Error:</span>
         <%= @organisation.errors.full_messages_for(:name).first %>
       </span>
-      <%= form.select :name, options_for_select(@register_organisations << "", ""),
+      <%= form.select :name, options_for_select(@register_organisations << "", @organisation.name || ""),
                       {}, class: "govuk-select govuk-input--error" %>
     <% else %>
-      <%= form.select :name, options_for_select(@register_organisations << "", ""), {}, class: "govuk-select" %>
+      <%= form.select :name, options_for_select(@register_organisations << "", @organisation.name || ""), {}, class: "govuk-select" %>
     <% end %>
   </div>
 
@@ -31,11 +31,11 @@
       </span>
       <%= form.text_field :service_email,
                           class: "govuk-input govuk-input--error",
-                          value: (params || {}).dig(:user, :organisation_attributes, :service_email) %>
+                          value: @organisation.service_email || "" %>
     <% else %>
       <%= form.text_field :service_email,
                           class: "govuk-input",
-                          value: (params || {}).dig(:user, :organisation_attributes, :service_email) %>
+                          value: @organisation.service_email || "" %>
     <% end %>
   </div>
   <div class="actions">
