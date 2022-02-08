@@ -40,12 +40,6 @@
       </button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
-          <li class="govuk-header__navigation-item">
-            <%= link_to "Connect to GovWifi", SITE_CONFIG["connect_to_govwifi_link"], class: "govuk-header__link" %>
-          </li>
-          <li class="govuk-header__navigation-item">
-            <%= link_to "Offer GovWifi", SITE_CONFIG["organisation_docs_link"], class: "govuk-header__link" %>
-          </li>
           <% if user_signed_in? %>
           <li class="govuk-header__navigation-item">
             <%= link_to "Support", signed_in_new_help_path, class: "govuk-header__link" %>
