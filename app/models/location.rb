@@ -38,7 +38,7 @@ private
 
   def validate_postcode_format
     unless UKPostcode.parse(postcode.to_s).valid?
-      errors.add(:postcode, "must be valid")
+      errors.add(:postcode, "Postcode must be valid")
     end
   end
 
