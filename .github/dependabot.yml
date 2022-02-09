@@ -6,85 +6,15 @@ updates:
     interval: daily
     time: "03:00"
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: aws-sdk-s3
-    versions:
-    - 1.87.0
-    - 1.88.0
-    - 1.88.1
-    - 1.88.2
-    - 1.89.0
-    - 1.90.0
-    - 1.91.0
-    - 1.92.0
-    - 1.93.0
-    - 1.93.1
-  - dependency-name: aws-sdk-route53
-    versions:
-    - 1.45.0
-    - 1.46.0
-    - 1.47.0
-    - 1.48.0
-  - dependency-name: listen
-    versions:
-    - 3.5.0
-  - dependency-name: nokogiri
-    versions:
-    - 1.11.0
-    - 1.11.2
-  - dependency-name: webmock
-    versions:
-    - 3.11.1
-    - 3.11.2
-    - 3.11.3
-    - 3.12.0
-    - 3.12.1
-  - dependency-name: activerecord-session_store
-    versions:
-    - 2.0.0
-  - dependency-name: rspec-rails
-    versions:
-    - 4.1.0
-    - 5.0.0
-  - dependency-name: rails
-    versions:
-    - 6.1.1
-    - 6.1.2
-    - 6.1.2.1
-    - 6.1.3
-  - dependency-name: rack-mini-profiler
-    versions:
-    - 2.3.1
-  - dependency-name: tzinfo-data
-    versions:
-    - 1.2021.1
-  - dependency-name: bullet
-    versions:
-    - 6.1.3
-  - dependency-name: cancancan
-    versions:
-    - 3.2.1
-  - dependency-name: rubocop-govuk
-    versions:
-    - 3.17.2
 - package-ecosystem: npm
   directory: "/"
   schedule:
     interval: daily
     time: "03:00"
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: govuk-frontend
-    versions:
-    - 3.10.2
-    - 3.11.0
 - package-ecosystem: docker
   directory: "/"
   schedule:
     interval: daily
     time: "03:00"
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: ruby
-    versions:
-    - 3.0.0.pre.alpine
