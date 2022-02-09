@@ -42,6 +42,30 @@ describe "Editing password", type: :feature do
     expect(page).to have_content "Sign out"
   end
 
+  it "stays on the same page and does not change the password, if the current password is invalid" do
+    visit edit_user_registration_path
+
+    fill_in "Current password", with: "wrong password"
+    fill_in "Password", with: pw
+    fill_in "Password confirmation", with: pw
+
+    click_on "Submit"
+
+    expect(page).to have_content "Current password is invalid"
+  end
+
+  it "stays on the same page and does not change the password, if the new password is too short" do
+    visit edit_user_registration_path
+
+    fill_in "Current password", with: user.password
+    fill_in "Password", with: "a"
+    fill_in "Password confirmation", with: "a"
+
+    click_on "Submit"
+
+    expect(page).to have_content "Password is too short"
+  end
+
   it "stays on the same page and does not change the password, if the confirmation does not match" do
     visit edit_user_registration_path
 
