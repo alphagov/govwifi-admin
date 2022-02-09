@@ -52,6 +52,8 @@ describe "Editing password", type: :feature do
     click_on "Submit"
 
     expect(page).to have_content "Current password is invalid"
+    expect(page).to have_css "#user_current_password.govuk-input--error"
+    expect(page).to have_css ".govuk-form-group.govuk-form-group--error"
   end
 
   it "stays on the same page and does not change the password, if the new password is too short" do
@@ -64,6 +66,8 @@ describe "Editing password", type: :feature do
     click_on "Submit"
 
     expect(page).to have_content "Password is too short"
+    expect(page).to have_css "#user_password.govuk-input--error"
+    expect(page).to have_css ".govuk-form-group.govuk-form-group--error"
   end
 
   it "stays on the same page and does not change the password, if the confirmation does not match" do
@@ -76,5 +80,7 @@ describe "Editing password", type: :feature do
     click_on "Submit"
 
     expect(page).to have_content "Password confirmation doesn't match Password"
+    expect(page).to have_css "#user_password_confirmation.govuk-input--error"
+    expect(page).to have_css ".govuk-form-group.govuk-form-group--error"
   end
 end
