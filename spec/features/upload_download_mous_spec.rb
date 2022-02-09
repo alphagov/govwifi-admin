@@ -93,10 +93,10 @@ describe "Uploading and downloading an MOU", type: :feature do
             sign_in_user create(:user, :with_organisation)
           end
 
-          it "redirects the user to the overview with a message" do
+          it "redirects the user to the locations with a message" do
             visit @link
 
-            expect(page).to have_current_path(overview_index_path)
+            expect(page).to have_current_path(ips_path)
             expect(page).to have_content("You are not allowed to see this MoU.")
           end
         end

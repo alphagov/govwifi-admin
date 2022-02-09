@@ -2,7 +2,7 @@ class SuperAdmin::NeoController < SuperAdminController
   def dashboard
     @manage_link =
       if current_user.new_super_admin?
-        overview_index_path
+        ips_path
       else
         root_path
       end

@@ -76,8 +76,6 @@ Rails.application.routes.draw do
   get "setup_instructions", to: redirect("settings")
   get "setup_instructions/:path", to: redirect("settings/%{path}")
 
-  resources :overview, only: %i[index]
-
   namespace :super_admin do
     resources :locations, only: %i[index] do
       collection do

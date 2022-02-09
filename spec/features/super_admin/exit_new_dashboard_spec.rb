@@ -30,7 +30,7 @@ describe "Exiting new dashboard", type: :feature do
       it "points to the organisation panel" do
         click_on "Manage organisations"
 
-        expect(page).to have_current_path overview_index_path
+        expect(page).to have_current_path ips_path
       end
     end
   end

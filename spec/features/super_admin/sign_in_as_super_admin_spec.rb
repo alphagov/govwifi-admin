@@ -40,7 +40,7 @@ describe "Signing in as a super admin", type: :feature do
 
       it "renders the normal organisation overview" do
         expect(page.find(".govuk-heading-l"))
-          .to have_content("Overview")
+          .to have_content("Locations")
                 .or have_content("Settings")
       end
     end
