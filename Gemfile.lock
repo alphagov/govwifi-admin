@@ -257,7 +257,8 @@ GEM
       jwt (>= 1.5, < 3)
     orm_adapter (0.5.0)
     os (1.1.4)
-    pagy (5.8.1)
+    pagy (5.10.1)
+      activesupport
     parallel (1.21.0)
     parser (3.1.0.0)
       ast (~> 2.4.1)
@@ -485,7 +486,7 @@ DEPENDENCIES
   mysql2 (~> 0.5.2)
   nokogiri
   notifications-ruby-client (~> 5.3.0)
-  pagy (~> 5.8.1)
+  pagy (~> 5.10.1)
   pry
   puma (~> 5.6)
   rack-mini-profiler
