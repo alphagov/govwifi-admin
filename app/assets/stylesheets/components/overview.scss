@@ -17,20 +17,3 @@
 .summary-link-colour:focus {
   color: $colour-black;
 }
-
-.overview-section-alignment {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.overview-stats-panel {
-  @include govuk-responsive-margin(6, "bottom");
-
-  padding-left: 20px;
-  padding-top: 28px;
-  height: 140px;
-}
-
-.overview-stats-panel:hover {
-  background-color: $colour-light-blue;
-}

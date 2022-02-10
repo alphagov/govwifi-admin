@@ -7,12 +7,12 @@ class HomeController < ApplicationController
         elsif current_organisation.super_admin?
           super_admin_organisations_path
         else
-          overview_index_path
+          ips_path
         end
       elsif current_organisation.ips.empty?
         new_organisation_settings_path
       else
-        overview_index_path
+        ips_path
       end
 
     redirect_to destination
