@@ -377,16 +377,14 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sentry-rails (4.9.2)
+    sentry-rails (5.0.2)
       railties (>= 5.0)
-      sentry-ruby-core (~> 4.9.2)
-    sentry-ruby (4.9.2)
+      sentry-ruby-core (~> 5.0.2)
+    sentry-ruby (5.0.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      faraday (~> 1.0)
-      sentry-ruby-core (= 4.9.2)
-    sentry-ruby-core (4.9.2)
+      sentry-ruby-core (= 5.0.2)
+    sentry-ruby-core (5.0.2)
       concurrent-ruby
-      faraday
     shellany (0.0.1)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
