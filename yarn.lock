@@ -754,10 +754,10 @@
   "resolved" "https://registry.npmjs.org/govuk-frontend/-/govuk-frontend-3.14.0.tgz"
   "version" "3.14.0"
 
-"govwifi-shared-frontend@https://github.com/alphagov/govwifi-shared-frontend/releases/download/v0.6.7/govwifi-shared-frontend-0.6.7.tgz":
-  "integrity" "sha512-9m+5a7PmfOL2dHQfdAeynH2xEfoiREC2g5af5KmgCLLwqCEkDnLhXKwVkE0zl84d0X/nODbbseYKVnLTY45vzQ=="
-  "resolved" "https://github.com/alphagov/govwifi-shared-frontend/releases/download/v0.6.7/govwifi-shared-frontend-0.6.7.tgz"
-  "version" "0.6.7"
+"govwifi-shared-frontend@https://github.com/alphagov/govwifi-shared-frontend/releases/download/v0.6.8/govwifi-shared-frontend-0.6.8.tgz":
+  "integrity" "sha512-T+v5yq2oDOhqKfGUCxsiLmvU3mBrgFHGUo6x+D6+66KOLTj9YEWBgQoh/xl5W0qc3IKMyBONB2FhzEXttslgkA=="
+  "resolved" "https://github.com/alphagov/govwifi-shared-frontend/releases/download/v0.6.8/govwifi-shared-frontend-0.6.8.tgz"
+  "version" "0.6.8"
   dependencies:
     "js-cookie" "^3.0.1"
 
