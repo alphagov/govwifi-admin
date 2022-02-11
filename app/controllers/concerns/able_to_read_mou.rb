@@ -10,7 +10,7 @@ module AbleToReadMou
 
     if cannot? :read_mou, Organisation.find(attachment.record_id)
 
-      path = "/overview"
+      path = "/ips"
       redirect_to path, alert: "You are not allowed to see this MoU."
     end
   end

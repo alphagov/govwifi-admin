@@ -53,12 +53,12 @@ describe "GET /home", type: :request do
         sign_in_user user
       end
 
-      it "redirects to the overview" do
+      it "redirects to the locations path" do
         skip "the Organisation factory is broken (cannot be created with valid ips, see FactoryBot.lint)"
 
         get root_path
 
-        expect(response).to redirect_to overview_index_path
+        expect(response).to redirect_to ips_path
       end
     end
   end
