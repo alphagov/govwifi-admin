@@ -20,10 +20,6 @@ describe "Signing in as a super admin", type: :feature do
       expect(page.find(".govuk-heading-l")).to have_content "All organisations"
     end
 
-    it "has a way to access the new dashboard" do
-      expect(page).to have_content "Back to dashboard"
-    end
-
     context "when visiting a normal organisation" do
       before do
         user.organisations << organisation

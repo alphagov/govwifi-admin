@@ -96,10 +96,6 @@ Rails.application.routes.draw do
     end
 
     post "wifi_user_search", to: "wifi_user_search#search"
-
-    namespace "neo" do
-      get "dashboard"
-    end
   end
 
   %w[404 422 500].each do |code|
