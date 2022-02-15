@@ -5,9 +5,6 @@
     </div>
     <nav class='govuk-grid-column-one-half'>
       <%= link_to "Switch organisation", change_organisation_path, class: "govuk-link govuk-body" %>
-      <% if can?(:manage, :all) %>
-        <%= link_to "Back to dashboard", super_admin_neo_dashboard_path, class: "govuk-link govuk-body" %>
-      <% end %>
     </nav>
   </div>
 </div>
