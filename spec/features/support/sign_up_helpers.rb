@@ -3,7 +3,7 @@ require "warden"
 
 def sign_up_for_account(email: "default@gov.uk")
   visit new_user_registration_path
-  fill_in "user_email", with: email
+  fill_in "Email address", with: email
   click_on "Sign up"
 end
 
