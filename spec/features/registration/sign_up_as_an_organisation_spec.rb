@@ -71,13 +71,6 @@ describe "Sign up as an organisation", type: :feature do
       it "tells me my email is not valid" do
         expect(page).to have_content("Email address must be from a government or a public sector domain. If you're having trouble signing up, contact us.")
       end
-
-      it "provides a link to a support form" do
-        visit new_user_registration_path
-        click_on "Sign up"
-        click_on "contact us"
-        expect(page).to have_content("Setting up GovWifi in your organisation support")
-      end
     end
 
     context "with a blank email" do
@@ -211,7 +204,7 @@ describe "Sign up as an organisation", type: :feature do
 
     it "will tell the user the email is already in use" do
       sign_up_for_account(email: email)
-      expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
+      expect(page).to have_content("This email address is already associated with an account. If you can't sign in, reset your password")
     end
   end
 
