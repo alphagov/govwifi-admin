@@ -76,10 +76,10 @@ describe Organisation do
       expect(organisation).not_to be_valid
     end
 
-    it "explains why it is invalid" do
+    it "displays the appropriate design system error message" do
       organisation.valid?
       expect(organisation.errors.full_messages).to eq([
-        "Service email must be a valid email address",
+        "Service email must be in the correct format, like name@example.com",
       ])
     end
   end
@@ -91,10 +91,10 @@ describe Organisation do
       expect(organisation).not_to be_valid
     end
 
-    it "explains why it is invalid" do
+    it "displays the appropriate design system error message" do
       organisation.valid?
       expect(organisation.errors.full_messages).to eq([
-        "Service email must be a valid email address",
+        "Service email must be in the correct format, like name@example.com",
       ])
     end
   end

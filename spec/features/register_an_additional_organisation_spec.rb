@@ -96,7 +96,7 @@ describe "Register an additional organisation", type: :feature do
 
       it "displays the correct error to the user" do
         click_on "Add organisation"
-        expect(page).to have_content("Service email must be a valid email address").twice
+        expect(page).to have_content("Service email must be in the correct format, like name@example.com").twice
       end
 
       it "retains the selected organisation value" do
