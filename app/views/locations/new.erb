@@ -1,44 +1,19 @@
 <% content_for :page_title, "Add location" %>
 
-<%= render "layouts/form_errors", resource: @location %>
-
-<div class='govuk-grid-row'>
-  <div class='govuk-grid-column-full'>
-    <%= link_to 'Back to list', ips_path, class: 'govuk-back-link' %>
-    <h1 class='govuk-heading-l'>Add a location</h1>
+<%= form_with model: @location,
+              html: { autocomplete: "off" },
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+  <%= f.govuk_error_summary %>
+  <div class='govuk-grid-row'>
+    <div class='govuk-grid-column-full'>
+      <%= link_to 'Back to list', ips_path, class: 'govuk-back-link' %>
+      <h1 class='govuk-heading-l'>Add a location</h1>
+    </div>
+    <div class='govuk-grid-column-full'>
+      <%= f.govuk_text_field :address,
+                              hint: { text: "For example, 10 High Street, London" } %>
+      <%= f.govuk_text_field :postcode %>
+      <%= f.govuk_submit "Add location" %>
+    </div>
   </div>
-  <div class='govuk-grid-column-full'>
-    <%= form_for @location, html: { autocomplete: "off" } do |f| %>
-      <div class="govuk-form-group <%= field_error(@location, :address) %>">
-        <%= f.label :address, class: 'govuk-label' %>
-        <div id="address-hint" class="govuk-hint">
-          For example, 10 High Street, London
-        </div>
-        <% if @location.errors.attribute_names.include?(:address) %>
-          <span class="govuk-error-message" id="location_error">
-            <span class="govuk-visually-hidden">Error:</span><%= @location.errors.full_messages_for(:address).first %>
-          </span>
-          <%= f.text_field :address, class: 'govuk-input govuk-input--error', 'aria-describedby': 'address-hint' %>
-        <% else %>
-          <%= f.text_field :address, class: 'govuk-input', 'aria-describedby': 'address-hint' %>
-        <% end %>
-      </div>
-      <div class="govuk-form-group <%= field_error(@location, :postcode) %>">
-        <%= f.label :postcode, class: 'govuk-label' %>
-        <% if @location.errors.attribute_names.include?(:postcode) %>
-          <% @location.errors.where(:postcode).each_with_index do |error, index| %>
-            <span class="govuk-error-message" id="postcode-error-message-<%= "#{index + 1}" %>">
-              <span class="govuk-visually-hidden">Error:</span><%= error.full_message %>
-            </span>
-          <% end %>
-          <%= f.text_field :postcode, class: 'govuk-input govuk-input--width-10 govuk-input--error' %>
-        <% else %>
-          <%= f.text_field :postcode, class: 'govuk-input govuk-input--width-10' %>
-        <% end %>
-      </div>
-      <div class='govuk-form-group govuk-!-margin-top-6'>
-        <%= f.submit 'Add location', class: 'govuk-button' %>
-      </div>
-    <% end %>
-  </div>
-</div>
+<% end %>

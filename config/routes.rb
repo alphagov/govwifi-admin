@@ -76,8 +76,6 @@ Rails.application.routes.draw do
   get "setup_instructions", to: redirect("settings")
   get "setup_instructions/:path", to: redirect("settings/%{path}")
 
-  resources :overview, only: %i[index]
-
   namespace :super_admin do
     resources :locations, only: %i[index] do
       collection do
@@ -98,10 +96,6 @@ Rails.application.routes.draw do
     end
 
     post "wifi_user_search", to: "wifi_user_search#search"
-
-    namespace "neo" do
-      get "dashboard"
-    end
   end
 
   %w[404 422 500].each do |code|

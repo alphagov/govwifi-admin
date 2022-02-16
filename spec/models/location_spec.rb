@@ -39,21 +39,21 @@ describe Location do
     it "errors when the postcode does not match the correct format" do
       location.update(postcode: "WHATEVER POSTCODE")
       expect(location.errors[:postcode]).to eq([
-        "must be valid",
+        "Postcode must be valid",
       ])
     end
 
     it "errors when the postcode is empty" do
       location.update(postcode: "")
       expect(location.errors[:postcode]).to eq([
-        "can't be blank",
+        "Postcode can't be blank",
       ])
     end
 
     it "errors when the postcode is nil" do
       location.update(postcode: nil)
       expect(location.errors[:postcode]).to eq([
-        "can't be blank",
+        "Postcode can't be blank",
       ])
     end
   end

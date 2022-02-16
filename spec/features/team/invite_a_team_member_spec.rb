@@ -87,7 +87,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "displays the correct error message" do
-        expect(page).to have_content("Email is already associated with an account. If you can't sign in, reset your password")
+        expect(page).to have_content("This email address is already associated with an account. If you can't sign in, reset your password")
       end
     end
 
@@ -163,7 +163,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "displays the correct error message" do
-        expect(page).to have_content("Email must be a valid email address").twice
+        expect(page).to have_content("Enter an email address in the correct format, like name@example.com").twice
       end
     end
   end

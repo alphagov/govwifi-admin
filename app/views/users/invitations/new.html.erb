@@ -1,27 +1,24 @@
 <% content_for :page_title, "Invite a team member" %>
 
-<%= render "layouts/form_errors" %>
+<%= form_for(resource,
+             as: resource_name,
+             url: invitation_path(resource_name),
+             builder: GOVUKDesignSystemFormBuilder::FormBuilder,
+             html: { method: :post, novalidate: "" }) do |f| %>
 
-<% if super_admin? %>
-  <%= link_to "Back to organisation", super_admin_organisation_path(@target_organisation.id), class: "govuk-back-link" %>
-  <h1 class="govuk-heading-l">Invite a team member to <%= @target_organisation.name %> </h1>
-<% else %>
-  <%= link_to "Back to list", memberships_path, class: "govuk-back-link" %>
-  <h1 class="govuk-heading-l">Invite a team member</h1>
-<% end %>
-<div class="govuk-grid-column-full govuk-!-padding-left-0">
-  <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, novalidate: "" } do |f| %>
-    <div class="govuk-form-group <%= field_error(resource, :email) %>">
-      <%= f.label :email, "Email address", class: "govuk-label" %>
-      <% if resource.errors.attribute_names.include?(:email) %>
-          <span class="govuk-error-message" id="email_address_error">
-            <span class="govuk-visually-hidden">Error:</span><%= resource.errors.full_messages_for(:email).first %>
-          </span>
-        <%= f.email_field :email, autocomplete: "email", class: "govuk-input govuk-input--error" %>
-      <% else %>
-        <%= f.email_field :email, autocomplete: "email", class: "govuk-input" %>
-      <% end %>
-    </div>
+  <%= f.govuk_error_summary %>
+
+  <% if super_admin? %>
+    <%= link_to "Back to organisation", super_admin_organisation_path(@target_organisation.id), class: "govuk-back-link" %>
+    <h1 class="govuk-heading-l">Invite a team member to <%= @target_organisation.name %> </h1>
+  <% else %>
+    <%= link_to "Back to list", memberships_path, class: "govuk-back-link" %>
+    <h1 class="govuk-heading-l">Invite a team member</h1>
+  <% end %>
+
+  <div class="govuk-grid-column-full govuk-!-padding-left-0">
+    <%= f.govuk_email_field :email, label: { text: "Email address" } %>
+
     <div class="actions">
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
@@ -55,8 +52,6 @@
       </div>
     </div>
 
-    <div class="actions">
-      <%= f.submit "Send invitation email", class: "govuk-button govuk-!-margin-top-0 govuk-!-margin-bottom-8" %>
-    </div>
-  <% end %>
-</div>
+    <%= f.govuk_submit "Send invitation email" %>
+  </div>
+<% end %>

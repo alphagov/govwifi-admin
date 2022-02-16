@@ -98,6 +98,11 @@ describe "Register an additional organisation", type: :feature do
         click_on "Add organisation"
         expect(page).to have_content("Service email must be in the correct format, like name@example.com").twice
       end
+
+      it "retains the selected organisation value" do
+        click_on "Add organisation"
+        expect(page).to have_select("name", selected: "Gov Org 3")
+      end
     end
 
     context "with an invalid organisation name" do
@@ -111,6 +116,11 @@ describe "Register an additional organisation", type: :feature do
       it "displays the correct error to the user" do
         click_on "Add organisation"
         expect(page).to have_content("Name can't be blank").twice
+      end
+
+      it "retains the service email" do
+        click_on "Add organisation"
+        expect(page).to have_field("Service email", with: service_email)
       end
     end
   end
