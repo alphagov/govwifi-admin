@@ -5,8 +5,9 @@
     <%= render "confirm_remove_ip" if @ip_to_delete && current_user.can_manage_locations?(current_organisation) %>
     <%= render "confirm_remove_location" if @location_to_delete && current_user.can_manage_locations?(current_organisation) %>
     <%= render "confirm_rotate_radius_key" if @key_to_rotate && current_user.can_manage_locations?(current_organisation) %>
-
-    <div class="govuk-grid-column-two-thirds">
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-0">
       <h1 class="govuk-heading-l">Locations</h1>
     </div>
     <div class="govuk-grid-column-one-third text-right">
@@ -28,22 +29,24 @@
     <% end %>
   <% end %>
 
-  <%== pagy_nav_govuk(@pagy) %>
-  <% if current_organisation.locations.empty? %>
-    <p class="govuk-body result-row-empty">
-      You need to add at least one location to offer GovWifi
-    </p>
-  <% else %>
-    <div role="status">
-      <p class="govuk-body" id="no-results" style="display: none">
-        <strong>No results found</strong>
-      </p>
-    </div>
-    <div aria-live="polite">
-      <% @locations.each do |location| %>
-        <%= render partial: "shared/manage_ips", locals: { location: location, show_ip_controls: true } %>
-      <% end %>
-    </div>
-  <% end %>
-  <%== pagy_nav_govuk(@pagy) %>
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+
+    <%== pagy_nav_govuk(@pagy) %>
+
+    <% if current_organisation.locations.empty? %>
+      <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-9">
+        You need to add at least one location to offer GovWifi
+      </div>
+    <% elsif @locations.count==0 %>
+      <h2 class="govuk-heading-m ">No results found</h2>
+    <% else %>
+      <div aria-live="polite">
+        <% @locations.each do |location| %>
+          <%= render partial: "shared/manage_ips", locals: { location: location, show_ip_controls: true } %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%== pagy_nav_govuk(@pagy) %>
+  </div>
 </div>
