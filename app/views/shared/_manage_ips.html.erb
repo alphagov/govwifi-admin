@@ -3,34 +3,32 @@
     <%= location.full_address %>
   </h2>
   <% if show_ip_controls %>
-    <div class="govuk-body govuk-!-margin-bottom-2">
-      RADIUS secret key:
-      <div class="inline-block">
-        <span class="secret-key"><%= location.radius_secret_key %></span>
-        <% if current_user.can_manage_locations?(current_organisation) %>
-          <%= link_to location_rotate_key_path(location, rotate: true), class: "red-link secret-key-rotate-link" do %>
-            Rotate secret key <span class='govuk-visually-hidden'>for <%= location.full_address %></span>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
+    <span class="govuk-caption-m govuk-!-margin-bottom-4">
+      RADIUS secret key: <%= location.radius_secret_key %>
+    </span>
     <% if current_user.can_manage_locations?(current_organisation) %>
-      <%= link_to location_add_ips_path(location_id: location.id), class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5", role: "button", draggable: "false", "data-module" => "govuk-button" do %>
-        Add IP addresses <span class='govuk-visually-hidden'>for <%= location.full_address %></span>
-      <% end %>
-      <% if location.ips.empty? %>
-        <p class="result-row-empty govuk-body">
-          Add the IP addresses of your authenticators to offer GovWifi at this location
-        </p>
-      <% end %>
-
-      <% if current_user.can_manage_locations?(current_organisation) && location.ips.empty? %>
-        <p class="govuk-body govuk-!-margin-bottom-1">
-          <%= link_to location_remove_path(location, remove: true), class: "red-link" do %>
+      <div class="govuk-button-group">
+        <%= link_to location_add_ips_path(location_id: location.id),
+                    class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5",
+                    role: "button", draggable: "false", "data-module" => "govuk-button" do %>
+          Add IP addresses <span class='govuk-visually-hidden'>for <%= location.full_address %></span>
+        <% end %>
+        <%= link_to location_rotate_key_path(location, rotate: true),
+                    class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-5",
+                    role: "button", draggable: "false", "data-module" => "govuk-button" do %>
+          Rotate secret key <span class='govuk-visually-hidden'>for <%= location.full_address %></span>
+        <% end %>
+        <% if location.ips.empty? %>
+          <%= link_to location_remove_path(location, remove: true),
+                      class: "govuk-button govuk-button--warning govuk-!-margin-bottom-5",
+                      role: "button", draggable: "false", "data-module" => "govuk-button" do %>
             Remove this location <span class='govuk-visually-hidden'>- <%= location.full_address %></span>
           <% end %>
-        </p>
-      <% end %>
+          <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-9">
+            Add the IP addresses of your authenticators to offer GovWifi at this location
+          </div>
+        <% end %>
+      </div>
     <% end %>
   <% end %>
   <table class="govuk-table govuk-!-margin-bottom-7">
