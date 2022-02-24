@@ -4,7 +4,7 @@ describe "Lookup wifi user contact details", type: :feature do
   let(:contact) { "wifi.user@govwifi.org" }
 
   before do
-    create(:wifi_user, username: "zZyYxX", contact: contact)
+    create(:wifi_user, username: "zZyYxX", contact:)
 
     sign_in_user user
     visit new_logs_search_path

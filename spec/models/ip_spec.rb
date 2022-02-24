@@ -10,21 +10,21 @@ describe Ip do
     let(:location) { create(:location, organisation: create(:organisation)) }
 
     it "does not allow the address 0.0.0.0" do
-      ip = described_class.create(address: "0.0.0.0", location: location)
+      ip = described_class.create(address: "0.0.0.0", location:)
       expect(ip.errors.full_messages).to eq([
         "Address '0.0.0.0' is not a valid IP address",
       ])
     end
 
     it "does not allow a blank address" do
-      ip = described_class.create(address: "", location: location)
+      ip = described_class.create(address: "", location:)
       expect(ip.errors.full_messages).to eq([
         "Address can't be blank",
       ])
     end
 
     context "with an invalid address" do
-      let!(:ip) { described_class.create(address: "invalidIP", location: location) }
+      let!(:ip) { described_class.create(address: "invalidIP", location:) }
 
       it "does not save" do
         expect(described_class.count).to eq(0)
@@ -38,7 +38,7 @@ describe Ip do
     end
 
     context "with a valid IPv4 address" do
-      let!(:ip) { described_class.create(address: "141.0.149.130", location: location) }
+      let!(:ip) { described_class.create(address: "141.0.149.130", location:) }
 
       it "saves the IP" do
         expect(described_class.count).to eq(1)
@@ -50,7 +50,7 @@ describe Ip do
     end
 
     context "with a valid IPv6 address" do
-      let!(:ip) { described_class.create(address: "2001:db8:0:1234:0:567:8:1", location: location) }
+      let!(:ip) { described_class.create(address: "2001:db8:0:1234:0:567:8:1", location:) }
 
       it "does not save the IP" do
         expect(described_class.count).to eq(0)
@@ -64,7 +64,7 @@ describe Ip do
     end
 
     context "with a private address" do
-      let!(:ip) { described_class.create(address: "192.168.0.0", location: location) }
+      let!(:ip) { described_class.create(address: "192.168.0.0", location:) }
 
       it "does not save the IP" do
         expect(described_class.count).to eq(0)

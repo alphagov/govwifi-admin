@@ -1,5 +1,5 @@
 describe LogsSearch do
-  subject(:log_search) { described_class.new(filter: filter, search_term: search_term) }
+  subject(:log_search) { described_class.new(filter:, search_term:) }
 
   let(:search_term) { "" }
   let(:filter) { "" }

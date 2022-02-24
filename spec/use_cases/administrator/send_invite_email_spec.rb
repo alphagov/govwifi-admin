@@ -7,19 +7,19 @@ describe UseCases::Administrator::SendInviteEmail do
   let(:template_id) { GOV_NOTIFY_CONFIG["invite_email"]["template_id"] }
   let(:valid_args) do
     {
-      email: email,
+      email:,
       email_reply_to_id: nil,
-      locals: { invite_url: invite_url },
-      template_id: template_id,
+      locals: { invite_url: },
+      template_id:,
       reference: "invite_email",
     }
   end
 
   before do
     use_case.execute(
-      email: email,
-      invite_url: invite_url,
-      template_id: template_id,
+      email:,
+      invite_url:,
+      template_id:,
     )
   end
 

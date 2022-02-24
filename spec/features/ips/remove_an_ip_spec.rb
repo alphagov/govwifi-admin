@@ -1,8 +1,8 @@
 describe "Removing an IP", type: :feature do
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
-  let(:location) { create(:location, organisation: organisation) }
-  let!(:ip) { create(:ip, location: location) }
+  let(:location) { create(:location, organisation:) }
+  let!(:ip) { create(:ip, location:) }
 
   before do
     sign_in_user user

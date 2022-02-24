@@ -20,7 +20,7 @@ describe "Sign up as an organisation", type: :feature do
   context "with a valid email" do
     let(:email) { "newuser@gov.uk" }
 
-    before { sign_up_for_account(email: email) }
+    before { sign_up_for_account(email:) }
 
     it "instructs the user to check their confirmation email" do
       expect(page).to have_content(
@@ -31,8 +31,8 @@ describe "Sign up as an organisation", type: :feature do
 
   context "with correct data" do
     before do
-      sign_up_for_account(email: email)
-      update_user_details(name: name)
+      sign_up_for_account(email:)
+      update_user_details(name:)
     end
 
     context "with a gov.uk email" do
@@ -47,7 +47,7 @@ describe "Sign up as an organisation", type: :feature do
       end
 
       it "creates a confirmed membership joining the user to the org" do
-        user = User.find_by(email: email)
+        user = User.find_by(email:)
         organisation = Organisation.find_by(name: "Gov Org 1")
         expect(user.membership_for(organisation)).to be_confirmed
       end
@@ -200,10 +200,10 @@ describe "Sign up as an organisation", type: :feature do
   context "with an already registered email" do
     let(:email) { "george@gov.uk" }
 
-    before { sign_up_for_account(email: email) }
+    before { sign_up_for_account(email:) }
 
     it "will tell the user the email is already in use" do
-      sign_up_for_account(email: email)
+      sign_up_for_account(email:)
       expect(page).to have_content("This email address is already associated with an account. If you can't sign in, reset your password")
     end
   end
@@ -239,7 +239,7 @@ describe "Sign up as an organisation", type: :feature do
     end
 
     it "publishes the updated list of organisation names to S3" do
-      expect(organisation_names_gateway).to have_received(:write).with(data: data)
+      expect(organisation_names_gateway).to have_received(:write).with(data:)
     end
   end
 end

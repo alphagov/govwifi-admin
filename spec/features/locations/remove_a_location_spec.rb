@@ -1,7 +1,7 @@
 describe "Remove a location", type: :feature do
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
-  let!(:location) { create(:location, organisation: organisation) }
+  let!(:location) { create(:location, organisation:) }
 
   before do
     sign_in_user user
@@ -40,7 +40,7 @@ describe "Remove a location", type: :feature do
 
     context "when the location has an IP" do
       before do
-        create(:ip, location: location)
+        create(:ip, location:)
       end
 
       it "does not show the remove location link" do

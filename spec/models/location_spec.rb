@@ -5,7 +5,7 @@ describe Location do
   it { is_expected.to have_many(:ips) }
 
   describe "#save" do
-    subject(:location) { build(:location, organisation: organisation) }
+    subject(:location) { build(:location, organisation:) }
 
     let(:organisation) { create(:organisation) }
 

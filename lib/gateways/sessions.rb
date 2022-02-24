@@ -13,9 +13,9 @@ module Gateways
                   .limit(MAXIMUM_RESULTS_COUNT)
 
       results = results.where(siteIP: ip_filter) if ip_filter
-      results = results.where(username: username) if username.present?
+      results = results.where(username:) if username.present?
       results = results.where(siteIP: ips) if ips.present?
-      results = results.where(success: success) if success.present?
+      results = results.where(success:) if success.present?
 
       results.map do |log|
         {

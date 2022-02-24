@@ -21,7 +21,7 @@ class FakeHealthyRoute53Gateway
                               },
                             ])
 
-    client.get_health_check_status(health_check_id: health_check_id)
+    client.get_health_check_status(health_check_id:)
   end
 
   def list_health_checks
@@ -77,7 +77,7 @@ class FakeUnHealthyRoute53Gateway
                               },
                             ])
 
-    client.get_health_check_status(health_check_id: health_check_id)
+    client.get_health_check_status(health_check_id:)
   end
 
   def list_health_checks
@@ -111,7 +111,7 @@ describe UseCases::Administrator::HealthChecks::CalculateHealth do
   let(:aws_route53_gateway) { FakeHealthyRoute53Gateway.new }
 
   let(:result) do
-    described_class.new(route53_gateway: aws_route53_gateway).execute(ips: ips)
+    described_class.new(route53_gateway: aws_route53_gateway).execute(ips:)
   end
 
   context "when health checkers are healthy" do

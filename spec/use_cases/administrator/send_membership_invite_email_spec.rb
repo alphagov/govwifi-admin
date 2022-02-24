@@ -8,23 +8,23 @@ describe UseCases::Administrator::SendMembershipInviteEmail do
   let(:organisation) { create(:organisation) }
   let(:valid_args) do
     {
-      email: email,
+      email:,
       email_reply_to_id: nil,
       locals: {
-        invite_url: invite_url,
+        invite_url:,
         organisation: organisation.name,
       },
-      template_id: template_id,
+      template_id:,
       reference: "invite_email",
     }
   end
 
   before do
     use_case.execute(
-      email: email,
-      invite_url: invite_url,
-      template_id: template_id,
-      organisation: organisation,
+      email:,
+      invite_url:,
+      template_id:,
+      organisation:,
     )
   end
 

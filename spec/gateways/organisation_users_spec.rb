@@ -1,5 +1,5 @@
 describe Gateways::OrganisationUsers do
-  subject(:gateway) { described_class.new(organisation: organisation) }
+  subject(:gateway) { described_class.new(organisation:) }
 
   context "with users" do
     let(:organisation) { create(:organisation) }

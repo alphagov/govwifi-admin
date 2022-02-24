@@ -6,7 +6,7 @@ module UseCases
       end
 
       def execute(username: nil, ips: nil, success: nil)
-        params = { username: username, success: success, ips: ips }
+        params = { username:, success:, ips: }
         { results: @authentication_logs_gateway.search(**params) }
       end
     end

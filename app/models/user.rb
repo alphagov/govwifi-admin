@@ -47,7 +47,7 @@ class User < ApplicationRecord
   end
 
   def pending_membership_for?(organisation:)
-    memberships.pending.where(organisation: organisation).present?
+    memberships.pending.where(organisation:).present?
   end
 
   def can_manage_team?(organisation)
@@ -59,7 +59,7 @@ class User < ApplicationRecord
   end
 
   def membership_for(organisation)
-    memberships.find_by(organisation: organisation)
+    memberships.find_by(organisation:)
   end
 
   def default_membership

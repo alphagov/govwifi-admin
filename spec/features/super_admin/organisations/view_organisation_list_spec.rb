@@ -81,7 +81,7 @@ describe "View a list of signed up organisations", type: :feature do
       before do
         2.times do
           organisation = create(:organisation)
-          create_list(:location, 3, organisation: organisation)
+          create_list(:location, 3, organisation:)
         end
 
         visit super_admin_organisations_path

@@ -6,7 +6,7 @@ describe Organisation do
     let(:org) { create(:organisation) }
     let(:user) { create(:user, organisations: [org]) }
     let!(:location) { create(:location, organisation: org) }
-    let!(:ip) { Ip.create(address: "1.1.1.1", location: location) }
+    let!(:ip) { Ip.create(address: "1.1.1.1", location:) }
 
     before { org.destroy }
 

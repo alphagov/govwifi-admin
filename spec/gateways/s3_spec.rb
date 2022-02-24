@@ -1,12 +1,12 @@
 describe Gateways::S3 do
-  subject(:gateway) { described_class.new(bucket: bucket, key: key) }
+  subject(:gateway) { described_class.new(bucket:, key:) }
 
   let(:bucket) { "StubBucket" }
   let(:key) { "StubKey" }
   let(:data) { { blah: "foobar" }.to_json }
 
   it "writes the data to the S3 bucket" do
-    expect(gateway.write(data: data)).to eq({})
+    expect(gateway.write(data:)).to eq({})
   end
 
   context "when reading a file from the S3 bucket" do

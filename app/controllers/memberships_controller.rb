@@ -42,7 +42,7 @@ private
 
   def sorted_team_members(organisation)
     UseCases::Administrator::SortUsers.new(
-      users_gateway: Gateways::OrganisationUsers.new(organisation: organisation),
+      users_gateway: Gateways::OrganisationUsers.new(organisation:),
     ).execute
   end
 

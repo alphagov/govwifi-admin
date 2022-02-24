@@ -24,7 +24,7 @@ private
   end
 
   def add_user_to_organisation(organisation)
-    membership = invited_user.memberships.find_or_create_by!(invited_by_id: current_user.id, organisation: organisation)
+    membership = invited_user.memberships.find_or_create_by!(invited_by_id: current_user.id, organisation:)
     membership.update!(can_manage_team: params[:can_manage_team], can_manage_locations: params[:can_manage_locations])
     send_invite_email(membership) if user_has_confirmed_account?
   end

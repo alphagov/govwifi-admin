@@ -1,5 +1,5 @@
 describe Gateways::Coordinates do
-  subject(:postcode_coordinates_gateway) { described_class.new(postcodes: postcodes) }
+  subject(:postcode_coordinates_gateway) { described_class.new(postcodes:) }
 
   context "when all are valid postcodes" do
     let(:postcodes) { %w[OX49 5NU M32 0JG] }

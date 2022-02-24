@@ -1,6 +1,6 @@
 describe UseCases::BackupServiceEmails do
   subject(:use_case) do
-    described_class.new(writer: writer)
+    described_class.new(writer:)
   end
 
   let(:writer) { instance_spy(Gateways::GoogleDrive) }

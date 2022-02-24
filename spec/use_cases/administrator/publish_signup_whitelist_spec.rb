@@ -18,8 +18,8 @@ describe UseCases::Administrator::PublishSignupWhitelist do
   before do
     described_class.new(
       destination_gateway: s3_gateway,
-      source_gateway: source_gateway,
-      presenter: presenter,
+      source_gateway:,
+      presenter:,
     ).execute
   end
 

@@ -19,7 +19,7 @@ describe "DELETE /locations/:id", type: :request do
 
     context "when the location has an IP" do
       before do
-        create(:ip, location: location)
+        create(:ip, location:)
       end
 
       it "does not delete the location" do

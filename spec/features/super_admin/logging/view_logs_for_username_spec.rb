@@ -6,8 +6,8 @@ describe "View authentication requests for a username", type: :feature do
   let(:super_admin_ip) { create(:ip, location: super_admin_location) }
 
   let(:organisation) { create(:organisation) }
-  let(:location) { create(:location, organisation: organisation) }
-  let(:ip) { create(:ip, location: location) }
+  let(:location) { create(:location, organisation:) }
+  let(:ip) { create(:ip, location:) }
 
   let(:organisation_2) { create(:organisation) }
   let(:location_2) { create(:location, organisation: organisation_2) }
@@ -22,9 +22,9 @@ describe "View authentication requests for a username", type: :feature do
 
   context "when there are results from multiple organisations and users" do
     before do
-      create(:session, start: 3.days.ago, username: username, siteIP: super_admin_ip.address, success: true)
-      create(:session, start: 3.days.ago, username: username, siteIP: ip.address, success: true)
-      create(:session, start: 3.days.ago, username: username, siteIP: ip_2.address, success: true)
+      create(:session, start: 3.days.ago, username:, siteIP: super_admin_ip.address, success: true)
+      create(:session, start: 3.days.ago, username:, siteIP: ip.address, success: true)
+      create(:session, start: 3.days.ago, username:, siteIP: ip_2.address, success: true)
       create(:session, start: 3.days.ago, username: "user2", siteIP: ip_2.address, success: true)
 
       fill_in "Username", with: username

@@ -1,7 +1,7 @@
 describe UseCases::Radius::GenerateRadiusIpWhitelist do
   let(:organisation) { create(:organisation) }
-  let(:location1) { create(:location, organisation: organisation) }
-  let(:location2) { create(:location, organisation: organisation) }
+  let(:location1) { create(:location, organisation:) }
+  let(:location2) { create(:location, organisation:) }
   let(:configuration_result) { described_class.new.execute }
 
   before do

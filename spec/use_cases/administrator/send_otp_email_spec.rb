@@ -9,8 +9,8 @@ describe UseCases::Administrator::SendOtpEmail do
     {
       email: email_address,
       email_reply_to_id: nil,
-      locals: { url: url, name: "test_name" },
-      template_id: template_id,
+      locals: { url:, name: "test_name" },
+      template_id:,
       reference: "otp_email",
     }
   end
@@ -18,8 +18,8 @@ describe UseCases::Administrator::SendOtpEmail do
   before do
     use_case.execute(
       name: "test_name",
-      email_address: email_address,
-      url: url,
+      email_address:,
+      url:,
     )
   end
 

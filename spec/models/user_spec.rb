@@ -46,7 +46,7 @@ describe User do
     let(:organisation) { create(:organisation) }
 
     it "returns true if the membership is pending" do
-      expect(user.pending_membership_for?(organisation: organisation)).to eq(true)
+      expect(user.pending_membership_for?(organisation:)).to eq(true)
     end
   end
 

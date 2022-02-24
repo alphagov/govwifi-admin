@@ -1,7 +1,7 @@
 describe UseCases::Administrator::GetAuthRequests do
   subject(:use_case) do
     described_class.new(
-      authentication_logs_gateway: authentication_logs_gateway,
+      authentication_logs_gateway:,
     )
   end
 
@@ -13,10 +13,10 @@ describe UseCases::Administrator::GetAuthRequests do
     let(:ips) { nil }
 
     it "calls search on the gateway" do
-      use_case.execute(username: username)
+      use_case.execute(username:)
 
       expect(authentication_logs_gateway).to have_received(:search)
-        .with(username: username, success: success, ips: ips)
+        .with(username:, success:, ips:)
     end
   end
 
@@ -29,7 +29,7 @@ describe UseCases::Administrator::GetAuthRequests do
       use_case.execute(ips: ip)
 
       expect(authentication_logs_gateway).to have_received(:search)
-        .with(ips: ip, success: success, username: username)
+        .with(ips: ip, success:, username:)
     end
   end
 
@@ -39,10 +39,10 @@ describe UseCases::Administrator::GetAuthRequests do
     let(:success) { nil }
 
     it "calls search on the gateway" do
-      use_case.execute(ips: ips)
+      use_case.execute(ips:)
 
       expect(authentication_logs_gateway).to have_received(:search)
-        .with(ips: ips, success: success, username: username)
+        .with(ips:, success:, username:)
     end
   end
 end

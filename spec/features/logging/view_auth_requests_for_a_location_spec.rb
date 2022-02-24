@@ -35,7 +35,7 @@ describe "View authentication requests for a location", type: :feature do
   end
 
   context "when choosing a location with logs" do
-    let(:ip) { create(:ip, location: location) }
+    let(:ip) { create(:ip, location:) }
     let(:other_ip) { create(:ip) }
 
     before do
