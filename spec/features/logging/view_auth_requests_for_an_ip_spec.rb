@@ -14,8 +14,8 @@ describe "View authentication requests for an IP", type: :feature do
     before do
       visit ips_path
 
-      within("#ips-table") do
-        click_on "view logs"
+      within(:xpath, "//tr[th[normalize-space(text())=\"#{ip}\"]]") do
+        click_on "View logs"
       end
     end
 

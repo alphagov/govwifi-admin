@@ -31,8 +31,8 @@
       </div>
     <% end %>
   <% end %>
-  <table class="govuk-table govuk-!-margin-bottom-7">
-    <tbody class="govuk-table__body" id="ips-table">
+  <table class="govuk-table govuk-!-margin-bottom-9">
+    <tbody class="govuk-table__body">
     <% if location.sorted_ip_addresses.length == 0 %>
       <tr class="govuk-table__row">
         <td class="govuk-table__cell">
@@ -41,40 +41,44 @@
       </tr>
     <% end %>
     <% location.sorted_ip_addresses.each do |ip| %>
-      <tr class="govuk-table__row" id="ips-row-<%= ip.id %>">
-        <td class="govuk-table__cell govuk-!-width-one-third">
-          <%= render partial: "shared/ip_address", locals: { ip: ip.address } %>
-        </td>
-        <% if ip.available? %>
-          <td class="govuk-table__cell ">
-            <% if ip.unused? %>
-              No traffic received yet
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header govuk-!-width-one-quarter">
+            <%= ip.address %>
+          </th>
+          <td class="govuk-table__cell govuk-!-width-one-quarter">
+            <% if !ip.available? %>
+              Available at 6am tomorrow
+            <% elsif ip.unused? %>
+              No traffic received
             <% elsif ip.inactive? %>
               No traffic in the last 10 days
             <% else %>
-              Receiving traffic (<%= link_to "view logs", logs_path(ip: ip.address), class: "govuk-link" %>)
+              Receiving traffic
             <% end %>
           </td>
-          <td class="govuk-table__cell">
-            <% unless ip.unused? || ip.inactive? %>
+          <td class="govuk-table__cell govuk-!-width-one-quarter">
+            <% if ip.available? && !ip.unused? && !ip.inactive? %>
               <%= ip.percent_success %>% success rate
             <% end %>
           </td>
-        <% else %>
-          <td class="govuk-table__cell text-dark-grey">
-            Available at 6am tomorrow
+          <td class="govuk-table__cell govuk-!-width-one-quarter text-right">
+            <ul class="plain-list govuk-!-margin-0">
+              <% if ip.available? && !ip.unused? && !ip.inactive? %>
+                <li>
+                  <%= link_to "View logs", logs_path(ip: ip.address), class: "govuk-link" %>
+                </li>
+              <% end %>
+              <% if show_ip_controls && current_user.can_manage_locations?(current_organisation) %>
+                <li>
+                  <%= link_to ip_remove_path(ip), class: "govuk-link govuk-link--no-visited-state" do %>
+                    Remove <span class='govuk-visually-hidden'><%= ip.address %> from <%= location.full_address %></span>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
           </td>
-          <td class="govuk-table__cell"></td>
-        <% end %>
-        <td class="govuk-table__cell text-right">
-          <% if show_ip_controls && current_user.can_manage_locations?(current_organisation) %>
-            <%= link_to ip_remove_path(ip), class: "govuk-link govuk-link--no-visited-state" do %>
-              Remove <span class='govuk-visually-hidden'><%= ip.address %> from <%= location.full_address %></span>
-            <% end %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>
