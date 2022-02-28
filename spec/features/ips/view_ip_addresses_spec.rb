@@ -3,6 +3,10 @@ describe "Viewing IP addresses", type: :feature do
 
   let(:user) { create(:user, :with_organisation) }
 
+  def xpath_row_containing_ip(ip)
+    "//tr[th[normalize-space(text())=\"#{ip.address}\"]]"
+  end
+
   context "with no IPs" do
     before do
       sign_in_user user
@@ -49,7 +53,7 @@ describe "Viewing IP addresses", type: :feature do
       end
 
       it "labels the IP as inactive" do
-        within("#ips-row-#{ip.id}") do
+        within(:xpath, xpath_row_containing_ip(ip)) do
           expect(page).to have_content("No traffic in the last 10 days")
         end
       end
@@ -61,8 +65,8 @@ describe "Viewing IP addresses", type: :feature do
 
     context "with newly created IPs with no activity" do
       it "labels the IP as created but unused" do
-        within("#ips-row-#{ip.id}") do
-          expect(page).to have_content("No traffic received yet")
+        within(:xpath, xpath_row_containing_ip(ip)) do
+          expect(page).to have_content("No traffic received")
         end
       end
     end
@@ -74,13 +78,13 @@ describe "Viewing IP addresses", type: :feature do
       end
 
       it "Does not label the IP as inactive" do
-        within("#ips-row-#{ip.id}") do
+        within(:xpath, xpath_row_containing_ip(ip)) do
           expect(page).not_to have_content("No traffic for the last 10 days")
         end
       end
 
       it "Does not label the IP as unused" do
-        within("#ips-row-#{ip.id}") do
+        within(:xpath, xpath_row_containing_ip(ip)) do
           expect(page).not_to have_content("No traffic received yet")
         end
       end

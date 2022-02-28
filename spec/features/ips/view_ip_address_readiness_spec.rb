@@ -30,7 +30,7 @@ describe "Wiew whether IPs are ready", type: :feature do
       end
 
       it "shows it as available" do
-        expect(page).to have_content("No traffic received yet")
+        expect(page).to have_content("No traffic received")
       end
 
       it "does not shpow any IPs as available tomorrow" do
