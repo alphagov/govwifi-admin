@@ -28,7 +28,7 @@ describe "Viewing IP addresses", type: :feature do
 
   context "with IPs" do
     let(:location) { create(:location, organisation: user.organisations.first) }
-    let!(:ip) { create(:ip, location: location, created_at: 9.days.ago) }
+    let!(:ip) { create(:ip, location:, created_at: 9.days.ago) }
     before do
       sign_in_user user
       visit ips_path

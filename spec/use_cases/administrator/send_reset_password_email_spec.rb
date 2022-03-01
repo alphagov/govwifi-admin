@@ -7,19 +7,19 @@ describe UseCases::Administrator::SendResetPasswordEmail do
   let(:template_id) { GOV_NOTIFY_CONFIG["reset_password_email"]["template_id"] }
   let(:valid_args) do
     {
-      email: email,
+      email:,
       email_reply_to_id: nil,
-      locals: { reset_url: reset_url },
-      template_id: template_id,
+      locals: { reset_url: },
+      template_id:,
       reference: "reset_password_email",
     }
   end
 
   before do
     use_case.execute(
-      email: email,
-      reset_url: reset_url,
-      template_id: template_id,
+      email:,
+      reset_url:,
+      template_id:,
     )
   end
 

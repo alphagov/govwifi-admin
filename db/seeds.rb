@@ -16,12 +16,12 @@ def create_user_for_organisations(
   last_name = Faker::Name.last_name
   email ||= "#{first_name}.#{last_name}@example.gov.uk"
   User.create!(
-    email: email,
+    email:,
     password: "password",
     name: "#{first_name} #{last_name}",
-    confirmed_at: confirmed_at,
-    organisations: organisations,
-    is_super_admin: is_super_admin,
+    confirmed_at:,
+    organisations:,
+    is_super_admin:,
   )
 end
 

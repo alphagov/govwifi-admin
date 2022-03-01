@@ -4,8 +4,8 @@ describe Membership do
   let(:organisation) { create(:organisation) }
   let(:membership) do
     create(:membership,
-           user: user,
-           organisation: organisation,
+           user:,
+           organisation:,
            invitation_token: "some_token",
            invited_by_id: inviter.id)
   end

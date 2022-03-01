@@ -59,7 +59,7 @@ private
 
   def assign_user_to_organisation(organisation)
     current_user.memberships.create(
-      organisation: organisation,
+      organisation:,
       confirmed_at: Time.zone.now,
     )
   end

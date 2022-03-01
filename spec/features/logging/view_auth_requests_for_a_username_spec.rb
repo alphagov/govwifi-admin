@@ -24,9 +24,9 @@ describe "View authentication requests for a username", type: :feature do
     let(:location) { create(:location, organisation: admin_user.organisations.first) }
 
     before do
-      create(:session, start: 3.days.ago, username: username, siteIP: "1.1.1.1", success: true)
-      create(:session, start: 3.days.ago, username: username, siteIP: "1.1.1.1", success: false)
-      create(:session, start: 3.days.ago, username: username, siteIP: "2.2.2.2", success: false)
+      create(:session, start: 3.days.ago, username:, siteIP: "1.1.1.1", success: true)
+      create(:session, start: 3.days.ago, username:, siteIP: "1.1.1.1", success: false)
+      create(:session, start: 3.days.ago, username:, siteIP: "2.2.2.2", success: false)
 
       another_org = create(:organisation)
       another_org_location = create(:location, organisation: another_org)

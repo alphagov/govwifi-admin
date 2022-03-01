@@ -7,7 +7,7 @@ module Gateways
     delegate :list_health_checks, to: :client
 
     def get_health_check_status(health_check_id:)
-      client.get_health_check_status(health_check_id: health_check_id)
+      client.get_health_check_status(health_check_id:)
     end
 
   private

@@ -44,7 +44,7 @@ describe "Deleting an organisation", type: :feature do
 
       it "publishes the updated list of organisation names to S3" do
         click_on "Yes, remove this organisation"
-        expect(organisation_names_gateway).to have_received(:write).with(data: data)
+        expect(organisation_names_gateway).to have_received(:write).with(data:)
       end
     end
   end

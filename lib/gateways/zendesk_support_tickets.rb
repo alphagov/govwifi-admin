@@ -11,8 +11,8 @@ class Gateways::ZendeskSupportTickets
     name = "Unknown" if name.blank?
 
     @client.tickets.create!(
-      subject: subject,
-      requester: { email: email, name: name },
+      subject:,
+      requester: { email:, name: },
       comment: { value: body },
       tags: %w[gov_wifi],
     )

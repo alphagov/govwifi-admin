@@ -26,10 +26,10 @@ describe Gateways::EmailGateway do
 
     before do
       email_gateway.send(
-        email: email,
-        template_id: template_id,
-        locals: { confirmation_url: confirmation_url },
-        reference: reference,
+        email:,
+        template_id:,
+        locals: { confirmation_url: },
+        reference:,
       )
     end
 

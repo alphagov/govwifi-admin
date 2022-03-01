@@ -10,7 +10,7 @@ module UseCases
       def execute(email_address:, url:, name:)
         opts = {
           email: email_address,
-          locals: { url: url, name: name },
+          locals: { url:, name: },
           template_id: GOV_NOTIFY_CONFIG["otp_email"]["template_id"],
           reference: REFERENCE,
           email_reply_to_id: nil,

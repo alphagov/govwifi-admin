@@ -3,7 +3,7 @@ describe "View and search locations", type: :feature do
   let(:organisation) { create(:organisation) }
 
   before do
-    create(:location, address: "69 Garry Street, London", postcode: "HA7 2BL", organisation: organisation)
+    create(:location, address: "69 Garry Street, London", postcode: "HA7 2BL", organisation:)
     sign_in_user user
     visit root_path
     within(".leftnav") { click_on "Locations" }
@@ -29,7 +29,7 @@ describe "View and search locations", type: :feature do
 
   context "select an organisation with 41 locations" do
     before :each do
-      FactoryBot.create_list(:location, 40, organisation: organisation)
+      FactoryBot.create_list(:location, 40, organisation:)
       click_on organisation.name
     end
     it "shows 5 pages, a 'Next' link but not a 'Prev' link" do

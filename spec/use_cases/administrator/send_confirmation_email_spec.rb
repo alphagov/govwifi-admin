@@ -7,19 +7,19 @@ describe UseCases::Administrator::SendConfirmationEmail do
   let(:template_id) { GOV_NOTIFY_CONFIG["confirmation_email"]["template_id"] }
   let(:valid_args) do
     {
-      email: email,
+      email:,
       email_reply_to_id: nil,
-      locals: { confirmation_url: confirmation_url },
+      locals: { confirmation_url: },
       reference: "confirmation_email",
-      template_id: template_id,
+      template_id:,
     }
   end
 
   before do
     use_case.execute(
-      email: email,
-      confirmation_url: confirmation_url,
-      template_id: template_id,
+      email:,
+      confirmation_url:,
+      template_id:,
     )
   end
 

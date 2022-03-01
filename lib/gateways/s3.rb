@@ -9,15 +9,15 @@ module Gateways
     def write(data:)
       client.put_object(
         body: data,
-        bucket: bucket,
-        key: key,
+        bucket:,
+        key:,
       )
 
       {}
     end
 
     def read
-      client.get_object(bucket: bucket, key: key).body.read
+      client.get_object(bucket:, key:).body.read
     end
 
   private

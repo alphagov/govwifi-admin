@@ -12,7 +12,7 @@ class AuthenticationMailer < ::Devise::Mailer
     ).execute(
       email: record.email,
       confirmation_url: confirmation_link,
-      template_id: template_id,
+      template_id:,
     )
   end
 
@@ -26,7 +26,7 @@ class AuthenticationMailer < ::Devise::Mailer
     ).execute(
       email: record.email,
       reset_url: reset_link,
-      template_id: template_id,
+      template_id:,
     )
   end
 
@@ -39,7 +39,7 @@ class AuthenticationMailer < ::Devise::Mailer
     ).execute(
       email: record.email,
       unlock_url: unlock_link,
-      template_id: template_id,
+      template_id:,
     )
   end
 
@@ -52,12 +52,12 @@ class AuthenticationMailer < ::Devise::Mailer
     ).execute(
       email: record.email,
       invite_url: invite_link,
-      template_id: template_id,
+      template_id:,
     )
   end
 
   def membership_instructions(record, token, opts = {})
-    invite_link = confirm_new_membership_url(token: token)
+    invite_link = confirm_new_membership_url(token:)
     template_id = GOV_NOTIFY_CONFIG["cross_organisation_invitation"]["template_id"]
 
     UseCases::Administrator::SendMembershipInviteEmail.new(
@@ -65,7 +65,7 @@ class AuthenticationMailer < ::Devise::Mailer
     ).execute(
       email: record.email,
       invite_url: invite_link,
-      template_id: template_id,
+      template_id:,
       organisation: opts.fetch(:organisation),
     )
   end

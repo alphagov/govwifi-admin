@@ -15,7 +15,7 @@ protected
       bucket: ENV.fetch("S3_SIGNUP_WHITELIST_BUCKET"),
       key: ENV.fetch("S3_SIGNUP_WHITELIST_OBJECT_KEY"),
     )
-    checker = UseCases::Administrator::CheckIfWhitelistedEmail.new(gateway: gateway)
+    checker = UseCases::Administrator::CheckIfWhitelistedEmail.new(gateway:)
     whitelisted = checker.execute(sign_up_params[:email])[:success]
 
     if whitelisted == false

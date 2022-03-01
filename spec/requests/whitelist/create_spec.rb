@@ -41,7 +41,7 @@ describe "POST /admin/whitelist", type: :request do
       allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
       allow(presenter).to receive(:execute).and_return(data)
       post super_admin_whitelist_path, params: valid_params
-      expect(email_domains_gateway).to have_received(:write).with(data: data)
+      expect(email_domains_gateway).to have_received(:write).with(data:)
     end
   end
 
@@ -71,8 +71,8 @@ describe "POST /admin/whitelist", type: :request do
       {
         whitelist: {
           step: "sixth",
-          organisation_name: organisation_name,
-          email_domain: email_domain,
+          organisation_name:,
+          email_domain:,
         },
       }
     end

@@ -9,9 +9,9 @@ module UseCases
 
       def execute(email:, reset_url:, template_id:)
         opts = {
-          email: email,
-          locals: { reset_url: reset_url },
-          template_id: template_id,
+          email:,
+          locals: { reset_url: },
+          template_id:,
           reference: REFERENCE,
           email_reply_to_id: nil,
         }

@@ -40,7 +40,7 @@ describe "Authorising Email Domains", type: :feature do
         allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
         allow(presenter).to receive(:execute).and_return(data)
         click_on "Save"
-        expect(email_domains_gateway).to have_received(:write).with(data: data)
+        expect(email_domains_gateway).to have_received(:write).with(data:)
       end
     end
 
@@ -89,7 +89,7 @@ describe "Authorising Email Domains", type: :feature do
         allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
         allow(presenter).to receive(:execute).and_return(data)
         click_on "Yes, remove #{some_domain} from the allow list"
-        expect(email_domains_gateway).to have_received(:write).with(data: data)
+        expect(email_domains_gateway).to have_received(:write).with(data:)
       end
     end
   end

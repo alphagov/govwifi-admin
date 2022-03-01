@@ -2,7 +2,7 @@ describe UseCases::PerformancePlatform::PublishLocationsIps do
   subject(:use_case) do
     described_class.new(
       destination_gateway: s3_gateway,
-      source_gateway: source_gateway,
+      source_gateway:,
     )
   end
 

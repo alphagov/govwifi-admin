@@ -12,11 +12,11 @@ describe Gateways::Sessions do
   context "when searching by username" do
     context "when recent log entries contain none of my IP addresses" do
       before do
-        create(:session, start: today_date, username: username, siteIP: "7.7.7.7", task_id: task_id)
+        create(:session, start: today_date, username:, siteIP: "7.7.7.7", task_id:)
       end
 
       it "finds no results" do
-        result = session_gateway.search(username: username)
+        result = session_gateway.search(username:)
         expect(result).to be_empty
       end
     end
@@ -31,7 +31,7 @@ describe Gateways::Sessions do
             start: today_date,
             success: true,
             username: "BOBABC",
-            task_id: task_id,
+            task_id:,
           },
           {
             ap: nil,
@@ -40,23 +40,23 @@ describe Gateways::Sessions do
             start: yesterday,
             success: true,
             username: "BOBABC",
-            task_id: task_id,
+            task_id:,
           },
         ]
       end
 
       before do
-        create(:session, start: today_date, success: true, username: username, siteIP: "127.0.0.1", task_id: task_id)
+        create(:session, start: today_date, success: true, username:, siteIP: "127.0.0.1", task_id:)
       end
 
       it "finds one result" do
-        results = session_gateway.search(username: username)
+        results = session_gateway.search(username:)
 
         expect(results.count).to eq(1)
       end
 
       it "finds multiple results" do
-        create(:session, start: yesterday, success: true, username: username, siteIP: "127.0.0.1", task_id: task_id)
+        create(:session, start: yesterday, success: true, username:, siteIP: "127.0.0.1", task_id:)
 
         expect(session_gateway.search(username: "BOBABC")).to eq(expected_result)
       end
@@ -64,22 +64,22 @@ describe Gateways::Sessions do
 
     context "when recent log entries contain any number of my IP addresses" do
       it "only selects logs matching my IP addresses" do
-        create(:session, start: today_date, username: username, siteIP: "127.0.0.1")
-        create(:session, start: today_date, username: username, siteIP: "127.0.0.4")
-        create(:session, start: today_date, username: username, siteIP: "3.3.3.3")
+        create(:session, start: today_date, username:, siteIP: "127.0.0.1")
+        create(:session, start: today_date, username:, siteIP: "127.0.0.4")
+        create(:session, start: today_date, username:, siteIP: "3.3.3.3")
 
-        result = session_gateway.search(username: username)
+        result = session_gateway.search(username:)
         expect(result.count).to eq(2)
       end
     end
 
     context "when viewing the results" do
-      let!(:last_result) { create(:session, start: two_days_ago, username: username, ap: "ap3", siteIP: "127.0.0.1") }
-      let!(:first_result) { create(:session, start: today_date, username: username, ap: "ap1", siteIP: "127.0.0.1") }
-      let!(:middle_result) { create(:session, start: yesterday, username: username, ap: "ap2", siteIP: "127.0.0.1") }
+      let!(:last_result) { create(:session, start: two_days_ago, username:, ap: "ap3", siteIP: "127.0.0.1") }
+      let!(:first_result) { create(:session, start: today_date, username:, ap: "ap1", siteIP: "127.0.0.1") }
+      let!(:middle_result) { create(:session, start: yesterday, username:, ap: "ap2", siteIP: "127.0.0.1") }
 
       it "displays the newest logs first" do
-        result = session_gateway.search(username: username)
+        result = session_gateway.search(username:)
         results_start_array = [result.first[:start], result.second[:start], result.last[:start]]
 
         expect(results_start_array).to eq([first_result.start, middle_result.start, last_result.start])
@@ -90,7 +90,7 @@ describe Gateways::Sessions do
   context "when searching by IP address" do
     before do
       ["127.0.0.1", "127.0.0.2", "3.3.3.3"].each do |ip|
-        create(:session, start: today_date, username: username, siteIP: ip)
+        create(:session, start: today_date, username:, siteIP: ip)
       end
     end
 

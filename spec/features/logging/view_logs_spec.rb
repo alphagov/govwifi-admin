@@ -8,29 +8,29 @@ describe "View authentication requests for an IP", type: :feature do
 
   before do
     create(:session,
-           ap: ap,
-           mac: mac,
+           ap:,
+           mac:,
            start: time,
-           username: username,
+           username:,
            siteIP: ip,
            success: true,
-           task_id: task_id)
+           task_id:)
 
     create(:session,
-           ap: ap,
-           mac: mac,
+           ap:,
+           mac:,
            start: time,
-           username: username,
+           username:,
            siteIP: ip,
            success: false,
-           task_id: task_id)
+           task_id:)
   end
 
   context "as a super admin" do
     before do
       super_admin_user = create(:user, :with_organisation, :super_admin)
       sign_in_user super_admin_user
-      visit logs_path(ip: ip)
+      visit logs_path(ip:)
     end
     it "displays the log" do
       expect(page).to have_content("Found 2 results for \"#{ip}\"")
@@ -78,7 +78,7 @@ describe "View authentication requests for an IP", type: :feature do
       location = create(:location, organisation: admin_user.organisations.first)
       create(:ip, location_id: location.id, address: ip, created_at: 5.days.ago)
       sign_in_user admin_user
-      visit logs_path(ip: ip)
+      visit logs_path(ip:)
     end
     it "does not display the radius server" do
       expect(page).to have_content("Found 2 results for \"#{ip}\"")

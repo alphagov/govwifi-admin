@@ -6,13 +6,13 @@ describe UseCases::Administrator::CreateSupportTicket do
   let(:email) { "help@support.com" }
   let(:name) { "Helpy McHelpface" }
   let(:body) { "some details about my issue" }
-  let(:expected_arguments) { { subject: message_subject, email: email, name: name, body: body } }
+  let(:expected_arguments) { { subject: message_subject, email:, name:, body: } }
 
   before do
     use_case.execute(
       requester: {
-        email: email,
-        name: name,
+        email:,
+        name:,
         organisation: "Parks & Rec",
       },
       details: body,

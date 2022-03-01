@@ -42,7 +42,7 @@
 
     <%= render "section", heading: "IPs" do %>
       <% @locations.each do |location| %>
-        <%= render partial: "shared/manage_ips", locals: { location: location, show_ip_controls: false } %>
+        <%= render partial: "shared/manage_ips", locals: { location:, show_ip_controls: false } %>
       <% end %>
     <% end %>
     <%== pagy_nav_govuk(@pagy) %>

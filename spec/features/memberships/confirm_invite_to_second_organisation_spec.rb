@@ -6,7 +6,7 @@ describe "Confirming an invite to a second or subsequent organisation", type: :f
     create(:membership,
            user: invited_user,
            invited_by_id: user.id,
-           organisation: organisation)
+           organisation:)
   end
 
   context "with an existing user" do

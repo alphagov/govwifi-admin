@@ -2,9 +2,9 @@ describe "View details of an organisation", type: :feature do
   let(:organisation) { create(:organisation) }
 
   context "when logged in as a super-admin" do
-    let!(:location_1) { create(:location, organisation: organisation, address: "Aarry Street") }
-    let!(:location_2) { create(:location, organisation: organisation, address: "Carry Street") }
-    let!(:location_3) { create(:location, organisation: organisation, address: "Barry Lane") }
+    let!(:location_1) { create(:location, organisation:, address: "Aarry Street") }
+    let!(:location_2) { create(:location, organisation:, address: "Carry Street") }
+    let!(:location_3) { create(:location, organisation:, address: "Barry Lane") }
 
     let!(:user_1) { create(:user, name: "Aardvark", organisations: [organisation]) }
     let!(:user_2) { create(:user, name: "Zed", organisations: [organisation]) }

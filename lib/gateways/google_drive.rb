@@ -19,7 +19,7 @@ module Gateways
       file.name = file_name
       file.mime_type = mime_type
 
-      drive_file = @service.create_file(file, upload_source: upload_source)
+      drive_file = @service.create_file(file, upload_source:)
 
       if folder_name
         folder = @service.list_files(q: "name = '#{folder_name}' and mimeType = 'application/vnd.google-apps.folder'")&.files&.first
