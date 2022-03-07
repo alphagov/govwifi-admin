@@ -1,0 +1,17 @@
+<% content_for :page_title, "Remove super admin privileges" %>
+
+<h1 class="govuk-heading-l">Confirm remove super admin privileges for <%= @user.name %></h1>
+
+<p class="govuk-body">
+  Note that this will not remove the user, just their super admin privileges.
+</p>
+
+<%= button_to(
+      "Remove super admin privileges",
+      super_admin_user_remove_path(@user),
+      method: :post,
+      class: "govuk-button govuk-button--warning",
+      "data-module": "govuk-button",
+    ) %>
+
+<p class="govuk-body"><%= link_to "Cancel", :back, class: "govuk-link--no-visited-state" %></p>

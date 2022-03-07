@@ -11,13 +11,13 @@ class ApplicationController < ActionController::Base
   def current_organisation
     if session[:organisation_id] && current_user.organisations.pluck(:id).include?(session[:organisation_id].to_i)
       Organisation.find(session[:organisation_id])
-    else
+    elsif !current_user.is_super_admin?
       current_user.organisations.first
     end
   end
 
   def super_admin?
-    current_user&.super_admin?
+    current_user&.is_super_admin?
   end
 
 protected

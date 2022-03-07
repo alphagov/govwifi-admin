@@ -1,0 +1,19 @@
+<% content_for :page_title, "New super admin" %>
+
+<%= form_with(
+      model: @user,
+      url: super_admin_users_path,
+      builder: GOVUKDesignSystemFormBuilder::FormBuilder,
+      html: { method: :post, novalidate: "" },
+    ) do |f| %>
+
+  <%= f.govuk_error_summary %>
+
+  <h1 class="govuk-heading-l">Grant super admin privileges to a user</h1>
+
+  <div class="govuk-grid-column-full govuk-!-padding-left-0">
+    <%= f.govuk_email_field :email, label: { text: "Email address" } %>
+
+    <%= f.govuk_submit "Make super admin" %>
+  </div>
+<% end %>

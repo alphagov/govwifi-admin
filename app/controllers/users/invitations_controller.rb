@@ -33,7 +33,7 @@ private
     AuthenticationMailer.membership_instructions(
       invited_user,
       membership.invitation_token,
-      organisation: current_organisation,
+      organisation: membership.organisation,
     ).deliver_now
   end
 
@@ -52,7 +52,7 @@ private
   def user_belongs_to_other_organisations?
     invited_user.present? &&
       invited_user.confirmed? &&
-      invited_user.organisations.pluck(:id).exclude?(current_organisation.id)
+      invited_user.organisations.pluck(:id).exclude?(current_organisation&.id)
   end
 
   def authenticate_inviter!
@@ -92,7 +92,10 @@ private
   end
 
   def unconfirmed_user_with_no_org?
-    invited_user_already_exists? && invited_user_not_confirmed? && invited_user_has_no_org?
+    invited_user_already_exists? &&
+      invited_user_not_confirmed? &&
+      invited_user_has_no_org? &&
+      !invited_user.is_super_admin?
   end
 
   def invited_user_already_exists?

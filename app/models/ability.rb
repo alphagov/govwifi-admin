@@ -15,7 +15,7 @@ class Ability
       end
 
       # :manage is a reserved can-can word to represent ALL actions
-      if user.super_admin?
+      if user.is_super_admin?
         can :manage, :all
       end
     end

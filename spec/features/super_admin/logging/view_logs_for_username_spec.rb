@@ -1,7 +1,7 @@
 describe "View authentication requests for a username", type: :feature do
   let(:username) { "Larry" }
 
-  let(:super_admin) { create(:user, :super_admin) }
+  let(:super_admin) { create(:user, :with_organisation, :super_admin) }
   let(:super_admin_location) { create(:location, organisation: super_admin.organisations.first) }
   let(:super_admin_ip) { create(:ip, location: super_admin_location) }
 
@@ -15,6 +15,11 @@ describe "View authentication requests for a username", type: :feature do
 
   before do
     sign_in_user super_admin
+    visit root_path
+
+    click_on "Switch organisation"
+    click_on super_admin.organisations.first.name
+
     visit new_logs_search_path
     choose "Username"
     click_on "Go to search"

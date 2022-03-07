@@ -8,10 +8,10 @@ class SuperAdminController < ApplicationController
 protected
 
   def sidebar
-    if current_organisation&.super_admin?
-      :super_org
-    else
-      super
-    end
+    :super_org
+  end
+
+  def subnav
+    :neo
   end
 end

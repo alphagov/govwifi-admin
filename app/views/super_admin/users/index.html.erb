@@ -1,0 +1,18 @@
+<% content_for :page_title, "Super admins" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Super admins</h1>
+  </div>
+
+  <div class="govuk-grid-column-one-third text-right">
+    <%= link_to("Add super admin",
+                new_super_admin_user_path,
+                class: "govuk-button",
+                role: "button",
+                draggable: "false",
+                "data-module" => "govuk-button") %>
+  </div>
+</div>
+
+<%= render "super_admin/users/table", team_members: @super_admins %>

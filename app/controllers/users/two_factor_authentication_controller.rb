@@ -11,7 +11,7 @@ class Users::TwoFactorAuthenticationController < Devise::TwoFactorAuthentication
 
     @user.reset_2fa!
 
-    redirect_path = if current_user.super_admin?
+    redirect_path = if current_user.is_super_admin?
                       super_admin_organisations_path
                     else
                       memberships_path
