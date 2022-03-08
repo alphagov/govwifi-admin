@@ -14,8 +14,8 @@ describe "Invite a team member", type: :feature do
       visit memberships_path
     end
 
-    it "shows the invite team member link" do
-      expect(page).to have_link("Invite team member")
+    it "shows the invite a team member link" do
+      expect(page).to have_link("Invite a team member")
     end
 
     it "allows visiting the invites page directly" do

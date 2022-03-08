@@ -14,7 +14,7 @@ describe "Inviting an existing user which belongs to an organisation", type: :fe
     before do
       sign_in_user user
       visit memberships_path
-      click_on "Invite team member"
+      click_on "Invite a team member"
       fill_in "Email", with: user_2.email
       click_on "Send invitation email"
     end
