@@ -25,7 +25,13 @@ private
 
   def add_user_to_organisation(organisation)
     membership = invited_user.memberships.find_or_create_by!(invited_by_id: current_user.id, organisation:)
-    membership.update!(can_manage_team: params[:can_manage_team], can_manage_locations: params[:can_manage_locations])
+
+    permission_level = params[:permission_level]
+    membership.update!(
+      can_manage_team: permission_level == "administrator",
+      can_manage_locations: %w[administrator manage_locations].include?(permission_level),
+    )
+
     send_invite_email(membership) if user_has_confirmed_account?
   end
 

@@ -19,38 +19,76 @@
   <div class="govuk-grid-column-full govuk-!-padding-left-0">
     <%= f.govuk_email_field :email, label: { text: "Email address" } %>
 
-    <div class="actions">
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-1"><span class="govuk-label">Permissions </span></legend>
-          <div class="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
-                <label class="govuk-label govuk-checkboxes__label">View logs</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
-                <label class="govuk-label govuk-checkboxes__label">View team members</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <%= check_box_tag :can_manage_team, true, true, class: "govuk-checkboxes__input" %>
-              <label class="govuk-label govuk-checkboxes__label"><%= label_tag :can_manage_team, "Add and remove team members" %></label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <input type="checkbox" class='govuk-checkboxes__input' checked disabled>
-                <label class="govuk-label govuk-checkboxes__label">View locations and IP addresses</label>
-              </div>
-              <div class="govuk-checkboxes__item">
-                <%= check_box_tag :can_manage_locations, true, true, class: "govuk-checkboxes__input" %>
-                <label class="govuk-label govuk-checkboxes__label"><%= label_tag :can_manage_locations, "Add and remove locations and IP addresses" %></label>
-              </div>
-              <% if super_admin? %>
-                <%= hidden_field_tag :organisation_id, @target_organisation.id %>
-            <% end %>
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset" aria-describedby="sign-in-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+          Permission level
+        </legend>
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+            <%= radio_button_tag(
+                  :permission_level,
+                  "administrator",
+                  false,
+                  class: "govuk-radios__input",
+                  "aria-described-by" => "permission_level_administrator_hint",
+                ) %>
+            <%= label_tag(
+                  :permission_level_administrator,
+                  "Administrator",
+                  class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
+                ) %>
+            <div id="permission_level_administrator_hint" class="govuk-hint govuk-radios__hint">
+              View locations and IPs, team members, and logs<br>
+              Manage locations and IPs<br>
+              Add or remove team members
+            </div>
           </div>
-        </fieldset>
-      </div>
+          <div class="govuk-radios__item">
+            <%= radio_button_tag(
+                  :permission_level,
+                  "manage_locations",
+                  false,
+                  class: "govuk-radios__input",
+                  "aria-described-by" => "permission_level_manage_locations_hint",
+                ) %>
+            <%= label_tag(
+                  :permission_level_manage_locations,
+                  "Manage locations",
+                  class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
+                ) %>
+            <div id="permission_level_manage_locations_hint" class="govuk-hint govuk-radios__hint">
+              View locations and IPs, team members, and logs<br>
+              Manage locations and IPs<br>
+              Cannot add or remove team members
+            </div>
+          </div>
+          <div class="govuk-radios__item">
+            <%= radio_button_tag(
+                  :permission_level,
+                  "view_only",
+                  false,
+                  class: "govuk-radios__input",
+                  "aria-described-by" => "permission_level_view_only_hint",
+                ) %>
+            <%= label_tag(
+                  :permission_level_view_only,
+                  "View only",
+                  class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
+                ) %>
+            <div id="permission_level_view_only_hint" class="govuk-hint govuk-radios__hint">
+              View locations and IPs, team members, and logs<br>
+              Cannot manage locations and IPs<br>
+              Cannot add or remove team members
+            </div>
+          </div>
+        </div>
+      </fieldset>
     </div>
+
+    <% if super_admin? %>
+      <%= hidden_field_tag :organisation_id, @target_organisation.id %>
+    <% end %>
 
     <%= f.govuk_submit "Send invitation email" %>
   </div>
