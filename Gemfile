@@ -21,7 +21,7 @@ gem "net-smtp", require: false
 gem "notifications-ruby-client", "~> 5.3.0"
 gem "pagy", "~> 5.10.1"
 gem "puma", "~> 5.6"
-gem "rails", "~> 6.1.4"
+gem "rails", "~> 7.0.2"
 gem "rqrcode"
 gem "sassc-rails"
 gem "sentry-rails"
