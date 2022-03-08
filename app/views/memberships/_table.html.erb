@@ -1,85 +1,57 @@
-<div class='govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-0 govuk-!-margin-bottom-3'></div>
 
-<ul class='govuk-list membership-list govuk-width-container govuk-!-margin-left-0'>
-  <% team_members.each do |member| %>
-    <li class='govuk-!-margin-bottom-1'>
-      <div class='govuk-grid-row'>
-        <div class='govuk-grid-column-two-thirds'>
+<% @member_groups.each do |group| %>
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+    <%= group[:heading] %>
+    <span class="govuk-hint govuk-!-margin-bottom-0 govuk-!-display-inline-block">
+      (<%= group[:users].length %>)
+    </span>
+  </h2>
+
+  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+    <% group[:users].each do |member| %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= member.name %>
           <% if member.invitation_pending? || member.pending_membership_for?(organisation: current_organisation) %>
-            <h2 class='govuk-heading-m'><%= member.name %>
-              <span class='govuk-!-padding-left-1 govuk-body text-dark-grey'><%= member.email %> (invited)</span>
-            </h2>
-            <% else %>
-            <h2 class='govuk-heading-m'><%= member.name %>
-              <span class='govuk-!-padding-left-1 govuk-body text-dark-grey'><%= member.email %></span>
-            </h2>
+            <span class="govuk-hint govuk-!-margin-bottom-0 govuk-!-display-inline-block">(invited)</span>
           <% end %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= member.email %>
+        </dd>
 
-          <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Permissions</h3>
-
-          <ul role="list" class='govuk-list govuk-!-margin-bottom-2 govuk-!-margin-top-1' id='member-<%= member.id %>-permissions'>
-            <li>
-              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "" %>
-              <span class="govuk-visually-hidden">Can</span>
-              <span class='govuk-!-padding-left-1'>View logs</span>
-            </li>
-            <li>
-              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "" %>
-              <span class="govuk-visually-hidden">Can</span>
-              <span class='govuk-!-padding-left-1'>View team members</span>
-            </li>
-            <li>
-              <% if member.can_manage_team?(current_organisation) %>
-                <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "" %>
-                <span class="govuk-visually-hidden">Can</span>
-                <span class='govuk-!-padding-left-1'>Add and remove team members</span>
-              <% else %>
-                <%= image_tag "cross.svg", class: "list-item-padding", height: "30", alt: "" %>
-                <span class="govuk-visually-hidden">Cannot</span>
-                <span class='govuk-!-padding-left-1 text-dark-grey'>Add and remove team members</span>
+        <dd class="govuk-summary-list__actions">
+          <ul class="govuk-summary-list__actions-list">
+            <% if current_user.can_manage_team?(current_organisation) && member.id != current_user.id %>
+              <li class="govuk-summary-list__actions-list-item">
+                <%= link_to(
+                      edit_membership_path(member.membership_for(current_organisation)),
+                      class: "govuk-link govuk-link--no-visited-state",
+                    ) do %>
+                  Edit permissions <span class='govuk-visually-hidden'>for <%= member.email %></span>
+                <% end %>
+              </li>
+              <% if member.totp_enabled? %>
+                <li class="govuk-summary-list__actions-list-item">
+                  <%= link_to({ controller: "users/two_factor_authentication", action: "edit", id: member },
+                              class: "govuk-link govuk-link--no-visited-state") do %>
+                    Reset 2FA <span class='govuk-visually-hidden'>for <%= member.email %></span>
+                  <% end %>
+                </li>
               <% end %>
-            </li>
-            <li>
-              <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "" %>
-              <span class="govuk-visually-hidden">Can</span>
-              <span class='govuk-!-padding-left-1'>View locations and IP addresses</span>
-            </li>
-            <li>
-              <% if member.can_manage_locations?(current_organisation) %>
-                <%= image_tag "tick.svg", class: "list-item-padding", height: "30", alt: "" %>
-                <span class="govuk-visually-hidden">Can</span>
-                <span class='govuk-!-padding-left-1'>Add and remove locations and IP addresses</span>
-              <% else %>
-                <%= image_tag "cross.svg", class: "list-item-padding", height: "30", alt: "" %>
-                <span class="govuk-visually-hidden">Cannot</span>
-                <span class='govuk-!-padding-left-1 text-dark-grey'>Add and remove locations and IP addressess</span>
+              <% if member.invitation_pending? %>
+                <li class="govuk-summary-list__actions-list-item">
+                  <%= button_to("Resend invite",
+                                user_invitation_path(user: { email: member.email }, resend: true),
+                                "aria-label" => "Resend invite to #{member.email}",
+                                method: :post,
+                                class: "button-as-link govuk-body") %>
+                </li>
               <% end %>
-            </li>
+            <% end %>
           </ul>
-        </div>
-
-        <div class='govuk-grid-column-one-third govuk-list govuk-!-padding-right-4 govuk-!-margin-top-0 text-right'>
-          <% if current_user.can_manage_team?(current_organisation) && member.id != current_user.id %>
-            <%= link_to edit_membership_path(member.membership_for(current_organisation)), class: "govuk-link govuk-link--no-visited-state" do %>
-              Edit permissions <span class='govuk-visually-hidden'>for <%= member.email %></span>
-            <% end %>
-            <% if member.totp_enabled? %>
-              <%= link_to({ controller: "users/two_factor_authentication", action: "edit", id: member },
-                          class: "govuk-link govuk-link--no-visited-state") do %>
-                Reset 2FA <span class='govuk-visually-hidden'>for <%= member.email %></span>
-              <% end %>
-            <% end %>
-
-            <% if member.invitation_pending? && current_user.can_manage_team?(current_organisation) %>
-              <%= button_to("Resend invite",
-                            user_invitation_path(user: { email: member.email }, resend: true),
-                            "aria-label" => "Resend invite to #{member.email}", method: :post, class: "button-as-link govuk-body") %>
-            <% end %>
-          <% end %>
-        </div>
+        </dd>
       </div>
-    </li>
-
-    <div class='govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-0 govuk-!-margin-bottom-4'></div>
-  <% end %>
-</ul>
+    <% end %>
+  </dl>
+<% end %>

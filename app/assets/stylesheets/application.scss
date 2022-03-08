@@ -30,3 +30,16 @@ $govuk-font-url-function: "font-url";
 @import "./utilities/colours";
 @import "./components/*";
 @import "./utilities/*";
+
+// TODO: This shouldn't be needed, but fixes the display for actions
+// within a summary list, like on the team members page
+@include govuk-media-query($from: tablet) {
+  .govuk-summary-list__actions-list {
+    .govuk-summary-list__actions-list-item {
+      display: block;
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

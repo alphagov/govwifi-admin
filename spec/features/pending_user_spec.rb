@@ -20,7 +20,7 @@ describe "Inviting an existing user which belongs to an organisation", type: :fe
     end
 
     it "will show pending users which have been invited to an organisation" do
-      expect(page).to have_content("inviteme@gov.uk (invited)")
+      expect(page).to have_content("#{user_2.name} (invited)")
     end
   end
 end

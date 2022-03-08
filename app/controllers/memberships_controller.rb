@@ -15,7 +15,28 @@ class MembershipsController < ApplicationController
   end
 
   def index
-    @team_members = sorted_team_members(current_organisation)
+    all_members = current_organisation.memberships.includes(:user)
+
+    @member_groups = [
+      {
+        heading: "Administrators",
+        users: all_members.filter_map { |membership| membership.user if membership.administrator? },
+      },
+      {
+        heading: "Manage locations",
+        users: all_members.filter_map { |membership| membership.user if membership.manage_locations? },
+      },
+      {
+        heading: "View only",
+        users: all_members.filter_map { |membership| membership.user if membership.view_only? },
+      },
+    ]
+
+    @member_groups.each do |entry|
+      entry[:users].sort! do |a, b|
+        [a.name || "", a.email || ""] <=> [b.name || "", b.email || ""]
+      end
+    end
   end
 
   def destroy
@@ -42,11 +63,5 @@ private
     unless current_user.can_manage_team?(current_organisation)
       raise ActionController::RoutingError, "Not Found"
     end
-  end
-
-  def sorted_team_members(organisation)
-    UseCases::Administrator::SortUsers.new(
-      users_gateway: Gateways::OrganisationUsers.new(organisation:),
-    ).execute
   end
 end
