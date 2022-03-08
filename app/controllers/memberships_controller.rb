@@ -5,7 +5,11 @@ class MembershipsController < ApplicationController
   def edit; end
 
   def update
-    @membership.update!(membership_params)
+    permission_level = params[:permission_level]
+    @membership.update!(
+      can_manage_team: permission_level == "administrator",
+      can_manage_locations: %w[administrator manage_locations].include?(permission_level),
+    )
     flash[:notice] = "Permissions updated"
     redirect_to updated_permissions_memberships_path
   end
@@ -44,9 +48,5 @@ private
     UseCases::Administrator::SortUsers.new(
       users_gateway: Gateways::OrganisationUsers.new(organisation:),
     ).execute
-  end
-
-  def membership_params
-    params.require(:membership).permit(%i[can_manage_team can_manage_locations])
   end
 end
