@@ -12,6 +12,6 @@ protected
   end
 
   def subnav
-    :neo
+    :super_admin
   end
 end
