@@ -10,14 +10,6 @@ FactoryBot.define do
     trait :super_admin do
       otp_secret_key { "ABCDEFGHIJKLMNOPQRSTUVWXYZ" } # 2FA is set up
 
-      after(:create) do |user|
-        create(:organisation, users: [user], super_admin: true)
-      end
-    end
-
-    trait :new_admin do
-      otp_secret_key { "ABCDEFGHIJKLMNOPQRSTUVWXYZ" } # 2FA is set up
-
       is_super_admin { true }
     end
 

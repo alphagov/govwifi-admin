@@ -82,6 +82,10 @@ Rails.application.routes.draw do
         get "map", to: "locations/map#index"
       end
     end
+    resources :users, only: %i[index new create] do
+      get "remove", to: "users#confirm_remove"
+      post "remove", to: "users#remove"
+    end
     resources :mou, only: %i[index update create]
     resources :organisations, only: %i[index show destroy] do
       collection do

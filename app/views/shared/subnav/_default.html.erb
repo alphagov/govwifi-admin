@@ -5,6 +5,9 @@
     </div>
     <nav class='govuk-grid-column-one-half'>
       <%= link_to "Switch organisation", change_organisation_path, class: "govuk-link govuk-body" %>
+      <% if super_admin? %>
+        <%= link_to "View all organisations", super_admin_organisations_path, class: "govuk-link govuk-body" %>
+      <% end %>
     </nav>
   </div>
 </div>

@@ -18,7 +18,7 @@ class MembershipsController < ApplicationController
     @membership.destroy!
     @membership.user.destroy! unless @membership.user.memberships.any?
 
-    redirect_path = if current_organisation&.super_admin?
+    redirect_path = if current_user.is_super_admin? && @membership.organisation_id != current_organisation&.id
                       super_admin_organisation_path(@membership.organisation)
                     else
                       removed_memberships_path
@@ -30,7 +30,7 @@ class MembershipsController < ApplicationController
 private
 
   def set_membership
-    scope = current_organisation.super_admin? ? Membership : current_organisation.memberships
+    scope = current_user.is_super_admin? ? Membership : current_organisation.memberships
     @membership = scope.find(params.fetch(:id))
   end
 

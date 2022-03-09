@@ -25,7 +25,7 @@ module GovWifiAuthenticatable
   end
 
   def redirect_user_with_no_organisation
-    if current_user&.organisations&.empty?
+    if !current_user&.is_super_admin? && current_user&.organisations&.empty?
       msg = "You do not belong to an organisation. Please mention this in your support request."
       redirect_to signed_in_new_help_path, notice: msg
     end

@@ -40,16 +40,6 @@ describe "Inviting a team member as a super admin", type: :feature do
     expect(page).to have_current_path(super_admin_organisation_path(organisation))
   end
 
-  context "without can manage team privileges" do
-    before do
-      super_admin.default_membership.update(can_manage_team: false)
-    end
-
-    it "does not show the add team member button" do
-      expect(page).not_to have_content("Add team member")
-    end
-  end
-
   context "without an email address" do
     let(:email) { "" }
 

@@ -51,11 +51,11 @@ class User < ApplicationRecord
   end
 
   def can_manage_team?(organisation)
-    membership_for(organisation)&.can_manage_team?
+    is_super_admin? || membership_for(organisation)&.can_manage_team?
   end
 
   def can_manage_locations?(organisation)
-    membership_for(organisation).can_manage_locations?
+    is_super_admin? || membership_for(organisation).can_manage_locations?
   end
 
   def membership_for(organisation)
@@ -67,15 +67,7 @@ class User < ApplicationRecord
   end
 
   def can_manage_other_user_for_org?(user, org)
-    super_admin? || !!(can_manage_team?(org) && user.membership_for(org))
-  end
-
-  def new_super_admin?
-    memberships.empty? && is_super_admin?
-  end
-
-  def super_admin?
-    !membership_for(Organisation.super_admins).nil? || is_super_admin?
+    is_super_admin? || !!(can_manage_team?(org) && user.membership_for(org))
   end
 
   def need_two_factor_authentication?(request)
