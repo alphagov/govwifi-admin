@@ -186,19 +186,6 @@ describe Organisation do
     end
   end
 
-  describe "super_admins scope" do
-    let(:organisation) { create(:organisation) }
-    let(:super_admin_organisation) { create(:organisation, super_admin: true) }
-
-    it "finds the super admin organisation" do
-      expect(described_class.super_admins).to include(super_admin_organisation)
-    end
-
-    it "excludes other organisations" do
-      expect(described_class.super_admins).not_to include(organisation)
-    end
-  end
-
   describe ".all_as_csv" do
     subject(:csv) { CSV.parse(described_class.all_as_csv, headers: true) }
 
