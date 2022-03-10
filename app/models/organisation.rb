@@ -18,7 +18,6 @@ class Organisation < ApplicationRecord
     .group("organisations.id, active_storage_attachments.created_at")
     .order("#{sort_column} #{sort_direction}")
   }
-  scope :super_admins, -> { where(super_admin: true) }
 
   def validate_in_register?
     unless Organisation.fetch_organisations_from_register.include?(name)
