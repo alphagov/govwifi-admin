@@ -8,7 +8,7 @@ class SuperAdminController < ApplicationController
 protected
 
   def sidebar
-    :super_org
+    :super_admin
   end
 
   def subnav
