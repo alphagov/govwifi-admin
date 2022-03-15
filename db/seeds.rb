@@ -4,7 +4,6 @@ require "faker"
 require "factory_bot"
 
 FactoryBot.find_definitions
-CustomOrganisationName.create!(name: "GovWifi Super Administrators")
 
 def create_user_for_organisations(
   organisations,
@@ -25,9 +24,6 @@ def create_user_for_organisations(
   )
 end
 
-super_admin_organisation = Organisation.create!(
-  name: "GovWifi Super Administrators", service_email: "it@gds.com", super_admin: true,
-)
 organisation = Organisation.create!(
   name: "UKTI Education", service_email: "it@parks.com",
 )
@@ -37,13 +33,6 @@ empty_organisation = Organisation.create!(
 
 create_user_for_organisations(
   [],
-  email: "loneadmin@gov.uk",
-  confirmed_at: Time.zone.now,
-  is_super_admin: true,
-)
-
-create_user_for_organisations(
-  [super_admin_organisation],
   email: "admin@gov.uk",
   confirmed_at: Time.zone.now,
   is_super_admin: true,
