@@ -13,6 +13,10 @@ describe "Add location", type: :feature do
     expect(page).to have_content("Add a location")
   end
 
+  it "displays a Cancel link" do
+    expect(page).to have_link("Cancel", href: "/ips")
+  end
+
   context "when adding the first location" do
     context "with valid IP data" do
       before do
