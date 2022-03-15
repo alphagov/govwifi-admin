@@ -33,8 +33,7 @@ describe "Edit user permissions", type: :feature do
       before do
         visit memberships_path
         click_link "Edit permissions"
-        uncheck "Add and remove team members"
-        uncheck "Add and remove locations and IP addresses"
+        choose "View only"
         click_on "Save"
       end
 

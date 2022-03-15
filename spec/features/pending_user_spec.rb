@@ -14,13 +14,13 @@ describe "Inviting an existing user which belongs to an organisation", type: :fe
     before do
       sign_in_user user
       visit memberships_path
-      click_on "Invite team member"
+      click_on "Invite a team member"
       fill_in "Email", with: user_2.email
       click_on "Send invitation email"
     end
 
     it "will show pending users which have been invited to an organisation" do
-      expect(page).to have_content("inviteme@gov.uk (invited)")
+      expect(page).to have_content("#{user_2.name} (invited)")
     end
   end
 end

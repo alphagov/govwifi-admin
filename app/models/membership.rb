@@ -16,4 +16,16 @@ class Membership < ApplicationRecord
   def confirmed?
     !!confirmed_at
   end
+
+  def administrator?
+    can_manage_team? && can_manage_locations?
+  end
+
+  def manage_locations?
+    !can_manage_team? && can_manage_locations?
+  end
+
+  def view_only?
+    !can_manage_team? && !can_manage_locations?
+  end
 end

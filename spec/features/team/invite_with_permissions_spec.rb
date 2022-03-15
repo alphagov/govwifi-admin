@@ -16,47 +16,38 @@ describe "Set user permissions on invite", type: :feature do
     fill_in "Email", with: invited_email
   end
 
-  context "when setting all the permissions" do
+  context "for administrators" do
     before do
+      choose "Administrator"
       click_on "Send invitation email"
     end
 
-    it "assigns manage team permission to the user" do
+    it "assigns the correct permissions" do
       expect(invited_user.membership_for(organisation).can_manage_team?).to eq(true)
-    end
-
-    it "assigns manage locations permission to the user" do
       expect(invited_user.membership_for(organisation).can_manage_locations?).to eq(true)
     end
   end
 
-  context "when setting only one permission" do
+  context "for the manage locations permissions level" do
     before do
-      uncheck "Add and remove locations and IP addresses"
+      choose "Manage locations"
       click_on "Send invitation email"
     end
 
-    it "assigns manage team permission to the user" do
-      expect(invited_user.membership_for(organisation).can_manage_team?).to eq(true)
-    end
-
-    it "does not assign manage locations permission to the user" do
-      expect(invited_user.membership_for(organisation).can_manage_locations?).to eq(false)
+    it "assigns the correct permissions" do
+      expect(invited_user.membership_for(organisation).can_manage_team?).to eq(false)
+      expect(invited_user.membership_for(organisation).can_manage_locations?).to eq(true)
     end
   end
 
-  context "when setting no permissions" do
+  context "for the view only permissions level" do
     before do
-      uncheck "Add and remove locations and IP addresses"
-      uncheck "Add and remove team members"
+      choose "View only"
       click_on "Send invitation email"
     end
 
-    it "does not assign manage team permission to the user" do
+    it "assigns the correct permissions" do
       expect(invited_user.membership_for(organisation).can_manage_team?).to eq(false)
-    end
-
-    it "does not assign manage locations permission to the user" do
       expect(invited_user.membership_for(organisation).can_manage_locations?).to eq(false)
     end
   end

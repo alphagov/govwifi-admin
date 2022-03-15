@@ -15,7 +15,7 @@ describe "Logout users after period of inactivity", type: :feature do
     it "and they navigate to a page" do
       visit memberships_path
 
-      expect(page).to have_content("Invite team member")
+      expect(page).to have_content("Invite a team member")
     end
   end
 
@@ -34,7 +34,7 @@ describe "Logout users after period of inactivity", type: :feature do
       sign_in_user user
       visit memberships_path
 
-      expect(page).to have_content("Invite team member")
+      expect(page).to have_content("Invite a team member")
     end
   end
 end

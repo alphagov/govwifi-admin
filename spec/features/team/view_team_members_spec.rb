@@ -15,16 +15,6 @@ describe "View team members of my organisation", type: :feature do
     end
 
     context "when there is only one user in an organisation" do
-      let(:correct_permissions) do
-        [
-          "Can View logs",
-          "Can View team members",
-          "Can Add and remove team members",
-          "Can View locations and IP addresses",
-          "Can Add and remove locations and IP addresses",
-        ]
-      end
-
       before do
         sign_in_user user
         visit memberships_path
@@ -33,16 +23,10 @@ describe "View team members of my organisation", type: :feature do
       it "shows the users email" do
         expect(page).to have_content(user.email)
       end
-
-      it "displays all the permissions" do
-        selector = "#member-#{user.id}-permissions"
-        array_of_permissions = find(selector).all("li").collect(&:text)
-        expect(array_of_permissions).to eq(correct_permissions)
-      end
     end
 
     context "when there are many users in my organisation" do
-      let!(:user_1) { create(:user, email: "bill@example.gov.uk", name: nil, organisations: [organisation]) }
+      let!(:user_1) { create(:user, name: "bill", email: "bill@example.gov.uk", organisations: [organisation]) }
       let!(:user_2) { create(:user, name: "amada", organisations: [organisation]) }
       let!(:user_3) { create(:user, name: "zara", organisations: [organisation]) }
 
