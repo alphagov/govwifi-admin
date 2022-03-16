@@ -16,8 +16,8 @@ describe "Inviting a team member as a super admin", type: :feature do
   include_context "when using the notifications service"
   include_context "when sending an invite email"
 
-  it "will take the user to the organisation when they click 'back to organisation'" do
-    click_on "Back to organisation"
+  it "will take the user to the organisation when they click 'Cancel'" do
+    click_on "Cancel"
     expect(page).to have_current_path(super_admin_organisation_path(organisation))
   end
 
