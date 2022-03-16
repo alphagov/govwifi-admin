@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_10_094230) do
+ActiveRecord::Schema.define(version: 2022_03_16_111522) do
 
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(version: 2022_03_10_094230) do
     t.bigint "user_id", null: false
     t.integer "invited_by_id"
     t.datetime "confirmed_at"
-    t.boolean "can_manage_team", default: true
-    t.boolean "can_manage_locations", default: true
+    t.boolean "can_manage_team", default: true, null: false
+    t.boolean "can_manage_locations", default: true, null: false
     t.index ["organisation_id"], name: "index_memberships_on_organisation_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
