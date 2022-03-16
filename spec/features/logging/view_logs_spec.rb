@@ -28,7 +28,7 @@ describe "View authentication requests for an IP", type: :feature do
 
   context "as a super admin" do
     before do
-      super_admin_user = create(:user, :with_organisation, :super_admin)
+      super_admin_user = create(:user, :super_admin)
       sign_in_user super_admin_user
       visit logs_path(ip:)
     end

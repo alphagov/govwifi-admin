@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   def current_organisation
     if session[:organisation_id] && current_user.organisations.pluck(:id).include?(session[:organisation_id].to_i)
       Organisation.find(session[:organisation_id])
-    elsif !current_user.is_super_admin?
+    else
       current_user.organisations.first
     end
   end
@@ -22,9 +22,14 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_user_with_no_organisation
-    if !current_user&.is_super_admin? && current_user&.organisations&.empty?
-      msg = "You do not belong to an organisation. Please mention this in your support request."
-      redirect_to signed_in_new_help_path, notice: msg
+    if current_user&.organisations&.empty?
+      redirection_url, message = if current_user&.is_super_admin?
+                                   [super_admin_organisations_path, "You do not belong to an organisation."]
+                                 else
+                                   [signed_in_new_help_path,
+                                    "You do not belong to an organisation. Please mention this in your support request."]
+                                 end
+      redirect_to redirection_url, notice: message
     end
   end
 
