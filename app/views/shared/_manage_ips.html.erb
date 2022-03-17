@@ -56,11 +56,14 @@
               Receiving traffic
             <% end %>
           </td>
+          <%# Following cell not rendered to prevent overloading database for pages with many IPs %>
+          <% if false %>
           <td class="govuk-table__cell govuk-!-width-one-quarter">
             <% if ip.available? && !ip.unused? && !ip.inactive? %>
               <%= ip.percent_success %>% success rate
             <% end %>
           </td>
+          <% end %>
           <td class="govuk-table__cell govuk-!-width-one-quarter text-right">
             <ul class="plain-list govuk-!-margin-0">
               <% if ip.available? && !ip.unused? && !ip.inactive? %>
