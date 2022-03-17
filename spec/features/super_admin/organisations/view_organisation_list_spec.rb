@@ -19,7 +19,7 @@ describe "View a list of signed up organisations", type: :feature do
   end
 
   context "when logged in as an admin" do
-    let(:user) { create(:user, :with_organisation, :super_admin) }
+    let(:user) { create(:user, :super_admin) }
 
     before do
       sign_in_user user
@@ -89,7 +89,7 @@ describe "View a list of signed up organisations", type: :feature do
 
       it "summarises the totals" do
         expect(page).to have_content(
-          "GovWifi is in 6 locations across 3 organisations.",
+          "GovWifi is in 6 locations across 2 organisations.",
         )
       end
 

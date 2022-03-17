@@ -5,7 +5,7 @@ describe "Reset two factor authentication", type: :feature do
   let(:org_admin_user_2) { create(:user, :with_2fa, organisations: [organisation]) }
   let(:org_admin_user_3) { create(:user, organisations: [organisation]) } # no 2fa
 
-  let(:super_admin_user) { create(:user, :super_admin, :with_organisation) }
+  let(:super_admin_user) { create(:user, :super_admin, :with_2fa) }
 
   context "when logged in as a super admin user" do
     before do
@@ -48,14 +48,6 @@ describe "Reset two factor authentication", type: :feature do
       click_on "Yes, reset two factor authentication"
 
       expect(page).to have_content("Two factor authentication has been reset")
-    end
-
-    context "when visiting the superadmin team" do
-      it "shows a link to reset their own 2FA" do
-        visit super_admin_organisation_path(super_admin_user.organisations.first)
-
-        expect(page).to have_content("Reset 2FA", count: 1)
-      end
     end
   end
 

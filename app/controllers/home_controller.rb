@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  skip_before_action :redirect_user_with_no_organisation, if: :super_admin?
+
   def index
     destination =
       if !current_organisation && current_user.is_super_admin?

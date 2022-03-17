@@ -1,6 +1,6 @@
 describe "View authentication requests for an IP", type: :feature do
-  let(:user) { create(:user, :super_admin, :with_organisation) }
-  let(:user_location) { create(:location, organisation: user.organisations.first) }
+  let(:user) { create(:user, :super_admin) }
+  let(:user_location) { create(:location, :with_organisation) }
   let(:ip_1) { create(:ip, location: user_location, address: "1.2.3.4") }
 
   let(:user_2) { create(:user, :with_organisation) }
@@ -16,9 +16,6 @@ describe "View authentication requests for an IP", type: :feature do
     sign_in_user user
 
     visit root_path
-
-    click_on "Switch organisation"
-    click_on user.organisations.first.name
 
     visit ip_new_logs_search_path
   end

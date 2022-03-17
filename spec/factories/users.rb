@@ -8,8 +8,6 @@ FactoryBot.define do
     confirmed_at { Time.zone.now }
 
     trait :super_admin do
-      otp_secret_key { "ABCDEFGHIJKLMNOPQRSTUVWXYZ" } # 2FA is set up
-
       is_super_admin { true }
     end
 

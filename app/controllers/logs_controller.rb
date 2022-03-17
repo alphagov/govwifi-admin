@@ -1,4 +1,6 @@
 class LogsController < ApplicationController
+  skip_before_action :redirect_user_with_no_organisation
+
   def index
     if valid_search_params.blank?
       redirect_to(new_logs_search_path) && return

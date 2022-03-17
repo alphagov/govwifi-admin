@@ -1,7 +1,8 @@
 describe "Upload and download the MOU template", type: :feature do
-  let(:super_admin) { create(:user, :with_organisation, :super_admin) }
+  let(:super_admin) { create(:user, :super_admin) }
 
   before do
+    create(:organisation)
     sign_in_user super_admin
     visit super_admin_mou_index_path
   end

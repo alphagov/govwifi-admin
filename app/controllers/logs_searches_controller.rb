@@ -1,4 +1,5 @@
 class LogsSearchesController < ApplicationController
+  skip_before_action :redirect_user_with_no_organisation
   def create
     @search = LogsSearch.new(search_params)
     @locations = ordered_locations
@@ -45,6 +46,6 @@ private
   end
 
   def ordered_locations
-    current_organisation.locations.order([:address])
+    current_organisation.nil? ? [] : current_organisation.locations.order([:address])
   end
 end

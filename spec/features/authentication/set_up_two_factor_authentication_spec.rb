@@ -1,8 +1,7 @@
 require "support/notifications_service"
 
 describe "Set up two factor authentication", type: :feature do
-  let(:organisation) { create(:organisation) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :with_organisation) }
 
   include_context "when using the notifications service"
 
@@ -70,11 +69,19 @@ describe "Set up two factor authentication", type: :feature do
       expect(page).to have_current_path(new_organisation_settings_path)
     end
 
-    context "with a super admin user" do
-      let(:user) { create(:user, :super_admin, otp_secret_key: nil) }
+    context "with a super admin user without an organisation" do
+      let(:user) { create(:user, :super_admin) }
 
       it "redirects the user to the super admin organisations page" do
         expect(page).to have_current_path(super_admin_organisations_path)
+      end
+    end
+
+    context "with a super admin user with an organisation" do
+      let(:user) { create(:user, :with_organisation, :super_admin) }
+
+      it "redirects the user to the organisation setttings page" do
+        expect(page).to have_current_path(new_organisation_settings_path)
       end
     end
   end

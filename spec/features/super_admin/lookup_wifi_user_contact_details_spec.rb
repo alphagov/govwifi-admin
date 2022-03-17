@@ -1,5 +1,5 @@
 describe "Lookup wifi user contact details", type: :feature do
-  let(:user) { create(:user, :with_organisation, :super_admin) }
+  let(:user) { create(:user, :super_admin) }
   let(:search_term) { "" }
   let(:contact) { "wifi.user@govwifi.org" }
 
@@ -9,9 +9,6 @@ describe "Lookup wifi user contact details", type: :feature do
     sign_in_user user
 
     visit root_path
-
-    click_on "Switch organisation"
-    click_on user.organisations.first.name
 
     visit new_logs_search_path
 

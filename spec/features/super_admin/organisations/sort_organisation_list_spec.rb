@@ -1,13 +1,14 @@
 describe "Sorting the organisations list", type: :feature do
   context "when super admin views the list" do
-    let!(:super_admin) { create(:user, :with_organisation, :super_admin) }
+    let!(:super_admin) { create(:user, :super_admin) }
 
     before do
+      create(:organisation, name: "Gov Org 1", created_at: "10 Dec 2015")
       create(:organisation, name: "Gov Org 2", created_at: "10 Dec 2013")
       create(:organisation, name: "Gov Org 3", created_at: "10 Feb 2014")
 
       sign_in_user super_admin
-      visit root_path
+      visit super_admin_organisations_path
     end
 
     context "when sorting by account creation date" do
