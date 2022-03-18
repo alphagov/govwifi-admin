@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include GovWifiAuthenticatable
 
   before_action :redirect_user_with_no_organisation, unless: :devise_controller?
+  before_action :update_active_sidebar_path
   helper_method :current_organisation, :super_admin?
   helper_method :sidebar
   helper_method :subnav
@@ -34,6 +35,23 @@ class ApplicationController < ActionController::Base
   end
 
 protected
+
+  def update_active_sidebar_path
+    sidebar_paths =
+      [ips_path,
+       memberships_path,
+       new_organisation_settings_path,
+       settings_path,
+       new_logs_search_path,
+       super_admin_locations_path,
+       super_admin_organisations_path,
+       super_admin_users_path,
+       new_super_admin_whitelist_path,
+       super_admin_mou_index_path]
+    if sidebar_paths.include?(request.path)
+      session[:sidebar_path] = request.path
+    end
+  end
 
   def subnav
     :default
