@@ -1,22 +1,48 @@
-<nav class="govuk-body leftnav">
-  <ul class="govuk-list">
-      <li>
-        <%= link_to "Locations", ips_path, id: "nav-ips", class: active_tab(ips_path, "locations") %>
-      </li>
-      <li>
-        <%= link_to "Team members", memberships_path, class: active_tab(memberships_path, "/users") %>
-      </li>
-      <% if current_organisation&.ips&.empty? %>
+<div class="govuk-body leftnav">
+  <nav>
+    <% if current_organisation.present? %>
+      <ul class="govuk-list">
         <li>
-          <%= link_to "Settings", new_organisation_settings_path, class: active_tab(new_organisation_settings_path, "mou") %>
+          <%= link_to "Locations", ips_path, id: "nav-ips", class: active_tab(ips_path) %>
         </li>
-      <% else %>
         <li>
-          <%= link_to "Settings", settings_path, class: active_tab(settings_path, new_organisation_settings_path, "mou", "organisations") %>
+          <%= link_to "Team members", memberships_path, class: active_tab(memberships_path) %>
         </li>
-      <% end %>
-      <li>
-        <%= link_to "Logs", new_logs_search_path, class: active_tab("logs") %>
-      </li>
-  </ul>
-</nav>
+        <% if current_organisation&.ips&.empty? %>
+          <li>
+            <%= link_to "Settings", new_organisation_settings_path, class: active_tab(new_organisation_settings_path) %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to "Settings", settings_path, class: active_tab(settings_path) %>
+          </li>
+        <% end %>
+        <li>
+          <%= link_to "Logs", new_logs_search_path, class: active_tab(new_logs_search_path) %>
+        </li>
+      </ul>
+    <% end %>
+    <% if super_admin? && current_organisation.present? %>
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+    <% end %>
+    <% if super_admin? %>
+      <ul class="govuk-list">
+        <li>
+          <%= link_to "All Locations", super_admin_locations_path, class: active_tab(super_admin_locations_path) %>
+        </li>
+        <li>
+          <%= link_to "All Organisations", super_admin_organisations_path, class: active_tab(super_admin_organisations_path) %>
+        </li>
+        <li>
+          <%= link_to "Super admins", super_admin_users_path, class: active_tab(super_admin_users_path) %>
+        </li>
+        <li>
+          <%= link_to "Allow list", new_super_admin_whitelist_path, class: active_tab(new_super_admin_whitelist_path) %>
+        </li>
+        <li>
+          <%= link_to "MOU", super_admin_mou_index_path, class: active_tab(super_admin_mou_index_path) %>
+        </li>
+      </ul>
+    <% end %>
+  </nav>
+</div>
