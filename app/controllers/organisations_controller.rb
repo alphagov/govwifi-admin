@@ -1,6 +1,7 @@
 class OrganisationsController < ApplicationController
   before_action :set_organisation, only: %i[edit update]
   before_action :validate_user_is_part_of_organisation, only: %i[edit update]
+  skip_before_action :redirect_user_with_no_organisation, only: %i[new create]
 
   attr_reader :hide_sidebar
 
@@ -48,13 +49,9 @@ private
   end
 
   def validate_user_is_part_of_organisation
-    unless user_belongs_to_same_org
+    unless @organisation == current_organisation
       raise ActionController::RoutingError, "Not Found"
     end
-  end
-
-  def user_belongs_to_same_org
-    current_organisation == @organisation
   end
 
   def assign_user_to_organisation(organisation)

@@ -26,6 +26,28 @@ describe "Register an additional organisation", type: :feature do
     expect(page).to have_link("Cancel", href: "https://www.example.com/change_organisation")
   end
 
+  it "shows one organisation" do
+    expect(find("ul.govuk-list")).to have_selector("li", count: 1)
+  end
+
+  context "a super user without an organisation" do
+    let(:user) { create(:user, :super_admin) }
+    let(:organisation_2_name) { "Gov Org 3" }
+
+    it "shows no organisations" do
+      expect(page).to have_selector("ul.govuk-list li", count: 0)
+    end
+
+    it "adds a new organisation" do
+      click_on "Add new organisation"
+      select organisation_2_name, from: "name"
+      fill_in "Service email", with: "info@gov.uk"
+      click_on "Add organisation"
+      click_on "Switch organisation"
+      expect(page).to have_selector("ul.govuk-list li form input[value=\"#{organisation_2_name}\"]", count: 1)
+    end
+  end
+
   context "when submitting the form with correct info" do
     let(:organisation_2_name) { "Gov Org 3" }
 

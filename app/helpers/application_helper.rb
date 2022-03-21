@@ -9,11 +9,9 @@ module ApplicationHelper
     resource&.errors&.include?(key.to_sym) ? "govuk-input--error" : ""
   end
 
-  def active_tab(*identifiers)
+  def active_tab(path)
     classes = %w[govuk-link govuk-link--no-visited-state]
-
-    classes << "active" if identifiers.any? { |i| request.path.include?(i) }
-
+    classes << "active" if session[:sidebar_path] == path
     classes.join(" ")
   end
 

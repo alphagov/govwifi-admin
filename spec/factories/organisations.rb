@@ -11,5 +11,11 @@ FactoryBot.define do
         create_list :location, 3, organisation: org
       end
     end
+
+    trait :with_location_and_ip do
+      after :create do |org|
+        create :location, :with_ip, organisation: org
+      end
+    end
   end
 end
