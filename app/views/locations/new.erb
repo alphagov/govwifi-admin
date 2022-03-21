@@ -6,7 +6,6 @@
   <%= f.govuk_error_summary %>
   <div class='govuk-grid-row'>
     <div class='govuk-grid-column-full'>
-      <%= link_to 'Back to list', ips_path, class: 'govuk-back-link' %>
       <h1 class='govuk-heading-l'>Add a location</h1>
     </div>
     <div class='govuk-grid-column-full'>
@@ -14,6 +13,7 @@
                               hint: { text: "For example, 10 High Street, London" } %>
       <%= f.govuk_text_field :postcode %>
       <%= f.govuk_submit "Add location" %>
+      <p><%= link_to 'Cancel', ips_path, class: 'govuk-link--no-visited-state govuk-body' %></p>
     </div>
   </div>
 <% end %>
