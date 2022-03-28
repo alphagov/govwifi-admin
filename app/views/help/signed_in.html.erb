@@ -2,70 +2,64 @@
 
 <%= render "layouts/form_errors", resource: @support_form %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-three-quarters">
-    <h1 class="govuk-heading-l">Support</h1>
-
+<h1 class="govuk-heading-l">Support</h1>
+<h2 class="govuk-heading-m">Individual problems</h2>
+<p class="govuk-body">
+  If an individual user is having trouble connecting to GovWifi:
+</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>
+    direct them to <%= link_to "our guidance on common issues", SITE_CONFIG["end_user_troubleshooting_link"], class: "govuk-link" %>
+  </li>
+  <% unless current_organisation&.locations&.empty? %>
+    <li>
+      <%= link_to "search our logs", new_logs_search_path, class: "govuk-link" %> to confirm they are reaching our service
+    </li>
+  <% end %>
+  <li>
     <p class="govuk-body">
-      If an <strong>individual user</strong> is having trouble connecting to GovWifi:
+      check the <%= link_to "GovWifi service status", SITE_CONFIG["service_status_link"], class: "govuk-link" %>.
     </p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>
-        Direct them to <%= link_to "our guidance on common issues", SITE_CONFIG["end_user_troubleshooting_link"], class: "govuk-link" %>.
-      </li>
-      <% unless current_organisation&.locations&.empty? %>
-        <li>
-          <%= link_to "Search our logs", new_logs_search_path, class: "govuk-link" %> to confirm they are reaching our service
-        </li>
-      <% end %>
-      <li>
-        <p class="govuk-body">
-          Check if there are any problems with the <%= link_to "GovWifi service", status_index_path, class: "govuk-link" %>.
-        </p>
-      </li>
-    </ul>
+  </li>
+</ul>
 
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
+<h2 class="govuk-heading-m">Organisation problems</h2>
+<p class="govuk-body">
+  If your entire organisation is having trouble connecting to GovWifi:
+</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>
+    check your <%= link_to "IP addresses and RADIUS secret keys", ips_path, class: "govuk-link" %> match your local configuration
+  </li>
+  <% unless current_organisation&.locations&.empty? %>
+    <li>
+      <%= link_to "search our logs", new_logs_search_path, class: "govuk-link" %> to confirm traffic from you is reaching our service
+    </li>
+  <% end %>
+  <li>
+    search <%= link_to "our technical documentation", SITE_CONFIG["organisation_docs_link"], class: "govuk-link" %>
+  </li>
+  <li>
     <p class="govuk-body">
-      If your <strong>entire organisation</strong> is having trouble connecting to GovWifi:
+      check the <%= link_to "GovWifi service status", SITE_CONFIG["service_status_link"], class: "govuk-link" %>
     </p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>
-        Check your <%= link_to "IP addresses and RADIUS secret keys", ips_path, class: "govuk-link" %> match your local configuration
-      </li>
-      <% unless current_organisation&.locations&.empty? %>
-        <li>
-          <%= link_to "Search our logs", new_logs_search_path, class: "govuk-link" %> to confirm traffic from you is reaching our service
-        </li>
-      <% end %>
-      <li>
-        Search <%= link_to "our technical documentation", SITE_CONFIG["organisation_docs_link"], class: "govuk-link" %>
-      </li>
-      <li>
-        <p class="govuk-body">
-          Check if there are any problems with the <%= link_to "GovWifi service", status_index_path, class: "govuk-link" %>.
-        </p>
-      </li>
-    </ul>
+  </li>
+</ul>
 
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
-    <p class="govuk-body">
-      If you <strong> can’t resolve your issue</strong>, send us a support request.
-    </p>
-    <%= form_for @support_form, url: { action: "create" }  do |f| %>
-      <div class="govuk-form-group <%= field_error(@support_form, :details) %>">
-        <%= f.label :details, "Tell us about your issue", class: "govuk-label" %>
-        <%= f.text_area :details, class: "govuk-textarea", size: "30x10" %>
-      </div>
-      <div class="govuk-form-group">
-        <%= f.hidden_field :choice %>
-      </div>
-      <div class="govuk-inset-text">
-        Support tickets are checked daily. You will receive a reply within one working day.
-      </div>
-      <%= f.submit "Send support request", class: "govuk-button" %>
-    <% end %>
+<h2 class="govuk-heading-m">Request support</h2>
+<p class="govuk-body">
+  If you can’t resolve your issue, send us a support request.
+</p>
+<%= form_for @support_form, url: { action: "create" }  do |f| %>
+  <div class="govuk-form-group <%= field_error(@support_form, :details) %>">
+    <%= f.label :details, "Tell us about your issue", class: "govuk-label" %>
+    <%= f.text_area :details, class: "govuk-textarea", size: "30x10" %>
   </div>
-</div>
+  <div class="govuk-form-group">
+    <%= f.hidden_field :choice %>
+  </div>
+  <div class="govuk-inset-text">
+    Support tickets are checked daily. You will receive a reply within one working day.
+  </div>
+  <%= f.submit "Send support request", class: "govuk-button" %>
+<% end %>
