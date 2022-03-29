@@ -1,17 +1,25 @@
 <h2 class="govuk-heading-m">GovWifi servers</h2>
 
-<table class="govuk-table govuk-!-margin-bottom-3">
+<p class="govuk-hint govuk-!-margin-top-0 govuk-!-margin-bottom-0">
+  The
+  <%= link_to "offer GovWifi documentation",
+              "https://docs.wifi.service.gov.uk/set_up/#step-3-create-a-new-wifi-installation",
+              class: "govuk-link govuk-link--no-visited-state" %>
+  explains how to connect your authenticators to these servers
+</p>
+
+<table class="govuk-table govuk-!-margin-bottom-9">
   <caption class="govuk-visually-hidden">Settings</caption>
   <thead class="govuk-table__head govuk-visually-hidden">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header govuk-!-width-one-half">Setting</th>
+      <th scope="col" class="govuk-table__header govuk-!-width-one-third">Setting</th>
       <th scope="col" class="govuk-table__header">Value</th>
       <th scope="col" class="govuk-table__header">Action</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
         London
       </th>
       <td class="govuk-table__cell">
@@ -25,7 +33,7 @@
       </td>
     </tr>
     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
         Dublin
       </th>
       <td class="govuk-table__cell">
@@ -34,19 +42,6 @@
             <li><%= render partial: "shared/ip_address", locals: { ip: } %></li>
           <% end %>
         </ul>
-      </td>
-      <td class="govuk-table__cell">
-      </td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
-        <span class="govuk-visually-hidden">Documentation</span>
-      </th>
-      <td class="govuk-table__cell">
-        <p class="govuk-hint govuk-!-margin-top-0 govuk-!-margin-bottom-0">
-          The
-          <%= link_to "offer GovWifi documentation", "https://docs.wifi.service.gov.uk/set_up/#step-3-create-a-new-wifi-installation", class: "govuk-link govuk-link--no-visited-state" %> explains how to connect your authenticators to these servers
-        </p>
       </td>
       <td class="govuk-table__cell">
       </td>
