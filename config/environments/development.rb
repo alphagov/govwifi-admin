@@ -1,7 +1,7 @@
 require "action_mailer/railtie"
 Rails.application.configure do
   config.active_storage.service = :local
-
+  config.hosts.clear
   Bullet.enable = true
   Bullet.unused_eager_loading_enable = true
   Bullet.n_plus_one_query_enable     = true
