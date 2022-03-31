@@ -9,6 +9,10 @@ class LogsSearch
             if: -> { filter == "username" }
   validates :search_term, with: :validate_ip, if: -> { filter == "ip" }
 
+  def render
+    %w[email phone].include?(filter) ? "contact" : filter
+  end
+
 private
 
   def validate_ip

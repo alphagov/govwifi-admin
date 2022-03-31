@@ -99,8 +99,7 @@ Rails.application.routes.draw do
         resources :organisation_names, only: %i[index create destroy]
       end
     end
-
-    post "wifi_user_search", to: "wifi_user_search#search"
+    resource :wifi_user_search, only: %i[show create]
   end
 
   %w[404 422 500].each do |code|
