@@ -5,7 +5,7 @@ FactoryBot.define do
       third = n / 255
       "141.0.#{third}.#{fourth}"
     end
-
+    created_at { 3.days.ago }
     association :location
   end
 end

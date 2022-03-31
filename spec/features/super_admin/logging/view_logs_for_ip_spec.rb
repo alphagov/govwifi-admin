@@ -8,12 +8,10 @@ describe "View authentication requests for an IP", type: :feature do
   let(:ip_2) { create(:ip, location: user_2_location, address: "1.2.3.5") }
 
   before do
-    create(:session, start: 3.days.ago, siteIP: ip_1.address)
-    create(:session, start: 3.days.ago, siteIP: ip_1.address)
-    create(:session, start: 3.days.ago, siteIP: ip_2.address)
-    create(:session, start: 3.days.ago, siteIP: ip_2.address)
-
-    sign_in_user user
+    create(:session, siteIP: ip_1.address)
+    create(:session, siteIP: ip_1.address)
+    create(:session, siteIP: ip_2.address)
+    create(:session, siteIP: ip_2.address)
 
     visit root_path
 
