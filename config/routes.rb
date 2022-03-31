@@ -63,6 +63,7 @@ Rails.application.routes.draw do
   end
   resources :logs, only: %i[index]
   resources :logs_searches, path: "logs/search", only: %i[new index create] do
+    post "choose_option", on: :new
     get "ip", on: :new
     get "username", on: :new
     get "location", on: :new

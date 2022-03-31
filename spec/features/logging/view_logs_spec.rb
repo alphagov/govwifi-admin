@@ -28,9 +28,9 @@ describe "View authentication requests for an IP", type: :feature do
 
   context "as a super admin" do
     before do
-      super_admin_user = create(:user, :super_admin)
+      super_admin_user = create(:user, :super_admin, :with_organisation)
       sign_in_user super_admin_user
-      visit logs_path(ip:)
+      visit logs_path(log_search_form: { ip:, filter_option: LogSearchForm::IP_FILTER_OPTION })
     end
     it "displays the log" do
       expect(page).to have_content("Found 2 results for \"#{ip}\"")
@@ -59,7 +59,7 @@ describe "View authentication requests for an IP", type: :feature do
       end
     end
 
-    context "when fitering for failed requests" do
+    context "when filtering for failed requests" do
       before do
         select("Failed", from: "Status type:")
         click_button("Filter")
@@ -78,7 +78,7 @@ describe "View authentication requests for an IP", type: :feature do
       location = create(:location, organisation: admin_user.organisations.first)
       create(:ip, location_id: location.id, address: ip, created_at: 5.days.ago)
       sign_in_user admin_user
-      visit logs_path(ip:)
+      visit logs_path(log_search_form: { ip:, filter_option: LogSearchForm::IP_FILTER_OPTION })
     end
     it "does not display the radius server" do
       expect(page).to have_content("Found 2 results for \"#{ip}\"")

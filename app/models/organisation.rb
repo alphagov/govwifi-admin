@@ -19,6 +19,10 @@ class Organisation < ApplicationRecord
     .order("#{sort_column} #{sort_direction}")
   }
 
+  def ip_addresses
+    ips.pluck(:address)
+  end
+
   def validate_in_register?
     unless Organisation.fetch_organisations_from_register.include?(name)
       errors.add(:name, "isn't in the organisations allow list")

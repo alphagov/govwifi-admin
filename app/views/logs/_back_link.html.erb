@@ -1,7 +1,0 @@
-<% if params[:username].present? %>
-  <%= link_to "Search by a different username", username_new_logs_search_path, class: "govuk-back-link" %>
-<% elsif params[:ip].present? %>
-  <%= link_to "Search by a different IP", ip_new_logs_search_path, class: "govuk-back-link" %>
-<% else %>
-  <%= link_to "Search by a different location", location_new_logs_search_path, class: "govuk-back-link" %>
-<% end %>
