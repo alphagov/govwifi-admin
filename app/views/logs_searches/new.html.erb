@@ -12,7 +12,7 @@
                   builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
       <%= form.govuk_error_summary %>
       <%= form.govuk_radio_buttons_fieldset(:filter_option, legend: { text: "How do you want to filter these logs?" }) do %>
-        <% unless current_organisation.nil? %>
+        <% unless current_organisation.nil?  || current_organisation.locations.empty? %>
           <%= form.govuk_radio_button :filter_option, LogSearchForm::LOCATION_FILTER_OPTION, label: { text: "Location" } do %>
             <%= form.govuk_collection_select :location_id, log_search_form.ordered_locations_of(current_organisation), :id, :full_address,
                                              label: { text: "Select location" } %>

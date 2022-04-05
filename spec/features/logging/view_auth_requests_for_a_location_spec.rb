@@ -36,10 +36,9 @@ describe "View authentication requests for a location", type: :feature do
   end
 
   context "with a location that does not belong to the current organisation" do
-    let!(:organisation) { create(:organisation) }
+    let!(:organisation) { create(:organisation, :with_locations) }
     let!(:location) { create(:location) }
-    before do
-    end
+
     it "should raise an error" do
       expect {
         visit logs_path(log_search_form: { location_id: location.id,

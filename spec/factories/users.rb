@@ -17,6 +17,12 @@ FactoryBot.define do
       end
     end
 
+    trait :with_organisation_and_locations do
+      after(:create) do |user|
+        create(:organisation, :with_locations, users: [user])
+      end
+    end
+
     trait :with_2fa do
       otp_secret_key { "ABCDEFGHIJKLMNOPQRSTUVWXYZ" } # 2FA is set up
     end
