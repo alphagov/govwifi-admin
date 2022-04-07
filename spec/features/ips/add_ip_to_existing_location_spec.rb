@@ -42,7 +42,7 @@ describe "Adding an IP to an existing location", type: :feature do
       end
 
       it 'redirects to the "after IP created" path for Analytics' do
-        expect(page).to have_current_path("/ips/created")
+        expect(page).to have_current_path("/ips")
       end
 
       it "triggers the publishing of the config file" do
@@ -126,7 +126,7 @@ describe "Adding an IP to an existing location", type: :feature do
     end
 
     it 'redirects to the "after IP created" path for Analytics' do
-      expect(page).to have_current_path("/ips/created")
+      expect(page).to have_current_path("/ips")
     end
   end
 

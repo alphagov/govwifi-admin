@@ -17,7 +17,7 @@ class IpsController < ApplicationController
 
     ip.destroy!
     Facades::Ips::Publish.new.execute
-    redirect_to removed_ips_path, notice: "Successfully removed IP address #{ip.address}"
+    redirect_to ips_path, notice: "Successfully removed IP address #{ip.address}"
   end
 
 private
@@ -41,14 +41,14 @@ private
   end
 
   def ip_removal_requested?
-    params[:ip_id].present?
+    params[:ip_id].present? && params[:confirm_remove].present?
   end
 
   def key_rotation_requested?
-    params[:location_id].present? && params[:rotate].present?
+    params[:location_id].present? && params[:confirm_rotate].present?
   end
 
   def location_removal_requested?
-    params[:location_id].present? && params[:remove].present?
+    params[:location_id].present? && params[:confirm_remove].present?
   end
 end

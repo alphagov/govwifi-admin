@@ -35,7 +35,7 @@ describe "Add location", type: :feature do
 
       it 'redirects to "After location created" path' do
         click_on "Add location"
-        expect(page).to have_current_path("/ips/created/location")
+        expect(page).to have_current_path("/ips")
       end
     end
 

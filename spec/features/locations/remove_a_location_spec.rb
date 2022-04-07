@@ -34,7 +34,7 @@ describe "Remove a location", type: :feature do
 
       it 'redirects to the "after location removed" path for analytics' do
         click_on "Yes, remove this location"
-        expect(page).to have_current_path("/ips/removed/location")
+        expect(page).to have_current_path("/ips")
       end
     end
 
@@ -59,28 +59,6 @@ describe "Remove a location", type: :feature do
       within("table") do
         expect(page).not_to have_content("Remove location")
       end
-    end
-
-    context "when visiting the remove location page directly" do
-      before do
-        visit location_remove_path(location)
-      end
-
-      it "does not show the partial" do
-        expect(page).not_to have_content("Are you sure you want to remove this location")
-      end
-    end
-  end
-
-  context "when you do not own the location" do
-    let(:other_location) { create(:location, organisation: create(:organisation)) }
-
-    before do
-      visit location_remove_path(other_location)
-    end
-
-    it "does not show the partial" do
-      expect(page).not_to have_content("Are you sure you want to remove this location")
     end
   end
 end

@@ -27,13 +27,7 @@ Rails.application.routes.draw do
   patch "change_organisation", to: "current_organisation#update"
 
   resources :status, only: %i[index]
-  resources :ips, only: %i[index new create destroy] do
-    get "remove", to: "ips#index"
-    get "created", to: "ips#index", on: :collection
-    get "created/location", to: "ips#index", on: :collection
-    get "removed", to: "ips#index", on: :collection
-    get "removed/location", to: "ips#index", on: :collection
-  end
+  resources :ips, only: %i[index new create destroy]
 
   resources :help, only: %i[create new] do
     get "/", on: :collection, to: "help#new"
@@ -43,8 +37,6 @@ Rails.application.routes.draw do
     get "user_support", on: :new
   end
   resources :locations, only: %i[new create destroy update] do
-    get "remove", to: "ips#index"
-    get "rotate_key", to: "ips#index"
     get "add_ips", to: "add_ips"
     patch "update_ips", to: "update_ips"
   end
