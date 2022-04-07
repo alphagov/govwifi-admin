@@ -1,13 +1,15 @@
 <% content_for :page_title, "Results - logs search" %>
 
-<%= render "logs/back_link", params: params %>
+<p class="govuk-!-margin-bottom-6">
+  <a href="<%= new_logs_search_path %>" class="govuk-back-link">Change search</a>
+</p>
 
-<% if @logs.present? %>
-  <h1 class="govuk-heading-l">Found <%= pluralize(@logs.count, "result") %> for "<%= params[:username] || params[:ip] || @location_address %>"</h1>
+<% if logs.present? %>
+  <h1 class="govuk-heading-l">Found <%= pluralize(logs.count, "result") %> for "<%= log_search_form.username || log_search_form.ip || location_address %>"</h1>
 
-  <%= render "logs/filtered_results_explanation", logs: @logs %>
+  <%= render "logs/filtered_results_explanation", logs: logs %>
 
-  <%= render "logs/filter_logs_select", ip: @ip, username: @username, success: @success %>
+  <%= render "logs/filter_logs_select", log_search_form: log_search_form %>
 
   <table class="govuk-table">
     <caption class="govuk-table__caption"></caption>
@@ -25,16 +27,16 @@
       </tr>
     </thead>
     <tbody class="govuk-table__body">
-      <% @logs.each do |log| %>
+      <% logs.each do |log| %>
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><%= log.fetch(:username) %></td>
-          <td class="govuk-table__cell"><%= log.fetch(:ap) %></td>
-          <td class="govuk-table__cell"><%= log.fetch(:mac) %></td>
-          <td class="govuk-table__cell"><%= log.fetch(:site_ip) %></td>
-          <td class="govuk-table__cell"><%= log.fetch(:start) %></td>
-          <td class="govuk-table__cell"><%= log.fetch(:success) ? "successful" : "failed" %></td>
+          <td class="govuk-table__cell"><%= log.username %></td>
+          <td class="govuk-table__cell"><%= log.ap %></td>
+          <td class="govuk-table__cell"><%= log.mac %></td>
+          <td class="govuk-table__cell"><%= log.siteIP %></td>
+          <td class="govuk-table__cell"><%= log.start %></td>
+          <td class="govuk-table__cell"><%= log.success ? "successful" : "failed" %></td>
           <% if super_admin? %>
-            <td class="govuk-table__cell"><%= log.fetch(:task_id) %></td>
+            <td class="govuk-table__cell"><%= log.task_id %></td>
           <% end %>
         </tr>
       <% end %>
@@ -43,16 +45,16 @@
 <% else %>
   <div class="govuk-grid-row">
     <h1 class="govuk-heading-l govuk-grid-column-three-quarters">
-      <% if params[:username].present? %>
-        The username "<%= params[:username] %>" <strong>is not reaching the GovWifi service</strong>
-      <% elsif params[:location] %>
-        Traffic from <%= @location_address %> <strong>is not reaching the GovWifi service</strong>
+      <% if log_search_form.filter_option==LogSearchForm::USERNAME_FILTER_OPTION %>
+        The username "<%= log_search_form.username %>" <strong>is not reaching the GovWifi service</strong>
+      <% elsif log_search_form.filter_option==LogSearchForm::LOCATION_FILTER_OPTION %>
+        Traffic from <%= location_address %> <strong>is not reaching the GovWifi service</strong>
       <% else %>
-        Traffic from <%= params[:ip] %> <strong>is not reaching the GovWifi service</strong>
+        Traffic from <%= log_search_form.ip %> <strong>is not reaching the GovWifi service</strong>
       <% end %>
     </h1>
 
-    <%= render "logs/filtered_results_explanation", logs: @logs %>
+    <%= render "logs/filtered_results_explanation", logs: logs %>
 
     <%= render "logs/no_logs_explanation" %>
   </div>

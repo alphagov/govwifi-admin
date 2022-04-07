@@ -13,7 +13,6 @@ describe "View authentication requests for a username", type: :feature do
 
     visit new_logs_search_path
     choose "Username"
-    click_on "Go to search"
   end
 
   context "when there are results from multiple organisations and users" do
@@ -23,7 +22,7 @@ describe "View authentication requests for a username", type: :feature do
       create(:session, start: 3.days.ago, username:, siteIP: ip[2].address, success: true)
       create(:session, start: 3.days.ago, username: "user2", siteIP: ip[2].address, success: true)
 
-      fill_in "Username", with: username
+      fill_in "Enter username", with: username
       click_on "Show logs"
     end
 
@@ -38,7 +37,7 @@ describe "View authentication requests for a username", type: :feature do
 
   context "when no results exist" do
     before do
-      fill_in "Username", with: username
+      fill_in "Enter username", with: username
       click_on "Show logs"
     end
 
@@ -51,12 +50,12 @@ describe "View authentication requests for a username", type: :feature do
     let(:username) { "1" }
 
     before do
-      fill_in "Username", with: username
+      fill_in "Enter username", with: username
       click_on "Show logs"
     end
 
     it "prompts the user for a valid username" do
-      expect(page).to have_content("Enter a valid username")
+      expect(page).to have_content("Search term must be 5 or 6 characters").twice
     end
   end
 end

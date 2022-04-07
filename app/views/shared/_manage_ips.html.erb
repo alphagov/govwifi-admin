@@ -68,7 +68,7 @@
             <ul class="plain-list govuk-!-margin-0">
               <% if ip.available? && !ip.unused? && !ip.inactive? %>
                 <li>
-                  <%= link_to "View logs", logs_path(ip: ip.address), class: "govuk-link" %>
+                  <%= link_to "View logs", logs_path(log_search_form: { ip: ip.address, filter_option: LogSearchForm::IP_FILTER_OPTION }), class: "govuk-link" %>
                 </li>
               <% end %>
               <% if show_ip_controls && current_user.can_manage_locations?(current_organisation) %>

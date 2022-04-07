@@ -1,50 +1,60 @@
 describe "View authentication requests for a username", type: :feature do
-  context "when an organisation with no ips searches logs" do
-    let(:organisation_with_no_ips) { create(:organisation) }
-    let(:admin_user) { create(:user, organisations: [organisation_with_no_ips]) }
-    let(:username) { "AAAAAA" }
+  let!(:admin_user) { create(:user) }
+  let!(:organisation_one) { create(:organisation, :with_location_and_ip, users: [admin_user]) }
+  let!(:organisation_two) { create(:organisation, :with_location_and_ip, users: [admin_user]) }
+  let(:ip_organisation_one) { organisation_one.ip_addresses.first }
+  let(:ip_organisation_two) { organisation_two.ip_addresses.first }
+  let(:other_ip) { "6.6.6.6" }
+  let!(:sessions) do
+    create(:session, username: "AAAAAA", siteIP: ip_organisation_one, success: true)
+    create(:session, username: "AAAAAA", siteIP: ip_organisation_one, success: false)
+    create(:session, username: "AAAAAA", siteIP: ip_organisation_two, success: true)
+    create(:session, username: "BBBBBB", siteIP: other_ip, success: false)
+  end
 
-    before do
-      sign_in_user admin_user
-      visit new_logs_search_path
-      choose "Username"
-      click_on "Go to search"
-      fill_in "Username", with: username
-      click_on "Show logs"
+  before :each do
+    sign_in_user admin_user
+    visit new_logs_search_path
+    choose "Username"
+    fill_in "Enter username", with: search_string
+    click_on "Show logs"
+  end
+
+  describe "without results" do
+    describe "Searching a username that does not belong to the current organisation" do
+      let(:search_string) { "BBBBBB" }
+
+      it "displays no results" do
+        expect(page).to have_content("\"#{search_string}\" is not reaching the GovWifi service")
+      end
     end
 
-    it "displays no results" do
-      expect(page).to have_content("\"#{username}\" is not reaching the GovWifi service")
+    describe "Searching a username that does not exist" do
+      let(:search_string) { "random" }
+
+      it "displays the no results message" do
+        expect(page).to have_content("\"#{search_string}\" is not reaching the GovWifi service")
+      end
     end
   end
 
-  context "with results" do
-    let(:username) { "AAAAAA" }
-    let(:admin_user) { create(:user, :with_organisation) }
-    let(:location) { create(:location, organisation: admin_user.organisations.first) }
+  describe "With results" do
+    context "Super admin" do
+      let!(:admin_user) { create(:user, :super_admin) }
+      describe "Searching a username that does not belong to the current organisation" do
+        let(:search_string) { "BBBBBB" }
 
-    before do
-      create(:session, start: 3.days.ago, username:, siteIP: "1.1.1.1", success: true)
-      create(:session, start: 3.days.ago, username:, siteIP: "1.1.1.1", success: false)
-      create(:session, start: 3.days.ago, username:, siteIP: "2.2.2.2", success: false)
-
-      another_org = create(:organisation)
-      another_org_location = create(:location, organisation: another_org)
-
-      create(:ip, location_id: location.id, address: "1.1.1.1")
-      create(:ip, location: another_org_location, address: "2.2.2.2")
-
-      sign_in_user admin_user
-      visit username_new_logs_search_path
-      fill_in "Username", with: search_string
-      click_on "Show logs"
+        it "finds the session even though it is not part of the current organisation." do
+          expect(page).to have_content("Found 1 result for \"#{search_string}\"")
+        end
+      end
     end
 
-    context "when username is correct" do
+    describe "Searching a username that does belong to the current organisation" do
       let(:search_string) { "AAAAAA" }
 
       it "displays two results" do
-        expect(page).to have_content("Found 2 results for \"#{username}\"")
+        expect(page).to have_content("Found 2 results for \"#{search_string}\"")
       end
 
       it "displays a successful request" do
@@ -56,59 +66,39 @@ describe "View authentication requests for a username", type: :feature do
       end
 
       it "displays the logs of the ip" do
-        expect(page).to have_content("1.1.1.1")
+        expect(page).to have_content(ip_organisation_one)
       end
 
-      it "does not display the logs of the ip the organisation does not own" do
-        expect(page).not_to have_content("2.2.2.2")
+      it "does not display the logs of the ip that does not belong to the current organisation" do
+        expect(page).not_to have_content(ip_organisation_two)
+        expect(page).not_to have_content(other_ip)
       end
     end
 
-    context "when search input has trailing whitespace" do
+    describe "The search input has trailing whitespace" do
       let(:search_string) { "AAAAAA " }
 
       it "displays the search results of the username" do
-        expect(page).to have_content("1.1.1.1")
+        expect(page).to have_content(ip_organisation_one)
       end
     end
 
-    context "when search input has leading whitespace" do
+    describe "The search input has leading whitespace" do
       let(:search_string) { " AAAAAA" }
 
       it "displays the search results of the username" do
-        expect(page).to have_content("1.1.1.1")
+        expect(page).to have_content(ip_organisation_one)
       end
     end
 
-    context "when username is too short" do
+    describe "The username is too short" do
       let(:search_string) { "1" }
 
       it_behaves_like "errors in form"
 
       it "displays an error to the user" do
-        expect(page).to have_content("Search term must be 5 or 6 characters")
+        expect(page).to have_content("Search term must be 5 or 6 characters").twice
       end
-
-      it "prompts the user for a valid username" do
-        expect(page).to have_content("Enter a valid username")
-      end
-    end
-  end
-
-  context "without results" do
-    let(:username) { "random" }
-
-    before do
-      sign_in_user create(:user, :with_organisation)
-      visit new_logs_search_path
-      choose "Username"
-      click_on "Go to search"
-      fill_in "Username", with: username
-      click_on "Show logs"
-    end
-
-    it "displays the no results message" do
-      expect(page).to have_content("\"#{username}\" is not reaching the GovWifi service")
     end
   end
 end

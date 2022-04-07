@@ -63,6 +63,7 @@ Rails.application.routes.draw do
   end
   resources :logs, only: %i[index]
   resources :logs_searches, path: "logs/search", only: %i[new index create] do
+    post "choose_option", on: :new
     get "ip", on: :new
     get "username", on: :new
     get "location", on: :new
@@ -98,8 +99,7 @@ Rails.application.routes.draw do
         resources :organisation_names, only: %i[index create destroy]
       end
     end
-
-    post "wifi_user_search", to: "wifi_user_search#search"
+    resource :wifi_user_search, only: %i[show create]
   end
 
   %w[404 422 500].each do |code|

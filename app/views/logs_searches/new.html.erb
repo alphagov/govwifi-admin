@@ -1,7 +1,5 @@
 <% content_for :page_title, "Start logs search" %>
 
-<%= render "layouts/form_errors", resource: @search %>
-
 <div class='govuk-grid-row'>
   <h1 class='govuk-heading-l govuk-grid-column-full'>Logs</h1>
 
@@ -10,55 +8,26 @@
       Logs are kept for recent authentication requests made to the GovWifi service.
     </p>
 
-    <%= form_with url: logs_searches_path, method: :post, local: true do |form| %>
-      <div class="govuk-form-group">
-        <div class="govuk-form-group">
-          <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend">
-              How do you want to filter these logs?
-            </legend>
-            <div class="govuk-radios <%= field_error(@search, :filter) %>">
-              <%= render "error_message", key: :filter, message: "select an option" %>
-              <% if !super_admin? %>
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="choice-location" name="logs_search[filter]" type="radio" value="location">
-                  <label class="govuk-label govuk-radios__label" for="choice-location">
-                    Location
-                  </label>
-                </div>
-              <% end %>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="choice-username" name="logs_search[filter]" type="radio" value="username">
-                <label class="govuk-label govuk-radios__label" for="choice-username">
-                  Username
-                </label>
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="choice-ip" name="logs_search[filter]" type="radio" value="ip">
-                <label class="govuk-label govuk-radios__label" for="choice-ip">
-                  IP address
-                </label>
-              </div>
-              <% if super_admin? %>
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="choice-email" name="logs_search[filter]" type="radio" value="contact">
-                  <label class="govuk-label govuk-radios__label" for="choice-email">
-                    Email address
-                  </label>
-                </div>
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="choice-phone" name="logs_search[filter]" type="radio" value="contact">
-                  <label class="govuk-label govuk-radios__label" for="choice-phone">
-                    Phone number
-                  </label>
-                </div>
-              <% end %>
-            </div>
-          </fieldset>
-        </div>
-      </div>
-      <input type='hidden' name='logs_search[first_step]' value='true'>
-      <%= form.submit "Go to search", class: "govuk-button" %>
+    <%= form_with model: log_search_form, url: logs_path, method: :get,
+                  builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+      <%= form.govuk_error_summary %>
+      <%= form.govuk_radio_buttons_fieldset(:filter_option, legend: { text: "How do you want to filter these logs?" }) do %>
+        <% unless current_organisation.nil?  || current_organisation.locations.empty? %>
+          <%= form.govuk_radio_button :filter_option, LogSearchForm::LOCATION_FILTER_OPTION, label: { text: "Location" } do %>
+            <%= form.govuk_collection_select :location_id, log_search_form.ordered_locations_of(current_organisation), :id, :full_address,
+                                             label: { text: "Select location" } %>
+          <% end %>
+        <% end %>
+        <%= form.govuk_radio_button :filter_option, LogSearchForm::USERNAME_FILTER_OPTION, label: { text: "Username" } do %>
+          <%= form.govuk_text_field :username, width: 10,
+                                               label: { text: "Enter username" } %>
+        <% end %>
+        <%= form.govuk_radio_button :filter_option, LogSearchForm::IP_FILTER_OPTION, label: { text: "IP address" }  do %>
+          <%= form.govuk_text_field :ip, width: 10,
+                                         label: { text: "Enter IP address" } %>
+        <% end %>
+      <% end %>
+      <%= form.govuk_submit "Show logs" %>
     <% end %>
   </div>
 </div>

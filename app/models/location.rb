@@ -17,6 +17,10 @@ class Location < ApplicationRecord
     "#{address}, #{postcode}"
   end
 
+  def ip_addresses
+    ips.pluck(:address)
+  end
+
   def sorted_ip_addresses
     ips.sort_by { |ip| ip.address.split(".").map(&:to_i) }
   end

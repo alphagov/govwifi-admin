@@ -1,5 +1,5 @@
 describe "View authentication requests for an IP", type: :feature do
-  let(:user) { create(:user, :super_admin) }
+  let(:super_admin) { create(:user, :super_admin) }
   let(:user_location) { create(:location, :with_organisation) }
   let(:ip_1) { create(:ip, location: user_location, address: "1.2.3.4") }
 
@@ -8,21 +8,19 @@ describe "View authentication requests for an IP", type: :feature do
   let(:ip_2) { create(:ip, location: user_2_location, address: "1.2.3.5") }
 
   before do
-    create(:session, start: 3.days.ago, siteIP: ip_1.address)
-    create(:session, start: 3.days.ago, siteIP: ip_1.address)
-    create(:session, start: 3.days.ago, siteIP: ip_2.address)
-    create(:session, start: 3.days.ago, siteIP: ip_2.address)
+    create(:session, siteIP: ip_1.address)
+    create(:session, siteIP: ip_1.address)
+    create(:session, siteIP: ip_2.address)
+    create(:session, siteIP: ip_2.address)
 
-    sign_in_user user
-
-    visit root_path
-
-    visit ip_new_logs_search_path
+    sign_in_user super_admin
+    visit new_logs_search_path
+    choose "IP address"
   end
 
   context "when searching for an IP" do
     before do
-      fill_in "IP address", with: ip_1.address
+      fill_in "Enter IP address", with: ip_1.address
       click_on "Show logs"
     end
 
@@ -33,7 +31,7 @@ describe "View authentication requests for an IP", type: :feature do
 
   context "when searching for another IP" do
     before do
-      fill_in "IP address", with: ip_2.address
+      fill_in "Enter IP address", with: ip_2.address
       click_on "Show logs"
     end
 
@@ -46,7 +44,7 @@ describe "View authentication requests for an IP", type: :feature do
     let(:search_string) { "1" }
 
     before do
-      fill_in "IP address", with: search_string
+      fill_in "Enter IP address", with: search_string
       click_on "Show logs"
     end
 
