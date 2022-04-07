@@ -27,23 +27,17 @@ class LocationsController < ApplicationController
   end
 
   def add_ips
-    @location = Location.find(params[:location_id])
-    @location.add_blank_ips(5)
+    @ips_form = LocationIpsForm.new(location_id: location_id_params[:location_id])
   end
 
   def update_ips
-    @location = Location.find(params[:location_id])
-    length_of_ips_before = @location.ips.length
-
-    if !present_ips.empty? && @location.update(ips_attributes: present_ips)
-      Facades::Ips::Publish.new.execute
-      length_of_ips_added = @location.ips.length - length_of_ips_before
+    @ips_form = LocationIpsForm.new(ips_params.merge(location_id_params))
+    if @ips_form.update
       redirect_to(
         ips_path,
-        notice: "Added #{length_of_ips_added} #{'IP address'.pluralize(length_of_ips_added)} to #{@location.full_address}",
+        notice: "Added #{@ips_form.updated_length} #{'IP address'.pluralize(@ips_form.updated_length)} to #{@ips_form.full_address}",
       )
     else
-      @location.add_blank_ips(5)
       render :add_ips
     end
   end
@@ -57,6 +51,14 @@ class LocationsController < ApplicationController
   end
 
 private
+
+  def ips_params
+    params.require(:location_ips_form).permit(LocationIpsForm::IP_FIELDS)
+  end
+
+  def location_id_params
+    params.permit(:location_id, :location_ips_form)
+  end
 
   def rotate_radius_secret_key
     use_case = UseCases::Administrator::GenerateRadiusSecretKey.new

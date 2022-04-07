@@ -26,7 +26,7 @@ describe "Tracking new organisations", type: :feature do
 
     before do
       visit location_add_ips_path(location_id: location.id)
-      fill_in "location[ips_attributes][0][address]", with: ip_address
+      fill_in "location_ips_form[ip_1]", with: ip_address
       click_on "Add IP addresses"
       click_on "Settings"
     end

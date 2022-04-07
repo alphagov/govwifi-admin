@@ -22,11 +22,9 @@ RSpec.describe LocationsController, type: :controller do
   describe "POST /update_ips" do
     let(:params) do
       {
-        location: {
-          ips_attributes: {
-            "0": { address: Faker::Internet.ip_v4_address },
-            "1": { address: Faker::Internet.ip_v4_address },
-          },
+        location_ips_form: {
+          ip_1: Faker::Internet.ip_v4_address,
+          ip_2: Faker::Internet.ip_v4_address,
         },
         location_id: location.id,
       }
