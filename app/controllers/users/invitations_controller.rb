@@ -48,7 +48,7 @@ private
   end
 
   def after_path(organisation)
-    super_admin? ? super_admin_organisation_path(organisation) : created_invite_memberships_path
+    super_admin? ? super_admin_organisation_path(organisation) : memberships_path
   end
 
   def user_belongs_to_current_organisation?

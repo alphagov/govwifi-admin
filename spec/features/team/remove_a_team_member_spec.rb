@@ -27,7 +27,7 @@ describe "Remove a team member", type: :feature do
 
     it 'redirects to "after user removed" team members page for analytics' do
       click_on "Yes, remove this team member"
-      expect(page).to have_current_path("/memberships/removed")
+      expect(page).to have_current_path("/memberships")
     end
   end
 

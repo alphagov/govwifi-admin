@@ -50,7 +50,7 @@ describe "Edit user permissions", type: :feature do
       end
 
       it 'redirects to "after permission updated" team members page for analytics' do
-        expect(page).to have_current_path("/memberships/updated/permissions")
+        expect(page).to have_current_path("/memberships")
       end
     end
 
