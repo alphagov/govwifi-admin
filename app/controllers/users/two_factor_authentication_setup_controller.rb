@@ -43,4 +43,12 @@ private
     request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
     redirect_to stored_location_for(:user) || root_path
   end
+
+  def sidebar
+    :empty
+  end
+
+  def subnav
+    :empty
+  end
 end

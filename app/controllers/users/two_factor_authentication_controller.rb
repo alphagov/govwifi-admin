@@ -25,4 +25,12 @@ class Users::TwoFactorAuthenticationController < Devise::TwoFactorAuthentication
 
     redirect_to root_path unless current_user.can_manage_other_user_for_org?(user, current_organisation)
   end
+
+  def sidebar
+    :empty
+  end
+
+  def subnav
+    :empty
+  end
 end
