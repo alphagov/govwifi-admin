@@ -3,10 +3,40 @@ class MembershipsController < ApplicationController
   before_action :validate_can_manage_team, only: %i[edit update destroy]
   skip_before_action :redirect_user_with_no_organisation, only: %i[destroy edit update]
 
-  def edit; end
+  def edit
+    @permission_level_data = [
+      OpenStruct.new(
+        value: "administrator",
+        text: "Administrator",
+        hint: <<~HINT.html_safe,
+          View locations and IPs, team members, and logs<br>
+          Manage locations and IPs<br>
+          Add or remove team members
+        HINT
+      ),
+      OpenStruct.new(
+        value: "manage_locations",
+        text: "Manage Locations",
+        hint: <<~HINT.html_safe,
+          View locations and IPs, team members, and logs<br>
+          Manage locations and IPs<br>
+          Cannot add or remove team members
+        HINT
+      ),
+      OpenStruct.new(
+        value: "view_only",
+        text: "View only",
+        hint: <<~HINT.html_safe,
+          View locations and IPs, team members, and logs<br>
+          Cannot manage locations and IPs<br>
+          Cannot add or remove team members
+        HINT
+      ),
+    ]
+  end
 
   def update
-    permission_level = params[:permission_level]
+    permission_level = params.require(:membership).permit(:permission_level).fetch(:permission_level)
     @membership.update!(
       can_manage_team: permission_level == "administrator",
       can_manage_locations: %w[administrator manage_locations].include?(permission_level),
