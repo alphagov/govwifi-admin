@@ -15,7 +15,7 @@
       </li>
       <% unless current_organisation&.locations&.empty? %>
         <li>
-          <%= link_to "Search our logs", username_new_logs_search_path, class: "govuk-link" %> to confirm they are reaching our service
+          <%= link_to "Search our logs", new_logs_search_path, class: "govuk-link" %> to confirm they are reaching our service
         </li>
       <% end %>
       <li>
@@ -36,7 +36,7 @@
       </li>
       <% unless current_organisation&.locations&.empty? %>
         <li>
-          <%= link_to "Search our logs", location_new_logs_search_path, class: "govuk-link" %> to confirm traffic from you is reaching our service
+          <%= link_to "Search our logs", new_logs_search_path, class: "govuk-link" %> to confirm traffic from you is reaching our service
         </li>
       <% end %>
       <li>

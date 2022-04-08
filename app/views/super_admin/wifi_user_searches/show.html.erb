@@ -22,7 +22,8 @@
         <h3>User details for '<%= params[:search_term] %>'</h3>
         <p>
           Username: <%= link_to @wifi_user.username,
-                                logs_path(username: @wifi_user.username),
+                                logs_path(log_search_form: { username: @wifi_user.username,
+                                                             filter_option: LogSearchForm::USERNAME_FILTER_OPTION }),
                                 title: "Search logs for '#{@wifi_user.username}'" %>
         </p>
         <p>
