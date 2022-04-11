@@ -27,8 +27,11 @@ describe "Lookup wifi user contact details", type: :feature do
       expect(page).to have_content("wifi.user@govwifi.org")
     end
 
-    it "provides a link to search logs by username" do
-      expect(page).to have_link("zZyYxX", href: logs_path(username: "zZyYxX"))
+    describe "click on the username link" do
+      it "shows a page with logs for the user" do
+        click_on "zZyYxX"
+        expect(page).to have_content("The username \"zZyYxX\" is not reaching the GovWifi service")
+      end
     end
   end
 
