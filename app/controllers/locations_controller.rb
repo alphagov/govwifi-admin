@@ -14,10 +14,7 @@ class LocationsController < ApplicationController
     )
 
     if @location.save
-      redirect_to(
-        @location.ips.any? ? created_location_with_ip_ips_path : created_location_ips_path,
-        notice: "Added #{@location.full_address}",
-      )
+      redirect_to(ips_path, notice: "Added #{@location.full_address}")
     else
       render :new
     end
@@ -42,7 +39,7 @@ class LocationsController < ApplicationController
       Facades::Ips::Publish.new.execute
       length_of_ips_added = @location.ips.length - length_of_ips_before
       redirect_to(
-        created_ips_path,
+        ips_path,
         notice: "Added #{length_of_ips_added} #{'IP address'.pluralize(length_of_ips_added)} to #{@location.full_address}",
       )
     else
@@ -56,7 +53,7 @@ class LocationsController < ApplicationController
     redirect_to ips_path && return unless location && location.ips.empty?
 
     location.destroy!
-    redirect_to removed_location_ips_path, notice: "Successfully removed location #{location.address}"
+    redirect_to ips_path, notice: "Successfully removed location #{location.address}"
   end
 
 private

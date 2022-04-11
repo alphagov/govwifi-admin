@@ -45,7 +45,7 @@ describe "Removing an IP", type: :feature do
         click_on "Remove"
       end
 
-      expect(page).to have_current_path("/ips/removed")
+      expect(page).to have_current_path("/ips")
     end
   end
 
@@ -63,7 +63,7 @@ describe "Removing an IP", type: :feature do
 
     context "when visiting the remove IP page directly" do
       before do
-        visit ip_remove_path(ip)
+        visit ips_path(ip_id: ip.id, confirm_remove: true)
       end
 
       it "does not show the partial" do
@@ -76,7 +76,7 @@ describe "Removing an IP", type: :feature do
     let(:other_ip) { create(:ip, location: create(:location)) }
 
     before do
-      visit ip_remove_path(other_ip)
+      visit ips_path(ip: ip.id, confirm_remove: true)
     end
 
     it "does not show the partial" do

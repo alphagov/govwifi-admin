@@ -38,7 +38,7 @@ RSpec.describe LocationsController, type: :controller do
       end
 
       it "redirects to the created ips path" do
-        expect(@response).to redirect_to(created_ips_path)
+        expect(@response).to redirect_to(ips_path)
       end
     end
 
