@@ -24,7 +24,7 @@ describe "Adding an IP to an existing location", type: :feature do
       allow(Facades::Ips::Publish).to receive(:new).and_return(publish_ip)
       sign_in_user user
       visit location_add_ips_path(location_id: location.id)
-      fill_in "location[ips_attributes][0][address]", with: ip_address
+      fill_in "location_ips_form[ip_1]", with: ip_address
       click_on "Add IP addresses"
     end
 
@@ -111,7 +111,7 @@ describe "Adding an IP to an existing location", type: :feature do
     before do
       sign_in_user user
       visit location_add_ips_path(location_id: other_location.id)
-      fill_in "location[ips_attributes][0][address]", with: "141.0.149.130"
+      fill_in "location_ips_form[ip_1]", with: "141.0.149.130"
       click_on "Add IP addresses"
     end
 
@@ -134,8 +134,8 @@ describe "Adding an IP to an existing location", type: :feature do
     before do
       sign_in_user user
       visit location_add_ips_path(location_id: location.id)
-      ip_addresses.each_with_index do |ip, index|
-        fill_in "location[ips_attributes][#{index}][address]", with: ip
+      ip_addresses.each.with_index(1) do |ip, index|
+        fill_in "location_ips_form[ip_#{index}]", with: ip
       end
       click_on "Add IP addresses"
     end

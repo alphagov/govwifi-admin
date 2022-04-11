@@ -80,20 +80,4 @@ describe Location do
       expect(location.save).to be_falsey
     end
   end
-
-  describe "#blank_ips" do
-    subject(:location) { described_class.new }
-
-    before do
-      location.add_blank_ips(1)
-    end
-
-    it "creates the right number of blank ip addresses" do
-      expect(location.blank_ips.count).to eq(1)
-    end
-
-    it "doesn’t persist the the blank ip addresses" do
-      expect(location.blank_ips[0]).not_to be_persisted
-    end
-  end
 end

@@ -1,38 +1,10 @@
-<% content_for :page_title, if action_name == "update_ips"
-                              "Error: Add IP addresses"
-                            else
-                              "Add IP addresses"
-                            end %>
-
-<% if action_name == 'update_ips' %>
-  <div class="govuk-error-summary" role="alert" tabindex="-1" autofocus>
-    <h2 class="govuk-error-summary__title">There is a problem</h2>
-    <div class="govuk-error-summary__body">
-      <ul class="govuk-list govuk-error-summary__list">
-        <% if @location.ips_unable_to_be_persisted.empty? %>
-          <li>Enter at least one IP address</li>
-        <% else %>
-          <%= form_for @location, url: location_update_ips_path(location_id: @location.id) do |form| %>
-            <%= form.fields_for(:ips, @location.blank_ips) do |ip| %>
-              <% if ip.object.errors.key?(:address) %>
-                <li><a href="#ip_<%= ip.index + 1 %>">
-                  <span class="govuk-visually-hidden">Error:</span> <%= ip.object.errors.full_messages_for(:address).first %>
-                </a></li>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-<% end %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-three-quarters">
     <%= link_to "Back to locations", ips_path, class: "govuk-back-link" %>
-
+    <%= form_for @ips_form, url: location_update_ips_path(location_id: @ips_form.location_id), method: :patch, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+    <%= form.govuk_error_summary %>
     <span class="govuk-caption-xl govuk-!-font-weight-bold">
-      <%= @location.address %>, <%= @location.postcode %>
+      <%= @ips_form.address %>, <%= @ips_form.postcode %>
     </span>
     <h1 class="govuk-heading-l">
       Add IP addresses
@@ -48,24 +20,10 @@
       </p>
     </div>
 
-    <%= form_for @location, url: location_update_ips_path(location_id: @location.id) do |form| %>
-      <%= form.fields_for(:ips, @location.blank_ips) do |ip| %>
-        <div class='govuk-!-margin-bottom-3' id="ip_<%= ip.index + 1 %>">
-          <% style = "govuk-input govuk-input--width-10#{ip.object.errors.key?(:address) ? ' govuk-input--error' : ''}" %>
-          <% if ip.object.errors.key?(:address) %>
-            <span class="govuk-error-message" id="ip_<%= ip.index + 1 %>_error">
-              <span class="govuk-visually-hidden">Error:</span> <%= ip.object.errors.full_messages_for(:address).first %>
-            </span>
-          <% end %>
-          <%= ip.label :address, "IP address #{ip.index + 1}", class: "govuk-label" %>
-          <%= ip.text_field :address, class: style, "aria-described-by" => ip.object.errors.key?(:address) && "ip_#{ip.index + 1}_error" %>
-        </div>
+      <% LocationIpsForm::IP_FIELDS.each.with_index(1) do |field, index| %>
+          <%= form.govuk_text_field field, label: -> { "IP address #{index}" } %>
       <% end %>
-
-      <div class="govuk-!-margin-top-6">
-        <%= form.submit "Add IP addresses", class: "govuk-button" %>
-      </div>
-
+      <%= form.govuk_submit "Add IP addresses" %>
     <% end %>
   </div>
 </div>

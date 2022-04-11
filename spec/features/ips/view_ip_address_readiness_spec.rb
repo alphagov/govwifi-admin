@@ -8,7 +8,7 @@ describe "Wiew whether IPs are ready", type: :feature do
     before do
       sign_in_user user
       visit location_add_ips_path(location_id: location.id)
-      fill_in "location[ips_attributes][0][address]", with: "141.0.149.130"
+      fill_in "location_ips_form[ip_1]", with: "141.0.149.130"
       click_on "Add IP addresses"
     end
 

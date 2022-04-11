@@ -25,19 +25,6 @@ class Location < ApplicationRecord
     ips.sort_by { |ip| ip.address.split(".").map(&:to_i) }
   end
 
-  def add_blank_ips(number_to_add)
-    remaining = number_to_add - blank_ips.length
-    remaining.times { ips.build }
-  end
-
-  def blank_ips
-    ips.reject(&:persisted?)
-  end
-
-  def ips_unable_to_be_persisted
-    blank_ips.select(&:address)
-  end
-
 private
 
   def validate_postcode_format
