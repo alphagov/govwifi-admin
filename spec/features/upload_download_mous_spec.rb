@@ -56,7 +56,7 @@ describe "Uploading and downloading an MOU", type: :feature do
       end
 
       it 'redirects to "after MOU uploaded" path for analytics' do
-        expect(page).to have_current_path("/mou/created")
+        expect(page).to have_current_path("/mou")
       end
 
       describe "access control" do
@@ -130,7 +130,7 @@ describe "Uploading and downloading an MOU", type: :feature do
       end
 
       it 'redirects to "after MOU uploaded" path for analytics' do
-        expect(page).to have_current_path("/mou/replaced")
+        expect(page).to have_current_path("/mou")
       end
     end
 

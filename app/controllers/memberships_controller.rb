@@ -12,7 +12,7 @@ class MembershipsController < ApplicationController
       can_manage_locations: %w[administrator manage_locations].include?(permission_level),
     )
     flash[:notice] = "Permissions updated"
-    redirect_to updated_permissions_memberships_path
+    redirect_to memberships_path
   end
 
   def index
@@ -47,7 +47,7 @@ class MembershipsController < ApplicationController
     redirect_path = if current_user.is_super_admin? && @membership.organisation_id != current_organisation&.id
                       super_admin_organisation_path(@membership.organisation)
                     else
-                      removed_memberships_path
+                      memberships_path
                     end
 
     redirect_to redirect_path, notice: "Team member has been removed"

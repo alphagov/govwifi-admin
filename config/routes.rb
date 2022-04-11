@@ -40,19 +40,8 @@ Rails.application.routes.draw do
     get "add_ips", to: "add_ips"
     patch "update_ips", to: "update_ips"
   end
-  resources :memberships, only: %i[edit update index destroy] do
-    collection do
-      get "created/invite", to: "memberships#index"
-      get "updated/permissions", to: "memberships#index"
-      get "removed", to: "memberships#index"
-    end
-  end
-  resources :mou, only: %i[index create] do
-    collection do
-      get "created", to: "mou#index"
-      get "replaced", to: "mou#index"
-    end
-  end
+  resources :memberships, only: %i[edit update index destroy]
+  resources :mou, only: %i[index create]
   resources :logs, only: %i[index]
   resources :logs_searches, path: "logs/search", only: %i[new index create] do
     post "choose_option", on: :new
