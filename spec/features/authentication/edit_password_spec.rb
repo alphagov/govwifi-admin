@@ -18,7 +18,7 @@ describe "Editing password", type: :feature do
 
     click_on "Settings"
 
-    expect(page).to have_content "Change your password"
+    expect(page).to have_link("Change", href: edit_user_registration_path)
   end
 
   it "successfully updates the current user's password" do

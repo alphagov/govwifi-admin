@@ -1,22 +1,33 @@
 <h2 class="govuk-heading-m">Your account</h2>
 
-<table class="govuk-table">
+<table class="govuk-table govuk-!-margin-bottom-9">
   <caption class="govuk-visually-hidden">Settings</caption>
   <thead class="govuk-table__head govuk-visually-hidden">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header govuk-!-width-one-half">Setting</th>
+      <th scope="col" class="govuk-table__header govuk-!-width-one-third">Setting</th>
       <th scope="col" class="govuk-table__header">Value</th>
       <th scope="col" class="govuk-table__header">Action</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__cell govuk-!-width-one-half govuk-!-font-weight-regular">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
+        Email Address
+      </th>
+      <td class="govuk-table__cell">
+        <%= current_user.email %>
+      </td>
+      <td class="govuk-table__cell govuk-table__cell--numeric"></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
         Password
       </th>
       <td class="govuk-table__cell"></td>
       <td class="govuk-table__cell govuk-table__cell--numeric">
-        <%= link_to "Change your password", edit_user_registration_path, class: "govuk-link govuk-link--no-visited-state" %>
+        <%= link_to edit_user_registration_path, class: "govuk-link govuk-link--no-visited-state" do %>
+          Change <span class='govuk-visually-hidden'>your password</span>
+        <% end %>
       </td>
     </tr>
   </tbody>
