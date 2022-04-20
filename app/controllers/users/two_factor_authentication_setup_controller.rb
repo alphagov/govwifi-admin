@@ -1,4 +1,5 @@
 class Users::TwoFactorAuthenticationSetupController < ApplicationController
+  before_action :user_not_2fa_setup
   # Skips 2FA so User can set up the totp via QR code
   skip_before_action :handle_two_factor_authentication
   # Skips 2FA setup confirmation callback in ApplicationController.
@@ -38,6 +39,11 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
   helper_method :twofa_key
 
 private
+
+  def user_not_2fa_setup
+    redirect_to user_two_factor_authentication_path if current_user.reload.totp_enabled?
+    false
+  end
 
   def disable_2fa_checks_for_session
     request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false

@@ -69,6 +69,17 @@ describe "Set up two factor authentication", type: :feature do
       expect(page).to have_current_path(new_organisation_settings_path)
     end
 
+    describe "A user with 2FA completed tries to access the setup page directly" do
+      before :each do
+        sign_out
+        sign_in_user(user, pass_through_two_factor: false)
+        visit(users_two_factor_authentication_setup_path)
+      end
+      it "redirects to the 2fa authentication path" do
+        expect(page).to have_current_path(user_two_factor_authentication_path)
+      end
+    end
+
     context "with a super admin user without an organisation" do
       let(:user) { create(:user, :super_admin) }
 
