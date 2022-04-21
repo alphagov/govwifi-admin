@@ -7,9 +7,9 @@
 <% if logs.present? %>
   <h1 class="govuk-heading-l">Found <%= pluralize(logs.count, "result") %> for "<%= log_search_form.username || log_search_form.ip || location_address %>"</h1>
 
-  <%= render "logs/filtered_results_explanation", logs: logs %>
+  <%= render "logs/filtered_results_explanation", logs: %>
 
-  <%= render "logs/filter_logs_select", log_search_form: log_search_form %>
+  <%= render "logs/filter_logs_select", log_search_form: %>
 
   <table class="govuk-table">
     <caption class="govuk-table__caption"></caption>
@@ -54,7 +54,7 @@
       <% end %>
     </h1>
 
-    <%= render "logs/filtered_results_explanation", logs: logs %>
+    <%= render "logs/filtered_results_explanation", logs: %>
 
     <%= render "logs/no_logs_explanation" %>
   </div>
