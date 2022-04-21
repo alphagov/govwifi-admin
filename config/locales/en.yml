@@ -5,6 +5,10 @@ en:
   activerecord:
     errors:
       models:
+        user/organisations:
+          attributes:
+            service_email:
+              format: "%{message}"
         user:
           attributes:
             email:
@@ -17,6 +21,9 @@ en:
               taken: " is already registered. If you wish to administer an \n
               existing GovWifi installation, you must be invited to that \n
               organisation's team."
+            service_email:
+              format: "%{message}"
+              invalid: "Service email must be in the correct format, like name@example.com"
         location:
           attributes:
             address:
