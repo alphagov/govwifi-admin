@@ -44,5 +44,8 @@ module GovwifiAdmin
 
     # Disable IP spoofing check as we get too many false positives due to proxies
     config.action_dispatch.ip_spoofing_check = false
+
+    # enable customising the full_message method.
+    config.active_model.i18n_customize_full_message = true
   end
 end
