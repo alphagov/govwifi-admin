@@ -10,7 +10,7 @@
   <div class="govuk-grid-column-three-quarters">
     <h1 class="govuk-heading-l">Allow an organisation access to the admin platform</h1>
       <%= label_tag "search_orgs_label", "Search for existing organisations on GovWifi before adding them", class: "govuk-label" %>
-      <%= select_tag "organisations_register", options_for_select(@fetched_organisations_from_register << "", "") %>
+      <%= select_tag "organisations_register", options_for_select(@fetched_organisations_from_register << "", ""), class: "govuk-select" %>
 
     <%= form_for(:custom_organisations, url: super_admin_whitelist_organisation_names_path, html: { novalidate: "" }) do |f| %>
       <div class="govuk-form-group <%= field_error(@custom_organisation, :name) %>">
