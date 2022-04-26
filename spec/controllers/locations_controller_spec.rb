@@ -32,7 +32,7 @@ RSpec.describe LocationsController, type: :controller do
 
     context "when the update goes well" do
       before do
-        @response = post :update_ips, params: params
+        @response = post :update_ips, params:
       end
 
       it "redirects to the created ips path" do

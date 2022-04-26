@@ -25,10 +25,10 @@ shared_context "with a mocked support tickets client" do
       raise self.class.exception_to_raise unless self.class.exception_to_raise.nil?
 
       self.class.support_tickets << {
-        subject: subject,
-        requester: requester,
-        comment: comment,
-        tags: tags,
+        subject:,
+        requester:,
+        comment:,
+        tags:,
       }
     end
   end
