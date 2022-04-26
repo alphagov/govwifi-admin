@@ -6,84 +6,16 @@
 <h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-3"><%= @membership.user.name %></h1>
 <p class="govuk-body govuk-!-margin-bottom-4"> <%= @membership.user.email %> </p>
 
-<%= form_for @membership, url: membership_path(@membership), method: :patch do |form| %>
+<%= form_with model: @membership, url: membership_path(@membership),
+              method: :patch,
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+  <%= form.govuk_collection_radio_buttons(:permission_level, @permission_level_data, :value, :text, :hint,
+                                          legend: { size: "s", text: "Permission level" }) %>
+  <%= form.govuk_submit "Save" %>
+<% end %>
 
-  <div class="govuk-form-group">
-    <fieldset class="govuk-fieldset" aria-describedby="sign-in-hint">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-        Permission level
-      </legend>
-      <div class="govuk-radios" data-module="govuk-radios">
-        <div class="govuk-radios__item">
-          <%= radio_button_tag(
-                :permission_level,
-                "administrator",
-                @membership.administrator?,
-                class: "govuk-radios__input",
-                "aria-described-by" => "permission_level_administrator_hint",
-              ) %>
-          <%= label_tag(
-                :permission_level_administrator,
-                "Administrator",
-                class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
-              ) %>
-          <div id="permission_level_administrator_hint" class="govuk-hint govuk-radios__hint">
-            View locations and IPs, team members, and logs<br>
-            Manage locations and IPs<br>
-            Add or remove team members
-          </div>
-        </div>
-        <div class="govuk-radios__item">
-          <%= radio_button_tag(
-                :permission_level,
-                "manage_locations",
-                @membership.manage_locations?,
-                class: "govuk-radios__input",
-                "aria-described-by" => "permission_level_manage_locations_hint",
-              ) %>
-          <%= label_tag(
-                :permission_level_manage_locations,
-                "Manage locations",
-                class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
-              ) %>
-          <div id="permission_level_manage_locations_hint" class="govuk-hint govuk-radios__hint">
-            View locations and IPs, team members, and logs<br>
-            Manage locations and IPs<br>
-            Cannot add or remove team members
-          </div>
-        </div>
-        <div class="govuk-radios__item">
-          <%= radio_button_tag(
-                :permission_level,
-                "view_only",
-                @membership.view_only?,
-                class: "govuk-radios__input",
-                "aria-described-by" => "permission_level_view_only_hint",
-              ) %>
-          <%= label_tag(
-                :permission_level_view_only,
-                "View only",
-                class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
-              ) %>
-          <div id="permission_level_view_only_hint" class="govuk-hint govuk-radios__hint">
-            View locations and IPs, team members, and logs<br>
-            Cannot manage locations and IPs<br>
-            Cannot add or remove team members
-          </div>
-        </div>
-      </div>
-    </fieldset>
-  </div>
-
-  <div class="govuk-!-margin-top-6">
-    <%= form.submit "Save", class: "govuk-button govuk-!-margin-0 govuk-!-margin-right-4 inline-block" %>
-
-    <% unless params[:remove_team_member] %>
-      <div class="govuk-body govuk-!-margin-top-2 inline-block">
-        <%= link_to "Remove user from GovWifi admin", edit_membership_path(@membership, remove_team_member: true), class: "govuk-link red-link" %>
-      </div>
-    <% end %>
+<% unless params[:remove_team_member] %>
+  <div class="govuk-body govuk-!-margin-top-2 inline-block">
+    <%= link_to "Remove user from GovWifi admin", edit_membership_path(@membership, remove_team_member: true), class: "govuk-link red-link" %>
   </div>
 <% end %>
-  </div>
-</div>

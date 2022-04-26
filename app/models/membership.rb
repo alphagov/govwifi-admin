@@ -28,4 +28,11 @@ class Membership < ApplicationRecord
   def view_only?
     !can_manage_team? && !can_manage_locations?
   end
+
+  def permission_level
+    return "administrator" if administrator?
+    return "manage_locations" if manage_locations?
+
+    "view_only"
+  end
 end
