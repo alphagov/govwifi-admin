@@ -1,49 +1,26 @@
-<%= render "layouts/form_errors" %>
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">Create your GovWifi admin account</h1>
+<%= form_for(@form, url: users_confirmations_path, html: { method: :put, novalidate: "" }, builder: GOVUKDesignSystemFormBuilder::FormBuilder) do |f| %>
+  <%= f.govuk_error_summary %>
 
-    <%= render "users/shared/end_user_warning" %>
+  <h1 class="govuk-heading-l">Create your GovWifi admin account</h1>
 
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <%= form_for(resource, as: resource_name, url: users_confirmations_path, html: { method: :put, novalidate: "" }) do |f| %>
-        <%= f.hidden_field :confirmation_token, value: params[:confirmation_token] || params[:user][:confirmation_token] %>
+  <%= render "users/shared/end_user_warning" %>
+  <%= f.hidden_field :confirmation_token %>
+  <% organisation_name_hint = capture do %>
+    If your organisation name does not appear below
+    <%= link_to "contact us", technical_support_new_help_path, class: "govuk-link" %>
+  <% end %>
+    <%= f.govuk_select :organisation_name,
+                       options_for_select(@register_organisations << "", @form.organisation_name || ""),
+                       label: { text: "Organisation name" },
+                       hint: -> { organisation_name_hint } %>
+  <%= f.govuk_text_field :service_email,
+                         label: { text: "Service email" },
+                         hint: { text: "A shared and monitored email so we can contact your organisation about GovWifi" } %>
+  <%= f.govuk_text_field :name, label: { text: "Your name" } %>
+  <%= f.govuk_password_field :password, hint: { text: "Must be at least 6 characters long" } %>
+  <%= f.govuk_submit "Create my account" %>
+<% end %>
 
-        <%= f.fields_for :organisations, resource.organisations.build do |organisation_form| %>
-          <div class="govuk-form-group <%= field_error(resource, "organisation.name") %>">
-            <%= label_tag "organisation_name", "Organisation name", class: "govuk-label" %>
-            <div class="govuk-hint">If your organisation name does not appear below <%= link_to "contact us", technical_support_new_help_path, class: "govuk-link" %></div>
-            <%= organisation_form.select :name, options_for_select(@register_organisations << "", ""), {}, class: "govuk-select", id: "organisation_name" %>
-          </div>
-
-          <div class="govuk-form-group <%= field_error(resource, "organisation.service_email") %>">
-            <%= organisation_form.label :service_email, "Service email", class: "govuk-label" %>
-            <div class="govuk-hint">A shared and monitored email so we can contact your organisation about GovWifi</div>
-            <%= organisation_form.text_field :service_email,
-                                             class: "govuk-input",
-                                             value: (params || {}).dig(:user, :organisation_attributes, :service_email) %>
-          </div>
-        <% end %>
-
-        <div class="govuk-form-group">
-          <%= f.label :name, "Your name", class: "govuk-label" %>
-          <%= f.text_field :name, class: "govuk-input", value: (params || {}).dig(:user, :name) %>
-        </div>
-
-        <div class="govuk-form-group <%= field_error(resource, :password) %>">
-          <%= f.label :password, "Password", class: "govuk-label" %>
-          <div class="govuk-hint"> Must be at least 6 characters long</div>
-          <%= f.password_field :password, class: "govuk-input", autocomplete: "off" %>
-        </div>
-
-        <div class="actions">
-          <%= f.submit "Create my account", class: "govuk-button govuk-!-margin-top-2" %>
-        </div>
-      <% end %>
-
-      <%= render "users/shared/links" %>
-    </div>
-  </div>
-</div>
+<%= render "users/shared/links" %>
 
 <%= render "shared/organisation_register_dropdown" %>

@@ -1,24 +1,16 @@
 <% content_for :page_title, "Resend confirmation instructions" %>
 
-<%= render "layouts/form_errors" %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Resend confirmation instructions</h1>
 
     <%= render "users/shared/end_user_warning" %>
 
-    <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, novalidate: "" }) do |f| %>
-      <div class="govuk-form-group <%= field_error(resource, :email) %>">
-        <%= f.label :email, "Enter your email address", class: "govuk-label" %>
-        <%= f.email_field :email,
-                          autocomplete: "email",
-                          class: "govuk-input",
-                          value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
-      </div>
-      <div class="actions">
-        <%= f.submit "Resend confirmation instructions", class: "govuk-button govuk-!-margin-top-2" %>
-      </div>
+    <%= form_with url: confirmation_path(resource_name),
+                  html: { method: :post, novalidate: "" },
+                  builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+      <%= f.govuk_email_field :email, label: { text: "Enter your email address" } %>
+      <%= f.govuk_submit "Resend confirmation instructions" %>
     <% end %>
 
     <%= render "users/shared/links" %>

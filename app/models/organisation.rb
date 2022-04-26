@@ -25,7 +25,7 @@ class Organisation < ApplicationRecord
 
   def validate_in_register?
     unless Organisation.fetch_organisations_from_register.include?(name)
-      errors.add(:name, "isn't in the organisations allow list")
+      errors.add(:name, "Name isn't in the organisations allow list")
     end
   end
 

@@ -191,8 +191,8 @@ describe "Sign up as an organisation", type: :feature do
     it_behaves_like "errors in form"
 
     it "shows the user an error message" do
-      within("div#error-summary") do
-        expect(page).to have_content("Organisations name is already registered")
+      within("div.govuk-error-summary") do
+        expect(page).to have_content("Name is already registered")
       end
     end
   end
@@ -216,8 +216,8 @@ describe "Sign up as an organisation", type: :feature do
     it "displays one error message that the name cannot be left blank" do
       update_user_details(organisation_name: org_name_left_blank)
       skip_two_factor_authentication
-      within("div#error-summary") do
-        expect(page).to have_selector("li", count: 1, text: "Organisations name can't be blank")
+      within("div.govuk-error-summary") do
+        expect(page).to have_content("Name can't be blank")
       end
     end
   end
