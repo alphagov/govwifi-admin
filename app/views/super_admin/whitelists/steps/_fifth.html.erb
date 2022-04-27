@@ -1,18 +1,14 @@
 <h1 class="govuk-heading-l">Add the organisation's email domain to the allow list</h1>
 
-<%= render "layouts/form_errors", resource: @email_domain %>
-<%= form_with model: @whitelist, url: new_super_admin_whitelist_path, method: :get, local: true do |form| %>
-  <div class="govuk-form-group">
-    <%= form.label :email_domain, value: "Email domain", for: :email_domain, class: "govuk-label" %>
-    <%= form.text_field :email_domain, id: :email_domain, autocomplete: "off", class: "govuk-input govuk-input--width-30" %>
-
-    <%= form.hidden_field :admin, value: params[:admin] || params.dig(:whitelist, :admin) %>
-    <%= form.hidden_field :register, value: params[:register] || params.dig(:whitelist, :register) %>
-    <%= form.hidden_field :organisation_name, value: params.dig(:whitelist, :organisation_name) %>
-    <%= form.hidden_field :step, value: "sixth" %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Continue", class: "govuk-button" %>
-  </div>
+<%= form_with model: @whitelist,
+              url: new_super_admin_whitelist_path,
+              method: :get,
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+  <%= form.govuk_error_summary %>
+  <%= form.govuk_text_field :email_domain, label: { text: "Email domain" } %>
+  <%= form.hidden_field :admin %>
+  <%= form.hidden_field :register %>
+  <%= form.hidden_field :organisation_name %>
+  <%= form.hidden_field :step, value: Whitelist::SIXTH %>
+  <%= form.govuk_submit "Continue" %>
 <% end %>

@@ -14,7 +14,7 @@ describe "POST /admin/whitelist", type: :request do
     let(:valid_params) do
       {
         whitelist: {
-          step: "sixth",
+          step: Whitelist::SIXTH,
           organisation_name: "Made Tech",
           email_domain: "madetech.com",
         },
@@ -49,7 +49,7 @@ describe "POST /admin/whitelist", type: :request do
     let(:empty_params) do
       {
         whitelist: {
-          step: "sixth",
+          step: Whitelist::SIXTH,
           organisation_name: "",
           email_domain: "",
         },
@@ -70,7 +70,7 @@ describe "POST /admin/whitelist", type: :request do
     let(:invalid_params) do
       {
         whitelist: {
-          step: "sixth",
+          step: Whitelist::SIXTH,
           organisation_name:,
           email_domain:,
         },

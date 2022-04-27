@@ -4,7 +4,7 @@ class CustomOrganisationName < ApplicationRecord
 
   def custom_org_in_register?
     if Organisation.fetch_organisations_from_register.include?(name.strip)
-      errors.add(:name, "is already in our register")
+      errors.add(:name, "Name is already in our register")
     end
   end
 end
