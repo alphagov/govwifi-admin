@@ -1,47 +1,22 @@
-<% content_for :page_title, "Add an organisation" %>
+<% content_for :page_title, "Register an organisation" %>
 
-<%= render "layouts/form_errors", resource: @organisation %>
-
-<h1 class="govuk-heading-l">Add an organisation to GovWifi</h1>
-<%= form_for @organisation, url: organisations_path do |form| %>
-  <div class="govuk-form-group <%= field_error(@organisation, "name") %>">
-    <%= form.label :name, "Organisation name", class: "govuk-label" %>
-    <div class="govuk-hint">If your organisation name does not appear below
-      <%= link_to "contact us", technical_support_new_help_path, class: "govuk-link" %>
-    </div>
-    <% if @organisation.errors.attribute_names.include?(:name) %>
-      <span class="govuk-error-message" id="organisation_name_error">
-        <span class="govuk-visually-hidden">Error:</span>
-        <%= @organisation.errors.full_messages_for(:name).first %>
-      </span>
-      <%= form.select :name, options_for_select(@register_organisations << "", @organisation.name || ""),
-                      {}, class: "govuk-select govuk-input--error" %>
-    <% else %>
-      <%= form.select :name, options_for_select(@register_organisations << "", @organisation.name || ""), {}, class: "govuk-select" %>
-    <% end %>
-  </div>
-
-  <div class="govuk-form-group <%= field_error(@organisation, "service_email") %>">
-    <%= form.label :service_email, "Service email", class: "govuk-label" %>
-    <div class="govuk-hint">A shared and monitored email so we can contact your organisation about GovWifi</div>
-    <% if @organisation.errors.attribute_names.include?(:service_email) %>
-      <span class="govuk-error-message" id="email_error">
-        <span class="govuk-visually-hidden">Error:</span>
-        <%= @organisation.errors.full_messages_for(:service_email).first %>
-      </span>
-      <%= form.text_field :service_email,
-                          class: "govuk-input govuk-input--error",
-                          value: @organisation.service_email || "" %>
-    <% else %>
-      <%= form.text_field :service_email,
-                          class: "govuk-input",
-                          value: @organisation.service_email || "" %>
-    <% end %>
-  </div>
-  <div class="actions">
-    <%= form.submit "Add organisation", class: "govuk-button govuk-!-margin-top-2" %>
-
-  </div>
+<%= form_with model: @organisation,
+              url: organisations_path,
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+  <%= form.govuk_error_summary %>
+  <h1 class="govuk-heading-l">Add an organisation to GovWifi</h1>
+  <% select_hint = capture do %>
+    If your organisation name does not appear below
+    <%= link_to "contact us", technical_support_new_help_path, class: "govuk-link" %>
+  <% end %>
+  <%= form.govuk_collection_select :name,
+                                   organisation_options, :name, :name,
+                                   hint: { text: select_hint },
+                                   label: { text: "Organisation name" } %>
+  <%= form.govuk_text_field :service_email,
+                            label: { text: "Service email" },
+                            hint: { text: "A shared and monitored email so we can contact your organisation about GovWifi" } %>
+  <%= form.govuk_submit "Add organisation" %>
   <p class="govuk-body"><%= link_to "Cancel", :back, class: "govuk-link--no-visited-state" %></p>
 <% end %>
 
