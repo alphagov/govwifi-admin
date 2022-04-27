@@ -1,60 +1,14 @@
 <% content_for :page_title, "Change your password" %>
 
-<%= render "layouts/form_errors", resource: %>
-
-<fieldset class="govuk-fieldset">
-  <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
-    <h1 class="govuk-fieldset__heading">
-      Change your password
-    </h1>
-  </legend>
-
-<%= form_for(current_user, url: user_registration_path, method: :put) do |f| %>
-  <div class="govuk-form-group <%= field_error(resource, :current_password) %>">
-    <%= f.label :current_password, class: "govuk-label" %>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-three-quarters">
-        <% if resource.errors.attribute_names.include?(:current_password) %>
-          <span class="govuk-error-message" id="current_password_error">
-            <span class="govuk-visually-hidden">Error:</span>
-            <%= resource.errors.full_messages_for(:current_password).first %>
-          </span>
-        <% end %>
-
-        <%= f.password_field :current_password, class: "govuk-input #{input_error(resource, :current_password)}" %>
-      </div>
-    </div>
-  </div>
-  <div id="password" class="govuk-form-group <%= field_error(resource, :password) %>">
-    <%= f.label :password, class: "govuk-label" %>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-three-quarters">
-        <% if resource.errors.attribute_names.include?(:password) %>
-          <span class="govuk-error-message" id="password_error">
-            <span class="govuk-visually-hidden">Error:</span>
-            <%= resource.errors.full_messages_for(:password).first %>
-          </span>
-        <% end %>
-
-        <%= f.password_field :password, class: "govuk-input #{input_error(resource, :password)}" %>
-      </div>
-    </div>
-  </div>
-  <div class="govuk-form-group <%= field_error(resource, :password_confirmation) %>">
-    <%= f.label :password_confirmation, class: "govuk-label" %>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-three-quarters">
-        <% if resource.errors.attribute_names.include?(:password_confirmation) %>
-          <span class="govuk-error-message" id="password_confirmation_error">
-            <span class="govuk-visually-hidden">Error:</span>
-            <%= resource.errors.full_messages_for(:password_confirmation).first %>
-          </span>
-        <% end %>
-
-        <%= f.password_field :password_confirmation, class: "govuk-input #{input_error(resource, :password_confirmation)}" %>
-      </div>
-    </div>
-  </div>
-  <%= f.submit "Submit", class: "govuk-button" %>
+<%= form_with model: resource,
+              url: user_registration_path,
+              method: :put,
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+  <%= f.govuk_error_summary %>
+  <%= f.govuk_fieldset legend: { text: "Change your password", size: "xl" } do %>
+    <%= f.govuk_password_field :current_password, label: { text: "Current password" } %>
+    <%= f.govuk_password_field :password, label: { text: "Password" } %>
+    <%= f.govuk_password_field :password_confirmation, label: { text: "Password confirmation" } %>
+    <%= f.govuk_submit "Submit" %>
+  <% end %>
 <% end %>
-</fieldset>

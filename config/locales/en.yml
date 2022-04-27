@@ -27,6 +27,7 @@ en:
               blank: "Name can't be blank"
             password:
               format: "%{message}"
+              invalid: "Password is invalid"
               blank: "Password can't be blank"
               too_short: "Password is too short (minimum is 6 characters)"
               weak_password: "Password is not strong enough (scored %{score}, required at least %{min_password_score}). %{feedback}"
@@ -35,6 +36,10 @@ en:
               taken: "This email address is already associated with an account. If you can't sign in, reset your password."
               invalid: "Enter an email address in the correct format, like name@example.com"
               blank: "Email can't be blank"
+            current_password:
+              invalid: "Current password is invalid"
+            password_confirmation:
+              confirmation: "Password confirmation doesn't match Password"
         organisation:
           attributes:
             service_email:
