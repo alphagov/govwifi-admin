@@ -25,10 +25,14 @@
     <caption class="govuk-table__caption"></caption>
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="col">Username</th>
+        <% unless log_search_form.username %>
+          <th class="govuk-table__header" scope="col">Username</th>
+        <% end %>
         <th class="govuk-table__header" scope="col">Access Point</th>
         <th class="govuk-table__header" scope="col">MAC Address</th>
-        <th class="govuk-table__header" scope="col">IP</th>
+        <% unless log_search_form.ip %>
+          <th class="govuk-table__header" scope="col">IP</th>
+        <% end %>
         <th class="govuk-table__header" scope="col">Time</th>
         <th class="govuk-table__header" scope="col">Status</th>
         <% if super_admin? %>
@@ -39,10 +43,14 @@
     <tbody class="govuk-table__body">
       <% logs.each do |log| %>
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><%= log.username %></td>
+          <% unless log_search_form.username %>
+            <td class="govuk-table__cell"><%= log.username %></td>
+          <% end %>
           <td class="govuk-table__cell"><%= log.ap %></td>
           <td class="govuk-table__cell"><%= log.mac %></td>
-          <td class="govuk-table__cell"><%= log.siteIP %></td>
+          <% unless log_search_form.ip %>
+            <td class="govuk-table__cell"><%= log.siteIP %></td>
+          <% end %>
           <td class="govuk-table__cell"><%= log.start %></td>
           <td class="govuk-table__cell"><%= log.success ? "successful" : "failed" %></td>
           <% if super_admin? %>
