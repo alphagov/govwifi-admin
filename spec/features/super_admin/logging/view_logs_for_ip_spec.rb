@@ -25,7 +25,7 @@ describe "View authentication requests for an IP", type: :feature do
     end
 
     it "displays all found results for that searched IP" do
-      expect(page).to have_content("Found 2 results for \"#{ip_1.address}\"")
+      expect(page).to have_content("Found 2 results for IP: \"#{ip_1.address}\"")
     end
   end
 
@@ -36,7 +36,7 @@ describe "View authentication requests for an IP", type: :feature do
     end
 
     it "displays all found results for that searched IP" do
-      expect(page).to have_content("Found 2 results for \"#{ip_2.address}\"")
+      expect(page).to have_content("Found 2 results for IP: \"#{ip_2.address}\"")
     end
   end
 

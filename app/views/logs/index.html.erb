@@ -5,7 +5,17 @@
 </p>
 
 <% if logs.present? %>
-  <h1 class="govuk-heading-l">Found <%= pluralize(logs.count, "result") %> for "<%= log_search_form.username || log_search_form.ip || location_address %>"</h1>
+  <h1 class="govuk-heading-l">
+    Found <%= pluralize(logs.count, "result") %> for
+    <% if log_search_form.username %>
+      username:
+    <% elsif log_search_form.ip %>
+      IP:
+    <% else %>
+      location:
+    <% end %>
+    "<%= log_search_form.username || log_search_form.ip || location_address %>"
+  </h1>
 
   <%= render "logs/filtered_results_explanation", logs: %>
 

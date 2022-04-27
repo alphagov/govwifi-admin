@@ -33,7 +33,7 @@ describe "View authentication requests for an IP", type: :feature do
       visit logs_path(log_search_form: { ip:, filter_option: LogSearchForm::IP_FILTER_OPTION })
     end
     it "displays the log" do
-      expect(page).to have_content("Found 2 results for \"#{ip}\"")
+      expect(page).to have_content("Found 2 results for IP: \"#{ip}\"")
       expect(page).to have_css("td", text: username)
       expect(page).to have_css("td", text: ap)
       expect(page).to have_css("td", text: mac)
@@ -81,7 +81,7 @@ describe "View authentication requests for an IP", type: :feature do
       visit logs_path(log_search_form: { ip:, filter_option: LogSearchForm::IP_FILTER_OPTION })
     end
     it "does not display the radius server" do
-      expect(page).to have_content("Found 2 results for \"#{ip}\"")
+      expect(page).to have_content("Found 2 results for IP: \"#{ip}\"")
       expect(page).to_not have_css("td", text: task_id)
       expect(page).to_not have_css("th", text: "Radius Server")
     end

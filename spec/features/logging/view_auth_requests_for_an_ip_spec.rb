@@ -22,7 +22,7 @@ describe "View authentication requests for an IP", type: :feature do
     end
 
     it "displays the authentication requests" do
-      expect(page).to have_content("Found 1 result for \"#{ip_one}\"")
+      expect(page).to have_content("Found 1 result for IP: \"#{ip_one}\"")
     end
   end
 
@@ -38,7 +38,7 @@ describe "View authentication requests for an IP", type: :feature do
       let(:search_string) { ip_one }
 
       it "displays the authentication requests" do
-        expect(page).to have_content("Found 1 result for \"#{ip_one}\"")
+        expect(page).to have_content("Found 1 result for IP: \"#{ip_one}\"")
       end
     end
 
@@ -65,7 +65,7 @@ describe "View authentication requests for an IP", type: :feature do
       let(:search_string) { "9.9.9.9" }
 
       it "finds log entries for ip addresses regardless of the current organisation" do
-        expect(page).to have_content("Found 1 result for \"9.9.9.9\"")
+        expect(page).to have_content("Found 1 result for IP: \"9.9.9.9\"")
       end
     end
   end
