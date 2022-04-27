@@ -1,36 +1,24 @@
 <% content_for :page_title, "User account support" %>
 <% content_for :meta_description, "Contact us for help and support with users connecting to GovWifi in your organisation" %>
 
-<%= render "layouts/form_errors", resource: @support_form %>
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <%= link_to "Back", new_help_path, class: "govuk-back-link" %>
-    <h1 class="govuk-heading-l">User account support</h1>
-    <p class="govuk-body">Contact us for help and support with users connecting to GovWifi in your organisation.</p>
-    <p class="govuk-inset-text">
-      If users in your organisation are having trouble connecting devices to GovWifi, please advise them to review our
-      <%= link_to "device support guidance", "https://www.wifi.service.gov.uk/support", class: "govuk-link" %> on common issues
-    </p>
-    <%= form_for @support_form, url: { action: "create" }  do |f| %>
-      <div class="govuk-two-thirds">
-        <div class="govuk-form-group <%= field_error(@support_form, :details) %>">
-          <%= f.label :details, "Your message", class: "govuk-label" %>
-          <%= f.text_area :details, class: "govuk-textarea", size: "30x10" %>
-        </div>
-        <div class="govuk-form-group">
-          <%= f.label :name, "Your name", class: "govuk-label" %>
-          <%= f.text_field :name, class: "govuk-input" %>
-        </div>
-        <div class="govuk-form-group <%= field_error(@support_form, :email) %>">
-          <%= f.label :email, "Your email address", class: "govuk-label" %>
-          <%= f.text_field :email, class: "govuk-input" %>
-        </div>
-        <div class="govuk-form-group">
-          <%= f.hidden_field :choice %>
-        </div>
-        <%= f.submit "Submit", class: "govuk-button" %>
+<%= form_with model: @support_form, url: { action: "create" }, builder: GOVUKDesignSystemFormBuilder::FormBuilder  do |f| %>
+  <%= f.govuk_error_summary %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= link_to "Back", new_help_path, class: "govuk-back-link" %>
+      <h1 class="govuk-heading-l">User account support</h1>
+      <div class="govuk-body">Contact us for help and support with users connecting to GovWifi in your organisation.</div>
+      <div class="govuk-inset-text">
+        If users in your organisation are having trouble connecting devices to GovWifi, please advise them to review our
+        <%= link_to "device support guidance", "https://www.wifi.service.gov.uk/support", class: "govuk-link" %> on common issues
       </div>
-    <% end %>
+      <%= f.govuk_text_field :name, label: { text: "Your name" } %>
+      <%= f.govuk_text_field :email, label: { text: "Your email address" } %>
+      <%= f.govuk_text_area :details,
+                            label: { text: "Your message" },
+                            rows: 10 %>
+      <%= f.hidden_field :choice %>
+      <%= f.govuk_submit "Submit" %>
+    </div>
   </div>
-</div>
+<% end %>
