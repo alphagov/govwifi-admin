@@ -33,10 +33,6 @@ class User < ApplicationRecord
     !password.nil?
   end
 
-  def only_if_unconfirmed(&block)
-    pending_any_confirmation(&block)
-  end
-
   # Must be defined to allow Devise to create users without passwords
   def password_required?
     false

@@ -12,7 +12,7 @@ describe "Resending confirmation instructions", type: :feature do
     before do
       sign_up_for_account(email: unconfirmed_email)
       visit new_user_confirmation_path
-      fill_in "user_email", with: unconfirmed_email
+      fill_in "Enter your email address", with: unconfirmed_email
     end
 
     it "resends the confirmation link" do
@@ -33,7 +33,7 @@ describe "Resending confirmation instructions", type: :feature do
     before do
       sign_up_for_account(email: unconfirmed_email)
       visit new_user_confirmation_path
-      fill_in "user_email", with: unconfirmed_email
+      fill_in "Enter your email address", with: unconfirmed_email
       click_on "Resend confirmation instructions"
     end
 
@@ -47,7 +47,7 @@ describe "Resending confirmation instructions", type: :feature do
 
     before do
       visit new_user_confirmation_path
-      fill_in "user_email", with: new_user_email
+      fill_in "Enter your email address", with: new_user_email
     end
 
     it "displays a generic response to the user" do
@@ -68,7 +68,7 @@ describe "Resending confirmation instructions", type: :feature do
 
     before do
       visit new_user_confirmation_path
-      fill_in "user_email", with: confirmed_email
+      fill_in "Enter your email address", with: confirmed_email
     end
 
     it "displays a generic response to the user" do

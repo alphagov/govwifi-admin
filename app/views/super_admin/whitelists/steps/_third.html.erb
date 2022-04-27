@@ -1,6 +1,6 @@
 <h1 class="govuk-heading-l">Is the organisation's name on the register?</h1>
 <div class="govuk-form-group">
-  <%= select_tag "organisations_register", options_for_select(@organisation_names << "", "") %>
+  <%= select_tag "organisations_register", options_for_select(@organisation_names << "", ""), class: "govuk-select" %>
 </div>
 <%= link_to "Yes", new_super_admin_whitelist_path(step: "fifth", register: "Yes", organisation_name: "", admin: params[:admin]), class: "govuk-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
 <%= link_to "No", new_super_admin_whitelist_path(step: "fourth", register: "No", admin: params[:admin]), class: "govuk-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
