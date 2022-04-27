@@ -17,6 +17,15 @@ en:
               format: "%{message}"
             organisation_name:
               format: "%{message}"
+        support_form:
+          attributes:
+            email:
+              format: "%{message}"
+              blank: "Email can't be blank"
+              invalid: "Email is not a valid email address"
+            details:
+              format: "%{message}"
+              blank: "Details can't be blank"
   activerecord:
     errors:
       models:
