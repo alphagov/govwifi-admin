@@ -7,9 +7,8 @@ class OrganisationsController < ApplicationController
 
   def new
     @organisation = Organisation.new
-    @register_organisations = Organisation.fetch_organisations_from_register
-
     @hide_sidebar = true
+    render :new, locals: { organisation_options: }
   end
 
   def create
@@ -21,10 +20,8 @@ class OrganisationsController < ApplicationController
 
       redirect_to root_path, notice: "#{@organisation.name} created"
     else
-      @register_organisations = Organisation.fetch_organisations_from_register
-
       @hide_sidebar = true
-      render :new
+      render :new, locals: { organisation_options: }
     end
   end
 
@@ -39,6 +36,10 @@ class OrganisationsController < ApplicationController
   end
 
 private
+
+  def organisation_options
+    Organisation.fetch_organisations_from_register.prepend("").map { |org| OpenStruct.new(name: org) }
+  end
 
   def sidebar
     @hide_sidebar ? :empty : super
