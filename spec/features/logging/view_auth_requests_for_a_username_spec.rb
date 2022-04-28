@@ -45,7 +45,7 @@ describe "View authentication requests for a username", type: :feature do
         let(:search_string) { "BBBBBB" }
 
         it "finds the session even though it is not part of the current organisation." do
-          expect(page).to have_content("Found 1 result for \"#{search_string}\"")
+          expect(page).to have_content("Found 1 result for username: \"#{search_string}\"")
         end
       end
     end
@@ -54,7 +54,7 @@ describe "View authentication requests for a username", type: :feature do
       let(:search_string) { "AAAAAA" }
 
       it "displays two results" do
-        expect(page).to have_content("Found 2 results for \"#{search_string}\"")
+        expect(page).to have_content("Found 2 results for username: \"#{search_string}\"")
       end
 
       it "displays a successful request" do

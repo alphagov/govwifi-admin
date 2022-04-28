@@ -27,7 +27,7 @@ describe "View authentication requests for a username", type: :feature do
     end
 
     it "displays all results for the searched user across multiple organisations" do
-      expect(page).to have_content("Found 3 results for \"#{username}\"")
+      expect(page).to have_content("Found 3 results for username: \"#{username}\"")
     end
 
     it "does not display results for other users" do
