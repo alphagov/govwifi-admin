@@ -1,26 +1,21 @@
 <% content_for :page_title, "Change your password" %>
 
-<%= render "layouts/form_errors" %>
+<%= form_with model: resource, as: resource_name,
+              url: password_path(resource_name),
+              html: { method: :put },
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+  <%= f.govuk_error_summary %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">Change your password</h1>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Change your password</h1>
 
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+      <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
         <%= f.hidden_field :reset_password_token %>
-
-        <div class="govuk-form-group <%= field_error(resource, :password) %>">
-          <%= f.label :password, "New password", class: "govuk-label" %>
-          <%= f.password_field :password, class: "govuk-input", autocomplete: "off" %>
-        </div>
-
-        <div class="actions">
-          <%= f.submit "Change my password", class: "govuk-button govuk-!-margin-top-2" %>
-        </div>
-      <% end %>
-
-      <%= render "users/shared/links" %>
+        <%= f.govuk_password_field :password, label: { text: "New password" } %>
+        <%= f.govuk_submit "Change my password" %>
+        <%= render "users/shared/links" %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

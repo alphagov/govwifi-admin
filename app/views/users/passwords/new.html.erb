@@ -1,26 +1,19 @@
 <% content_for :page_title, "Reset your password" %>
+<%= form_with model: resource, as: resource_name,
+              url: password_path(resource_name),
+              html: { method: :post, novalidate: "" },
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
 
-<%= render "layouts/form_errors" %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Reset your GovWifi admin account password</h1>
+      <%= render "users/shared/end_user_warning" %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">Reset your GovWifi admin account password</h1>
-
-    <%= render "users/shared/end_user_warning" %>
-
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, novalidate: "" }) do |f| %>
-        <div class="govuk-form-group">
-          <%= f.label :email, "Provide your email address", class: "govuk-label" %>
-          <%= f.email_field :email, autocomplete: "email", class: "govuk-input" %>
-        </div>
-
-        <div class="actions">
-          <%= f.submit "Send me reset password instructions", class: "govuk-button govuk-!-margin-top-2" %>
-        </div>
-      <% end %>
-
-      <%= render "users/shared/links" %>
+      <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
+        <%= f.govuk_email_field :email, label: { text: "Provide your email address" } %>
+        <%= f.govuk_submit "Send me reset password instructions" %>
+        <%= render "users/shared/links" %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
