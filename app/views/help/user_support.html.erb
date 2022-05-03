@@ -1,7 +1,7 @@
 <% content_for :page_title, "User account support" %>
 <% content_for :meta_description, "Contact us for help and support with users connecting to GovWifi in your organisation" %>
 
-<%= form_with model: @support_form, url: { action: "create" }, builder: GOVUKDesignSystemFormBuilder::FormBuilder  do |f| %>
+<%= form_with model: @support_form, url: { action: "create" } do |f| %>
   <%= f.govuk_error_summary %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">

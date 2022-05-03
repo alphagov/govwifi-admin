@@ -1,6 +1,5 @@
 <% content_for :page_title, "Search logs by user details" %>
-<%= form_with model: @form, url: super_admin_wifi_user_search_path,
-              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+<%= form_with model: @form, url: super_admin_wifi_user_search_path do |f| %>
   <%= f.govuk_error_summary %>
   <div class='govuk-grid-row'>
     <h1 class='govuk-heading-l govuk-grid-column-full'>Search for user details</h1>

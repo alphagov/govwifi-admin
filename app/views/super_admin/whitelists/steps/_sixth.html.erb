@@ -35,9 +35,7 @@
   </tbody>
 </table>
 
-<%= form_with model: @whitelist,
-              url: super_admin_whitelist_path,
-              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+<%= form_with model: @whitelist, url: super_admin_whitelist_path do |form| %>
     <%= form.hidden_field :organisation_name %>
     <%= form.hidden_field :email_domain %>
     <%= form.hidden_field :admin %>

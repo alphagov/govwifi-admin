@@ -15,7 +15,7 @@
     <% end %>
     <p class="govuk-body"> </p>
     <p class="govuk-body"> </p>
-    <%= form_with url: super_admin_mou_index_path, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+    <%= form_with url: super_admin_mou_index_path do |form| %>
       <%= form.govuk_file_field :unsigned_document, label: { text: "Select template file" } %>
       <%= form.govuk_submit("#{@mou.unsigned_document.attached? ? 'Replace' : 'Upload'} MOU") %>
     <% end %>

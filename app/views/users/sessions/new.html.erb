@@ -16,7 +16,7 @@
     </p>
 
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <%= form_with model: resource, as: resource_name, url: session_path(resource_name), builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+      <%= form_with model: resource, as: resource_name, url: session_path(resource_name) do |f| %>
         <%= f.govuk_email_field :email %>
         <%= f.govuk_password_field :password %>
         <%= f.govuk_submit "Continue" %>

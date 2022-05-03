@@ -2,7 +2,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-body">
-    <%= form_with url: user_two_factor_authentication_path, method: :put, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+    <%= form_with url: user_two_factor_authentication_path, method: :put do |f| %>
       <h1 class="govuk-heading-l"><%= label nil, :code, "Enter your two factor authentication code" %></h1>
       <p id="code-hint">This is the 6-digit code in your authenticator app.</p>
 

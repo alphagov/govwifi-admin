@@ -1,9 +1,6 @@
 <h1 class="govuk-heading-l">Add the organisation name to the register</h1>
 
-<%= form_with model: @whitelist,
-              url: new_super_admin_whitelist_path,
-              method: :get,
-              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+<%= form_with model: @whitelist, url: new_super_admin_whitelist_path, method: :get do |form| %>
   <%= form.govuk_error_summary %>
   <%= form.govuk_text_field :organisation_name, label: { text: "Organisation name" } %>
   <%= form.hidden_field :admin %>

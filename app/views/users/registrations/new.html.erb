@@ -3,7 +3,6 @@
 <%= form_with model: resource,
               as: resource_name,
               url: registration_path(resource_name),
-              builder: GOVUKDesignSystemFormBuilder::FormBuilder,
               novalidate: "" do |f| %>
 
   <%= f.govuk_error_summary %>
