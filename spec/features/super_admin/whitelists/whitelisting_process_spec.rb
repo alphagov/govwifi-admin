@@ -52,7 +52,7 @@ describe "Whitelisting an organisation", type: :feature do
 
       before do
         CustomOrganisationName.create!(name: organisation_name)
-        visit new_super_admin_whitelist_path(step: "fourth")
+        visit new_super_admin_whitelist_path(whitelist: { step: Whitelist::FOURTH })
         fill_in "Organisation name", with: organisation_name
         click_on "Continue"
       end
@@ -62,7 +62,7 @@ describe "Whitelisting an organisation", type: :feature do
       end
 
       it "displays an error message to the user" do
-        expect(page).to have_content("Name is already in our register")
+        expect(page).to have_content("Name is already in our register").twice
       end
     end
 
@@ -73,7 +73,7 @@ describe "Whitelisting an organisation", type: :feature do
         AuthorisedEmailDomain.create!(name: email_domain)
         visit new_super_admin_whitelist_path(
           whitelist: {
-            step: "fifth",
+            step: Whitelist::FIFTH,
             organisation_name: "Made Tech Limited",
           },
         )
@@ -86,7 +86,7 @@ describe "Whitelisting an organisation", type: :feature do
       end
 
       it "displays an error message to the user" do
-        expect(page).to have_content("Name has already been taken")
+        expect(page).to have_content("Name has already been taken").twice
       end
     end
   end
@@ -96,7 +96,7 @@ describe "Whitelisting an organisation", type: :feature do
       before do
         visit new_super_admin_whitelist_path(
           whitelist: {
-            step: "fifth",
+            step: Whitelist::FIFTH,
             organisation_name: "Made Tech Limited",
           },
         )
@@ -119,7 +119,7 @@ describe "Whitelisting an organisation", type: :feature do
       before do
         visit new_super_admin_whitelist_path(
           whitelist: {
-            step: "fifth",
+            step: Whitelist::FIFTH,
             organisation_name: "",
           },
         )
@@ -142,7 +142,7 @@ describe "Whitelisting an organisation", type: :feature do
       before do
         visit new_super_admin_whitelist_path(
           whitelist: {
-            step: "fifth",
+            step: Whitelist::FIFTH,
             organisation_name: "Made Tech",
           },
         )
@@ -165,7 +165,7 @@ describe "Whitelisting an organisation", type: :feature do
       before do
         visit new_super_admin_whitelist_path(
           whitelist: {
-            step: "sixth",
+            step: Whitelist::SIXTH,
             organisation_name: "Made Tech",
             email_domain: "madetech.com",
           },

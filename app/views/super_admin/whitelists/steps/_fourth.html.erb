@@ -1,16 +1,13 @@
 <h1 class="govuk-heading-l">Add the organisation name to the register</h1>
 
-<%= render "layouts/form_errors", resource: @organisation_name %>
-<%= form_with model: @whitelist, url: new_super_admin_whitelist_path, method: :get, local: true do |form| %>
-  <div class="govuk-form-group">
-    <%= form.label :organisation_name, value: "Organisation name", for: :organisation_name, class: "govuk-label" %>
-    <%= form.text_field :organisation_name, id: :organisation_name, autocomplete: "off", class: "govuk-input govuk-input--width-30" %>
-  </div>
-  <%= form.hidden_field :admin, value: params[:admin] %>
-  <%= form.hidden_field :register, value: params[:register] %>
-  <%= form.hidden_field :step, value: "fifth" %>
-
-  <div class="actions">
-    <%= form.submit "Continue", class: "govuk-button" %>
-  </div>
+<%= form_with model: @whitelist,
+              url: new_super_admin_whitelist_path,
+              method: :get,
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+  <%= form.govuk_error_summary %>
+  <%= form.govuk_text_field :organisation_name, label: { text: "Organisation name" } %>
+  <%= form.hidden_field :admin %>
+  <%= form.hidden_field :register %>
+  <%= form.hidden_field :step, value: Whitelist::FIFTH %>
+  <%= form.govuk_submit "Continue", class: "govuk-button" %>
 <% end %>

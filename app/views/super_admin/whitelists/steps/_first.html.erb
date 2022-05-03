@@ -16,4 +16,9 @@
   the allow lists.
 </p>
 
-<%= link_to "Start", new_super_admin_whitelist_path(step: "second"), class: "govuk-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
+<%= link_to "Start",
+            new_super_admin_whitelist_path(whitelist: { step: Whitelist::SECOND }),
+            class: "govuk-button",
+            role: "button",
+            draggable: "false",
+            "data-module" => "govuk-button" %>

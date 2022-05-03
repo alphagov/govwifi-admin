@@ -5,7 +5,6 @@
     <%= render "super_admin/whitelists/side_nav" %>
   </div>
   <div class="govuk-grid-column-three-quarters">
-    <% next_step = params[:step] || params.dig(:whitelist, :step) || "first" %>
-    <%= render "super_admin/whitelists/steps/#{next_step}" %>
+    <%= render "super_admin/whitelists/steps/#{@whitelist.next_step}" %>
   </div>
 </div>

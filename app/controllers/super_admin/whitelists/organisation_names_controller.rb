@@ -29,7 +29,7 @@ class SuperAdmin::Whitelists::OrganisationNamesController < SuperAdminController
 private
 
   def custom_org_params
-    params.require(:custom_organisations).permit(:name)
+    params.require(:custom_organisation_name).permit(:name)
   end
 
   def ordered_custom_orgs

@@ -1,17 +1,14 @@
-<%= render "layouts/form_errors", resource: @authorised_email_domain %>
-
 <% content_for :page_title, "Approve a new email domain" %>
+<%= form_with model: @authorised_email_domain,
+              url: { action: :create },
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+  <%= f.govuk_error_summary %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Allow a new email domain</h1>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-
-    <h1 class="govuk-heading-l">Allow a new email domain</h1>
-
-    <%= form_for @authorised_email_domain, url: { action: :create } do |f| %>
-      <%= f.label :name, "Name", class: "govuk-label" %>
-      <%= f.text_field :name, class: "govuk-input govuk-input--width-10" %>
-
-      <%= f.submit "Save", class: "govuk-button" %>
-    <% end %>
+      <%= f.govuk_text_field :name, label: { text: "Name" } %>
+      <%= f.govuk_submit "Save" %>
+    </div>
   </div>
-</div>
+<% end %>

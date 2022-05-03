@@ -57,6 +57,19 @@ describe "Authorising Email Domains", type: :feature do
       end
     end
 
+    context "when submitting an invalid domain" do
+      let(:some_domain) { "invalid" }
+
+      it "does not create the domain" do
+        expect { click_on "Save" }.not_to(change(AuthorisedEmailDomain, :count))
+      end
+
+      it "displays an error to the user" do
+        click_on "Save"
+        expect(page).to have_content("Name is invalid")
+      end
+    end
+
     context "when deleting a whitelisted domain" do
       let(:some_domain) { "police.uk" }
       let(:regex_gateway) { instance_spy(Gateways::S3) }

@@ -11,37 +11,36 @@
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__cell govuk-body">Does the organisation need to create a GovWifi admin account?</th>
-      <td class="govuk-table__cell"><%= params.dig(:whitelist, :admin) %></td>
+      <td class="govuk-table__cell"><%= @whitelist.admin %></td>
     </tr>
 
-    <% if params.dig(:whitelist, :register).present? %>
+    <% if @whitelist.register.present? %>
       <tr class="govuk-table__row">
         <th scope="row" class="govuk-table__cell govuk-body">Is the organisation's name on the register?</th>
-        <td class="govuk-table__cell"><%= params.dig(:whitelist, :register) %></td>
+        <td class="govuk-table__cell"><%= @whitelist.register %></td>
       </tr>
     <% end %>
 
-    <% if params.dig(:whitelist, :organisation_name).present? %>
+    <% if @whitelist.organisation_name.present? %>
       <tr class="govuk-table__row">
         <th scope="row" class="govuk-table__cell govuk-body">Organisation name</th>
-        <td class="govuk-table__cell"><%= params.dig(:whitelist, :organisation_name) %></td>
+        <td class="govuk-table__cell"><%= @whitelist.organisation_name %></td>
       </tr>
     <% end %>
 
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__cell govuk-body">Email domain</th>
-      <td class="govuk-table__cell"><%= params.dig(:whitelist, :email_domain) %></td>
+      <td class="govuk-table__cell"><%= @whitelist.email_domain %></td>
     </tr>
   </tbody>
 </table>
 
-<%= form_with model: @whitelist, url: super_admin_whitelist_path, local: true do |form| %>
-  <div class="govuk-form-group">
-    <%= form.hidden_field :organisation_name, value: params.dig(:whitelist, :organisation_name) %>
-    <%= form.hidden_field :email_domain, value: params.dig(:whitelist, :email_domain) %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Submit", class: "govuk-button" %>
-  </div>
+<%= form_with model: @whitelist,
+              url: super_admin_whitelist_path,
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+    <%= form.hidden_field :organisation_name %>
+    <%= form.hidden_field :email_domain %>
+    <%= form.hidden_field :admin %>
+    <%= form.hidden_field :register %>
+    <%= form.govuk_submit "Submit" %>
 <% end %>

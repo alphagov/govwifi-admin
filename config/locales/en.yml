@@ -33,6 +33,18 @@ en:
   activerecord:
     errors:
       models:
+        authorised_email_domain:
+          attributes:
+            name:
+              format: "%{message}"
+              blank: "Name can't be blank"
+              invalid: "Name is invalid"
+              taken: "Name has already been taken"
+        custom_organisation_name:
+          attributes:
+            name:
+              format: "%{message}"
+              blank: "Name can't be blank"
         user:
           attributes:
             name:
