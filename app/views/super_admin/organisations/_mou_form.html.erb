@@ -15,12 +15,8 @@
 <% end %>
 
 <div id="mou-upload-form">
-  <%= form_with url: super_admin_mou_index_path(id: organisation.id), local: true, method: "post" do |form| %>
-    <div class="govuk-form-group">
-      <%= form.file_field(:signed_mou, class: "govuk-file-upload") %>
-    </div>
-
-    <% submit_text = mou_attached ? "Replace MOU" : "Upload MOU" %>
-    <%= form.submit(submit_text, class: "govuk-button") %>
+  <%= form_with url: super_admin_mou_index_path(id: organisation.id), builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+    <%= form.govuk_file_field(:signed_mou) %>
+    <%= form.govuk_submit("#{mou_attached ? 'Replace' : 'Upload'} MOU") %>
   <% end %>
 </div>

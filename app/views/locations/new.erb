@@ -1,7 +1,6 @@
 <% content_for :page_title, "Add location" %>
 
 <%= form_with model: @location,
-              html: { autocomplete: "off" },
               builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
   <%= f.govuk_error_summary %>
   <div class='govuk-grid-row'>

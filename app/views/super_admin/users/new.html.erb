@@ -1,11 +1,8 @@
 <% content_for :page_title, "New super admin" %>
 
-<%= form_with(
-      model: @user,
-      url: super_admin_users_path,
-      builder: GOVUKDesignSystemFormBuilder::FormBuilder,
-      html: { method: :post, novalidate: "" },
-    ) do |f| %>
+<%= form_with model: @user, url: super_admin_users_path,
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder,
+              method: :post, novalidate: "" do |f| %>
 
   <%= f.govuk_error_summary %>
 

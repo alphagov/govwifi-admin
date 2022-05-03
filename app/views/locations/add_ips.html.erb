@@ -1,7 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-three-quarters">
     <%= link_to "Back to locations", ips_path, class: "govuk-back-link" %>
-    <%= form_for @ips_form, url: location_update_ips_path(location_id: @ips_form.location_id), method: :patch, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+    <%= form_with model: @ips_form, url: location_update_ips_path(location_id: @ips_form.location_id), method: :patch, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
     <%= form.govuk_error_summary %>
     <span class="govuk-caption-xl govuk-!-font-weight-bold">
       <%= @ips_form.address %>, <%= @ips_form.postcode %>

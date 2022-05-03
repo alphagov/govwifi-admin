@@ -13,31 +13,17 @@
       If users in your organisation are having trouble connecting devices to GovWifi, please refer them to our <%= link_to "user support guidance", "https://www.wifi.service.gov.uk/support/", class: "govuk-link" %> on common issues.
     </p>
 
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-              How can we help?
-          </legend>
-
-          <%= form_tag new_help_path, class: "govuk-radios", method: "get" do %>
-            <div class="govuk-radio">
-              <div class="govuk-radios__item">
-                <%= radio_button_tag(:choice, :technical_support, nil, class: "govuk-radios__input") %>
-                <%= label_tag(:choice_technical_support, "Setting up GovWifi in your organisation support", class: "govuk-label govuk-radios__label") %>
-              </div>
-              <div class="govuk-radios__item">
-                <%= radio_button_tag(:choice, :admin_account, nil, class: "govuk-radios__input") %>
-                <%= label_tag(:choice_admin_account, "Managing GovWifi in your organisation support", class: "govuk-label govuk-radios__label") %>
-              </div>
-              <div class="govuk-radios__item">
-                <%= radio_button_tag(:choice, :user_support, nil, class: "govuk-radios__input") %>
-                <%= label_tag(:choice_user_support, "Request GovWifi user information", class: "govuk-label govuk-radios__label govuk-!-margin-bottom-4") %>
-              </div>
-            </div>
-            <%= submit_tag("Continue", class: "govuk-button") %>
-          <% end %>
-        </fieldset>
-      </div>
+      <% radio_options = [OpenStruct.new(value: :technical_support, label: "Setting up GovWifi in your organisation support"),
+                          OpenStruct.new(value: :admin_account, label: "Managing GovWifi in your organisation support"),
+                          OpenStruct.new(value: :user_support, label: "Request GovWifi user information")] %>
+      <%= form_with url: new_help_path, method: "get", builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+        <%= f.govuk_collection_radio_buttons :choice,
+                                             radio_options,
+                                             :value,
+                                             :label,
+                                             legend: { text: "How can we help?" } %>
+        <%= f.govuk_submit("Continue") %>
+    <% end %>
     </div>
   </div>
 </div>

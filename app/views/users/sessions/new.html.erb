@@ -16,20 +16,10 @@
     </p>
 
     <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { novalidate: "" }) do |f| %>
-
-        <div class="govuk-form-group">
-          <%= f.label :email, class: "govuk-label" %>
-          <%= f.email_field :email, class: "govuk-input" %>
-        </div>
-        <div class="govuk-form-group">
-          <%= f.label :password, class: "govuk-label" %>
-          <%= f.password_field :password, class: "govuk-input", autocomplete: "off" %>
-        </div>
-
-        <div>
-          <%= f.submit "Continue", class: "govuk-button govuk-!-margin-top-2" %>
-        </div>
+      <%= form_with model: resource, as: resource_name, url: session_path(resource_name), builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+        <%= f.govuk_email_field :email %>
+        <%= f.govuk_password_field :password %>
+        <%= f.govuk_submit "Continue" %>
       <% end %>
 
       <%= render "users/shared/links" %>
