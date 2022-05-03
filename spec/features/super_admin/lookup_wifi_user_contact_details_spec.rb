@@ -10,13 +10,13 @@ describe "Lookup wifi user contact details", type: :feature do
     visit root_path
     click_on "User Details"
 
-    fill_in "search_term", with: search_term
+    fill_in "Username, email address or phone number", with: search_term
     click_on "Find user details"
   end
 
   context "with no search term" do
     it "presents an error message" do
-      expect(page).to have_content("Search term can't be blank")
+      expect(page).to have_content("Search term can't be blank").twice
     end
   end
 

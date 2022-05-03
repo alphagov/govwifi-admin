@@ -5,6 +5,10 @@ en:
   activemodel:
     errors:
       models:
+        search_form:
+          attributes:
+            search_term:
+              blank: "Search term can't be blank"
         user_membership_form:
           attributes:
             name:

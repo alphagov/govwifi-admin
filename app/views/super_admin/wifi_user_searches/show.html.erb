@@ -1,37 +1,30 @@
 <% content_for :page_title, "Search logs by user details" %>
-
-<%= render "layouts/form_errors", resource: @search %>
-
-<div class='govuk-grid-row'>
-
-  <h1 class='govuk-heading-l govuk-grid-column-full'>Search for user details</h1>
-
-  <div class='govuk-grid-column-two-thirds'>
-    <%= form_with url: super_admin_wifi_user_search_path,
-                  builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
-      <p>
-        <%= f.govuk_text_field :search_term, width: 20, label: { text: "Username, email address or phone number" } %>
-      </p>
-      <p>
-        <%= f.govuk_submit "Find user details" %>
-      </p>
-    <% end %>
-
-    <div class="govuk-body">
-      <% if @wifi_user %>
-        <h3>User details for '<%= params[:search_term] %>'</h3>
-        <p>
-          Username: <%= link_to @wifi_user.username,
-                                logs_path(log_search_form: { username: @wifi_user.username,
-                                                             filter_option: LogSearchForm::USERNAME_FILTER_OPTION }),
-                                title: "Search logs for '#{@wifi_user.username}'" %>
-        </p>
-        <p>
-          Contact: <%= @wifi_user.contact %>
-        </p>
-      <% elsif !params[:search_term].blank? %>
-        <h3>Nothing found for '<%= params[:search_term] %>'</h3>
+<%= form_with model: @form, url: super_admin_wifi_user_search_path,
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+  <%= f.govuk_error_summary %>
+  <div class='govuk-grid-row'>
+    <h1 class='govuk-heading-l govuk-grid-column-full'>Search for user details</h1>
+    <div class='govuk-grid-column-two-thirds'>
+      <%= f.govuk_text_field :search_term, width: 20, label: { text: "Username, email address or phone number" } %>
+      <%= f.govuk_submit "Find user details" %>
+      <% if @form_valid %>
+        <div class="govuk-body">
+          <% if @wifi_user.present? %>
+            <h3 class="govuk-heading-s">User details for '<%= params[:search_term] %>'</h3>
+            <p class="govuk-body">
+              Username: <%= link_to @wifi_user.username,
+                                    logs_path(log_search_form: { username: @wifi_user.username,
+                                                                 filter_option: LogSearchForm::USERNAME_FILTER_OPTION }),
+                                    title: "Search logs for '#{@wifi_user.username}'" %>
+            </p>
+            <p class="govuk-body">
+              Contact: <%= @wifi_user.contact %>
+            </p>
+          <% else %>
+            <h3 class="govuk-heading-s">Nothing found for '<%= @form.search_term %>'</h3>
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>
-</div>
+<% end %>
