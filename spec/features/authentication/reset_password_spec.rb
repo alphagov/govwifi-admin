@@ -17,7 +17,7 @@ describe "Resetting a password", type: :feature do
   context "when the user has never signed up" do
     before do
       visit new_user_password_path
-      fill_in "user_email", with: "user@user.com"
+      fill_in "Provide your email address", with: "user@user.com"
       click_on "Send me reset password instructions"
     end
 
@@ -35,7 +35,7 @@ describe "Resetting a password", type: :feature do
 
     before do
       visit new_user_password_path
-      fill_in "user_email", with: user.email
+      fill_in "Provide your email address", with: user.email
       click_on "Send me reset password instructions"
     end
 
@@ -53,7 +53,7 @@ describe "Resetting a password", type: :feature do
 
     before do
       visit new_user_password_path
-      fill_in "user_email", with: user.email
+      fill_in "Provide your email address", with: user.email
       click_on "Send me reset password instructions"
     end
 
@@ -71,7 +71,7 @@ describe "Resetting a password", type: :feature do
 
     before do
       visit new_user_password_path
-      fill_in "user_email", with: user.email
+      fill_in "Provide your email address", with: user.email
       click_on "Send me reset password instructions"
       visit(last_notification_link)
     end
@@ -86,7 +86,7 @@ describe "Resetting a password", type: :feature do
 
     context "when entering a password that is 6 to 80 characters long" do
       before do
-        fill_in "user_password", with: "newBUT str0ng passsssssword"
+        fill_in "New password", with: "newBUT str0ng passsssssword"
         click_on "Change my password"
       end
 
@@ -101,7 +101,7 @@ describe "Resetting a password", type: :feature do
 
     context "when entering a password that is less than 6 characters" do
       before do
-        fill_in "user_password", with: "pass"
+        fill_in "New password", with: "pass"
         click_on "Change my password"
       end
 
