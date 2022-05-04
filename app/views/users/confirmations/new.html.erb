@@ -6,8 +6,7 @@
 
     <%= render "users/shared/end_user_warning" %>
 
-    <%= form_with url: confirmation_path(resource_name),
-                  html: { method: :post, novalidate: "" },
+    <%= form_with url: confirmation_path(resource_name), novalidate: "",
                   builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
       <%= f.govuk_email_field :email, label: { text: "Enter your email address" } %>
       <%= f.govuk_submit "Resend confirmation instructions" %>

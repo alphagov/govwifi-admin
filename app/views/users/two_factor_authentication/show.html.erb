@@ -2,19 +2,18 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-body">
-    <%= form_tag user_two_factor_authentication_path, method: :put do %>
+    <%= form_with url: user_two_factor_authentication_path, method: :put, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
       <h1 class="govuk-heading-l"><%= label nil, :code, "Enter your two factor authentication code" %></h1>
       <p id="code-hint">This is the 6-digit code in your authenticator app.</p>
 
-      <div class="govuk-form-group">
-        <%= text_field_tag :code, nil,
-                           class: "govuk-input mfa-code",
-                           maxlength: 6,
-                           placeholder: "123456",
-                           autocomplete: "off",
-                           "aria-describedby" => "code-hint" %>
-      </div>
-      <input type="submit" class="govuk-button" value="Continue" />
+        <%= f.govuk_text_field :code,
+                               maxlength: 6,
+                               width: 5,
+                               placeholder: "123456",
+                               autocomplete: "off",
+                               "aria-describedby" => "code-hint",
+                               label: nil %>
+      <%= f.govuk_submit "Submit" %>
     <% end %>
 
     <details class="govuk-details" data-module="govuk-details">

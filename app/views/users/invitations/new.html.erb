@@ -1,10 +1,9 @@
 <% content_for :page_title, "Invite a team member" %>
 
-<%= form_for(resource,
-             as: resource_name,
-             url: invitation_path(resource_name),
-             builder: GOVUKDesignSystemFormBuilder::FormBuilder,
-             html: { method: :post, novalidate: "" }) do |f| %>
+<%= form_with model: resource,
+              as: resource_name,
+              url: invitation_path(resource_name),
+              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
 
   <%= f.govuk_error_summary %>
 

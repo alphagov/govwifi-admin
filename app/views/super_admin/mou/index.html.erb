@@ -15,13 +15,9 @@
     <% end %>
     <p class="govuk-body"> </p>
     <p class="govuk-body"> </p>
-    <%= form_with url: super_admin_mou_index_path, local: true, method: "post", class: "govuk-form-group" do |form| %>
-      <%= form.label :unsigned_mou, "Select template file", class: "govuk-label" %>
-      <%= form.file_field(:unsigned_document) %>
-      <p>
-        <% submit_text = @mou.unsigned_document.attached? ? "Replace MOU" : "Upload MOU" %>
-        <%= form.submit(submit_text, class: "govuk-button") %>
-      </p>
+    <%= form_with url: super_admin_mou_index_path, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+      <%= form.govuk_file_field :unsigned_document, label: { text: "Select template file" } %>
+      <%= form.govuk_submit("#{@mou.unsigned_document.attached? ? 'Replace' : 'Upload'} MOU") %>
     <% end %>
     <div class="govuk-inset-text">
       Any new uploads will overwrite the existing file.
