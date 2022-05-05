@@ -1,16 +1,11 @@
-require "support/invite_use_case"
-require "support/notifications_service"
-require "support/confirmation_use_case"
-
 describe "Set user permissions on invite", type: :feature do
-  include_context "with a mocked notifications client"
-
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
   let(:invited_email) { "invited@gov.uk" }
   let(:invited_user) { User.find_by(email: invited_email) }
 
   before do
+    allow(Services).to receive(:email_gateway).and_return(spy)
     sign_in_user user
     visit new_user_invitation_path
     fill_in "Email", with: invited_email

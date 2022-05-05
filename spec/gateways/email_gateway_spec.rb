@@ -1,7 +1,7 @@
 require "support/notifications_service"
 
 describe Gateways::EmailGateway do
-  subject(:email_gateway) { described_class.new }
+  subject(:email_gateway) { described_class }
 
   let(:notification) { instance_spy(Notifications::Client, send_email: nil) }
 
@@ -19,13 +19,13 @@ describe Gateways::EmailGateway do
       {
         email_address: "test@example.com",
         template_id: 1,
-        personalisation: { confirmation_url: "http://example.com/confirm?token=123" },
+        personalisation: { confirmation_url: },
         reference: "confirmation_email",
       }
     end
 
     before do
-      email_gateway.send(
+      email_gateway.send_email(
         email:,
         template_id:,
         locals: { confirmation_url: },

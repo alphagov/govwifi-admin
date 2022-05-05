@@ -1,4 +1,3 @@
-require "support/confirmation_use_case_spy"
 require "warden"
 
 def sign_up_for_account(email: "default@gov.uk")
@@ -13,7 +12,7 @@ def update_user_details(
   service_email: "admin@gov.uk",
   organisation_name: "Org 1"
 )
-  return unless confirmation_email_received?
+  return if Services.email_gateway.not_sent?
 
   visit confirmation_email_link
 
@@ -32,11 +31,7 @@ def skip_two_factor_authentication
 end
 
 def confirmation_email_link
-  ConfirmationUseCaseSpy.last_confirmation_url
-end
-
-def confirmation_email_received?
-  !ConfirmationUseCaseSpy.last_confirmation_url.nil?
+  Services.email_gateway.last_confirmation_url
 end
 
 def sign_in_user(user, pass_through_two_factor: true)

@@ -1,10 +1,10 @@
-require "support/notifications_service"
-require "support/confirmation_use_case"
-
 describe "Sign up as an organisation", type: :feature do
   let(:name) { "Sally" }
+  let(:email_gateway) { EmailGatewaySpy.new }
 
   before do
+    allow(Services).to receive(:email_gateway).and_return(email_gateway)
+
     Rails.application.config.s3_aws_config = {
       stub_responses: {
         get_object: { body: "#{SIGNUP_WHITELIST_PREFIX_MATCHER}(gov\\.uk)$" },
@@ -13,9 +13,6 @@ describe "Sign up as an organisation", type: :feature do
   end
 
   after { Warden.test_reset! }
-
-  include_context "when sending a confirmation email"
-  include_context "when using the notifications service"
 
   context "with a valid email" do
     let(:email) { "newuser@gov.uk" }

@@ -1,23 +1,18 @@
-require "support/invite_use_case_spy"
-require "support/invite_use_case"
-require "support/notifications_service"
-
 describe "Sign up from invitation", type: :feature do
   let(:invited_user_email) { "invited@gov.uk" }
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
-
-  include_context "when sending an invite email"
-  include_context "when using the notifications service"
+  let(:email_gateway) { EmailGatewaySpy.new }
 
   before do
+    allow(Services).to receive(:email_gateway).and_return(email_gateway)
     sign_in_user user
     invite_user(invited_user_email)
     sign_out
   end
 
   context "when following the invite link" do
-    let(:invite_link) { InviteUseCaseSpy.last_invite_url }
+    let(:invite_link) { email_gateway.last_invite_url }
     let(:invited_user) { User.find_by(email: invited_user_email) }
 
     before do
