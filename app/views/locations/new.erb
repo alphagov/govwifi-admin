@@ -1,7 +1,6 @@
 <% content_for :page_title, "Add location" %>
 
-<%= form_with model: @location,
-              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+<%= form_with model: @location do |f| %>
   <%= f.govuk_error_summary %>
   <div class='govuk-grid-row'>
     <div class='govuk-grid-column-full'>

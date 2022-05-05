@@ -31,7 +31,7 @@
     <% end %>
 
     <div>
-      <%= form_with url: mou_index_path, method: "post", builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+      <%= form_with url: mou_index_path do |form| %>
         <%= form.govuk_file_field :signed_mou, label: { text: "Choose a file to upload:" } %>
         <%= form.govuk_submit "#{@current_org_signed_mou ? 'Replace' : 'Upload'} MOU" %>
       <% end %>

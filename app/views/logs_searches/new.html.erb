@@ -8,8 +8,7 @@
       Logs are kept for recent authentication requests made to the GovWifi service.
     </p>
 
-    <%= form_with model: log_search_form, url: logs_path, method: :get,
-                  builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+    <%= form_with model: log_search_form, url: logs_path, method: :get do |form| %>
       <%= form.govuk_error_summary %>
       <%= form.govuk_radio_buttons_fieldset(:filter_option, legend: { text: "How do you want to filter these logs?" }) do %>
         <% unless current_organisation.nil?  || current_organisation.locations.empty? %>

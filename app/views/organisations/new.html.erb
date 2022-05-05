@@ -1,8 +1,6 @@
 <% content_for :page_title, "Register an organisation" %>
 
-<%= form_with model: @organisation,
-              url: organisations_path,
-              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+<%= form_with model: @organisation, url: organisations_path do |form| %>
   <%= form.govuk_error_summary %>
   <h1 class="govuk-heading-l">Add an organisation to GovWifi</h1>
   <% select_hint = capture do %>

@@ -3,8 +3,7 @@
 <%= form_with model: resource,
               as: resource_name,
               url: invitation_path(resource_name),
-              method: :put,
-              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+              method: :put do |f| %>
   <%= f.govuk_error_summary %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">

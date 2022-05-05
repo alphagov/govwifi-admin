@@ -16,7 +16,7 @@
       <% radio_options = [OpenStruct.new(value: :technical_support, label: "Setting up GovWifi in your organisation support"),
                           OpenStruct.new(value: :admin_account, label: "Managing GovWifi in your organisation support"),
                           OpenStruct.new(value: :user_support, label: "Request GovWifi user information")] %>
-      <%= form_with url: new_help_path, method: "get", builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+      <%= form_with url: new_help_path, method: "get" do |f| %>
         <%= f.govuk_collection_radio_buttons :choice,
                                              radio_options,
                                              :value,

@@ -1,8 +1,7 @@
 <% content_for :page_title, "Reset your password" %>
 <%= form_with model: resource, as: resource_name,
               url: password_path(resource_name),
-              html: { method: :post, novalidate: "" },
-              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+              novalidate: "" do |f| %>
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">

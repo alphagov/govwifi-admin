@@ -5,9 +5,7 @@
     <%= render "super_admin/whitelists/side_nav" %>
   </div>
   <div class="govuk-grid-column-three-quarters">
-    <%= form_with model: @custom_organisation,
-                  url: super_admin_whitelist_organisation_names_path,
-                  builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+    <%= form_with model: @custom_organisation, url: super_admin_whitelist_organisation_names_path do |f| %>
 
       <%= f.govuk_error_summary %>
       <%= render "confirm_remove_custom_organisation" if params[:remove_custom_org] %>

@@ -1,6 +1,6 @@
 <% content_for :page_title, "Support" %>
 
-<%= form_with model: @support_form, url: { action: "create" }, builder: GOVUKDesignSystemFormBuilder::FormBuilder  do |f| %>
+<%= form_with model: @support_form, url: { action: "create" } do |f| %>
   <%= f.govuk_error_summary %>
   <h1 class="govuk-heading-l">Support</h1>
   <h2 class="govuk-heading-m">Individual problems</h2>

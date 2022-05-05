@@ -2,8 +2,7 @@
 
 <%= form_with model: resource,
               url: user_registration_path,
-              method: :put,
-              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+              method: :put do |f| %>
   <%= f.govuk_error_summary %>
   <%= f.govuk_fieldset legend: { text: "Change your password", size: "xl" } do %>
     <%= f.govuk_password_field :current_password, label: { text: "Current password" } %>

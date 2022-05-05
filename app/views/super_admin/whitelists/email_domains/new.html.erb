@@ -1,7 +1,5 @@
 <% content_for :page_title, "Approve a new email domain" %>
-<%= form_with model: @authorised_email_domain,
-              url: { action: :create },
-              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |f| %>
+<%= form_with model: @authorised_email_domain, url: { action: :create } do |f| %>
   <%= f.govuk_error_summary %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">

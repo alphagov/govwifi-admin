@@ -1,6 +1,5 @@
 <div class="govuk-grid-column-two-thirds">
-  <%= form_with model: log_search_form, url: logs_path, method: :get,
-                builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+  <%= form_with model: log_search_form, url: logs_path, method: :get do |form| %>
     <%= form.hidden_field :filter_option %>
     <%= form.hidden_field :username %>
     <%= form.hidden_field :ip %>

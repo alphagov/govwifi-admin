@@ -6,9 +6,7 @@
 <h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-3"><%= @membership.user.name %></h1>
 <p class="govuk-body govuk-!-margin-bottom-4"> <%= @membership.user.email %> </p>
 
-<%= form_with model: @membership, url: membership_path(@membership),
-              method: :patch,
-              builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+<%= form_with model: @membership, url: membership_path(@membership), method: :patch do |form| %>
   <%= form.govuk_collection_radio_buttons(:permission_level, @permission_level_data, :value, :text, :hint,
                                           legend: { size: "s", text: "Permission level" }) %>
   <%= form.govuk_submit "Save" %>

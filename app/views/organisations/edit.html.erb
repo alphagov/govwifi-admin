@@ -1,6 +1,6 @@
 <% content_for :page_title, "Edit service email" %>
 
-<%= form_with model: @organisation, builder: GOVUKDesignSystemFormBuilder::FormBuilder do |form| %>
+<%= form_with model: @organisation do |form| %>
   <%= form.govuk_error_summary %>
   <%= link_to "Back to settings", settings_path, class: "govuk-back-link" %>
   <h1 class="govuk-heading-l">Edit service email</h1>
