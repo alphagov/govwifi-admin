@@ -1,15 +1,12 @@
-require "support/invite_use_case_spy"
-require "support/invite_use_case"
-require "support/notifications_service"
-
 describe "Resending an invitation to a team member", type: :feature do
+  include EmailHelpers
+
   let(:invited_user_email) { "invited@gov.uk" }
   let(:user) { create(:user, :with_organisation) }
-
-  include_context "when sending an invite email"
-  include_context "when using the notifications service"
+  let(:email_gateway) { spy }
 
   before do
+    allow(Services).to receive(:email_gateway).and_return(email_gateway)
     sign_in_user user
     invite_user(invited_user_email)
     visit memberships_path
@@ -20,16 +17,17 @@ describe "Resending an invitation to a team member", type: :feature do
   end
 
   it "sends an invitation" do
-    expect { click_on "Resend invite" }.to \
-      change(InviteUseCaseSpy, :invite_count).by(1)
+    click_on "Resend invite"
+    it_sent_an_invitation_email_twice
   end
 
   context "when signing up from the resent invitation" do
-    let(:invite_link) { InviteUseCaseSpy.last_invite_url }
+    let(:email_gateway) { EmailGatewaySpy.new }
+
     let(:invited_user) { User.find_by(email: invited_user_email) }
 
     before do
-      visit invite_link
+      visit email_gateway.last_invite_url
     end
 
     it "displays the sign up page" do

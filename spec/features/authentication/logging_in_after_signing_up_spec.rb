@@ -1,13 +1,8 @@
-require "support/notifications_service"
-require "support/confirmation_use_case"
-
 describe "Logging in after signing up", type: :feature do
   let(:correct_password) { "f1uffy-bu44ies!~plant" }
 
-  include_context "when sending a confirmation email"
-  include_context "when using the notifications service"
-
   before do
+    allow(Services).to receive(:email_gateway).and_return(EmailGatewaySpy.new)
     sign_up_for_account(email: "tom@gov.uk")
     update_user_details(password: correct_password)
     skip_two_factor_authentication

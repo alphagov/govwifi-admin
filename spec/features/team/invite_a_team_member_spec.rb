@@ -1,8 +1,10 @@
-require "support/invite_use_case"
-require "support/notifications_service"
-require "support/confirmation_use_case"
-
 describe "Inviting a team member", type: :feature do
+  include EmailHelpers
+
+  let(:email_gateway) { spy }
+  before do
+    allow(Services).to receive(:email_gateway).and_return(email_gateway)
+  end
   context "when logged out" do
     before do
       visit new_user_invitation_path
@@ -13,10 +15,6 @@ describe "Inviting a team member", type: :feature do
 
   context "when inviting a team member" do
     let(:user) { create(:user, :with_organisation) }
-
-    include_context "when sending an invite email"
-    include_context "when using the notifications service"
-    include_context "when sending a confirmation email"
 
     before do
       sign_in_user user
@@ -37,7 +35,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "sends an invite" do
-        expect(InviteUseCaseSpy.invite_count).to eq(1)
+        it_sent_an_invitation_email_once
       end
 
       it "sets the invitees organisation" do
@@ -63,7 +61,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "sends an invite" do
-        expect(InviteUseCaseSpy.invite_count).to eq(1)
+        it_sent_an_invitation_email_once
       end
 
       it "sets the invitees organisation" do
@@ -83,7 +81,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "does not send an invite" do
-        expect(InviteUseCaseSpy.invite_count).to eq(0)
+        it_did_not_send_any_emails
       end
 
       it "displays the correct error message" do
@@ -110,7 +108,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "sends an invite" do
-        expect(InviteUseCaseSpy.invite_count).to eq(1)
+        it_sent_an_invitation_email_once
       end
 
       it "sets the invitees pending organisation" do
@@ -123,6 +121,7 @@ describe "Inviting a team member", type: :feature do
     end
 
     context "with an unconfirmed user that has already been invited" do
+      let(:email_gateway) { spy }
       let!(:invited_user) { create(:user, invitation_sent_at: Time.zone.now, organisations: user.organisations, confirmed_at: nil) }
       let(:invited_user_email) { invited_user.email }
 
@@ -131,7 +130,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "does not send an invite" do
-        expect(InviteUseCaseSpy.invite_count).to eq(0)
+        it_did_not_send_an_invitation_email
       end
     end
 
@@ -143,7 +142,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "does not send an invite" do
-        expect(InviteUseCaseSpy.invite_count).to eq(0)
+        it_did_not_send_an_invitation_email
       end
 
       it "displays the correct error message" do
@@ -159,7 +158,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "does not send an invite" do
-        expect(InviteUseCaseSpy.invite_count).to eq(0)
+        it_did_not_send_any_emails
       end
 
       it "displays the correct error message" do

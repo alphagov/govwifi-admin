@@ -1,20 +1,16 @@
-require "support/invite_use_case"
-require "support/notifications_service"
-
 describe "Inviting a team member as a super admin", type: :feature do
   let(:organisation) { create(:organisation, name: "Gov Org 3") }
   let(:super_admin) { create(:user, :super_admin) }
   let(:email) { "barry@gov.uk" }
+  let(:email_gateway) { spy }
 
   before do
+    allow(Services).to receive(:email_gateway).and_return(email_gateway)
     sign_in_user super_admin
     visit super_admin_organisation_path(organisation)
     click_on "Add team member"
     fill_in "Email address", with: email
   end
-
-  include_context "when using the notifications service"
-  include_context "when sending an invite email"
 
   it "will take the user to the organisation when they click 'Cancel'" do
     click_on "Cancel"
@@ -48,7 +44,7 @@ describe "Inviting a team member as a super admin", type: :feature do
     end
 
     it "does not send an invite" do
-      expect(InviteUseCaseSpy.invite_count).to eq(0)
+      expect(email_gateway).to_not have_received(:send_email)
     end
 
     it "displays the correct error message" do
@@ -64,7 +60,7 @@ describe "Inviting a team member as a super admin", type: :feature do
       end
 
       it "sends an invite" do
-        expect(InviteUseCaseSpy.invite_count).to eq(1)
+        expect(email_gateway).to have_received(:send_email).once
       end
 
       it "adds the invited user to the correct organisation" do

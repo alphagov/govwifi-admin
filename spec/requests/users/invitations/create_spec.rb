@@ -1,17 +1,13 @@
-require "support/invite_use_case"
-require "support/notifications_service"
-
 describe "POST /users/invitation", type: :request do
   let(:user) { create(:user, :with_2fa, organisations: [organisation]) }
   let(:organisation) { create(:organisation) }
+  let(:email_gateway) { spy }
 
   before do
+    allow(Services).to receive(:email_gateway).and_return(email_gateway)
     https!
     login_as(user, scope: :user)
   end
-
-  include_context "when using the notifications service"
-  include_context "when sending an invite email"
 
   context "with tampered organisation_id parameter" do
     let(:email) { "barry@gov.uk" }
@@ -25,7 +21,8 @@ describe "POST /users/invitation", type: :request do
     end
 
     it "invites a user" do
-      expect(InviteUseCaseSpy.invite_count).to eq(1)
+      expect(email_gateway).to have_received(:send_email)
+        .with(include(template_id: GOV_NOTIFY_CONFIG["invite_email"]["template_id"])).once
     end
 
     it "ignores provided organisation_id" do

@@ -1,15 +1,14 @@
-require "support/invite_use_case"
-require "support/membership_invite_use_case"
-require "support/notifications_service"
-require "support/confirmation_use_case"
-
 describe "Inviting a user to their second or subsequent organisation", type: :feature do
+  include EmailHelpers
+
   let(:inviter_organisation) { create(:organisation) }
   let(:betty) { create(:user, organisations: [inviter_organisation]) }
   let(:confirmed_user) { create(:user, :with_organisation) }
+  let(:email_gateway) { spy }
 
-  include_examples "when sending a membership invite email"
-  include_examples "when sending an invite email"
+  before do
+    allow(Services).to receive(:email_gateway).and_return(email_gateway)
+  end
 
   context "with a confirmed user" do
     before do
@@ -20,11 +19,11 @@ describe "Inviting a user to their second or subsequent organisation", type: :fe
     end
 
     it "sends a membership invitation" do
-      expect(MembershipInviteUseCaseSpy.invite_count).to eq(1)
+      it_sent_a_cross_organisational_invitation_email
     end
 
     it "does not send a new user invite" do
-      expect(InviteUseCaseSpy.invite_count).to eq(0)
+      it_did_not_send_an_invitation_email
     end
 
     it "creates a join organisation invitation" do
@@ -53,8 +52,6 @@ describe "Inviting a user to their second or subsequent organisation", type: :fe
   context "with an unconfirmed user" do
     let(:unconfirmed_email) { "notconfirmedyet@gov.uk" }
 
-    include_context "when using the notifications service"
-
     before do
       sign_up_for_account(email: unconfirmed_email)
       sign_in_user confirmed_user
@@ -64,7 +61,7 @@ describe "Inviting a user to their second or subsequent organisation", type: :fe
     end
 
     it "sends an invitation" do
-      expect(InviteUseCaseSpy.invite_count).to eq(1)
+      it_sent_an_invitation_email_once
     end
   end
 end
