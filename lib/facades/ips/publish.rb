@@ -9,23 +9,22 @@ module Facades
     private
 
       def publish_for_performance_platform
-        UseCases::PerformancePlatform::PublishLocationsIps.new(
-          destination_gateway: Gateways::S3.new(
-            bucket: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET"),
-            key: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY"),
-          ),
-          source_gateway: Gateways::Ips.new,
-        ).execute
+        ips = Ip.pluck(:address, :location_id).map do |ip|
+          {
+            ip: ip[0],
+            location_id: ip[1],
+          }
+        end
+        Services.s3_client.put_object(body: ips.to_json,
+                                      bucket: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET"),
+                                      key: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY"))
       end
 
       def publish_radius_whitelist
-        UseCases::Radius::PublishWhitelist.new(
-          destination_gateway: Gateways::S3.new(
-            bucket: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET"),
-            key: ENV.fetch("S3_WHITELIST_OBJECT_KEY"),
-          ),
-          generate_whitelist: UseCases::Radius::GenerateRadiusIpWhitelist.new,
-        ).execute
+        whitelist = UseCases::Radius::GenerateRadiusIpWhitelist.new.execute
+        Services.s3_client.put_object(body: whitelist,
+                                      bucket: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET"),
+                                      key: ENV.fetch("S3_WHITELIST_OBJECT_KEY"))
       end
     end
   end

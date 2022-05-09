@@ -12,6 +12,7 @@ if ENV["COVERAGE"]
 end
 
 require_relative "../lib/gateways/govuk_organisations_register_gateway"
+require_relative "./support/s3_fake_client"
 
 RSpec.configure do |config|
   config.filter_run focus: true

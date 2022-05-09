@@ -1,20 +1,22 @@
 describe Facades::Ips::Publish do
   subject(:facade) { described_class.new }
-
-  let(:publish_location_ips) { instance_spy(UseCases::PerformancePlatform::PublishLocationsIps, execute: nil) }
-  let(:publish_whitelist) { instance_spy(UseCases::Radius::PublishWhitelist, execute: nil) }
-
+  let(:s3_client) { S3FakeClient.new_instance }
   before do
-    allow(UseCases::PerformancePlatform::PublishLocationsIps).to receive(:new).and_return(publish_location_ips)
-    allow(UseCases::Radius::PublishWhitelist).to receive(:new).and_return(publish_whitelist)
+    FactoryBot.create(:ip, address: "2.2.2.2", location: FactoryBot.create(:location, id: 123, radius_secret_key: "radkey1"))
+    allow(Services).to receive(:s3_client).and_return s3_client
     facade.execute
   end
 
-  it "executes the publish location & ips usecase" do
-    expect(publish_location_ips).to have_received(:execute)
+  it "publishes a list of locations and ips to S3" do
+    bucket = ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET")
+    key = ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY")
+    expect(s3_client.get_object(key:, bucket:).body.read).to eq([{ip: "2.2.2.2", location_id: 123}].to_json)
   end
 
-  it "executes the publish whitelist usecase" do
-    expect(publish_whitelist).to have_received(:execute)
+  it "publishes an IP Radius whitelist to S3" do
+    whitelist = UseCases::Radius::GenerateRadiusIpWhitelist.new.execute
+    bucket = ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET")
+    key = ENV.fetch("S3_WHITELIST_OBJECT_KEY")
+    expect(s3_client.get_object(key:, bucket:).body.read).to eq(whitelist)
   end
 end
