@@ -16,7 +16,7 @@ gem "devise_zxcvbn", "~> 6.0.0"
 gem "google-apis-drive_v3"
 gem "govuk_design_system_formbuilder"
 gem "httparty", "~> 0.20.0"
-gem "mysql2", "~> 0.5.2"
+gem "mysql2", "~> 0.5.4"
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
