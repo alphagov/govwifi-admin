@@ -9,6 +9,7 @@ class Location < ApplicationRecord
   validates_associated :ips
 
   validates :address, :postcode, presence: true
+  validates :address, uniqueness: { scope: :organisation_id }
   validate :validate_postcode_format, if: ->(l) { l.postcode.present? }
 
   before_create :set_radius_secret_key
