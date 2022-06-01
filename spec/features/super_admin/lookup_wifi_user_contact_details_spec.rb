@@ -59,4 +59,20 @@ describe "Lookup wifi user contact details", type: :feature do
       expect(page).to have_content("zZyYxX")
     end
   end
+
+  context "when deleting a user" do
+    let(:search_term) { "zZyYxX" }
+
+    it "successfully deletes the user" do
+      click_on "Remove user"
+
+      expect(page).to have_content("Confirm removing #{contact}")
+
+      click_on "Remove user"
+
+      expect(page).to have_content("#{search_term} (#{contact}) has been removed")
+
+      expect(WifiUser.search(search_term)).to be_nil
+    end
+  end
 end

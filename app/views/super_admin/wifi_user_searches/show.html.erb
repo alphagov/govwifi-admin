@@ -19,6 +19,11 @@
             <p class="govuk-body">
               Contact: <%= @wifi_user.contact %>
             </p>
+
+            <%= link_to confirm_destroy_super_admin_wifi_user_search_path(search_form: { search_term: @form.search_term }),
+                        class: "govuk-button red-button" do %>
+              Remove user <span class='govuk-visually-hidden'>- <%= @wifi_user.contact %></span>
+            <% end %>
           <% else %>
             <h3 class="govuk-heading-s">Nothing found for '<%= @form.search_term %>'</h3>
           <% end %>

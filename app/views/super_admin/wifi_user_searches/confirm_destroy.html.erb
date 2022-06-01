@@ -1,0 +1,22 @@
+<% content_for :page_title, "Confirm removing #{@wifi_user.contact}" %>
+
+<div class='govuk-grid-row'>
+  <h1 class='govuk-heading-l govuk-grid-column-full'>Confirm removing <%= @wifi_user.contact %></h1>
+  <div class='govuk-grid-column-two-thirds'>
+    <p class="govuk-body">
+      This will remove the users credentials from the database. Once
+      this has happened, they will be able to sign up again and get
+      new credentials.
+    </p>
+
+    <%= button_to(
+          "Remove user",
+          super_admin_wifi_user_search_path(search_form: { search_term: @form.search_term }),
+          method: :delete,
+          class: "govuk-button govuk-button--warning",
+          "data-module": "govuk-button",
+        ) %>
+
+    <p class="govuk-body"><%= link_to "Cancel", :back, class: "govuk-link--no-visited-state" %></p>
+  </div>
+</div>
