@@ -9,9 +9,9 @@ describe "View authentication requests for a location", type: :feature do
 
   context "when selecting a location to view logs for" do
     let!(:locations) do
-      [create(:location, address: "Abbey Street", postcode: "HA7 2BL"),
-       create(:location, address: "Zeon Grove", postcode: "HA7 3BL"),
-       create(:location, address: "Garry Road", postcode: "HA7 4BL")]
+      [build(:location, address: "Abbey Street", postcode: "HA7 2BL"),
+       build(:location, address: "Zeon Grove", postcode: "HA7 3BL"),
+       build(:location, address: "Garry Road", postcode: "HA7 4BL")]
     end
     let!(:organisation) { create(:organisation, locations:) }
 
@@ -36,8 +36,8 @@ describe "View authentication requests for a location", type: :feature do
   end
 
   context "with a location that does not belong to the current organisation" do
-    let!(:organisation) { create(:organisation, :with_locations) }
-    let!(:location) { create(:location) }
+    let!(:organisation) { create(:organisation, locations: [build(:location)]) }
+    let(:location) { create(:location) }
 
     it "should raise an error" do
       expect {
@@ -48,16 +48,15 @@ describe "View authentication requests for a location", type: :feature do
   end
 
   context "when choosing a location with logs" do
-    let!(:organisation) { create(:organisation, :with_location_and_ip) }
-    let(:location) { organisation.locations.first }
-    let(:ip_address) { organisation.ip_addresses.first }
+    let(:organisation) { create(:organisation, :with_location_and_ip) }
+    let(:ip_address) { organisation.locations.first.ips.first.address }
     let!(:sessions) do
       create(:session, username: "AAAAAA", siteIP: ip_address)
       create(:session, username: "BBBBBB", siteIP: "6.6.6.6")
     end
 
     before do
-      select location.address, from: "Select location"
+      select organisation.locations.first.address, from: "Select location"
       click_on "Show logs"
     end
 

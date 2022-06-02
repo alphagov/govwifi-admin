@@ -4,10 +4,10 @@ describe "Search Locations", type: :feature do
 
   context "10 locations with the same name, 1 different and alphabetically last" do
     before :each do
-      FactoryBot.create_list(:location, 20, postcode: "AA11AA", organisation:) do |location, i|
+      create_list(:location, 20, postcode: "AA11AA", organisation:) do |location, i|
         location.address = "Aardvark Place #{i}"
       end
-      FactoryBot.create(:location, address: "Zebra Place 0", postcode: "ZZ99ZZ", organisation:)
+      create(:location, address: "Zebra Place 0", postcode: "ZZ99ZZ", organisation:)
       sign_in_user user
       visit ips_path
     end

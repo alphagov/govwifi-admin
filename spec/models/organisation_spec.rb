@@ -3,12 +3,16 @@ describe Organisation do
   it { is_expected.to have_many(:locations) }
 
   context "when deleting an organisation" do
-    let(:org) { create(:organisation) }
-    let(:user) { create(:user, organisations: [org]) }
-    let!(:location) { create(:location, organisation: org) }
-    let!(:ip) { Ip.create(address: "1.1.1.1", location:) }
+    let(:user) { create(:user, organisations: [organisation]) }
+    let(:organisation) { create(:organisation, :with_location_and_ip) }
+    let(:location) { organisation.locations.first }
+    let!(:ip) { location.ips.first }
 
-    before { org.destroy }
+    before do
+      sign_in_user user
+    end
+
+    before { organisation.destroy }
 
     it "removes all associated locations" do
       expect { location.reload }.to raise_error ActiveRecord::RecordNotFound
@@ -19,7 +23,7 @@ describe Organisation do
     end
 
     it "removes all associated memberships" do
-      expect(Membership.find_by(organisation_id: org.id)).to be_nil
+      expect(Membership.find_by(organisation_id: organisation.id)).to be_nil
     end
   end
 
