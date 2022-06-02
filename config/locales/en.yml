@@ -79,9 +79,18 @@ en:
         location:
           attributes:
             address:
-              blank: "Address can't be blank"
+              format: "%{message}"
+              blank: "Location address can't be blank"
+              taken: "Location address already exists for this organisation"
             postcode:
+              format: "%{message}"
               blank: "Postcode can't be blank"
+        ip:
+          attributes:
+            address:
+              format: "%{message}"
+              taken: "IP address is already in use"
+
 
   users:
     two_factor_authentication:

@@ -36,6 +36,9 @@ Rails.application.routes.draw do
     get "technical_support", on: :new
     get "user_support", on: :new
   end
+  get "bulk_upload", to: "locations#bulk_upload"
+  post "confirm_upload", to: "locations#confirm_upload"
+  post "upload_locations_csv", to: "locations#upload_locations_csv"
   resources :locations, only: %i[new create destroy update] do
     get "add_ips", to: "add_ips"
     patch "update_ips", to: "update_ips"

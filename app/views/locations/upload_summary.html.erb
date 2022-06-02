@@ -1,0 +1,97 @@
+<h1 class="govuk-heading-l">Upload Summary</h1>
+
+<% unless @valid_upload_id %>
+  <div class="govuk-error-summary" role="alert" data-module="govuk-error-summary" aria-labelledby="error-summary-title">
+    <h2 id="error-summary-title" class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <% @uploaded_locations.each do |location| %>
+          <% location_errors = location.errors.where(:address).push(*location.errors.where(:postcode)) %>
+          <% if location_errors.any? %>
+            <% location_errors.each_with_index do | error, i | %>
+              <li>
+                <a href='#<%= upload_error_id_helper(i, location.address) %>'>
+                  <%= error.full_message %>
+                </a>
+              </li>
+            <% end %>
+          <% end %>
+          <% location.ips.each do |ip| %>
+            <% if ip.errors.any? %>
+              <% ip.errors.full_messages.each_with_index do | error_message, i | %>
+                <li>
+                  <a href='#<%= upload_error_id_helper(i, location.address, ip.address) %>'>
+                    <%= error_message %>
+                  </a>
+                </li>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<% @uploaded_locations.each do |location| %>
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+    <% location_errors = location.errors.where(:address).push(*location.errors.where(:postcode)) %>
+    <% if location_errors.any? %>
+      <div class="govuk-form-group govuk-form-group--error">
+        <% location_errors.each_with_index do | error, i | %>
+          <p class="govuk-error-message" id='<%= upload_error_id_helper(i, location.address) %>'>
+              <span class="govuk-visually-hidden">
+                Error:
+              </span>
+            <%= error.full_message %>
+          </p>
+        <% end %>
+        <h1 class="govuk-fieldset__heading">
+          <%= location.address %>, <%= location.postcode %>
+        </h1>
+      </div>
+    <% else %>
+      <h1 class="govuk-fieldset__heading">
+        <%= location.address %>, <%= location.postcode %>
+      </h1>
+    <% end %>
+  </legend>
+
+  <% location.ips.each do |ip| %>
+    <% if ip.errors.any? %>
+      <% ip.errors.full_messages.each_with_index do |error_message, i| %>
+        <div class="govuk-form-group govuk-form-group--error">
+          <p class="govuk-error-message" id='<%= upload_error_id_helper(i, location.address, ip.address) %>'>
+              <span class="govuk-visually-hidden">
+                Error:
+              </span>
+            <%= error_message %>
+          </p>
+          <label class="govuk-label">
+            <%= ip.address %>
+          </label>
+        </div>
+      <% end %>
+    <% else %>
+    <div class="govuk-form-group">
+      <label class="govuk-label">
+        <%= ip.address %>
+      </label>
+    </div>
+    <% end %>
+  <% end %>
+</fieldset>
+
+<% end %>
+
+<% if @valid_upload_id %>
+  <%= form_with url: confirm_upload_url do |form| %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+    <%= hidden_field_tag :valid_upload_id, @valid_upload_id -%>
+    <%= form.govuk_submit "Save" %>
+  <% end %>
+<% end %>

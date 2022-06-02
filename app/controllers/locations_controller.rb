@@ -1,3 +1,5 @@
+require "bulk_upload"
+
 class LocationsController < ApplicationController
   before_action :authorise_manage_locations
   before_action :authorise_manage_current_location, only: %i[add_ips update_ips update]
@@ -40,6 +42,30 @@ class LocationsController < ApplicationController
     else
       render :add_ips
     end
+  end
+
+  def upload_locations_csv
+    uploaded_csv = UploadedCsv.new(params[:upload_file], current_organisation)
+    if uploaded_csv.error_message
+      @csv_error = uploaded_csv.error_message
+      render("bulk_upload") and return
+    end
+    @uploaded_locations = BulkUpload.create_upload_summary(uploaded_csv.data, current_organisation.id)
+    unless BulkUpload.upload_has_errors?(@uploaded_locations)
+      @valid_upload_id =
+        ActiveStorage::Blob.create_and_upload!(io: params[:upload_file], filename: BulkUpload.generate_blob_name(current_organisation.id)).signed_id
+    end
+    render("upload_summary")
+  end
+
+  def confirm_upload
+    blob = ActiveStorage::Blob.find_signed(params[:valid_upload_id])
+    blob.open do |file_path|
+      uploaded_csv = UploadedCsv.new(file_path, current_organisation)
+      uploaded_csv.save!
+    end
+    blob.purge_later
+    redirect_to(ips_path, notice: "Successfully uploaded locations")
   end
 
   def destroy
