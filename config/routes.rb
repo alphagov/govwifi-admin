@@ -75,7 +75,9 @@ Rails.application.routes.draw do
         resources :organisation_names, only: %i[index create destroy]
       end
     end
-    resource :wifi_user_search, only: %i[show create]
+    resource :wifi_user_search, only: %i[show create destroy] do
+      get "destroy", to: "wifi_user_searches#confirm_destroy", as: :confirm_destroy
+    end
   end
 
   %w[404 422 500].each do |code|

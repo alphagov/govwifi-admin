@@ -10,6 +10,24 @@ class SuperAdmin::WifiUserSearchesController < SuperAdminController
     render :show
   end
 
+  def confirm_destroy
+    @form = SearchForm.new(search_term_params)
+    @form_valid = @form.valid?
+    @wifi_user = @form_valid ? WifiUser.search(@form.search_term) : nil
+  end
+
+  def destroy
+    @form = SearchForm.new(search_term_params)
+    @form_valid = @form.valid?
+    @wifi_user = @form_valid ? WifiUser.search(@form.search_term) : nil
+
+    flash[:notice] = "#{@wifi_user.username} (#{@wifi_user.contact}) has been removed"
+
+    @wifi_user.destroy!
+
+    redirect_to super_admin_wifi_user_search_path
+  end
+
 private
 
   def search_term_params
