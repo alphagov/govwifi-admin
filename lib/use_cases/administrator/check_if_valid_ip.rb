@@ -3,7 +3,7 @@ module UseCases
     class CheckIfValidIp
       def execute(address)
         @address = address
-        { success: valid_ipv4_address?, error_message: custom_error_message }
+        { success: valid_ipv4_address?, error_message: custom_error_message, error_type: error_type }
       end
 
     private
@@ -32,6 +32,12 @@ module UseCases
         address.present? &&
           address_is_ipv4? &&
           !address_is_not_private?
+      end
+
+      def error_type
+        return :ipv6 if valid_ipv6_address?
+        return :private if private_ip_address?
+        return :malformed unless valid_ipv4_address?
       end
 
       def custom_error_message

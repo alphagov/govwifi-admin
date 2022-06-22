@@ -1,4 +1,5 @@
 require "bulk_upload"
+require "bulk_upload/uploaded_csv"
 
 class LocationsController < ApplicationController
   before_action :authorise_manage_locations
@@ -45,15 +46,21 @@ class LocationsController < ApplicationController
   end
 
   def upload_locations_csv
-    uploaded_csv = UploadedCsv.new(params[:upload_file], current_organisation)
+    @parent_organisation = current_organisation
+    uploaded_csv = UploadedCsv.new(params[:upload_file], @parent_organisation)
     if uploaded_csv.error_message
       @csv_error = uploaded_csv.error_message
       render("bulk_upload") and return
     end
-    @uploaded_locations = BulkUpload.create_upload_summary(uploaded_csv.data, current_organisation.id)
-    unless BulkUpload.upload_has_errors?(@uploaded_locations)
+    # @uploaded_locations = BulkUpload.create_upload_summary(uploaded_csv.data, current_organisation.id)
+    BulkUpload::BulkUpload.validate_upload(uploaded_csv.data, @parent_organisation)
+    # unless BulkUpload.upload_has_errors?(@uploaded_locations)
+    #   @valid_upload_id =
+    #     ActiveStorage::Blob.create_and_upload!(io: params[:upload_file], filename: BulkUpload.generate_blob_name(current_organisation.id)).signed_id
+    # end
+    if @parent_organisation.valid?
       @valid_upload_id =
-        ActiveStorage::Blob.create_and_upload!(io: params[:upload_file], filename: BulkUpload.generate_blob_name(current_organisation.id)).signed_id
+        ActiveStorage::Blob.create_and_upload!(io: params[:upload_file], filename: BulkUpload::BulkUpload.generate_blob_name(@parent_organisation.id)).signed_id
     end
     render("upload_summary")
   end

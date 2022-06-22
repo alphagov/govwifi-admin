@@ -7,7 +7,7 @@
     </h2>
     <div class="govuk-error-summary__body">
       <ul class="govuk-list govuk-error-summary__list">
-        <% @uploaded_locations.each do |location| %>
+        <% @parent_organisation.locations.each do |location| %>
           <% location_errors = location.errors.where(:address).push(*location.errors.where(:postcode)) %>
           <% if location_errors.any? %>
             <% location_errors.each_with_index do | error, i | %>
@@ -33,9 +33,41 @@
       </ul>
     </div>
   </div>
+<!--  <div class="govuk-error-summary" role="alert" data-module="govuk-error-summary" aria-labelledby="error-summary-title">-->
+<!--    <h2 id="error-summary-title" class="govuk-error-summary__title">-->
+<!--      There is a problem-->
+<!--    </h2>-->
+<!--    <div class="govuk-error-summary__body">-->
+<!--      <ul class="govuk-list govuk-error-summary__list">-->
+        <%# @uploaded_locations.each do |location| %>
+          <%# location_errors = location.errors.where(:address).push(*location.errors.where(:postcode)) %>
+          <%# if location_errors.any? %>
+            <%# location_errors.each_with_index do | error, i | %>
+<!--              <li>-->
+<!--                <a href='#<%#= upload_error_id_helper(i, location.address) %>'>-->
+                  <%#= error.full_message %>
+<!--                </a>-->
+<!--              </li>-->
+            <%# end %>
+          <%# end %>
+          <%# location.ips.each do |ip| %>
+            <%# if ip.errors.any? %>
+              <%# ip.errors.full_messages.each_with_index do | error_message, i | %>
+<!--                <li>-->
+<!--                  <a href='#<%#= upload_error_id_helper(i, location.address, ip.address) %>'>-->
+                    <%#= error_message %>
+<!--                  </a>-->
+<!--                </li>-->
+              <%# end %>
+            <%# end %>
+          <%# end %>
+        <%# end %>
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
 <% end %>
 
-<% @uploaded_locations.each do |location| %>
+<% @parent_organisation.locations.each do |location| %>
 
 <fieldset class="govuk-fieldset">
   <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">

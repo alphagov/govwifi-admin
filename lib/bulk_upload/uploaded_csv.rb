@@ -25,6 +25,7 @@ class UploadedCsv
   end
 
   def save!
+
     @data.each do |row|
       location = Location.new(address: row[0], postcode: row[1], organisation_id: @current_organisation.id)
       location.save!
@@ -34,3 +35,4 @@ class UploadedCsv
     end
   end
 end
+
