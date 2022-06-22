@@ -11,8 +11,15 @@ class Location < ApplicationRecord
   validates :address, :postcode, presence: true
   validates :address, uniqueness: { scope: :organisation_id }
   validate :validate_postcode_format, if: ->(l) { l.postcode.present? }
+  validate :unpersisted_addresses_are_unique
 
   before_create :set_radius_secret_key
+
+  def unpersisted_addresses_are_unique
+    return if persisted? || organisation.nil?
+    all_location_addresses = organisation.locations.reject(&:persisted?).pluck(:address)
+    errors.add(:address, "Address #{address} is a duplicate") if all_location_addresses.count(address) > 1
+  end
 
   def full_address
     "#{address}, #{postcode}"

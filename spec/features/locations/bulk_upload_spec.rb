@@ -139,11 +139,11 @@ describe "Bulk upload locations and IPs", type: :feature do
       end
 
       it "displays the location address error messages" do
-        expect(page).to have_content("Location address included multiple times in upload", count: 4)
+        expect(page).to have_content("Address Third Address is a duplicate", count: 4)
       end
 
       it "displays the IP address error messages" do
-        expect(page).to have_content("IP address included multiple times in upload", count: 4)
+        expect(page).to have_content("Address 84.1.1.1 is a duplicate", count: 4)
       end
 
       it "does not have a save button" do

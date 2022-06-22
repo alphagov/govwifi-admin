@@ -1,4 +1,5 @@
-require "bulk_upload"
+# require "bulk_upload"
+# require "bulk_upload/uploaded_csv"
 
 class LocationsController < ApplicationController
   before_action :authorise_manage_locations
@@ -45,15 +46,16 @@ class LocationsController < ApplicationController
   end
 
   def upload_locations_csv
-    uploaded_csv = UploadedCsv.new(params[:upload_file], current_organisation)
+    @parent_organisation = current_organisation
+    uploaded_csv = BulkUpload::UploadedCsv.new(params[:upload_file], @parent_organisation)
     if uploaded_csv.error_message
       @csv_error = uploaded_csv.error_message
       render("bulk_upload") and return
     end
-    @uploaded_locations = BulkUpload.create_upload_summary(uploaded_csv.data, current_organisation.id)
-    unless BulkUpload.upload_has_errors?(@uploaded_locations)
+    BulkUpload::BulkUpload.validate_upload(uploaded_csv.data, @parent_organisation)
+    if @parent_organisation.valid?
       @valid_upload_id =
-        ActiveStorage::Blob.create_and_upload!(io: params[:upload_file], filename: BulkUpload.generate_blob_name(current_organisation.id)).signed_id
+        ActiveStorage::Blob.create_and_upload!(io: params[:upload_file], filename: BulkUpload::BulkUpload.generate_blob_name(@parent_organisation.id)).signed_id
     end
     render("upload_summary")
   end
@@ -61,8 +63,8 @@ class LocationsController < ApplicationController
   def confirm_upload
     blob = ActiveStorage::Blob.find_signed(params[:valid_upload_id])
     blob.open do |file_path|
-      uploaded_csv = UploadedCsv.new(file_path, current_organisation)
-      uploaded_csv.save!
+      uploaded_csv = BulkUpload::UploadedCsv.new(file_path, current_organisation)
+      BulkUpload::BulkUpload.save_upload(uploaded_csv.data, current_organisation)
     end
     blob.purge_later
     redirect_to(ips_path, notice: "Successfully uploaded locations")
