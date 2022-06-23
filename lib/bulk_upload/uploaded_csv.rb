@@ -24,15 +24,15 @@ class UploadedCsv
     end
   end
 
-  def save!
-
-    @data.each do |row|
-      location = Location.new(address: row[0], postcode: row[1], organisation_id: @current_organisation.id)
-      location.save!
-      row.slice(2..).each do |ip|
-        Ip.new(location_id: location[:id], address: ip).save!
-      end
-    end
-  end
+  # def save!
+  #
+  #   @data.each do |row|
+  #     location = Location.new(address: row[0], postcode: row[1], organisation_id: @current_organisation.id)
+  #     location.save!
+  #     row.slice(2..).each do |ip|
+  #       Ip.new(location_id: location[:id], address: ip).save!
+  #     end
+  #   end
+  # end
 end
 

@@ -1,14 +1,16 @@
 class Ip < ApplicationRecord
   belongs_to :location
 
+  delegate :organisation, to: :location
+
   validates :address, presence: true, uniqueness: { case_sensitive: true }
   validate :address_must_be_valid_ip
   validate :unpersisted_addresses_are_unique
 
   def unpersisted_addresses_are_unique
     return if persisted?
-    all_ip_addresses = location.ips.reject(&:persisted?).pluck(:address)
-    errors.add(:address, "Duplicate found") if all_ip_addresses.include?(address)
+    all_ip_addresses = organisation.locations.flat_map(&:ips).reject(&:persisted?).pluck(:address).tally
+    errors.add(:address, "Address #{address} is a duplicate") if all_ip_addresses[address] > 1
   end
 
   def inactive?

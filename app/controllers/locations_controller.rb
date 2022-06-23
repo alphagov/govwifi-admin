@@ -1,4 +1,4 @@
-require "bulk_upload"
+# require "bulk_upload"
 require "bulk_upload/uploaded_csv"
 
 class LocationsController < ApplicationController
@@ -69,7 +69,8 @@ class LocationsController < ApplicationController
     blob = ActiveStorage::Blob.find_signed(params[:valid_upload_id])
     blob.open do |file_path|
       uploaded_csv = UploadedCsv.new(file_path, current_organisation)
-      uploaded_csv.save!
+      # uploaded_csv.save!
+      BulkUpload::BulkUpload.save_upload(uploaded_csv.data, current_organisation)
     end
     blob.purge_later
     redirect_to(ips_path, notice: "Successfully uploaded locations")
