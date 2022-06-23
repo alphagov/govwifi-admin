@@ -9,8 +9,8 @@ class Ip < ApplicationRecord
 
   def unpersisted_addresses_are_unique
     return if persisted?
-    all_ip_addresses = organisation.locations.flat_map(&:ips).reject(&:persisted?).pluck(:address).tally
-    errors.add(:address, "Address #{address} is a duplicate") if all_ip_addresses[address] > 1
+    all_ip_addresses = organisation.locations.flat_map(&:ips).reject(&:persisted?).pluck(:address)
+    errors.add(:address, "Address #{address} is a duplicate") if all_ip_addresses.count(address) > 1
   end
 
   def inactive?
