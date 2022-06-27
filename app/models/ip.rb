@@ -8,7 +8,7 @@ class Ip < ApplicationRecord
   validate :unpersisted_addresses_are_unique
 
   def unpersisted_addresses_are_unique
-    return if persisted?
+    return if persisted? || location&.organisation.nil?
     all_ip_addresses = organisation.locations.flat_map(&:ips).reject(&:persisted?).pluck(:address)
     errors.add(:address, "Address #{address} is a duplicate") if all_ip_addresses.count(address) > 1
   end
