@@ -29,7 +29,6 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
   config.before do
-    FactoryBot.reload
     ActionMailer::Base.deliveries.clear
 
     stub_const("Gateways::GovukOrganisationsRegisterGateway::GOVERNMENT_ORGS", [
@@ -45,6 +44,8 @@ RSpec.configure do |config|
       "Local Auth 3",
       "Local Auth 4",
     ].freeze)
+
+    FactoryBot.reload
   end
 
   config.around do |example|
