@@ -47,7 +47,7 @@ class LocationsController < ApplicationController
 
   def upload_locations_csv
     @parent_organisation = current_organisation
-    uploaded_csv = UploadedCsv.new(params[:upload_file], @parent_organisation)
+    uploaded_csv = BulkUpload::UploadedCsv.new(params[:upload_file], @parent_organisation)
     if uploaded_csv.error_message
       @csv_error = uploaded_csv.error_message
       render("bulk_upload") and return
@@ -63,7 +63,7 @@ class LocationsController < ApplicationController
   def confirm_upload
     blob = ActiveStorage::Blob.find_signed(params[:valid_upload_id])
     blob.open do |file_path|
-      uploaded_csv = UploadedCsv.new(file_path, current_organisation)
+      uploaded_csv = BulkUpload::UploadedCsv.new(file_path, current_organisation)
       BulkUpload::BulkUpload.save_upload(uploaded_csv.data, current_organisation)
     end
     blob.purge_later
