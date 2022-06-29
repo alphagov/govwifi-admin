@@ -120,7 +120,7 @@ describe "Bulk upload locations and IPs", type: :feature do
       end
 
       it "displays the location address error messages" do
-        expect(page).to have_content("Location address already exists for this organisation", count: 4)
+         expect(page).to have_content("Location address already exists for this organisation", count: 4)
       end
 
       it "displays the IP address error messages" do

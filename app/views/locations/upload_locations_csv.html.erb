@@ -1,0 +1,29 @@
+<h1 class="govuk-heading-l">Upload Summary</h1>
+
+<% @organisation.locations.reject(&:persisted?).each do |location| %>
+  <%= location.address %>
+  <% location.errors.full_messages_for(:address).each do |message| %>
+    <%= message %>
+  <% end %>
+  <%= location.postcode %>
+  <% location.errors.full_messages_for(:postcode).each do |message| %>
+    <%= message %>
+  <% end %>
+  <% location.ips.each do |ip| %>
+    <%= ip.address %>
+    <% ip.errors.full_messages_for(:address).each do |message| %>
+      <%= message %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @organisation.errors.empty? %>
+  <%= form_with url: confirm_upload_url do |form| %>
+    <% @upload_form.data.each_with_index do |row, row_index| %>
+      <% row.each_with_index do |cell, column_index| %>
+        <%= form.hidden_field "csv[#{row_index}][#{column_index}]", value: cell %>
+      <% end %>
+    <% end %>
+    <%= form.govuk_submit "Save" %>
+  <% end %>
+<% end %>

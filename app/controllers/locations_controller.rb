@@ -45,29 +45,31 @@ class LocationsController < ApplicationController
     end
   end
 
+  def bulk_upload
+    @upload_form = UploadForm.new
+  end
+
   def upload_locations_csv
-    @parent_organisation = current_organisation
-    uploaded_csv = BulkUpload::UploadedCsv.new(params[:upload_file], @parent_organisation)
-    if uploaded_csv.error_message
-      @csv_error = uploaded_csv.error_message
-      render("bulk_upload") and return
+    @upload_form = UploadForm.new(upload_params)
+    if @upload_form.invalid?
+      render :bulk_upload
+    else
+      @organisation = current_organisation
+      BulkUpload::BulkUpload.add_locations(data: @upload_form.data, organisation: @organisation)
+      @organisation.validate
     end
-    BulkUpload::BulkUpload.validate_upload(uploaded_csv.data, @parent_organisation)
-    if @parent_organisation.valid?
-      @valid_upload_id =
-        ActiveStorage::Blob.create_and_upload!(io: params[:upload_file], filename: BulkUpload::BulkUpload.generate_blob_name(@parent_organisation.id)).signed_id
-    end
-    render("upload_summary")
   end
 
   def confirm_upload
-    blob = ActiveStorage::Blob.find_signed(params[:valid_upload_id])
-    blob.open do |file_path|
-      uploaded_csv = BulkUpload::UploadedCsv.new(file_path, current_organisation)
-      BulkUpload::BulkUpload.save_upload(uploaded_csv.data, current_organisation)
+    data = params.require(:csv).values.map(&:values)
+    if UploadForm.new(data:).invalid?
+      redirect_to(ips_path, notice: "Invalid data")
+    else
+      organisation = current_organisation
+      BulkUpload::BulkUpload.add_locations(data:, organisation:)
+      organisation.save!
+      redirect_to(ips_path, notice: "Successfully uploaded locations")
     end
-    blob.purge_later
-    redirect_to(ips_path, notice: "Successfully uploaded locations")
   end
 
   def destroy
@@ -79,6 +81,10 @@ class LocationsController < ApplicationController
   end
 
 private
+
+  def upload_params
+    params.permit(upload_form: {})[:upload_form]
+  end
 
   def ips_params
     params.require(:location_ips_form).permit(LocationIpsForm::IP_FIELDS)
