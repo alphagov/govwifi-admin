@@ -69,8 +69,8 @@ Rails.application.routes.draw do
         get "service_emails", to: "organisations#service_emails", constraints: { format: "csv" }
       end
     end
-    resource :whitelist, only: %i[new create] do
-      scope module: "whitelists" do
+    resource :allowlist, only: %i[new create] do
+      scope module: "allowlists" do
         resources :email_domains, only: %i[index new create destroy]
         resources :organisation_names, only: %i[index create destroy]
       end

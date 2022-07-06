@@ -4,7 +4,7 @@ describe UseCases::Administrator::FormatEmailDomainsRegex do
   context "when no domains" do
     let(:authorised_domains) { [] }
 
-    it "creates no whitelist" do
+    it "creates no allowlist" do
       expect(result).to eq("^$")
     end
   end
@@ -16,16 +16,16 @@ describe UseCases::Administrator::FormatEmailDomainsRegex do
       expect(result).to include('\.')
     end
 
-    it "creates a whitelist with one entry" do
-      expect(result).to eq("#{SIGNUP_WHITELIST_PREFIX_MATCHER}(gov\\.uk)$")
+    it "creates a allowlist with one entry" do
+      expect(result).to eq("#{SIGNUP_ALLOWLIST_PREFIX_MATCHER}(gov\\.uk)$")
     end
   end
 
   context "when multiple domains" do
     let(:authorised_domains) { %w[gov.uk police.uk some.domain.org.uk] }
 
-    it "creates a whitelist with multiple entries" do
-      expect(result).to eq("#{SIGNUP_WHITELIST_PREFIX_MATCHER}(gov\\.uk|police\\.uk|some\\.domain\\.org\\.uk)$")
+    it "creates a allowlist with multiple entries" do
+      expect(result).to eq("#{SIGNUP_ALLOWLIST_PREFIX_MATCHER}(gov\\.uk|police\\.uk|some\\.domain\\.org\\.uk)$")
     end
   end
 end

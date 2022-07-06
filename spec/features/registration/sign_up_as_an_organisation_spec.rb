@@ -7,7 +7,7 @@ describe "Sign up as an organisation", type: :feature do
 
     Rails.application.config.s3_aws_config = {
       stub_responses: {
-        get_object: { body: "#{SIGNUP_WHITELIST_PREFIX_MATCHER}(gov\\.uk)$" },
+        get_object: { body: "#{SIGNUP_ALLOWLIST_PREFIX_MATCHER}(gov\\.uk)$" },
       },
     }
   end
@@ -220,13 +220,13 @@ describe "Sign up as an organisation", type: :feature do
   end
 
   context "when creating a new organisation" do
-    let(:whitelist_gateway) { instance_double(Gateways::S3, read: "#{SIGNUP_WHITELIST_PREFIX_MATCHER}(gov\\.uk)$") }
+    let(:allowlist_gateway) { instance_double(Gateways::S3, read: "#{SIGNUP_ALLOWLIST_PREFIX_MATCHER}(gov\\.uk)$") }
     let(:organisation_names_gateway) { instance_spy(Gateways::S3) }
     let(:data) { instance_double(StringIO) }
     let(:presenter) { instance_double(UseCases::Administrator::FormatOrganisationNames) }
 
     before do
-      allow(Gateways::S3).to receive(:new).and_return(whitelist_gateway, organisation_names_gateway)
+      allow(Gateways::S3).to receive(:new).and_return(allowlist_gateway, organisation_names_gateway)
       allow(UseCases::Administrator::FormatOrganisationNames).to receive(:new).and_return(presenter)
       allow(presenter).to receive(:execute).and_return(data)
 

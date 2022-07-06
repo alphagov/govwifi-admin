@@ -3,7 +3,7 @@ module Facades
     class Publish
       def execute
         publish_for_performance_platform
-        publish_radius_whitelist
+        publish_radius_allowlist
       end
 
     private
@@ -18,13 +18,13 @@ module Facades
         ).execute
       end
 
-      def publish_radius_whitelist
-        UseCases::Radius::PublishWhitelist.new(
+      def publish_radius_allowlist
+        UseCases::Radius::PublishAllowlist.new(
           destination_gateway: Gateways::S3.new(
             bucket: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET"),
-            key: ENV.fetch("S3_WHITELIST_OBJECT_KEY"),
+            key: ENV.fetch("S3_ALLOWLIST_OBJECT_KEY"),
           ),
-          generate_whitelist: UseCases::Radius::GenerateRadiusIpWhitelist.new,
+          generate_allowlist: UseCases::Radius::GenerateRadiusIpAllowlist.new,
         ).execute
       end
     end

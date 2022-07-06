@@ -4,7 +4,7 @@ describe UseCases::Administrator::FormatOrganisationNames do
   context "when no organisation names" do
     let(:organisation_names) { [] }
 
-    it "creates no whitelist" do
+    it "creates no allowlist" do
       expect(result.read).to eq("--- []\n")
     end
 
@@ -16,7 +16,7 @@ describe UseCases::Administrator::FormatOrganisationNames do
   context "when one organisation name is added" do
     let(:organisation_names) { ["Government Digital Services"] }
 
-    it "creates a whitelist with one entry" do
+    it "creates a allowlist with one entry" do
       expect(result.read).to eq("---\n- Government Digital Services\n")
     end
   end
@@ -24,7 +24,7 @@ describe UseCases::Administrator::FormatOrganisationNames do
   context "when two organisations name are added" do
     let(:organisation_names) { ["Government Digital Services", "Made Tech"] }
 
-    it "creates a whitelist with two entries" do
+    it "creates a allowlist with two entries" do
       expect(result.read).to eq("---\n- Government Digital Services\n- Made Tech\n")
     end
   end

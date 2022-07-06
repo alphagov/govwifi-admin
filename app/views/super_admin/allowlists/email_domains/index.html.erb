@@ -1,0 +1,22 @@
+<% content_for :page_title, "Manage allowed email domains" %>
+
+<%= render "confirm_remove_email_domain" if params[:domain_to_remove] %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-quarter">
+    <%= render "super_admin/allowlists/side_nav" %>
+  </div>
+  <div class="govuk-grid-column-three-quarters">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Email domains allow list</h1>
+      </div>
+
+      <div class="govuk-grid-column-one-third text-right">
+        <%= link_to "Allow a domain", new_super_admin_allowlist_email_domain_path, class: "govuk-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
+      </div>
+    </div>
+
+     <%= render "super_admin/allowlists/email_domains/table", domains: @authorised_email_domains %>
+  </div>
+</div>

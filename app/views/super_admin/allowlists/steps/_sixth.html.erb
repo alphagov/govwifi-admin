@@ -1,0 +1,44 @@
+<h1 class="govuk-heading-l">You've entered the following info</h1>
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th class="govuk-table__header" scope="col">Question</th>
+      <th class="govuk-table__header" scope="col">Your answer</th>
+    </tr>
+  </thead>
+
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-body">Does the organisation need to create a GovWifi admin account?</th>
+      <td class="govuk-table__cell"><%= @allowlist.admin %></td>
+    </tr>
+
+    <% if @allowlist.register.present? %>
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__cell govuk-body">Is the organisation's name on the register?</th>
+        <td class="govuk-table__cell"><%= @allowlist.register %></td>
+      </tr>
+    <% end %>
+
+    <% if @allowlist.organisation_name.present? %>
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__cell govuk-body">Organisation name</th>
+        <td class="govuk-table__cell"><%= @allowlist.organisation_name %></td>
+      </tr>
+    <% end %>
+
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__cell govuk-body">Email domain</th>
+      <td class="govuk-table__cell"><%= @allowlist.email_domain %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= form_with model: @allowlist, url: super_admin_allowlist_path do |form| %>
+    <%= form.hidden_field :organisation_name %>
+    <%= form.hidden_field :email_domain %>
+    <%= form.hidden_field :admin %>
+    <%= form.hidden_field :register %>
+    <%= form.govuk_submit "Submit" %>
+<% end %>
