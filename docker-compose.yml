@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   db:
+    platform: linux/x86_64
     image: "mysql:5.7"
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -15,6 +16,7 @@ services:
 
   rr_db:
     build: ./mysql
+    platform: linux/x86_64
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: root
@@ -28,6 +30,7 @@ services:
 
   wifi_user_db:
     build: ./mysql_user
+    platform: linux/x86_64
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: root
@@ -40,6 +43,7 @@ services:
       retries: 10
 
   app:
+    platform: linux/x86_64
     build:
       context: .
       args:
