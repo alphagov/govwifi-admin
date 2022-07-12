@@ -1,0 +1,10 @@
+<h1 class="govuk-heading-l">Add the organisation name to the register</h1>
+
+<%= form_with model: @allowlist, url: new_super_admin_allowlist_path, method: :get do |form| %>
+  <%= form.govuk_error_summary %>
+  <%= form.govuk_text_field :organisation_name, label: { text: "Organisation name" } %>
+  <%= form.hidden_field :admin %>
+  <%= form.hidden_field :register %>
+  <%= form.hidden_field :step, value: Allowlist::FIFTH %>
+  <%= form.govuk_submit "Continue", class: "govuk-button" %>
+<% end %>

@@ -13,17 +13,17 @@ describe "DELETE /authorised_email_domains/:id", type: :request do
 
     it "deletes the email domain" do
       expect {
-        delete super_admin_whitelist_email_domain_path(email_domain)
+        delete super_admin_allowlist_email_domain_path(email_domain)
       }.to change(AuthorisedEmailDomain, :count).by(-1)
     end
 
     it "publishes the new regex list of authorised domains to S3" do
-      delete super_admin_whitelist_email_domain_path(email_domain)
+      delete super_admin_allowlist_email_domain_path(email_domain)
       expect(regex_gateway).to have_received(:write)
     end
 
     it "publishes the new list of email domains to S3" do
-      delete super_admin_whitelist_email_domain_path(email_domain)
+      delete super_admin_allowlist_email_domain_path(email_domain)
       expect(email_domains_gateway).to have_received(:write)
     end
   end
@@ -36,7 +36,7 @@ describe "DELETE /authorised_email_domains/:id", type: :request do
 
     it "does not delete the email domain" do
       expect {
-        delete super_admin_whitelist_email_domain_path(email_domain)
+        delete super_admin_allowlist_email_domain_path(email_domain)
       }.to change(AuthorisedEmailDomain, :count).by(0)
     end
   end

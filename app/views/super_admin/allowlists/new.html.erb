@@ -1,0 +1,10 @@
+<% content_for :page_title, "Give an organisation access to GovWifi" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-quarter">
+    <%= render "super_admin/allowlists/side_nav" %>
+  </div>
+  <div class="govuk-grid-column-three-quarters">
+    <%= render "super_admin/allowlists/steps/#{@allowlist.next_step}" %>
+  </div>
+</div>

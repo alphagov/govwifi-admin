@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :validate_email_on_whitelist, only: :create # rubocop:disable Rails/LexicallyScopedActionFilter
+  before_action :validate_email_on_allowlist, only: :create # rubocop:disable Rails/LexicallyScopedActionFilter
 
 protected
 
@@ -10,19 +10,19 @@ protected
     users_confirmations_pending_path
   end
 
-  def validate_email_on_whitelist
+  def validate_email_on_allowlist
     gateway = Gateways::S3.new(
-      bucket: ENV.fetch("S3_SIGNUP_WHITELIST_BUCKET"),
-      key: ENV.fetch("S3_SIGNUP_WHITELIST_OBJECT_KEY"),
+      bucket: ENV.fetch("S3_SIGNUP_ALLOWLIST_BUCKET"),
+      key: ENV.fetch("S3_SIGNUP_ALLOWLIST_OBJECT_KEY"),
     )
-    checker = UseCases::Administrator::CheckIfWhitelistedEmail.new(gateway:)
-    whitelisted = checker.execute(sign_up_params[:email])[:success]
+    checker = UseCases::Administrator::CheckIfAllowlistedEmail.new(gateway:)
+    allowlisted = checker.execute(sign_up_params[:email])[:success]
 
-    if whitelisted == false
+    if allowlisted == false
       logger.info("Unsuccessful signup attempt: #{sign_up_params[:email]}")
     end
 
-    set_user_object_with_errors && return_user_to_registration_page unless whitelisted
+    set_user_object_with_errors && return_user_to_registration_page unless allowlisted
   end
 
   def set_user_object_with_errors

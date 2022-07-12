@@ -1,6 +1,0 @@
-<h1 class="govuk-heading-l">Does the organisation need to create a GovWifi admin account?</h1>
-
-<%= link_to "Yes", new_super_admin_whitelist_path(whitelist: { step: Whitelist::THIRD, admin: "Yes" }),
-            class: "govuk-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>
-<%= link_to "No", new_super_admin_whitelist_path(whitelist: { step: Whitelist::FIFTH, admin: "No", organisation_name: "" }),
-            class: "govuk-button", role: "button", draggable: "false", "data-module" => "govuk-button" %>

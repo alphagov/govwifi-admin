@@ -4,7 +4,7 @@ describe UseCases::Administrator::FormatEmailDomainsList do
   context "with no email domains" do
     let(:email_domains) { [] }
 
-    it "creates no whitelist" do
+    it "creates no allowlist" do
       expect(result.read).to eq("--- []\n")
     end
 
@@ -16,7 +16,7 @@ describe UseCases::Administrator::FormatEmailDomainsList do
   context "when one email domain is added" do
     let(:email_domains) { ["gov.uk"] }
 
-    it "creates a whitelist with one entry" do
+    it "creates a allowlist with one entry" do
       expect(result.read).to eq("---\n- gov.uk\n")
     end
   end
@@ -24,7 +24,7 @@ describe UseCases::Administrator::FormatEmailDomainsList do
   context "when two email domains are added" do
     let(:email_domains) { ["gov.uk", "made.eu"] }
 
-    it "creates a whitelist with two entries" do
+    it "creates a allowlist with two entries" do
       expect(result.read).to eq("---\n- gov.uk\n- made.eu\n")
     end
   end

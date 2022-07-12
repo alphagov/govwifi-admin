@@ -6,7 +6,7 @@ module UseCases
       def execute(domains)
         return NOOP_REGEX if domains.empty?
 
-        SIGNUP_WHITELIST_PREFIX_MATCHER + domains_list(domains) + "$" # rubocop:disable Style/StringConcatenation
+        SIGNUP_ALLOWLIST_PREFIX_MATCHER + domains_list(domains) + "$" # rubocop:disable Style/StringConcatenation
       end
 
     private
