@@ -104,7 +104,7 @@ describe "Set up two factor authentication", type: :feature do
     end
 
     it "returns an error" do
-      expect(page).to have_content("Six digit code is not valid")
+      expect(page).to have_content("The 6 digit code entered is not valid. Check the code sent in the email or request a new email.")
     end
 
     it "returns to the 2FA screen" do
