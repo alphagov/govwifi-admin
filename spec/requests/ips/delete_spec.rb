@@ -14,8 +14,6 @@ describe "DELETE /ips/:id", type: :request do
   context "when the user owns the IP" do
     let(:publish_ip) { instance_spy(Facades::Ips::Publish, execute: nil) }
 
-    before { allow(Facades::Ips::Publish).to receive(:new).and_return(publish_ip) }
-
     it "deletes the IP" do
       expect {
         delete ip_path(ip)
@@ -23,8 +21,11 @@ describe "DELETE /ips/:id", type: :request do
     end
 
     it "publishes the list of remaining IPs after a deletion" do
+      Gateways::S3.new(**Gateways::S3::RADIUS_IPS_ALLOW_LIST).write("Something")
+      Gateways::S3.new(**Gateways::S3::LOCATION_IPS).write("Something")
       delete ip_path(ip)
-      expect(publish_ip).to have_received(:execute)
+      expect(Gateways::S3.new(**Gateways::S3::RADIUS_IPS_ALLOW_LIST).read).to eq("")
+      expect(Gateways::S3.new(**Gateways::S3::LOCATION_IPS).read).to eq("[]")
     end
   end
 

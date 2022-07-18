@@ -1,13 +1,13 @@
-describe UseCases::Radius::GenerateRadiusIpAllowlist do
+describe UseCases::Radius::PublishRadiusIpAllowlist do
   let(:organisation) { create(:organisation) }
   let(:location1) { create(:location, organisation:) }
   let(:location2) { create(:location, organisation:) }
-  let(:configuration_result) { described_class.new.execute }
+  let(:configuration_result) { Gateways::S3.new(**Gateways::S3::RADIUS_IPS_ALLOW_LIST).read }
 
   before do
-    create(:ip, address: "1.1.1.1", location: location1)
-    create(:ip, address: "1.2.2.1", location: location1)
-    create(:ip, address: "2.2.2.2", location: location2)
+    location1.ips << create(:ip, address: "1.1.1.1")
+    location1.ips << create(:ip, address: "1.2.2.1")
+    location2.ips << create(:ip, address: "2.2.2.2")
     location1.update!(radius_secret_key: "radkey1")
     location2.update!(radius_secret_key: "radkey2")
   end
@@ -17,19 +17,20 @@ describe UseCases::Radius::GenerateRadiusIpAllowlist do
       'client 1-1-1-1 {
       ipaddr = 1.1.1.1
       secret = radkey1
-    }
-    client 1-2-2-1 {
+}
+client 1-2-2-1 {
       ipaddr = 1.2.2.1
       secret = radkey1
-    }
-    client 2-2-2-2 {
+}
+client 2-2-2-2 {
       ipaddr = 2.2.2.2
       secret = radkey2
-    }
-    '
+}
+'
     end
 
     it "returns the correct configuration" do
+      described_class.new.execute
       expect(configuration_result).to eq(correct_configuration)
     end
   end
@@ -39,12 +40,13 @@ describe UseCases::Radius::GenerateRadiusIpAllowlist do
       'client 2-2-2-2 {
       ipaddr = 2.2.2.2
       secret = radkey2
-    }
-    '
+}
+'
     end
 
     before do
-      location1.destroy
+      location1.destroy!
+      described_class.new.execute
     end
 
     it "omits this IP" do
@@ -57,16 +59,17 @@ describe UseCases::Radius::GenerateRadiusIpAllowlist do
       'client 1-2-2-1 {
       ipaddr = 1.2.2.1
       secret = radkey1
-    }
-    client 2-2-2-2 {
+}
+client 2-2-2-2 {
       ipaddr = 2.2.2.2
       secret = radkey2
-    }
-    '
+}
+'
     end
 
     before do
-      Ip.first.destroy
+      Ip.first.destroy!
+      described_class.new.execute
     end
 
     it "omits IP entry" do

@@ -1,32 +1,22 @@
 describe UseCases::PerformancePlatform::PublishLocationsIps do
-  subject(:use_case) do
-    described_class.new(
-      destination_gateway: s3_gateway,
-      source_gateway:,
-    )
-  end
-
-  let(:source_gateway) { instance_double(Gateways::Ips, fetch_ips: s3_payload) }
-  let(:s3_gateway) { instance_spy(Gateways::S3) }
-  let(:s3_payload) do
-    [
-      {
-        ip: "127.0.0.1",
-        location_id: 1,
-      },
-      {
-        ip: "186.3.1.1",
-        location_id: 2,
-      },
-    ]
-  end
-
   before do
-    use_case.execute
+    @location1 = create(:location, :with_ip)
+    @location2 = create(:location, :with_ip)
+    described_class.new.execute
   end
 
   it "sends the right data to the s3 gateway" do
-    expect(s3_gateway).to have_received(:write)
-      .with(data: s3_payload.to_json)
+    data =
+      [
+        {
+          ip: @location1.ips.first.address,
+          location_id: @location1.id,
+        },
+        {
+          ip: @location2.ips.first.address,
+          location_id: @location2.id,
+        },
+      ]
+    expect(Gateways::S3.new(**Gateways::S3::LOCATION_IPS).read).to eq(data.to_json)
   end
 end

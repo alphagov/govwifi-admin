@@ -1,19 +1,15 @@
 module UseCases
   module PerformancePlatform
     class PublishLocationsIps
-      def initialize(destination_gateway:, source_gateway:)
-        @destination_gateway = destination_gateway
-        @source_gateway = source_gateway
-      end
-
       def execute
-        payload = source_gateway.fetch_ips.to_json
-        destination_gateway.write(data: payload)
+        ip_data = Ip.all.select(:address, :location_id).map do |ip|
+          {
+            ip: ip.address,
+            location_id: ip.location_id,
+          }
+        end
+        Gateways::S3.new(**Gateways::S3::LOCATION_IPS).write(ip_data.to_json)
       end
-
-    private
-
-      attr_reader :destination_gateway, :source_gateway
     end
   end
 end
