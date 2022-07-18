@@ -35,25 +35,11 @@ class SuperAdmin::Allowlists::EmailDomainsController < SuperAdminController
 private
 
   def publish_email_domains_regex
-    UseCases::Administrator::PublishSignupAllowlist.new(
-      destination_gateway: Gateways::S3.new(
-        bucket: ENV.fetch("S3_SIGNUP_ALLOWLIST_BUCKET"),
-        key: ENV.fetch("S3_SIGNUP_ALLOWLIST_OBJECT_KEY"),
-      ),
-      source_gateway: Gateways::AuthorisedEmailDomains.new,
-      presenter: UseCases::Administrator::FormatEmailDomainsRegex.new,
-    ).execute
+    UseCases::Administrator::PublishEmailDomainsRegex.new.publish
   end
 
   def publish_email_domains_list
-    UseCases::Administrator::PublishSignupAllowlist.new(
-      destination_gateway: Gateways::S3.new(
-        bucket: ENV.fetch("S3_PRODUCT_PAGE_DATA_BUCKET"),
-        key: ENV.fetch("S3_EMAIL_DOMAINS_OBJECT_KEY"),
-      ),
-      source_gateway: Gateways::AuthorisedEmailDomains.new,
-      presenter: UseCases::Administrator::FormatEmailDomainsList.new,
-    ).execute
+    UseCases::Administrator::PublishEmailDomainsList.new.publish
   end
 
   def authorised_email_params

@@ -1,16 +1,14 @@
 describe "POST /admin/allowlist", type: :request do
   let(:user) { create(:user, :super_admin) }
+  let(:email_gateway) { EmailGatewaySpy.new }
 
   before do
+    allow(Services).to receive(:email_gateway).and_return(email_gateway)
     https!
     sign_in_user(user)
   end
 
   context "with valid params" do
-    let(:regex_gateway) { instance_spy(Gateways::S3, write: nil) }
-    let(:email_domains_gateway) { instance_spy(Gateways::S3) }
-    let(:presenter) { instance_double(UseCases::Administrator::FormatEmailDomainsList) }
-    let(:data) { instance_double(StringIO) }
     let(:valid_params) do
       {
         allowlist: {
@@ -19,10 +17,6 @@ describe "POST /admin/allowlist", type: :request do
           email_domain: "madetech.com",
         },
       }
-    end
-
-    before do
-      allow(Gateways::S3).to receive(:new).and_return(regex_gateway, email_domains_gateway)
     end
 
     it "creates the related allowlist objects" do
@@ -34,14 +28,12 @@ describe "POST /admin/allowlist", type: :request do
 
     it "publishes the email domain regex to S3" do
       post super_admin_allowlist_path, params: valid_params
-      expect(regex_gateway).to have_received(:write)
+      expect(Gateways::S3.new(**Gateways::S3::DOMAIN_REGEXP).read).to include("madetech\\.com")
     end
 
     it "publishes the email domain list to S3" do
-      allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
-      allow(presenter).to receive(:execute).and_return(data)
       post super_admin_allowlist_path, params: valid_params
-      expect(email_domains_gateway).to have_received(:write).with(data:)
+      expect(Gateways::S3.new(**Gateways::S3::DOMAIN_ALLOW_LIST).read).to eq(["madetech.com"].to_yaml)
     end
   end
 

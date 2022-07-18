@@ -1,4 +1,6 @@
 describe "Authorising Email Domains", type: :feature do
+  let(:prefix) { UseCases::Administrator::PublishEmailDomainsRegex::SIGNUP_ALLOWLIST_PREFIX_MATCHER }
+
   before do
     sign_in_user admin_user
     visit new_super_admin_allowlist_email_domain_path
@@ -13,14 +15,6 @@ describe "Authorising Email Domains", type: :feature do
 
     context "when adding a new domain" do
       let(:some_domain) { "gov.uk" }
-      let(:regex_gateway) { instance_spy(Gateways::S3) }
-      let(:email_domains_gateway) { instance_spy(Gateways::S3) }
-      let(:presenter) { instance_double(UseCases::Administrator::FormatEmailDomainsList) }
-      let(:data) { instance_double(StringIO) }
-
-      before do
-        allow(Gateways::S3).to receive(:new).and_return(regex_gateway, email_domains_gateway)
-      end
 
       it "authorises a new domain" do
         expect { click_on "Save" }.to change(AuthorisedEmailDomain, :count).by(1)
@@ -33,14 +27,13 @@ describe "Authorising Email Domains", type: :feature do
 
       it "publishes the authorised domains regex to S3" do
         click_on "Save"
-        expect(regex_gateway).to have_received(:write).with(data: "#{SIGNUP_ALLOWLIST_PREFIX_MATCHER}(gov\\.uk)$")
+        regexp = Gateways::S3.new(**Gateways::S3::DOMAIN_REGEXP).read
+        expect(regexp).to eq("#{prefix}(gov\\.uk)$")
       end
-
       it "publishes the list of domains to S3" do
-        allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
-        allow(presenter).to receive(:execute).and_return(data)
         click_on "Save"
-        expect(email_domains_gateway).to have_received(:write).with(data:)
+        domains = Gateways::S3.new(**Gateways::S3::DOMAIN_ALLOW_LIST).read
+        expect(domains).to eq("---\n- gov.uk\n")
       end
     end
 
@@ -72,13 +65,8 @@ describe "Authorising Email Domains", type: :feature do
 
     context "when deleting a allowlisted domain" do
       let(:some_domain) { "police.uk" }
-      let(:regex_gateway) { instance_spy(Gateways::S3) }
-      let(:email_domains_gateway) { instance_spy(Gateways::S3) }
-      let(:presenter) { instance_double(UseCases::Administrator::FormatEmailDomainsList) }
-      let(:data) { instance_double(StringIO) }
 
       before do
-        allow(Gateways::S3).to receive(:new).and_return(regex_gateway, email_domains_gateway)
         click_on "Save"
         click_on "Remove"
       end
@@ -93,16 +81,15 @@ describe "Authorising Email Domains", type: :feature do
       end
 
       it "publishes an updated regex list of authorised domains to S3" do
-        allow(Gateways::S3).to receive(:new).and_return(regex_gateway)
-        click_on "Yes, remove #{some_domain} from the allow list"
-        expect(regex_gateway).to have_received(:write).with(data: "^$")
+        expect { click_on "Yes, remove #{some_domain} from the allow list" }.to change {
+          Gateways::S3.new(**Gateways::S3::DOMAIN_REGEXP).read
+        }.from("#{prefix}(police\\.uk)$").to("^$")
       end
 
       it "publishes an updated email domains list to S3" do
-        allow(UseCases::Administrator::FormatEmailDomainsList).to receive(:new).and_return(presenter)
-        allow(presenter).to receive(:execute).and_return(data)
-        click_on "Yes, remove #{some_domain} from the allow list"
-        expect(email_domains_gateway).to have_received(:write).with(data:)
+        expect { click_on "Yes, remove #{some_domain} from the allow list" }.to change {
+          Gateways::S3.new(**Gateways::S3::DOMAIN_ALLOW_LIST).read
+        }.from("---\n- police.uk\n").to("--- []\n")
       end
     end
   end

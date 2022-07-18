@@ -1,9 +1,12 @@
 describe "DELETE /authorised_email_domains/:id", type: :request do
   let!(:email_domain) { create(:authorised_email_domain, name: "some.domain.org.uk") }
-  let(:regex_gateway) { instance_spy(Gateways::S3, write: nil) }
-  let(:email_domains_gateway) { instance_spy(Gateways::S3) }
 
-  before { allow(Gateways::S3).to receive(:new).and_return(regex_gateway, email_domains_gateway) }
+  let(:email_gateway) { EmailGatewaySpy.new }
+  before do
+    allow(Services).to receive(:email_gateway).and_return(email_gateway)
+    Gateways::S3.new(**Gateways::S3::DOMAIN_REGEXP).write("old regexp")
+    Gateways::S3.new(**Gateways::S3::DOMAIN_ALLOW_LIST).write("old allowlist")
+  end
 
   context "when the user is a super admin" do
     before do
@@ -18,13 +21,19 @@ describe "DELETE /authorised_email_domains/:id", type: :request do
     end
 
     it "publishes the new regex list of authorised domains to S3" do
-      delete super_admin_allowlist_email_domain_path(email_domain)
-      expect(regex_gateway).to have_received(:write)
+      expect {
+        delete super_admin_allowlist_email_domain_path(email_domain)
+      }.to change {
+        Gateways::S3.new(**Gateways::S3::DOMAIN_REGEXP).read
+      }.from("old regexp").to("^$")
     end
 
     it "publishes the new list of email domains to S3" do
-      delete super_admin_allowlist_email_domain_path(email_domain)
-      expect(email_domains_gateway).to have_received(:write)
+      expect {
+        delete super_admin_allowlist_email_domain_path(email_domain)
+      }.to change {
+        Gateways::S3.new(**Gateways::S3::DOMAIN_ALLOW_LIST).read
+      }.from("old allowlist").to([].to_yaml)
     end
   end
 
