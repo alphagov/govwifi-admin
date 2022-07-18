@@ -1,19 +1,38 @@
 module Gateways
   class S3
+    DOMAIN_ALLOW_LIST = {
+      bucket: ENV.fetch("S3_PRODUCT_PAGE_DATA_BUCKET"),
+      key: ENV.fetch("S3_EMAIL_DOMAINS_OBJECT_KEY"),
+    }.freeze
+    DOMAIN_REGEXP = {
+      bucket: ENV.fetch("S3_SIGNUP_ALLOWLIST_BUCKET"),
+      key: ENV.fetch("S3_SIGNUP_ALLOWLIST_OBJECT_KEY"),
+    }.freeze
+    ORGANISATION_ALLOW_LIST = {
+      bucket: ENV.fetch("S3_PRODUCT_PAGE_DATA_BUCKET"),
+      key: ENV.fetch("S3_ORGANISATION_NAMES_OBJECT_KEY"),
+    }.freeze
+    LOCATION_IPS = {
+      bucket: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET"),
+      key: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_OBJECT_KEY"),
+    }.freeze
+    RADIUS_IPS_ALLOW_LIST = {
+      bucket: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET"),
+      key: ENV.fetch("S3_ALLOWLIST_OBJECT_KEY"),
+    }.freeze
+
     def initialize(bucket:, key:)
       @bucket = bucket
       @key = key
       @client = Aws::S3::Client.new(config)
     end
 
-    def write(data:)
+    def write(data)
       client.put_object(
-        body: data,
+        body: StringIO.new(data),
         bucket:,
         key:,
       )
-
-      {}
     end
 
     def read
