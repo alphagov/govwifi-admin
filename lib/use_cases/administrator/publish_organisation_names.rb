@@ -1,20 +1,10 @@
 module UseCases
   module Administrator
     class PublishOrganisationNames
-      def initialize(destination_gateway:, source_gateway:, presenter:)
-        @destination_gateway = destination_gateway
-        @source_gateway = source_gateway
-        @presenter = presenter
+      def publish
+        names = ::Organisation.pluck(:name)
+        Gateways::S3.new(**Gateways::S3::ORGANISATION_ALLOW_LIST).write(names.to_yaml)
       end
-
-      def execute
-        payload = presenter.execute(source_gateway.fetch_names)
-        destination_gateway.write(data: payload)
-      end
-
-    private
-
-      attr_reader :destination_gateway, :source_gateway, :presenter
     end
   end
 end

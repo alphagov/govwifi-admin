@@ -2,6 +2,10 @@ describe "Deleting an organisation", type: :feature do
   let!(:admin_user) { create(:user, :super_admin) }
   let!(:organisation) { create(:organisation, name: "Gov Org 2") }
 
+  before :each do
+    Gateways::S3.new(**Gateways::S3::ORGANISATION_ALLOW_LIST).write("old value")
+  end
+
   context "when visiting the organisations page" do
     before do
       sign_in_user admin_user
@@ -32,19 +36,12 @@ describe "Deleting an organisation", type: :feature do
     end
 
     context "when deleting an organisation" do
-      let(:organisation_names_gateway) { instance_spy(Gateways::S3) }
-      let(:data) { instance_double(StringIO) }
-      let(:presenter) { instance_double(UseCases::Administrator::FormatOrganisationNames) }
-
-      before do
-        allow(Gateways::S3).to receive(:new).and_return(organisation_names_gateway)
-        allow(UseCases::Administrator::FormatOrganisationNames).to receive(:new).and_return(presenter)
-        allow(presenter).to receive(:execute).and_return(data)
-      end
-
       it "publishes the updated list of organisation names to S3" do
-        click_on "Yes, remove this organisation"
-        expect(organisation_names_gateway).to have_received(:write).with(data:)
+        expect {
+          click_on "Yes, remove this organisation"
+        }.to change {
+          Gateways::S3.new(**Gateways::S3::ORGANISATION_ALLOW_LIST).read
+        }.from("old value").to([].to_yaml)
       end
     end
   end
