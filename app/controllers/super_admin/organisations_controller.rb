@@ -20,7 +20,7 @@ class SuperAdmin::OrganisationsController < SuperAdminController
 
   def show
     @organisation = Organisation.find(params[:id])
-    @team = sorted_team_members(@organisation)
+    @team = @organisation.users.order_by_name_and_email
     @pagy, @locations = pagy(@organisation.locations.order("address asc"))
   end
 

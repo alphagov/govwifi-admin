@@ -29,6 +29,14 @@ class User < ApplicationRecord
 
   validate :strong_password, on: :update, if: :password_present?
 
+  scope :order_by_name_and_email, lambda {
+    build_order_query = Arel::Nodes::NamedFunction.new("COALESCE", [
+      User.arel_table["name"],
+      User.arel_table["email"],
+    ]).asc
+    order(build_order_query)
+  }
+
   def password_present?
     !password.nil?
   end
