@@ -36,9 +36,10 @@ Rails.application.routes.draw do
     get "technical_support", on: :new
     get "user_support", on: :new
   end
-  resources :locations, only: %i[new create destroy update] do
+  resources :locations, only: %i[new create destroy update edit] do
     get "add_ips", to: "add_ips"
     patch "update_ips", to: "update_ips"
+    patch "update_location", to: "update_location"
   end
   resources :memberships, only: %i[edit update index destroy]
   resources :mou, only: %i[index create]

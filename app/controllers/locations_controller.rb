@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   before_action :authorise_manage_locations
-  before_action :authorise_manage_current_location, only: %i[add_ips update_ips update]
+  before_action :authorise_manage_current_location, only: %i[add_ips update_ips update edit]
 
   def new
     @location = Location.new
@@ -20,10 +20,27 @@ class LocationsController < ApplicationController
     end
   end
 
+  def edit
+    @location = Location.find(params[:id])
+  end
+
   def update
     location = Location.find(params[:id])
     location.update!(radius_secret_key: rotate_radius_secret_key)
     redirect_to(ips_path, notice: "RADIUS secret key has been successfully rotated")
+  end
+
+  def update_location
+    @location = Location.find(params[:location_id])
+    if @location.update(
+      address: params.dig(:location, :address),
+      postcode: params.dig(:location, :postcode),
+      organisation_id: current_organisation.id,
+    )
+      redirect_to(ips_path, notice: "Location updated")
+    else
+      render :edit
+    end
   end
 
   def add_ips
