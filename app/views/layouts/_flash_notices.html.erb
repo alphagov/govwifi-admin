@@ -13,7 +13,11 @@
         There is a problem
       </h2>
       <div class="govuk-error-summary__body">
-        <p><%= msg %></p>
+        <ul class="govuk-list govuk-error-summary__list">
+          <li>
+            <%= msg %>
+          </li>
+        </ul>
       </div>
     </div>
   <% end %>

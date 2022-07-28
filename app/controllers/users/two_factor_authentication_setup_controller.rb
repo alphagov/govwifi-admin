@@ -17,7 +17,7 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
       flash[:notice] = "Two factor authentication setup successful"
       disable_2fa_checks_for_session
     else
-      flash[:alert] = "Six digit code is not valid"
+      flash[:alert] = "The 6 digit code entered is not valid.<br />  Check the code sent in the email or request a new email.".html_safe
       render "show"
     end
   end
