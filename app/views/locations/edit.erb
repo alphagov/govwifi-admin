@@ -1,0 +1,17 @@
+<% content_for :page_title, "Update location" %>
+
+<%= form_with model: @location, url: location_update_location_path(@location), method: :patch do |f| %>
+  <%= f.govuk_error_summary %>
+  <div class='govuk-grid-row'>
+    <div class='govuk-grid-column-full'>
+      <h1 class='govuk-heading-l'>Update location</h1>
+    </div>
+    <div class='govuk-grid-column-full'>
+      <%= f.govuk_text_field :address,
+                             hint: { text: "For example, 10 High Street, London" } %>
+      <%= f.govuk_text_field :postcode %>
+      <%= f.govuk_submit "Update" %>
+      <p><%= link_to "Cancel", ips_path, class: "govuk-link--no-visited-state govuk-body" %></p>
+    </div>
+  </div>
+<% end %>
