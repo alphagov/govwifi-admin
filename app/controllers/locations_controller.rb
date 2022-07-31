@@ -59,6 +59,44 @@ class LocationsController < ApplicationController
     end
   end
 
+  def bulk_upload
+    @upload_form = UploadForm.new
+  end
+
+  def upload_locations_csv
+    @upload_form = UploadForm.new(upload_params)
+    if @upload_form.invalid?
+      render :bulk_upload
+    else
+      @parent_organisation = current_organisation
+      BulkUpload::BulkUpload.add_location_data(@upload_form.data, @parent_organisation)
+      @parent_organisation.validate
+    end
+  end
+
+  def confirm_upload
+    data = params.permit(csv: {}).fetch(:csv, {}).values.map(&:values)
+    raise "The uploaded file did not contain any locations." if data.empty?
+
+    @parent_organisation = current_organisation
+    BulkUpload::BulkUpload.add_location_data(data, @parent_organisation)
+    @parent_organisation.save!
+    redirect_to(ips_path, notice: "Successfully uploaded locations")
+  rescue ActiveRecord::RecordInvalid
+    redirect_to(ips_path, flash: { error: "Uploading data failed. Please try again." })
+  rescue StandardError => e
+    redirect_to(ips_path, flash: { error: e.message })
+  end
+
+  def download_keys
+    keys_csv = CSV.generate(headers: true) do |csv|
+      current_organisation.locations.each do |location|
+        csv << [location[:address], location[:postcode], location[:radius_secret_key]]
+      end
+    end
+    send_data keys_csv, filename: "keys.csv"
+  end
+
   def destroy
     location = current_organisation.locations.find_by(id: params.fetch(:id))
     redirect_to ips_path && return unless location && location.ips.empty?
@@ -68,6 +106,10 @@ class LocationsController < ApplicationController
   end
 
 private
+
+  def upload_params
+    params.permit(upload_form: {})[:upload_form]
+  end
 
   def ips_params
     params.require(:location_ips_form).permit(LocationIpsForm::IP_FIELDS)

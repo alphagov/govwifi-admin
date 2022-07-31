@@ -10,6 +10,8 @@ class Organisation < ApplicationRecord
   validates :service_email, format: { with: Devise.email_regexp }
   validate :validate_in_register?, unless: proc { |org| org.name.blank? }
 
+  validates_associated :locations
+
   scope :sortable_with_child_counts, lambda { |sort_column, sort_direction|
     select("organisations.*, COUNT(DISTINCT(locations.id)) AS locations_count, COUNT(DISTINCT(ips.id)) AS ips_count")
     .joins("LEFT OUTER JOIN locations ON locations.organisation_id = organisations.id")

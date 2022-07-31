@@ -8,13 +8,15 @@ FactoryBot.define do
 
     trait :with_locations do
       after :create do |org|
-        create_list :location, 3, organisation: org
+        create_list(:location, 3, organisation: org)
+        org.reload
       end
     end
 
     trait :with_location_and_ip do
       after :create do |org|
-        create :location, :with_ip, organisation: org
+        create(:location, :with_ip, organisation: org)
+        org.reload
       end
     end
   end

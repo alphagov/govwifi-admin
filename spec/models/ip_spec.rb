@@ -6,6 +6,44 @@ describe Ip do
   it { is_expected.to validate_uniqueness_of(:address) }
 
   # rubocop:disable Rails/SaveBang
+
+  describe "unpersisted_addresses_are_unique" do
+    context "It does not have a parent location" do
+      it "passes the unpersisted_addresses_are_unique validation" do
+        ip = Ip.new(address: "1.1.1.1")
+        ip.validate
+        expect(ip.errors.of_kind?(:address, :unpersisted_duplicate)).to be false
+      end
+    end
+    context "It has a parent location but no organisation" do
+      it "passes the unpersisted_addresses_are_unique validation" do
+        ip = build(:location).ips.new(address: "1.1.1.1")
+        ip.validate
+        expect(ip.errors.of_kind?(:address, :unpersisted_duplicate)).to be false
+      end
+    end
+    context "It has a parent location and an organisation" do
+      let(:organisation) { create(:organisation, :with_locations) }
+      let(:location1) { organisation.locations.first }
+      let(:location2) { organisation.locations.last }
+      before do
+        organisation.locations.reload
+      end
+      it "passes the unpersisted_addresses_are_unique validation" do
+        ip = location1.ips.new(address: "1.1.1.1")
+        location2.ips.new(address: "2.2.2.2")
+        organisation.validate
+        expect(ip.errors.of_kind?(:address, :unpersisted_duplicate)).to be false
+      end
+      it "fails the unpersisted_addresses_are_unique validation" do
+        ip = location1.ips.new(address: "1.1.1.1")
+        location2.ips.new(address: "1.1.1.1")
+        organisation.validate
+        expect(ip.errors.of_kind?(:address, :unpersisted_duplicate)).to be true
+      end
+    end
+  end
+
   context "when validating address" do
     let(:location) { create(:location, organisation: create(:organisation)) }
 
@@ -19,7 +57,7 @@ describe Ip do
     it "does not allow a blank address" do
       ip = described_class.create(address: "", location:)
       expect(ip.errors.full_messages).to eq([
-        "Address can't be blank",
+        "IP address can't be blank",
       ])
     end
 

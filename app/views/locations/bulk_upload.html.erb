@@ -1,0 +1,14 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
+    <%= form_with url: upload_locations_csv_path, model: @upload_form, multipart: true  do |form| %>
+      <%= form.govuk_error_summary %>
+      <h1 class="govuk-heading-l">Bulk Upload Locations and IPs</h1>
+      <p class="govuk-body">Upload a CSV file containing locations and Ips</p>
+      <%= form.govuk_file_field :upload_file, label: { text: "File to Upload" } %>
+      <%= form.govuk_submit "Upload" %>
+    <% end %>
+  </div>
+</div>
+
+<p class="govuk-body"><%= link_to "Cancel", :back, class: "govuk-link--no-visited-state" %></p>
+<p class="govuk-body"><%= link_to "Contact GovWifi support", help_index_path, class: "govuk-link--no-visited-state" %></p>

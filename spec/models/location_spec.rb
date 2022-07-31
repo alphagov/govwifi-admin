@@ -4,6 +4,31 @@ describe Location do
   it { is_expected.to belong_to(:organisation) }
   it { is_expected.to have_many(:ips) }
 
+  describe "#unpersisted_addresses_are_unique" do
+    context "It does not have a parent organisation" do
+      it "passes the unpersisted_addresses_are_unique validation" do
+        location = build(:location, address: "1.1.1.1")
+        location.validate
+        expect(location.errors.of_kind?(:address, :unpersisted_duplicate)).to be false
+      end
+    end
+    context "It has a parent organisation" do
+      let(:organisation) { create(:organisation) }
+      it "passes the unpersisted_addresses_are_unique validation" do
+        location = organisation.locations.new(address: "address_one", postcode: "aa111aa")
+        organisation.locations.new(address: "address_two", postcode: "aa111aa")
+        organisation.validate
+        expect(location.errors.of_kind?(:address, :unpersisted_duplicate)).to be false
+      end
+      it "fails the unpersisted_addresses_are_unique validation" do
+        location = organisation.locations.new(address: "address_one", postcode: "aa111aa")
+        organisation.locations.new(address: "address_one", postcode: "aa111aa")
+        organisation.validate
+        expect(location.errors.of_kind?(:address, :unpersisted_duplicate)).to be true
+      end
+    end
+  end
+
   describe "#save" do
     subject(:location) { build(:location, organisation:) }
 
