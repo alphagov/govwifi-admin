@@ -92,6 +92,7 @@ GEM
       html_tokenizer (~> 0.0.6)
       parser (>= 2.4)
       smart_properties
+    bindex (0.8.1)
     builder (3.2.4)
     bullet (7.0.2)
       activesupport (>= 3.0.0)
@@ -462,6 +463,11 @@ GEM
     uniform_notifier (1.16.0)
     warden (1.2.9)
       rack (>= 2.0.9)
+    web-console (4.2.0)
+      actionview (>= 6.0.0)
+      activemodel (>= 6.0.0)
+      bindex (>= 0.4.0)
+      railties (>= 6.0.0)
     webmock (3.14.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -530,6 +536,7 @@ DEPENDENCIES
   two_factor_authentication
   tzinfo-data
   uk_postcode (~> 2.1)
+  web-console
   webmock (~> 3.14.0)
   zendesk_api
 

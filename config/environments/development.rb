@@ -6,6 +6,8 @@ Rails.application.configure do
   Bullet.unused_eager_loading_enable = true
   Bullet.n_plus_one_query_enable     = true
 
+  config.web_console.permissions = %w[172.0.0.0/8 192.168.0.0/16 10.0.0.0/8]
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
