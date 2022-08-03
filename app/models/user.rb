@@ -95,4 +95,10 @@ class User < ApplicationRecord
   def send_new_otp_after_login?
     false
   end
+
+  def self.search(search_term)
+    search_attr = search_term =~ Devise.email_regexp ? :email : :name
+
+    find_by(search_attr => search_term)
+  end
 end
