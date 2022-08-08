@@ -132,7 +132,7 @@ GEM
     digest (3.1.0)
     docile (1.4.0)
     encryptor (3.0.0)
-    erb_lint (0.1.2)
+    erb_lint (0.1.3)
       activesupport
       better_html (~> 1.0.7)
       html_tokenizer
@@ -140,7 +140,7 @@ GEM
       rainbow
       rubocop
       smart_properties
-    erubi (1.10.0)
+    erubi (1.11.0)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -219,7 +219,7 @@ GEM
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
     httpclient (2.8.3)
-    i18n (1.10.0)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     inflection (1.0.0)
     io-wait (0.2.1)
@@ -243,7 +243,7 @@ GEM
     mime-types-data (3.2021.0901)
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
-    minitest (5.16.0)
+    minitest (5.16.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.2.3)
@@ -453,13 +453,13 @@ GEM
       rails (>= 3.1.1)
       randexp
       rotp (>= 4.0.0)
-    tzinfo (2.0.4)
+    tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2022.1)
       tzinfo (>= 1.0.0)
     uber (0.1.0)
     uk_postcode (2.1.8)
-    unicode-display_width (2.1.0)
+    unicode-display_width (2.2.0)
     uniform_notifier (1.16.0)
     warden (1.2.9)
       rack (>= 2.0.9)
