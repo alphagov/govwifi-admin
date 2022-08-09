@@ -19,7 +19,7 @@ Bundler.require(*Rails.groups)
 module GovwifiAdmin
   class Application < Rails::Application
     config.exceptions_app = routes
-    config.load_defaults 6.0
+    config.load_defaults 7.0
     config.action_view.form_with_generates_remote_forms = false
     config.autoloader = :zeitwerk
 
