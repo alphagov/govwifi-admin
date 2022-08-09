@@ -54,7 +54,7 @@
           <% unless log_search_form.ip %>
             <td class="govuk-table__cell"><%= log.siteIP %></td>
           <% end %>
-          <td class="govuk-table__cell"><%= log.start.to_s(:no_timezone) %></td>
+          <td class="govuk-table__cell"><%= log.start.to_fs(:no_timezone) %></td>
           <td class="govuk-table__cell"><%= log.success ? "successful" : "failed" %></td>
           <% if super_admin? %>
             <td class="govuk-table__cell"><%= log.task_id %></td>
