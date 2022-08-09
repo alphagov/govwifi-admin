@@ -62,5 +62,4 @@ group :development, :test do
   gem "listen", "~> 3"
   gem "pry"
   gem "rack-mini-profiler", require: false
-  gem "spring-commands-rspec"
 end
