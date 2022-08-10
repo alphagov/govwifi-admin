@@ -49,6 +49,25 @@ Rails.application.configure do
 
   # Set a css_compressor so sassc-rails does not overwrite the compressor when running the tests
   config.assets.css_compressor = nil
+
+  fake_s3 = {}
+  config.s3_aws_config = {
+    stub_responses: {
+      get_object: lambda { |context|
+        bucket = context.params[:bucket]
+        key = context.params[:key]
+        { body: fake_s3.dig(bucket, key) }
+      },
+      put_object: lambda { |context|
+        bucket = context.params[:bucket]
+        key = context.params[:key]
+        body = context.params[:body]
+        fake_s3[bucket] ||= {}
+        fake_s3[bucket][key] = body
+        {}
+      },
+    },
+  }
 end
 
 ActionMailer::Base.delivery_method = :test

@@ -11,13 +11,7 @@ protected
   end
 
   def validate_email_on_allowlist
-    gateway = Gateways::S3.new(
-      bucket: ENV.fetch("S3_SIGNUP_ALLOWLIST_BUCKET"),
-      key: ENV.fetch("S3_SIGNUP_ALLOWLIST_OBJECT_KEY"),
-    )
-    checker = UseCases::Administrator::CheckIfAllowlistedEmail.new(gateway:)
-    allowlisted = checker.execute(sign_up_params[:email])[:success]
-
+    allowlisted = UseCases::Administrator::CheckIfAllowlistedEmail.execute(sign_up_params[:email])
     if allowlisted == false
       logger.info("Unsuccessful signup attempt: #{sign_up_params[:email]}")
     end

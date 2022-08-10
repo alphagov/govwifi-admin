@@ -16,7 +16,8 @@ class IpsController < ApplicationController
     redirect_to ips_path && return unless ip
 
     ip.destroy!
-    Facades::Ips::Publish.new.execute
+    UseCases::PerformancePlatform::PublishLocationsIps.new.execute
+    UseCases::Radius::PublishRadiusIpAllowlist.new.execute
     redirect_to ips_path, notice: "Successfully removed IP address #{ip.address}"
   end
 

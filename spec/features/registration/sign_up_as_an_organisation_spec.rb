@@ -1,15 +1,11 @@
 describe "Sign up as an organisation", type: :feature do
   let(:name) { "Sally" }
   let(:email_gateway) { EmailGatewaySpy.new }
-
   before do
     allow(Services).to receive(:email_gateway).and_return(email_gateway)
-
-    Rails.application.config.s3_aws_config = {
-      stub_responses: {
-        get_object: { body: "#{SIGNUP_ALLOWLIST_PREFIX_MATCHER}(gov\\.uk)$" },
-      },
-    }
+    Gateways::S3.new(**Gateways::S3::DOMAIN_REGEXP).write(
+      "#{UseCases::Administrator::PublishEmailDomainsRegex::SIGNUP_ALLOWLIST_PREFIX_MATCHER}(gov\\.uk)$",
+    )
   end
 
   after { Warden.test_reset! }
@@ -220,23 +216,14 @@ describe "Sign up as an organisation", type: :feature do
   end
 
   context "when creating a new organisation" do
-    let(:allowlist_gateway) { instance_double(Gateways::S3, read: "#{SIGNUP_ALLOWLIST_PREFIX_MATCHER}(gov\\.uk)$") }
-    let(:organisation_names_gateway) { instance_spy(Gateways::S3) }
-    let(:data) { instance_double(StringIO) }
-    let(:presenter) { instance_double(UseCases::Administrator::FormatOrganisationNames) }
-
     before do
-      allow(Gateways::S3).to receive(:new).and_return(allowlist_gateway, organisation_names_gateway)
-      allow(UseCases::Administrator::FormatOrganisationNames).to receive(:new).and_return(presenter)
-      allow(presenter).to receive(:execute).and_return(data)
-
       sign_up_for_account
       update_user_details(organisation_name: "Org 1")
       skip_two_factor_authentication
     end
 
     it "publishes the updated list of organisation names to S3" do
-      expect(organisation_names_gateway).to have_received(:write).with(data:)
+      expect(Gateways::S3.new(**Gateways::S3::ORGANISATION_ALLOW_LIST).read).to include("Org 1")
     end
   end
 end

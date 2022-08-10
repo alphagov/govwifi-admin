@@ -19,8 +19,10 @@ class LocationIpsForm
   def update
     return false unless valid?
 
-    Facades::Ips::Publish.new.execute
-    ip_data.compact.map { |ip| ip[:model].save }
+    ip_data.compact.each { |ip| ip[:model].save }
+    UseCases::PerformancePlatform::PublishLocationsIps.new.execute
+    UseCases::Radius::PublishRadiusIpAllowlist.new.execute
+    true
   end
 
 private

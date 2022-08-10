@@ -20,35 +20,18 @@ class SuperAdmin::OrganisationsController < SuperAdminController
 
   def show
     @organisation = Organisation.find(params[:id])
-    @team = sorted_team_members(@organisation)
+    @team = @organisation.users.order_by_name_and_email
     @pagy, @locations = pagy(@organisation.locations.order("address asc"))
   end
 
   def destroy
     organisation = Organisation.find(params[:id])
     organisation.destroy!
-    publish_organisation_names
+    UseCases::Administrator::PublishOrganisationNames.new.publish
     redirect_to super_admin_organisations_path, notice: "Organisation has been removed"
   end
 
 private
-
-  def sorted_team_members(organisation)
-    UseCases::Administrator::SortUsers.new(
-      users_gateway: Gateways::OrganisationUsers.new(organisation:),
-    ).execute
-  end
-
-  def publish_organisation_names
-    UseCases::Administrator::PublishOrganisationNames.new(
-      destination_gateway: Gateways::S3.new(
-        bucket: ENV.fetch("S3_PRODUCT_PAGE_DATA_BUCKET"),
-        key: ENV.fetch("S3_ORGANISATION_NAMES_OBJECT_KEY"),
-      ),
-      source_gateway: Gateways::OrganisationNames.new,
-      presenter: UseCases::Administrator::FormatOrganisationNames.new,
-    ).execute
-  end
 
   def sortable_columns
     %w[name created_at locations_count ips_count active_storage_attachments.created_at]
