@@ -31,8 +31,8 @@ describe Gateways::Coordinates do
       result = postcode_coordinates_gateway.fetch_coordinates
 
       expect(result).to eq([
-        { latitude: 51.656146, longitude: -1.069849 },
-        { latitude: 53.455654, longitude: -2.302836 },
+        [51.656146, -1.069849],
+        [53.455654, -2.302836],
       ])
     end
   end
@@ -85,7 +85,7 @@ describe Gateways::Coordinates do
 
       it "returns only the valid postcode longitude and latitude" do
         expect(postcode_coordinates_gateway.fetch_coordinates).to eq([
-          { latitude: 53.455654, longitude: -2.302836 },
+          [53.455654, -2.302836],
         ])
       end
     end
