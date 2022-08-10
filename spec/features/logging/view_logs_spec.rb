@@ -37,7 +37,7 @@ describe "View authentication requests for an IP", type: :feature do
       expect(page).to have_css("td", text: username)
       expect(page).to have_css("td", text: ap)
       expect(page).to have_css("td", text: mac)
-      expect(page).to have_css("td", text: time.to_s(:no_timezone))
+      expect(page).to have_css("td", text: time.to_fs(:no_timezone))
       expect(page).to have_css("td", text: "successful")
       expect(page).to have_css("td", text: "failed")
     end
