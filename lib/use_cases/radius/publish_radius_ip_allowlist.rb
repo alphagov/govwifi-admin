@@ -2,7 +2,7 @@ module UseCases
   module Radius
     class PublishRadiusIpAllowlist
       def execute
-        data = Ip.includes(:location).map do |ip|
+        data = Ip.includes(:location).joins(:location).map do |ip|
           <<~ELEMENT
             client #{ip.address.tr('.', '-')} {
                   ipaddr = #{ip.address}
