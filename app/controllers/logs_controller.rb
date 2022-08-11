@@ -18,6 +18,7 @@ class LogsController < ApplicationController
               current_organisation.ip_addresses.intersection([log_search_form.ip])
             end
       logs = Gateways::Sessions.search(ips:, success:)
+      @current_location = Ip.find_by(address: ips).location if logs.present?
       render locals: { log_search_form:, logs: }
     when LogSearchForm::USERNAME_FILTER_OPTION
       ips = super_admin? ? nil : current_organisation.ip_addresses

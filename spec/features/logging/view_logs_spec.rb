@@ -1,5 +1,6 @@
 describe "View authentication requests for an IP", type: :feature do
-  let(:ip) { "1.2.3.4" }
+  let(:ip_address) { "11.22.33.44" }
+  let(:ip) { create(:ip, address: ip_address) }
   let(:username) { "ABCDEF" }
   let(:ap) { "govwifi-ap" }
   let(:mac) { "govwifi-mac" }
@@ -12,7 +13,7 @@ describe "View authentication requests for an IP", type: :feature do
            mac:,
            start: time,
            username:,
-           siteIP: ip,
+           siteIP: ip.address,
            success: true,
            task_id:)
 
@@ -21,7 +22,7 @@ describe "View authentication requests for an IP", type: :feature do
            mac:,
            start: time,
            username:,
-           siteIP: ip,
+           siteIP: ip.address,
            success: false,
            task_id:)
   end
@@ -30,10 +31,10 @@ describe "View authentication requests for an IP", type: :feature do
     before do
       super_admin_user = create(:user, :super_admin, :with_organisation)
       sign_in_user super_admin_user
-      visit logs_path(log_search_form: { ip:, filter_option: LogSearchForm::IP_FILTER_OPTION })
+      visit logs_path(log_search_form: { ip: ip.address, filter_option: LogSearchForm::IP_FILTER_OPTION })
     end
     it "displays the log" do
-      expect(page).to have_content("Found 2 results for IP: \"#{ip}\"")
+      expect(page).to have_content("Found 2 results for IP: \"#{ip.address}\"")
       expect(page).to have_css("td", text: username)
       expect(page).to have_css("td", text: ap)
       expect(page).to have_css("td", text: mac)
@@ -72,15 +73,16 @@ describe "View authentication requests for an IP", type: :feature do
   end
 
   context "as a regular admin" do
+    let(:ip) { create(:ip, location_id: location.id, address: ip_address, created_at: 5.days.ago) }
+    let(:admin_user) { create(:user, :with_organisation) }
+    let(:location) { create(:location, organisation: admin_user.organisations.first) }
+
     before do
-      admin_user = create(:user, :with_organisation)
-      location = create(:location, organisation: admin_user.organisations.first)
-      create(:ip, location_id: location.id, address: ip, created_at: 5.days.ago)
       sign_in_user admin_user
-      visit logs_path(log_search_form: { ip:, filter_option: LogSearchForm::IP_FILTER_OPTION })
+      visit logs_path(log_search_form: { ip: ip.address, filter_option: LogSearchForm::IP_FILTER_OPTION })
     end
     it "does not display the radius server" do
-      expect(page).to have_content("Found 2 results for IP: \"#{ip}\"")
+      expect(page).to have_content("Found 2 results for IP: \"#{ip.address}\"")
       expect(page).to_not have_css("td", text: task_id)
       expect(page).to_not have_css("th", text: "Radius Server")
     end

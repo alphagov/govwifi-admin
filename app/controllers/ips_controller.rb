@@ -5,8 +5,17 @@ class IpsController < ApplicationController
     locations_scope = Location.includes(:ips)
       .where(organisation: current_organisation)
     if params[:search].present?
-      locations_scope = locations_scope.where("postcode like ?", "%#{params[:search]}%")
-                                       .or(locations_scope.where("address like ?", "%#{params[:search]}%"))
+      locations_scope = locations_scope.where(
+        "postcode like ?", "%#{params[:search]}%"
+      ).or(
+        locations_scope.where(
+          "locations.address like ?", "%#{params[:search]}%"
+        ),
+      ).or(
+        locations_scope.where(
+          "ips.address like ?", "%#{params[:search]}%"
+        ),
+      ).left_outer_joins(:ips)
     end
     @pagy, @locations = pagy(locations_scope.order(:address))
   end

@@ -6,8 +6,9 @@ describe "Search Locations", type: :feature do
     before :each do
       create_list(:location, 20, postcode: "AA11AA", organisation:) do |location, i|
         location.address = "Aardvark Place #{i}"
+        location.ips.new(address: "89.1.1.#{i}")
       end
-      create(:location, address: "Zebra Place 0", postcode: "ZZ99ZZ", organisation:)
+      create(:location, address: "Zebra Place 0", postcode: "ZZ99ZZ", organisation:, ips: [Ip.new(address: "89.1.1.30")])
       sign_in_user user
       visit ips_path
     end
@@ -35,6 +36,12 @@ describe "Search Locations", type: :feature do
       }.to change {
         page.has_content?("ZZ99ZZ")
       }.from(false).to(true)
+    end
+
+    it "It shows location address when searching by IP" do
+      fill_in "search", with: "89.1.1.30"
+      click_button("Search")
+      expect(page).to have_content("Zebra Place 0")
     end
   end
 end
