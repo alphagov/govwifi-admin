@@ -100,5 +100,13 @@ describe "View authentication requests for a username", type: :feature do
         expect(page).to have_content("Search term must be 5 or 6 characters").twice
       end
     end
+
+    describe "when clicking on the ip address hyperlink" do
+      let(:search_string) { "AAAAAA" }
+      it "goes to ip logs page" do
+        click_link ip_organisation_one, match: :first
+        expect(page).to have_content("for IP: \"#{ip_organisation_one}\"")
+      end
+    end
   end
 end

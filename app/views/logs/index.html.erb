@@ -47,12 +47,18 @@
       <% logs.each do |log| %>
         <tr class="govuk-table__row">
           <% unless log_search_form.username %>
-            <td class="govuk-table__cell"><%= log.username %></td>
+            <td class="govuk-table__cell">
+              <% if log.username.present? %>
+                <%= link_to log.username, logs_path(log_search_form: { username: log.username, filter_option: LogSearchForm::USERNAME_FILTER_OPTION }), class: "govuk-link" %>
+              <% end %>
+            </td>
           <% end %>
           <td class="govuk-table__cell"><%= log.ap %></td>
           <td class="govuk-table__cell"><%= log.mac %></td>
           <% unless log_search_form.ip %>
-            <td class="govuk-table__cell"><%= log.siteIP %></td>
+            <td class="govuk-table__cell">
+            <%= link_to log.siteIP, logs_path(log_search_form: { ip: log.siteIP, filter_option: LogSearchForm::IP_FILTER_OPTION }), class: "govuk-link" %>
+            </td>
           <% end %>
           <td class="govuk-table__cell"><%= log.start.to_fs(:no_timezone) %></td>
           <td class="govuk-table__cell"><%= log.success ? "successful" : "failed" %></td>
