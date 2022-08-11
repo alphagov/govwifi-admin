@@ -68,6 +68,16 @@ describe "View authentication requests for a location", type: :feature do
       expect(page).not_to have_content("6.6.6.6")
     end
 
+    it "has hyperlinks for username" do
+      click_on "AAAAAA"
+      expect(page).to have_content("for username: \"AAAAAA\"")
+    end
+
+    it "has hyperlinks for IP address" do
+      click_on ip_address
+      expect(page).to have_content("for IP: \"#{ip_address}\"")
+    end
+
     context "when going back to search by a different location" do
       let!(:location_two) { create(:location, :with_ip, organisation:) }
       let(:ip_address_two) { location_two.ip_addresses.first }

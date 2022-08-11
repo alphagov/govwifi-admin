@@ -6,8 +6,8 @@ describe "View authentication requests for an IP", type: :feature do
   let(:ip_two) { organisation_two.ip_addresses.first }
 
   before do
-    create(:session, username: user.name, siteIP: ip_one)
-    create(:session, username: user.name, siteIP: ip_two)
+    create(:session, username: "Aaaaaa", siteIP: ip_one)
+    create(:session, username: "Aaaaaa", siteIP: ip_two)
     create(:session, username: "aaabbb", siteIP: "9.9.9.9")
     sign_in_user user
   end
@@ -39,6 +39,11 @@ describe "View authentication requests for an IP", type: :feature do
 
       it "displays the authentication requests" do
         expect(page).to have_content("Found 1 result for IP: \"#{ip_one}\"")
+      end
+
+      it "has hyperlinks for username" do
+        click_on "Aaaaaa"
+        expect(page).to have_content("for username: \"Aaaaaa\"")
       end
     end
 
