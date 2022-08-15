@@ -1378,5 +1378,9 @@ module Gateways
     def custom_orgs
       CustomOrganisationName.all.map(&:name)
     end
+
+    def all_orgs
+      government_orgs + local_authorities + custom_orgs
+    end
   end
 end

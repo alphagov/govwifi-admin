@@ -43,16 +43,13 @@ class HelpController < ApplicationController
     end
 
     if @support_form.valid?
+
       if ENV["ZENDESK_API_ENDPOINT"].present?
-        UseCases::Administrator::CreateSupportTicket.new(
-          tickets_gateway: Gateways::ZendeskSupportTickets.new,
-        ).execute(
-          requester: {
-            email: sender_email,
-            name: params[:support_form][:name] || current_user&.name,
-            organisation: sender_organisation_name,
-          },
-          details: params[:support_form][:details],
+        Gateways::ZendeskSupportTickets.new.create!(
+          subject: "Admin support request",
+          email: sender_email,
+          name: params[:support_form][:name] || current_user&.name,
+          body: params[:support_form][:details],
         )
       end
 
@@ -72,7 +69,7 @@ private
   end
 
   def support_form_params
-    params.require(:support_form).permit(:name, :details, :email, :organisation, :choice)
+    params.require(:support_form).permit(:name, :details, :email, :choice)
   end
 
   def redirect_to_homepage
@@ -85,9 +82,5 @@ private
 
   def sender_email
     support_form_params[:email] || current_user&.email || ""
-  end
-
-  def sender_organisation_name
-    support_form_params[:organisation] || current_user&.organisations&.first&.name || ""
   end
 end
