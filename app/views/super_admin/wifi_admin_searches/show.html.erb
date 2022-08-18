@@ -1,0 +1,33 @@
+<% content_for :page_title, "Search logs by admin details" %>
+<%= form_with model: @form, url: super_admin_wifi_admin_search_path do |f| %>
+  <%= f.govuk_error_summary %>
+  <div class='govuk-grid-row'>
+    <h1 class='govuk-heading-l govuk-grid-column-full'>Search for admin details</h1>
+    <div class='govuk-grid-column-two-thirds'>
+      <%= f.govuk_text_field :search_term, width: 20, label: { text: "Admin name or email address" } %>
+      <%= f.govuk_submit "Find admin details" %>
+      <% if @form_valid %>
+        <div class="govuk-body">
+          <% if @user.present? %>
+            <h3 class="govuk-heading-s">User details for '<%= @form.search_term %>'</h3>
+            <p class="govuk-body">
+              Name: <%= @user.name %>
+            </p>
+            <p class="govuk-body">
+              Email: <%= @user.email %>
+            </p>
+            <p class="govuk-body">
+              <ul class="govuk-list"> Organisations:
+                <% @user.organisations.each do |organisation| %>
+                  <li><%= link_to organisation.name, super_admin_organisation_path(organisation), class: "govuk-link filter-by" %></li>
+                <% end %>
+              </ul>
+            </p>
+          <% else %>
+            <h3 class="govuk-heading-s">Nothing found for '<%= @form.search_term %>'</h3>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

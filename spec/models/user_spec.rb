@@ -145,4 +145,22 @@ describe User do
       expect(user).not_to be_totp_enabled
     end
   end
+
+  describe "#search" do
+    let(:name) { "bob" }
+    let(:email) { "admin.user@govwifi.org" }
+    before do
+      create(:user, name:, email:)
+    end
+    context "with name as search term" do
+      it "finds an admin user" do
+        expect(User.search("BoB").name).to eq(name)
+      end
+    end
+    context "with email as search term" do
+      it "finds an admin user" do
+        expect(User.search("aDmIn.uSEr@govWIFI.org").email).to eq(email)
+      end
+    end
+  end
 end
