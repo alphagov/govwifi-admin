@@ -17,6 +17,12 @@
     "<%= log_search_form.username || log_search_form.ip || location_address %>"
   </h1>
 
+  <p class="govuk-body govuk-!-font-size-24">
+    <% if log_search_form.ip %>
+      IP address <%= log_search_form.ip %> is located at <%= @current_location.full_address %>
+    <% end %>
+  </p>
+
   <%= render "logs/filtered_results_explanation", logs: %>
 
   <%= render "logs/filter_logs_select", log_search_form: %>

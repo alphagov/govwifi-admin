@@ -23,10 +23,10 @@
   <div class="govuk-grid-row">
   <% if current_organisation.locations.length > 1 %>
     <%= form_with url: ips_path, method: "get" do |form| %>
-      <%= form.govuk_fieldset legend: { text: "Search by location or postcode" } do %>
+      <%= form.govuk_fieldset legend: { text: "Search by location, postcode or IP address" } do %>
         <%= form.govuk_text_field :search, value: params.fetch(:search, ""),
-                                           label: { text: "Search by location or postcode", hidden: true },
-                                           hint: { text: "For example, 'SW1A 2AA' or 'High Street'" },
+                                           label: { text: "Search by location, postcode or IP address", hidden: true },
+                                           hint: { text: "For example, 'SW1A 2AA', 'High Street' or '78.22.233.40'" },
                                            width: 20 %>
         <%= form.govuk_submit "Search", class: "text-right" %>
       <% end %>
