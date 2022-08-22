@@ -55,7 +55,7 @@ en:
               invalid: "Password is invalid"
               blank: "Password can't be blank"
               too_short: "Password is too short (minimum is 6 characters)"
-              weak_password: "Password is not strong enough (scored %{score}, required at least %{min_password_score}). %{feedback}"
+              weak_password: "Password is not strong enough. Choose a different password."
             email:
               format: "%{message}"
               taken: "This email address is already associated with an account. If you can't sign in, reset your password."
