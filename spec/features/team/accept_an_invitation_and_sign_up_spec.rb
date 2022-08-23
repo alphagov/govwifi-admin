@@ -32,7 +32,7 @@ describe "Sign up from invitation", type: :feature do
         end
 
         it "rejects a weak password like #{weak_pass}" do
-          expect(page).to have_content "Password is not strong enough"
+          expect(page).to have_content "Password is not strong enough. Choose a different password."
         end
 
         it "does not confirm the user" do
