@@ -25,7 +25,7 @@ describe "View authentication requests for a username", type: :feature do
       let(:search_string) { "BBBBBB" }
 
       it "displays no results" do
-        expect(page).to have_content("\"#{search_string}\" is not reaching the GovWifi service")
+        expect(page).to have_content("We have no record of username \"#{search_string}\" reaching the GovWifi service from your organisation in the last 2 weeks")
       end
     end
 
@@ -33,7 +33,7 @@ describe "View authentication requests for a username", type: :feature do
       let(:search_string) { "random" }
 
       it "displays the no results message" do
-        expect(page).to have_content("\"#{search_string}\" is not reaching the GovWifi service")
+        expect(page).to have_content("We have no record of username \"#{search_string}\" reaching the GovWifi service from your organisation in the last 2 weeks")
       end
     end
   end

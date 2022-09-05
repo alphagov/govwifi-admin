@@ -65,7 +65,7 @@ describe "View authentication requests for an IP", type: :feature do
       end
       context "as a regular admin" do
         it "shows there are no results" do
-          expect(page).to have_content("Traffic from #{other_ip} is not reaching the GovWifi service")
+          expect(page).to have_content("This is not an IP address associated with your organisation")
         end
       end
       context "as a super admin" do
@@ -89,7 +89,7 @@ describe "View authentication requests for an IP", type: :feature do
       it_behaves_like "errors in form"
 
       it "displays an error summary" do
-        expect(page).to have_content("Search term must be a valid IP address").twice
+        expect(page).to have_content("Enter an IP address in the correct format").twice
       end
     end
   end

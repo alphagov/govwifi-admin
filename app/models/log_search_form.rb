@@ -35,7 +35,7 @@ private
   def validate_ip
     ip_check = UseCases::Administrator::CheckIfValidIp.new.execute(ip)
     unless ip_check[:success]
-      errors.add(:ip, "Search term must be a valid IP address")
+      errors.add(:ip, "Enter an IP address in the correct format")
     end
   end
 end

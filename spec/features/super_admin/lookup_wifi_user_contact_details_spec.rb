@@ -30,7 +30,7 @@ describe "Lookup wifi user contact details", type: :feature do
     describe "click on the username link" do
       it "shows a page with logs for the user" do
         click_on "zZyYxX"
-        expect(page).to have_content("The username \"zZyYxX\" is not reaching the GovWifi service")
+        expect(page).to have_content("We have no record of username \"zZyYxX\" reaching the GovWifi service from your organisation in the last 2 weeks")
       end
     end
   end
