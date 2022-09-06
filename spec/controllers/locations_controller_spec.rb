@@ -23,8 +23,8 @@ RSpec.describe LocationsController, type: :controller do
     let(:params) do
       {
         location_ips_form: {
-          ip_1: Faker::Internet.ip_v4_address,
-          ip_2: Faker::Internet.ip_v4_address,
+          ip_1: Faker::Internet.public_ip_v4_address,
+          ip_2: Faker::Internet.public_ip_v4_address,
         },
         location_id: location.id,
       }
