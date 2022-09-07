@@ -78,12 +78,16 @@
 <% else %>
   <div class="govuk-grid-row">
     <h1 class="govuk-heading-l govuk-grid-column-three-quarters">
-      <% if log_search_form.filter_option==LogSearchForm::USERNAME_FILTER_OPTION %>
-        The username "<%= log_search_form.username %>" <strong>is not reaching the GovWifi service</strong>
+      <% if !super_admin? && log_search_form.filter_option==LogSearchForm::IP_FILTER_OPTION && !current_organisation.ip_addresses.include?(log_search_form.ip) %>
+        This is not an IP address associated with your organisation
+      <% elsif log_search_form.success == 'false' %>
+        There are no failed authentication results within the last 2 weeks
+      <% elsif log_search_form.filter_option==LogSearchForm::USERNAME_FILTER_OPTION %>
+        We have no record of username "<%= log_search_form.username %>" <strong> reaching the GovWifi service from your organisation in the last 2 weeks</strong>
       <% elsif log_search_form.filter_option==LogSearchForm::LOCATION_FILTER_OPTION %>
         Traffic from <%= location_address %> <strong>is not reaching the GovWifi service</strong>
-      <% else %>
-        Traffic from <%= log_search_form.ip %> <strong>is not reaching the GovWifi service</strong>
+      <% elsif log_search_form.filter_option==LogSearchForm::IP_FILTER_OPTION %>
+        We have no record of authentication requests from IP address <%= log_search_form.ip %> <strong>in the last 2 weeks</strong>
       <% end %>
     </h1>
 

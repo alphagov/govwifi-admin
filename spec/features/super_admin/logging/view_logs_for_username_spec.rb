@@ -42,7 +42,7 @@ describe "View authentication requests for a username", type: :feature do
     end
 
     it "displays the no results message" do
-      expect(page).to have_content("\"#{username}\" is not reaching the GovWifi service")
+      expect(page).to have_content("We have no record of username \"#{username}\" reaching the GovWifi service from your organisation in the last 2 weeks")
     end
   end
 
