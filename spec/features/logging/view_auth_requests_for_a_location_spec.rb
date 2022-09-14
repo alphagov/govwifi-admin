@@ -51,8 +51,8 @@ describe "View authentication requests for a location", type: :feature do
     let(:organisation) { create(:organisation, :with_location_and_ip) }
     let(:ip_address) { organisation.locations.first.ips.first.address }
     let!(:sessions) do
-      create(:session, username: "AAAAAA", siteIP: ip_address)
-      create(:session, username: "BBBBBB", siteIP: "6.6.6.6")
+      create(:session, username: "AAAAAA", siteIP: ip_address, success: true)
+      create(:session, username: "BBBBBB", siteIP: "6.6.6.6", success: false)
     end
 
     before do
@@ -76,6 +76,30 @@ describe "View authentication requests for a location", type: :feature do
     it "has hyperlinks for IP address" do
       click_on ip_address
       expect(page).to have_content("for IP: \"#{ip_address}\"")
+    end
+
+    context "when fitering for successful requests" do
+      before do
+        select("Successful", from: "Status type:")
+        click_button("Filter")
+      end
+
+      it "shows only successful requests" do
+        expect(page).to have_content("successful")
+        expect(page).to_not have_content("failed")
+      end
+    end
+
+    context "when filtering for failed requests" do
+      before do
+        select("Failed", from: "Status type:")
+        click_button("Filter")
+      end
+
+      it "shows only failed requests" do
+        expect(page).to_not have_content("successful")
+        expect(page).to have_content("failed")
+      end
     end
 
     context "when going back to search by a different location" do
