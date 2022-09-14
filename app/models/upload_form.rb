@@ -6,7 +6,7 @@ class UploadForm
   validate :validate_csv
 
   def validate_reading_csv
-    @data ||= CSV.read(upload_file, col_sep: ";")
+    @data ||= CSV.read(upload_file, col_sep: "\t")
   rescue TypeError
     errors.add(:upload_file, :csv_error, message: "Choose a file before uploading")
   rescue CSV::MalformedCSVError, CSV::Parser::InvalidEncoding

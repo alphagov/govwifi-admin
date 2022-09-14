@@ -89,7 +89,7 @@ class LocationsController < ApplicationController
   end
 
   def download_keys
-    keys_csv = CSV.generate(headers: true, col_sep: ";") do |csv|
+    keys_csv = CSV.generate(headers: true, col_sep: "\t") do |csv|
       current_organisation.locations.each do |location|
         csv << [location[:address], location[:postcode], location[:radius_secret_key]]
       end
