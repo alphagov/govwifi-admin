@@ -45,7 +45,7 @@ group :test do
   gem "rails-controller-testing"
   gem "rspec-rails", "~> 5.1.2"
   gem "rubocop-govuk", "~> 4"
-  gem "shoulda-matchers", "~> 5.1"
+  gem "shoulda-matchers", "~> 5.2"
   gem "simplecov", require: false
   gem "simplecov-console", require: false
   gem "timecop", "~> 0.9.5"
