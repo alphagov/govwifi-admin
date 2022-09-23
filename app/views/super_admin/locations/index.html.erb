@@ -20,7 +20,8 @@
         <% @locations.each do |location| %>
           <tr class="govuk-table__row result-row">
             <td class="govuk-table__cell filter-by">
-              <%= location.full_address %>
+              <%= link_to location.full_address, "#{super_admin_organisation_path(location.organisation.id)}##{location.id}", class: "govuk-link" %>
+
             </td>
             <td class="govuk-table__cell filter-by">
               <%= link_to location.organisation.name, super_admin_organisation_path(location.organisation.id), class: "govuk-link" %>

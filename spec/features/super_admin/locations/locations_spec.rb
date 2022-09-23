@@ -6,7 +6,7 @@ describe "View and search locations", type: :feature do
     create(:location, address: "69 Garry Street, London", postcode: "HA7 2BL", organisation:)
     sign_in_user user
     visit root_path
-    within(".leftnav") { click_on "Locations" }
+    within(".leftnav") { click_on "All Locations" }
   end
 
   it "takes the user to the locations page" do
@@ -44,6 +44,13 @@ describe "View and search locations", type: :feature do
       within(".pager__controls", match: :first) { click_on "5" }
       expect(page).to_not have_content "Next"
       expect(page).to have_content(/Prev\s*1\s*2\s*3\s*4\s*5/).twice
+    end
+  end
+
+  context "selecting a location" do
+    it "takes the user to the organisation page" do
+      click_on "69 Garry Street, London, HA7 2BL"
+      expect(page).to have_content(organisation.name)
     end
   end
 end
