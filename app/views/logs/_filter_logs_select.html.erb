@@ -3,7 +3,7 @@
     <%= form.hidden_field :filter_option %>
     <%= form.hidden_field :username %>
     <%= form.hidden_field :ip %>
-    <%= form.hidden_field :location %>
+    <%= form.hidden_field :location_id %>
     <%= form.govuk_select :success,
                           options_for_select([["All", nil], %w[Successful true], %w[Failed false]]),
                           label: { text: "Status type:" } %>

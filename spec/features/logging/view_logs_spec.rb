@@ -65,7 +65,7 @@ describe "View authentication requests for an IP", type: :feature do
         click_button("Filter")
       end
 
-      it "shows only successful requests" do
+      it "shows only failed requests" do
         expect(page).to_not have_css("td", text: "successful")
         expect(page).to have_css("td", text: "failed")
       end
