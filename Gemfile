@@ -20,7 +20,7 @@ gem "mysql2", "~> 0.5.4"
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
-gem "notifications-ruby-client", "~> 5.3.0"
+gem "notifications-ruby-client", "~> 5.4.0"
 gem "pagy", "~> 5.10.1"
 gem "puma", "~> 5.6"
 gem "rails", "~> 7.0.4"
