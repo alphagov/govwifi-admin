@@ -14,10 +14,11 @@ describe "Wifi Admin Searches", type: :feature do
   end
 
   context "With an admin user" do
-    let(:admin_user) { create(:user) }
+    let(:admin_user) { build(:user) }
     let(:name) { admin_user.name }
     let(:email) { admin_user.email }
     before do
+      admin_user.save!
       fill_in "Admin name or email address", with: search_term
       click_on "Find admin details"
     end
