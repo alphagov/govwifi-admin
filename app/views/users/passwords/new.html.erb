@@ -5,13 +5,20 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">Reset your GovWifi admin account password</h1>
-      <%= render "users/shared/end_user_warning" %>
+      <h1 class="govuk-heading-l">Reset your GovWifi administrator password</h1>
 
       <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-        <%= f.govuk_email_field :email, label: { text: "Provide your email address" } %>
+        <%= f.govuk_email_field(:email,
+                                label: { text: "Enter your email address" },
+                                hint: { text: "The email address must be from a government or a public sector domain." }) %>
         <%= f.govuk_submit "Send me reset password instructions" %>
-        <%= render "users/shared/links" %>
+
+        <h2 class="govuk-heading-l">Connect to GovWifi for individual use</h2>
+
+        <p class="govuk-body">
+          Follow the instructions to
+          <%= link_to "create a GovWifi account and connect to GovWifi", SITE_CONFIG["end_user_docs_link"], class: "govuk-link" %>.
+        </p>
       </div>
     </div>
   </div>

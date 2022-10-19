@@ -85,7 +85,7 @@ describe "Inviting a team member", type: :feature do
       end
 
       it "displays the correct error message" do
-        expect(page).to have_content("This email address is already associated with an account. If you can't sign in, reset your password")
+        expect(page).to have_content("This email address is already associated with an administrator account")
       end
     end
 

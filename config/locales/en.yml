@@ -58,7 +58,7 @@ en:
               weak_password: "Password is not strong enough. Choose a different password."
             email:
               format: "%{message}"
-              taken: "This email address is already associated with an account. If you can't sign in, reset your password."
+              taken: "This email address is already associated with an administrator account"
               invalid: "Enter an email address in the correct format, like name@example.com"
               blank: "Email can't be blank"
             current_password:
