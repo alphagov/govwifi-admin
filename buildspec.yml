@@ -6,10 +6,8 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - echo "AWS_REGION is $AWS_REGION "
-      - STAGING_REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/govwifi/staging/admin
-      - PRODUCTION_REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/govwifi/production/admin
-      - echo "STAGING_REPOSITORY_URI is $STAGING_REPOSITORY_URI"
-      - echo "PRODUCTION_REPOSITORY_URI is $PRODUCTION_REPOSITORY_URI"
+      - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/govwifi/admin
+      - echo "REPOSITORY_URI is $REPOSITORY_URI"
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG="latest"
@@ -18,16 +16,12 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build --build-arg BUNDLE_INSTALL_CMD='bundle install --jobs 20 --retry 5' -t $STAGING_REPOSITORY_URI:$IMAGE_TAG .
-      - echo Staging Build completed on `date`
+      - docker build --build-arg BUNDLE_INSTALL_CMD='bundle install --jobs 20 --retry 5' -t $REPOSITORY_URI:$IMAGE_TAG .
+  post_build:
+    commands:
+      - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push $STAGING_REPOSITORY_URI:$IMAGE_TAG
-      # - echo Writing image definitions file...
-      # - printf '[{"name":"admin","imageUri":"%s"}]' $STAGING_REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
-      - docker build --build-arg BUNDLE_INSTALL_CMD='bundle install --jobs 20 --retry 5' -t $PRODUCTION_REPOSITORY_URI:$IMAGE_TAG .
-      - echo Staging Build completed on `date`
-      - echo Pushing the Docker images...
-      - docker push $PRODUCTION_REPOSITORY_URI:$IMAGE_TAG
-      # - echo Writing image definitions file...
-      # - printf '[{"name":"admin","imageUri":"%s"}]' $PRODUCTION_REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"admin","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - set +x
