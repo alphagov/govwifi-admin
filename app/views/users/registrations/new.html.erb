@@ -11,6 +11,10 @@
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-l">Sign up for a GovWifi administrator account</h1>
 
+      <div class="govuk-inset-text">
+        Follow this step only if you will be the administrator for your organisation. To connect to GovWifi for individual use, follow the instructions to <%= link_to "create a GovWifi account and connect to GovWifi", SITE_CONFIG["end_user_docs_link"], class: "govuk-link" %>.
+      </div>
+
       <%= f.govuk_email_field(:email,
                               label: { text: "Enter your email address" },
                               hint: { text: "The email address must be from a government or a public sector domain." }) %>
