@@ -197,7 +197,20 @@ describe "Sign up as an organisation", type: :feature do
 
     it "will tell the user the email is already in use" do
       sign_up_for_account(email:)
-      expect(page).to have_content("This email address is already associated with an account. If you can't sign in, reset your password")
+      expect(page).to have_content("This email address is already associated with an administrator account")
+    end
+
+    it "provides information on how to reset your GovWifi administrator password" do
+      sign_up_for_account(email:)
+      expect(page).to have_content("Reset your GovWifi administrator password")
+
+      click_on "reset your GovWifi administrator password"
+      expect(current_path).to eq new_user_password_path
+    end
+
+    it "provides information on connecting to GovWifi for individual use" do
+      sign_up_for_account(email:)
+      expect(page).to have_content("Connect to GovWifi for individual use")
     end
   end
 

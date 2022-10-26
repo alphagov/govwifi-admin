@@ -11,13 +11,13 @@ describe "Resetting a password", type: :feature do
   it "links to forgot password form" do
     visit root_path
     click_on "Forgot your password?"
-    expect(page).to have_content("Reset your GovWifi admin account password")
+    expect(page).to have_content("Reset your GovWifi administrator password")
   end
 
   context "when the user has never signed up" do
     before do
       visit new_user_password_path
-      fill_in "Provide your email address", with: "user@user.com"
+      fill_in "Enter your email address", with: "user@user.com"
       click_on "Send me reset password instructions"
     end
 
@@ -35,7 +35,7 @@ describe "Resetting a password", type: :feature do
 
     before do
       visit new_user_password_path
-      fill_in "Provide your email address", with: user.email
+      fill_in "Enter your email address", with: user.email
       click_on "Send me reset password instructions"
     end
 
@@ -53,7 +53,7 @@ describe "Resetting a password", type: :feature do
 
     before do
       visit new_user_password_path
-      fill_in "Provide your email address", with: user.email
+      fill_in "Enter your email address", with: user.email
       click_on "Send me reset password instructions"
     end
 
@@ -71,7 +71,7 @@ describe "Resetting a password", type: :feature do
 
     before do
       visit new_user_password_path
-      fill_in "Provide your email address", with: user.email
+      fill_in "Enter your email address", with: user.email
       click_on "Send me reset password instructions"
       visit(last_notification_link)
     end

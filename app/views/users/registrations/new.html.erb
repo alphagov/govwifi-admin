@@ -1,4 +1,4 @@
-<% content_for :page_title, "Sign up your organisation to GovWifi" %>
+<% content_for :page_title, "Sign up for a GovWifi administrator account" %>
 
 <%= form_with model: resource,
               as: resource_name,
@@ -9,17 +9,27 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">Sign up your organisation to GovWifi</h1>
-
-      <%= render "users/shared/end_user_warning" %>
+      <h1 class="govuk-heading-l">Sign up for a GovWifi administrator account</h1>
 
       <%= f.govuk_email_field(:email,
-                              label: { text: "Email address" },
+                              label: { text: "Enter your email address" },
                               hint: { text: "The email address must be from a government or a public sector domain." }) %>
 
       <%= f.govuk_submit "Sign up" %>
+
+      <h2 class="govuk-heading-l">Reset your GovWifi administrator password</h2>
+
+      <p class="govuk-body">
+        If you cannot sign in
+        <%= link_to "reset your GovWifi administrator password", new_user_password_path, class: "govuk-link" %>.
+      </p>
+
+      <h2 class="govuk-heading-l">Connect to GovWifi for individual use</h2>
+
+      <p class="govuk-body">
+        Follow the instructions to
+        <%= link_to "create a GovWifi account and connect to GovWifi", SITE_CONFIG["end_user_docs_link"], class: "govuk-link" %>.
+      </p>
     </div>
   </div>
 <% end %>
-
-<%= link_to "Sign in", new_session_path(resource_name), class: "govuk-link govuk-body" %>
