@@ -1,4 +1,4 @@
-describe "Sign up as an organisation", type: :feature do
+describe "Sign up for a GovWifi administrator account", type: :feature do
   let(:name) { "Sally" }
   let(:email_gateway) { EmailGatewaySpy.new }
   before do
@@ -211,6 +211,11 @@ describe "Sign up as an organisation", type: :feature do
     it "provides information on connecting to GovWifi for individual use" do
       sign_up_for_account(email:)
       expect(page).to have_content("Connect to GovWifi for individual use")
+    end
+
+    it "shows inset text to confirm account sign up is for administrator only" do
+      sign_up_for_account(email:)
+      expect(page).to have_content("Follow this step only if you will be the administrator for your organisation. To connect to GovWifi for individual use, follow the instructions to create a GovWifi account and connect to GovWifi")
     end
   end
 

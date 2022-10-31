@@ -1,9 +1,12 @@
 <%= form_with model: @form, url: users_confirmations_path, method: :put do |f| %>
   <%= f.govuk_error_summary %>
 
-  <h1 class="govuk-heading-l">Create your GovWifi admin account</h1>
+  <h1 class="govuk-heading-l">Create a GovWifi administrator account</h1>
 
-  <%= render "users/shared/end_user_warning" %>
+  <div class="govuk-inset-text">
+    Create an account only if you will be the administrator for your organisation. To connect to GovWifi for individual use, follow the instructions to <%= link_to "create a GovWifi account and connect to GovWifi", SITE_CONFIG["end_user_docs_link"], class: "govuk-link" %>.
+  </div>
+
   <%= f.hidden_field :confirmation_token %>
   <% organisation_name_hint = capture do %>
     If your organisation name does not appear below
