@@ -2,7 +2,7 @@ class SuperAdmin::Allowlists::EmailDomainsController < SuperAdminController
   helper_method :sort_column, :sort_direction
 
   def index
-    @authorised_email_domains = AuthorisedEmailDomain.all.order("#{sort_column} #{sort_direction}")
+    @authorised_email_domains = ordered_email_domains
   end
 
   def new
@@ -44,6 +44,10 @@ private
 
   def authorised_email_params
     params.require(:authorised_email_domain).permit(:name)
+  end
+
+  def ordered_email_domains
+    AuthorisedEmailDomain.all.order("#{sort_column} #{sort_direction}")
   end
 
   def sortable_columns

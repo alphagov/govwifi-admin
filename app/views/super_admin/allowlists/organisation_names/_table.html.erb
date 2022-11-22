@@ -1,0 +1,19 @@
+<table class="govuk-table">
+  <h2 class="govuk-heading-m">Custom Organisations that are already in our register</h2>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th class="govuk-table__header" scope="col">Name</th>
+      <th class="govuk-table__header" scope="col">Allowed on</th>
+      <th class="govuk-table__header" scope="col"> </th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <% organisations.each do |organisation| %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell"><%= organisation.name %></td>
+        <td class="govuk-table__cell"><%= organisation.created_at.strftime("%e %b %Y") %></td>
+        <td class="govuk-table__cell"><%= link_to "Remove", super_admin_allowlist_organisation_names_path(id: organisation.id, organisation_to_remove: organisation.name), class: "govuk-link red-link", id: "custom-organisation-#{organisation.id}" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

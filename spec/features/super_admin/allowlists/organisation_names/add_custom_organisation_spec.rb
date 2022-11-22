@@ -18,13 +18,14 @@ describe "Adding a custom organisation name", type: :feature do
     end
 
     it "will show the add custom organisations button" do
-      expect(page).to have_content("Allow an organisation access to the admin platform")
+      expect(page).to have_content("Allow an organisation")
     end
   end
 
   context "when adding a new custom organisation name" do
     before do
       visit super_admin_allowlist_organisation_names_path
+      visit new_super_admin_allowlist_organisation_name_path
       fill_in "Enter the organisation's full name", with: name
     end
 

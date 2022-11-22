@@ -32,7 +32,7 @@ class Organisation < ApplicationRecord
   end
 
   def self.fetch_organisations_from_register
-    Gateways::GovukOrganisationsRegisterGateway.new.all_orgs.sort
+    Gateways::GovukOrganisationsRegisterGateway.new.all_orgs.sort_by(&:downcase)
   end
 
   def self.all_as_csv

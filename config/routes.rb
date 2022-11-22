@@ -77,7 +77,7 @@ Rails.application.routes.draw do
     resource :allowlist, only: %i[new create] do
       scope module: "allowlists" do
         resources :email_domains, only: %i[index new create destroy]
-        resources :organisation_names, only: %i[index create destroy]
+        resources :organisation_names, only: %i[index new create destroy]
       end
     end
     resource :wifi_user_search, only: %i[show create destroy] do

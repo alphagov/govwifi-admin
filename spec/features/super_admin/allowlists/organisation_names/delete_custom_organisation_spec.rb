@@ -16,7 +16,7 @@ describe "Delete a custom organisation name", type: :feature do
     end
 
     it "removes the correct organisation name from the list" do
-      click_on "Yes, remove this organisation"
+      click_on "Yes, remove DummyOrg1 from the allow list"
       within ".govuk-table" do
         expect(page).not_to have_content(allowed_organisation_1.name)
       end
@@ -24,7 +24,7 @@ describe "Delete a custom organisation name", type: :feature do
 
     it "removes the organisation name from the register" do
       expect {
-        click_on "Yes, remove this organisation"
+        click_on "Yes, remove DummyOrg1 from the allow list"
       }.to change(CustomOrganisationName, :count).by(-1)
     end
   end
