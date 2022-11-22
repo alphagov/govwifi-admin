@@ -1,0 +1,8 @@
+<% content_for :page_title, "Approve a new organisation" %>
+<%= form_with model: @custom_organisation, url: { action: :create } do |f| %>
+  <%= f.govuk_error_summary %>
+  <h1 class="govuk-heading-l">Allow an organisation access to the admin platform</h1>
+
+  <%= f.govuk_text_field :name, label: { text: "Enter the organisation's full name" } %>
+  <%= f.govuk_submit "Allow organisation" %>
+<% end %>

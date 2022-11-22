@@ -1,10 +1,13 @@
 class SuperAdmin::Allowlists::OrganisationNamesController < SuperAdminController
   helper_method :sort_column, :sort_direction
 
-  before_action :set_organisations_from_register, only: %i[create index]
+  before_action :set_organisations_from_register, only: %i[new create index]
 
   def index
     @custom_organisation_names = ordered_custom_orgs
+  end
+
+  def new
     @custom_organisation = CustomOrganisationName.new
   end
 
@@ -15,12 +18,12 @@ class SuperAdmin::Allowlists::OrganisationNamesController < SuperAdminController
     if @custom_organisation.save
       redirect_to super_admin_allowlist_organisation_names_path, notice: "Custom organisation has been successfully added"
     else
-      render :index
+      render :new
     end
   end
 
   def destroy
-    custom_org = CustomOrganisationName.find(params.fetch(:id))
+    custom_org = CustomOrganisationName.find_by(id: params.fetch(:id))
 
     custom_org.destroy!
     redirect_to super_admin_allowlist_organisation_names_path, notice: "Successfully removed #{custom_org.name}"
