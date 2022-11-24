@@ -1,0 +1,10 @@
+SELECT l.address,l.created_at, COUNT(ips.id) as total_ips, MIN(ips.created_at) as first_ip_created
+FROM locations as l
+LEFT JOIN ips ON l.id = ips.location_id 
+WHERE (l.created_at BETWEEN '2022-01-01 00:00:00' AND '2022-12-31 23:59:59')
+GROUP BY l.id;
+
+
+
+
+ # mysql -u root -p -h localhost -P 8081 --protocol=tcp development < /Users/abdullahaden/govwifi/govwifi-admin/lib/extract_db_to_csv/sql/locations.txt | sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' > ../results/locations_2020.csv
