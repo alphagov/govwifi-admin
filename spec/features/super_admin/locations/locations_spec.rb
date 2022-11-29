@@ -32,18 +32,18 @@ describe "View and search locations", type: :feature do
       FactoryBot.create_list(:location, 40, organisation:)
       click_on organisation.name
     end
-    it "shows 5 pages, a 'Next' link but not a 'Previous' link" do
-      expect(page).to_not have_content "Previous"
+    it "shows 5 pages, a 'Next' link but not a 'Prev' link" do
+      expect(page).to_not have_content "Prev"
       expect(page).to have_content(/1\s*2\s*3\s*4\s*5\s*Next/).twice
     end
-    it "shows 5 pages, a 'Next' link and a 'Previous' link" do
+    it "shows 5 pages, a 'Next' link and a 'Prev' link" do
       within(".pager__controls", match: :first) { click_on "3" }
-      expect(page).to have_content(/Previous\s*1\s*2\s*3\s*4\s*5\s*Next/).twice
+      expect(page).to have_content(/Prev\s*1\s*2\s*3\s*4\s*5\s*Next/).twice
     end
-    it "shows 5 pages, a 'Previous' link but not a 'Next' link" do
+    it "shows 5 pages, a 'Prev' link but not a 'Next' link" do
       within(".pager__controls", match: :first) { click_on "5" }
       expect(page).to_not have_content "Next"
-      expect(page).to have_content(/Previous\s*1\s*2\s*3\s*4\s*5/).twice
+      expect(page).to have_content(/Prev\s*1\s*2\s*3\s*4\s*5/).twice
     end
   end
 
