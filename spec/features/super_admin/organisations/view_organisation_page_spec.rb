@@ -1,6 +1,15 @@
 describe "View details of an organisation", type: :feature do
   let(:organisation) { create(:organisation) }
 
+  context "when there are lots of pages so that pagy renders a 'gap'" do
+    it "renders a gap" do
+      100.times { organisation.locations << create(:location, organisation:) }
+      sign_in_user create(:user, :super_admin)
+      visit super_admin_organisation_path(organisation)
+      expect(page.body).to include(Pagy::I18n.translate(nil, "pagy.nav.gap"))
+    end
+  end
+
   context "when logged in as a super-admin" do
     let!(:location_1) { create(:location, organisation:, address: "Aarry Street") }
     let!(:location_2) { create(:location, organisation:, address: "Carry Street") }
@@ -14,6 +23,10 @@ describe "View details of an organisation", type: :feature do
       create(:user, organisations: [organisation])
       sign_in_user create(:user, :super_admin)
       visit super_admin_organisation_path(organisation)
+    end
+
+    it "does not render a gap" do
+      expect(page.body).to_not include(Pagy::I18n.translate(nil, "pagy.nav.gap"))
     end
 
     it "shows details page for the organisations" do
