@@ -30,6 +30,14 @@ class UploadForm
     errors.add(:upload_file, :csv_error, message: "File must use correct header names") if headers_match?
   end
 
+  def self.build_address(row)
+    "#{row[ADDRESS_LINE_1]}
+    #{row[ADDRESS_LINE_2]}
+    #{row[ADDRESS_LINE_3]}
+    #{row[CITY]}
+    #{row[COUNTY]}".squish
+  end
+
   attr_accessor :upload_file, :data
 
 private

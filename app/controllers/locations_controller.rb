@@ -86,8 +86,10 @@ class LocationsController < ApplicationController
 
     @parent_organisation = current_organisation
     BulkUpload::BulkUpload.add_location_data(data, @parent_organisation)
+    @locations = @parent_organisation.locations.select(&:new_record?)
+    @ips_count = @locations.flat_map(&:ips).count
     @parent_organisation.save!
-    redirect_to(ips_path, notice: "Successfully uploaded locations")
+    redirect_to(ips_path, notice: "Upload complete. You have saved #{@locations.count} new locations and #{@ips_count} new IP addresses")
   rescue ActiveRecord::RecordInvalid
     redirect_to(ips_path, flash: { error: "Uploading data failed. Please try again." })
   rescue StandardError => e
