@@ -59,6 +59,10 @@ class LocationsController < ApplicationController
     end
   end
 
+  def download_locations_upload_template
+    send_file "public/locations_upload_template.csv", disposition: "inline"
+  end
+
   def bulk_upload
     @upload_form = UploadForm.new
   end

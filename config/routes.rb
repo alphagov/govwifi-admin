@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     get "user_support", on: :new
   end
   get "bulk_upload", to: "locations#bulk_upload"
+  get "download_locations_upload_template", to: "locations#download_locations_upload_template"
   get "download_keys", to: "locations#download_keys"
   post "confirm_upload", to: "locations#confirm_upload"
   post "upload_locations_csv", to: "locations#upload_locations_csv"

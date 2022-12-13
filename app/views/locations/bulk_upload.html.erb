@@ -1,14 +1,26 @@
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-three-quarters">
+  <div class="govuk-grid-column-two-quarters">
     <%= form_with url: upload_locations_csv_path, model: @upload_form, multipart: true  do |form| %>
       <%= form.govuk_error_summary %>
-      <h1 class="govuk-heading-l">Bulk Upload Locations and IPs</h1>
-      <p class="govuk-body">Upload a CSV file containing locations and Ips</p>
-      <%= form.govuk_file_field :upload_file, label: { text: "File to Upload" } %>
+      <h1 class="govuk-heading-l">Upload multiple locations and</h1>
+      <p class="govuk-body">Follow these steps to upload multiple addresses and IPs:</p>
+
+      <ol class="govuk-list govuk-list--number">
+        <li>
+          <%= link_to "Download the bulk upload template", download_locations_upload_template_path, class: "govuk-link--no-visited-state" %>
+        </li>
+        <li>
+          Enter the addresses and IP details in the template. Save the file as a csv.
+        </li>
+        <li>
+          Upload your completed csv file.
+        </li>
+      </ol>
+
+      <br>
+
+      <%= form.govuk_file_field :upload_file, label: { text: "Upload completed template" } %>
       <%= form.govuk_submit "Upload" %>
     <% end %>
   </div>
 </div>
-
-<p class="govuk-body"><%= link_to "Cancel", :back, class: "govuk-link--no-visited-state" %></p>
-<p class="govuk-body"><%= link_to "Contact GovWifi support", help_index_path, class: "govuk-link--no-visited-state" %></p>
