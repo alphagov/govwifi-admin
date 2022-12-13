@@ -12,10 +12,30 @@ describe "DELETE /locations/:id", type: :request do
     context "With valid parameters" do
       let(:params) do
         { "csv" =>
-            {
-              "0" => { "0" => "Address 1", "1" => "AA111AA", "2" => "1.1.1.1" },
-              "1" => { "0" => "Address 2", "1" => "BB111BB", "2" => "2.2.2.2" },
-            } }
+          {
+            "0" => { "0" => "122",
+                     "1" => "London road",
+                     "2" => nil,
+                     "3" => "London",
+                     "4" => "Greater London",
+                     "5" => "LE2 0EN",
+                     "6" => "192.12.2.3",
+                     "7" => "192.15.2.33",
+                     "8" => nil,
+                     "9" => nil,
+                     "10" => nil },
+            "1" => { "0" => "101",
+                     "1" => "Burton road",
+                     "2" => nil,
+                     "3" => "Birmingham",
+                     "4" => "West Midlands",
+                     "5" => "B1 9HH",
+                     "6" => "192.14.2.36",
+                     "7" => "192.17.2.37",
+                     "8" => "192.16.2.38",
+                     "9" => nil,
+                     "10" => nil },
+          } }
       end
       it "Adds two locations" do
         expect {
@@ -25,7 +45,7 @@ describe "DELETE /locations/:id", type: :request do
       it "Adds two Ip addresses" do
         expect {
           post confirm_upload_path, params:
-        }.to change(Ip, :count).by(2)
+        }.to change(Ip, :count).by(5)
       end
       it "redirects with a success message" do
         expect(
@@ -34,7 +54,7 @@ describe "DELETE /locations/:id", type: :request do
       end
       it "sets a success flash message" do
         post confirm_upload_path, params: params
-        expect(flash[:notice]).to eq("Successfully uploaded locations")
+        expect(flash[:notice]).to eq("Upload complete. You have saved 2 new locations and 5 new IP addresses")
       end
     end
     describe "empty input" do
@@ -58,11 +78,31 @@ describe "DELETE /locations/:id", type: :request do
     end
     context "params that causes a validation error" do
       let(:params) do
-        {
-          "csv" => {
-            "0" => { "0" => "Address 1", "1" => "INVALID" },
-          },
-        }
+        { "csv" =>
+          {
+            "0" => { "0" => "Address line 1",
+                     "1" => "Address line 2",
+                     "2" => "Address line 3",
+                     "3" => "City",
+                     "4" => "County",
+                     "5" => "Postcode",
+                     "6" => "IP address",
+                     "7" => "IP address",
+                     "8" => "IP address",
+                     "9" => "IP address",
+                     "10" => "IP address" },
+            "1" => { "0" => "Invalid",
+                     "1" => nil,
+                     "2" => nil,
+                     "3" => nil,
+                     "4" => nil,
+                     "5" => nil,
+                     "6" => nil,
+                     "7" => nil,
+                     "8" => nil,
+                     "9" => nil,
+                     "10" => nil },
+          } }
       end
       it "redirects with an error message" do
         expect(
