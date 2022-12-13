@@ -74,6 +74,8 @@ class LocationsController < ApplicationController
     else
       @parent_organisation = current_organisation
       BulkUpload::BulkUpload.add_location_data(@upload_form.data, @parent_organisation)
+      @new_locations = @parent_organisation.locations.select(&:new_record?)
+      @new_ips_total = @new_locations.flat_map(&:ips).count
       @parent_organisation.validate
     end
   end
