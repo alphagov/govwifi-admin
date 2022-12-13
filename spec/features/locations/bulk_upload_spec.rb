@@ -10,11 +10,7 @@ describe "Bulk upload locations and IPs", type: :feature do
 
   context "when uploading a locations CSV file" do
     it "displays the bulk upload page" do
-      expect(page).to have_content("Upload a CSV file containing locations and Ips")
-    end
-
-    it "displays a link to the support page" do
-      expect(page).to have_link("Contact GovWifi support", href: "/help")
+      expect(page).to have_content("Follow these steps to upload multiple addresses and IPs:")
     end
 
     context "when no file is chosen to upload" do
@@ -29,18 +25,18 @@ describe "Bulk upload locations and IPs", type: :feature do
 
     context "when a PDF file is uploaded" do
       before do
-        attach_file("File to Upload", Rails.root.join("spec/fixtures/mou.pdf"))
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/mou.pdf"))
         click_on "Upload"
       end
 
       it "displays the appropriate error" do
-        expect(page).to have_content("Invalid file type").twice
+        expect(page).to have_content("File must be csv format").twice
       end
     end
 
-    context "when a CSV with commas as delimiter is uploaded" do
+    context "when a CSV with tabs as delimiter is uploaded" do
       before do
-        attach_file("File to Upload", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes_commas.csv"))
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes_tabs.csv"))
         click_on "Upload"
       end
 
@@ -49,17 +45,50 @@ describe "Bulk upload locations and IPs", type: :feature do
       end
     end
 
+    context "when a CSV has contains incorrect OR missing headers" do
+      before do
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_invalid_headers.csv"))
+        click_on "Upload"
+      end
+
+      it "displays the appropriate error" do
+        expect(page).to have_content("File must use correct header names").twice
+      end
+    end
+
+    context "when a CSV has only header but no data" do
+      before do
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_only_headers_no_data.csv"))
+        click_on "Upload"
+      end
+
+      it "displays the appropriate error" do
+        expect(page).to have_content("File has no data").twice
+      end
+    end
+
+    context "when a CSV has no header AND no data" do
+      before do
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_blank.csv"))
+        click_on "Upload"
+      end
+
+      it "displays the appropriate error" do
+        expect(page).to have_content("File has no data").twice
+      end
+    end
+
     context "when a CSV with locations but no IPs is uploaded the summary page" do
       before do
-        attach_file("File to Upload", Rails.root.join("spec/fixtures/csv/locations_upload_no_ips.csv"))
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_no_ips.csv"))
         click_on "Upload"
       end
 
       it "displays the uploaded locations" do
-        expect(page).to have_content("Some Address")
-        expect(page).to have_content("AL2 2LU")
-        expect(page).to have_content("Another Address")
-        expect(page).to have_content("E1 2QE")
+        expect(page).to have_content("122 London road London Greater London")
+        expect(page).to have_content("LE2 0EN")
+        expect(page).to have_content("101 Avenue street Leicester Leicestershire")
+        expect(page).to have_content("SE2 9TT")
       end
 
       it "has a save button" do
@@ -70,26 +99,31 @@ describe "Bulk upload locations and IPs", type: :feature do
     context "when a CSV with locations and IPs is uploaded the summary page" do
       before do
         organisation.locations << build(:location, address: "Existing Address", organisation:)
-        attach_file("File to Upload", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes.csv"))
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes.csv"))
         click_on "Upload"
       end
 
+      it "displays total number of Locations and IP addresses uploaded in csv" do
+        summary = "You have submitted 2 addresses and 3 IPs. You can review your uploaded locations before saving."
+
+        expect(page).to have_content(summary)
+      end
+
       it "does not display already existing locations" do
-        expect(page).to_not have_content("Existing Address")
+        expect(page).to_not have_content("Location address already exists for this organisation")
       end
 
       it "displays the uploaded locations" do
-        expect(page).to have_content("Some Address")
-        expect(page).to have_content("AL2 2LU")
-        expect(page).to have_content("Another Address")
-        expect(page).to have_content("E1 2QE")
+        expect(page).to have_content("122 London road London Greater London")
+        expect(page).to have_content("LE2 0EN")
+        expect(page).to have_content("101 Avenue street Leicester Leicestershire")
+        expect(page).to have_content("SE2 9TT")
       end
 
       it "displays the uploaded IP addresses" do
-        expect(page).to have_content("81.1.1.1")
-        expect(page).to have_content("81.2.2.2")
-        expect(page).to have_content("82.1.1.1")
-        expect(page).to have_content("82.2.2.2")
+        expect(page).to have_content("192.1.2.3")
+        expect(page).to have_content("192.1.2.4")
+        expect(page).to have_content("192.1.2.5")
       end
 
       it "has a save button" do
@@ -97,9 +131,23 @@ describe "Bulk upload locations and IPs", type: :feature do
       end
     end
 
+    context "when a CSV has extra spaces in the data" do
+      before do
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_extra_spaces.csv"))
+        click_on "Upload"
+      end
+
+      it "displays data without the extra spaces" do
+        expect(page).to have_content("122 London road London Greater London")
+        expect(page).to have_content("LE2 0EN")
+        expect(page).to have_content("101 Avenue street Leicester Leicestershire")
+        expect(page).to have_content("SE2 9TT")
+      end
+    end
+
     context "when a CSV with an invalid postcode is uploaded the summary page" do
       before do
-        attach_file("File to Upload", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes_invalid_postcode.csv"))
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes_invalid_postcode.csv"))
         click_on "Upload"
       end
 
@@ -114,13 +162,11 @@ describe "Bulk upload locations and IPs", type: :feature do
 
     context "when a CSV with existing locations is uploaded the summary page" do
       before do
-        l = create(:location, address: "Some Address", postcode: "AL2 2LU", organisation:)
-        create(:location, address: "Another Address", postcode: "E1 2QE", organisation:)
-        create(:ip, address: "81.1.1.1", location: l)
-        create(:ip, address: "81.2.2.2", location: l)
-        create(:ip, address: "82.1.1.1", location: l)
-        create(:ip, address: "82.2.2.2", location: l)
-        attach_file("File to Upload", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes.csv"))
+        l = create(:location, address: "122 London road London Greater London", postcode: "LE2 0EN", organisation:)
+        create(:location, address: "101 Avenue street Leicester Leicestershire", postcode: "SE2 9TT", organisation:)
+        create(:ip, address: "192.1.2.3", location: l)
+        create(:ip, address: "192.1.2.4", location: l)
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes.csv"))
         click_on "Upload"
       end
 
@@ -129,7 +175,7 @@ describe "Bulk upload locations and IPs", type: :feature do
       end
 
       it "displays the IP address error messages" do
-        expect(page).to have_content("IP address is already in use", count: 8)
+        expect(page).to have_content("IP address is already in use", count: 4)
       end
 
       it "does not have a save button" do
@@ -139,16 +185,17 @@ describe "Bulk upload locations and IPs", type: :feature do
 
     context "when a CSV with duplicate locations is uploaded the summary page" do
       before do
-        attach_file("File to Upload", Rails.root.join("spec/fixtures/csv/locations_upload_with_dupes.csv"))
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_with_dupes.csv"))
         click_on "Upload"
       end
 
       it "displays the location address error messages" do
-        expect(page).to have_content("Address Third Address is a duplicate", count: 4)
+        expect(page).to have_content("Address 122 London road London Greater London", count: 4)
       end
 
       it "displays the IP address error messages" do
-        expect(page).to have_content("Ip address 84.1.1.1 is a duplicate", count: 4)
+        expect(page).to have_content("Ip address 192.1.2.3 is a duplicate", count: 4)
+        expect(page).to have_content("Ip address 192.1.2.4 is a duplicate", count: 4)
       end
 
       it "does not have a save button" do
@@ -158,45 +205,43 @@ describe "Bulk upload locations and IPs", type: :feature do
 
     context "when confirming an upload" do
       before do
-        attach_file("File to Upload", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes.csv"))
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes.csv"))
         click_on "Upload"
         click_on "Save"
       end
 
       it "returns to the locations page and displays an alert" do
-        expect(page).to have_content("Successfully uploaded locations")
+        expect(page).to have_content("Upload complete. You have saved 2 new locations and 3 new IP addresses")
       end
 
       it "displays the new locations" do
-        expect(page).to have_content("Some Address, AL2 2LU")
-        expect(page).to have_content("Another Address, E1 2QE")
+        expect(page).to have_content("122 London road London Greater London")
+        expect(page).to have_content("101 Avenue street Leicester Leicestershire")
       end
 
       it "displays the new IP addresses" do
-        expect(page).to have_content("81.1.1.1")
-        expect(page).to have_content("81.2.2.2")
-        expect(page).to have_content("82.1.1.1")
-        expect(page).to have_content("82.2.2.2")
+        expect(page).to have_content("192.1.2.3")
+        expect(page).to have_content("192.1.2.4")
+        expect(page).to have_content("192.1.2.5")
       end
     end
 
     context "when not confirming an upload" do
       before do
-        attach_file("File to Upload", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes.csv"))
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes.csv"))
         click_on "Upload"
         click_on "Locations"
       end
 
-      it "does not displau the new locations" do
-        expect(page).not_to have_content("Some Address, AL2 2LU")
-        expect(page).not_to have_content("Another Address, E1 2QE")
+      it "does not display the new locations" do
+        expect(page).not_to have_content("122 London road London Greater London")
+        expect(page).not_to have_content("101 Avenue street Leicester Leicestershire")
       end
 
       it "does not display the new IP addresses" do
-        expect(page).not_to have_content("81.1.1.1")
-        expect(page).not_to have_content("81.2.2.2")
-        expect(page).not_to have_content("82.1.1.1")
-        expect(page).not_to have_content("82.2.2.2")
+        expect(page).not_to have_content("192.1.2.3")
+        expect(page).not_to have_content("192.1.2.4")
+        expect(page).not_to have_content("192.1.2.5")
       end
     end
   end
