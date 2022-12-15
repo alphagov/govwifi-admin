@@ -1,7 +1,7 @@
 # GovWifi admin application
 # TEST #
 
-This is the GovWifi admin site, where organisations can create and manage their GovWifi installation within their organisation.
+This is the GovWifi admin site, where organisations can create and manage their GovWifi installation within their organisation
 
 The GovWifi [developer documentation][dev-docs] contains technical documentation for the GovWifi team in the Government Digital Service.
 
