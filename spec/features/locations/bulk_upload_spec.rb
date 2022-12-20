@@ -67,6 +67,19 @@ describe "Bulk upload locations and IPs", type: :feature do
       end
     end
 
+    context "when a CSV has only one row of data" do
+      before do
+        attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_only_one_row_of_data.csv"))
+        click_on "Upload"
+      end
+
+      it "allows one row of data to pass validation" do
+        summary = "You have submitted 1 addresses and 2 IPs. You can review your uploaded locations before saving."
+
+        expect(page).to have_content(summary)
+      end
+    end
+
     context "when a CSV has no header AND no data" do
       before do
         attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_blank.csv"))
