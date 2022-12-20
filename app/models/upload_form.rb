@@ -60,8 +60,8 @@ private
 
   def first_row_empty?
     return false if @data.nil?
-    return true if @data[1].nil?
+    return true if @data[0].nil?
 
-    @data[1].all?(&:blank?)
+    @data[0].all?(&:blank?)
   end
 end
