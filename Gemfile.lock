@@ -135,6 +135,15 @@ GEM
     diff-lcs (1.5.0)
     digest (3.1.0)
     docile (1.4.0)
+    elastic-transport (8.1.0)
+      faraday (< 3)
+      multi_json
+    elasticsearch (8.5.2)
+      elastic-transport (~> 8)
+      elasticsearch-api (= 8.5.2)
+    elasticsearch-api (8.5.2)
+      multi_json
+    elasticsearch-rails (7.2.1)
     encryptor (3.0.0)
     erb_lint (0.2.0)
       activesupport
@@ -494,6 +503,8 @@ DEPENDENCIES
   devise (~> 4.8.1)
   devise_invitable (~> 2.0.6)
   devise_zxcvbn (~> 6.0.0)
+  elasticsearch
+  elasticsearch-rails
   erb_lint
   factory_bot_rails (~> 6.2.0)
   faker
