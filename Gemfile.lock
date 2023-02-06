@@ -135,13 +135,12 @@ GEM
     diff-lcs (1.5.0)
     digest (3.1.0)
     docile (1.4.0)
-    elasticsearch (7.17.7)
-      elasticsearch-api (= 7.17.7)
-      elasticsearch-transport (= 7.17.7)
-    elasticsearch-api (7.17.7)
+    elasticsearch (7.13.3)
+      elasticsearch-api (= 7.13.3)
+      elasticsearch-transport (= 7.13.3)
+    elasticsearch-api (7.13.3)
       multi_json
-    elasticsearch-rails (7.2.1)
-    elasticsearch-transport (7.17.7)
+    elasticsearch-transport (7.13.3)
       faraday (~> 1)
       multi_json
     encryptor (3.0.0)
@@ -160,7 +159,7 @@ GEM
       railties (>= 5.0.0)
     faker (3.0.0)
       i18n (>= 1.8.11, < 2)
-    faraday (1.10.2)
+    faraday (1.10.3)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -259,7 +258,7 @@ GEM
     minitest (5.16.3)
     multi_json (1.15.0)
     multi_xml (0.6.0)
-    multipart-post (2.2.3)
+    multipart-post (2.3.0)
     mysql2 (0.5.4)
     nenv (0.3.0)
     net-imap (0.2.3)
@@ -503,8 +502,7 @@ DEPENDENCIES
   devise (~> 4.8.1)
   devise_invitable (~> 2.0.6)
   devise_zxcvbn (~> 6.0.0)
-  elasticsearch (~> 7)
-  elasticsearch-rails
+  elasticsearch (~> 7.13.3)
   erb_lint
   factory_bot_rails (~> 6.2.0)
   faker
