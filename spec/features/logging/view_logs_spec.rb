@@ -47,6 +47,22 @@ describe "View authentication requests for an IP", type: :feature do
       expect(page).to have_css("td", text: task_id)
     end
 
+    context "when filtering for all requests" do
+      before do
+        select("All", from: "Status type:")
+        click_button("Filter")
+      end
+
+      it "shows all requests" do
+        expect(page).to have_css("td", text: "successful")
+        expect(page).to have_css("td", text: "failed")
+      end
+
+      it "keeps the selection on 'All'" do
+        expect(page).to have_select("Status type:", selected: "All")
+      end
+    end
+
     context "when fitering for successful requests" do
       before do
         select("Successful", from: "Status type:")
@@ -56,6 +72,10 @@ describe "View authentication requests for an IP", type: :feature do
       it "shows only successful requests" do
         expect(page).to have_css("td", text: "successful")
         expect(page).to_not have_css("td", text: "failed")
+      end
+
+      it "keeps the selection on 'Successful'" do
+        expect(page).to have_select("Status type:", selected: "Successful")
       end
     end
 
@@ -68,6 +88,10 @@ describe "View authentication requests for an IP", type: :feature do
       it "shows only failed requests" do
         expect(page).to_not have_css("td", text: "successful")
         expect(page).to have_css("td", text: "failed")
+      end
+
+      it "keeps the selection on 'Failed'" do
+        expect(page).to have_select("Status type:", selected: "Failed")
       end
     end
   end
