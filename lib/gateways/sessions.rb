@@ -14,7 +14,7 @@ module Gateways
 
       results = results.where(username:) unless username.nil?
       results = results.where(siteIP: ips) unless ips.nil?
-      results = results.where(success:) unless success.nil?
+      results = results.where(success:) if success.present?
       results
     end
 

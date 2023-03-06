@@ -5,7 +5,7 @@
     <%= form.hidden_field :ip %>
     <%= form.hidden_field :location_id %>
     <%= form.govuk_select :success,
-                          options_for_select([["All", nil], %w[Successful true], %w[Failed false]]),
+                          options_for_select([["All", nil], %w[Successful true], %w[Failed false]], log_search_form.success),
                           label: { text: "Status type:" } %>
     <%= form.govuk_submit "Filter" %>
   <% end %>
