@@ -288,7 +288,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (5.0.0)
-    puma (5.6.5)
+    puma (6.2.0)
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.4)
@@ -516,7 +516,7 @@ DEPENDENCIES
   notifications-ruby-client (~> 5.3.0)
   pagy (~> 5.10.1)
   pry
-  puma (~> 5.6)
+  puma (~> 6.2)
   rack-mini-profiler
   rack_session_access
   rails (~> 7.0.4)
