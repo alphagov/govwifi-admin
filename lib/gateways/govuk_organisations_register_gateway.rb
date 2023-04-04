@@ -1266,7 +1266,7 @@ module Gateways
         "North Norfolk District Council",
         "Norwich City Council",
         "South Norfolk District Council",
-        "Northamptonshire County Council",
+        "West Northamptonshire Unitary Council",
         "Corby Borough Council",
         "Daventry District Council",
         "East Northamptonshire Council",
