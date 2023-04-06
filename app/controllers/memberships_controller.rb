@@ -1,6 +1,7 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: %i[edit update destroy]
   before_action :validate_can_manage_team, only: %i[edit update destroy]
+  before_action :validate_has_two_confirmed_admin_users, only: [:update]
   skip_before_action :redirect_user_with_no_organisation, only: %i[destroy edit update]
 
   def edit
@@ -36,7 +37,8 @@ class MembershipsController < ApplicationController
   end
 
   def update
-    permission_level = params.require(:membership).permit(:permission_level).fetch(:permission_level)
+    permission_level = params.permit(:permission_level).fetch(:permission_level)
+
     @membership.update!(
       can_manage_team: permission_level == "administrator",
       can_manage_locations: %w[administrator manage_locations].include?(permission_level),
@@ -94,5 +96,9 @@ private
     unless current_user.can_manage_team?(current_organisation)
       raise ActionController::RoutingError, "Not Found"
     end
+  end
+
+  def validate_has_two_confirmed_admin_users
+    raise ActionController::RoutingError, "Not Found" if @membership.cannot_change_permissions?
   end
 end
