@@ -30,6 +30,10 @@ describe "Invite a team member", type: :feature do
 
       expect(page).to have_button("Resend invite")
     end
+
+    it "shows alert to remind admins there must be minimum of two administrators for each organisation" do
+      expect(page).to have_content("There must be a minimum of 2 administrators for each organisation.")
+    end
   end
 
   context "without the .manage_team permission" do
