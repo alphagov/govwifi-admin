@@ -13,21 +13,41 @@ describe "Remove a team member", type: :feature do
       click_on "Remove user from GovWifi admin"
     end
 
-    it "shows the remove a team member confirmation box" do
-      expect(page).to have_content("Are you sure you want to remove")
-    end
+    context "when there are more than three admin users in the organisation" do
+      let!(:second_user) { create(:user, :super_admin, organisations: [organisation]) }
+      let!(:third_user) { create(:user, :super_admin, organisations: [organisation]) }
+      let!(:fourth_user) { create(:user, :super_admin, organisations: [organisation]) }
 
-    it "hides the delete user link when already clicked" do
-      expect(page).not_to have_content("Remove user from service")
-    end
+      before do
+        visit edit_membership_path(another_user.membership_for(organisation))
+        click_on "Remove user from GovWifi admin"
+      end
 
-    it "deletes the membership" do
-      expect { click_on "Yes, remove this team member" }.to change(Membership, :count).by(-1)
-    end
+      it "asks for confirmation" do
+        expect(page).to have_content("Are you sure you want to remove #{another_user.name}?")
+      end
 
-    it 'redirects to "after user removed" team members page for analytics' do
-      click_on "Yes, remove this team member"
-      expect(page).to have_current_path("/memberships")
+      it "displays a link to cancel" do
+        expect(page).to have_link("Cancel")
+      end
+
+      it "will take the user to the edit form when they click 'Cancel'" do
+        click_on "Cancel"
+        expect(page).to have_current_path(edit_membership_path(another_user.membership_for(organisation)))
+      end
+
+      it "hides the delete user link when already clicked" do
+        expect(page).not_to have_content("Remove user from service")
+      end
+
+      it "deletes the membership" do
+        expect { click_on "Yes, remove this team member" }.to change(Membership, :count).by(-1)
+      end
+
+      it 'redirects to "after user removed" team members page for analytics' do
+        click_on "Yes, remove this team member"
+        expect(page).to have_current_path("/memberships")
+      end
     end
   end
 

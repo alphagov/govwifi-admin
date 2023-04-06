@@ -21,6 +21,10 @@ class Organisation < ApplicationRecord
     .order("#{sort_column} #{sort_direction}")
   }
 
+  def has_less_than_two_admin_users?
+    users.where(is_super_admin: true).count <= 2
+  end
+
   def ip_addresses
     ips.pluck(:address)
   end

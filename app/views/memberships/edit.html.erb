@@ -1,19 +1,21 @@
 <% content_for :page_title, "Manage team member" %>
 
-<%= link_to "Back", :back, class: "govuk-back-link" %>
 <%= render "confirm_remove_team_member" if params[:remove_team_member] %>
+<%= render "confirm_change_permissions" if params[:membership].present? && params[:membership][:confirm_change_permissions] %>
 
-<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-3"><%= @membership.user.name %></h1>
+<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-3">Manage permissions for <%= @membership.user.name %></h1>
 <p class="govuk-body govuk-!-margin-bottom-4"> <%= @membership.user.email %> </p>
 
-<%= form_with model: @membership, url: membership_path(@membership), method: :patch do |form| %>
+<%= render "memberships/minimum_two_administrators_required" %>
+
+<%= form_with model: @membership, url: edit_membership_path(@membership), method: :get do |form| %>
   <%= form.govuk_collection_radio_buttons(:permission_level, @permission_level_data, :value, :text, :hint,
                                           legend: { size: "s", text: "Permission level" }) %>
+  <%= form.hidden_field :confirm_change_permissions, value: true %>
+
   <%= form.govuk_submit "Save" %>
 <% end %>
 
-<% unless params[:remove_team_member] %>
-  <div class="govuk-body govuk-!-margin-top-2 inline-block">
-    <%= link_to "Remove user from GovWifi admin", edit_membership_path(@membership, remove_team_member: true), class: "govuk-link red-link" %>
-  </div>
-<% end %>
+<div class="govuk-body govuk-!-margin-top-2 inline-block">
+  <%= link_to "Remove user from GovWifi admin", edit_membership_path(@membership, remove_team_member: true), class: "govuk-link red-link" %>
+</div>

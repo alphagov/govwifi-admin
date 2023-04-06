@@ -5,6 +5,10 @@ class Membership < ApplicationRecord
 
   scope :pending, -> { where(confirmed_at: nil) }
 
+  def can_manage_team_as_admin_with_limitations?
+    user.is_super_admin && can_manage_team? && organisation.has_less_than_two_admin_users?
+  end
+
   def confirm!
     touch :confirmed_at
   end
