@@ -118,5 +118,4 @@ This codebase is released under [the MIT License][mit].
 [notify]:https://www.notifications.service.gov.uk
 [zendesk]:https://govuk.zendesk.com/hc/en-us
 [terraform-repo]:https://github.com/alphagov/govwifi-terraform
-[gds-concourse]: https://cd.gds-reliability.engineering/
 [prod-deploy-pipeline]: https://cd.gds-reliability.engineering/teams/govwifi/pipelines/admin-deploy?groups=Production
