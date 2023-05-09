@@ -5,20 +5,13 @@ ifdef DEPLOYMENT
   BUNDLE_FLAGS = --without test development
 endif
 
-ifndef ON_CONCOURSE
-	DOCKER_COMPOSE += -f docker-compose.development.yml
-endif
+DOCKER_COMPOSE += -f docker-compose.development.yml
 
-ifdef ON_CONCOURSE
-	DOCKER_COMPOSE += -f docker-compose.concourse.yml
-endif
 
 DOCKER_BUILD_CMD = BUNDLE_INSTALL_FLAGS="$(BUNDLE_FLAGS)" $(DOCKER_COMPOSE) build
 
 build:
-ifndef ON_CONCOURSE
 	$(DOCKER_COMPOSE) build
-endif
 
 prebuild:
 	$(DOCKER_COMPOSE) build
