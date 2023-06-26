@@ -9,7 +9,7 @@
       <% if @form_valid %>
         <div class="govuk-body">
           <% if @wifi_user.present? %>
-            <h3 class="govuk-heading-s">User details for '<%= params[:search_term] %>'</h3>
+            <h3 class="govuk-heading-s">User details for '<%= @form.search_term %>'</h3>
             <p class="govuk-body">
               Username: <%= link_to @wifi_user.username,
                                     logs_path(log_search_form: { username: @wifi_user.username,
