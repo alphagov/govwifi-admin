@@ -60,7 +60,9 @@ end
 group :development, :test do
   gem "bullet", "~> 7.0"
   gem "byebug", "~> 11"
+  gem "debug", require: false
   gem "listen", "~> 3"
   gem "pry"
   gem "rack-mini-profiler", require: false
+  gem "solargraph"
 end
