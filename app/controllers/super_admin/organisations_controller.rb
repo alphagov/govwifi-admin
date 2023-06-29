@@ -42,8 +42,7 @@ private
   end
 
   def sort_direction
-
     directions = %w[desc asc]
-    directions.include?(params[:direction]) ? params[:direction] : directions.last 
+    directions.include?(params[:direction]) ? params[:direction] : directions.last
   end
 end

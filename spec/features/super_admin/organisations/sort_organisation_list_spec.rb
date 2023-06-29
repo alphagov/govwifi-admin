@@ -20,6 +20,7 @@ describe "Sorting the organisations list", type: :feature do
     context "when using account creation date" do
       it "the list is sorted from newest to oldest, after Created on is clicked the first time" do
         click_link "Created on"
+
         expect(page.body).to match(/Gov Org 1.*Gov Org 3.*Gov Org 2/m)
       end
 
@@ -39,7 +40,7 @@ describe "Sorting the organisations list", type: :feature do
 
       it "the list is sorted from A-Z, after Name is clicked again" do
         2.times { click_link "Name" }
-        
+
         expect(page.body).to match(/Gov Org 1.*Gov Org 2.*Gov Org 3/m)
       end
     end
@@ -84,14 +85,12 @@ describe "Sorting the organisations list", type: :feature do
         within(".govuk-table__head") { click_link "Locations" }
 
         expect(page.text).to match(/Gov Org 3.*Gov Org 1.*Gov Org 2/)
-
       end
 
       it "the list is sorted by number of locations ascending, after Locations is clicked again" do
         within(".govuk-table__head") { 2.times { click_link "Locations" } }
 
         expect(page.text).to match(/Gov Org 2.*Gov Org 1.*Gov Org 3/)
-
       end
     end
 
