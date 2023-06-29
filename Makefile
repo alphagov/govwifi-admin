@@ -44,3 +44,13 @@ stop:
 	$(DOCKER_COMPOSE) down -v
 
 .PHONY: build lint serve shell stop test
+
+vsctest: 
+	RACK_ENV=test ./bin/rails db:drop db:create db:schema:load db:migrate
+	bundle exec rspec
+
+vscrefreshdb:
+	./bin/rails db:drop db:create db:schema:load db:seed
+
+vscdbg:
+	BYPASS_2FA=true bundle exec rdbg -n --open=vscode -c -- bin/rails s -b 0.0.0.0
