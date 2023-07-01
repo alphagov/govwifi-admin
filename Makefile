@@ -54,3 +54,8 @@ vscrefreshdb:
 
 vscdbg:
 	BYPASS_2FA=true bundle exec rdbg -n --open=vscode -c -- bin/rails s -b 0.0.0.0
+
+vsclint:
+	bundle exec rubocop
+	bundle exec erblint --lint-all
+	node ./node_modules/stylelint/bin/stylelint.js "**/*.scss"
