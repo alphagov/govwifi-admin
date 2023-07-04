@@ -57,3 +57,8 @@ vscdbg:
 
 vscrubylint:
 	bundle exec rubocop
+  
+vsclint:
+	bundle exec rubocop
+	bundle exec erblint --lint-all
+	node ./node_modules/stylelint/bin/stylelint.js "**/*.scss"
