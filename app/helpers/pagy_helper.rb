@@ -22,11 +22,11 @@ module PagyHelper
       html << %(</div>)
     end
     html << %(<ul class="govuk-pagination__list">)
-    pagy.series.each do |item|  # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36]
+    pagy.series.each do |item| # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36]
       html << case item
               when Integer then %(<li class="govuk-pagination__item"><a>#{link.call item}</a></li>) # page link
-              when String  then %(<li class="govuk-pagination__item govuk-pagination__item--current"><a>#{item}</a></li>) # current page
-              when :gap    then %(<li class="govuk-pagination__item">#{pagy_t('pagy.nav.gap')}</li>)   # page gap
+              when String then %(<li class="govuk-pagination__item govuk-pagination__item--current"><a>#{item}</a></li>) # current page
+              when :gap then %(<li class="govuk-pagination__item">#{pagy_t('pagy.nav.gap')}</li>) # page gap
               end
     end
     html << %(</ul>)

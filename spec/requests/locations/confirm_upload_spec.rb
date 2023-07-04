@@ -53,7 +53,7 @@ describe "DELETE /locations/:id", type: :request do
         ).to redirect_to(ips_path)
       end
       it "sets a success flash message" do
-        post confirm_upload_path, params: params
+        post(confirm_upload_path, params:)
         expect(flash[:notice]).to eq("Upload complete. You have saved 2 new locations and 5 new IP addresses")
       end
     end
@@ -67,7 +67,7 @@ describe "DELETE /locations/:id", type: :request do
         ).to redirect_to(ips_path)
       end
       it "sets an error message" do
-        post confirm_upload_path, params: params
+        post(confirm_upload_path, params:)
         expect(flash[:error]).to eq("The uploaded file did not contain any locations.")
       end
     end
@@ -110,7 +110,7 @@ describe "DELETE /locations/:id", type: :request do
         ).to redirect_to(ips_path)
       end
       it "sets an error message" do
-        post confirm_upload_path, params: params
+        post(confirm_upload_path, params:)
         expect(flash[:error]).to eq("Uploading data failed. Please try again.")
       end
     end

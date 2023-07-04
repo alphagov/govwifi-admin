@@ -37,3 +37,4 @@ storage/
 coverage
 
 ci/secrets
+.vscode/rdbg_autoattach.json
