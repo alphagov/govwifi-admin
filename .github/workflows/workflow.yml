@@ -8,16 +8,11 @@ on:
       - master
 
 jobs:
-  lint:
+  lint-and-test:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Run lint
         run: make lint
-
-  test:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
       - name: Run tests
         run: make test
