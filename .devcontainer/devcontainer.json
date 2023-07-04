@@ -27,7 +27,8 @@
 				"bung87.rails",
 				"rebornix.ruby",
 				"KoichiSasada.vscode-rdbg",
-				"castwide.solargraph"
+				"castwide.solargraph",
+				"eamodio.gitlens"
 			]
 		}
 	},
