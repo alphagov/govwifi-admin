@@ -19,7 +19,6 @@ services:
     platform: linux/x86_64
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: root
       MYSQL_DATABASE: rr_govwifi
     expose:
       - "3306"
@@ -33,7 +32,6 @@ services:
     platform: linux/x86_64
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: root
       MYSQL_DATABASE: wifi_user_govwifi
     expose:
       - "3306"
