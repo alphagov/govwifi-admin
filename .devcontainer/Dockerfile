@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/ruby:3.1-bullseye
+FROM ruby:3.2.2-bullseye
 ARG BUNDLE_INSTALL_CMD
 
 # required for certain linting tools that read files, such as erb-lint
