@@ -7,13 +7,13 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "aws-sdk-route53", "~> 1.70.0"
-gem "aws-sdk-s3", "~> 1.114.0"
+gem "aws-sdk-route53", "~> 1.76.0"
+gem "aws-sdk-s3", "~> 1.129.0"
 gem "cancancan"
 gem "devise", "~> 4.8.1"
 gem "devise_invitable", "~> 2.0.6"
 gem "devise_zxcvbn", "~> 6.0.0"
-gem "elasticsearch", "~> 7.13.3"
+gem "elasticsearch", "~> 8.8.0"
 gem "google-apis-drive_v3"
 gem "govuk_design_system_formbuilder"
 gem "httparty", "~> 0.21.0"
@@ -21,7 +21,7 @@ gem "mysql2", "~> 0.5.4"
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
-gem "notifications-ruby-client", "~> 5.3.0"
+gem "notifications-ruby-client", "~> 5.4.0"
 gem "pagy", "~> 5.10.1"
 gem "puma", "~> 6.2"
 gem "rails", "~> 7.0.4"
@@ -38,19 +38,19 @@ gem "zendesk_api"
 group :test do
   gem "capybara"
   gem "erb_lint", require: false
-  gem "factory_bot_rails", "~> 6.2.0"
+  gem "factory_bot_rails"
   gem "faker"
   gem "guard-rspec"
   gem "nokogiri"
   gem "rack_session_access"
   gem "rails-controller-testing"
-  gem "rspec-rails", "~> 6.0.1"
-  gem "rubocop-govuk", "~> 4"
-  gem "shoulda-matchers", "~> 5.2"
+  gem "rspec-rails"
+  gem "rubocop-govuk"
+  gem "shoulda-matchers"
   gem "simplecov", require: false
   gem "simplecov-console", require: false
-  gem "timecop", "~> 0.9.5"
-  gem "webmock", "~> 3.18.1"
+  gem "timecop"
+  gem "webmock"
 end
 
 group :development do
@@ -58,10 +58,10 @@ group :development do
 end
 
 group :development, :test do
-  gem "bullet", "~> 7.0"
-  gem "byebug", "~> 11"
+  gem "bullet"
+  gem "byebug"
   gem "debug", require: false
-  gem "listen", "~> 3"
+  gem "listen"
   gem "pry"
   gem "rack-mini-profiler", require: false
   gem "solargraph"
