@@ -27,7 +27,7 @@ lint-ruby: build
 lint-erb: build
 	$(DOCKER_COMPOSE) run  --no-deps --rm app bundle exec erblint --lint-all
 lint-scss: build
-	$(DOCKER_COMPOSE) run  --no-deps --rm app node ./node_modules/stylelint/bin/stylelint.js "**/*.scss"
+	$(DOCKER_COMPOSE) run  --no-deps --rm app node ./node_modules/stylelint/bin/stylelint.mjs "**/*.scss"
 
 autocorrect: autocorrect-erb
 autocorrect-erb: build
@@ -63,4 +63,4 @@ vscrubylint:
 vsclint:
 	bundle exec rubocop
 	bundle exec erblint --lint-all
-	node ./node_modules/stylelint/bin/stylelint.js "**/*.scss"
+	node ./node_modules/stylelint/bin/stylelint.mjs "**/*.scss"
