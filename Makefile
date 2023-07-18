@@ -33,7 +33,9 @@ autocorrect: autocorrect-erb
 autocorrect-erb: build
 	$(DOCKER_COMPOSE) run --rm --no-deps app bundle exec erblint --lint-all --autocorrect
 
-test: stop build
+test: stop build prebuilt-test
+
+prebuilt-test:
 	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load db:migrate
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
