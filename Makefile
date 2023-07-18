@@ -55,6 +55,9 @@ vscrefreshdb:
 vscdbg:
 	BYPASS_2FA=true bundle exec rdbg -n --open=vscode -c -- bin/rails s -b 0.0.0.0
 
+vscdbg-mfa:
+	bundle exec rdbg -n --open=vscode -c -- bin/rails s -b 0.0.0.0
+
 vscrubylint:
 	bundle exec rubocop
   
