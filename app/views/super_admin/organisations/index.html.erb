@@ -46,17 +46,17 @@
           <%= organisation.created_at.strftime("%e %b %Y") %>
         </td>
         <td class="govuk-table__cell govuk-table__cell" scope="row">
-          <% if organisation.signed_mou.attached? %>
-            <%= organisation.signed_mou.attachment.created_at.strftime("%e %b %Y") %>
+          <% if organisation.mou_created_at.present? %>
+            <%= organisation.mou_created_at.strftime("%e %b %Y") %>
           <% else %>
             -
           <% end %>
         </td>
         <td class="govuk-table__cell govuk-table__cell--numeric" scope="row">
-          <%= organisation.locations.count %>
+          <%= organisation.locations_count %>
         </td>
         <td class="govuk-table__cell govuk-table__cell--numeric" scope="row">
-          <%= organisation.ips.count %>
+          <%= organisation.ips_count %>
         </td>
       </tr>
     <% end %>
