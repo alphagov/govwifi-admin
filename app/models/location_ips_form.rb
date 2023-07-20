@@ -51,7 +51,7 @@ private
 
       {
         ip_field:,
-        model: Ip.new(location:, address: ip_address),
+        model:  Ip.new(location:, address: ip_address),
       }
     end
   end
