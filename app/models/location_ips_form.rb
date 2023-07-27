@@ -16,8 +16,10 @@ class LocationIpsForm
     @updated_length ||= ip_data.count(&:present?)
   end
 
-  def update
+  def update(user, current_organisation)
     return false unless valid?
+
+    UseCases::FirstIpAddedSurveySender.new.execute(user, current_organisation)
 
     ip_data.compact.each { |ip| ip[:model].save }
     UseCases::PerformancePlatform::PublishLocationsIps.new.execute
@@ -51,7 +53,7 @@ private
 
       {
         ip_field:,
-        model:  Ip.new(location:, address: ip_address),
+        model: Ip.new(location:, address: ip_address),
       }
     end
   end
