@@ -71,8 +71,8 @@ GEM
     ansi (1.5.0)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.787.0)
-    aws-sdk-core (3.178.0)
+    aws-partitions (1.793.0)
+    aws-sdk-core (3.180.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
       aws-sigv4 (~> 1.5)
@@ -80,7 +80,7 @@ GEM
     aws-sdk-kms (1.71.0)
       aws-sdk-core (~> 3, >= 3.177.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-route53 (1.76.0)
+    aws-sdk-route53 (1.77.0)
       aws-sdk-core (~> 3, >= 3.177.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-s3 (1.130.0)
@@ -521,7 +521,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk-route53 (~> 1.76.0)
+  aws-sdk-route53 (~> 1.77.0)
   aws-sdk-s3 (~> 1.130.0)
   bullet
   byebug
