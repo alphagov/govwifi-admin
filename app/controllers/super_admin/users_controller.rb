@@ -5,6 +5,13 @@ class SuperAdmin::UsersController < SuperAdminController
     @user = User.new
   end
 
+  def index
+    respond_to do |format|
+      format.csv { send_data User.admin_usage_csv, filename: "admin_usage.csv" }
+      format.html { render :index }
+    end
+  end
+
   def create
     @user = User.find_by!(email: params.require(:user)[:email])
 

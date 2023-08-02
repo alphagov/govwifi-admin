@@ -163,4 +163,29 @@ describe User do
       end
     end
   end
+
+  describe "#admin_usage_csv" do
+    it "has the correct headers" do
+      expect(User.admin_usage_csv).to eq("email,admin name,current sign in date,last sign in date,number of sign ins,organisation name\n")
+    end
+    it "returns the correct rows" do
+      current_sign_in_at = Time.zone.local(2022, 1, 1)
+      last_sign_in_at = Time.zone.local(2022, 2, 2)
+      email = "test@gov.uk"
+      organisation_name = "Gov Org 1"
+      name = "Test User"
+      sign_in_count = 2
+
+      create(:user,
+             name:,
+             current_sign_in_at:,
+             last_sign_in_at:,
+             email:,
+             sign_in_count:,
+             organisations: [create(:organisation, name: organisation_name)])
+
+      expect(User.admin_usage_csv)
+        .to include("#{email},#{name},#{current_sign_in_at},#{last_sign_in_at},#{sign_in_count},#{organisation_name}\n")
+    end
+  end
 end

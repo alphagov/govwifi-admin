@@ -6,6 +6,13 @@ describe "Wifi Admin Searches", type: :feature do
     visit super_admin_wifi_admin_search_path
   end
 
+  it "Has a link to download the list of admins" do
+    allow(User).to receive(:admin_usage_csv)
+    expect(page).to have_link("Download all admin data in CSV format")
+    click_on "Download all admin data in CSV format"
+    expect(User).to have_received(:admin_usage_csv)
+  end
+
   it "Cannot find a user that does not exist" do
     fill_in "Admin name or email address", with: "bob"
     click_on "Find admin details"
