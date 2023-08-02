@@ -1,4 +1,9 @@
 <% content_for :page_title, "Search logs by admin details" %>
+<div class="govuk-!-margin-top-1 govuk-!-margin-bottom-2">
+  <%= link_to "Download all admin data in CSV format",
+              super_admin_users_path(format: "csv"),
+              class: "govuk-link" %>
+</div>
 <%= form_with model: @form, url: super_admin_wifi_admin_search_path do |f| %>
   <%= f.govuk_error_summary %>
   <div class='govuk-grid-row'>

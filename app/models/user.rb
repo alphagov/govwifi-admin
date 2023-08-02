@@ -102,4 +102,13 @@ class User < ApplicationRecord
       find_by("email like ?", "%#{search_term}%") ||
       find_by("name like ?", "%#{search_term}%")
   end
+
+  def self.admin_usage_csv
+    CSV.generate do |csv|
+      csv << ["email", "admin name", "current sign in date",	"last sign in date", "number of sign ins", "organisation name"]
+      User.select("users.*, organisations.name as organisation_name").joins(:organisations).order(email: :asc).each do |data|
+        csv << [data.email, data.name, data.current_sign_in_at, data.last_sign_in_at, data.sign_in_count, data.organisation_name]
+      end
+    end
+  end
 end
