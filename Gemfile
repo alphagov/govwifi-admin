@@ -40,7 +40,6 @@ group :test do
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
-  gem "guard-rspec"
   gem "nokogiri"
   gem "rack_session_access"
   gem "rails-controller-testing"

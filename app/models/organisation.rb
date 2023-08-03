@@ -13,12 +13,10 @@ class Organisation < ApplicationRecord
   validates_associated :locations
 
   scope :sortable_with_child_counts, lambda { |sort_column, sort_direction|
-    select("organisations.*, COUNT(DISTINCT(locations.id)) AS locations_count, COUNT(DISTINCT(ips.id)) AS ips_count")
-    .joins("LEFT OUTER JOIN locations ON locations.organisation_id = organisations.id")
-    .joins("LEFT OUTER JOIN ips ON ips.location_id = locations.id")
-    .joins("LEFT OUTER JOIN active_storage_attachments ON active_storage_attachments.record_id = organisations.id")
-    .group("organisations.id, active_storage_attachments.created_at")
-    .order("#{sort_column} #{sort_direction}")
+    select("organisations.*, active_storage_attachments.created_at as mou_created_at, COUNT(DISTINCT(locations.id)) AS locations_count, COUNT(DISTINCT(ips.id)) AS ips_count")
+      .left_joins(:locations).left_joins(:ips).left_joins(:signed_mou_attachment)
+      .group("organisations.id, active_storage_attachments.created_at")
+      .order(sort_column => sort_direction)
   }
 
   def ip_addresses
