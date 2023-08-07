@@ -3,8 +3,11 @@ class WifiUser < ApplicationRecord
   self.table_name = "userdetails"
 
   def self.search(search_term)
-    search_attr = search_term =~ /^[a-z]{5,6}$/i ? :username : :contact
+    is_email = search_term =~ Devise.email_regexp
+    is_phone = search_term =~ /^[\d]{3,}$/
 
-    find_by(search_attr => search_term)
+    search_attr = is_email || is_phone ? :contact : :username
+
+    find_by("#{search_attr} like ?", "%#{search_term}%")
   end
 end
