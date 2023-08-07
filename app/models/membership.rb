@@ -6,7 +6,7 @@ class Membership < ApplicationRecord
   scope :pending, -> { where(confirmed_at: nil) }
   delegate :meets_admin_user_minimum?, to: :organisation
 
-  def cannot_change_permissions?
+  def preserve_admin_permissions?
     confirmed? && administrator? && !meets_admin_user_minimum?
   end
 
