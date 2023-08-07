@@ -162,6 +162,25 @@ describe User do
         expect(User.search("aDmIn.uSEr@govWIFI.org").email).to eq(email)
       end
     end
+
+    context "with only partial search term" do
+      before do
+        create(:user, email: "newadmin.user@govwifi.org")
+        create(:user, name: "adminname")
+      end
+
+      it "first finds an admin user by similar email" do
+        found_user = User.search("newad")
+        expect(found_user).not_to be_nil
+        expect(found_user.email).to eq("newadmin.user@govwifi.org")
+      end
+
+      it "then finds an admin user by similar name" do
+        found_user = User.search("ame")
+        expect(found_user).not_to be_nil
+        expect(found_user.name).to eq("adminname")
+      end
+    end
   end
 
   describe "#admin_usage_csv" do
