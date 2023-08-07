@@ -1,6 +1,6 @@
 <% content_for :page_title, "Remove team member - #{yield :page_title}", flush: true %>
 
-<% if @membership.cannot_change_permissions? %>
+<% if @membership.preserve_admin_permissions? %>
   <%= render "memberships/cannot_remove_user" %>
 <% else %>
   <div class="govuk-error-summary" role="alert">
