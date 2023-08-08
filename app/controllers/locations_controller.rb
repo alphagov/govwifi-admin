@@ -49,7 +49,7 @@ class LocationsController < ApplicationController
 
   def update_ips
     @ips_form = LocationIpsForm.new(ips_params.merge(location_id_params))
-    if @ips_form.update
+    if @ips_form.update(current_user, current_organisation)
       redirect_to(
         ips_path,
         notice: "Added #{@ips_form.updated_length} #{'IP address'.pluralize(@ips_form.updated_length)} to #{@ips_form.full_address}",
