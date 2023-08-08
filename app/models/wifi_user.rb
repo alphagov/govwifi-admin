@@ -3,9 +3,9 @@ class WifiUser < ApplicationRecord
   self.table_name = "userdetails"
 
   def self.search(search_term)
-    find_by(:contact => search_term) || 
-    find_by(:username => search_term) || 
-    find_by("contact like ?", "%#{search_term}%") || 
-    find_by("username like ?", "%#{search_term}%")    
+    find_by(contact: search_term) ||
+      find_by(username: search_term) ||
+      find_by("contact like ?", "%#{search_term}%") ||
+      find_by("username like ?", "%#{search_term}%")
   end
 end
