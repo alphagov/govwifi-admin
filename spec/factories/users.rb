@@ -6,6 +6,7 @@ FactoryBot.define do
     password { "strong lemonade 1475 p4o6d09" }
     name { "bob" }
     confirmed_at { Time.zone.now }
+    sent_first_ip_survey { true }
 
     trait :super_admin do
       is_super_admin { true }
