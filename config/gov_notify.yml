@@ -14,6 +14,8 @@ staging:
     template_id: '41f8744a-ebe0-417e-98c7-09002ff17a95'
   cross_organisation_invitation:
     template_id: 'd360ba95-1e7d-41e4-920c-1255b65f6f65'
+  first_ip_survey:
+    template_id: 'da84efee-97db-4925-87c4-8981fa1fa3ca'
 
 development:
   support_email: 'dev@localhost.com'
@@ -31,6 +33,8 @@ development:
     template_id: '41f8744a-ebe0-417e-98c7-09002ff17a95'
   cross_organisation_invitation:
     template_id: 'd360ba95-1e7d-41e4-920c-1255b65f6f65'
+  first_ip_survey:
+    template_id: 'da84efee-97db-4925-87c4-8981fa1fa3ca'
 
 test:
   support_email: 'test@localhost'
@@ -48,6 +52,8 @@ test:
     template_id: 'unlock'
   cross_organisation_invitation:
     template_id: 'org_invite'
+  first_ip_survey:
+    template_id: 'first_ip_survey_id'
 
 production:
   support_email: 'govwifi-support@digital.cabinet-office.gov.uk'
@@ -65,3 +71,5 @@ production:
     template_id: '39465eec-632a-4475-82ac-4bd8a45386ea'
   cross_organisation_invitation:
     template_id: '103d1302-f068-4352-af0b-1280b068db01'
+  first_ip_survey:
+    template_id: 'd9715290-668c-48cc-bbf9-45290df3f414'
