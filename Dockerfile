@@ -54,4 +54,8 @@ ARG RUN_PRECOMPILATION=true
 RUN if [ ${RUN_PRECOMPILATION} = 'true' ]; then \
   SECRET_KEY_BASE=unused RAILS_ENV=production bundle exec rails assets:precompile; \
   fi
-CMD ["bundle", "exec", "puma", "-p", "3000", "--quiet", "--threads", "8:32"]
+
+COPY start.sh /usr/bin/
+RUN chmod u+x /usr/bin/start.sh
+
+CMD ["/usr/bin/start.sh"]
