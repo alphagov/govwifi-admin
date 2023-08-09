@@ -36,7 +36,7 @@ autocorrect-erb: build
 test: stop build prebuilt-test
 
 prebuilt-test:
-	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load db:migrate
+	$(DOCKER_COMPOSE) run -e RACK_ENV=test --rm app ./bin/rails db:create db:schema:load
 	$(DOCKER_COMPOSE) run --rm app bundle exec rspec
 
 shell: serve
@@ -47,8 +47,8 @@ stop:
 
 .PHONY: build lint serve shell stop test
 
-vsctest: 
-	RACK_ENV=test ./bin/rails db:drop db:create db:schema:load db:migrate
+vsctest:
+	RACK_ENV=test ./bin/rails db:drop db:create db:schema:load
 	bundle exec rspec
 
 vscrefreshdb:
@@ -62,7 +62,7 @@ vscdbg-mfa:
 
 vscrubylint:
 	bundle exec rubocop
-  
+
 vsclint:
 	bundle exec rubocop
 	bundle exec erblint --lint-all
