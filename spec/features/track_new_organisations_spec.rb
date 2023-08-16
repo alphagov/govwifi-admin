@@ -2,6 +2,7 @@ describe "Tracking new organisations", type: :feature do
   include_context "with a mocked notifications client"
 
   let(:user) { create(:user, :with_organisation) }
+  let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) }
 
   before do
     sign_in_user user
