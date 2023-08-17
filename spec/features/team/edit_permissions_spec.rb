@@ -31,6 +31,7 @@ describe "Edit user permissions", type: :feature do
   context "with the .can_manage_team permission" do
     context "when the user belongs to my organisation" do
       let!(:second_user) { create(:user, organisations: [organisation]) }
+
       before do
         visit memberships_path
       end
@@ -42,6 +43,7 @@ describe "Edit user permissions", type: :feature do
             choose "View only"
             click_on "Save"
           end
+
           it "asks for confirmation" do
             expect(page).to have_content("Are you sure you want to change permissions for #{invited_user_same_org.name}?\nYes, change permissions\nCancel")
           end
@@ -49,11 +51,12 @@ describe "Edit user permissions", type: :feature do
 
         context "the user wants to edit permissions for an admin who has confirmed" do
           before do
-            second_user.membership_for(organisation).update!(confirmed_at: Time.zone.now)
+            second_user.membership_for(organisation).confirm!
             visit edit_membership_path(second_user.membership_for(organisation))
             choose "View only"
             click_on "Save"
           end
+
           it "shows the flash alert" do
             expect(page).to have_content("There is a problem\nYou must add another administrator before you can change permissions for #{second_user.name}.")
           end
@@ -62,6 +65,9 @@ describe "Edit user permissions", type: :feature do
 
       context "when there are more than two admin users for an organisation" do
         before do
+          user.membership_for(organisation).confirm!
+          second_user.membership_for(organisation).confirm!
+          invited_user_same_org.membership_for(organisation).confirm!
           visit edit_membership_path(second_user.membership_for(organisation))
           choose "View only"
           click_on "Save"
