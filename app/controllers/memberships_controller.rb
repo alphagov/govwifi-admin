@@ -1,7 +1,7 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: %i[edit update destroy]
   before_action :validate_can_manage_team, only: %i[edit update destroy]
-  before_action :validate_has_two_confirmed_admin_users, only: %i[update destroy]
+  before_action :validate_preserve_admin_permissions, only: %i[update destroy]
   skip_before_action :redirect_user_with_no_organisation, only: %i[destroy edit update]
 
   def edit
@@ -98,7 +98,7 @@ private
     end
   end
 
-  def validate_has_two_confirmed_admin_users
+  def validate_preserve_admin_permissions
     raise ActionController::RoutingError, "Not Found" if @membership.preserve_admin_permissions?
   end
 end
