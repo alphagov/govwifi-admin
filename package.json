@@ -4,17 +4,19 @@
   "dependencies": {
     "govuk-frontend": "^4.7.0",
     "govwifi-shared-frontend": "https://github.com/alphagov/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz",
-    "html5shiv": "^3.7.3"
+    "html5shiv": "^3.7.3",
+    "postcss": "^8.4.19"
   },
   "devDependencies": {
-    "stylelint": "^15.10.1",
-    "stylelint-config-gds": "^0.3.0"
+    "stylelint": "^15.10.2",
+    "stylelint-config-gds": "^1.0.0"
   },
   "stylelint": {
     "extends": "stylelint-config-gds/scss",
     "rules": {
       "selector-max-id": 1,
-      "max-nesting-depth": 3
+      "max-nesting-depth": 3,
+      "media-feature-range-notation": null
     }
   }
 }
