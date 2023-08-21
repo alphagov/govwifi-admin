@@ -22,16 +22,16 @@ RSpec.describe WifiUser do
         create(:wifi_user, username: "wifiname")
       end
 
-      it "first finds a wifi user by similar contact" do
+      it "first finds a wifi user by similar username" do
         found_user = described_class.search("wifi")
         expect(found_user).not_to be_nil
-        expect(found_user.contact).to eq("wifi.user@govwifi.org")
+        expect(found_user.username).to eq("wifiname")
       end
 
-      it "then finds a wifi user by similar username" do
-        found_user = described_class.search("name")
+      it "then finds a wifi user by similar contact" do
+        found_user = described_class.search("wifi.")
         expect(found_user).not_to be_nil
-        expect(found_user.username).to eq("wifiname")
+        expect(found_user.contact).to eq("wifi.user@govwifi.org")
       end
     end
   end
