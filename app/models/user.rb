@@ -97,7 +97,7 @@ class User < ApplicationRecord
   end
 
   def self.search(search_term)
-    where("email = ? OR name = ?", "%#{search_term}%", "%#{search_term}%").first ||
+    where("email = ? OR name = ?", "#{search_term}", "#{search_term}").first ||
       find_by("name like ?", "%#{search_term}%") ||
       find_by("email like ?", "%#{search_term}%")
   end
