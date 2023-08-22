@@ -97,9 +97,9 @@ class User < ApplicationRecord
   end
 
   def self.search(search_term)
-    search_attr = search_term =~ Devise.email_regexp ? :email : :name
-
-    find_by(search_attr => search_term)
+    where("email = ? OR name = ?", search_term, search_term).first ||
+      find_by("name like ?", "%#{search_term}%") ||
+      find_by("email like ?", "%#{search_term}%")
   end
 
   def self.admin_usage_csv

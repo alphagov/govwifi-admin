@@ -152,14 +152,35 @@ describe User do
     before do
       create(:user, name:, email:)
     end
+
     context "with name as search term" do
       it "finds an admin user" do
         expect(User.search("BoB").name).to eq(name)
       end
     end
+
     context "with email as search term" do
       it "finds an admin user" do
         expect(User.search("aDmIn.uSEr@govWIFI.org").email).to eq(email)
+      end
+    end
+
+    context "with only partial search term" do
+      before do
+        create(:user, email: "newadmin.user@govwifi.org")
+        create(:user, name: "adminname")
+      end
+
+      it "first finds an admin user by similar name" do
+        found_user = User.search("min")
+        expect(found_user).not_to be_nil
+        expect(found_user.name).to eq("adminname")
+      end
+
+      it "then finds an admin user by similar email" do
+        found_user = User.search("newad")
+        expect(found_user).not_to be_nil
+        expect(found_user.email).to eq("newadmin.user@govwifi.org")
       end
     end
   end
