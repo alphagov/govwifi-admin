@@ -29,7 +29,7 @@ lint-erb: build
 lint-scss: build
 	$(DOCKER_COMPOSE) run  --no-deps --rm app node ./node_modules/stylelint/bin/stylelint.mjs "**/*.scss"
 lint-prettier: build
-	$(DOCKER_COMPOSE) run  --no-deps --rm app node ./node_modules/prettier/bin/prettier.cjs "**/*.{json,md,scss,yaml,yml}"
+	$(DOCKER_COMPOSE) run  --no-deps --rm app node ./node_modules/prettier/bin/prettier.cjs --check "**/*.{json,md,scss,yaml,yml}"
 
 autocorrect: autocorrect-erb
 autocorrect-erb: build
