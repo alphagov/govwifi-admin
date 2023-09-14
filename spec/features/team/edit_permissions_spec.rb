@@ -81,9 +81,9 @@ describe "Edit user permissions", type: :feature do
           expect(page).to have_link("Cancel")
         end
 
-        it "will take the user to the edit form when they click 'Cancel'" do
+        it "will take the user to the memberships page when they click 'Cancel'" do
           click_on "Cancel"
-          expect(page).to have_current_path(edit_membership_path(second_user.membership_for(organisation)))
+          expect(page).to have_current_path(memberships_path)
         end
 
         it "still has the save button when already clicked" do

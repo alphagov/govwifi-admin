@@ -3,7 +3,13 @@
 <%= render "confirm_remove_team_member" if params[:remove_team_member] %>
 <%= render "confirm_change_permissions" if params[:membership].present? && params[:membership][:confirm_change_permissions] %>
 
-<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-3">Manage permissions for <%= @membership.user.name %></h1>
+<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-3">
+  <% if @membership.user.name.present? %>
+    Manage permissions for <%= @membership.user.name %>
+  <% else %>
+    Manage permissions
+  <% end %>
+</h1>
 <p class="govuk-body govuk-!-margin-bottom-4"> <%= @membership.user.email %> </p>
 
 <%= render "memberships/minimum_two_administrators_required" %>

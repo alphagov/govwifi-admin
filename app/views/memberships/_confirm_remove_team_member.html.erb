@@ -9,7 +9,7 @@
     </h2>
       <div class="govuk-error-summary__body">
         <%= button_to "Yes, remove this team member", membership_path(@membership), method: :delete, class: "govuk-button green-button" %>
-        <%= link_to "Cancel", :back, class: "govuk-link--no-visited-state" %>
+        <%= link_to "Cancel", memberships_path, class: "govuk-link--no-visited-state" %>
     </div>
   </div>
 <% end %>
