@@ -9,7 +9,7 @@
     </h2>
     <div class="govuk-error-summary__body">
       <%= button_to "Yes, change permissions", membership_path(@membership, permission_level: params[:membership][:permission_level]), method: :patch, class: "govuk-button" %>
-      <%= link_to "Cancel", :back, class: "govuk-link--no-visited-state" %>
+      <%= link_to "Cancel", memberships_path, class: "govuk-link--no-visited-state" %>
     </div>
   </div>
 <% end %>

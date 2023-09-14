@@ -40,9 +40,9 @@ describe "Remove a team member", type: :feature do
         expect(page).to have_link("Cancel")
       end
 
-      it "redirects to the edit form when 'Cancel' is clicked" do
+      it "redirects to the memeberships page when 'Cancel' is clicked" do
         click_on "Cancel"
-        expect(page).to have_current_path(edit_membership_path(second_user.membership_for(organisation)))
+        expect(page).to have_current_path(memberships_path)
       end
 
       it "hides the delete user link when already clicked" do
