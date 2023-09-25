@@ -1,0 +1,73 @@
+<% content_for :page_title, "Memorandum of understanding" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
+    <%= link_to "Back to settings", settings_path, class: "govuk-back-link" %>
+    <h1 class="govuk-heading-l">Sign the memorandum of understanding</h1>
+    <p class="govuk-body">You must sign a memorandum of understanding (MOU) to use GovWifi.</p>
+
+    <% if @mou %>
+      <ol class="govuk-list govuk-list--number">
+        <li>Sign the document.</li>
+        <li>Upload your signed MOU.</li>
+      </ol>
+      <p class="govuk-body">The MOU must be signed by someone in your organisation who has permission to sign off and procure services.</p>
+    <% else %>
+      <p class="govuk-body">
+        <%= link_to "GovWifi’s MOU (opens in another tab)", "https://docs.wifi.service.gov.uk/mou", target: "_blank", class: "govuk-link govuk-link--no-visited-state" %>
+      </p>
+    <% end %>
+
+    <% if current_organisation.mou.present? && current_organisation.mou.signed %>
+      <p class="govuk-body">
+        The MOU was signed by <%= current_organisation.mou.user_name %> on <%= current_organisation.mou.signed_date %>
+      </p>
+      <h2 class="govuk-heading-m">Replace your MOU</h2>
+      <p class="govuk-body">Manually replace your organisation's signed MOU. This will overwrite the existing document.</p>
+    <% else %>
+      <p class="govuk-body">You have not signed the MOU yet.</p>
+    <% end %>
+
+    <div>
+      <%= form_with model: @mou, url: mou_index_path do |f| %>
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+          <div class="govuk-checkboxes__item">
+            <input
+              class="govuk-checkboxes__input"
+              id="accept_terms"
+              name="mou[signed]"
+              type="checkbox"
+              value="true"
+              <%= 'checked="checked"' if current_organisation.mou&.signed %>
+            />
+            <label class="govuk-label govuk-checkboxes__label govuk-checkboxes__label--align" for="accept_terms">
+              <% if current_organisation.mou&.signed %>
+                Signed by <%= current_organisation.mou.user_name %> on <%= current_organisation.mou.signed_date %>
+              <% else %>
+                I accept these terms on behalf of <%= current_organisation.name %> and confirm that the organisation will be bound by them
+              <% end %>
+            </label>
+
+            <%= link_to "GovWifi’s MOU (opens in another tab)", "https://docs.wifi.service.gov.uk/mou", target: "_blank", class: "govuk-link govuk-link--no-visited-state govuk-checkboxes__label govuk-checkboxes__label--link" %>
+
+            <p class="govuk-body govuk-!-font-weight-bold govuk-checkboxes__label govuk-checkboxes__label--align">
+              Accept terms
+            </p>
+          </div>
+        </div>
+
+        <%= f.hidden_field :user_name, value: current_user.name %>
+        <%= f.hidden_field :user_email, value: current_user.email %>
+        <%= f.hidden_field :signed_date, value: Date.today %>
+        <%= f.hidden_field :status, value: "signed" %>
+        <%= f.hidden_field :organisation_id, value: current_organisation.id %>
+        <%= f.hidden_field :organisation_name, value: current_organisation.name %>
+        <%= f.hidden_field :version, value: "1.0" %>
+
+        <%= f.submit "Accept the MOU", class: "govuk-button govuk-!-margin-top-3" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= link_to "Contact GovWifi support", help_index_path, class: "govuk-link" %>

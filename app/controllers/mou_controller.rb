@@ -1,27 +1,27 @@
 class MouController < ApplicationController
-  def index
-    @mou = AdminConfig.mou.unsigned_document.attachment
-    @current_org_signed_mou = current_organisation.signed_mou.attachment
+
+  def new
+    @mou = Mou.new
   end
 
   def create
-    if params[:signed_mou]
-      mime_type = Marcel::MimeType.for(params[:signed_mou])
-      if mime_type.to_s == "application/pdf"
-        current_organisation.signed_mou.attach(params[:signed_mou])
-        flash[:notice] = "MOU uploaded successfully."
-      else
-        flash[:alert] = "Unsupported file type. Signed MOU should be a PDF."
-      end
+    @mou = Mou.new(mou_params)
+    @mou.organisation = current_organisation
+
+    if @mou.save
+      flash[:success] = "MOU signed successfully."
     else
-      flash[:alert] = "Choose a file before uploading "
+      raise
+      flash[:error] = "Error signing MOU: " + @mou.errors.full_messages.join(', ')
+
     end
-    redirect_to mou_index_path
+
+    redirect_to new_mou_path
   end
 
 private
 
-  def replacing?
-    current_organisation.signed_mou.attached?
+  def mou_params
+    params.require(:mou).permit(:signed, :organisation_name, :user_name, :user_email, :signed_date, :organisation, :version)
   end
 end

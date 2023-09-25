@@ -1,6 +1,7 @@
 class Organisation < ApplicationRecord
   CSV_HEADER = ["Name", "Created At", "MOU Signed", "Locations", "IPs"].freeze
   has_one_attached :signed_mou
+  has_one :mou
   has_many :memberships, inverse_of: :organisation, dependent: :destroy
   has_many :users, through: :memberships, inverse_of: :organisations
   has_many :locations, dependent: :destroy

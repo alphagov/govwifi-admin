@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     patch "update_location", to: "update_location"
   end
   resources :memberships, only: %i[edit update index destroy]
-  resources :mou, only: %i[index create]
+  resources :mou, only: %i[new create]
   resources :logs, only: %i[index]
   resources :logs_searches, path: "logs/search", only: %i[new index create]
   resources :organisations, only: %i[new create edit update]
