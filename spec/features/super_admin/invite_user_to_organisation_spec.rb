@@ -87,7 +87,7 @@ describe "Inviting a team member as a super admin", type: :feature do
     end
 
     it "sets the correct target organisation" do
-      click_on "Invite a team member"
+      click_link("Invite a team member", class: "govuk-button")
 
       expect(page).to have_current_path(new_user_invitation_path)
       expect(page).to have_content "Invite a team member to #{other_organisation.name}"
