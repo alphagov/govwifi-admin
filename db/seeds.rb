@@ -118,5 +118,3 @@ location_two.ips.each_with_index do |location_two_ip, index|
     siteIP: location_two_ip.address,
   )
 end
-
-MouTemplate.create!

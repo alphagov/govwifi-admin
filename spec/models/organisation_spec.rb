@@ -124,15 +124,6 @@ describe Organisation do
 
       first_organisation.locations << first_location
       second_organisation.locations = [second_location, third_location]
-
-      first_organisation.signed_mou.attach(
-        io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
-      )
-      second_organisation.signed_mou.attach(
-        io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
-      )
-
-      second_organisation.signed_mou_attachment.update!(created_at: 3.months.ago)
     end
 
     context "when sorting by name" do
@@ -149,15 +140,6 @@ describe Organisation do
       let(:sort_direction) { "asc" }
 
       it "orders results by date" do
-        expect(sorted_results).to eq([second_organisation, first_organisation])
-      end
-    end
-
-    context "when sorting by signed mou" do
-      let(:sort_column) { "active_storage_attachments.created_at" }
-      let(:sort_direction) { "asc" }
-
-      it "orders results by date mou was signed" do
         expect(sorted_results).to eq([second_organisation, first_organisation])
       end
     end

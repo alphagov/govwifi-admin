@@ -9,14 +9,12 @@ class MouController < ApplicationController
     @mou.organisation = current_organisation
 
     if @mou.save
+      redirect_to settings_path
       flash[:success] = "MOU signed successfully."
     else
-      raise
+      redirect_to settings_path
       flash[:error] = "Error signing MOU: " + @mou.errors.full_messages.join(', ')
-
     end
-
-    redirect_to new_mou_path
   end
 
 private

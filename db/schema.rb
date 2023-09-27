@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_19_161245) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_15_103714) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -91,6 +91,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_161245) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
+  create_table "mous", charset: "utf8", force: :cascade do |t|
+    t.bigint "organisation_id", null: false
+    t.string "organisation_name"
+    t.date "signed_date"
+    t.string "user_name"
+    t.string "user_email"
+    t.string "version"
+    t.boolean "signed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organisation_id"], name: "index_mous_on_organisation_id"
+  end
+
   create_table "organisations", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
@@ -148,4 +161,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_161245) do
   end
 
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "mous", "organisations"
 end

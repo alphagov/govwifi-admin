@@ -31,10 +31,6 @@
       <%= render "team", team: @team %>
     <% end %>
 
-    <%= render "section", heading: "MoU" do %>
-      <%= render "mou_form", organisation: @organisation %>
-    <% end %>
-
     <%= render "section", heading: "Locations" do %>
       <%== pagy_nav_govuk(@pagy) %>
       <%= render "locations", locations: @locations %>

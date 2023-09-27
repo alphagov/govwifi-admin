@@ -10,6 +10,10 @@ class Mou < ApplicationRecord
   validates :version, presence: true
   attribute :signed, :boolean, default: false
 
+  def formatted_signed_date
+    signed_date.strftime("%e %B %Y")
+  end
+
   private
 
   def set_default_version

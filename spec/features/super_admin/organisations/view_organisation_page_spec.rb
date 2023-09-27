@@ -104,43 +104,6 @@ describe "View details of an organisation", type: :feature do
     it "has a service email" do
       expect(page).to have_content(organisation.service_email)
     end
-
-    context "when an MoU does not exist" do
-      it "says no MoU exists" do
-        expect(page).to have_content("This organisation has not uploaded an MOU.")
-      end
-
-      it "has an Upload MoU button" do
-        within("#mou-upload-form") do
-          expect(find_button("Upload MOU")).to be_present
-        end
-      end
-    end
-
-    context "when an MoU exists" do
-      before do
-        organisation.signed_mou.attach(
-          io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
-        )
-        visit super_admin_organisation_path(organisation)
-      end
-
-      it "has a download button" do
-        expect(page).to have_link("download and view the document.")
-      end
-
-      it "has upload date" do
-        expect(page).to have_content(
-          "A signed MOU was uploaded on #{organisation.signed_mou.attachment.created_at.strftime('%-e %b %Y')}",
-        )
-      end
-
-      it "has a replace MoU button" do
-        within("#mou-upload-form") do
-          expect(find_button("Replace")).to be_present
-        end
-      end
-    end
   end
 
   context "when logged out" do
