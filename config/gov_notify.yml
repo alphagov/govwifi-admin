@@ -17,24 +17,24 @@ staging:
   first_ip_survey:
     template_id: "da84efee-97db-4925-87c4-8981fa1fa3ca"
 
-development:
+alpaca:
   support_email: "dev@localhost.com"
   otp_email:
-    template_id: "776fff48-3e94-4417-83b0-bff027c16247"
+    template_id: "04feab1a-3289-4dc0-af7d-7f5d431eb729"
   confirmation_email:
-    template_id: "1af17502-9797-4e61-904e-999f6cf259a5"
+    template_id: "ab038b62-e42a-40ed-b370-5f4ad647cd68"
   reset_password_email:
-    template_id: "1672af2e-2acb-463a-95ee-2adad2aaceee"
+    template_id: "6dbb02a0-a1b4-495a-b1d3-2adb49cb62c3"
   invite_email:
-    template_id: "e3b5ca96-9164-462f-a0b0-65d2103c1ab8"
+    template_id: "5d920a70-f043-416c-8bd6-416da2123b6e"
   help_email:
-    template_id: "152cf3ff-e0e2-4f41-9ba0-28091db3f37f"
+    template_id: "618a05ef-e9de-471d-ab48-1041d90d32ba"
   unlock_account:
-    template_id: "41f8744a-ebe0-417e-98c7-09002ff17a95"
+    template_id: "413eb61e-228e-4b49-92ae-279a91495d6d"
   cross_organisation_invitation:
-    template_id: "d360ba95-1e7d-41e4-920c-1255b65f6f65"
+    template_id: "dd901532-8ff4-4aaf-9e60-e7b5210d1d77"
   first_ip_survey:
-    template_id: "da84efee-97db-4925-87c4-8981fa1fa3ca"
+    template_id: "f56053f5-3279-452d-a593-04ecec9cc119"
 
 test:
   support_email: "test@localhost"
