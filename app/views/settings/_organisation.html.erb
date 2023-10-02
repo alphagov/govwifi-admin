@@ -27,13 +27,17 @@
       <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
         Memorandum of understanding (MOU)
       </th>
-      <% if current_organisation.mou.present? && current_organisation.mou.signed? %>
+      <% if current_organisation.mou.present? %>
         <td class="govuk-table__cell">
-          Signed by <%= current_organisation.mou.user_name %> on <%= current_organisation.mou.formatted_signed_date %>
+          Signed by <%= current_organisation.mou.last.user_name %> on <%= current_organisation.mou.last.formatted_date %>
         </td>
         <td class="govuk-table__cell govuk-table__cell--numeric">
-          <%= link_to new_mou_path, class: "govuk-link govuk-link--no-visited-state" do %>
-            Review <span class='govuk-visually-hidden'>memorandum of understanding</span>
+          <% if current_organisation.resign_mou? %>
+            <%= link_to "Sign MOU", new_mou_path, class: "govuk-link govuk-link--no-visited-state" %>
+          <% else %>
+            <%= link_to "https://docs.wifi.service.gov.uk/mou", target: "_blank", rel: "noopener" do %>
+              Review <span class='govuk-visually-hidden'>memorandum of understanding</span>
+            <% end %>
           <% end %>
         </td>
       <% else %>

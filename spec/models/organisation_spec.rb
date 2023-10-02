@@ -114,6 +114,8 @@ describe Organisation do
     let(:first_ip) { create(:ip, location: first_location) }
     let(:second_ip) { create(:ip, location: first_location) }
     let(:third_ip) { create(:ip, location: second_location) }
+    let(:mou) { create(:mou, location: first_organisation.id, created_at: 1.day.ago) }
+    let(:mou) { create(:mou, organisation_id: second_organisation.id, created_at: Time.zone.now) }
 
     before do
       allow(described_class).to receive(:fetch_organisations_from_register)
@@ -140,6 +142,15 @@ describe Organisation do
       let(:sort_direction) { "asc" }
 
       it "orders results by date" do
+        expect(sorted_results).to eq([second_organisation, first_organisation])
+      end
+    end
+
+    context "when sorting by signed mou" do
+      let(:sort_column) { "latest_mou_created_at" }
+      let(:sort_direction) { "asc" }
+
+      it "orders results by date mou was signed" do
         expect(sorted_results).to eq([second_organisation, first_organisation])
       end
     end

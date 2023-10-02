@@ -2,6 +2,8 @@
 
 <h1 class="govuk-heading-l">Settings</h1>
 
+<%= render "mou_notification" if current_organisation.mou.present? %>
+
 <%= render "account" %>
 
 <%= render "organisation" %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_15_103714) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_03_092023) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -86,18 +86,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_15_103714) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
-  create_table "mou_templates", charset: "utf8", force: :cascade do |t|
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-  end
-
   create_table "mous", charset: "utf8", force: :cascade do |t|
     t.bigint "organisation_id", null: false
     t.string "organisation_name"
     t.date "signed_date"
     t.string "user_name"
     t.string "user_email"
-    t.string "version"
+    t.integer "version"
     t.boolean "signed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -109,6 +104,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_15_103714) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "service_email"
+    t.integer "latest_mou_version"
+    t.date "mou_version_change_date"
     t.index ["name"], name: "index_organisations_on_name", unique: true
   end
 

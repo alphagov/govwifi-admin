@@ -34,7 +34,7 @@ class SuperAdmin::OrganisationsController < SuperAdminController
 private
 
   def sortable_columns
-    %w[name created_at locations_count ips_count active_storage_attachments.created_at]
+    %w[name created_at locations_count ips_count mous.created_at]
   end
 
   def sort_column

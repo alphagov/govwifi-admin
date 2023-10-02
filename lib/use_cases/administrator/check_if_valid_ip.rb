@@ -37,7 +37,8 @@ module UseCases
       def error_type
         return :ipv6 if valid_ipv6_address?
         return :private if private_ip_address?
-        return :malformed unless valid_ipv4_address?
+
+        :malformed unless valid_ipv4_address?
       end
 
       def custom_error_message

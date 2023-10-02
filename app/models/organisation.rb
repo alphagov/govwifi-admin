@@ -1,6 +1,6 @@
 class Organisation < ApplicationRecord
   CSV_HEADER = ["Name", "Created At", "MOU Signed", "Locations", "IPs"].freeze
-  has_one :mou
+  has_many :mou, dependent: :destroy
   has_many :memberships, inverse_of: :organisation, dependent: :destroy
   has_many :users, through: :memberships, inverse_of: :organisations
   has_many :locations, dependent: :destroy
@@ -12,20 +12,25 @@ class Organisation < ApplicationRecord
 
   validates_associated :locations
 
-  # scope :sortable_with_child_counts, lambda { |sort_column, sort_direction|
-  #   select("organisations.*, active_storage_attachments.created_at as mou_created_at, COUNT(DISTINCT(locations.id)) AS locations_count, COUNT(DISTINCT(ips.id)) AS ips_count")
-  #     .left_joins(:locations).left_joins(:ips).left_joins(:signed_mou_attachment)
-  #     .group("organisations.id, active_storage_attachments.created_at")
-  #     .order(sort_column => sort_direction)
-  # }
+  delegate :resign_mou?, to: :mou, allow_nil: true
+
+  def formatted_date
+    mou_version_change_date.strftime("%e %B %Y")
+  end
+
+  def resign_mou?
+    return true if mou.empty?
+
+    last_mou_version = mou.last.version
+    last_mou_version < latest_mou_version
+  end
 
   scope :sortable_with_child_counts, lambda { |sort_column, sort_direction|
-    select("organisations.*, mou.created_at AS mou_created_at, COUNT(DISTINCT(locations.id)) AS locations_count, COUNT(DISTINCT(ips.id)) AS ips_count")
-      .left_joins(:locations).left_joins(:ips).joins("LEFT JOIN mous AS mou ON mou.organisation_id = organisations.id")
-      .group("organisations.id, mou.created_at")
+    select("organisations.*, MAX(mous.created_at) AS latest_mou_created_at, COUNT(DISTINCT(locations.id)) AS locations_count, COUNT(DISTINCT(ips.id)) AS ips_count")
+      .left_joins(:locations).left_joins(:ips).left_joins(:mou)
+      .group("organisations.id")
       .order(sort_column => sort_direction)
   }
-
 
   def meets_admin_user_minimum?
     memberships.count { |membership| membership.administrator? && membership.confirmed? } > 2
@@ -45,21 +50,11 @@ class Organisation < ApplicationRecord
     Gateways::GovukOrganisationsRegisterGateway.new.all_orgs.sort_by(&:downcase)
   end
 
-  # def self.all_as_csv
-  #   CSV.generate do |csv|
-  #     csv << CSV_HEADER
-  #     Organisation.sortable_with_child_counts("name", "asc").each do |o|
-  #       mou_signed_at = o.signed_mou.attached? ? o.signed_mou.attachment.created_at : "-"
-  #       csv << [o.name, o.created_at, mou_signed_at, o.locations_count, o.ips_count]
-  #     end
-  #   end
-  # end
-
   def self.all_as_csv
     CSV.generate do |csv|
       csv << CSV_HEADER
-      Organisation.sortable_with_child_counts("name", "asc").each do |o|
-        mou_signed_at = o.mou.present? ? o.mou.created_at : "-"
+      Organisation.includes(:mou).sortable_with_child_counts("name", "asc").each do |o|
+        mou_signed_at = o.mou.present? ? o.mou.map(&:created_at).join(", ") : "-"
         csv << [o.name, o.created_at, mou_signed_at, o.locations_count, o.ips_count]
       end
     end

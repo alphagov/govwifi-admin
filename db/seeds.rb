@@ -25,10 +25,10 @@ def create_user_for_organisations(
 end
 
 organisation = Organisation.create!(
-  name: "UKTI Education", service_email: "it@parks.com",
+  name: "UKTI Education", service_email: "it@parks.com", latest_mou_version: 2.2, mou_version_change_date: Time.zone.today,
 )
 empty_organisation = Organisation.create!(
-  name: "Academy for Social Justice Commissioning", service_email: "empty@example.net",
+  name: "Academy for Social Justice Commissioning", service_email: "empty@example.net", latest_mou_version: 2.2, mou_version_change_date: Time.zone.today,
 )
 
 create_user_for_organisations(
