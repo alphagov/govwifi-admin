@@ -16,7 +16,6 @@ require_relative "../lib/gateways/email_gateway"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-
 module GovwifiAdmin
   class Application < Rails::Application
     config.exceptions_app = routes
@@ -50,6 +49,5 @@ module GovwifiAdmin
     config.active_model.i18n_customize_full_message = true
 
     config.email_gateway = Gateways::EmailGateway
-    
   end
 end
