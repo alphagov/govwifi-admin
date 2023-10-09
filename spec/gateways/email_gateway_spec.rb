@@ -1,7 +1,7 @@
 require "support/notifications_service"
 
 describe Gateways::EmailGateway do
-  subject(:email_gateway) { described_class }
+  subject(:email_gateway) { described_class.new }
 
   let(:notification) { instance_spy(Notifications::Client, send_email: nil) }
 
