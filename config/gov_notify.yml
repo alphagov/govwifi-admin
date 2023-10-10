@@ -17,7 +17,7 @@ staging:
   first_ip_survey:
     template_id: "da84efee-97db-4925-87c4-8981fa1fa3ca"
 
-development:
+alpaca:
   support_email: "dev@localhost.com"
   otp_email:
     template_id: "04feab1a-3289-4dc0-af7d-7f5d431eb729"

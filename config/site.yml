@@ -11,16 +11,19 @@ default: &default
   default_meta_description: "GovWifi - Administration Platform"
 
 development:
-  <<: *default
+  !!merge <<: *default
 
 test:
-  <<: *default
+  !!merge <<: *default
+
+alpaca:
+  !!merge <<: *default
 
 staging:
   google_analytics_script_id: "UA-127779891-2"
 
-  <<: *default
+  !!merge <<: *default
 
 production:
   google_analytics_script_id: "UA-127779891-1"
-  <<: *default
+  !!merge <<: *default
