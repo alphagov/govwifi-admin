@@ -47,6 +47,10 @@ describe "Edit user permissions", type: :feature do
           it "asks for confirmation" do
             expect(page).to have_content("Are you sure you want to change permissions for #{invited_user_same_org.name}?\nYes, change permissions\nCancel")
           end
+
+          it "choice to be view only" do
+            expect(find("#membership-permission-level-view-only-field")).to be_checked
+          end
         end
 
         context "the user wants to edit permissions for an admin who has confirmed" do

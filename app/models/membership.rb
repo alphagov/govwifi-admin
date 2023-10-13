@@ -34,6 +34,11 @@ class Membership < ApplicationRecord
     !can_manage_team? && !can_manage_locations?
   end
 
+  def permission_level=(value)
+    self.can_manage_locations = %w[administrator manage_locations].include?(value)
+    self.can_manage_team = value == "administrator"
+  end
+
   def permission_level
     return "administrator" if administrator?
     return "manage_locations" if manage_locations?
