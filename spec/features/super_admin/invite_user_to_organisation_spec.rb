@@ -80,7 +80,7 @@ describe "Inviting a team member as a super admin", type: :feature do
     before do
       super_admin.memberships.create!(organisation: other_organisation).confirm!
 
-      click_on "Switch organisation"
+      visit change_organisation_path
       click_on other_organisation.name
 
       visit memberships_path

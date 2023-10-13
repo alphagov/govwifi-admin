@@ -30,9 +30,23 @@ describe "Sign up for a GovWifi administrator account", type: :feature do
 
     context "with a gov.uk email" do
       let(:email) { "someone@gov.uk" }
+      let(:totp_double) { instance_double(ROTP::TOTP) }
 
       before do
-        skip_two_factor_authentication
+        allow(ROTP::TOTP).to receive(:new).and_return(totp_double)
+        allow(totp_double).to receive(:verify).and_return(true)
+
+        fill_in :code, with: "999999"
+        click_on "Complete setup"
+      end
+
+      it "gives the user an option to add an administrator" do
+        expect(page).to have_content("You can skip this step for now, but you’ll need to add another admin before you can access the full functionality of GovWifi.")
+      end
+
+      it "redirects to the settings page" do
+        click_on "Skip for now"
+        expect(page).to have_current_path(ips_path)
       end
 
       it "signs me in" do

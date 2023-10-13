@@ -65,8 +65,8 @@ describe "Set up two factor authentication", type: :feature do
       expect(page).to have_content("Two factor authentication setup successful")
     end
 
-    it "redirects the user to the settings page" do
-      expect(page).to have_current_path(new_organisation_settings_path)
+    it "redirects the user to invite another administrator" do
+      expect(page).to have_current_path(invite_second_admin_path)
     end
 
     describe "A user with 2FA completed tries to access the setup page directly" do

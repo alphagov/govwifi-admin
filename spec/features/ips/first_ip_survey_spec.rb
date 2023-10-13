@@ -3,6 +3,7 @@ describe "Sending a survey when adding the first IP to an organisation", type: :
   let(:user) { create(:user, :with_organisation, sent_first_ip_survey:) }
   let(:organisation) { user.organisations.first }
   let(:location) { create(:location, organisation:) }
+  let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) } # a minimium of two administrators are now required to add IP addresses
 
   before do
     allow(Services.email_gateway).to receive(:send_email)

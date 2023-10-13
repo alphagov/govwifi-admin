@@ -13,10 +13,9 @@ Rails.application.routes.draw do
   devise_scope :user do
     put "users/confirmations", to: "users/confirmations#update"
     get "users/confirmations/pending", to: "users/confirmations#pending"
-
+    get "users/invitations/invite_second_admin", to: "users/invitations#invite_second_admin", as: :invite_second_admin
     put "users/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#update"
     get "users/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#show"
-
     get "users/:id/two_factor_authentication/edit", to: "users/two_factor_authentication#edit"
     delete "users/:id/two_factor_authentication", to: "users/two_factor_authentication#destroy"
   end
