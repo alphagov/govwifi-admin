@@ -1,10 +1,10 @@
 class Mou < ApplicationRecord
   belongs_to :organisation
+  belongs_to :user
 
-  validates :organisation_name, presence: true
+  validates :signed, acceptance: { accept: true }
+
   validates :signed_date, presence: true
-  validates :user_name, presence: true
-  validates :user_email, presence: true
   validates :version, presence: true
   attribute :signed, :boolean, default: false
 

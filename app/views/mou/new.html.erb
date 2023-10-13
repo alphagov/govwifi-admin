@@ -4,51 +4,23 @@
   <%= link_to "Back to settings", settings_path, class: "govuk-back-link" %>
 
   <%= form_with model: @mou, url: mou_index_path do |f| %>
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        <h1 class="govuk-fieldset__heading">
-          Sign the memorandum of understanding
-        </h1>
-      </legend>
-      <% if current_organisation.mou.present? && current_organisation.mou.any?(&:signed?) %>
-        <p class="govuk-body">GovWifi memorandum of understanding (MOU) was signed by <%= current_organisation.mou.last.user_name %> on <%= current_organisation.mou.last.formatted_date %>.</p>
-      <% else %>
-        <p class="govuk-body">You must sign a memorandum of understanding (MOU) to use GovWifi.</p>
-      <% end %>
+    <%= f.govuk_check_boxes_fieldset :signed, multiple: false, legend: { text: "Sign the memorandum of understanding", size: "l" } do %>
 
-      <p class="govuk-body"><%= link_to "GovWifi’s MOU (opens in another tab)", "https://docs.wifi.service.gov.uk/mou", target: "_blank", class: "govuk-body govuk-link govuk-link--no-visited-state", rel: "noopener" %></p>
+      <p class="govuk-body">
+        You must sign a memorandum of understanding (MOU) to use GovWifi.
+      </p>
+
+      <p class="govuk-body"><%= link_to "GovWifi’s MOU (opens in another tab)", "https://docs.wifi.service.gov.uk/mou", target: "_blank", class: "govuk-body govuk-link govuk-link--no-visited-state", rel: "noopener" %>
+      </p>
 
       <p class="govuk-body govuk-!-font-weight-bold">
         Accept terms
       </p>
 
-      <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-        <div class="govuk-checkboxes__item">
-          <input
-            class="govuk-checkboxes__input"
-            id="accept_terms"
-            name="mou[signed]"
-            type="checkbox"
-            value="true"
-            <%= 'checked="checked"' if current_organisation.mou.any?(&:signed) && !current_organisation.resign_mou? %>>
-          <label class="govuk-label govuk-checkboxes__label" for="accept_terms">
-            <% if current_organisation.mou.any?(&:signed) %>
-              Signed by <%= current_organisation.mou.last.user_name %> on <%= current_organisation.mou.last.formatted_date %>
-            <% else %>
-              I accept these terms on behalf of <%= current_organisation.name %> and confirm that the organisation will be bound by them
-            <% end %>
-          </label>
-        </div>
-      </div>
-    </fieldset>
+      <% checked_value = current_organisation.mou.any?(&:signed) && !current_organisation.resign_mou? %>
 
-    <%= f.hidden_field :user_name, value: current_user.name %>
-    <%= f.hidden_field :user_email, value: current_user.email %>
-    <%= f.hidden_field :signed_date, value: Time.zone.today %>
-    <%= f.hidden_field :status, value: "signed" %>
-    <%= f.hidden_field :organisation_id, value: current_organisation.id %>
-    <%= f.hidden_field :organisation_name, value: current_organisation.name %>
-    <%= f.hidden_field :version, value: current_organisation.latest_mou_version %>
+      <%= f.govuk_check_box :signed, true, id: "accept_terms", multiple: false, link_errors: true, label: { text: "I accept these terms on behalf of #{current_organisation.name} and confirm that the organisation will be bound by them" }, checked: checked_value %>
+    <% end %>
 
     <%= f.submit "Accept the MOU", class: "govuk-button govuk-!-margin-top-3" %>
   <% end %>

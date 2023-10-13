@@ -4,10 +4,8 @@ describe "Asking the organisation to resign MOU due to version change", type: :f
   let!(:mou) do
     create(:mou,
            organisation_id: organisation.id,
-           organisation_name: organisation.name,
+           user_id: user.id,
            signed_date: Time.zone.today,
-           user_name: user.name,
-           user_email: user.email,
            version: 2.0,
            signed: true,
            created_at: Time.zone.now,
@@ -27,11 +25,15 @@ describe "Asking the organisation to resign MOU due to version change", type: :f
     expect(page).to have_link("Sign MOU")
   end
 
+  it "displays information on the last signed MOU" do
+    expect(page).to have_content("Signed by #{organisation.mou.last.user.name} on #{organisation.mou.last.formatted_date}")
+  end
+
   context "when a user clicks on Sign MOU button" do
     before { click_on "Sign MOU" }
 
-    it "displays information on the last signed MOU" do
-      expect(page).to have_content("GovWifi memorandum of understanding (MOU) was signed by #{organisation.mou.last.user_name} on #{organisation.mou.last.formatted_date}")
+    it "asks the user to sign the MOU" do
+      expect(page).to have_content("You must sign a memorandum of understanding (MOU) to use GovWifi.")
     end
 
     it "increases the MOU count when the user ticks the checkbox and accepts terms" do

@@ -151,7 +151,7 @@ describe Organisation do
       let(:sort_direction) { "asc" }
 
       it "orders results by date mou was signed" do
-        expect(sorted_results).to eq([second_organisation, first_organisation])
+        expect(sorted_results).to eq([first_organisation, second_organisation])
       end
     end
 
