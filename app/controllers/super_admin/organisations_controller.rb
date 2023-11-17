@@ -20,7 +20,7 @@ class SuperAdmin::OrganisationsController < SuperAdminController
 
   def show
     @organisation = Organisation.find(params[:id])
-    @team = @organisation.users.order_by_name_and_email
+    @team = @organisation.users.order("#{sort_column} #{sort_direction}")
     @pagy, @locations = pagy(@organisation.locations.order("address asc"))
   end
 
@@ -34,7 +34,7 @@ class SuperAdmin::OrganisationsController < SuperAdminController
 private
 
   def sortable_columns
-    %w[name created_at locations_count ips_count active_storage_attachments.created_at]
+    %w[name created_at locations_count ips_count active_storage_attachments.created_at last_sign_in_at email sign_in_count]
   end
 
   def sort_column
