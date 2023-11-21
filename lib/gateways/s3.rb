@@ -22,7 +22,7 @@ module Gateways
     }.freeze
     RADIUS_CERTS_LOCATION = {
       bucket: ENV.fetch("S3_TRUSTED_CERTS_BUCKET"),
-      key: ENV.fetch("S3_TRUSTED_CERTS_OBJECT_KEY"),
+      key: ENV.fetch("S3_TRUSTED_CERTS_PATH_KEY"),
     }.freeze
 
     def initialize(bucket:, key:)
