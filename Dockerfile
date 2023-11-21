@@ -20,6 +20,8 @@ ENV \
   S3_ORGANISATION_NAMES_OBJECT_KEY='s3OrganisationNamesObjectKey' \
   S3_EMAIL_DOMAINS_OBJECT_KEY='s3EmailDomainsObjectKey' \
   S3_ALLOWLIST_OBJECT_KEY='s3AllowlistObjectKey' \
+  S3_TRUSTED_CERTS_BUCKET='s3TrustedCertsBucket' \
+  S3_TRUSTED_CERTS_OBJECT_KEY='s3TrustedCertsObjectKey' \
   LOGGING_API_SEARCH_ENDPOINT='https://govwifi-logging-api.gov.uk/search/' \
   S3_MOU_BUCKET='StubMouBucket' \
   GOOGLE_MAPS_PUBLIC_API_KEY='google-api-key' \
