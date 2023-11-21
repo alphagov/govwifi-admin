@@ -1,0 +1,61 @@
+<% content_for :page_title, "Certificates" %>
+<div id='wrapper'>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-0">
+      <h1 class="govuk-heading-l">Certificates</h1>
+    </div>
+      <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-9">
+        You need to upload at least one Certificate to enable GovWifi Certificate Based Authentication. This will allow devices you issue (with a corresponding client certificate) to seemlessly authenticate with GovWifi. 
+      </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-button-group govuk-!-padding-0">
+      <% if current_user.can_manage_locations?(current_organisation) %>
+        <%= link_to "Add Certificate", new_certificate_path, class: "govuk-button govuk-!-margin-bottom-5", role: "button", draggable: "false", "data-module" => "govuk-button" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+
+    <%== pagy_nav_govuk(@pagy) %>
+
+    <% if @certificates.empty? %>
+    <% else %>
+      <div aria-live="polite">
+        <table class="govuk-table govuk-!-margin-bottom-9">
+          <thead> 
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Name</th>
+              <th scope="col" class="govuk-table__header">Serial</th>
+              <th scope="col" class="govuk-table__header">Valid From</th>
+              <th scope="col" class="govuk-table__header">Expires</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <% @certificates.each do |certificate| %>
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell govuk-!-width-one-quarter">
+                  <%= link_to certificate.name, certificate_path(certificate), class: "govuk-link govuk-link--no-visited-state" %>
+                </td>
+                <td class="govuk-table__cell govuk-!-width-one-quarter">
+                  <%= certificate.serial_number %>
+                </td> 
+                <td class="govuk-table__cell govuk-!-width-one-quarter">
+                  <%= certificate.valid_from %>
+                </td>
+                <td class="govuk-table__cell govuk-!-width-one-quarter">
+                  <%= certificate.valid_to %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+
+    <%== pagy_nav_govuk(@pagy) %>
+  </div>  
+</div>
