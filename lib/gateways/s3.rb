@@ -20,6 +20,10 @@ module Gateways
       bucket: ENV.fetch("S3_PUBLISHED_LOCATIONS_IPS_BUCKET"),
       key: ENV.fetch("S3_ALLOWLIST_OBJECT_KEY"),
     }.freeze
+    RADIUS_CERTS_LOCATION = {
+      bucket: ENV.fetch("S3_TRUSTED_CERTS_BUCKET"),
+      key: ENV.fetch("S3_TRUSTED_CERTS_OBJECT_KEY"),
+    }.freeze
 
     def initialize(bucket:, key:)
       @bucket = bucket
