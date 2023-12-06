@@ -1,6 +1,6 @@
 module Services
   def self.email_gateway
-    Gateways::EmailGateway
+    @email_gateway ||= Rails.application.config.email_gateway.new
   end
 
   def self.elasticsearch_client

@@ -4,6 +4,11 @@ class Membership < ApplicationRecord
   before_create :set_invitation_token
 
   scope :pending, -> { where(confirmed_at: nil) }
+  delegate :meets_admin_user_minimum?, to: :organisation
+
+  def preserve_admin_permissions?
+    confirmed? && administrator? && !meets_admin_user_minimum?
+  end
 
   def confirm!
     touch :confirmed_at
@@ -27,6 +32,11 @@ class Membership < ApplicationRecord
 
   def view_only?
     !can_manage_team? && !can_manage_locations?
+  end
+
+  def permission_level=(value)
+    self.can_manage_locations = %w[administrator manage_locations].include?(value)
+    self.can_manage_team = value == "administrator"
   end
 
   def permission_level

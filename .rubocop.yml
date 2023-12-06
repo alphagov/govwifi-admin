@@ -11,4 +11,4 @@ inherit_mode:
 
 AllCops:
   Exclude:
-    - 'db/migrate/2019*' # don't backport migrations
+    - "db/migrate/2019*" # don't backport migrations

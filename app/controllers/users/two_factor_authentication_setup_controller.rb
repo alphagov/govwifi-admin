@@ -14,10 +14,17 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
     if current_user.authenticate_totp(params[:code], otp_secret_key: @otp_secret_key)
       current_user.update!(otp_secret_key: @otp_secret_key)
 
-      flash[:notice] = "Two factor authentication setup successful"
       disable_2fa_checks_for_session
+
+      redirect_path = if current_user.is_super_admin? || (current_organisation.present? && current_organisation.meets_invited_admin_user_minimum?)
+                        stored_location_for(:user) || root_path
+                      else
+                        invite_second_admin_path
+                      end
+
+      redirect_to redirect_path, notice: "Two factor authentication setup successful"
     else
-      flash[:alert] = "The 6 digit code entered is not valid.<br />  Check the code sent in the email or request a new email.".html_safe
+      flash[:alert] = "The 6 digit code entered is not valid.<br/>  Check the code sent in the email or request a new email.".html_safe
       render "show"
     end
   end
@@ -47,7 +54,6 @@ private
 
   def disable_2fa_checks_for_session
     request.env["warden"].session(:user)[TwoFactorAuthentication::NEED_AUTHENTICATION] = false
-    redirect_to stored_location_for(:user) || root_path
   end
 
   def sidebar

@@ -1,5 +1,6 @@
 # GovWifi admin application
-# TEST #
+
+# TEST
 
 This is the GovWifi admin site, where organisations can create and manage their GovWifi installation within their organisation.
 
@@ -98,7 +99,7 @@ make clean
 
 ## Deploying
 
-You can find in depth instructions on using our deploy process [here](https://docs.google.com/document/d/1ORrF2HwrqUu3tPswSlB0Duvbi3YHzvESwOqEY9-w6IQ/) (you must be member of the GovWifi Team to access this document). 
+You can find in depth instructions on using our deploy process [here](https://docs.google.com/document/d/1ORrF2HwrqUu3tPswSlB0Duvbi3YHzvESwOqEY9-w6IQ/) (you must be member of the GovWifi Team to access this document).
 
 ## How to contribute
 
@@ -114,8 +115,8 @@ You can find in depth instructions on using our deploy process [here](https://do
 This codebase is released under [the MIT License][mit].
 
 [mit]: LICENCE
-[dev-docs]:https://govwifi-dev-docs.cloudapps.digital
-[notify]:https://www.notifications.service.gov.uk
-[zendesk]:https://govuk.zendesk.com/hc/en-us
-[terraform-repo]:https://github.com/alphagov/govwifi-terraform
+[dev-docs]: https://govwifi-dev-docs.cloudapps.digital
+[notify]: https://www.notifications.service.gov.uk
+[zendesk]: https://govuk.zendesk.com/hc/en-us
+[terraform-repo]: https://github.com/alphagov/govwifi-terraform
 [prod-deploy-pipeline]: https://cd.gds-reliability.engineering/teams/govwifi/pipelines/admin-deploy?groups=Production

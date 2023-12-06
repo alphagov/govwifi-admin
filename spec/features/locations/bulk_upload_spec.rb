@@ -2,13 +2,27 @@ describe "Bulk upload locations and IPs", type: :feature do
   let(:user) { create(:user, :with_organisation) }
   let(:organisation) { user.organisations.first }
 
-  before do
-    sign_in_user user
-    visit ips_path
-    click_on "Upload Locations"
+  context "when there is only one administrator for the organisation" do
+    before do
+      sign_in_user user
+      visit ips_path
+      click_on "Upload Locations"
+    end
+
+    it "shows error summary" do
+      expect(page).to have_content("There is a problem\nYou must add another administrator before you can add IPs or multiple locations.")
+    end
   end
 
   context "when uploading a locations CSV file" do
+    let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) }
+
+    before do
+      sign_in_user user
+      visit ips_path
+      click_on "Upload Locations"
+    end
+
     it "displays the bulk upload page" do
       expect(page).to have_content("Follow these steps to upload multiple addresses and IPs:")
     end
