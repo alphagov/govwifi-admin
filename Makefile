@@ -21,13 +21,15 @@ serve: stop build
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
 	$(DOCKER_COMPOSE) up -d app
 
-lint: lint-ruby lint-erb lint-scss
+lint: lint-ruby lint-erb lint-scss lint-prettier
 lint-ruby: build
 	$(DOCKER_COMPOSE) run  --no-deps --rm app bundle exec rubocop
 lint-erb: build
 	$(DOCKER_COMPOSE) run  --no-deps --rm app bundle exec erblint --lint-all
 lint-scss: build
 	$(DOCKER_COMPOSE) run  --no-deps --rm app node ./node_modules/stylelint/bin/stylelint.mjs "**/*.scss"
+lint-prettier: build
+	$(DOCKER_COMPOSE) run  --no-deps --rm app node ./node_modules/prettier/bin/prettier.cjs --check "**/*.{json,md,scss,yaml,yml}"
 
 autocorrect: autocorrect-erb
 autocorrect-erb: build
@@ -63,7 +65,12 @@ vscdbg-mfa:
 vscrubylint:
 	bundle exec rubocop
 
-vsclint:
-	bundle exec rubocop
+vsclint: vscrubylint vscprettier
 	bundle exec erblint --lint-all
 	node ./node_modules/stylelint/bin/stylelint.mjs "**/*.scss"
+
+vscprettier:
+	node ./node_modules/prettier/bin/prettier.cjs --check "**/*.{json,md,scss,yaml,yml}"
+
+vscprettier-write:
+	node ./node_modules/prettier/bin/prettier.cjs --write "**/*.{json,md,scss,yaml,yml}"

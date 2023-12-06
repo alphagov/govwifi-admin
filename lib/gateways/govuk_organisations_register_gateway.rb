@@ -326,7 +326,7 @@ module Gateways
         "Insolvency Rules Committee",
         "Prison Service Pay Review Body",
         "Tribunal Procedure Committee",
-        "Independent Police Complaints Commission",
+        "Independent Office for Police Conduct",
         "Office of Surveillance Commissioners",
         "Police Negotiating Board",
         "Directly Operated Railways Limited",

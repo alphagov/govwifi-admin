@@ -19,6 +19,14 @@ class Organisation < ApplicationRecord
       .order(sort_column => sort_direction)
   }
 
+  def meets_invited_admin_user_minimum?
+    memberships.count(&:administrator?) >= 2
+  end
+
+  def meets_admin_user_minimum?
+    memberships.count { |membership| membership.administrator? && membership.confirmed? } > 2
+  end
+
   def ip_addresses
     ips.pluck(:address)
   end

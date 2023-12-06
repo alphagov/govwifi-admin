@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
   before_action :authorise_manage_locations
   before_action :authorise_manage_current_location, only: %i[add_ips update_ips update edit]
+  before_action :authorise_ip_actions, only: %i[bulk_upload add_ips]
 
   def new
     @location = Location.new
@@ -145,6 +146,13 @@ private
   def authorise_manage_current_location
     unless can? :edit, Location.find(params[:location_id] || params[:id])
       redirect_to root_path, error: "You are not allowed to perform this operation"
+    end
+  end
+
+  def authorise_ip_actions
+    unless current_organisation.meets_invited_admin_user_minimum?
+      flash[:alert] = "You must add another administrator before you can add IPs or multiple locations."
+      redirect_to ips_path
     end
   end
 end

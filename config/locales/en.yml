@@ -1,6 +1,6 @@
 en:
   support:
-    email: 'govwifi-tech@digital.cabinet-office.gov.uk'
+    email: "govwifi-tech@digital.cabinet-office.gov.uk"
 
   activemodel:
     errors:
@@ -73,9 +73,10 @@ en:
             name:
               format: "%{message}"
               blank: "Name can't be blank"
-              taken: "Name is already registered. If you wish to administer an \n
-              existing GovWifi installation, you must be invited to that \n
-              organisation's team."
+              taken:
+                "Name is already registered. If you wish to administer an \n
+                existing GovWifi installation, you must be invited to that \n
+                organisation's team."
         location:
           attributes:
             address:
@@ -118,4 +119,3 @@ en:
     two_factor_authentication_setup:
       show:
         complete_setup: "Complete setup"
-
