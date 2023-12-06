@@ -1,24 +1,21 @@
 .ip-address {
-
   @include govuk-font($size: false, $tabular: true);
-  letter-spacing: .03em;
+  letter-spacing: 0.03em;
 
   &-separator {
     @include govuk-font($size: false, $tabular: true, $weight: bold);
     display: inline-block;
     padding: 0 2px;
     position: relative;
-    top: -.05em;
+    top: -0.05em;
   }
 }
 
 .ip-address-list {
-
   list-style-type: none;
   padding-left: 0;
 
   li {
-
     margin-bottom: govuk-spacing(1);
 
     &:last-child {

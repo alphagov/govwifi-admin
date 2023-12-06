@@ -1,4 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
+  before_action :show_navigation_bars
   before_action :set_target_organisation, if: :super_admin?, only: %i[create new]
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
   after_action :confirm_new_user_membership, only: :update # rubocop:disable Rails/LexicallyScopedActionFilter
@@ -6,7 +7,7 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     if user_is_invalid? || user_belongs_to_current_organisation?
       self.resource = invite_resource
-      render :new
+      render(params[:user][:source] == "invite_admin" ? :invite_second_admin : :new)
       return
     end
 
@@ -17,7 +18,15 @@ class Users::InvitationsController < Devise::InvitationsController
     redirect_to(after_path(organisation), notice: "#{invited_user.email} has been invited to join #{organisation.name}")
   end
 
+  def invite_second_admin
+    @user = User.new
+  end
+
 private
+
+  def show_navigation_bars
+    false if action_name == "invite_second_action"
+  end
 
   def organisation
     @organisation ||= super_admin? ? @target_organisation : current_organisation

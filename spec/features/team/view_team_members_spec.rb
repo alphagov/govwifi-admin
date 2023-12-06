@@ -23,6 +23,10 @@ describe "View team members of my organisation", type: :feature do
       it "shows the users email" do
         expect(page).to have_content(user.email)
       end
+
+      it "shows alert to remind admins there must be minimum of two administrators for each organisation" do
+        expect(page).to have_content("There must be a minimum of 2 administrators for each organisation.")
+      end
     end
 
     context "when there are many users in my organisation" do
