@@ -1,47 +1,43 @@
-version: '3.4'
+version: "3.4"
 
 services:
   db:
-    platform: linux/x86_64
-    image: "mysql:5.7"
+    image: "mysql:8.0"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: root
     expose:
       - "3306"
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-proot"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       timeout: 5s
       retries: 10
 
   rr_db:
     build: ./mysql
-    platform: linux/x86_64
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: rr_govwifi
     expose:
       - "3306"
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-proot"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       timeout: 5s
       retries: 10
 
   wifi_user_db:
     build: ./mysql_user
-    platform: linux/x86_64
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: wifi_user_govwifi
     expose:
       - "3306"
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-proot"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       timeout: 5s
       retries: 10
 
   app:
-    platform: linux/x86_64
     build:
       context: .
       args:
@@ -58,4 +54,4 @@ services:
       wifi_user_db:
         condition: service_healthy
     expose:
-    - "3000"
+      - "3000"
