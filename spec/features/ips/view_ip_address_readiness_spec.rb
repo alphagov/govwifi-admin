@@ -1,8 +1,9 @@
-describe "Wiew whether IPs are ready", type: :feature do
+describe "View whether IPs are ready", type: :feature do
   include_context "with a mocked notifications client"
 
   context "when one IP has been added" do
     let(:user) { create(:user, :with_organisation) }
+    let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) }
     let!(:location) { create(:location, organisation: user.organisations.first) }
 
     before do

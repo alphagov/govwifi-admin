@@ -1,10 +1,10 @@
-version: '3.4'
+version: "3.4"
 
 services:
   app:
     build:
       args:
-        RUN_PRECOMPILATION: 'false'
+        RUN_PRECOMPILATION: "false"
     volumes:
       - ".:/usr/src/app"
       - "tmp:/usr/src/app/tmp"

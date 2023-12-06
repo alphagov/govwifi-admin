@@ -1,6 +1,7 @@
 describe "Adding an IP to an existing location", type: :feature do
   let(:user) { create(:user, :with_organisation) }
   let(:location) { create(:location, organisation: user.organisations.first) }
+  let!(:another_administrator) { create(:user, organisations: [user.organisations.first]) }
 
   context "when viewing the form" do
     before do
@@ -195,5 +196,17 @@ describe "Adding an IP to an existing location", type: :feature do
     end
 
     it_behaves_like "not signed in"
+  end
+
+  context "when there is only one administrator for the organisation" do
+    before do
+      user.organisations.first.users.delete(another_administrator)
+      sign_in_user user
+      visit location_add_ips_path(location_id: location.id)
+    end
+
+    it "shows error summary" do
+      expect(page).to have_content("There is a problem\nYou must add another administrator before you can add IPs or multiple locations.")
+    end
   end
 end

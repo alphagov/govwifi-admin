@@ -46,7 +46,7 @@
     <%= render "shared/header" %>
 
     <div class="govuk-width-container">
-      <% if user_signed_in? %>
+      <% if show_navigation_bars %>
         <%= render "shared/subnav/#{subnav}" %>
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-one-quarter">
