@@ -6,4 +6,5 @@ Describe the change
 
 Describe why the change was necessary
 
-Link to JIRA / Trello card (if applicable):
+Link to JIRA card (if applicable):
+[GW-xxxx](https://technologyprogramme.atlassian.net/browse/GW-xxxx)
