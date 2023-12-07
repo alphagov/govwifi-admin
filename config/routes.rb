@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     patch "update_location", to: "update_location"
   end
   resources :memberships, only: %i[edit update index destroy]
-  resources :mou, only: %i[index create]
+  resources :mou, only: %i[new create]
   resources :logs, only: %i[index]
   resources :logs_searches, path: "logs/search", only: %i[new index create]
   resources :organisations, only: %i[new create edit update]
@@ -68,7 +68,6 @@ Rails.application.routes.draw do
       get "remove", to: "users#confirm_remove"
       post "remove", to: "users#remove"
     end
-    resources :mou, only: %i[index update create]
     resources :organisations, only: %i[index show destroy] do
       collection do
         get "service_emails", to: "organisations#service_emails", constraints: { format: "csv" }

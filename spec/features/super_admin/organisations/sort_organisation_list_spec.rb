@@ -45,34 +45,6 @@ describe "Sorting the organisations list", type: :feature do
       end
     end
 
-    context "when using signed MoU uploads" do
-      before do
-        create(:organisation, name: "Gov Org 4")
-
-        Organisation.find_by(name: "Gov Org 1").signed_mou.attach(
-          io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
-        )
-
-        Organisation.find_by(name: "Gov Org 3").signed_mou.attach(
-          io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
-        )
-
-        Organisation.find_by(name: "Gov Org 3").signed_mou_attachment.update!(created_at: 3.months.from_now)
-      end
-
-      it "the list is sorted by newest to oldest, after MoU Signed is clicked the first time" do
-        click_link "MOU Signed"
-
-        expect(page.body).to match(/Gov Org 3.*Gov Org 1.*Gov Org 4/m)
-      end
-
-      it "the list is sorted by oldest to newest, when MoU Signed is clicked again" do
-        2.times { click_link "MOU Signed" }
-
-        expect(page.body).to match(/Gov Org 4.*Gov Org 1.*Gov Org 3/m)
-      end
-    end
-
     context "when using location count" do
       before do
         create(:location, organisation: Organisation.find_by(name: "Gov Org 1"))

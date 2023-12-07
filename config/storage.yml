@@ -5,8 +5,3 @@ local:
 test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
-
-amazon:
-  service: S3
-  bucket: "<%= ENV.fetch('S3_MOU_BUCKET') %>"
-  region: eu-west-2

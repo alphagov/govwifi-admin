@@ -1,27 +1,43 @@
 class MouController < ApplicationController
-  def index
-    @mou = AdminConfig.mou.unsigned_document.attachment
-    @current_org_signed_mou = current_organisation.signed_mou.attachment
+  before_action :authorise_mou_creation, only: %i[new create]
+
+  def new
+    @mou = Mou.new
   end
 
   def create
-    if params[:signed_mou]
-      mime_type = Marcel::MimeType.for(params[:signed_mou])
-      if mime_type.to_s == "application/pdf"
-        current_organisation.signed_mou.attach(params[:signed_mou])
-        flash[:notice] = "MOU uploaded successfully."
+    if (signed = params.dig(:mou, :signed) == "true")
+      @mou = build_mou(signed)
+
+      if @mou.save
+        flash[:success] = "MOU signed successfully."
+        redirect_to settings_path
       else
-        flash[:alert] = "Unsupported file type. Signed MOU should be a PDF."
+        flash[:notice] = "Error signing MOU: #{@mou.errors.full_messages.join(', ')}"
+        render :new
       end
     else
-      flash[:alert] = "Choose a file before uploading "
+      flash[:notice] = "You must accept the terms to sign the MOU."
+      render :new
     end
-    redirect_to mou_index_path
   end
 
 private
 
-  def replacing?
-    current_organisation.signed_mou.attached?
+  def build_mou(signed)
+    Mou.new(
+      organisation: current_organisation,
+      user: current_user,
+      version: current_organisation.latest_mou_version,
+      signed_date: Time.zone.today,
+      signed:,
+    )
+  end
+
+  def authorise_mou_creation
+    unless current_organisation.resign_mou?
+      flash[:notice] = "You are not eligible to sign a new Mou at this time."
+      redirect_to settings_path
+    end
   end
 end

@@ -37,17 +37,6 @@ describe "Bulk upload locations and IPs", type: :feature do
       end
     end
 
-    context "when a PDF file is uploaded" do
-      before do
-        attach_file("Upload completed template", Rails.root.join("spec/fixtures/mou.pdf"))
-        click_on "Upload"
-      end
-
-      it "displays the appropriate error" do
-        expect(page).to have_content("File must be csv format").twice
-      end
-    end
-
     context "when a CSV with tabs as delimiter is uploaded" do
       before do
         attach_file("Upload completed template", Rails.root.join("spec/fixtures/csv/locations_upload_no_dupes_tabs.csv"))

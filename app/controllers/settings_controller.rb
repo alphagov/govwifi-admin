@@ -5,7 +5,6 @@ class SettingsController < ApplicationController
     @team_members = current_organisation.users
     @london_radius_ips = radius_ips[:london]
     @dublin_radius_ips = radius_ips[:dublin]
-    @current_org_signed_mou = current_organisation.signed_mou.attachment
   end
 
 private
