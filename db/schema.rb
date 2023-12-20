@@ -96,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_161245) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "service_email"
+    t.boolean "cba_enabled"
     t.index ["name"], name: "index_organisations_on_name", unique: true
   end
 
