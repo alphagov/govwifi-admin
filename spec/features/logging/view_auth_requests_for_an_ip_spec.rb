@@ -9,8 +9,8 @@ describe "View authentication requests for an IP", type: :feature do
     let(:ip) { location.ips.first.address }
     let(:location) { user.organisations.first.locations.first }
     before do
-      create(:organisation, :with_location_and_ip, users: [user])
-      create(:session, siteIP: ip, username: "Aaaaaa")
+      create(:organisation, :with_location_and_ip, users: [user], cba_enabled: true)
+      create(:session, siteIP: ip, username: "Aaaaaa", cert_name: "EAP-TLS")
     end
     describe "when using a link" do
       before do
@@ -19,9 +19,14 @@ describe "View authentication requests for an IP", type: :feature do
           click_on "View logs"
         end
       end
-
       it "displays the authentication requests" do
         expect(page).to have_content("Found 1 result for IP: \"#{ip}\"")
+      end
+
+      context "when the organisations is using CBA" do
+        it "displays the certificate data" do
+          expect(page).to have_content("EAP-TLS")
+        end
       end
     end
 
