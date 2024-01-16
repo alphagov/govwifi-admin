@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_19_161245) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_28_135538) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -96,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_161245) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "service_email"
+    t.boolean "cba_enabled"
     t.index ["name"], name: "index_organisations_on_name", unique: true
   end
 
