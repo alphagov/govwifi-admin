@@ -7,19 +7,23 @@ mysql: &mysql
   password: <%= ENV.fetch('DB_PASS') %>
 
 test:
-  <<: *mysql
+  !!merge <<: *mysql
   database: govwifi_admin_test
 
 development:
-  <<: *mysql
+  !!merge <<: *mysql
   database: development
 
+alpaca:
+  !!merge <<: *mysql
+  database: govwifi_admin_alpaca
+
 staging:
-  <<: *mysql
+  !!merge <<: *mysql
   database: govwifi_admin_staging
 
 production:
-  <<: *mysql
+  !!merge <<: *mysql
   database: govwifi_admin_production
 
 read_replica:

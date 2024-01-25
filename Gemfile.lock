@@ -150,7 +150,7 @@ GEM
     elasticsearch-api (8.9.0)
       multi_json
     encryptor (3.0.0)
-    erb_lint (0.4.0)
+    erb_lint (0.5.0)
       activesupport
       better_html (>= 2.0.1)
       parser (>= 2.7.1.4)
@@ -254,6 +254,14 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.4)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.15.4-arm-linux)
+      racc (~> 1.4)
+    nokogiri (1.15.4-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x86-linux)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-darwin)
       racc (~> 1.4)
     notifications-ruby-client (5.4.0)
       jwt (>= 1.5, < 3)
@@ -436,7 +444,7 @@ GEM
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    sprockets (4.2.0)
+    sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
     sprockets-rails (3.4.2)
@@ -466,12 +474,12 @@ GEM
     uniform_notifier (1.16.0)
     warden (1.2.9)
       rack (>= 2.0.9)
-    web-console (4.2.0)
+    web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webmock (3.18.1)
+    webmock (3.19.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -483,7 +491,7 @@ GEM
       nokogiri (~> 1.8)
     yard (0.9.34)
     zeitwerk (2.6.11)
-    zendesk_api (3.0.2)
+    zendesk_api (3.0.5)
       faraday (> 2.0.0)
       faraday-multipart
       hashie (>= 3.5.2, < 6.0.0)
@@ -493,7 +501,10 @@ GEM
     zxcvbn (0.1.9)
 
 PLATFORMS
+  armv7-linux
   ruby
+  universal-darwin-8
+  x86-linux
 
 DEPENDENCIES
   aws-sdk-route53 (~> 1.78.0)
