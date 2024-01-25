@@ -44,6 +44,17 @@ create_user_for_organisations(
   confirmed_at: Time.zone.now,
 )
 
+create_user_for_organisations(
+  [organisation],
+  email: "ukti_test@gov.uk",
+  confirmed_at: Time.zone.now,
+)
+create_user_for_organisations(
+  [empty_organisation],
+  email: "asjc_test@gov.uk",
+  confirmed_at: Time.zone.now,
+)
+
 3.times do
   create_user_for_organisations([organisation], confirmed_at: Time.zone.now)
 end

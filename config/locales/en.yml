@@ -107,8 +107,6 @@ en:
             content:
               format: "%{message}"
               blank: "Certificate can't be empty"
-
-
   users:
     two_factor_authentication:
       show_email:

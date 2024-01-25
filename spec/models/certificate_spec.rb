@@ -8,12 +8,10 @@ describe Certificate do
   it { is_expected.to belong_to(:organisation) }
 
   context "when parsing a pem file" do
-    let(:organisation) { create(:organisation) }
-    subject(:certificate) { build(:certificate, organisation) }
-    let(:certificate) { described_class.parse_and_create_from_file("spec/models/comodoCA.pem", organisation) }
+    subject(:certificate) { create(:certificate, :with_cert_file_and_org) }
 
     it "creates a valid certificate" do
-      expect(certificate.name).to eq("Gov Org 1 cert 2B2E6EEAD975366C148A6EDBA37C8C07")
+      expect(certificate.name).to eq("mycert")
     end
   end
 end
