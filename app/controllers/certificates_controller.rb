@@ -16,7 +16,9 @@ class CertificatesController < ApplicationController
 
   def destroy
     @certificate = Certificate.find(params[:id])
+    cert_name = @certificate.name
     @certificate.destroy!
+    Services.certificate_repository.delete_certificate(current_organisation.id, cert_name, @certificate.is_root_cert)
     redirect_to(certificates_path, notice: "Successfully removed Certificate: #{@certificate.name}")
   end
 
@@ -57,9 +59,7 @@ class CertificatesController < ApplicationController
     end
 
     if saved
-      bucket, key = get_s3_bucket_and_key(cert_name)
-      s3_gateway = Gateways::S3.new(bucket:, key:)
-      s3_gateway.write(raw_cert)
+      Services.certificate_repository.store_certificate(current_organisation.id, @certificate.name, raw_cert, @certificate.is_root_cert)
       redirect_to(certificates_path, notice: "New Certificate Added: #{@certificate.name}")
     else
       @certificate ||= Certificate.new(organisation: current_organisation, name: cert_name)
@@ -68,14 +68,6 @@ class CertificatesController < ApplicationController
   end
 
 private
-
-  def get_s3_bucket_and_key(cert_name)
-    bucketkey = Gateways::S3::RADIUS_CERTS_LOCATION
-    s3_cert_key_name = "#{current_organisation.id}_#{cert_name}.pem"
-    key_path = File.join(bucketkey[:key], s3_cert_key_name)
-
-    [bucketkey[:bucket], key_path]
-  end
 
   def authorise_manage_current_certificate
     unless can? :manage, Certificate.find(params[:id])
@@ -86,5 +78,4 @@ private
   def authorise_manage_certificates
     redirect_to root_path, error: "You are not allowed to perform this operation" unless current_user.can_manage_certificates?(current_organisation)
   end
-
 end

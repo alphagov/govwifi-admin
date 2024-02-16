@@ -71,6 +71,7 @@ Rails.application.routes.draw do
     end
     resources :mou, only: %i[index update create]
     resources :organisations, only: %i[index show destroy] do
+      patch "toggle_cba_feature", to: "organisations#toggle_cba_feature", on: :member
       collection do
         get "service_emails", to: "organisations#service_emails", constraints: { format: "csv" }
       end

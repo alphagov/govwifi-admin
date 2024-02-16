@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_30_110832) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_06_110300) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_30_110832) do
   end
 
   create_table "certificates", charset: "utf8", force: :cascade do |t|
+    t.string "thumbprint"
     t.string "name"
     t.string "issuer"
     t.string "subject"
@@ -58,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_30_110832) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "organisation_id"], name: "index_certificates_on_name_and_organisation_id", unique: true
-    t.index ["serial_number"], name: "index_certificates_on_serial_number", unique: true
+    t.index ["organisation_id", "thumbprint"], name: "index_certificates_on_organisation_id_and_thumbprint", unique: true
   end
 
   create_table "custom_organisation_names", charset: "utf8", force: :cascade do |t|
@@ -111,6 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_30_110832) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "service_email"
+    t.boolean "cba_enabled"
     t.index ["name"], name: "index_organisations_on_name", unique: true
   end
 
