@@ -11,6 +11,8 @@ class Organisation < ApplicationRecord
   validates :service_email, format: { with: Devise.email_regexp }
   validate :validate_in_register?, unless: proc { |org| org.name.blank? }
 
+  validates :cba_enabled, inclusion: { in: [true, false] }, allow_nil: true
+
   validates_associated :locations
 
   scope :sortable_with_child_counts, lambda { |sort_column, sort_direction|
@@ -19,6 +21,14 @@ class Organisation < ApplicationRecord
       .group("organisations.id, active_storage_attachments.created_at")
       .order(sort_column => sort_direction)
   }
+
+  def enable_cba_feature!
+    update(cba_enabled: true)
+  end
+
+  def disable_cba_feature!
+    update(cba_enabled: false)
+  end
 
   def meets_invited_admin_user_minimum?
     memberships.count(&:administrator?) >= 2

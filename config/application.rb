@@ -11,6 +11,7 @@ require "action_view/railtie"
 require "sprockets/railtie"
 require "active_storage/engine"
 require_relative "../lib/gateways/email_gateway"
+require_relative "../lib/gateways/certificate_repository_s3"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -48,5 +49,6 @@ module GovwifiAdmin
     config.active_model.i18n_customize_full_message = true
 
     config.email_gateway = Gateways::EmailGateway
+    config.certificate_repository = Gateways::CertificateRepositoryS3
   end
 end

@@ -22,6 +22,7 @@ ENV \
   S3_ALLOWLIST_OBJECT_KEY='s3AllowlistObjectKey' \
   S3_TRUSTED_CERTS_BUCKET='s3TrustedCertsBucket' \
   S3_TRUSTED_CERTS_PATH_KEY='s3TrustedCertsPathKey' \
+  S3_ROOT_CERTS_PATH_KEY='s3RootCertsPathKey' \
   LOGGING_API_SEARCH_ENDPOINT='https://govwifi-logging-api.gov.uk/search/' \
   S3_MOU_BUCKET='StubMouBucket' \
   GOOGLE_MAPS_PUBLIC_API_KEY='google-api-key' \

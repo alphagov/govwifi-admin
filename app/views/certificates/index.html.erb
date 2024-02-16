@@ -30,7 +30,7 @@
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header">Name</th>
               <th scope="col" class="govuk-table__header">Serial</th>
-              <th scope="col" class="govuk-table__header govuk-!-text-align-centre">Valid From</th>
+              <th scope="col" class="govuk-table__header govuk-!-text-align-centre">Type</th>
               <th scope="col" class="govuk-table__header govuk-!-text-align-centre">Expires</th>
             </tr>
           </thead>
@@ -41,13 +41,22 @@
                   <%= link_to certificate.name, certificate_path(certificate), class: "govuk-link govuk-link--no-visited-state" %>
                 </td>
                 <td class="govuk-table__cell">
-                  <%= certificate.has_oversize_serial_number ? certificate.get_truncated_serial_number + "..." : certificate.serial_number %>
+                  <%= certificate.has_oversize_serial_number ? "#{certificate.get_truncated_serial_number}..." : certificate.serial_number %>
                 </td>
                 <td class="govuk-table__cell govuk-!-width-one-quarter govuk-!-text-align-centre">
-                  <%= certificate.valid_from %>
+                  <% if certificate.is_root_cert %>
+                  <strong class="govuk-tag govuk-tag--yellow">Root</strong>
+                  <% else %>
+                  <strong class="govuk-tag govuk-tag--green">Intermediate</strong>
+                  <% end %>
                 </td>
-                <td class="govuk-table__cell govuk-!-width-one-quarter govuk-!-text-align-centre <%= "expired-cert" if certificate.has_expired  %>">
+                <td class="govuk-table__cell govuk-!-width-one-quarter govuk-!-text-align-centre">
                   <%= certificate.valid_to %>
+                  <% if certificate.has_expired %>
+                  <strong class="govuk-tag govuk-tag--red">Expired</strong>
+                  <% elsif certificate.is_near_expiry %>
+                  <strong class="govuk-tag govuk-tag--yellow">Expiring soon</strong>
+                  <% end %>
                 </td>
               </tr>
             <% end %>

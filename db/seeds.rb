@@ -131,3 +131,7 @@ location_two.ips.each_with_index do |location_two_ip, index|
 end
 
 MouTemplate.create!
+
+Organisation.all.each do |org|
+  org.update(cba_enabled: false)
+end

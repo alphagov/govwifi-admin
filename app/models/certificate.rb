@@ -3,7 +3,7 @@ require "openssl"
 class Certificate < ApplicationRecord
   belongs_to :organisation
   validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :organisation_id }
-  validates :subject, :issuer, :valid_from, :valid_to, :serial_number, :content, presence: true
+  validates :thumbprint, :subject, :issuer, :valid_from, :valid_to, :serial_number, :content, presence: true
 
   MAX_LEN = 16
 
@@ -14,6 +14,7 @@ class Certificate < ApplicationRecord
 
   def import_from_x509_content(raw_content)
     x509 = OpenSSL::X509::Certificate.new(raw_content)
+    self.thumbprint = OpenSSL::Digest::SHA1.new(x509.to_der).to_s
     self.content = raw_content
     self.subject = x509.subject.to_s
     self.issuer = x509.issuer.to_s
@@ -24,11 +25,18 @@ class Certificate < ApplicationRecord
     raise "Certificate file issue: #{e.message}"
   end
 
+  def is_root_cert
+    subject == issuer
+  end
+
   def has_expired
     Time.zone.now.after?(valid_to)
   end
 
-  
+  def is_near_expiry
+    warning_start_date = valid_to.days_ago(31)
+    Time.zone.now.after?(warning_start_date)
+  end
 
   def has_oversize_serial_number
     serial_number.length > MAX_LEN
@@ -40,8 +48,7 @@ class Certificate < ApplicationRecord
     if truncated_serial.length > MAX_LEN
       truncated_serial = truncated_serial[0, MAX_LEN - 3].strip
     end
-    
+
     truncated_serial
   end
-
 end

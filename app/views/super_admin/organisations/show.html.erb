@@ -35,6 +35,10 @@
       <%= render "mou_form", organisation: @organisation %>
     <% end %>
 
+    <%= render "section", heading: "CBA" do %>
+      <%= render "cba_form", organisation: @organisation %>
+    <% end %>
+
     <%= render "section", heading: "Locations" do %>
       <%== pagy_nav_govuk(@pagy) %>
       <%= render "locations", locations: @locations %>
