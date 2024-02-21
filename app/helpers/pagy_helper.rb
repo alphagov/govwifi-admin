@@ -26,7 +26,7 @@ module PagyHelper
       html << case item
               when Integer then %(<li class="govuk-pagination__item"><a>#{link.call item}</a></li>) # page link
               when String then %(<li class="govuk-pagination__item govuk-pagination__item--current"><a>#{item}</a></li>) # current page
-              when :gap then %(<li class="govuk-pagination__item">#{pagy_t('pagy.nav.gap')}</li>) # page gap
+              when :gap then %(<li class="govuk-pagination__item">#{pagy_t('pagy.gap')}</li>) # page gap
               end
     end
     html << %(</ul>)
