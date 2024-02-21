@@ -13,6 +13,8 @@
 # See https://ddnexus.github.io/pagy/api/pagy#instance-variables
 # Pagy::DEFAULT[:page]   = 1                                  # default
 Pagy::DEFAULT[:items] = 10 # default
+Pagy::DEFAULT[:size]  = [1, 4, 4, 1] # nav bar links
+
 # Pagy::DEFAULT[:outset] = 0                                  # default
 
 # Other Variables
