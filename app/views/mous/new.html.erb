@@ -1,0 +1,37 @@
+<% content_for :page_title, "Memorandum of understanding" %>
+
+<div class="govuk-form-group">
+  <%= link_to "Back to settings", settings_path, class: "govuk-back-link" %>
+
+  <h1 class="govuk-heading-l">Sign the MOU</h1>
+
+  <p class="govuk-body">
+    The memorandum of understanding (MOU) sets out the agreement between GovWifi (part of Cabinet Office) and your organisation about the use of GovWifi.
+  </p>
+
+  <p class="govuk-body">Anyone can view or share the <%= link_to "GovWifi MOU (opens in another tab).", "https://www.wifi.service.gov.uk/memorandum-of-understanding/", target: "_blank", class: "govuk-body govuk-link govuk-link--no-visited-state", rel: "noopener" %>
+  </p>
+
+  <p class="govuk-body govuk-!-font-weight-bold">
+    Who will sign the MOU?
+  </p>
+  <p class="govuk-body">
+    This can be a GovWifi admin or someone else from your organisation.
+  </p>
+  <div class="govuk-inset-text">
+    A GovWifi admin is someone who manages GovWifi on behalf of your organisation.
+  </div>
+
+  <%= form_with model: @mou, url: choose_option_mous_path, method: :post do |f| %>
+    <div class="govuk-form-group">
+      <%= f.govuk_radio_button :action, "sign_mou", id: "sign_mou", link_errors: true, label: { text: "I will sign the MOU" } %>
+      <%= f.govuk_radio_button :action, "nominate_user", id: "nominate_user", link_errors: true, label: { text: "I will nominate someone from my organisation to sign" } %>
+    </div>
+
+    <div class="govuk-form-group">
+      <%= f.govuk_submit "Continue" %>
+    </div>
+  <% end %>
+
+  <%= link_to "Contact GovWifi support", help_index_path, class: "govuk-link" %>
+</div>

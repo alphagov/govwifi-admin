@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_08_115718) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_14_111401) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -88,14 +88,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_115718) do
 
   create_table "mous", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "organisation_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.date "signed_date"
-    t.float "version"
+    t.decimal "version", precision: 3, scale: 1
     t.boolean "signed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "job_role"
+    t.string "email_address"
+    t.string "name"
     t.index ["organisation_id"], name: "index_mous_on_organisation_id"
     t.index ["user_id"], name: "index_mous_on_user_id"
+  end
+
+  create_table "nominations", charset: "utf8mb3", force: :cascade do |t|
+    t.string "nominated_user_name"
+    t.string "nominated_user_email"
+    t.string "nomination_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "organisation_id", null: false
+    t.index ["organisation_id"], name: "index_nominations_on_organisation_id"
   end
 
   create_table "organisations", charset: "utf8mb3", force: :cascade do |t|
@@ -103,7 +116,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_115718) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "service_email"
-    t.float "latest_mou_version"
+    t.decimal "latest_mou_version", precision: 3, scale: 1
     t.date "mou_version_change_date"
     t.index ["name"], name: "index_organisations_on_name", unique: true
   end
@@ -158,4 +171,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_115718) do
 
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "mous", "organisations"
+  add_foreign_key "nominations", "organisations"
 end

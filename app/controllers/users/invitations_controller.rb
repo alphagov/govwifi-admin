@@ -22,6 +22,22 @@ class Users::InvitationsController < Devise::InvitationsController
     @user = User.new
   end
 
+  def mou
+    @token = params[:token]
+    @nomination = Nomination.find_by(nomination_token: @token)
+
+    if @nomination.nil?
+      flash[:notice] = "Invalid token."
+      redirect_to root_path
+    else
+      @organisation = Organisation.find(@nomination.organisation_id)
+    end
+  end
+
+  def confirmation_of_signature
+    @organisation = Organisation.find(params[:organisation_id])
+  end
+
 private
 
   def show_navigation_bars

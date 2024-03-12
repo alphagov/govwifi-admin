@@ -1,8 +1,10 @@
 <% content_for :page_title, "Organisation settings" %>
 
-<h1 class="govuk-heading-l">Settings</h1>
+<% if @mou_signed_notification %>
+  <%= render "mou_signed_notification" %>
+<% end %>
 
-<%= render "mou_notification" if current_organisation.mou.present? %>
+<h1 class="govuk-heading-l">Settings</h1>
 
 <%= render "account" %>
 

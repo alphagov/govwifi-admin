@@ -1,0 +1,16 @@
+<% content_for :page_title, "What happens next" %>
+
+<div class="govuk-panel govuk-panel--confirmation">
+  <h1 class="govuk-panel__title">
+    You nominated <%= current_organisation.nomination.nominated_user_name %> to sign the GovWifi MOU
+  </h1>
+</div>
+
+<h1 class="govuk-heading-l">What happens next</h1>
+
+<p class="govuk-body">We have sent <%= current_organisation.nomination.nominated_user_name %> an email to:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>review the MOU</li>
+  <li>sign the MOU digitally for your organisation</li>
+</ul>
+<p class="govuk-body">You will be sent email confirmation when they sign it.</p>

@@ -1,0 +1,21 @@
+<% content_for :page_title, "Nominate to Sign MOU" %>
+
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <%= link_to "Back", new_mou_path, class: "govuk-back-link" %>
+
+    <%= form_with(url: nomination_path, method: :post) do |f| %>
+      <h1 class="govuk-heading-l">Nominate someone from your organisation</h1>
+
+      <p class="govuk-body">The person you nominate will receive an email link to the MOU and a link to sign the MOU digitally for your organisation.</p>
+        <%= f.govuk_text_field :nominated_user_name, width: "two-thirds", label: { size: "s", text: "Name" } %>
+        <%= f.govuk_email_field :nominated_user_email, width: "two-thirds", label: { size: "s", text: "Email" } %>
+
+      <%= f.hidden_field :current_user_name, value: current_user.name %>
+
+      <div class="govuk-form-group">
+        <%= f.govuk_submit "Nominate" %>
+      </div>
+    <% end %>
+  </fieldset>
+</div>

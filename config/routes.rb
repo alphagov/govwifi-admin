@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     get "users/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#show"
     get "users/:id/two_factor_authentication/edit", to: "users/two_factor_authentication#edit"
     delete "users/:id/two_factor_authentication", to: "users/two_factor_authentication#destroy"
+    get "nominee_form_for_mou", to: "users/invitations#mou", as: :nominee_mou_form
+    get "confirmation_of_signature", to: "users/invitations#confirmation_of_signature"
   end
   get "confirm_new_membership", to: "users/memberships#create"
 
@@ -46,7 +48,18 @@ Rails.application.routes.draw do
     patch "update_location", to: "update_location"
   end
   resources :memberships, only: %i[edit update index destroy]
-  resources :mou, only: %i[new create]
+  resources :mous, only: %i[new create] do
+    collection do
+      get "choose_option"
+      post "choose_option"
+      post "sign"
+      get "what_happens_next", to: "mous#what_happens_next"
+    end
+  end
+  post "mous/sign", to: "mous#sign", as: "sign_mou"
+
+  resource :nomination, only: [:create]
+
   resources :logs, only: %i[index]
   resources :logs_searches, path: "logs/search", only: %i[new index create]
   resources :organisations, only: %i[new create edit update]
