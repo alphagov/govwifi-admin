@@ -11,7 +11,7 @@ gem "aws-sdk-route53", "~> 1.78.0"
 gem "aws-sdk-s3", "~> 1.132.1"
 gem "cancancan"
 gem "devise", "~> 4.9.2"
-gem "devise_invitable", "~> 2.0.8"
+gem "devise_invitable", "~> 2.0.9"
 gem "devise_zxcvbn", "~> 6.0.0"
 gem "elasticsearch", "~> 8.9.0"
 gem "google-apis-drive_v3"
@@ -22,7 +22,7 @@ gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
 gem "notifications-ruby-client", "~> 5.4.0"
-gem "pagy", "~> 7.0.2"
+gem "pagy", "~> 7.0.10"
 gem "puma", "~> 6.3"
 gem "rails", "~> 7.0.7"
 gem "rqrcode"
