@@ -41,9 +41,9 @@ Rails.application.routes.draw do
   post "confirm_upload", to: "locations#confirm_upload"
   post "upload_locations_csv", to: "locations#upload_locations_csv"
   resources :locations, only: %i[new create destroy update edit] do
-    get "add_ips", to: "add_ips"
-    patch "update_ips", to: "update_ips"
-    patch "update_location", to: "update_location"
+    get "add_ips"
+    patch "update_ips"
+    patch "update_location"
   end
   resources :memberships, only: %i[edit update index destroy]
 
