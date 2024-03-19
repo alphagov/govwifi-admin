@@ -3,7 +3,8 @@ require "openssl"
 class Certificate < ApplicationRecord
   belongs_to :organisation
   validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :organisation_id }
-  validates :thumbprint, :subject, :issuer, :valid_from, :valid_to, :serial_number, :content, presence: true
+  validates :thumbprint, presence: true, uniqueness: { scope: :organisation_id }
+  validates :subject, :issuer, :valid_from, :valid_to, :serial_number, :content, presence: true
 
   MAX_LEN = 16
 

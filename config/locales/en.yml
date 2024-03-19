@@ -103,7 +103,10 @@ en:
             name:
               format: "%{message}"
               blank: "Certificate Name can't be blank"
-              taken: "Certificate Name already exists for this organisation"
+              taken: "Certificate Name already taken"
+            thumbprint:
+              format: "%{message}"
+              taken: "Identical Certificate already exists"
             content:
               format: "%{message}"
               blank: "Certificate can't be empty"
