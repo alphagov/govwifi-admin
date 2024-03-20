@@ -5,9 +5,11 @@
         <li>
           <%= link_to "Locations", ips_path, id: "nav-ips", class: active_tab(ips_path) %>
         </li>
+        <% if current_organisation.cba_enabled? %>
         <li>
           <%= link_to "Certificates", certificates_path, class: active_tab(certificates_path) %>
         </li>
+        <% end %>
         <li>
           <%= link_to "Team members", memberships_path, class: active_tab(memberships_path) %>
         </li>
