@@ -6,20 +6,14 @@ class NominationsController < ApplicationController
 
     if name.present? && email.present?
       token = generate_token
+      nomination = current_organisation.nomination
+      nomination.destroy! if nomination.present?
 
-      if @nomination.nil?
-        @nomination = build_nomination(name, email, token)
-      else
-        @nomination.update!(
-          nominated_user_name: name,
-          nominated_user_email: email,
-          nomination_token: token,
-        )
-      end
+      @nomination = build_nomination(name, email, token)
 
       if @nomination.save
-        flash[:notice] = "Email request sent successfully."
         send_nomination_email(name, email, nominated_by, token)
+        flash[:notice] = "Email request sent successfully."
         redirect_to what_happens_next_mous_path
       else
         flash[:alert] = "Error creating nomination."
@@ -43,9 +37,7 @@ private
   end
 
   def generate_token
-    token = Devise.friendly_token[0, 20]
-    current_organisation.nomination&.update!(nomination_token: token)
-    token
+    Devise.friendly_token[0, 20]
   end
 
   def send_nomination_email(name, email, nominated_by, token)
