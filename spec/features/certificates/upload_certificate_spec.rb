@@ -69,11 +69,12 @@ describe "Upload Certificate", type: :feature do
       visit new_certificate_path
     end
 
-    it "reports an error" do
+    it "redirects to the certificates page" do
       fill_in "Name", with: "MyCert1"
       attach_file("Cert", Rails.root.join("spec/models/root_ca.pem"))
       click_button "Upload Certificate"
 
+      expect(page).to have_content "Certificate Added"
       expect(page).to have_current_path(certificates_path)
     end
   end
