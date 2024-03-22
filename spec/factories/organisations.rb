@@ -19,5 +19,12 @@ FactoryBot.define do
         org.reload
       end
     end
+
+    trait :with_cba_enabled do
+      after :create do |org|
+        org.enable_cba_feature!
+        org.reload
+      end
+    end
   end
 end

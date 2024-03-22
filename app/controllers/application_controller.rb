@@ -45,6 +45,7 @@ protected
   def update_active_sidebar_path
     sidebar_paths =
       [ips_path,
+       certificates_path,
        memberships_path,
        new_organisation_settings_path,
        settings_path,

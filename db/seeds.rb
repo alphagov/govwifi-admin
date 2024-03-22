@@ -27,6 +27,8 @@ end
 organisation = Organisation.create!(
   name: "UKTI Education", service_email: "it@parks.com",
 )
+organisation.enable_cba_feature! # Show one of the Orgs with certs enabled
+
 empty_organisation = Organisation.create!(
   name: "Academy for Social Justice Commissioning", service_email: "empty@example.net",
 )
@@ -41,6 +43,17 @@ create_user_for_organisations(
 create_user_for_organisations(
   [organisation, empty_organisation],
   email: "test@gov.uk",
+  confirmed_at: Time.zone.now,
+)
+
+create_user_for_organisations(
+  [organisation],
+  email: "ukti_test@gov.uk",
+  confirmed_at: Time.zone.now,
+)
+create_user_for_organisations(
+  [empty_organisation],
+  email: "asjc_test@gov.uk",
   confirmed_at: Time.zone.now,
 )
 
@@ -120,7 +133,3 @@ location_two.ips.each_with_index do |location_two_ip, index|
 end
 
 MouTemplate.create!
-
-Organisation.all.each do |org|
-  org.update(cba_enabled: false)
-end

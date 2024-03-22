@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_28_135538) do
-  create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2024_03_06_110300) do
+  create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -41,15 +41,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_135538) do
 
   create_table "authorised_email_domains", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_authorised_email_domains_on_name", unique: true
+  end
+
+  create_table "certificates", charset: "utf8", force: :cascade do |t|
+    t.string "thumbprint"
+    t.string "name"
+    t.string "issuer"
+    t.string "subject"
+    t.date "valid_from"
+    t.date "valid_to"
+    t.string "serial_number"
+    t.text "content"
+    t.bigint "organisation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "organisation_id"], name: "index_certificates_on_name_and_organisation_id", unique: true
+    t.index ["organisation_id", "thumbprint"], name: "index_certificates_on_organisation_id_and_thumbprint", unique: true
   end
 
   create_table "custom_organisation_names", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ips", charset: "utf8mb3", force: :cascade do |t|
@@ -86,15 +102,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_135538) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
-  create_table "mou_templates", charset: "utf8mb3", force: :cascade do |t|
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+  create_table "mou_templates", charset: "utf8", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "organisations", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "service_email"
     t.boolean "cba_enabled"
     t.index ["name"], name: "index_organisations_on_name", unique: true
@@ -114,8 +130,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_135538) do
     t.string "confirmation_token"
     t.datetime "confirmed_at", precision: nil
     t.datetime "confirmation_sent_at", precision: nil
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "name"
     t.string "invitation_token"
     t.datetime "invitation_created_at", precision: nil
@@ -136,7 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_135538) do
     t.timestamp "totp_timestamp"
     t.boolean "is_super_admin", default: false, null: false
     t.string "direct_otp"
-    t.datetime "direct_otp_sent_at", precision: nil
+    t.datetime "direct_otp_sent_at"
     t.boolean "sent_first_ip_survey", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["encrypted_otp_secret_key"], name: "index_users_on_encrypted_otp_secret_key", unique: true

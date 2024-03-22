@@ -6,4 +6,8 @@ module Services
   def self.elasticsearch_client
     @elasticsearch_client ||= Elasticsearch::Client.new host: ENV["ELASTICSEARCH_ENDPOINT"]
   end
+
+  def self.certificate_repository
+    @certificate_repository ||= Rails.application.config.certificate_repository.new
+  end
 end
