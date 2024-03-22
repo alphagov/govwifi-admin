@@ -29,39 +29,26 @@ class CertificatesController < ApplicationController
   def create
     uploaded_file = params.dig(:certificate, :cert)
     cert_name = params.dig(:certificate, :name)
+    flash.clear
 
-    if uploaded_file
-      flash.clear
-      raw_cert = uploaded_file.read
-      mime_type = Marcel::MimeType.for(uploaded_file)
-
-      if mime_type.to_s == "application/x-x509-ca-cert"
-        @certificate = Certificate.new(organisation: current_organisation, name: cert_name)
-        begin
-          @certificate.import_from_x509_content(raw_cert)
-        rescue RuntimeError => e
-          flash[:alert] = e.message
-          @certificate = nil
-        end
-      else
-        flash[:alert] = "Unsupported file type. Certificate should be a pem."
-      end
-    else
+    if !uploaded_file
       flash[:alert] = "No Certificate file selected. Please choose a file to try again."
-    end
-
-    begin
-      saved = @certificate&.save
-    rescue ActiveRecord::RecordNotUnique
-      flash[:alert] = "A certificate with the same serial number already exists!"
-    rescue ActiveRecord::ActiveRecordError => e
-      flash[:alert] = e.message
-    end
-
-    if saved
+    elsif Marcel::MimeType.for(uploaded_file).to_s != "application/x-x509-ca-cert"
+      flash[:alert] = "Unsupported file type. Should be an x509 certificate file (often .pem)."
+    else
+      @certificate = Certificate.new(organisation: current_organisation, name: cert_name)
+      raw_cert = uploaded_file.read
+      @certificate.import_from_x509_content(raw_cert)
+      @certificate.save!
       Services.certificate_repository.store_certificate(current_organisation.id, @certificate.name, raw_cert, @certificate.is_root_cert)
       redirect_to(certificates_path, notice: "New Certificate Added: #{@certificate.name}")
-    else
+    end
+  rescue RuntimeError => e
+    flash[:alert] = e.message
+  rescue ActiveRecord::ActiveRecordError
+    # rails validation deals with the user error msgs in this scenario
+  ensure
+    unless performed?
       @certificate ||= Certificate.new(organisation: current_organisation, name: cert_name)
       render :new
     end
