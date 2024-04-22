@@ -5,7 +5,7 @@ class LogSearchForm
 
   include ActiveModel::Model
 
-  attr_accessor :filter_option, :success
+  attr_accessor :filter_option, :success, :authentication_method
   attr_writer :ip, :username, :location_id
 
   validates :filter_option, presence: true
