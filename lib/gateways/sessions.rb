@@ -2,19 +2,20 @@ module Gateways
   class Sessions
     MAXIMUM_RESULTS_COUNT = 500
 
-    def self.search(username: nil, ips: nil, success: nil)
-      new.search(username:, ips:, success:)
+    def self.search(username: nil, ips: nil, success: nil, authentication_method: nil)
+      new.search(username:, ips:, success:, authentication_method:)
     end
 
-    def search(username: nil, ips: nil, success: nil)
+    def search(username: nil, ips: nil, success: nil, authentication_method: nil)
       results = Session
-                  .where("start >= ?", 2.weeks.ago)
-                  .order(start: :desc)
-                  .limit(MAXIMUM_RESULTS_COUNT)
+      .where("start >= ?", 2.weeks.ago)
+      .order(start: :desc)
+      .limit(MAXIMUM_RESULTS_COUNT)
 
       results = results.where(username:) unless username.nil?
       results = results.where(siteIP: ips) unless ips.nil?
       results = results.where(success:) if success.present?
+      results = results.where(authentication_method:) if authentication_method.present?
       results
     end
 

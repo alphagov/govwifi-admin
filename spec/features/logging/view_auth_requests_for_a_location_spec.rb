@@ -80,7 +80,7 @@ describe "View authentication requests for a location", type: :feature do
 
     context "when fitering for successful requests" do
       before do
-        select("Successful", from: "Status type:")
+        select("Successful", from: "Status type")
         click_button("Filter")
       end
 
@@ -92,7 +92,7 @@ describe "View authentication requests for a location", type: :feature do
 
     context "when filtering for failed requests" do
       before do
-        select("Failed", from: "Status type:")
+        select("Failed", from: "Status type")
         click_button("Filter")
       end
 

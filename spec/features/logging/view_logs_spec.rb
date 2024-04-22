@@ -49,7 +49,7 @@ describe "View authentication requests for an IP", type: :feature do
 
     context "when filtering for all requests" do
       before do
-        select("All", from: "Status type:")
+        select("All", from: "Status type")
         click_button("Filter")
       end
 
@@ -59,13 +59,13 @@ describe "View authentication requests for an IP", type: :feature do
       end
 
       it "keeps the selection on 'All'" do
-        expect(page).to have_select("Status type:", selected: "All")
+        expect(page).to have_select("Status type", selected: "All")
       end
     end
 
     context "when fitering for successful requests" do
       before do
-        select("Successful", from: "Status type:")
+        select("Successful", from: "Status type")
         click_button("Filter")
       end
 
@@ -75,13 +75,13 @@ describe "View authentication requests for an IP", type: :feature do
       end
 
       it "keeps the selection on 'Successful'" do
-        expect(page).to have_select("Status type:", selected: "Successful")
+        expect(page).to have_select("Status type", selected: "Successful")
       end
     end
 
     context "when filtering for failed requests" do
       before do
-        select("Failed", from: "Status type:")
+        select("Failed", from: "Status type")
         click_button("Filter")
       end
 
@@ -91,7 +91,7 @@ describe "View authentication requests for an IP", type: :feature do
       end
 
       it "keeps the selection on 'Failed'" do
-        expect(page).to have_select("Status type:", selected: "Failed")
+        expect(page).to have_select("Status type", selected: "Failed")
       end
     end
   end
