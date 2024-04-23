@@ -18,7 +18,7 @@ prebuild:
 	$(DOCKER_COMPOSE) up --no-start
 
 serve: stop build
-	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:seed
+	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:migrate db:seed
 	$(DOCKER_COMPOSE) up -d app
 
 lint: lint-ruby lint-erb lint-scss lint-prettier

@@ -12,7 +12,8 @@ class MembershipsController < ApplicationController
         hint: <<~HINT.html_safe,
           View locations and IPs, team members, and logs<br>
           Manage locations and IPs<br>
-          Add or remove team members
+          Add or remove team members<br>
+          View, add and remove certificates
         HINT
       ),
       OpenStruct.new(
@@ -21,7 +22,8 @@ class MembershipsController < ApplicationController
         hint: <<~HINT.html_safe,
           View locations and IPs, team members, and logs<br>
           Manage locations and IPs<br>
-          Cannot add or remove team members
+          Cannot add or remove team members<br>
+          View, add and remove certificates
         HINT
       ),
       OpenStruct.new(
