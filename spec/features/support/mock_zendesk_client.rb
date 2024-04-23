@@ -1,5 +1,5 @@
 shared_context "with a mocked support tickets client" do
-  class ZendeskClientMock       # rubocop:disable Lint/ConstantDefinitionInBlock
+  class ZendeskClientMock # rubocop:disable Lint/ConstantDefinitionInBlock
     class << self
       attr_accessor :config, :support_tickets, :exception_to_raise
     end
