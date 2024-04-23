@@ -5,6 +5,7 @@ class Organisation < ApplicationRecord
   has_many :users, through: :memberships, inverse_of: :organisations
   has_many :locations, dependent: :destroy
   has_many :ips, through: :locations
+  has_many :certificates, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :service_email, format: { with: Devise.email_regexp }
