@@ -23,7 +23,7 @@ describe "View whether IPs are ready", type: :feature do
 
     context "when viewing the IP after a day" do
       before do
-        Ip.all.each do |ip|
+        Ip.all.find_each do |ip|
           ip.update(created_at: Date.yesterday)
         end
         sign_in_user user

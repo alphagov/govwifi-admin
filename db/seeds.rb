@@ -121,6 +121,6 @@ end
 
 MouTemplate.create!
 
-Organisation.all.each do |org|
+Organisation.all.find_each do |org|
   org.update(cba_enabled: false)
 end
