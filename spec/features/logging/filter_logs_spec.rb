@@ -56,7 +56,7 @@ describe "Filter requests for an IP", type: :feature do
       end
     end
 
-    context "when fitering for successful requests" do
+    context "when fitering for EAP-TLS requests" do
       before do
         select("EAP-TLS", from: "Authentication method")
         click_button("Filter")
@@ -88,19 +88,19 @@ describe "Filter requests for an IP", type: :feature do
       end
     end
 
-    context "when filtering for successful EAP-TLS requests" do
+    context "when filtering for successful and EAP-TLS requests" do
       before do
         select("Successful", from: "Status type")
         select("EAP-TLS", from: "Authentication method")
         click_button("Filter")
       end
 
-      it "shows only successful requests" do
+      it "shows successful requests" do
         expect(page).to have_css("td", text: "successful")
         expect(page).to_not have_css("td", text: "failed")
       end
 
-      it "shows only MSCHAP requests" do
+      it "shows MSCHAP requests" do
         expect(page).to have_css("td", text: "EAP-TLS")
         expect(page).to_not have_css("td", text: "MSCHAP")
       end
