@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_28_135538) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_15_142005) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -44,6 +44,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_135538) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["name"], name: "index_authorised_email_domains_on_name", unique: true
+  end
+
+  create_table "certificates", charset: "utf8mb3", force: :cascade do |t|
+    t.string "fingerprint"
+    t.string "name"
+    t.string "issuer"
+    t.string "subject"
+    t.datetime "not_before", precision: nil
+    t.datetime "not_after", precision: nil
+    t.string "serial"
+    t.text "content"
+    t.bigint "organisation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fingerprint", "organisation_id"], name: "index_certificates_on_fingerprint_and_organisation_id", unique: true
+    t.index ["name", "organisation_id"], name: "index_certificates_on_name_and_organisation_id", unique: true
   end
 
   create_table "custom_organisation_names", charset: "utf8mb3", force: :cascade do |t|
