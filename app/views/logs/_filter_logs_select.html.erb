@@ -1,29 +1,27 @@
-<div class="govuk-grid-row govuk-!-padding-bottom-6">
+<div class="govuk-grid-row govuk-!-padding-bottom-4">
   <div class="govuk-grid-column-full">
     <%= form_with model: log_search_form, url: logs_path, method: :get do |form| %>
       <%= form.hidden_field :filter_option %>
       <%= form.hidden_field :username %>
       <%= form.hidden_field :ip %>
       <%= form.hidden_field :location_id %>
-      <div class="govuk-cookie-banner">
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-grid-column-one-half">
-              <%= form.govuk_select :success,
-                                    options_for_select([["All", nil], %w[Successful true], %w[Failed false]], log_search_form.success),
-                                    label: { text: "Status type", class: "govuk-!-font-weight-bold" } %>
-            </div>
+      <div class="govuk-grid-row grey-background govuk-!-padding-top-4">
+        <div class="govuk-grid-column-two-thirds">
+          <div class="govuk-grid-column-one-half">
+            <%= form.govuk_select :success,
+                                  options_for_select([["All", nil], %w[Successful true], %w[Failed false]], log_search_form.success),
+                                  label: { text: "Status type", class: "govuk-!-font-weight-bold" } %>
+          </div>
 
-            <% if log_search_form.ip && current_organisation&.cba_enabled? %>
-              <div class="govuk-grid-column-one-half">
-                <%= form.govuk_select :authentication_method,
-                                      options_for_select([["All", nil], %w[EAP-TLS true], %w[MSCHAP false]], log_search_form.authentication_method),
-                                      label: { text: "Authentication method", class: "govuk-!-font-weight-bold" } %>
-              </div>
-            <% end %>
-            <div class="govuk-grid-column-full">
-              <%= form.govuk_submit "Filter" %>
+          <% if log_search_form.ip && current_organisation&.cba_enabled? %>
+            <div class="govuk-grid-column-one-half">
+              <%= form.govuk_select :authentication_method,
+                                    options_for_select([["All", nil], %w[EAP-TLS true], %w[MSCHAP false]], log_search_form.authentication_method),
+                                    label: { text: "Authentication method", class: "govuk-!-font-weight-bold" } %>
             </div>
+          <% end %>
+          <div class="govuk-grid-column-full">
+            <%= form.govuk_submit "Filter" %>
           </div>
         </div>
       </div>

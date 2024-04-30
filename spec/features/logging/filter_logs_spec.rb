@@ -1,4 +1,4 @@
-describe "Filter requests for an IP", type: :feature do
+describe "Filter CBA requests for an IP", type: :feature do
   let(:ip_address) { "11.22.33.44" }
   let(:ip) { create(:ip, address: ip_address) }
   let(:username) { "ABCDEF" }
@@ -24,7 +24,6 @@ describe "Filter requests for an IP", type: :feature do
            start: time,
            username:,
            siteIP: ip.address,
-           authentication_method: false,
            task_id:)
   end
 

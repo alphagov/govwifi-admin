@@ -15,7 +15,13 @@ module Gateways
       results = results.where(username:) unless username.nil?
       results = results.where(siteIP: ips) unless ips.nil?
       results = results.where(success:) if success.present?
-      results = results.where(authentication_method:) if authentication_method.present?
+      if authentication_method.present?
+        results = if authentication_method == "true"
+                    results.where.not(cert_name: nil, cert_serial: nil, cert_issuer: nil, cert_subject: nil)
+                  else
+                    results.where(cert_name: nil, cert_serial: nil, cert_issuer: nil, cert_subject: nil)
+                  end
+      end
       results
     end
 

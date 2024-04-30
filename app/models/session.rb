@@ -8,6 +8,6 @@ class Session < ReadReplicaBase
   }
 
   def set_authentication_method
-    update(authentication_method: [cert_serial, cert_issuer, cert_subject, cert_name].any?(&:present?))
+    [cert_serial, cert_issuer, cert_subject, cert_name].any?(&:present?)
   end
 end
