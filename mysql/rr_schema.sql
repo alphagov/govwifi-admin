@@ -22,7 +22,6 @@ CREATE TABLE `sessions` (
   `ap` char(17) DEFAULT NULL,
   `building_identifier` varchar(20) DEFAULT NULL,
   `success` tinyint(1) DEFAULT NULL,
-  `authentication_method` tinyint(1) DEFAULT NULL,
   `task_id` varchar(100) DEFAULT '',
   `cert_name` varchar(100) DEFAULT NULL,
   `authentication_reply` varchar(100) DEFAULT NULL,
