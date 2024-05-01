@@ -89,9 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_111401) do
   create_table "mous", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "organisation_id", null: false
     t.bigint "user_id"
-    t.date "signed_date"
     t.decimal "version", precision: 3, scale: 1
-    t.boolean "signed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "job_role"
@@ -116,8 +114,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_111401) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "service_email"
-    t.decimal "latest_mou_version", precision: 3, scale: 1
-    t.date "mou_version_change_date"
     t.index ["name"], name: "index_organisations_on_name", unique: true
   end
 

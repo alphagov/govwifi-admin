@@ -3,7 +3,7 @@ describe "Nominated user signs the MOU", type: :feature do
 
   context "when a user follows the URL from their email containing the nomination token" do
     let(:token) { "tZPAY6puVsNpxkUE9sqZ" }
-    let(:organisation) { create(:organisation, latest_mou_version: 2.0, mou_version_change_date: Time.zone.today) }
+    let(:organisation) { create(:organisation) }
     let(:email_gateway) { spy }
 
     before do

@@ -13,8 +13,7 @@ class NominationsController < ApplicationController
 
       if @nomination.save
         send_nomination_email(name, email, nominated_by, token)
-        flash[:notice] = "Email request sent successfully."
-        redirect_to what_happens_next_mous_path
+        redirect_to what_happens_next_mous_path, notice: "You nominated #{name} to sign the GovWifi MOU"
       else
         flash[:alert] = "Error creating nomination."
         render "mous/nominate_user"

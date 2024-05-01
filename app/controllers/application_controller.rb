@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   def current_organisation
     if session[:organisation_id] && current_user.organisations.pluck(:id).include?(session[:organisation_id].to_i)
       Organisation.find(session[:organisation_id])
-    elsif user_signed_in? && current_user.organisations.any?
+    elsif user_signed_in?
       current_user.organisations.first
     end
   end

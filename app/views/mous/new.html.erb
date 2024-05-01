@@ -22,10 +22,10 @@
     A GovWifi admin is someone who manages GovWifi on behalf of your organisation.
   </div>
 
-  <%= form_with model: @mou, url: choose_option_mous_path, method: :post do |f| %>
+  <%= form_with url: choose_option_mous_path, method: :post do |f| %>
     <div class="govuk-form-group">
-      <%= f.govuk_radio_button :action, "sign_mou", id: "sign_mou", link_errors: true, label: { text: "I will sign the MOU" } %>
-      <%= f.govuk_radio_button :action, "nominate_user", id: "nominate_user", link_errors: true, label: { text: "I will nominate someone from my organisation to sign" } %>
+      <%= f.govuk_radio_button :chosen_action, "sign_mou", id: "sign_mou", link_errors: true, label: { text: "I will sign the MOU" } %>
+      <%= f.govuk_radio_button :chosen_action, "nominate_user", id: "nominate_user", link_errors: true, label: { text: "I will nominate someone from my organisation to sign" } %>
     </div>
 
     <div class="govuk-form-group">

@@ -30,7 +30,8 @@ ENV \
   USER_DB_USER=root \
   USER_DB_PASS=root \
   USER_DB_HOST=wifi_user_db \
-  USER_DB_NAME=wifi_user_govwifi
+  USER_DB_NAME=wifi_user_govwifi \
+  LATEST_MOU_VERSION=1
 
 WORKDIR /usr/src/app
 

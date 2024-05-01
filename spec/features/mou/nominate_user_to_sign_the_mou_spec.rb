@@ -1,8 +1,8 @@
 describe "Nominate user to sign the MOU", type: :feature do
   include EmailHelpers
 
-  let(:organisation) { create(:organisation, latest_mou_version: 2.0, mou_version_change_date: Time.zone.today) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:organisation) { create(:organisation) }
+  let(:user) { create(:user, :with_organisation) }
 
   context "when a user clicks on the 'Sign the MOU' button" do
     before do

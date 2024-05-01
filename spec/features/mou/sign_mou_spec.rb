@@ -1,7 +1,7 @@
 describe "Sign MOU", type: :feature do
   include EmailHelpers
 
-  let(:organisation) { create(:organisation, latest_mou_version: 2.0, mou_version_change_date: Time.zone.today) }
+  let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
 
   context "when a user clicks on the 'Sign the MOU' button" do
@@ -40,7 +40,7 @@ describe "Sign MOU", type: :feature do
 
       context "when submitting the MOU form" do
         let(:email_gateway) { spy }
-        let(:signed_date) { Time.zone.today.strftime("%e %B %Y") }
+        let(:signed_date) { Time.zone.today.strftime("%-d %B %Y") }
 
         before do
           allow(Services).to receive(:email_gateway).and_return(email_gateway)

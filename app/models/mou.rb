@@ -4,16 +4,20 @@ class Mou < ApplicationRecord
 
   validates :name, :email_address, :job_role, presence: true
   validates :email_address, format: { with: Devise.email_regexp }
-  validates :signed_date, :version, presence: true
   validate :must_be_signed
 
+  attr_accessor :signed
+
+  def self.latest_version
+    ENV["LATEST_MOU_VERSION"].to_i
+  end
   def formatted_date
-    signed_date.strftime("%e %B %Y")
+    created_at.strftime("%-d %B %Y")
   end
 
 private
 
   def must_be_signed
-    errors.add(:base, "You must accept the terms to sign the MOU") unless signed
+    errors.add(:signed, "You must accept the terms to sign the MOU") unless signed
   end
 end

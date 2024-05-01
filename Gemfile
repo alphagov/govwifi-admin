@@ -8,22 +8,22 @@ git_source(:github) do |repo_name|
 end
 
 gem "aws-sdk-route53", "~> 1.78.0"
-gem "aws-sdk-s3", "~> 1.132.1"
+gem "aws-sdk-s3", "~> 1.144.0"
 gem "cancancan"
-gem "devise", "~> 4.9.2"
-gem "devise_invitable", "~> 2.0.8"
+gem "devise", "~> 4.9.3"
+gem "devise_invitable", "~> 2.0.9"
 gem "devise_zxcvbn", "~> 6.0.0"
 gem "elasticsearch", "~> 8.9.0"
 gem "google-apis-drive_v3"
 gem "govuk_design_system_formbuilder"
 gem "httparty", "~> 0.21.0"
-gem "mysql2", "~> 0.5.4"
+gem "mysql2", "~> 0.5.6"
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
 gem "notifications-ruby-client", "~> 5.4.0"
-gem "pagy", "~> 6.0.4"
-gem "puma", "~> 6.3"
+gem "pagy", "~> 7.0.10"
+gem "puma", "~> 6.4"
 gem "rails", "~> 7.0.7"
 gem "rqrcode"
 gem "sassc-rails"

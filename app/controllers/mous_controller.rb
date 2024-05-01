@@ -6,7 +6,7 @@ class MousController < ApplicationController
   def new; end
 
   def choose_option
-    action = params.dig(:mou, :action)
+    action = params[:chosen_action]
     if action == "sign_mou"
       render "sign_mou"
     elsif action == "nominate_user"
@@ -23,8 +23,7 @@ class MousController < ApplicationController
       flash[:success] = "MOU signed successfully."
       invalidate_nomination(@mou.organisation_id)
       send_thank_you_email(@mou)
-      @mou_signed_notification = true
-      redirect_to settings_path
+      redirect_to settings_path, notice: "#{current_organisation.name} has accepted the MOU for GovWifi"
     else
       flash[:alert] = @mou.errors.full_messages.join(". ").to_s
       render "sign_mou"
@@ -36,7 +35,10 @@ class MousController < ApplicationController
       flash[:notice] = "Invalid token."
       redirect_to root_path
     elsif request.post?
-      @mou = Mou.new(mou_params)
+      nominee_params = mou_params.merge(user: current_user,
+                                        organisation: @organisation,
+                                        version: Mou.latest_version)
+      @mou = Mou.new(nominee_params)
       if @mou.save
         flash[:success] = "MOU signed successfully."
         invalidate_nomination(@mou.organisation_id)
@@ -66,16 +68,7 @@ private
   end
 
   def mou_params
-    params.require(:mou).permit(:name, :email_address, :job_role, :signed, :token).tap do |mou_params|
-      mou_params[:user] = current_user_or_nil
-      mou_params[:organisation] = find_organisation
-      mou_params[:version] = mou_params[:organisation].latest_mou_version
-      mou_params[:signed_date] = Time.zone.today
-    end
-  end
-
-  def current_user_or_nil
-    current_user || nil
+    params.require(:mou).permit(:name, :email_address, :job_role, :signed, :token)
   end
 
   def find_organisation
@@ -87,7 +80,7 @@ private
       mou.name,
       mou.email_address,
       mou.organisation.name,
-      mou.signed_date,
+      mou.created_at,
     ).deliver_now
   end
 
