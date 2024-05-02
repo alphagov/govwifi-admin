@@ -19,6 +19,7 @@ class MousController < ApplicationController
 
   def sign
     @mou = Mou.new(mou_params)
+    @mou.organisation = find_organisation
     if @mou.save
       flash[:success] = "MOU signed successfully."
       invalidate_nomination(@mou.organisation_id)

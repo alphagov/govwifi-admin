@@ -26,7 +26,7 @@ class Organisation < ApplicationRecord
   def resign_mou?
     return true if mous.empty?
 
-    mous.last.version < Mou.latest_version
+    mous.last.created_at < Mou.latest_version
   end
 
   scope :sortable_with_child_counts, lambda { |sort_column, sort_direction|
