@@ -98,6 +98,12 @@ en:
               private: "Address '%{ip_address}' is a private IP address. Only public IPv4 addresses can be added."
               malformed: "Address '%{ip_address}' is not a valid IP address"
               unpersisted_duplicate: "Ip address %{address} is a duplicate"
+        mou:
+          attributes:
+            name:
+              blank: "Name can't be blank"
+            job_role:
+              blank: "Job role can't be blank"
 
   users:
     two_factor_authentication:

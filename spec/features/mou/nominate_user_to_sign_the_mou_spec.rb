@@ -22,22 +22,26 @@ describe "Nominate user to sign the MOU", type: :feature do
       end
 
       it "takes the user to the correct page" do
-        expect(page).to have_current_path("/mous/choose_option")
+        expect(page).to have_current_path(new_nomination_path)
       end
 
       it "provides information about nominating someone to sign the MOU" do
         expect(page).to have_content("Nominate someone from your organisation")
       end
 
+      it "does not allow a user to sign an mou if the latest version has already been signed" do
+        pending
+      end
+
       context "when sending the nomination invite" do
-        let(:nominated_user_name) { "John Doe" }
-        let(:nominated_user_email) { "JohnDoe@gov.uk" }
+        let(:name) { "John Doe" }
+        let(:email) { "JohnDoe@gov.uk" }
         let(:email_gateway) { spy }
 
         before do
           allow(Services).to receive(:email_gateway).and_return(email_gateway)
-          fill_in "nominated_user_name", with: nominated_user_name
-          fill_in "nominated_user_email", with: nominated_user_email
+          fill_in "Name", with: name
+          fill_in "Email", with: email
           click_button "Nominate"
         end
 
@@ -51,8 +55,8 @@ describe "Nominate user to sign the MOU", type: :feature do
 
         it "creates a nomination record with the nominated user's details" do
           expect(Nomination.last).to have_attributes(
-            nominated_user_name:,
-            nominated_user_email:,
+            name:,
+            email:,
           )
         end
       end

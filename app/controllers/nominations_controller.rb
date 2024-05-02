@@ -1,39 +1,30 @@
 class NominationsController < ApplicationController
+
+  def new
+    @nomination = Nomination.new
+  end
+
   def create
-    name = params[:nominated_user_name]
-    email = params[:nominated_user_email]
-    nominated_by = params[:current_user_name]
+    mou_params = params.require(:nomination).permit(:name, :email)
 
-    if name.present? && email.present?
-      token = generate_token
-      nomination = current_organisation.nomination
-      nomination.destroy! if nomination.present?
-
-      @nomination = build_nomination(name, email, token)
-
-      if @nomination.save
-        send_nomination_email(name, email, nominated_by, token)
-        redirect_to what_happens_next_mous_path, notice: "You nominated #{name} to sign the GovWifi MOU"
-      else
-        flash[:alert] = "Error creating nomination."
-        render "mous/nominate_user"
-      end
+    @nomination = Nomination.new(mou_params.merge(nominated_by: current_user.name,
+                                                  token: generate_token,
+                                                  organisation: current_organisation))
+    if @nomination.valid?
+      old_nomination = current_organisation.nomination
+      old_nomination&.destroy!
+      @nomination.save!
+      send_nomination_email(@nomination.name,
+                            @nomination.email,
+                            @nomination.nominated_by,
+                            @nomination.token)
+      redirect_to what_happens_next_mous_path, notice: "You nominated #{@nomination.name} to sign the GovWifi MOU"
     else
-      flash[:alert] = "Please fill in both name and email fields."
-      render "mous/nominate_user"
+      render :new
     end
   end
 
 private
-
-  def build_nomination(name, email, token)
-    Nomination.new(
-      nominated_user_name: name,
-      nominated_user_email: email,
-      nomination_token: token,
-      organisation_id: current_organisation.id,
-    )
-  end
 
   def generate_token
     Devise.friendly_token[0, 20]

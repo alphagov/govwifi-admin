@@ -49,15 +49,17 @@ Rails.application.routes.draw do
 
   resources :mous, only: %i[new create] do
     collection do
-      get "choose_option"
+      get "show_options"
       post "choose_option"
-      post "sign"
-      get "what_happens_next"
     end
   end
-  match "nominee_form_for_mou", to: "mous#handle_nomination_signature", via: %i[get post]
-  get "confirmation_of_signature", to: "mous#confirmation_of_signature"
-  resource :nomination, only: [:create]
+  resources :nominated_mous, only: %i[new create] do
+    collection do
+      get "confirm"
+    end
+  end
+
+  resource :nomination, only: [:create, :new]
 
   resources :logs, only: %i[index]
   resources :logs_searches, path: "logs/search", only: %i[new index create]

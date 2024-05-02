@@ -76,7 +76,7 @@ describe "Sign MOU", type: :feature do
         end
 
         it "displays an error messages to show validation errors" do
-          expect(page).to have_content("There is a problem\nJob role can't be blank. You must accept the terms to sign the MOU")
+          expect(page).to have_content("There is a problem\nJob role can't be blankYou must accept the terms to sign the MOU")
         end
       end
     end

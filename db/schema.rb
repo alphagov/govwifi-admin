@@ -100,9 +100,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_111401) do
   end
 
   create_table "nominations", charset: "utf8mb3", force: :cascade do |t|
-    t.string "nominated_user_name"
-    t.string "nominated_user_email"
-    t.string "nomination_token"
+    t.string "name"
+    t.string "email"
+    t.string "token"
+    t.string "nominated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "organisation_id", null: false

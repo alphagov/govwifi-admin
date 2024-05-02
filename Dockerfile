@@ -7,6 +7,7 @@ ENV \
   RACK_ENV=development \
   DB_USER=root \
   DB_PASS=root \
+  BYPASS_2FA=true \
   NOTIFY_API_KEY='govwifi_admin_development-8a09d848-d453-4aea-bb1e-46f7d19a1814-d2306cbb-39f5-40e5-9f86-1778c2bef6fa' \
   DB_HOST=db \
   DEVISE_SECRET_KEY=fake-secret-key \

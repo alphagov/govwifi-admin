@@ -7,7 +7,7 @@ describe "Nominated user signs the MOU", type: :feature do
     let(:email_gateway) { spy }
 
     before do
-      create(:nomination, nominated_user_name: "Maryan Khan", nominated_user_email: "Maryan.Khan@email.gov.uk", organisation:, nomination_token: token)
+      create(:nomination, name: "Maryan Khan", email: "Maryan.Khan@email.gov.uk", organisation:, token: token)
       visit nominee_form_for_mou_path(token:)
     end
 
