@@ -39,7 +39,7 @@
         <% end %>
         <td class="govuk-table__cell govuk-table__cell--numeric">
           <% if current_organisation.resign_mou? %>
-            <%= link_to "Sign the MOU", new_mou_path, class: "govuk-link govuk-link--no-visited-state" %>
+            <%= link_to "Sign the MOU", show_options_mous_path, class: "govuk-link govuk-link--no-visited-state" %>
           <% else %>
             <%= link_to "https://www.wifi.service.gov.uk/memorandum-of-understanding/", target: "_blank", rel: "noopener" do %>
               Review <span class='govuk-visually-hidden'>memorandum of understanding</span>
@@ -63,7 +63,7 @@
           <% end %>
         </td>
         <td class="govuk-table__cell govuk-table__cell--numeric">
-          <%= link_to "Sign the MOU", new_mou_path, class: "govuk-link govuk-link--no-visited-state" %>
+          <%= link_to "Sign the MOU", show_options_mous_path, class: "govuk-link govuk-link--no-visited-state" %>
         </td>
       <% end %>
     </tr>

@@ -58,7 +58,7 @@ class AuthenticationMailer < ::Devise::Mailer
   def nomination_instructions(name, email, nominated_by, organisation, token)
     opts = {
       email:,
-      locals: { nomination_url: nominee_form_for_mou_path(token:), name:, nominated_by:, organisation: },
+      locals: { nomination_url: new_nominated_mou_path(token:), name:, nominated_by:, organisation: },
       template_id: GOV_NOTIFY_CONFIG["nominate_user_to_sign_mou"]["template_id"],
       reference: "nomination_email",
     }

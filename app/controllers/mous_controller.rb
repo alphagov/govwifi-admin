@@ -23,7 +23,7 @@ class MousController < ApplicationController
       send_thank_you_email(@mou)
       redirect_to settings_path, notice: "#{current_organisation.name} has accepted the MOU for GovWifi"
     else
-      render "sign_mou"
+      render :new
     end
   end
 
@@ -33,7 +33,7 @@ private
   end
 
   def mou_params
-    params.require(:mou).permit(:name, :email_address, :job_role, :signed, :token)
+    params.require(:mou).permit(:name, :email_address, :job_role, :signed, :token, version: Mou.latest_version)
   end
 
   def send_thank_you_email(mou)

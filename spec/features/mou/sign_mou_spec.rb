@@ -1,8 +1,7 @@
 describe "Sign MOU", type: :feature do
   include EmailHelpers
 
-  let(:organisation) { create(:organisation) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :with_organisation) }
 
   context "when a user clicks on the 'Sign the MOU' button" do
     before do
@@ -22,7 +21,7 @@ describe "Sign MOU", type: :feature do
       end
 
       it "navigates the user to the MOU signing page" do
-        expect(page).to have_current_path("/mous/choose_option")
+        expect(page).to have_current_path("/mous/new")
       end
 
       it "pre-fills the user's name and email in the form" do
@@ -40,12 +39,12 @@ describe "Sign MOU", type: :feature do
 
       context "when submitting the MOU form" do
         let(:email_gateway) { spy }
-        let(:signed_date) { Time.zone.today.strftime("%-d %B %Y") }
+        let(:created_at) { Time.zone.today.strftime("%-d %B %Y") }
 
         before do
           allow(Services).to receive(:email_gateway).and_return(email_gateway)
           fill_in "Job role", with: "Software Developer"
-          check "I confirm that I have the authority to accept these terms and that #{organisation.name} will be bound by them."
+          check "I confirm that I have the authority to accept these terms and that #{user.organisations.first.name} will be bound by them."
           click_button "Accept the MOU"
         end
 
@@ -55,6 +54,7 @@ describe "Sign MOU", type: :feature do
 
         it "saves the users information to the MOU" do
           expect(Mou.last.job_role).to eq "Software Developer"
+          expect(Mou.last.version).to eq Mou.latest_version
         end
 
         it "displays a button to review the MOU on the settings page after MOU creation" do
@@ -66,7 +66,7 @@ describe "Sign MOU", type: :feature do
         end
 
         it "displays a notification after MOU creation" do
-          expect(page).to have_content("Memorandum of understanding (MOU) Signed by #{user.name} on #{signed_date}")
+          expect(page).to have_content("Memorandum of understanding (MOU) Signed by #{user.name} on #{created_at}")
         end
       end
 

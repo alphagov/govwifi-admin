@@ -8,7 +8,7 @@ describe "Nominated user signs the MOU", type: :feature do
 
     before do
       create(:nomination, name: "Maryan Khan", email: "Maryan.Khan@email.gov.uk", organisation:, token: token)
-      visit nominee_form_for_mou_path(token:)
+      visit new_nominated_mou_path(token:)
     end
 
     it "directs the user to the MOU form" do

@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   resources :mous, only: %i[new create] do
     collection do
       get "show_options"
+      get "what_happens_next"
       post "choose_option"
     end
   end

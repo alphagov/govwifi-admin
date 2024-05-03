@@ -1,6 +1,7 @@
 class NominatedMousController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :check_token
+  before_action :set_nomination, only: %i[new create]
 
   def new
     @token = token_from_params
@@ -9,14 +10,13 @@ class NominatedMousController < ApplicationController
 
   def create
     @token = token_from_params
-    nomination = Nomination.find!(token: @token)
-    nominee_params = mou_params.merge(organisation: nomination.organisation,
+    nominee_params = mou_params.merge(organisation: @organisation,
                                       version: Mou.latest_version)
     @mou = Mou.new(nominee_params)
     if @mou.save
-      nomination.destroy!
+      @nomination.destroy!
       send_thank_you_email(@mou)
-      redirect_to confirm_nominated_mous(organisation_name: @mou.organisation.name), success: "MOU signed successfully."
+      redirect_to confirm_nominated_mous_path(organisation_name: @organisation.name), success: "MOU signed successfully."
     else
       render :new
     end
@@ -29,26 +29,20 @@ class NominatedMousController < ApplicationController
 private
 
   def check_token
-    redirect_to root_path, error: "Invalid token." unless Nomination.exists?(token:)
+    redirect_to root_path, error: "Invalid token." unless Nomination.exists?(token: token_from_params)
   end
 
   def token_from_params
     params[:token] || params.dig(:mou, :token)
   end
-  def nomination(token)
-    return nil if token.nil?
-
-    Nomination.find_by(token:)
-  end
 
   def set_nomination
-    token = params[:token]
-    @nomination = Nomination.find_by(token:) if token.present?
+    @nomination = Nomination.find_by(token: token_from_params) if token_from_params.present?
     @organisation = @nomination&.organisation
   end
 
   def mou_params
-    params.require(:mou).permit(:name, :email_address, :job_role, :signed, :token)
+    params.require(:mou).permit(:name, :email_address, :job_role, :signed)
   end
 
   def send_thank_you_email(mou)

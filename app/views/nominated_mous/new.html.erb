@@ -1,6 +1,6 @@
 <% content_for :page_title, "Memorandum of understanding for nominated user" %>
 
-<%= form_with model: @mou, url: create_nominated_mou_path do |f| %>
+<%= form_with model: @mou, url: nominated_mous_path do |f| %>
   <%= f.govuk_error_summary %>
   <h1 class="govuk-heading-l">Read and Accept the Terms for GovWifi</h1>
   <h2 class="govuk-heading-m">Read the MOU</h2>
