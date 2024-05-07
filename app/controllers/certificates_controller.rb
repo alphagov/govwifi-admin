@@ -17,8 +17,12 @@ class CertificatesController < ApplicationController
 
   def destroy
     @certificate = Certificate.find(params[:id])
-    @certificate.destroy!
-    redirect_to(certificates_path, notice: "Successfully removed Certificate: #{@certificate.name}")
+    if @certificate.has_child?
+      redirect_to(certificates_path, alert: "Cannot remove a certificate with issued certificates. Please remove the issued certificates first.")
+    else
+      @certificate.destroy!
+      redirect_to(certificates_path, notice: "Successfully removed Certificate: #{@certificate.name}")
+    end
   end
 
   def new
@@ -42,15 +46,15 @@ private
 
   def authorise_manage_current_certificate
     unless can? :manage, Certificate.find(params[:id])
-      redirect_to root_path, flash: { error: "You are not allowed to perform this operation" }
+      redirect_to root_path, alert: "You are not allowed to perform this operation"
     end
   end
 
   def authorise_manage_certificates
-    redirect_to root_path, flash: { error: "You are not allowed to perform this operation" } unless current_user.can_manage_certificates?(current_organisation)
+    redirect_to root_path, alert: "You are not allowed to perform this operation" unless current_user.can_manage_certificates?(current_organisation)
   end
 
   def cba_flag_check
-    redirect_to root_path, flash: { error: "You are not allowed to perform this operation" } unless current_organisation.cba_enabled?
+    redirect_to root_path, alert: "You are not allowed to perform this operation" unless current_organisation.cba_enabled?
   end
 end
