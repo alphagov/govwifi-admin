@@ -21,4 +21,19 @@ class Certificate < ApplicationRecord
   def not_yet_valid?
     not_before.after?(Time.zone.now)
   end
+
+  def self.parse_certificate(content)
+    return if content.nil?
+
+    Certificate.new.tap do |certificate|
+      certificate.content = content
+      x509_certificate = OpenSSL::X509::Certificate.new(content)
+      certificate.fingerprint = OpenSSL::Digest::SHA1.new(x509_certificate.to_der).to_s
+      certificate.subject = x509_certificate.subject.to_s
+      certificate.issuer = x509_certificate.issuer.to_s
+      certificate.not_before = x509_certificate.not_before
+      certificate.not_after = x509_certificate.not_after
+      certificate.serial = x509_certificate.serial.to_s
+    end
+  end
 end
