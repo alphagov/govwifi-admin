@@ -15,7 +15,7 @@ class CertificateForm
   validate :validate_x509
 
   def save
-    return false unless valid?
+    return false if invalid?
 
     !!@certificate&.save
   end
@@ -38,19 +38,15 @@ private
     errors.add(:file, :invalid_certificate)
   end
 
-  def parse_certificate
-    content = file&.read
-    return if content.nil?
+  def content
+    @content ||= file&.read
+  end
 
-    @certificate = Certificate.new(name:, organisation:)
-    @certificate.content = content
-    x509_certificate = OpenSSL::X509::Certificate.new(content)
-    @certificate.fingerprint = OpenSSL::Digest::SHA1.new(x509_certificate.to_der).to_s
-    @certificate.subject = x509_certificate.subject.to_s
-    @certificate.issuer = x509_certificate.issuer.to_s
-    @certificate.not_before = x509_certificate.not_before
-    @certificate.not_after = x509_certificate.not_after
-    @certificate.serial = x509_certificate.serial.to_s
+  def parse_certificate
+    @certificate = Certificate.parse_certificate(content)
+    @certificate.name = name
+    @certificate.organisation = organisation
+    @certificate.validate
   rescue OpenSSL::X509::CertificateError => e
     @x509_parsing_error = e.message
   end
