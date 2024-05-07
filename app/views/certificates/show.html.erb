@@ -29,11 +29,6 @@
           <%= @certificate.name %>
         </td>
         <td class="govuk-table__cell govuk-table__cell--numeric">
-          <% if current_user.can_manage_locations?(current_organisation) && params[:confirm_remove].nil? %>
-            <%= link_to certificate_path(@certificate, confirm_remove: true), class: "govuk-link red-link govuk-link--no-visited-state" do %>
-              Remove <span class='govuk-visually-hidden'><%= @certificate.serial %> from <%= @certificate.name %></span>
-            <% end %>
-          <% end %>
         </td>
       </tr>
       <tr class="govuk-table__row">
@@ -96,7 +91,13 @@
         <td class="govuk-table__cell govuk-table__cell--numeric">
         </td>
       </tr>
+
       </tbody>
     </table>
+    <% if current_user.can_manage_locations?(current_organisation) && params[:confirm_remove].nil? %>
+      <%= button_to certificate_path(@certificate), params: { confirm_remove: true }, method: :get, class: "govuk-button red-button" do %>
+        Remove <span class='govuk-visually-hidden'><%= @certificate.name %></span>
+      <% end %>
+    <% end %>
   </div>
 </div>

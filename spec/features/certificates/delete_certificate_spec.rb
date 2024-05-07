@@ -16,7 +16,7 @@ describe "Delete Certificate", type: :feature do
     describe "confirm removing a root certificate" do
       before :each do
         click_link root_name
-        click_link "Remove"
+        click_button "Remove"
       end
       it "shows a confirmation message" do
         expect(page).to have_content("Remove this Certificate?")
@@ -29,7 +29,7 @@ describe "Delete Certificate", type: :feature do
     describe "confirm removing an intermediate certificate" do
       before :each do
         click_link intermediate_name
-        click_link "Remove"
+        click_button "Remove"
       end
       it "removes the root certificate" do
         click_button "Remove"
@@ -38,7 +38,7 @@ describe "Delete Certificate", type: :feature do
       it "allows the root to be removed afterwards" do
         click_button "Remove"
         click_link root_name
-        click_link "Remove"
+        click_button "Remove"
         click_button "Remove"
         expect(page).to have_content("Successfully removed Certificate: #{root_name}")
       end
