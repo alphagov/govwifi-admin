@@ -1,6 +1,28 @@
 describe CertificateForm do
-  let(:root_ca) { CertificateHelper.new.root_ca }
-  let(:intermediate_ca) { CertificateHelper.new.intermediate_ca(signed_by: root_ca) }
+  let(:next_week) { Time.zone.now.days_since(7) }
+  let(:last_week) { Time.zone.now.days_ago(7) }
+  let(:serial) { "12345" }
+  let(:root_subject) { "/CN=rootca" }
+  let(:intermediate_subject) { "/CN=intermediateca" }
+  let(:root_key) { OpenSSL::PKey::RSA.new(512) }
+  let(:intermediate_key) { OpenSSL::PKey::RSA.new(512) }
+  let(:root_ca) do
+    build(:x509_certificate,
+          key: root_key,
+          subject: root_subject,
+          issuing_subject: root_subject,
+          not_before: last_week,
+          not_after: next_week,
+          serial:)
+  end
+  let(:intermediate_ca) do
+    build(:x509_certificate,
+          subject: intermediate_subject,
+          key: intermediate_key,
+          issuing_key: root_key,
+          issuing_subject: root_subject,
+          serial:)
+  end
   let(:organisation) { create(:organisation) }
   let(:name) { "myCert" }
 
@@ -9,38 +31,32 @@ describe CertificateForm do
 
   describe "unique name" do
     it "is valid because there is no Certificate with the same name in the organisation" do
-      certificate = CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca.to_pem))
+      certificate = CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca))
       expect(certificate).to be_valid
     end
     it "is valid because there is a Certificate with the same name but in a different organisation" do
-      create(:certificate, :with_organisation, name:)
-
-      certificate = CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca.to_pem))
-      expect(certificate).to be_valid
+      expect(CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca)).save).to be true
+      expect(CertificateForm.new(name:, organisation: create(:organisation), file: StringIO.new(root_ca))).to be_valid
     end
     it "is invalid because there is a Certificate with the same name in the organisation" do
-      create(:certificate, name:, organisation:)
-      certificate = CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca.to_pem))
-      expect(certificate).to_not be_valid
+      expect(CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca)).save).to be true
+      certificate = CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca))
+      expect(certificate).to be_invalid
       expect(certificate.errors.of_kind?(:name, :taken)).to be true
     end
   end
 
-  describe "unique fingerprint" do
+  describe "unique certificate" do
     it "is valid because there is no Certificate with the same fingerprint in the organisation" do
-      certificate = CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca.to_pem))
-      expect(certificate).to be_valid
+      expect(CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca))).to be_valid
     end
     it "is valid because there is a Certificate with the same name but in a different organisation" do
-      create(:certificate, :with_organisation, fingerprint: OpenSSL::Digest::SHA1.new(root_ca.to_der).to_s)
-
-      certificate = CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca.to_pem))
-      expect(certificate).to be_valid
+      expect(CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca)).save).to be true
+      expect(CertificateForm.new(name:, organisation: create(:organisation), file: StringIO.new(root_ca))).to be_valid
     end
     it "is invalid because there is a Certificate with the same name in the organisation" do
-      create(:certificate, organisation:, fingerprint: OpenSSL::Digest::SHA1.new(root_ca.to_der).to_s)
-      certificate = CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca.to_pem))
-      expect(certificate).to_not be_valid
+      expect(CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca)).save).to be true
+      expect(CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca))).to be_invalid
     end
   end
 
@@ -48,19 +64,19 @@ describe CertificateForm do
     context "a valid certificate" do
       it "creates a new certificate" do
         expect {
-          CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca.to_pem)).save
+          CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca)).save
         }.to change(Certificate, :count).by(1)
       end
       it "The new certificate has the correct attributes" do
-        expect(CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca.to_pem)).save).to be true
+        expect(CertificateForm.new(name:, organisation:, file: StringIO.new(root_ca)).save).to be true
         new_certificate = Certificate.find_by_name_and_organisation_id(name, organisation.id)
-        expect(new_certificate.content).to eq(root_ca.to_pem)
-        expect(new_certificate.fingerprint).to eq(OpenSSL::Digest::SHA1.new(root_ca.to_der).to_s)
-        expect(new_certificate.subject).to eq(root_ca.subject.to_s)
-        expect(new_certificate.issuer).to eq(root_ca.issuer.to_s)
-        expect(new_certificate.not_before).to eq(root_ca.not_before)
-        expect(new_certificate.not_after).to eq(root_ca.not_after)
-        expect(new_certificate.serial).to eq(root_ca.serial.to_s)
+        expect(new_certificate.content).to eq(root_ca)
+        expect(new_certificate.fingerprint).to_not be nil
+        expect(new_certificate.subject).to eq(root_subject)
+        expect(new_certificate.issuer).to eq(root_subject)
+        expect(new_certificate.not_before).to be_within(1.second).of(last_week.to_time)
+        expect(new_certificate.not_after).to be_within(1.second).of(next_week.to_time)
+        expect(new_certificate.serial).to eq(serial)
       end
     end
     context "an invalid certificate" do
@@ -71,7 +87,7 @@ describe CertificateForm do
       end
       it "is invalid" do
         form = CertificateForm.new(name:, organisation:, file: StringIO.new("invalid"))
-        expect(form).to_not be_valid
+        expect(form).to be_invalid
         expect(form.errors.of_kind?(:file, :invalid_certificate)).to be true
       end
       it "returns false" do

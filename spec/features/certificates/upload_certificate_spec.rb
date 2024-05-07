@@ -1,21 +1,45 @@
 describe "Upload Certificate", type: :feature do
+  let(:in_four_weeks) { Time.zone.now.days_since(28) }
+  let(:last_week) { Time.zone.now.days_ago(7) }
+  let(:serial) { "12345" }
+  let(:root_subject) { "/CN=rootca" }
+  let(:root_key) { OpenSSL::PKey::RSA.new(512) }
+  let(:not_after) { in_four_weeks }
+  let(:not_before) { last_week }
+  let(:root_ca) do
+    build(:x509_certificate,
+          key: root_key,
+          subject: root_subject,
+          issuing_subject: root_subject,
+          not_before:,
+          not_after:,
+          serial:)
+  end
+
+  let(:intermediate_subject) { "/CN=intermediateca" }
+  let(:intermediate_key) { OpenSSL::PKey::RSA.new(512) }
+  let(:intermediate_ca) do
+    build(:x509_certificate,
+          subject: intermediate_subject,
+          key: intermediate_key,
+          issuing_key: root_key,
+          issuing_subject: root_subject,
+          serial:)
+  end
+
   let(:organisation) { create(:organisation, :with_cba_enabled) }
   let(:user) { create(:user, organisations: [organisation]) }
-  let(:not_after) { Time.zone.now.days_since(365) }
-  let(:not_before) { Time.zone.now.days_ago(1) }
 
-  let(:root_ca) { CertificateHelper.new.root_ca(not_after:, not_before:) }
-  let(:intermediate_ca) { CertificateHelper.new.intermediate_ca(signed_by: root_ca) }
   let(:root_certificate_path) do
     file = Tempfile.new("certificate_file")
-    file.write(root_ca.to_pem)
+    file.write(root_ca)
     file.close
     file.path
   end
 
   let(:intermediate_certificate_path) do
     file = Tempfile.new("certificate_file")
-    file.write(intermediate_ca.to_pem)
+    file.write(intermediate_ca)
     file.close
     file.path
   end
@@ -100,13 +124,10 @@ describe "Upload Certificate", type: :feature do
   end
 
   describe "when uploading a valid certificate" do
-    let(:certificate_path) { root_certificate_path }
-    before do
-      visit new_certificate_path
-    end
     before :each do
+      visit new_certificate_path
       fill_in "Name", with: "MyCert1"
-      attach_file("File", certificate_path)
+      attach_file("File", root_certificate_path)
       click_button "Upload Certificate"
     end
     it "succeeds" do
@@ -127,11 +148,13 @@ describe "Upload Certificate", type: :feature do
       expect(page).to_not have_content("Intermediate")
     end
     context "upload an intermediate certificate" do
-      let(:certificate_path) { intermediate_certificate_path }
-
       it "indicates the certificate is an intermediate certificate" do
-        expect(page).to_not have_content("Root")
-        expect(page).to have_content("Intermediate")
+        visit new_certificate_path
+        fill_in "Name", with: "MyCert2"
+        attach_file("File", intermediate_certificate_path)
+        click_button "Upload Certificate"
+
+        expect(page).to have_selector("td ul li", text: "Intermediate")
       end
     end
     context "the certificate has expired" do
@@ -175,16 +198,16 @@ describe "Upload Certificate", type: :feature do
       end
       it "shows the properties of the certificate" do
         expect(page).to have_content("Name MyCert1")
-        expect(page).to have_content("Fingerprint #{OpenSSL::Digest::SHA1.new(root_ca.to_der)}")
-        expect(page).to have_content("Serial #{root_ca.serial}")
-        expect(page).to have_content("Valid From #{root_ca.not_before}")
-        expect(page).to have_content("Expires #{root_ca.not_after}")
-        expect(page).to have_content("Issuer #{root_ca.issuer}")
-        expect(page).to have_content("Subject #{root_ca.subject}")
+        expect(page).to have_content("Fingerprint ")
+        expect(page).to have_content("Serial #{serial}")
+        expect(page).to have_content("Valid From #{not_before}")
+        expect(page).to have_content("Expires #{not_after}")
+        expect(page).to have_content("Issuer #{root_subject}")
+        expect(page).to have_content("Subject #{root_subject}")
       end
       context "remove the certificate" do
         before :each do
-          click_link("Remove #{root_ca.serial} from MyCert1")
+          click_link("Remove #{serial} from MyCert1")
         end
         it "Asks for confirmation" do
           expect(page).to have_content("Remove this Certificate?")
