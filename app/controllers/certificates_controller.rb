@@ -9,6 +9,7 @@ class CertificatesController < ApplicationController
 
   def show
     @certificate = Certificate.find(params[:id])
+    render :show, locals: { confirm_remove: !!params[:confirm_remove] }
   end
 
   def edit
