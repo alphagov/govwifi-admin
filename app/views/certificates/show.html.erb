@@ -1,7 +1,102 @@
-<% content_for :page_title, "Certificate" %>
+<% if confirm_remove %>
+  <%= render "confirm_remove_certificate" %>
+<% else %>
+  <% content_for :page_title, "Certificate" %>
+<% end %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds govuk-!-padding-0">
     <h1 class="govuk-heading-l">Certificate - <%= @certificate.name %></h1>
   </div>
 </div>
-<%= render "show_certificate" %>
+<div class="govuk-grid-row">
+  <div aria-live="polite">
+    <table class="govuk-table govuk-!-margin-bottom-9">
+      <caption class="govuk-visually-hidden">Settings</caption>
+      <thead class="govuk-table__head govuk-visually-hidden">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header govuk-!-width-one-third">Setting</th>
+        <th scope="col" class="govuk-table__header">Value</th>
+        <th scope="col" class="govuk-table__header">Action</th>
+      </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
+          Name
+        </th>
+        <td class="govuk-table__cell">
+          <%= @certificate.name %>
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">
+          <% if current_user.can_manage_locations?(current_organisation) && params[:confirm_remove].nil? %>
+            <%= link_to certificate_path(@certificate, confirm_remove: true), class: "govuk-link red-link govuk-link--no-visited-state" do %>
+              Remove <span class='govuk-visually-hidden'><%= @certificate.serial %> from <%= @certificate.name %></span>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
+          Fingerprint
+        </th>
+        <td class="govuk-table__cell">
+          <%= @certificate.fingerprint %>
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">
+        </td>
+      </tr>
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
+          Serial
+        </th>
+        <td class="govuk-table__cell">
+          <%= @certificate.serial %>
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">
+        </td>
+      </tr>
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
+          Valid From
+        </th>
+        <td class="govuk-table__cell">
+          <%= @certificate.not_before %>
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">
+        </td>
+      </tr>
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
+          Expires
+        </th>
+        <td class="govuk-table__cell">
+          <%= @certificate.not_after %>
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">
+        </td>
+      </tr>
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
+          Issuer
+        </th>
+        <td class="govuk-table__cell">
+          <%= @certificate.issuer %>
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">
+        </td>
+      </tr>
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__cell govuk-!-width-one-third">
+          Subject
+        </th>
+        <td class="govuk-table__cell">
+          <%= @certificate.subject %>
+        </td>
+        <td class="govuk-table__cell govuk-table__cell--numeric">
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
