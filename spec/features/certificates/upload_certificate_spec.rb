@@ -144,7 +144,7 @@ describe "Upload Certificate", type: :feature do
       expect(page).to_not have_content("Expiring soon")
     end
     it "indicates the certificate is a root certificate" do
-      expect(page).to have_content("Root")
+      expect(page).to have_selector("td ul li", text: "Root")
       expect(page).to_not have_content("Intermediate")
     end
     context "upload an intermediate certificate" do
@@ -262,6 +262,18 @@ describe "Upload Certificate", type: :feature do
       click_button "Upload Certificate"
 
       expect(page).to have_content "This certificate has already been uploaded"
+    end
+  end
+  describe "when uploading an intermediate without a root" do
+    before do
+      visit new_certificate_path
+    end
+    it "reports an error" do
+      fill_in "Name", with: "MyCert1"
+      attach_file("File", intermediate_certificate_path)
+      click_button "Upload Certificate"
+
+      expect(page).to have_content "The certificate does not have a known issuing certificate. Please add its issuing certificate first."
     end
   end
 end

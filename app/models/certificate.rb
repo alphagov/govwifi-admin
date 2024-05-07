@@ -22,6 +22,32 @@ class Certificate < ApplicationRecord
     not_before.after?(Time.zone.now)
   end
 
+  def public_key
+    OpenSSL::X509::Certificate.new(content).public_key
+  end
+
+  def verify(issuing_certificate)
+    OpenSSL::X509::Certificate.new(content).verify issuing_certificate.public_key
+  end
+
+  def has_parent?
+    return true if root_cert?
+
+    parents = Certificate.where(subject: issuer, organisation:)
+    first_parent = parents.find do |parent|
+      verify(parent)
+    end
+    !!first_parent
+  end
+
+  def has_child?
+    children = Certificate.where(issuer: subject, organisation:).where.not(subject:)
+    first_child = children.find do |child|
+      child.verify public_key
+    end
+    !!first_child
+  end
+
   def self.parse_certificate(content)
     return if content.nil?
 

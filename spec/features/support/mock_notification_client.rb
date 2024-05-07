@@ -1,5 +1,5 @@
 shared_context "with a mocked notifications client" do
-  class NotificationsMock       # rubocop:disable Lint/ConstantDefinitionInBlock
+  class NotificationsMock # rubocop:disable Lint/ConstantDefinitionInBlock
     class << self
       attr_accessor :notifications
     end

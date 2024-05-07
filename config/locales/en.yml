@@ -41,6 +41,7 @@ en:
               taken: "This certificate has already been uploaded"
               blank: "No Certificate file selected. Please choose a file to try again."
               invalid_certificate: "Certificates must be in a .PEM format"
+              no_parent: "The certificate does not have a known issuing certificate. Please add its issuing certificate first."
   activerecord:
     errors:
       models:

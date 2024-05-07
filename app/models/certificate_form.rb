@@ -13,6 +13,7 @@ class CertificateForm
   validates :file, presence: true
 
   validate :validate_x509
+  validate :validate_has_parent
 
   def save
     return false if invalid?
@@ -23,13 +24,15 @@ class CertificateForm
 private
 
   def name_uniqueness
-    errors.add(:name, :taken) if Certificate.exists?(organisation:, name:)
+    return if @certificate.nil?
+
+    errors.add(:name, :taken) if @certificate.errors.of_kind?(:name, :taken)
   end
 
   def fingerprint_uniqueness
     return if @certificate.nil?
 
-    errors.add(:file, :taken) if Certificate.exists?(organisation:, fingerprint: @certificate.fingerprint)
+    errors.add(:file, :taken) if @certificate.errors.of_kind?(:fingerprint, :taken)
   end
 
   def validate_x509
@@ -38,11 +41,17 @@ private
     errors.add(:file, :invalid_certificate)
   end
 
+  def validate_has_parent
+    errors.add(:file, :no_parent) unless @certificate&.has_parent?
+  end
+
   def content
     @content ||= file&.read
   end
 
   def parse_certificate
+    return if content.nil?
+
     @certificate = Certificate.parse_certificate(content)
     @certificate.name = name
     @certificate.organisation = organisation

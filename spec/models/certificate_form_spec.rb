@@ -95,4 +95,16 @@ describe CertificateForm do
       end
     end
   end
+
+  describe "create an intermediate, without a root certificate present" do
+    it "is valid because it has a parent" do
+      expect(CertificateForm.new(name: "rootCA", organisation:, file: StringIO.new(root_ca)).save).to be true
+      expect(CertificateForm.new(name:, organisation:, file: StringIO.new(intermediate_ca))).to be_valid
+    end
+    it "is invalid because it does not have a parent" do
+      form = CertificateForm.new(name:, organisation:, file: StringIO.new(intermediate_ca))
+      expect(form).to be_invalid
+      expect(form.errors.of_kind?(:file, :no_parent)).to be true
+    end
+  end
 end

@@ -1,37 +1,36 @@
-require_relative "./certificate_helpers"
-
 describe "GET /certificates/edit/:id", type: :request do
-  include CertificateHelpers
-
   let(:organisation) { create(:organisation, :with_cba_enabled) }
   let(:user) { create(:user, organisations: [organisation]) }
-  let(:certificate) { create(:certificate, organisation:) }
+  let(:root_key) { OpenSSL::PKey::RSA.new(512) }
+  let(:certificate) { create(:certificate, organisation:, key: root_key) }
+  let(:perform) { delete certificate_path(certificate) }
   before :each do
     https!
     sign_in_user(user)
   end
 
+  include_examples "cba flag and location permissions"
+  include_examples "user is not a member of the certificate's organisation"
+
   it "deletes a certificate" do
     certificate
-    expect { delete certificate_path(certificate) }.to change(Certificate, :count).from(1).to(0)
+    expect { perform }.to change(Certificate, :count).from(1).to(0)
   end
   it "redirects to the index certificates page" do
-    delete certificate_path(certificate)
+    perform
     expect(response).to redirect_to certificates_path
   end
-  it "redirects without edit location permission" do
-    remove_edit_location_permission
-    delete certificate_path(certificate)
-    redirects_with_error_message
-  end
-  it "redirects if the user is not a member of the certificates organisation" do
-    user_is_not_a_member_of_the_certificates_organisation
-    delete certificate_path(certificate)
-    redirects_with_error_message
-  end
-  it "redirects when the cba flag is disabled" do
-    no_cba_enabled_flag
-    get certificates_path
-    redirects_with_error_message
+  context "there is a issued certificate" do
+    before :each do
+      create(:certificate, organisation:, issuing_key: root_key, issuing_subject: certificate.subject)
+    end
+    it "redirects with an error" do
+      perform
+      expect(response).to redirect_to certificates_path
+      expect(flash[:alert]).to match(/Cannot remove a certificate/)
+    end
+    it "does not remove a certificate" do
+      expect { perform }.to_not change(Certificate, :count)
+    end
   end
 end
