@@ -1,7 +1,9 @@
-<% if confirm_remove %>
+
+<% if @confirm_remove %>
   <%= render "confirm_remove_certificate" %>
 <% else %>
   <% content_for :page_title, "Certificate" %>
+  <%= link_to "Back", :back, class: "govuk-back-link" %>
 <% end %>
 
 <div class="govuk-grid-row">
@@ -29,6 +31,11 @@
           <%= @certificate.name %>
         </td>
         <td class="govuk-table__cell govuk-table__cell--numeric">
+          <% if current_user.can_manage_locations?(current_organisation) && params[:confirm_remove].nil? %>
+            <%= link_to edit_certificate_path(@certificate), class: "govuk-link red-link govuk-link--no-visited-state" do %>
+              Rename <span class='govuk-visually-hidden'><%= @certificate.name %></span>
+            <% end %>
+          <% end %>
         </td>
       </tr>
       <tr class="govuk-table__row">
