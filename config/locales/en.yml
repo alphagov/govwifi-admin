@@ -145,4 +145,5 @@ en:
     not_allowed: "You are not allowed to perform this operation"
     new_certificate: "New Certificate Added: %{name}"
     remove_children: "Cannot remove a certificate with issued certificates. Please remove the issued certificates first."
-    success: "Successfully removed Certificate: %{name}"
+    removed: "Successfully removed Certificate: %{name}"
+    renamed: "Successfully renamed the certificate"

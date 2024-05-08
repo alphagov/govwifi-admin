@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   resources :status, only: %i[index]
   resources :ips, only: %i[index new create destroy]
-  resources :certificates
+  resources :certificates, only: %i[index show new create destroy edit update]
   resources :help, only: %i[create new] do
     get "/", on: :collection, to: "help#new"
     get "signed_in", on: :new
