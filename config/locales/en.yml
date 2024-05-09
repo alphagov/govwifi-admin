@@ -140,3 +140,9 @@ en:
     two_factor_authentication_setup:
       show:
         complete_setup: "Complete setup"
+
+  certificates:
+    not_allowed: "You are not allowed to perform this operation"
+    new_certificate: "New Certificate Added: %{name}"
+    remove_children: "Cannot remove a certificate with issued certificates. Please remove the issued certificates first."
+    success: "Successfully removed Certificate: %{name}"
