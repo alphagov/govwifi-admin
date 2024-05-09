@@ -8,33 +8,32 @@ class MousController < ApplicationController
     elsif action == "nominate_user"
       redirect_to new_nomination_path
     else
-      render :show_options, error: "Please choose an option to proceed."
+      render :show_options, alert: "Please choose an option to proceed.", status: :unprocessable_entity
     end
   end
 
   def new
-    @mou = Mou.new
+    @mou_form = MouForm.new
   end
 
   def create
-    @mou = Mou.new(mou_params)
-    @mou.organisation = current_organisation
-    if @mou.save
-      send_thank_you_email(@mou)
-      redirect_to settings_path, notice: "#{current_organisation.name} has accepted the MOU for GovWifi"
-    else
+    @mou_form = MouForm.new(mou_params)
+    if @mou_form.invalid?
       render :new
+    else
+      mou = @mou_form.save!(organisation: current_organisation, user: current_user)
+      send_thank_you_email(mou)
+      redirect_to settings_path, notice: "#{current_organisation.name} has accepted the MOU for GovWifi"
     end
   end
 
 private
-
   def token
     params[:token] || params.dig(:mou, :token)
   end
 
   def mou_params
-    params.require(:mou).permit(:name, :email_address, :job_role, :signed, :token).merge(version: Mou.latest_version)
+    params.require(:mou_form).permit(:name, :email_address, :job_role, :signed)
   end
 
   def send_thank_you_email(mou)

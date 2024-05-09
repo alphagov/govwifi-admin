@@ -2,7 +2,7 @@
 
 <%= link_to "Back", new_mou_path, class: "govuk-back-link" %>
 
-<%= form_with model: @mou, url: mous_path do |f| %>
+<%= form_with model: @mou_form, url: mous_path do |f| %>
   <%= f.govuk_error_summary %>
   <h1 class="govuk-heading-l">Read and Accept the Terms for GovWifi</h1>
   <h2 class="govuk-heading-m">Read the MOU</h2>

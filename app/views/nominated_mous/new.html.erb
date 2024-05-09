@@ -1,6 +1,6 @@
 <% content_for :page_title, "Memorandum of understanding for nominated user" %>
 
-<%= form_with model: @mou, url: nominated_mous_path do |f| %>
+<%= form_with model: @mou_form, url: nominated_mous_path do |f| %>
   <%= f.govuk_error_summary %>
   <h1 class="govuk-heading-l">Read and Accept the Terms for GovWifi</h1>
   <h2 class="govuk-heading-m">Read the MOU</h2>
@@ -27,10 +27,10 @@
   <%= f.govuk_text_field :job_role, width: "two-thirds", label: { size: "s", text: "Job role" } %>
   <%= f.hidden_field :token, value: @token %>
     <h3 class="govuk-heading-s">Accept terms</h3>
-    <%= f.govuk_check_box :signed, true, false, multiple: false, link_errors: true, label: { text: "I confirm that I have the authority to accept these terms and that #{@organisation.name} will be bound by them." } %>
+    <%= f.govuk_check_box :signed, true, false, multiple: false, link_errors: true, label: { text: "I confirm that I have the authority to accept these terms and that #{@nomination.organisation_name} will be bound by them." } %>
   <div class="govuk-form-group">
     <%= f.govuk_submit "Accept the MOU" %>
   </div>
 <% end %>
 
-<p class="govuk-body">This will send an email to <%= @organisation.name %> confirming that you have signed the MOU.</p>
+<p class="govuk-body">This will send an email to <%= @nomination.organisation_name %> confirming that you have signed the MOU.</p>
