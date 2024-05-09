@@ -34,7 +34,7 @@ private
   end
 
   def mou_params
-    params.require(:mou).permit(:name, :email_address, :job_role, :signed, :token, version: Mou.latest_version)
+    params.require(:mou).permit(:name, :email_address, :job_role, :signed, :token).merge(version: Mou.latest_version)
   end
 
   def send_thank_you_email(mou)

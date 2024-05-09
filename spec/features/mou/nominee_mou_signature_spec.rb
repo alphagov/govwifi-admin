@@ -33,6 +33,8 @@ describe "Nominated user signs the MOU", type: :feature do
 
       it "creates a signature for the MOU when terms are accepted" do
         expect(Mou.exists?(user: nil)).to be_truthy
+        expect(Mou.last.job_role).to eq "HR"
+        expect(Mou.last.version).to eq Mou.latest_version
       end
 
       it "sends a confirmation email upon MOU signature" do

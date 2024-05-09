@@ -89,7 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_111401) do
   create_table "mous", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "organisation_id", null: false
     t.bigint "user_id"
-    t.decimal "version", precision: 3, scale: 1
+    t.decimal "version", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "job_role"
