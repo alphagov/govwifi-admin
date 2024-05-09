@@ -11,6 +11,7 @@ class Mou < ApplicationRecord
   def self.latest_version
     ENV["LATEST_MOU_VERSION"].to_i
   end
+
   def formatted_date
     created_at.strftime("%-d %B %Y")
   end

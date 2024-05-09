@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :nomination, only: [:create, :new]
+  resource :nomination, only: %i[create new]
 
   resources :logs, only: %i[index]
   resources :logs_searches, path: "logs/search", only: %i[new index create]

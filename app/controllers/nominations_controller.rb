@@ -1,5 +1,4 @@
 class NominationsController < ApplicationController
-
   def new
     @nomination = Nomination.new
   end
