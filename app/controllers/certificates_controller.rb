@@ -18,10 +18,10 @@ class CertificatesController < ApplicationController
   def destroy
     @certificate = Certificate.find(params[:id])
     if @certificate.has_child?
-      redirect_to(certificates_path, alert: "Cannot remove a certificate with issued certificates. Please remove the issued certificates first.")
+      redirect_to(certificates_path, alert: t(".remove_children"))
     else
       @certificate.destroy!
-      redirect_to(certificates_path, notice: "Successfully removed Certificate: #{@certificate.name}")
+      redirect_to(certificates_path, notice: t(".success", name: @certificate.name))
     end
   end
 
@@ -36,7 +36,7 @@ class CertificatesController < ApplicationController
 
     @certificate_form = CertificateForm.new(name:, file:, organisation: current_organisation)
     if @certificate_form.save
-      redirect_to(certificates_path, notice: "New Certificate Added: #{@certificate_form.name}")
+      redirect_to(certificates_path, notice: t(".new_certificate", name: @certificate_form.name))
     else
       render :new, status: :unprocessable_entity
     end
@@ -46,15 +46,15 @@ private
 
   def authorise_manage_current_certificate
     unless can? :manage, Certificate.find(params[:id])
-      redirect_to root_path, alert: "You are not allowed to perform this operation"
+      redirect_to root_path, alert: t(".not_allowed")
     end
   end
 
   def authorise_manage_certificates
-    redirect_to root_path, alert: "You are not allowed to perform this operation" unless current_user.can_manage_certificates?(current_organisation)
+    redirect_to root_path, alert: t(".not_allowed") unless current_user.can_manage_certificates?(current_organisation)
   end
 
   def cba_flag_check
-    redirect_to root_path, alert: "You are not allowed to perform this operation" unless current_organisation.cba_enabled?
+    redirect_to root_path, alert: t(".not_allowed") unless current_organisation.cba_enabled?
   end
 end
