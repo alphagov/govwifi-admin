@@ -5,10 +5,10 @@ describe "POST /nominated_mous", type: :request do
   let(:email_address) { "govwifi@gov.uk" }
   let(:job_role) { "software developer" }
   let(:signed) { "true" }
-  subject(:perform) { post nominated_mous_path, params: { mou_form: { name:, email_address:, job_role:, signed:, token:}}}
+  subject(:perform) { post nominated_mous_path, params: { mou_form: { name:, email_address:, job_role:, signed:, token: } } }
   before do
     allow(AuthenticationMailer).to receive(:thank_you_for_signing_the_mou).and_return(spy)
-    Nomination.create!(token: "12345", name:, email: email_address, organisation: )
+    Nomination.create!(token: "12345", name:, email: email_address, organisation:)
     https!
   end
   describe "correct token and signed" do

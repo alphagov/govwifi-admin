@@ -5,7 +5,7 @@ describe "GET /nominated_mous/new", type: :request do
   let(:name) { "myname" }
   let(:email) { "govwifi@gov.uk" }
   before do
-    Nomination.create!(token: "12345", name:, email:, organisation: )
+    Nomination.create!(token: "12345", name:, email:, organisation:)
     https!
     sign_in_user(user)
   end

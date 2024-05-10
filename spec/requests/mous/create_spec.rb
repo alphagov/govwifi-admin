@@ -4,7 +4,7 @@ describe "POST /mous", type: :request do
   let(:email_address) { "govwifi@gov.uk" }
   let(:job_role) { "software developer" }
   let(:signed) { "true" }
-  subject(:perform) { post mous_path, params: { mou_form: {name:, email_address:, job_role:, signed:}} }
+  subject(:perform) { post mous_path, params: { mou_form: { name:, email_address:, job_role:, signed: } } }
   before do
     https!
     sign_in_user(user)
@@ -28,6 +28,7 @@ describe "POST /mous", type: :request do
     expect(mou.email_address).to eq(email_address)
     expect(mou.job_role).to eq(job_role)
     expect(mou.organisation).to eq(user.organisations.first)
+    expect(mou.version).to eq(Mou.latest_version)
   end
   describe "the user did not sign the mou" do
     let(:signed) { "false" }

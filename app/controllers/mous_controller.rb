@@ -28,6 +28,7 @@ class MousController < ApplicationController
   end
 
 private
+
   def token
     params[:token] || params.dig(:mou, :token)
   end
