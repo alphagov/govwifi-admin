@@ -54,4 +54,24 @@ class AuthenticationMailer < ::Devise::Mailer
     }
     Services.email_gateway.send_email(opts)
   end
+
+  def nomination_instructions(name, email, nominated_by, organisation, token)
+    opts = {
+      email:,
+      locals: { nomination_url: new_nominated_mou_path(token:), name:, nominated_by:, organisation: },
+      template_id: GOV_NOTIFY_CONFIG["nominate_user_to_sign_mou"]["template_id"],
+      reference: "nomination_email",
+    }
+    Services.email_gateway.send_email(opts)
+  end
+
+  def thank_you_for_signing_the_mou(name, email_address, organisation_name, mou_signed_date)
+    opts = {
+      email: email_address,
+      locals: { name:, organisation: organisation_name, mou_signed_date: },
+      template_id: GOV_NOTIFY_CONFIG["thank_you_for_signing_the_mou"]["template_id"],
+      reference: "thank_you_email",
+    }
+    Services.email_gateway.send_email(opts)
+  end
 end

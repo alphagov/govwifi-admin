@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_15_142005) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_13_104514) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -107,6 +107,31 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_15_142005) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
+  create_table "mous", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "organisation_id", null: false
+    t.bigint "user_id"
+    t.decimal "version", precision: 6, scale: 3
+    t.decimal "decimal", precision: 6, scale: 3
+    t.string "job_role"
+    t.string "name"
+    t.string "email_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organisation_id"], name: "index_mous_on_organisation_id"
+    t.index ["user_id"], name: "index_mous_on_user_id"
+  end
+
+  create_table "nominations", charset: "utf8mb3", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "token"
+    t.string "nominated_by"
+    t.bigint "organisation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organisation_id"], name: "index_nominations_on_organisation_id"
+  end
+
   create_table "organisations", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
@@ -165,4 +190,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_15_142005) do
   end
 
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "mous", "organisations"
+  add_foreign_key "mous", "users"
+  add_foreign_key "nominations", "organisations"
 end

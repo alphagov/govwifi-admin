@@ -42,4 +42,29 @@ module EmailHelpers
   def it_did_not_send_any_emails
     expect(Services.email_gateway).to_not have_received(:send_email)
   end
+
+  def it_sent_a_nomination_email_once
+    expect(Services.email_gateway).to have_received(:send_email)
+      .with(include(template_id: GOV_NOTIFY_CONFIG["nominate_user_to_sign_mou"]["template_id"])).once
+  end
+
+  def it_sent_an_admin_mou_prompt_email_once
+    expect(Services.email_gateway).to have_received(:send_email)
+      .with(include(template_id: GOV_NOTIFY_CONFIG["admin_mou_prompt_email"]["template_id"])).once
+  end
+
+  def it_sent_an_mou_not_signed_by_nominee_email_once
+    expect(Services.email_gateway).to have_received(:send_email)
+      .with(include(template_id: GOV_NOTIFY_CONFIG["mou_not_signed_by_nominee"]["template_id"])).once
+  end
+
+  def it_sent_a_reminder_to_nominee_to_sign_the_mou_email_once
+    expect(Services.email_gateway).to have_received(:send_email)
+      .with(include(template_id: GOV_NOTIFY_CONFIG["reminder_to_nominee_to_sign_the_mou"]["template_id"])).once
+  end
+
+  def it_sent_a_thank_you_for_signing_the_mou_email_once
+    expect(Services.email_gateway).to have_received(:send_email)
+      .with(include(template_id: GOV_NOTIFY_CONFIG["thank_you_for_signing_the_mou"]["template_id"])).once
+  end
 end

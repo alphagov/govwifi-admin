@@ -2,6 +2,21 @@ describe Organisation do
   it { is_expected.to have_many(:users).through(:memberships) }
   it { is_expected.to have_many(:locations) }
 
+  describe "#latest_signed_mou_version" do
+    let(:user) { create(:user, organisations: [organisation]) }
+    let(:organisation) { create(:organisation) }
+
+    it "returns 0 if there is no mou version" do
+      expect(organisation.latest_signed_mou_version).to eq BigDecimal("0")
+    end
+    it "returns the latest signed mou version number" do
+      create(:mou, user:, organisation:, version: "1.1")
+      create(:mou, user:, organisation:, version: "1.3")
+      create(:mou, user:, organisation:, version: "2.1")
+      expect(organisation.latest_signed_mou_version).to eq BigDecimal("2.1")
+    end
+  end
+
   context "when deleting an organisation" do
     let(:user) { create(:user, organisations: [organisation]) }
     let(:organisation) { create(:organisation, :with_location_and_ip) }
@@ -114,6 +129,8 @@ describe Organisation do
     let(:first_ip) { create(:ip, location: first_location) }
     let(:second_ip) { create(:ip, location: first_location) }
     let(:third_ip) { create(:ip, location: second_location) }
+    let(:mou) { create(:mou, location: first_organisation.id, created_at: 1.day.ago) }
+    let(:mou) { create(:mou, organisation_id: second_organisation.id, created_at: Time.zone.now) }
 
     before do
       allow(described_class).to receive(:fetch_organisations_from_register)
@@ -124,15 +141,6 @@ describe Organisation do
 
       first_organisation.locations << first_location
       second_organisation.locations = [second_location, third_location]
-
-      first_organisation.signed_mou.attach(
-        io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
-      )
-      second_organisation.signed_mou.attach(
-        io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
-      )
-
-      second_organisation.signed_mou_attachment.update!(created_at: 3.months.ago)
     end
 
     context "when sorting by name" do
@@ -154,11 +162,11 @@ describe Organisation do
     end
 
     context "when sorting by signed mou" do
-      let(:sort_column) { "active_storage_attachments.created_at" }
+      let(:sort_column) { "latest_mou_created_at" }
       let(:sort_direction) { "asc" }
 
       it "orders results by date mou was signed" do
-        expect(sorted_results).to eq([second_organisation, first_organisation])
+        expect(sorted_results).to eq([first_organisation, second_organisation])
       end
     end
 
