@@ -1,4 +1,6 @@
 describe "POST /nominations", type: :request do
+  include EmailHelpers
+
   let(:user) { create(:user, :with_organisation) }
   let(:name) { "nomination_name" }
   let(:email) { "govwifi@gov.uk" }
@@ -9,15 +11,20 @@ describe "POST /nominations", type: :request do
   before do
     https!
     sign_in_user(user)
-    allow(AuthenticationMailer).to receive(:nomination_instructions).and_return(spy)
+    allow(Services).to receive(:email_gateway).and_return(spy)
   end
   it "creates a new mou" do
     expect { perform }.to change(Nomination, :count).by(1)
   end
 
-  it "sends an email to the nomainated user" do
+  it "destroys the old mou" do
+    Nomination.create(name:, email:, token:, organisation: user.organisations.first)
+    expect { perform }.to_not change(Nomination, :count)
+  end
+
+  it "sends an email to the nominated user" do
     perform
-    expect(AuthenticationMailer).to have_received(:nomination_instructions)
+    it_sent_a_nomination_email_once
   end
 
   it "redirects to the what happens next path path" do

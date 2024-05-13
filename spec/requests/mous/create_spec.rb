@@ -1,4 +1,6 @@
 describe "POST /mous", type: :request do
+  include EmailHelpers
+
   let(:user) { create(:user, :with_organisation) }
   let(:name) { "mou_name" }
   let(:email_address) { "govwifi@gov.uk" }
@@ -8,14 +10,14 @@ describe "POST /mous", type: :request do
   before do
     https!
     sign_in_user(user)
-    allow(AuthenticationMailer).to receive(:thank_you_for_signing_the_mou).and_return(spy)
+    allow(Services).to receive(:email_gateway).and_return(spy)
   end
   it "creates a new mou" do
     expect { perform }.to change(Mou, :count).by(1)
   end
   it "sends a thank you email" do
     perform
-    expect(AuthenticationMailer).to have_received(:thank_you_for_signing_the_mou)
+    it_sent_a_thank_you_for_signing_the_mou_email_once
   end
   it "redirects to the settings path" do
     perform

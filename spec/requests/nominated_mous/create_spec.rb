@@ -1,4 +1,6 @@
 describe "POST /nominated_mous", type: :request do
+  include EmailHelpers
+
   let(:organisation) { create(:organisation) }
   let(:token) { "12345" }
   let(:name) { "myname" }
@@ -7,7 +9,7 @@ describe "POST /nominated_mous", type: :request do
   let(:signed) { "true" }
   subject(:perform) { post nominated_mous_path, params: { mou_form: { name:, email_address:, job_role:, signed:, token: } } }
   before do
-    allow(AuthenticationMailer).to receive(:thank_you_for_signing_the_mou).and_return(spy)
+    allow(Services).to receive(:email_gateway).and_return(spy)
     Nomination.create!(token: "12345", name:, email: email_address, organisation:)
     https!
   end
@@ -17,7 +19,7 @@ describe "POST /nominated_mous", type: :request do
     end
     it "sends a thank you email" do
       perform
-      expect(AuthenticationMailer).to have_received(:thank_you_for_signing_the_mou)
+      it_sent_a_thank_you_for_signing_the_mou_email_once
     end
     it "redirects to the confirmation path" do
       perform
