@@ -15,6 +15,12 @@ class Organisation < ApplicationRecord
 
   delegate :resign_mou?, to: :mou, allow_nil: true
 
+  def latest_signed_mou_version
+    return BigDecimal("0") if mous.empty?
+
+    mous.last.version
+  end
+
   def formatted_latest_mou_version
     latest_mou_version.nil? ? "" : sprintf("%.1f", latest_mou_version)
   end
@@ -26,7 +32,7 @@ class Organisation < ApplicationRecord
   def resign_mou?
     return true if mous.empty?
 
-    mous.last.created_at < Mou.latest_version
+    latest_signed_mou_version < Mou.latest_known_version
   end
 
   scope :sortable_with_child_counts, lambda { |sort_column, sort_direction|

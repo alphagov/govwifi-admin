@@ -30,6 +30,22 @@ en:
             details:
               format: "%{message}"
               blank: "Details can't be blank"
+        mou_form:
+          attributes:
+            name:
+              format: "%{message}"
+              blank: "Name can't be blank"
+            email_address:
+              format: "%{message}"
+              blank: "Email address can't be blank"
+              invalid: "Email is not a valid email address"
+            job_role:
+              format: "%{message}"
+              blank: "Job role can't be blank"
+            signed:
+              format: "%{message}"
+              not_signed: "You must accept the terms to sign the MOU"
+
   activerecord:
     errors:
       models:

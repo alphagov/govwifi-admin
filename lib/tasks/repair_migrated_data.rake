@@ -12,7 +12,7 @@ namespace :repair_migrated_data do
 
   desc "Confirms and creates passwords for users"
   task confirm_and_create_passwords_for_users: :environment do
-    User.all.each do |user|
+    User.all.find_each do |user|
       random_password = Devise.friendly_token.first(16)
       user.update!(
         password: random_password,

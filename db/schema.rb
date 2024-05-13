@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_14_111401) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_13_104514) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -44,6 +44,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_111401) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["name"], name: "index_authorised_email_domains_on_name", unique: true
+  end
+
+  create_table "certificates", charset: "utf8mb3", force: :cascade do |t|
+    t.string "fingerprint"
+    t.string "name"
+    t.string "issuer"
+    t.string "subject"
+    t.datetime "not_before", precision: nil
+    t.datetime "not_after", precision: nil
+    t.string "serial"
+    t.text "content"
+    t.bigint "organisation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fingerprint", "organisation_id"], name: "index_certificates_on_fingerprint_and_organisation_id", unique: true
+    t.index ["name", "organisation_id"], name: "index_certificates_on_name_and_organisation_id", unique: true
   end
 
   create_table "custom_organisation_names", charset: "utf8mb3", force: :cascade do |t|
@@ -86,15 +102,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_111401) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "mou_templates", charset: "utf8mb3", force: :cascade do |t|
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+  end
+
   create_table "mous", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "organisation_id", null: false
     t.bigint "user_id"
-    t.decimal "version", precision: 10
+    t.decimal "version", precision: 3, scale: 1
+    t.decimal "decimal", precision: 3, scale: 1
+    t.string "job_role"
+    t.string "name"
+    t.string "email_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "job_role"
-    t.string "email_address"
-    t.string "name"
     t.index ["organisation_id"], name: "index_mous_on_organisation_id"
     t.index ["user_id"], name: "index_mous_on_user_id"
   end
@@ -104,9 +126,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_111401) do
     t.string "email"
     t.string "token"
     t.string "nominated_by"
+    t.bigint "organisation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "organisation_id", null: false
     t.index ["organisation_id"], name: "index_nominations_on_organisation_id"
   end
 
@@ -115,6 +137,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_111401) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "service_email"
+    t.boolean "cba_enabled"
     t.index ["name"], name: "index_organisations_on_name", unique: true
   end
 
@@ -168,5 +191,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_111401) do
 
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "mous", "organisations"
+  add_foreign_key "mous", "users"
   add_foreign_key "nominations", "organisations"
 end

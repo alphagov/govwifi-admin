@@ -30,11 +30,11 @@ describe "Sign MOU", type: :feature do
       end
 
       it "displays an unchecked checkbox for accepting the terms" do
-        expect(page).to have_field("mou[signed]", type: "checkbox", visible: true, checked: false)
+        expect(page).to have_field("mou_form[signed]", type: "checkbox", visible: true, checked: false)
       end
 
       it "allows the user to specify their job role" do
-        fill_in "mou[job_role]", with: "Software Developer"
+        fill_in "mou_form[job_role]", with: "Software Developer"
       end
 
       context "when submitting the MOU form" do
@@ -54,7 +54,7 @@ describe "Sign MOU", type: :feature do
 
         it "saves the users information to the MOU" do
           expect(Mou.last.job_role).to eq "Software Developer"
-          expect(Mou.last.version).to eq Mou.latest_version
+          expect(Mou.last.version).to eq Mou.latest_known_version
         end
 
         it "displays a button to review the MOU on the settings page after MOU creation" do

@@ -85,7 +85,7 @@ describe "View a list of signed up organisations", type: :feature do
       end
 
       it "shows all three organisations" do
-        Organisation.all.each do |org|
+        Organisation.all.find_each do |org|
           expect(page).to have_content(org.name)
         end
       end

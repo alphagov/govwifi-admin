@@ -2,6 +2,21 @@ describe Organisation do
   it { is_expected.to have_many(:users).through(:memberships) }
   it { is_expected.to have_many(:locations) }
 
+  describe "#latest_signed_mou_version" do
+    let(:user) { create(:user, organisations: [organisation]) }
+    let(:organisation) { create(:organisation) }
+
+    it "returns 0 if there is no mou version" do
+      expect(organisation.latest_signed_mou_version).to eq BigDecimal("0")
+    end
+    it "returns the latest signed mou version number" do
+      create(:mou, user:, organisation:, version: "1.1")
+      create(:mou, user:, organisation:, version: "1.3")
+      create(:mou, user:, organisation:, version: "2.1")
+      expect(organisation.latest_signed_mou_version).to eq BigDecimal("2.1")
+    end
+  end
+
   context "when deleting an organisation" do
     let(:user) { create(:user, organisations: [organisation]) }
     let(:organisation) { create(:organisation, :with_location_and_ip) }

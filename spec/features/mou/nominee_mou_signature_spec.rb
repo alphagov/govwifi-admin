@@ -1,11 +1,11 @@
 describe "Nominated user signs the MOU", type: :feature do
   include EmailHelpers
 
-  context "when a user follows the URL from their email containing the nomination token" do
-    let(:token) { "tZPAY6puVsNpxkUE9sqZ" }
-    let(:organisation) { create(:organisation) }
-    let(:email_gateway) { spy }
+  let(:token) { "tZPAY6puVsNpxkUE9sqZ" }
+  let(:organisation) { create(:organisation) }
+  let(:email_gateway) { spy }
 
+  context "when a user follows the URL from their email containing the nomination token" do
     before do
       create(:nomination, name: "Maryan Khan", email: "Maryan.Khan@email.gov.uk", organisation:, token:)
       visit new_nominated_mou_path(token:)
@@ -34,7 +34,7 @@ describe "Nominated user signs the MOU", type: :feature do
       it "creates a signature for the MOU when terms are accepted" do
         expect(Mou.exists?(user: nil)).to be_truthy
         expect(Mou.last.job_role).to eq "HR"
-        expect(Mou.last.version).to eq Mou.latest_version
+        expect(Mou.last.version).to eq Mou.latest_known_version
       end
 
       it "sends a confirmation email upon MOU signature" do

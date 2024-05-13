@@ -18,7 +18,7 @@ describe "POST /nominations", type: :request do
   end
 
   it "destroys the old mou" do
-    Nomination.create(name:, email:, token:, organisation: user.organisations.first)
+    Nomination.create!(name:, email:, token:, organisation: user.organisations.first)
     expect { perform }.to_not change(Nomination, :count)
   end
 

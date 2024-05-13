@@ -29,10 +29,6 @@ describe "Nominate user to sign the MOU", type: :feature do
         expect(page).to have_content("Nominate someone from your organisation")
       end
 
-      it "does not allow a user to sign an mou if the latest version has already been signed" do
-        pending
-      end
-
       context "when sending the nomination invite" do
         let(:name) { "John Doe" }
         let(:email) { "JohnDoe@gov.uk" }
