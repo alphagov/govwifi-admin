@@ -6,9 +6,6 @@ class Ability
   def initialize(user)
     if user.present?
       can :administrate, :all # FIXME: we can probaly scope this to user orgs
-      can :read_mou, Organisation do |org|
-        user.membership_for(org)
-      end
 
       can :edit, Location do |loc|
         user.membership_for(loc.organisation)
