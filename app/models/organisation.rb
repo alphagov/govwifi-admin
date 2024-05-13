@@ -1,11 +1,12 @@
 class Organisation < ApplicationRecord
   CSV_HEADER = ["Name", "Created At", "MOU Signed", "Locations", "IPs"].freeze
-  has_one_attached :signed_mou
+  has_many :mous, dependent: :destroy
   has_many :memberships, inverse_of: :organisation, dependent: :destroy
   has_many :users, through: :memberships, inverse_of: :organisations
   has_many :locations, dependent: :destroy
   has_many :ips, through: :locations
   has_many :certificates, dependent: :destroy
+  has_one :nomination
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :service_email, format: { with: Devise.email_regexp }
@@ -15,10 +16,32 @@ class Organisation < ApplicationRecord
 
   validates_associated :locations
 
+  delegate :resign_mou?, to: :mou, allow_nil: true
+
+  def latest_signed_mou_version
+    return BigDecimal("0") if mous.empty?
+
+    mous.last.version
+  end
+
+  def formatted_latest_mou_version
+    latest_mou_version.nil? ? "" : sprintf("%.1f", latest_mou_version)
+  end
+
+  def formatted_date
+    mou_version_change_date.strftime("%e %B %Y")
+  end
+
+  def resign_mou?
+    return true if mous.empty?
+
+    latest_signed_mou_version < Mou.latest_known_version
+  end
+
   scope :sortable_with_child_counts, lambda { |sort_column, sort_direction|
-    select("organisations.*, active_storage_attachments.created_at as mou_created_at, COUNT(DISTINCT(locations.id)) AS locations_count, COUNT(DISTINCT(ips.id)) AS ips_count")
-      .left_joins(:locations).left_joins(:ips).left_joins(:signed_mou_attachment)
-      .group("organisations.id, active_storage_attachments.created_at")
+    select("organisations.*, MAX(mous.created_at) AS latest_mou_created_at, COUNT(DISTINCT(locations.id)) AS locations_count, COUNT(DISTINCT(ips.id)) AS ips_count")
+      .left_joins(:locations).left_joins(:ips).left_joins(:mous)
+      .group("organisations.id")
       .order(sort_column => sort_direction)
   }
 
@@ -55,8 +78,8 @@ class Organisation < ApplicationRecord
   def self.all_as_csv
     CSV.generate do |csv|
       csv << CSV_HEADER
-      Organisation.sortable_with_child_counts("name", "asc").each do |o|
-        mou_signed_at = o.signed_mou.attached? ? o.signed_mou.attachment.created_at : "-"
+      Organisation.includes(:mous).sortable_with_child_counts("name", "asc").each do |o|
+        mou_signed_at = o.mous.present? ? o.mous.map(&:created_at).join(", ") : "-"
         csv << [o.name, o.created_at, mou_signed_at, o.locations_count, o.ips_count]
       end
     end

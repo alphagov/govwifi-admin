@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   def current_organisation
     if session[:organisation_id] && current_user.organisations.pluck(:id).include?(session[:organisation_id].to_i)
       Organisation.find(session[:organisation_id])
-    else
+    elsif user_signed_in?
       current_user.organisations.first
     end
   end
@@ -54,7 +54,6 @@ protected
        super_admin_organisations_path,
        super_admin_users_path,
        new_super_admin_allowlist_path,
-       super_admin_mou_index_path,
        super_admin_wifi_user_search_path,
        super_admin_wifi_admin_search_path]
     if sidebar_paths.include?(request.path)

@@ -42,6 +42,22 @@ en:
               blank: "No Certificate file selected. Please choose a file to try again."
               invalid_certificate: "Certificates must be in a .PEM format"
               no_parent: "The certificate does not have a known issuing certificate. Please add its issuing certificate first."
+        mou_form:
+          attributes:
+            name:
+              format: "%{message}"
+              blank: "Name can't be blank"
+            email_address:
+              format: "%{message}"
+              blank: "Email address can't be blank"
+              invalid: "Email is not a valid email address"
+            job_role:
+              format: "%{message}"
+              blank: "Job role can't be blank"
+            signed:
+              format: "%{message}"
+              not_signed: "You must accept the terms to sign the MOU"
+
   activerecord:
     errors:
       models:
@@ -119,6 +135,12 @@ en:
             fingerprint:
               format: "%{message}"
               taken: "Identical Certificate already exists"
+        mou:
+          attributes:
+            name:
+              blank: "Name can't be blank"
+            job_role:
+              blank: "Job role can't be blank"
 
   users:
     two_factor_authentication:

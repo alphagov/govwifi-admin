@@ -16,6 +16,16 @@ staging:
     template_id: "d360ba95-1e7d-41e4-920c-1255b65f6f65"
   first_ip_survey:
     template_id: "da84efee-97db-4925-87c4-8981fa1fa3ca"
+  nominate_user_to_sign_mou:
+    template_id: "f64ac6f8-040d-4383-a524-1e2274634d52"
+  admin_mou_prompt_email:
+    template_id: "a3539511-9977-4eba-8053-cfe521a5add9"
+  mou_not_signed_by_nominee:
+    template_id: "8cca2ef3-a427-47ae-9908-eb5341b174ed"
+  reminder_to_nominee_to_sign_the_mou:
+    template_id: "cdc09612-77f9-450f-913c-2b2510618d72"
+  thank_you_for_signing_the_mou:
+    template_id: "fc3eb6c5-aa1a-4a2e-92f4-34d1f948b36d"
 
 development:
   support_email: "dev@localhost.com"
@@ -35,6 +45,16 @@ development:
     template_id: "d360ba95-1e7d-41e4-920c-1255b65f6f65"
   first_ip_survey:
     template_id: "da84efee-97db-4925-87c4-8981fa1fa3ca"
+  nominate_user_to_sign_mou:
+    template_id: "f64ac6f8-040d-4383-a524-1e2274634d52"
+  admin_mou_prompt_email:
+    template_id: "a3539511-9977-4eba-8053-cfe521a5add9"
+  mou_not_signed_by_nominee:
+    template_id: "8cca2ef3-a427-47ae-9908-eb5341b174ed"
+  reminder_to_nominee_to_sign_the_mou:
+    template_id: "cdc09612-77f9-450f-913c-2b2510618d72"
+  thank_you_for_signing_the_mou:
+    template_id: "fc3eb6c5-aa1a-4a2e-92f4-34d1f948b36d"
 
 alpaca:
   support_email: "dev@localhost.com"
@@ -54,6 +74,16 @@ alpaca:
     template_id: "dd901532-8ff4-4aaf-9e60-e7b5210d1d77"
   first_ip_survey:
     template_id: "f56053f5-3279-452d-a593-04ecec9cc119"
+  nominate_user_to_sign_mou:
+    template_id: "f64ac6f8-040d-4383-a524-1e2274634d52"
+  admin_mou_prompt_email:
+    template_id: "a3539511-9977-4eba-8053-cfe521a5add9"
+  mou_not_signed_by_nominee:
+    template_id: "8cca2ef3-a427-47ae-9908-eb5341b174ed"
+  reminder_to_nominee_to_sign_the_mou:
+    template_id: "cdc09612-77f9-450f-913c-2b2510618d72"
+  thank_you_for_signing_the_mou:
+    template_id: "fc3eb6c5-aa1a-4a2e-92f4-34d1f948b36d"
 
 test:
   support_email: "test@localhost"
@@ -73,6 +103,16 @@ test:
     template_id: "org_invite"
   first_ip_survey:
     template_id: "first_ip_survey_id"
+  nominate_user_to_sign_mou:
+    template_id: "f64ac6f8-040d-4383-a524-1e2274634d52"
+  admin_mou_prompt_email:
+    template_id: "a3539511-9977-4eba-8053-cfe521a5add9"
+  mou_not_signed_by_nominee:
+    template_id: "8cca2ef3-a427-47ae-9908-eb5341b174ed"
+  reminder_to_nominee_to_sign_the_mou:
+    template_id: "cdc09612-77f9-450f-913c-2b2510618d72"
+  thank_you_for_signing_the_mou:
+    template_id: "fc3eb6c5-aa1a-4a2e-92f4-34d1f948b36d"
 
 production:
   support_email: "govwifi-support@digital.cabinet-office.gov.uk"
@@ -92,3 +132,13 @@ production:
     template_id: "103d1302-f068-4352-af0b-1280b068db01"
   first_ip_survey:
     template_id: "d9715290-668c-48cc-bbf9-45290df3f414"
+  nominate_user_to_sign_mou:
+    template_id: "51878210-dde2-4204-9d82-de16267b3ca0"
+  admin_mou_prompt_email:
+    template_id: "1136a76e-62df-4642-92d3-b24f57987a33"
+  mou_not_signed_by_nominee:
+    template_id: "c2ab4d64-6927-4eb1-afa0-fce5112585cf"
+  reminder_to_nominee_to_sign_the_mou:
+    template_id: "d556359a-59af-46d2-b2ce-0f1143aeda4a"
+  thank_you_for_signing_the_mou:
+    template_id: "941244ab-f0f7-4ece-8d34-03f57fbf9ee7"
