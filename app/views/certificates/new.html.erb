@@ -1,4 +1,7 @@
 <% content_for :page_title, "Add Certificate" %>
+
+<%= link_to "Back", :back, class: "govuk-back-link" %>
+
 <%= form_with model: @certificate_form, url: { action: "create" }  do |f| %>
   <%= f.govuk_error_summary %>
   <div class='govuk-grid-row'>

@@ -1,6 +1,6 @@
 class CertificatesController < ApplicationController
   before_action :authorise_manage_certificates
-  before_action :authorise_manage_current_certificate, only: %i[show edit destroy]
+  before_action :authorise_manage_current_certificate, only: %i[show edit destroy update]
   before_action :cba_flag_check
 
   def index
@@ -9,6 +9,8 @@ class CertificatesController < ApplicationController
 
   def show
     @certificate = Certificate.find(params[:id])
+    @confirm_remove = !params[:confirm_remove].nil?
+    render :show
   end
 
   def edit
@@ -21,7 +23,18 @@ class CertificatesController < ApplicationController
       redirect_to(certificates_path, alert: t(".remove_children"))
     else
       @certificate.destroy!
-      redirect_to(certificates_path, notice: t(".success", name: @certificate.name))
+      redirect_to(certificates_path, notice: t(".removed", name: @certificate.name))
+    end
+  end
+
+  def update
+    name = params.dig(:certificate, :name)
+
+    @certificate = Certificate.find(params[:id])
+    if @certificate.update(name:)
+      redirect_to certificates_path, notice: t(".renamed")
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
