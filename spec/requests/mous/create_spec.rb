@@ -30,7 +30,7 @@ describe "POST /mous", type: :request do
     expect(mou.email_address).to eq(email_address)
     expect(mou.job_role).to eq(job_role)
     expect(mou.organisation).to eq(user.organisations.first)
-    expect(mou.version).to eq(Mou.latest_version)
+    expect(mou.version).to eq(Mou.latest_known_version)
   end
   describe "the user did not sign the mou" do
     let(:signed) { "false" }
