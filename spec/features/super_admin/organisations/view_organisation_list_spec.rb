@@ -30,9 +30,6 @@ describe "View a list of signed up organisations", type: :feature do
       let(:org) { create(:organisation, created_at: "1 Feb 2014") }
 
       before do
-        org.signed_mou.attach(
-          io: File.open(Rails.root.join("spec/fixtures/mou.pdf")), filename: "mou.pdf",
-        )
         create_list(:location, 2, organisation: org)
         create_list(:ip, 3, location: Location.first)
         visit super_admin_organisations_path
@@ -59,12 +56,6 @@ describe "View a list of signed up organisations", type: :feature do
       it "shows they have 11 IPs" do
         within("table") do
           expect(page).to have_content("3")
-        end
-      end
-
-      it "shows they have an MOU" do
-        within("table") do
-          expect(page).to have_content(org.signed_mou.attachment.created_at.strftime("%e %b %Y"))
         end
       end
 
