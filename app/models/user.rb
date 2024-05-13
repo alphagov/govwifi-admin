@@ -63,6 +63,10 @@ class User < ApplicationRecord
     is_super_admin? || membership_for(organisation).can_manage_locations?
   end
 
+  def can_manage_certificates?(organisation)
+    can_manage_locations?(organisation)
+  end
+
   def membership_for(organisation)
     memberships.find_by(organisation:)
   end

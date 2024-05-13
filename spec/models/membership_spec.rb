@@ -13,6 +13,29 @@ describe Membership do
   it { is_expected.to belong_to(:organisation) }
   it { is_expected.to belong_to(:user) }
 
+  describe "method permission_level=" do
+    it "sets booleans to false when input is view only" do
+      membership.permission_level = "view_only"
+
+      expect(membership.can_manage_team).to eq(false)
+      expect(membership.can_manage_locations).to eq(false)
+    end
+
+    it "sets booleans to true when input is administrator" do
+      membership.permission_level = "administrator"
+
+      expect(membership.can_manage_team).to eq(true)
+      expect(membership.can_manage_locations).to eq(true)
+    end
+
+    it "sets boolean can_manage_team to false and can_manage_team to true when input is manage locations" do
+      membership.permission_level = "manage_locations"
+
+      expect(membership.can_manage_team).to eq(false)
+      expect(membership.can_manage_locations).to eq(true)
+    end
+  end
+
   describe ".confirm!" do
     before do
       membership.confirm!

@@ -11,6 +11,10 @@ class Ability
         user.membership_for(loc.organisation)
       end
 
+      can :manage, Certificate do |cert|
+        user.membership_for(cert.organisation)
+      end
+
       # :manage is a reserved can-can word to represent ALL actions
       if user.is_super_admin?
         can :manage, :all

@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   resources :status, only: %i[index]
   resources :ips, only: %i[index new create destroy]
-
+  resources :certificates
   resources :help, only: %i[create new] do
     get "/", on: :collection, to: "help#new"
     get "signed_in", on: :new
@@ -84,6 +84,7 @@ Rails.application.routes.draw do
       post "remove", to: "users#remove"
     end
     resources :organisations, only: %i[index show destroy] do
+      patch "toggle_cba_feature", to: "organisations#toggle_cba_feature", on: :member
       collection do
         get "service_emails", to: "organisations#service_emails", constraints: { format: "csv" }
       end

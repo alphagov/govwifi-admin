@@ -118,3 +118,7 @@ location_two.ips.each_with_index do |location_two_ip, index|
     siteIP: location_two_ip.address,
   )
 end
+
+Organisation.all.find_each do |org|
+  org.update(cba_enabled: false)
+end
