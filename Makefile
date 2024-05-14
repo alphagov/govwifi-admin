@@ -6,6 +6,7 @@ ifdef DEPLOYMENT
 endif
 
 DOCKER_COMPOSE += -f docker-compose.development.yml
+DOCKER_COMPOSE_NO2FA = $(DOCKER_COMPOSE) -f docker-compose-no2fa.yml
 
 
 DOCKER_BUILD_CMD = BUNDLE_INSTALL_FLAGS="$(BUNDLE_FLAGS)" $(DOCKER_COMPOSE) build
@@ -17,9 +18,14 @@ prebuild:
 	$(DOCKER_COMPOSE) build
 	$(DOCKER_COMPOSE) up --no-start
 
-serve: stop build
+database:
 	$(DOCKER_COMPOSE) run --rm app ./bin/rails db:create db:schema:load db:migrate db:seed
+
+serve: stop database build
 	$(DOCKER_COMPOSE) up -d app
+
+serve-no2fa: stop database build
+	$(DOCKER_COMPOSE_NO2FA) up -d app
 
 lint: lint-ruby lint-erb lint-scss lint-prettier
 lint-ruby: build
