@@ -34,6 +34,7 @@
       <th class="govuk-table__header govuk-table__header"><%= sort_link "mous.created_at", "MOU Signed" %></th>
       <th class="govuk-table__header govuk-table__header--numeric"><%= sort_link "locations_count", "Locations" %></th>
       <th class="govuk-table__header govuk-table__header--numeric"><%= sort_link "ips_count", "IPs" %></th>
+      <th class="govuk-table__header"><%= sort_link "certificates_count", "Uses EAP-TLS" %></th>
     </tr>
   </thead>
   <tbody class="govuk-table__body" aria-live="polite">
@@ -57,6 +58,9 @@
         </td>
         <td class="govuk-table__cell govuk-table__cell--numeric" scope="row">
           <%= organisation.ips_count %>
+        </td>
+        <td class="govuk-table__cell govuk-table__cell">
+          <%= organisation.certificates.empty? ? "no" : "yes" %>
         </td>
       </tr>
     <% end %>

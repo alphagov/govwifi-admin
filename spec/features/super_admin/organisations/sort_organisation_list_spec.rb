@@ -3,9 +3,10 @@ describe "Sorting the organisations list", type: :feature do
     let!(:super_admin) { create(:user, :super_admin) }
 
     before do
-      create(:organisation, name: "Gov Org 1", created_at: "10 Dec 2015")
-      create(:organisation, name: "Gov Org 2", created_at: "10 Dec 2013")
-      create(:organisation, name: "Gov Org 3", created_at: "10 Feb 2014")
+      create(:organisation, :with_cba_enabled, name: "Gov Org 1", created_at: "10 Dec 2015")
+      create(:organisation, :with_cba_enabled, name: "Gov Org 2", created_at: "10 Dec 2013")
+      create(:organisation, :with_cba_enabled, name: "Gov Org 3", created_at: "10 Feb 2014")
+      create(:certificate, organisation: Organisation.find_by_name("Gov Org 2"))
 
       sign_in_user super_admin
       visit super_admin_organisations_path
@@ -42,6 +43,19 @@ describe "Sorting the organisations list", type: :feature do
         2.times { click_link "Name" }
 
         expect(page.body).to match(/Gov Org 1.*Gov Org 2.*Gov Org 3/m)
+      end
+
+      context "when using eap-tls" do
+        it "sorts the list from yes to no after EAP-TLS is clicked the first time" do
+          click_link "Uses EAP-TLS"
+
+          expect(page.body).to match(/Gov Org 2.*Gov Org 1.*Gov Org 3/m)
+        end
+        it "sorts the list from no to yes after EAP-TLS is clicked twice" do
+          2.times { click_link "Uses EAP-TLS" }
+
+          expect(page.body).to match(/Gov Org 1.*Gov Org 3.*Gov Org 2/m)
+        end
       end
     end
 

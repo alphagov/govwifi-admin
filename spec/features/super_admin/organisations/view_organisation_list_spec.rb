@@ -27,10 +27,11 @@ describe "View a list of signed up organisations", type: :feature do
     end
 
     context "when one organisation exists" do
-      let(:org) { create(:organisation, created_at: "1 Feb 2014") }
+      let(:cba_enabled) { true }
+      let(:organisation) { create(:organisation, created_at: "1 Feb 2014", cba_enabled:) }
 
       before do
-        create_list(:location, 2, organisation: org)
+        create_list(:location, 2, organisation:)
         create_list(:ip, 3, location: Location.first)
         visit super_admin_organisations_path
       end
@@ -65,6 +66,22 @@ describe "View a list of signed up organisations", type: :feature do
 
       it "shows a link to download service emails as CSV" do
         expect(page).to have_link("Download all service emails in CSV format")
+      end
+
+      describe "no certificates" do
+        it "shows the organisation does not use EAP-TLS" do
+          within("table tbody tr td:nth-child(6)") do
+            expect(page).to have_content("no")
+          end
+        end
+      end
+      describe "a certificate is present" do
+        let(:organisation) { create(:organisation, cba_enabled:).tap { |org| create(:certificate, organisation: org) } }
+        it "shows the organisation uses EAP-TLS" do
+          within("table tbody tr td:nth-child(6)") do
+            expect(page).to have_content("yes")
+          end
+        end
       end
     end
 

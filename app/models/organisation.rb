@@ -39,8 +39,12 @@ class Organisation < ApplicationRecord
   end
 
   scope :sortable_with_child_counts, lambda { |sort_column, sort_direction|
-    select("organisations.*, MAX(mous.created_at) AS latest_mou_created_at, COUNT(DISTINCT(locations.id)) AS locations_count, COUNT(DISTINCT(ips.id)) AS ips_count")
-      .left_joins(:locations).left_joins(:ips).left_joins(:mous)
+    select("organisations.*,
+       MAX(mous.created_at) AS latest_mou_created_at,
+       COUNT(DISTINCT(locations.id)) AS locations_count,
+       COUNT(DISTINCT(ips.id)) AS ips_count,
+       COUNT(DISTINCT(certificates.id)) AS certificates_count")
+      .left_joins(:locations).left_joins(:ips).left_joins(:mous).left_joins(:certificates)
       .group("organisations.id")
       .order(sort_column => sort_direction)
   }
