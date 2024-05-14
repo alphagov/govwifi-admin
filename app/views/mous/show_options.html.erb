@@ -25,7 +25,10 @@
   <%= form_with url: choose_option_mous_path, method: :post do |f| %>
     <%= f.govuk_radio_button :chosen_action, "sign_mou", id: "sign_mou", link_errors: true, label: { text: "I will sign the MOU" } %>
     <%= f.govuk_radio_button :chosen_action, "nominate_user", id: "nominate_user", link_errors: true, label: { text: "I will nominate someone from my organisation to sign" } %>
-    <%= f.govuk_submit "Continue" %>
+
+    <div class="govuk-form-group">
+      <%= f.govuk_submit "Continue" %>
+    </div>
   <% end %>
 
   <%= link_to "Contact GovWifi support", help_index_path, class: "govuk-link" %>
