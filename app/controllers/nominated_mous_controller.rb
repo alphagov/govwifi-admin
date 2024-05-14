@@ -48,7 +48,7 @@ private
       mou.name,
       mou.email_address,
       mou.organisation.name,
-      mou.created_at,
+      mou.formatted_date,
     ).deliver_now
   end
 end
