@@ -111,7 +111,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_13_104514) do
     t.bigint "organisation_id", null: false
     t.bigint "user_id"
     t.decimal "version", precision: 6, scale: 3
-    t.decimal "decimal", precision: 6, scale: 3
     t.string "job_role"
     t.string "name"
     t.string "email_address"
