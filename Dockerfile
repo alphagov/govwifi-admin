@@ -31,7 +31,7 @@ ENV \
   USER_DB_PASS=root \
   USER_DB_HOST=wifi_user_db \
   USER_DB_NAME=wifi_user_govwifi \
-  LATEST_MOU_VERSION='123.3'
+  LATEST_MOU_VERSION='2.3'
 
 WORKDIR /usr/src/app
 
