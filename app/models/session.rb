@@ -7,7 +7,7 @@ class Session < ReadReplicaBase
     where(success: true)
   }
 
-  def set_authentication_method
+  def eap_tls?
     [cert_serial, cert_issuer, cert_subject, cert_name].any?(&:present?)
   end
 end

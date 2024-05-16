@@ -19,8 +19,7 @@ class LogsController < ApplicationController
             else
               current_organisation.ip_addresses.intersection([log_search_form.ip])
             end
-      logs = Gateways::Sessions.search(ips:, success:)
-      set_authentication_method(logs) if logs.present?
+
       logs = Gateways::Sessions.search(ips:, success:, authentication_method:)
 
       @current_location = Ip.find_by(address: ips).location if logs.present?
@@ -40,9 +39,5 @@ private
       .transform_values(&:strip)
   rescue StandardError
     {}
-  end
-
-  def set_authentication_method(logs)
-    logs.each(&:set_authentication_method)
   end
 end
