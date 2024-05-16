@@ -63,7 +63,7 @@
             </td>
           <% end %>
           <% if log_search_form.ip && current_organisation&.cba_enabled? %>
-            <td class="govuk-table__cell"><%= log.set_authentication_method ? "EAP-TLS" : "MSCHAP" %></td>
+            <td class="govuk-table__cell"><%= log.eap_tls? ? "EAP-TLS" : "MSCHAP" %></td>
           <% end %>
           <td class="govuk-table__cell"><%= log.ap %></td>
           <td class="govuk-table__cell"><%= log.mac %></td>

@@ -9,14 +9,14 @@
         <div class="govuk-grid-column-two-thirds">
           <div class="govuk-grid-column-one-half">
             <%= form.govuk_select :success,
-                                  options_for_select([["All", nil], %w[Successful true], %w[Failed false]], log_search_form.success),
+                                  [["All", nil], %w[Successful true], %w[Failed false]],
                                   label: { text: "Status type", class: "govuk-!-font-weight-bold" } %>
           </div>
 
           <% if log_search_form.ip && current_organisation&.cba_enabled? %>
             <div class="govuk-grid-column-one-half">
               <%= form.govuk_select :authentication_method,
-                                    options_for_select([["All", nil], %w[EAP-TLS true], %w[MSCHAP false]], log_search_form.authentication_method),
+                                    [["All", nil], %w[EAP-TLS true], %w[MSCHAP false]],
                                     label: { text: "Authentication method", class: "govuk-!-font-weight-bold" } %>
             </div>
           <% end %>
