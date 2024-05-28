@@ -397,6 +397,7 @@ GEM
       rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
+    rubyzip (2.3.2)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -541,6 +542,7 @@ DEPENDENCIES
   rqrcode
   rspec-rails
   rubocop-govuk
+  rubyzip
   sassc-rails
   sentry-rails
   sentry-ruby
