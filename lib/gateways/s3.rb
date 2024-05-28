@@ -28,8 +28,9 @@ module Gateways
     end
 
     def write(data)
+      body = data.is_a?(String) ? StringIO.new(data) : data
       client.put_object(
-        body: StringIO.new(data),
+        body:,
         bucket:,
         key:,
       )
