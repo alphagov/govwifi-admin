@@ -10,29 +10,29 @@ class MembershipsController < ApplicationController
         value: "administrator",
         text: "Administrator",
         hint: <<~HINT.html_safe,
-          View locations and IPs, team members, and logs<br>
-          Manage locations and IPs<br>
-          Add or remove team members<br>
-          View, add and remove certificates
+          <span>View locations and IPs, team members, and logs</span><br>
+          <span>Manage locations and IPs</span><br>
+          <span>Add or remove team members</span><br>
+          <span>View, add and remove certificates</span>
         HINT
       ),
       OpenStruct.new(
         value: "manage_locations",
         text: "Manage Locations",
         hint: <<~HINT.html_safe,
-          View locations and IPs, team members, and logs<br>
-          Manage locations and IPs<br>
-          Cannot add or remove team members<br>
-          View, add and remove certificates
+          <span>View locations and IPs, team members, and logs</span><br>
+          <span>Manage locations and IPs</span><br>
+          <span>Cannot add or remove team members</span><br>
+          <span>View, add and remove certificates</span>
         HINT
       ),
       OpenStruct.new(
         value: "view_only",
         text: "View only",
         hint: <<~HINT.html_safe,
-          View locations and IPs, team members, and logs<br>
-          Cannot manage locations and IPs<br>
-          Cannot add or remove team members
+          <span>View locations and IPs, team members, and logs</span><br>
+          <span>Cannot manage locations and IPs</span><br>
+          <span>Cannot add or remove team members</span>
         HINT
       ),
     ]
