@@ -15,7 +15,7 @@
         <% end %>
       </h1>
 
-      <%= f.govuk_email_field :email, label: { text: "Email address" } %>
+      <%= f.govuk_email_field :email, label: { text: "Email address" }, hint: { text: "Enter the email address of the person you want to invite." } %>
 
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset" aria-describedby="sign-in-hint">
@@ -37,9 +37,9 @@
                     class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
                   ) %>
               <div id="permission_level_administrator_hint" class="govuk-hint govuk-radios__hint">
-                View locations and IPs, team members, and logs<br>
-                Manage locations and IPs<br>
-                Add or remove team members
+                <span>View locations and IPs, team members, and logs</span><br>
+                <span>Manage locations and IPs</span><br>
+                <span>Add or remove team members</span>
               </div>
             </div>
             <div class="govuk-radios__item">
@@ -56,9 +56,9 @@
                     class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
                   ) %>
               <div id="permission_level_manage_locations_hint" class="govuk-hint govuk-radios__hint">
-                View locations and IPs, team members, and logs<br>
-                Manage locations and IPs<br>
-                Cannot add or remove team members
+                <span>View locations and IPs, team members, and logs</span><br>
+                <span>Manage locations and IPs</span><br>
+                <span>Cannot add or remove team members</span>
               </div>
             </div>
             <div class="govuk-radios__item">
@@ -75,9 +75,9 @@
                     class: "govuk-label govuk-radios__label govuk-!-font-weight-bold",
                   ) %>
               <div id="permission_level_view_only_hint" class="govuk-hint govuk-radios__hint">
-                View locations and IPs, team members, and logs<br>
-                Cannot manage locations and IPs<br>
-                Cannot add or remove team members
+                <span>View locations and IPs, team members, and logs</span><br>
+                <span>Cannot manage locations and IPs</span><br>
+                <span>Cannot add or remove team members</span>
               </div>
             </div>
           </div>

@@ -2,26 +2,31 @@
   <div class="govuk-grid-column-three-quarters">
     <%= link_to "Back to locations", ips_path, class: "govuk-back-link" %>
     <%= form_with model: @ips_form, url: location_update_ips_path(location_id: @ips_form.location_id), method: :patch do |form| %>
-    <%= form.govuk_error_summary %>
-    <span class="govuk-caption-xl govuk-!-font-weight-bold">
-      <%= @ips_form.address %>, <%= @ips_form.postcode %>
-    </span>
-    <h1 class="govuk-heading-l">
-      Add IP addresses
-    </h1>
-
-    <p class="govuk-body">
-      Add up to 5 IPv4 addresses.
-    </p>
-
-    <div class="govuk-inset-text govuk-!-padding-top-0 govuk-!-padding-bottom-0 govuk-!-margin-top-4 govuk-!-margin-bottom-4">
+      <%= form.govuk_error_summary %>
+      <span class="govuk-caption-xl govuk-!-font-weight-bold">
+        <%= @ips_form.address %>, <%= @ips_form.postcode %>
+      </span>
+      <header>
+        <h1 class="govuk-heading-l">
+          Add IP addresses
+        </h1>
+      </header>
       <p class="govuk-body">
-        If your authenticators have dynamic IP addresses, use firewall NAT rules so your requests come from consistent IP addresses.
+        Add up to 5 IPv4 addresses.
       </p>
-    </div>
+
+      <div class="govuk-inset-text govuk-!-padding-top-0 govuk-!-padding-bottom-0 govuk-!-margin-top-4 govuk-!-margin-bottom-4">
+        <p class="govuk-body">
+          If your authenticators have dynamic IP addresses, use firewall NAT rules so your requests come from consistent IP addresses.
+        </p>
+      </div>
+
+      <p id="ip_address_hint" class="govuk-hint">
+        Enter the IPv4 address in the format xxx.xxx.xxx.xxx.
+      </p>
 
       <% LocationIpsForm::IP_FIELDS.each.with_index(1) do |field, index| %>
-          <%= form.govuk_text_field field, label: -> { "IP address #{index}" } %>
+        <%= form.govuk_text_field field, label: -> { "IP address #{index}" }, aria: { describedby: "ip_address_hint" } %>
       <% end %>
       <%= form.govuk_submit "Add IP addresses" %>
     <% end %>

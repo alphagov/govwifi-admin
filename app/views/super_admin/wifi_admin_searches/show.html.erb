@@ -7,9 +7,14 @@
 <%= form_with model: @form, url: super_admin_wifi_admin_search_path do |f| %>
   <%= f.govuk_error_summary %>
   <div class='govuk-grid-row'>
-    <h1 class='govuk-heading-l govuk-grid-column-full'>Search for admin details</h1>
+    <header class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l">Search for admin details</h1>
+    </header>
+
     <div class='govuk-grid-column-two-thirds'>
-      <%= f.govuk_text_field :search_term, width: 20, label: { text: "Admin name or email address" } %>
+      <div class="govuk-form-group">
+        <%= f.govuk_text_field :search_term, width: 20, label: { text: "Admin name or email address" }, hint: { text: "Enter the name or email address of the admin you want to search for." }, aria: { describedby: "search_term_hint" } %>
+      </div>
       <%= f.govuk_submit "Find admin details" %>
       <% if @form_valid %>
         <div class="govuk-body">
