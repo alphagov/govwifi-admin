@@ -5,7 +5,7 @@ module UseCases
     def self.export
       zip_output = StringIO.new
       io = Zip::OutputStream.new(zip_output, true)
-      Certificate.all.reject(&:has_child?).each do |certificate|
+      Certificate.includes(:organisation).all.reject(&:has_child?).each do |certificate|
         io.put_next_entry("#{certificate.organisation.name}_#{certificate.name}.pem")
         io.write certificate.content
       end
