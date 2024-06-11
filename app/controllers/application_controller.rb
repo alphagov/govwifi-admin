@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   helper_method :show_navigation_bars
 
   def current_organisation
-    if session[:organisation_id] && current_user.organisations.pluck(:id).include?(session[:organisation_id].to_i)
+    if session[:organisation_id] && (current_user.member_of?(session[:organisation_id].to_i) || super_admin?)
       Organisation.find(session[:organisation_id])
     elsif user_signed_in?
       current_user.organisations.first
@@ -55,7 +55,8 @@ protected
        super_admin_users_path,
        new_super_admin_allowlist_path,
        super_admin_wifi_user_search_path,
-       super_admin_wifi_admin_search_path]
+       super_admin_wifi_admin_search_path,
+       super_admin_change_organisation_path]
     if sidebar_paths.include?(request.path)
       session[:sidebar_path] = request.path
     end

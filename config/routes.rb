@@ -74,6 +74,8 @@ Rails.application.routes.draw do
   get "setup_instructions/:path", to: redirect("settings/%{path}")
 
   namespace :super_admin do
+    get "change_organisation", to: "current_organisation#edit"
+    patch "change_organisation", to: "current_organisation#update"
     resources :locations, only: %i[index] do
       collection do
         get "map", to: "locations/map#index"

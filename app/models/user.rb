@@ -115,4 +115,8 @@ class User < ApplicationRecord
       end
     end
   end
+
+  def member_of?(organisation_id)
+    Membership.exists?(organisation_id:, user: self)
+  end
 end
