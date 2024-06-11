@@ -1,0 +1,9 @@
+<hr class="govuk-section-break govuk-section-break--visible govuk-section-break--m">
+<ul class="govuk-list">
+  <% Organisation.all.each do | organisation | %>
+    <li>
+      <%= button_to organisation.name, super_admin_change_organisation_path(organisation_id: organisation.id),
+                    method: :patch, class: "govuk-heading-s button-as-link govuk-!-margin-bottom-1" %>
+    </li>
+  <% end %>
+</ul>
