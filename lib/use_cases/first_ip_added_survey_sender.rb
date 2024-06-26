@@ -5,20 +5,8 @@ module UseCases
     def execute(user, current_organisation)
       return if user.sent_first_ip_survey? || current_organisation.ips.count.positive?
 
-      send_survey(user.email)
+      GovWifiMailer.send_survey(user.email).deliver_now
       user.update!(sent_first_ip_survey: true)
-    end
-
-  private
-
-    def send_survey(email_address)
-      opts = {
-        email: email_address,
-        personalisation: {},
-        template_id: GOV_NOTIFY_CONFIG["first_ip_survey"]["template_id"],
-        reference: "first_ip_survey",
-      }
-      Services.notify_gateway.send_email(opts)
     end
   end
 end

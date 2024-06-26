@@ -18,8 +18,12 @@ class EmailGatewaySpy
   end
 
   def send_email(opts)
-    @last_used_parameters = opts
     @last_message = opts
   end
+
+  def all_templates
+    NotifyTemplates::TEMPLATES.inject({}) do |result, template|
+      result.merge(template => "#{template}_template")
+    end
   end
 end
