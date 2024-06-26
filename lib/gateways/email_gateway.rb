@@ -11,6 +11,13 @@ module Gateways
         reference: opts[:reference],
       )
     end
+
+    def all_templates
+      client = Notifications::Client.new(ENV.fetch("NOTIFY_API_KEY"))
+      @all_templates ||= client.get_all_templates.inject({}) do |result, template|
+        result.merge(template.name => template.id)
+      end
+    end
   end
 
   class DevelopmentEmailGateway
@@ -20,6 +27,14 @@ module Gateways
       puts "...Personalisation: #{opts[:locals]}"
       puts "...Reference: #{opts[:reference]}"
     end
+
+    def all_templates
+      NotifyTemplates::TEMPLATES.inject({}) do |result, template|
+        result.merge(template => "#{template}_template")
+      end
+    end
+  end
+
   class TestEmailGateway < DevelopmentEmailGateway
     def send_email(_); end
   end
