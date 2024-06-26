@@ -11,7 +11,7 @@ describe "Inviting a user to their second or subsequent organisation", type: :fe
     allow(email_gateway).to receive(:all_templates).and_return(
       "invite_email" => "invite_email_template",
       "cross_organisation_invitation" => "cross_organisation_invitation_template",
-      "confirmation_email" => "confirmation_email_template"
+      "confirmation_email" => "confirmation_email_template",
     )
   end
 

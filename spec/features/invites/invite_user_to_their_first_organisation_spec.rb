@@ -11,7 +11,8 @@ describe "Inviting a user to their first organisation", type: :feature do
       allow(Services.email_gateway).to receive(:all_templates).and_return(
         "invitation_instructions" => "invitation_instructions_template",
         "invite_email" => "invite_email_template",
-        "cross_organisation_invitation" => "cross_organisation_invitation_template")
+        "cross_organisation_invitation" => "cross_organisation_invitation_template",
+      )
       sign_in_user invitor
       visit new_user_invitation_path
       fill_in "Email", with: invitee_email

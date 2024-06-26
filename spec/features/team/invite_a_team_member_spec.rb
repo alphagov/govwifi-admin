@@ -6,7 +6,7 @@ describe "Inviting a team member", type: :feature do
     allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
     allow(email_gateway).to receive(:all_templates).and_return(
       "invite_email" => "invite_email_template",
-      "confirmation_email" => "confirmation_email_template"
+      "confirmation_email" => "confirmation_email_template",
     )
   end
   context "when logged out" do
