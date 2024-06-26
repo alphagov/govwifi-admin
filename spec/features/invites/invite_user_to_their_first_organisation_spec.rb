@@ -3,10 +3,9 @@ describe "Inviting a user to their first organisation", type: :feature do
 
   let(:organisation) { create(:organisation) }
   let(:invitor) { create(:user, organisations: [organisation]) }
-
+  let(:notify_gateway) { spy }
   context "when the user does not exist yet" do
     let(:invitee_email) { "newuser@gov.uk" }
-    let(:notify_gateway) { spy }
     before do
       allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
       sign_in_user invitor

@@ -12,10 +12,8 @@ def update_user_details(
   service_email: "admin@gov.uk",
   organisation_name: "Org 1"
 )
-  return if Services.notify_gateway.not_sent?
 
-  visit confirmation_email_link
-
+  visit Services.email_gateway.last_confirmation_url
   select organisation_name, from: "Organisation name"
 
   fill_in "Service email", with: service_email
