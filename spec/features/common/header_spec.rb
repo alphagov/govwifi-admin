@@ -1,6 +1,8 @@
 describe "Page header", type: :feature do
   context "when not on production" do
     before do
+      Deploy.env = "test"
+
       visit root_path
     end
 
@@ -11,7 +13,7 @@ describe "Page header", type: :feature do
 
   context "when on production" do
     before do
-      allow(Rails.env).to receive(:production?).and_return(true)
+      Deploy.env = "production"
       visit root_path
     end
 

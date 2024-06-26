@@ -12,7 +12,7 @@ module UseCases
       time = Time.zone.now.strftime("%Y-%m-%d-%H-%M-%S")
 
       @writer.write(
-        file_name: "#{Rails.env}-#{time}.csv",
+        file_name: "#{Deploy.env}-#{time}.csv",
         folder_name: "GovWifi Service Address Backup",
         upload_source: StringIO.new(csv),
         mime_type: "application/csv",

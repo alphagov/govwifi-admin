@@ -33,7 +33,7 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
     provisioning_uri = current_user.provisioning_uri(
       current_user.email,
       otp_secret_key: @otp_secret_key,
-      issuer: "GovWifi (#{ENV['RACK_ENV']})",
+      issuer: "GovWifi (#{Deploy.env})",
     )
     qr_code = RQRCode::QRCode.new(provisioning_uri, level: :m)
     qr_code.as_png(size: 180, fill: ChunkyPNG::Color::TRANSPARENT).to_data_url

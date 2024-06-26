@@ -8,6 +8,7 @@ describe UseCases::BackupServiceEmails do
   let(:test_time) { Time.zone.now }
 
   before do
+    Deploy.env = "test"
     Timecop.freeze(test_time) { use_case.execute }
   end
 
