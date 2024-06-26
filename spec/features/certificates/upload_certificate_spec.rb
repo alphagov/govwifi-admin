@@ -30,22 +30,33 @@ describe "Upload Certificate", type: :feature do
   let(:organisation) { create(:organisation, :with_cba_enabled) }
   let(:user) { create(:user, organisations: [organisation]) }
 
+  let(:root_certificate_file) do
+    Tempfile.new("root_certificate_file").tap do |file|
+      file.write(root_ca)
+      file.flush
+    end
+  end
   let(:root_certificate_path) do
-    file = Tempfile.new("certificate_file")
-    file.write(root_ca)
-    file.close
-    file.path
+    root_certificate_file.path
   end
 
+  let(:intermediate_certificate_file) do
+    Tempfile.new("intermediate_certificate_file").tap do |file|
+      file.write(intermediate_ca)
+      file.flush
+    end
+  end
   let(:intermediate_certificate_path) do
-    file = Tempfile.new("certificate_file")
-    file.write(intermediate_ca)
-    file.close
-    file.path
+    intermediate_certificate_file.path
   end
 
   before do
     sign_in_user user
+  end
+
+  after do
+    root_certificate_file.close
+    intermediate_certificate_file.close
   end
 
   context "when organisation is not enabled for cba" do
