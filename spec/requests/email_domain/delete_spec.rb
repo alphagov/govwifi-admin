@@ -1,9 +1,6 @@
 describe "DELETE /authorised_email_domains/:id", type: :request do
   let!(:email_domain) { create(:authorised_email_domain, name: "some.domain.org.uk") }
-
-  let(:email_gateway) { EmailGatewaySpy.new }
   before do
-    allow(Services).to receive(:email_gateway).and_return(email_gateway)
     Gateways::S3.new(**Gateways::S3::DOMAIN_REGEXP).write("old regexp")
     Gateways::S3.new(**Gateways::S3::DOMAIN_ALLOW_LIST).write("old allowlist")
   end

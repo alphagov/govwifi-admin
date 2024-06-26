@@ -1,6 +1,4 @@
 describe "Add location", type: :feature do
-  include_context "with a mocked notifications client"
-
   let(:user) { create(:user, :with_organisation) }
 
   before do

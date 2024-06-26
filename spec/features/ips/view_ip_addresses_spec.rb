@@ -1,6 +1,4 @@
 describe "Viewing IP addresses", type: :feature do
-  include_context "with a mocked notifications client"
-
   let(:user) { create(:user, :with_organisation) }
 
   def xpath_row_containing_ip(ip)

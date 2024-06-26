@@ -13,12 +13,14 @@ module Gateways
     end
   end
 
-  class EmailGatewayStub
+  class DevelopmentEmailGateway
     def send_email(opts)
       puts "Stub email to: #{opts[:email]}"
-      puts "...Notifiy TemplateId: #{opts[:template_id]}"
+      puts "...Notify TemplateId: #{opts[:template_id]}"
       puts "...Personalisation: #{opts[:locals]}"
       puts "...Reference: #{opts[:reference]}"
     end
+  class TestEmailGateway < DevelopmentEmailGateway
+    def send_email(_); end
   end
 end
