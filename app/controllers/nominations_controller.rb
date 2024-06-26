@@ -30,7 +30,7 @@ private
   end
 
   def send_nomination_email(name, email, nominated_by, token)
-    AuthenticationMailer.nomination_instructions(
+    GovWifiMailer.nomination_instructions(
       name,
       email,
       nominated_by,

@@ -1,4 +1,4 @@
-class AuthenticationMailer < ::Devise::Mailer
+class GovWifiMailer < ::Devise::Mailer
   helper :application
   include Rails.application.routes.url_helpers
   include Devise::Controllers::UrlHelpers
@@ -7,7 +7,7 @@ class AuthenticationMailer < ::Devise::Mailer
     opts = {
       email: record.email,
       personalisation: { confirmation_url: confirmation_url(record, confirmation_token: token) },
-      template_id: GOV_NOTIFY_CONFIG["confirmation_email"]["template_id"],
+      template_id: NotifyTemplates.template(:confirmation_email),
       reference: "confirmation_email",
     }
     Services.notify_gateway.send_email(opts)
@@ -18,7 +18,7 @@ class AuthenticationMailer < ::Devise::Mailer
     opts = {
       email: record.email,
       personalisation: { reset_url: edit_password_url(record, reset_password_token: token) },
-      template_id: GOV_NOTIFY_CONFIG["reset_password_email"]["template_id"],
+      template_id: NotifyTemplates.template(:reset_password_email),
       reference: "reset_password_email",
     }
     Services.notify_gateway.send_email(opts)
@@ -28,7 +28,7 @@ class AuthenticationMailer < ::Devise::Mailer
     opts = {
       email: record.email,
       personalisation: { unlock_url: unlock_url(record, unlock_token: token) },
-      template_id: GOV_NOTIFY_CONFIG["unlock_account"]["template_id"],
+      template_id: NotifyTemplates.template(:unlock_account),
       reference: "unlock_account",
     }
     Services.notify_gateway.send_email(opts)
@@ -38,7 +38,7 @@ class AuthenticationMailer < ::Devise::Mailer
     opts = {
       email: record.email,
       personalisation: { invite_url: accept_invitation_url(record, invitation_token: token) },
-      template_id: GOV_NOTIFY_CONFIG["invite_email"]["template_id"],
+      template_id: NotifyTemplates.template(:invite_email),
       reference: "invite_email",
     }
     Services.notify_gateway.send_email(opts)
@@ -48,8 +48,8 @@ class AuthenticationMailer < ::Devise::Mailer
     opts = {
       email: record.email,
       personalisation: { invite_url: confirm_new_membership_url(token:),
-                         organisation: opts.fetch(:organisation).name },
-      template_id: GOV_NOTIFY_CONFIG["cross_organisation_invitation"]["template_id"],
+                organisation: opts.fetch(:organisation).name },
+      template_id: NotifyTemplates.template(:cross_organisation_invitation),
       reference: "invite_email",
     }
     Services.notify_gateway.send_email(opts)
@@ -59,7 +59,7 @@ class AuthenticationMailer < ::Devise::Mailer
     opts = {
       email:,
       personalisation: { nomination_url: new_nominated_mou_path(token:), name:, nominated_by:, organisation: },
-      template_id: GOV_NOTIFY_CONFIG["nominate_user_to_sign_mou"]["template_id"],
+      template_id: NotifyTemplates.template(:nominate_user_to_sign_mou),
       reference: "nomination_email",
     }
     Services.notify_gateway.send_email(opts)
@@ -69,7 +69,7 @@ class AuthenticationMailer < ::Devise::Mailer
     opts = {
       email: email_address,
       personalisation: { name:, organisation: organisation_name, mou_signed_date: },
-      template_id: GOV_NOTIFY_CONFIG["thank_you_for_signing_the_mou"]["template_id"],
+      template_id: NotifyTemplates.template(:thank_you_for_signing_the_mou),
       reference: "thank_you_email",
     }
     Services.notify_gateway.send_email(opts)
@@ -79,7 +79,7 @@ class AuthenticationMailer < ::Devise::Mailer
     opts = {
       email: contact,
       personalisation: { username: },
-      template_id: GOV_NOTIFY_CONFIG["notify_user_account_removed"]["template_id"],
+      template_id: NotifyTemplates.template("notify_user_account_removed"),
       reference: "notify_user_account_removed",
     }
     Services.notify_gateway.send_email(opts)
@@ -89,9 +89,19 @@ class AuthenticationMailer < ::Devise::Mailer
     opts = {
       contact:,
       personalisation: { username: },
-      template_id: GOV_NOTIFY_CONFIG["notify_user_account_removed_sms"]["template_id"],
+      template_id: NotifyTemplates.template("notify_user_account_removed_sms"),
       reference: "notify_user_account_removed",
     }
     Services.notify_gateway.send_sms(opts)
+  end
+
+  def send_survey(email_address)
+    opts = {
+      email: email_address,
+      personalisation: {},
+      template_id: NotifyTemplates.template(:first_ip_survey),
+      reference: "first_ip_survey",
+    }
+    Services.email_gateway.send_email(opts)
   end
 end

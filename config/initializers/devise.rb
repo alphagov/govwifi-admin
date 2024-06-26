@@ -21,7 +21,7 @@ Devise.setup do |config|
   config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
-  config.mailer = "AuthenticationMailer"
+  config.mailer = "GovWifiMailer"
 
   # Configure the parent class responsible to send e-mails.
   config.parent_mailer = "ActionMailer::Base"

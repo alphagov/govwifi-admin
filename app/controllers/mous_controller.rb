@@ -40,7 +40,7 @@ private
   end
 
   def send_thank_you_email(mou)
-    AuthenticationMailer.thank_you_for_signing_the_mou(
+    GovWifiMailer.thank_you_for_signing_the_mou(
       mou.name,
       mou.email_address,
       mou.organisation.name,
