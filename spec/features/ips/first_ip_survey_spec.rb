@@ -26,7 +26,7 @@ describe "Sending a survey when adding the first IP to an organisation", type: :
       click_on "Add IP addresses"
       expect(notify_gateway).to have_received(:send_email).with({ email: user.email,
                                                                   personalisation: {},
-                                                                  template_id: "first_ip_survey_id",
+                                                                  template_id: "first_ip_survey_template",
                                                                   reference: "first_ip_survey" })
     end
     it "sets the sent_first_ip_survey flag" do
