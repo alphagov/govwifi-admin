@@ -46,6 +46,7 @@ Rails.application.configure do
 
   # Set a css_compressor so sassc-rails does not overwrite the compressor when running the tests
   config.assets.css_compressor = nil
+  config.email_gateway = Gateways::TestEmailGateway
 
   config.notify_gateway = Class.new do
     def initialize(_); end
