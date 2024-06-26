@@ -45,6 +45,5 @@ describe Gateways::EmailGateway do
       allow(notification).to receive(:get_all_templates).and_return(notify_templates)
       expect(email_gateway.all_templates).to eq("name_one" => "id_one", "name_two" => "id_two")
     end
-
   end
 end
