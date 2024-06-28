@@ -12,7 +12,7 @@ describe "Filter CBA requests for an IP", type: :feature do
            ap:,
            mac:,
            start: time,
-           username:,
+           username: nil,
            siteIP: ip.address,
            success: true,
            cert_name: "test",

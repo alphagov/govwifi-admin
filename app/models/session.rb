@@ -8,6 +8,6 @@ class Session < ReadReplicaBase
   }
 
   def eap_tls?
-    [cert_serial, cert_issuer, cert_subject, cert_name].any?(&:present?)
+    username.nil?
   end
 end
