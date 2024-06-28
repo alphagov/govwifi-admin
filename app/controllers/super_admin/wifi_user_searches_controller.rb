@@ -22,6 +22,7 @@ class SuperAdmin::WifiUserSearchesController < SuperAdminController
     @wifi_user = @form_valid ? WifiUser.search(@form.search_term) : nil
 
     flash[:notice] = "#{@wifi_user.username} (#{@wifi_user.contact}) has been removed"
+    notify_user
 
     @wifi_user.destroy!
 
@@ -32,5 +33,19 @@ private
 
   def search_term_params
     params.fetch(:search_form, {}).permit(:search_term)
+  end
+
+  def notify_user
+    if @wifi_user.contact.include?("@")
+      AuthenticationMailer.notify_user_account_removed(
+        @wifi_user.username,
+        @wifi_user.contact,
+      ).deliver_now
+    elsif @wifi_user.contact.match?(/\A\+?\d+\z/)
+      AuthenticationMailer.notify_user_account_removed_sms(
+        @wifi_user.username,
+        @wifi_user.contact,
+      ).deliver_now
+    end
   end
 end
