@@ -16,6 +16,6 @@
 <div id="cba-form">
   <%= form_with(model: @organisation, url: toggle_cba_feature_super_admin_organisation_path(@organisation), method: :patch) do |form| %>
     <%= form.hidden_field :cba_enabled, value: !@organisation.cba_enabled %>
-    <%= form.submit(@organisation.cba_enabled ? "Turn off CBA logs" : "Turn on CBA logs", class: @organisation.cba_enabled ? "govuk-button govuk-button--secondary" : "govuk-button") %>
+    <%= form.submit(@organisation.cba_enabled ? "Disable CBA" : "Enable CBA", class: @organisation.cba_enabled ? "govuk-button govuk-button--secondary" : "govuk-button") %>
   <% end %>
 </div>
