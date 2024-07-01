@@ -4,6 +4,10 @@ describe Gateways::EmailGateway do
   subject(:email_gateway) { described_class.new }
 
   let(:notification) { instance_spy(Notifications::Client, send_email: nil) }
+  let(:notify_templates) do
+    [instance_double("Notifications::Client::Template", id: "id_one", name: "name_one"),
+     instance_double("Notifications::Client::Template", id: "id_two", name: "name_two")]
+  end
 
   before do
     ENV["NOTIFY_API_KEY"] = "dummy_key-00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000"
@@ -35,6 +39,11 @@ describe Gateways::EmailGateway do
 
     it "calls the Notify client" do
       expect(notification).to have_received(:send_email).with(notifications_payload)
+    end
+
+    it "gets all templates" do
+      allow(notification).to receive(:get_all_templates).and_return(notify_templates)
+      expect(email_gateway.all_templates).to eq("name_one" => "id_one", "name_two" => "id_two")
     end
   end
 end

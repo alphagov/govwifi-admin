@@ -22,6 +22,30 @@ describe "Sign up for a GovWifi administrator account", type: :feature do
     end
   end
 
+  context "with a non-gov email" do
+    let(:email) { "someone@google.com" }
+
+    before do
+      sign_up_for_account(email:)
+    end
+
+    it "tells me my email is not valid" do
+      expect(page).to have_content("Email address must be from a government or a public sector domain. If you're having trouble signing up, contact us.")
+    end
+  end
+
+  context "with a blank email" do
+    let(:email) { "" }
+
+    before do
+      sign_up_for_account(email:)
+    end
+
+    it "tells me my email is not valid" do
+      expect(page).to have_content("Email address must be from a government or a public sector domain. If you're having trouble signing up, contact us.")
+    end
+  end
+
   context "with correct data" do
     before do
       sign_up_for_account(email:)
@@ -69,22 +93,6 @@ describe "Sign up for a GovWifi administrator account", type: :feature do
 
       it "signs me in" do
         expect(page).to have_content "Sign out"
-      end
-    end
-
-    context "with a non-gov email" do
-      let(:email) { "someone@google.com" }
-
-      it "tells me my email is not valid" do
-        expect(page).to have_content("Email address must be from a government or a public sector domain. If you're having trouble signing up, contact us.")
-      end
-    end
-
-    context "with a blank email" do
-      let(:email) { "" }
-
-      it "tells me my email is not valid" do
-        expect(page).to have_content("Email address must be from a government or a public sector domain. If you're having trouble signing up, contact us.")
       end
     end
 
@@ -175,7 +183,7 @@ describe "Sign up for a GovWifi administrator account", type: :feature do
       sign_up_for_account
       update_user_details
       skip_two_factor_authentication
-      visit confirmation_email_link
+      visit Services.email_gateway.last_confirmation_url
     end
 
     it_behaves_like "errors in form"

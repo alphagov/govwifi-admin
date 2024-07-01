@@ -76,7 +76,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_mailer.default_url_options = { host: "admin.wifi.service.gov.uk" }
+  config.action_mailer.default_url_options = { host: ENV["FULLY_QUALIFIED_DOMAIN_NAME"] }
   config.s3_aws_config = {}
   config.route53_aws_config = {}
 end

@@ -45,7 +45,7 @@ private
   end
 
   def send_invite_email(membership)
-    AuthenticationMailer.membership_instructions(
+    GovWifiMailer.membership_instructions(
       invited_user,
       membership.invitation_token,
       organisation: membership.organisation,

@@ -1,8 +1,6 @@
 require "support/notifications_service"
 
 describe "Invite a team member", type: :feature do
-  include_context "with a mocked notifications client"
-
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
 

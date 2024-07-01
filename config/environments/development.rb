@@ -2,7 +2,7 @@ require "action_mailer/railtie"
 require_relative "../../lib/gateways/email_gateway"
 
 Rails.application.configure do
-  config.email_gateway = Gateways::EmailGatewayStub
+  config.email_gateway = Gateways::DevelopmentEmailGateway
   config.hosts.clear
   Bullet.enable = true
   Bullet.unused_eager_loading_enable = true
