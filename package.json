@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "stylelint": "^15.11.0",
-    "stylelint-config-gds": "^1.0.0"
+    "stylelint-config-gds": "^1.1.1"
   },
   "stylelint": {
     "extends": "stylelint-config-gds/scss",
