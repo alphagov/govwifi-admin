@@ -21,12 +21,7 @@
 
     <%= csrf_meta_tags %>
 
-    <!--[if !IE 8]><!-->
-      <%= stylesheet_link_tag "application", media: "all" %>
-    <!--<![endif]-->
-    <!--[if IE 8]>
-        <%= stylesheet_link_tag "application_ie8", media: "all" %>
-    <![endif]-->
+    <%= stylesheet_link_tag "application", media: "all" %>
 
     <%= javascript_include_tag "html5shiv" %>
 
@@ -37,10 +32,10 @@
 
   <body class="govuk-template__body app-body-class">
     <%= render "layouts/google_tag_manager_no_script" %>
-
     <script>
-        document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+      document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
     </script>
+
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
     <%= render "shared/header" %>
@@ -144,7 +139,10 @@
         </div>
       </div>
     </footer>
-    <%= javascript_include_tag "application.js" %>
+    <script type="module">
+      import { initAll } from '<%= asset_path("govuk-frontend.min.js") %>'
+      initAll()
+    </script>
   </body>
   <%= console if Rails.env.development? %>
 </html>
