@@ -7,4 +7,8 @@ class WifiUser < ApplicationRecord
       find_by("username like ?", "%#{search_term}%") ||
       find_by("contact like ?", "%#{search_term}%")
   end
+
+  def mobile?
+    contact.start_with?("+")
+  end
 end
