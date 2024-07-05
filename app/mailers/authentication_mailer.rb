@@ -77,7 +77,11 @@ class AuthenticationMailer < ::Devise::Mailer
 
   def notify_user_account_removed(username, contact)
     opts = {
+<<<<<<< HEAD
       email_address: contact,
+=======
+      email: contact,
+>>>>>>> GW-1597-deleting-a-user-triggers-a-notify-template
       locals: { username: },
       template_id: GOV_NOTIFY_CONFIG["notify_user_account_removed"]["template_id"],
       reference: "notify_user_account_removed",
