@@ -72,9 +72,4 @@ module EmailHelpers
     expect(Services.email_gateway).to have_received(:send_email)
       .with(include(template_id: GOV_NOTIFY_CONFIG["notify_user_account_removed"]["template_id"])).once
   end
-
-  def it_sent_a_notify_user_sms_once
-    expect(Services.email_gateway).to have_received(:send_email)
-      .with(include(template_id: GOV_NOTIFY_CONFIG["notify_user_account_removed_sms"]["template_id"])).once
-  end
 end

@@ -92,6 +92,6 @@ class AuthenticationMailer < ::Devise::Mailer
       template_id: GOV_NOTIFY_CONFIG["notify_user_account_removed_sms"]["template_id"],
       reference: "notify_user_account_removed",
     }
-    Services.email_gateway.send_email(opts)
+    Services.sms_gateway.send_sms(opts)
   end
 end

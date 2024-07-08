@@ -9,5 +9,6 @@ shared_context "when using the notifications service" do
 
     allow(Notifications::Client).to receive(:new).and_return(notification_instance)
     allow(notification_instance).to receive(:send_email).and_return({})
+    allow(notification_instance).to receive(:send_sms).and_return({})
   end
 end
