@@ -37,4 +37,32 @@ describe Gateways::EmailGateway do
       expect(notification).to have_received(:send_email).with(notifications_payload)
     end
   end
+
+  context "when sending a user account removed email" do
+    let(:email) { "test@example.com" }
+    let(:username) { "test" }
+    let(:template_id) { 1 }
+    let(:reference) { "notify_user_account_removed" }
+    let(:notifications_payload) do
+      {
+        email_address: "test@example.com",
+        template_id: 1,
+        personalisation: { username: },
+        reference:,
+      }
+    end
+
+    before do
+      email_gateway.send_email(
+        email:,
+        template_id:,
+        locals: { username: },
+        reference:,
+      )
+    end
+
+    it "calls the Notify client" do
+      expect(notification).to have_received(:send_email).with(notifications_payload)
+    end
+  end
 end

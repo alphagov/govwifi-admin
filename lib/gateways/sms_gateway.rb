@@ -14,7 +14,7 @@ module Gateways
 
   class SmsGatewayStub
     def send_sms(opts)
-      puts "Stub sms to: #{opts[:sms]}"
+      puts "Stub sms to: #{opts[:contact]}"
       puts "...Notifiy TemplateId: #{opts[:template_id]}"
       puts "...Personalisation: #{opts[:locals]}"
     end

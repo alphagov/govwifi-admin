@@ -12,22 +12,24 @@ describe Gateways::SmsGateway do
   end
 
   context "when sending a sms" do
-    let(:phone_number) { "+7800000005" }
-    let(:url) { "http://example.com/confirm?token=123" }
+    let(:contact) { "+7800000005" }
+    let(:username) { "test" }
     let(:template_id) { 1 }
+    let(:reference) { "notify_user_account_removed" }
     let(:notifications_payload) do
       {
-        phone_number:,
+        phone_number: contact,
         template_id:,
-        personalisation: { url: },
+        personalisation: { username: },
       }
     end
 
     before do
       sms_gateway.send_sms(
-        contact: phone_number,
+        contact:,
         template_id:,
-        locals: { url: },
+        locals: { username: },
+        reference:,
       )
     end
 
