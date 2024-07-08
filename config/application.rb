@@ -11,6 +11,7 @@ require "action_view/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 require_relative "../lib/gateways/email_gateway"
+require_relative "../lib/gateways/sms_gateway"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -48,5 +49,6 @@ module GovwifiAdmin
     config.active_model.i18n_customize_full_message = true
 
     config.email_gateway = Gateways::EmailGateway
+    config.sms_gateway = Gateways::SmsGateway
   end
 end

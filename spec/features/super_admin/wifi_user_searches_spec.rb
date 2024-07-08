@@ -1,7 +1,9 @@
 describe "Wifi User Searches", type: :feature do
   include EmailHelpers
+  include SmsHelpers
   let(:user) { create(:user, :super_admin, name: "super_admin") }
   let(:email_gateway) { spy }
+  let(:sms_gateway) { spy }
   let(:search_term) { username }
 
   before do
@@ -65,7 +67,7 @@ describe "Wifi User Searches", type: :feature do
       before do
         fill_in "Username, email address or phone number", with: search_term
         click_on "Find user details"
-        allow(Services).to receive(:email_gateway).and_return(email_gateway)
+        allow(Services).to receive(:sms_gateway).and_return(sms_gateway)
         click_on "Remove user"
       end
 
