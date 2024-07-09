@@ -6,6 +6,11 @@ linters:
     enabled: true
   SelfClosingTag:
     enabled: false
+  AllowedScriptType:
+    enabled: true
+    allowed_types:
+      - "text/javascript"
+      - "module"
   Rubocop:
     enabled: true
     rubocop_config:
