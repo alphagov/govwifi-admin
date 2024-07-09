@@ -1,10 +1,6 @@
 module Services
-  def self.email_gateway
-    @email_gateway ||= Rails.application.config.email_gateway.new
-  end
-
-  def self.sms_gateway
-    @sms_gateway ||= Rails.application.config.sms_gateway.new
+  def self.notify_gateway
+    Rails.application.config.notify_gateway.new(ENV.fetch("NOTIFY_API_KEY"))
   end
 
   def self.elasticsearch_client

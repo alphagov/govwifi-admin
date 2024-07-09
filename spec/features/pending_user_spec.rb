@@ -7,7 +7,7 @@ describe "Inviting an existing user which belongs to an organisation", type: :fe
 
   context "with a user that already belongs to an organisation" do
     before do
-      allow(Services).to receive(:email_gateway).and_return(EmailGatewaySpy.new)
+      allow(Services).to receive(:notify_gateway).and_return(EmailGatewaySpy.new)
 
       sign_in_user user
       visit memberships_path

@@ -2,17 +2,17 @@ describe "Sign up from invitation", type: :feature do
   let(:invited_user_email) { "invited@gov.uk" }
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }
-  let(:email_gateway) { EmailGatewaySpy.new }
+  let(:notify_gateway) { EmailGatewaySpy.new }
 
   before do
-    allow(Services).to receive(:email_gateway).and_return(email_gateway)
+    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
     sign_in_user user
     invite_user(invited_user_email)
     sign_out
   end
 
   context "when following the invite link" do
-    let(:invite_link) { email_gateway.last_invite_url }
+    let(:invite_link) { notify_gateway.last_invite_url }
     let(:invited_user) { User.find_by(email: invited_user_email) }
 
     before do

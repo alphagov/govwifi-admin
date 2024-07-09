@@ -1,6 +1,6 @@
 describe "Lookup wifi user contact details", type: :feature do
   include EmailHelpers
-  let(:email_gateway) { spy }
+  let(:notify_gateway) { spy }
   let(:user) { create(:user, :super_admin) }
   let(:search_term) { "" }
   let(:contact) { "wifi.user@govwifi.org" }
@@ -65,7 +65,7 @@ describe "Lookup wifi user contact details", type: :feature do
   context "when deleting a user" do
     let(:search_term) { "zZyYxX" }
     before do
-      allow(Services).to receive(:email_gateway).and_return(email_gateway)
+      allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
     end
 
     it "successfully deletes the user" do

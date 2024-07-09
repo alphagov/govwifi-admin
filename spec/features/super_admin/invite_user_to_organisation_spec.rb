@@ -2,10 +2,10 @@ describe "Inviting a team member as a super admin", type: :feature do
   let(:organisation) { create(:organisation, name: "Gov Org 3") }
   let(:super_admin) { create(:user, :super_admin) }
   let(:email) { "barry@gov.uk" }
-  let(:email_gateway) { spy }
+  let(:notify_gateway) { spy }
 
   before do
-    allow(Services).to receive(:email_gateway).and_return(email_gateway)
+    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
     sign_in_user super_admin
     visit super_admin_organisation_path(organisation)
     click_on "Add team member"
@@ -44,7 +44,7 @@ describe "Inviting a team member as a super admin", type: :feature do
     end
 
     it "does not send an invite" do
-      expect(email_gateway).to_not have_received(:send_email)
+      expect(notify_gateway).to_not have_received(:send_email)
     end
 
     it "displays the correct error message" do
@@ -60,7 +60,7 @@ describe "Inviting a team member as a super admin", type: :feature do
       end
 
       it "sends an invite" do
-        expect(email_gateway).to have_received(:send_email).once
+        expect(notify_gateway).to have_received(:send_email).once
       end
 
       it "adds the invited user to the correct organisation" do

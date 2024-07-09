@@ -4,10 +4,10 @@ describe "Inviting a user to their second or subsequent organisation", type: :fe
   let(:inviter_organisation) { create(:organisation) }
   let(:betty) { create(:user, organisations: [inviter_organisation]) }
   let(:confirmed_user) { create(:user, :with_organisation) }
-  let(:email_gateway) { spy }
+  let(:notify_gateway) { spy }
 
   before do
-    allow(Services).to receive(:email_gateway).and_return(email_gateway)
+    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
   end
 
   context "with a confirmed user" do

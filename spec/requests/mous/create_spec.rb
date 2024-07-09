@@ -10,7 +10,7 @@ describe "POST /mous", type: :request do
   before do
     https!
     sign_in_user(user)
-    allow(Services).to receive(:email_gateway).and_return(spy)
+    allow(Services).to receive(:notify_gateway).and_return(spy)
   end
   it "creates a new mou" do
     expect { perform }.to change(Mou, :count).by(1)
