@@ -1,10 +1,8 @@
 require "action_mailer/railtie"
-require_relative "../../lib/gateways/email_gateway"
-require_relative "../../lib/gateways/sms_gateway"
+require_relative "../../lib/gateways/notify_gateway"
 
 Rails.application.configure do
-  config.email_gateway = Gateways::EmailGatewayStub
-  config.sms_gateway = Gateways::SmsGatewayStub
+  config.notify_gateway = DevelopmentNotifyGateway
   config.hosts.clear
   Bullet.enable = true
   Bullet.unused_eager_loading_enable = true

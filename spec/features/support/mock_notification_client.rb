@@ -4,7 +4,7 @@ shared_context "with a mocked notifications client" do
       attr_accessor :notifications
     end
 
-    def initialize(_unused)
+    def initialize
       self.class.notifications ||= []
     end
 
@@ -31,7 +31,7 @@ shared_context "with a mocked notifications client" do
     end
   end
 
-  before { stub_const("Notifications::Client", NotificationsMock) }
+  before { allow(Services).to receive(:notify_gateway).and_return(NotificationsMock.new) }
 
   after { NotificationsMock.reset! }
 

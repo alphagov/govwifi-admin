@@ -1,9 +1,9 @@
 describe "POST /admin/allowlist", type: :request do
   let(:user) { create(:user, :super_admin) }
-  let(:email_gateway) { EmailGatewaySpy.new }
+  let(:notify_gateway) { EmailGatewaySpy.new }
 
   before do
-    allow(Services).to receive(:email_gateway).and_return(email_gateway)
+    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
     https!
     sign_in_user(user)
   end

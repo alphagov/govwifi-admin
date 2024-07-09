@@ -14,11 +14,11 @@ module UseCases
     def send_survey(email_address)
       opts = {
         email: email_address,
-        locals: {},
+        personalisation: {},
         template_id: GOV_NOTIFY_CONFIG["first_ip_survey"]["template_id"],
         reference: "first_ip_survey",
       }
-      Services.email_gateway.send_email(opts)
+      Services.notify_gateway.send_email(opts)
     end
   end
 end

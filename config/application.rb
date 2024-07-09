@@ -9,9 +9,9 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
+
+require "notifications/client"
 # require "rails/test_unit/railtie"
-require_relative "../lib/gateways/email_gateway"
-require_relative "../lib/gateways/sms_gateway"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -48,7 +48,6 @@ module GovwifiAdmin
     # enable customising the full_message method.
     config.active_model.i18n_customize_full_message = true
 
-    config.email_gateway = Gateways::EmailGateway
-    config.sms_gateway = Gateways::SmsGateway
+    config.notify_gateway = Notifications::Client
   end
 end

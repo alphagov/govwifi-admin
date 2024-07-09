@@ -9,7 +9,7 @@ describe "POST /nominated_mous", type: :request do
   let(:signed) { "true" }
   subject(:perform) { post nominated_mous_path, params: { mou_form: { name:, email_address:, job_role:, signed:, token: } } }
   before do
-    allow(Services).to receive(:email_gateway).and_return(spy)
+    allow(Services).to receive(:notify_gateway).and_return(spy)
     Nomination.create!(token: "12345", name:, email: email_address, organisation:)
     https!
   end

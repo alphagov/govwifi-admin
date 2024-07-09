@@ -6,11 +6,11 @@ class EmailGatewaySpy
   attr_reader :last_used_parameters
 
   def last_confirmation_url
-    @last_used_parameters.dig(:locals, :confirmation_url)
+    @last_used_parameters.dig(:personalisation, :confirmation_url)
   end
 
   def last_invite_url
-    @last_used_parameters.dig(:locals, :invite_url)
+    @last_used_parameters.dig(:personalisation, :invite_url)
   end
 
   def send_email(opts)

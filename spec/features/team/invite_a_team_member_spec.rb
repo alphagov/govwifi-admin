@@ -1,9 +1,9 @@
 describe "Inviting a team member", type: :feature do
   include EmailHelpers
 
-  let(:email_gateway) { spy }
+  let(:notify_gateway) { spy }
   before do
-    allow(Services).to receive(:email_gateway).and_return(email_gateway)
+    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
   end
   context "when logged out" do
     before do
@@ -121,7 +121,7 @@ describe "Inviting a team member", type: :feature do
     end
 
     context "with an unconfirmed user that has already been invited" do
-      let(:email_gateway) { spy }
+      let(:notify_gateway) { spy }
       let!(:invited_user) { create(:user, invitation_sent_at: Time.zone.now, organisations: user.organisations, confirmed_at: nil) }
       let(:invited_user_email) { invited_user.email }
 

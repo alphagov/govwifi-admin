@@ -1,8 +1,8 @@
 describe "Sign up for a GovWifi administrator account", type: :feature do
   let(:name) { "Sally" }
-  let(:email_gateway) { EmailGatewaySpy.new }
+  let(:notify_gateway) { EmailGatewaySpy.new }
   before do
-    allow(Services).to receive(:email_gateway).and_return(email_gateway)
+    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
     Gateways::S3.new(**Gateways::S3::DOMAIN_REGEXP).write(
       "#{UseCases::Administrator::PublishEmailDomainsRegex::SIGNUP_ALLOWLIST_PREFIX_MATCHER}(gov\\.uk)$",
     )
