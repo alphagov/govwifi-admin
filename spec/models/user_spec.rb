@@ -1,9 +1,5 @@
-require "support/notifications_service"
-
 describe User do
   let(:organisation) { create(:organisation) }
-
-  include_context "when using the notifications service"
 
   describe "validation" do
     let(:user) { create(:user) }

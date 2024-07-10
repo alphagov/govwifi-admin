@@ -4,16 +4,6 @@ describe "Inviting a user to their second or subsequent organisation", type: :fe
   let(:inviter_organisation) { create(:organisation) }
   let(:betty) { create(:user, organisations: [inviter_organisation]) }
   let(:confirmed_user) { create(:user, :with_organisation) }
-  let(:notify_gateway) { spy }
-
-  before do
-    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
-    allow(email_gateway).to receive(:all_templates).and_return(
-      "invite_email" => "invite_email_template",
-      "cross_organisation_invitation" => "cross_organisation_invitation_template",
-      "confirmation_email" => "confirmation_email_template",
-    )
-  end
 
   context "with a confirmed user" do
     before do

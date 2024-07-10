@@ -13,7 +13,7 @@ def update_user_details(
   organisation_name: "Org 1"
 )
 
-  visit Services.email_gateway.last_confirmation_url
+  visit Services.notify_gateway.last_confirmation_url
   select organisation_name, from: "Organisation name"
 
   fill_in "Service email", with: service_email

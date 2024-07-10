@@ -1,8 +1,6 @@
 describe "Sign up for a GovWifi administrator account", type: :feature do
   let(:name) { "Sally" }
-  let(:notify_gateway) { EmailGatewaySpy.new }
   before do
-    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
     Gateways::S3.new(**Gateways::S3::DOMAIN_REGEXP).write(
       "#{UseCases::Administrator::PublishEmailDomainsRegex::SIGNUP_ALLOWLIST_PREFIX_MATCHER}(gov\\.uk)$",
     )
@@ -183,7 +181,7 @@ describe "Sign up for a GovWifi administrator account", type: :feature do
       sign_up_for_account
       update_user_details
       skip_two_factor_authentication
-      visit Services.email_gateway.last_confirmation_url
+      visit Services.notify_gateway.last_confirmation_url
     end
 
     it_behaves_like "errors in form"

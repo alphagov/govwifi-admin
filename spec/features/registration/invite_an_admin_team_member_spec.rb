@@ -1,11 +1,8 @@
 describe "Inviting an admin team member on registration", type: :feature do
   include EmailHelpers
-  let(:notify_gateway) { spy }
-
   let(:user) { create(:user, :with_organisation) }
 
   before do
-    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
     sign_in_user user
     visit invite_second_admin_path
     fill_in "Email", with: invited_user_email

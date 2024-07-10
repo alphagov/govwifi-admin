@@ -3,10 +3,8 @@ describe "Resending an invitation to a team member", type: :feature do
 
   let(:invited_user_email) { "invited@gov.uk" }
   let(:user) { create(:user, :with_organisation) }
-  let(:notify_gateway) { spy }
 
   before do
-    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
     sign_in_user user
     invite_user(invited_user_email)
     visit memberships_path
@@ -22,12 +20,10 @@ describe "Resending an invitation to a team member", type: :feature do
   end
 
   context "when signing up from the resent invitation" do
-    let(:notify_gateway) { EmailGatewaySpy.new }
-
     let(:invited_user) { User.find_by(email: invited_user_email) }
 
     before do
-      visit notify_gateway.last_invite_url
+      visit Services.notify_gateway.last_invite_url
     end
 
     it "displays the sign up page" do

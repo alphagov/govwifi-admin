@@ -2,11 +2,6 @@ describe "Resending confirmation instructions", type: :feature do
   include EmailHelpers
 
   let(:unconfirmed_email) { "user@gov.uk" }
-  let(:notify_gateway) { spy }
-
-  before do
-    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
-  end
 
   context "when entering an email address that has signed up but not confirmed" do
     before do
@@ -27,8 +22,6 @@ describe "Resending confirmation instructions", type: :feature do
   end
 
   context "when comparing each link sent per request" do
-    let(:notify_gateway) { EmailGatewaySpy.new }
-
     before do
       sign_up_for_account(email: unconfirmed_email)
       @previous_confirmation_link = confirmation_email_link

@@ -44,7 +44,6 @@ describe "Wifi User Searches", type: :feature do
 
     describe "deleting" do
       before do
-        allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
         click_on "Remove user"
       end
 
@@ -52,7 +51,7 @@ describe "Wifi User Searches", type: :feature do
         expect(page).to have_content("Confirm removing #{wifi_user.contact}")
       end
 
-      it "triggers an email noitfying the user they have been removed from Govwifi" do
+      it "triggers an email notifying the user they have been removed from Govwifi" do
         click_on "Remove user"
         it_sent_a_notify_user_email_once
       end
@@ -64,7 +63,6 @@ describe "Wifi User Searches", type: :feature do
       let(:contact) { "+447390012345" }
 
       before do
-        allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
         fill_in "Username, email address or phone number", with: search_term
         click_on "Find user details"
         click_on "Remove user"

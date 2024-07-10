@@ -3,16 +3,9 @@ describe "Inviting a user to their first organisation", type: :feature do
 
   let(:organisation) { create(:organisation) }
   let(:invitor) { create(:user, organisations: [organisation]) }
-  let(:notify_gateway) { spy }
   context "when the user does not exist yet" do
     let(:invitee_email) { "newuser@gov.uk" }
     before do
-      allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
-      allow(Services.email_gateway).to receive(:all_templates).and_return(
-        "invitation_instructions" => "invitation_instructions_template",
-        "invite_email" => "invite_email_template",
-        "cross_organisation_invitation" => "cross_organisation_invitation_template",
-      )
       sign_in_user invitor
       visit new_user_invitation_path
       fill_in "Email", with: invitee_email
@@ -28,10 +21,8 @@ describe "Inviting a user to their first organisation", type: :feature do
     end
 
     context "when the invited user accepts the invitation" do
-      let(:notify_gateway) { EmailGatewaySpy.new }
-
       before do
-        visit notify_gateway.last_invite_url
+        visit Services.notify_gateway.last_invite_url
         fill_in "Your name", with: "Invitee"
         fill_in "Password", with: "beatles RUPAUL!qwe"
         click_on "Create my account"

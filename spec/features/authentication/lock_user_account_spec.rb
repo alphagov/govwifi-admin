@@ -1,12 +1,9 @@
-require "support/notifications_service"
-
 describe "Locking a user account", type: :feature do
   let(:correct_password) { "rupaul 9232 !!foo" }
   let(:incorrect_password) { "incorrectpassword" }
   let(:user) { create(:user, password: correct_password) }
 
   before do
-    allow(Services).to receive(:email_gateway).and_return(EmailGatewaySpy.new)
     visit new_user_session_path
   end
 
@@ -32,8 +29,8 @@ describe "Locking a user account", type: :feature do
     end
 
     it "sends an unlock email" do
-      expect(Services.email_gateway.last_message).to include(
-        locals: { unlock_url: include(user_unlock_path) },
+      expect(Services.notify_gateway.last_email_parameters).to include(
+        personalisation: { unlock_url: include(user_unlock_path) },
         reference: "unlock_account",
         template_id: "unlock_account_template",
       )

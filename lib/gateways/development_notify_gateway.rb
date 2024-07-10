@@ -2,19 +2,23 @@ require "notifications/client"
 
 module Gateways
   class DevelopmentNotifyGateway
-    def initialize(_) end
+    def initialize(_); end
 
     def send_email(opts)
-      puts "Stub email to: #{opts[:email]}"
-      puts "...Notifiy TemplateId: #{opts[:template_id]}"
-      puts "...Personalisation: #{opts[:personalisation]}"
-      puts "...Reference: #{opts[:reference]}"
+      Rails.logger.info "Stub email to: #{opts[:email]}"
+      Rails.logger.info "...Notifiy TemplateId: #{opts[:template_id]}"
+      Rails.logger.info "...Personalisation: #{opts[:personalisation]}"
+      Rails.logger.info "...Reference: #{opts[:reference]}"
     end
 
     def send_sms(opts)
-      puts "Stub sms to: #{opts[:contact]}"
-      puts "...Notifiy TemplateId: #{opts[:template_id]}"
-      puts "...Personalisation: #{opts[:personalisation]}"
+      Rails.logger.info "Stub sms to: #{opts[:contact]}"
+      Rails.logger.info "...Notifiy TemplateId: #{opts[:template_id]}"
+      Rails.logger.info "...Personalisation: #{opts[:personalisation]}"
+    end
+
+    def get_all_templates
+      NotifyTemplates::TEMPLATES.map { |name| OpenStruct.new(name:, id: "#{name}_template") }
     end
   end
 end

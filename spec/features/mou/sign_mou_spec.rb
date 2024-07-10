@@ -42,7 +42,6 @@ describe "Sign MOU", type: :feature do
         let(:created_at) { Time.zone.today.strftime("%-d %B %Y") }
 
         before do
-          allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
           fill_in "Job role", with: "Software Developer"
           check "I confirm that I have the authority to accept these terms and that #{user.organisations.first.name} will be bound by them."
           click_button "Accept the MOU"
