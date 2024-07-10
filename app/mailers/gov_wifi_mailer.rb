@@ -48,7 +48,7 @@ class GovWifiMailer < ::Devise::Mailer
     opts = {
       email: record.email,
       personalisation: { invite_url: confirm_new_membership_url(token:),
-                organisation: opts.fetch(:organisation).name },
+                         organisation: opts.fetch(:organisation).name },
       template_id: NotifyTemplates.template(:cross_organisation_invitation),
       reference: "invite_email",
     }
@@ -102,6 +102,6 @@ class GovWifiMailer < ::Devise::Mailer
       template_id: NotifyTemplates.template(:first_ip_survey),
       reference: "first_ip_survey",
     }
-    Services.email_gateway.send_email(opts)
+    Services.notify_gateway.send_email(opts)
   end
 end

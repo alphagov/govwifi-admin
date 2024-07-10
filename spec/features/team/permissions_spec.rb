@@ -1,5 +1,3 @@
-require "support/notifications_service"
-
 describe "Invite a team member", type: :feature do
   let(:organisation) { create(:organisation) }
   let(:user) { create(:user, organisations: [organisation]) }

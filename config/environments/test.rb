@@ -1,3 +1,5 @@
+require_relative "../../spec/support/notify_gateway_spy"
+
 Rails.application.configure do
   Bullet.enable = true
   Bullet.unused_eager_loading_enable = true
@@ -46,15 +48,8 @@ Rails.application.configure do
 
   # Set a css_compressor so sassc-rails does not overwrite the compressor when running the tests
   config.assets.css_compressor = nil
-  config.email_gateway = Gateways::TestEmailGateway
 
-  config.notify_gateway = Class.new do
-    def initialize(_); end
-
-    def send_email(_); end
-
-    def send_sms(_); end
-  end
+  config.notify_gateway = NotifyGatewaySpy
 
   fake_s3 = {}
   config.s3_aws_config = {

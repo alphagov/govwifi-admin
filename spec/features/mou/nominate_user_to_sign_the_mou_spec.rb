@@ -32,10 +32,7 @@ describe "Nominate user to sign the MOU", type: :feature do
       context "when sending the nomination invite" do
         let(:name) { "John Doe" }
         let(:email) { "JohnDoe@gov.uk" }
-        let(:notify_gateway) { spy }
-
         before do
-          allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
           fill_in "Name", with: name
           fill_in "Email", with: email
           click_button "Nominate"

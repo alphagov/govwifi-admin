@@ -49,6 +49,7 @@ RSpec.configure do |config|
 
   config.around do |example|
     original_s3_aws_config = Rails.application.config.s3_aws_config
+    Services.notify_gateway.reset
     begin
       example.run
     ensure

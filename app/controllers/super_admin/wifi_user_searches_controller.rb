@@ -37,12 +37,12 @@ private
 
   def notify_user
     if @wifi_user.mobile?
-      AuthenticationMailer.notify_user_account_removed_sms(
+      GovWifiMailer.notify_user_account_removed_sms(
         @wifi_user.username,
         @wifi_user.contact,
       ).deliver_now
     else
-      AuthenticationMailer.notify_user_account_removed(
+      GovWifiMailer.notify_user_account_removed(
         @wifi_user.username,
         @wifi_user.contact,
       ).deliver_now

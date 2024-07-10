@@ -1,14 +1,5 @@
 describe "Inviting a team member", type: :feature do
   include EmailHelpers
-
-  let(:notify_gateway) { spy }
-  before do
-    allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
-    allow(email_gateway).to receive(:all_templates).and_return(
-      "invite_email" => "invite_email_template",
-      "confirmation_email" => "confirmation_email_template",
-    )
-  end
   context "when logged out" do
     before do
       visit new_user_invitation_path

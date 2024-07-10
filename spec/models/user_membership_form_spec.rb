@@ -1,5 +1,3 @@
-require "support/notifications_service"
-
 describe UserMembershipForm do
   let(:name) { "tom" }
   let(:password) { "S3Cret!123" }
@@ -7,8 +5,6 @@ describe UserMembershipForm do
   let(:organisation_name) { "Gov Org 1" }
   let(:user) { FactoryBot.create(:user, :unconfirmed, name: "harry", email: "harry@gov.uk") }
   let(:form) { UserMembershipForm.new(name:, password:, service_email:, organisation_name:) }
-
-  include_context "when using the notifications service"
 
   describe "Updating attributes" do
     it "updates the name" do

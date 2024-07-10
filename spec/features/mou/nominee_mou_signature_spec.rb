@@ -3,7 +3,6 @@ describe "Nominated user signs the MOU", type: :feature do
 
   let(:token) { "tZPAY6puVsNpxkUE9sqZ" }
   let(:organisation) { create(:organisation) }
-  let(:notify_gateway) { spy }
 
   context "when a user follows the URL from their email containing the nomination token" do
     before do
@@ -20,10 +19,7 @@ describe "Nominated user signs the MOU", type: :feature do
     end
 
     context "when the user signs the MOU" do
-      let(:notify_gateway) { spy }
-
       before do
-        allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
         fill_in "Name", with: "Maryan Khan"
         fill_in "Email", with: "Maryan.Khan@email.gov.uk"
         fill_in "Job role", with: "HR"

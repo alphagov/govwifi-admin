@@ -1,9 +1,5 @@
-require "support/notifications_service"
-
 describe "Set up two factor authentication", type: :feature do
   let(:user) { create(:user, :with_organisation) }
-
-  include_context "when using the notifications service"
 
   before do
     sign_in_user(user, pass_through_two_factor: false)
