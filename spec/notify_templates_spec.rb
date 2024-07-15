@@ -2,8 +2,9 @@ describe NotifyTemplates do
   describe "#template" do
     context "with stubbed gateway" do
       before do
-        allow(Services).to receive(:notify_gateway).and_return(spy)
-        allow(Services.notify_gateway).to receive(:get_all_templates).and_return [double(name: "unused", id: "unused")]
+        templates = [instance_double(Notifications::Client::Template, name: "unused", id: "unused")]
+        template_collection = instance_double(Notifications::Client::TemplateCollection, collection: templates)
+        allow(Services).to receive(:notify_gateway).and_return(template_collection)
       end
       it "filters out unused templates" do
         expect { NotifyTemplates.template("unused") }.to raise_error(KeyError)

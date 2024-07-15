@@ -14,7 +14,7 @@ class NotifyTemplates
 
   def self.template_hash
     @template_hash ||= begin
-      all_templates = Services.notify_gateway.get_all_templates.inject({}) do |result, template|
+      all_templates = Services.notify_gateway.get_all_templates.collection.inject({}) do |result, template|
         result.merge(template.name => template.id)
       end
       all_templates.slice(*TEMPLATES)
