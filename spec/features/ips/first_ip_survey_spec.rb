@@ -24,7 +24,7 @@ describe "Sending a survey when adding the first IP to an organisation", type: :
     let(:sent_first_ip_survey) { false }
     it "sends a survey" do
       click_on "Add IP addresses"
-      expect(notify_gateway).to have_received(:send_email).with({ email: user.email,
+      expect(notify_gateway).to have_received(:send_email).with({ email_address: user.email,
                                                                   personalisation: {},
                                                                   template_id: "first_ip_survey_template",
                                                                   reference: "first_ip_survey" })

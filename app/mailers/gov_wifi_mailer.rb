@@ -5,7 +5,7 @@ class GovWifiMailer < ::Devise::Mailer
 
   def confirmation_instructions(record, token, _opts = {})
     opts = {
-      email: record.email,
+      email_address: record.email,
       personalisation: { confirmation_url: confirmation_url(record, confirmation_token: token) },
       template_id: NotifyTemplates.template(:confirmation_email),
       reference: "confirmation_email",
@@ -16,7 +16,7 @@ class GovWifiMailer < ::Devise::Mailer
   # Overrides https://github.com/plataformatec/devise/blob/master/app/mailers/devise/mailer.rb#L12
   def reset_password_instructions(record, token, _opts = {})
     opts = {
-      email: record.email,
+      email_address: record.email,
       personalisation: { reset_url: edit_password_url(record, reset_password_token: token) },
       template_id: NotifyTemplates.template(:reset_password_email),
       reference: "reset_password_email",
@@ -26,7 +26,7 @@ class GovWifiMailer < ::Devise::Mailer
 
   def unlock_instructions(record, token, _opts = {})
     opts = {
-      email: record.email,
+      email_address: record.email,
       personalisation: { unlock_url: unlock_url(record, unlock_token: token) },
       template_id: NotifyTemplates.template(:unlock_account),
       reference: "unlock_account",
@@ -36,7 +36,7 @@ class GovWifiMailer < ::Devise::Mailer
 
   def invitation_instructions(record, token, _opts = {})
     opts = {
-      email: record.email,
+      email_address: record.email,
       personalisation: { invite_url: accept_invitation_url(record, invitation_token: token) },
       template_id: NotifyTemplates.template(:invite_email),
       reference: "invite_email",
@@ -46,7 +46,7 @@ class GovWifiMailer < ::Devise::Mailer
 
   def membership_instructions(record, token, opts = {})
     opts = {
-      email: record.email,
+      email_address: record.email,
       personalisation: { invite_url: confirm_new_membership_url(token:),
                          organisation: opts.fetch(:organisation).name },
       template_id: NotifyTemplates.template(:cross_organisation_invitation),
@@ -55,9 +55,9 @@ class GovWifiMailer < ::Devise::Mailer
     Services.notify_gateway.send_email(opts)
   end
 
-  def nomination_instructions(name, email, nominated_by, organisation, token)
+  def nomination_instructions(name, email_address, nominated_by, organisation, token)
     opts = {
-      email:,
+      email_address:,
       personalisation: { nomination_url: new_nominated_mou_path(token:), name:, nominated_by:, organisation: },
       template_id: NotifyTemplates.template(:nominate_user_to_sign_mou),
       reference: "nomination_email",
@@ -67,7 +67,7 @@ class GovWifiMailer < ::Devise::Mailer
 
   def thank_you_for_signing_the_mou(name, email_address, organisation_name, mou_signed_date)
     opts = {
-      email: email_address,
+      email_address:,
       personalisation: { name:, organisation: organisation_name, mou_signed_date: },
       template_id: NotifyTemplates.template(:thank_you_for_signing_the_mou),
       reference: "thank_you_email",
@@ -75,9 +75,9 @@ class GovWifiMailer < ::Devise::Mailer
     Services.notify_gateway.send_email(opts)
   end
 
-  def notify_user_account_removed(contact)
+  def notify_user_account_removed(email_address)
     opts = {
-      email: contact,
+      email_address:,
       personalisation: {},
       template_id: NotifyTemplates.template("notify_user_account_removed"),
       reference: "notify_user_account_removed",
@@ -85,9 +85,9 @@ class GovWifiMailer < ::Devise::Mailer
     Services.notify_gateway.send_email(opts)
   end
 
-  def notify_user_account_removed_sms(contact)
+  def notify_user_account_removed_sms(phone_number)
     opts = {
-      email: contact,
+      phone_number:,
       personalisation: {},
       template_id: NotifyTemplates.template("notify_user_account_removed_sms"),
       reference: "notify_user_account_removed",
@@ -97,7 +97,7 @@ class GovWifiMailer < ::Devise::Mailer
 
   def send_survey(email_address)
     opts = {
-      email: email_address,
+      email_address:,
       personalisation: {},
       template_id: NotifyTemplates.template(:first_ip_survey),
       reference: "first_ip_survey",
