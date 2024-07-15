@@ -12,19 +12,11 @@ test:
 
 development:
   !!merge <<: *mysql
-  database: development
-
-alpaca:
-  !!merge <<: *mysql
-  database: govwifi_admin_alpaca
-
-staging:
-  !!merge <<: *mysql
-  database: govwifi_admin_staging
+  database: <%= ENV.fetch('DB_NAME') %>
 
 production:
   !!merge <<: *mysql
-  database: govwifi_admin_production
+  database: <%= ENV.fetch('DB_NAME') %>
 
 read_replica:
   adapter: mysql2
