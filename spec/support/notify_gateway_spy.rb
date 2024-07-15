@@ -36,7 +36,7 @@ class NotifyGatewaySpy
   end
 
   def get_all_templates
-    NotifyTemplates::TEMPLATES.map { |name| OpenStruct.new(name:, id: "#{name}_template") }
+    OpenStruct.new(collection: NotifyTemplates::TEMPLATES.map { |name| OpenStruct.new(name:, id: "#{name}_template") })
   end
 
   def count_all_emails
