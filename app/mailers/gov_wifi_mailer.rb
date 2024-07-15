@@ -75,20 +75,20 @@ class GovWifiMailer < ::Devise::Mailer
     Services.notify_gateway.send_email(opts)
   end
 
-  def notify_user_account_removed(username, contact)
+  def notify_user_account_removed(contact)
     opts = {
       email: contact,
-      personalisation: { username: },
+      personalisation: {},
       template_id: NotifyTemplates.template("notify_user_account_removed"),
       reference: "notify_user_account_removed",
     }
     Services.notify_gateway.send_email(opts)
   end
 
-  def notify_user_account_removed_sms(username, contact)
+  def notify_user_account_removed_sms(contact)
     opts = {
-      contact:,
-      personalisation: { username: },
+      email: contact,
+      personalisation: {},
       template_id: NotifyTemplates.template("notify_user_account_removed_sms"),
       reference: "notify_user_account_removed",
     }
