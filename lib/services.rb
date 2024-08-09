@@ -4,7 +4,6 @@ module Services
   end
 
   def self.opensearch_client
-    @opensearch_client ||= OpenSearch::Client.new host: ENV["ELASTICSEARCH_ENDPOINT"],
-    log: true
+    @opensearch_client ||= OpenSearch::Client.new host: ENV["ELASTICSEARCH_ENDPOINT"]
   end
 end
