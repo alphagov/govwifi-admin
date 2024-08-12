@@ -54,4 +54,15 @@ describe "View authentication requests for an IP", type: :feature do
       expect(page).to have_content("Enter an IP address in the correct format")
     end
   end
+  context "with a valid IP address not associated with organisation" do
+    let(:search_string) { "192.0.2.1" }
+
+    before do
+      fill_in "Enter IP address", with: search_string
+      click_on "Show logs"
+    end
+    it "displays an error message for unassociated IP address" do
+      expect(page).to have_content("Enter an IP address associated with your organisation")
+    end
+  end
 end
