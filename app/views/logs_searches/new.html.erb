@@ -28,5 +28,13 @@
       <% end %>
       <%= form.govuk_submit "Show logs" %>
     <% end %>
+
+    <% if @ip_address_receiving_traffic %>
+        <p class="govuk-body">Status: Receiving traffic</p>
+    <% else %>
+    <% if @last_traffic_date %>
+      <p class="govuk-body">Status: Has not received traffic since <%= @last_traffic_date.strftime("%d%m%y") %></p>
+    <% else %>
+        <p class="govuk-body">Status: Not receiving traffic</p>
   </div>
 </div>
