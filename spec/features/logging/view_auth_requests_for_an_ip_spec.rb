@@ -34,7 +34,7 @@ describe "View authentication requests for an IP", type: :feature do
       before do
         visit new_logs_search_path
         choose "IP address"
-        fill_in "Enter IP address", with: search_string
+        fill_in "Enter an IP address associated within your organisation", with: search_string
         click_on "Show logs"
       end
 
@@ -65,7 +65,7 @@ describe "View authentication requests for an IP", type: :feature do
         create(:session, siteIP: other_ip, username: "BBBBBB")
         visit new_logs_search_path
         choose "IP address"
-        fill_in "Enter IP address", with: search_string
+        fill_in "Enter an IP address associated within your organisation", with: search_string
         click_on "Show logs"
       end
       context "as a regular admin" do
@@ -87,7 +87,7 @@ describe "View authentication requests for an IP", type: :feature do
       before do
         visit new_logs_search_path
         choose "IP address"
-        fill_in "Enter IP address", with: search_string
+        fill_in "Enter an IP address associated within your organisation", with: search_string
         click_on "Show logs"
       end
 
