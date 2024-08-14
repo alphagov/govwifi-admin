@@ -23,7 +23,7 @@
         <% end %>
         <%= form.govuk_radio_button :filter_option, LogSearchForm::IP_FILTER_OPTION, label: { text: "IP address" }  do %>
           <%= form.govuk_text_field :ip, width: 10,
-                                         label: { text: "Enter IP address" } %>
+                                         label: { text: "Enter an IP address associated within your organisation" } %>
         <% end %>
       <% end %>
       <%= form.govuk_submit "Show logs" %>

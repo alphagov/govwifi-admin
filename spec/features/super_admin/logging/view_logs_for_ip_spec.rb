@@ -20,7 +20,7 @@ describe "View authentication requests for an IP", type: :feature do
 
   context "when searching for an IP" do
     before do
-      fill_in "Enter IP address", with: ip_1.address
+      fill_in "Enter an IP address associated within your organisation", with: ip_1.address
       click_on "Show logs"
     end
 
@@ -31,7 +31,7 @@ describe "View authentication requests for an IP", type: :feature do
 
   context "when searching for another IP" do
     before do
-      fill_in "Enter IP address", with: ip_2.address
+      fill_in "Enter an IP address associated within your organisation", with: ip_2.address
       click_on "Show logs"
     end
 
@@ -44,7 +44,7 @@ describe "View authentication requests for an IP", type: :feature do
     let(:search_string) { "1" }
 
     before do
-      fill_in "Enter IP address", with: search_string
+      fill_in "Enter an IP address associated within your organisation", with: search_string
       click_on "Show logs"
     end
 
@@ -55,14 +55,14 @@ describe "View authentication requests for an IP", type: :feature do
     end
   end
   context "with a valid IP address not associated with organisation" do
-    let(:search_string) { "192.0.2.1" }
+    let(:search_string) { "4.3.2.1" }
 
     before do
-      fill_in "Enter IP address", with: search_string
+      fill_in "Enter an IP address associated within your organisation", with: search_string
       click_on "Show logs"
     end
     it "displays an error message for unassociated IP address" do
-      expect(page).to have_content("Enter an IP address associated with your organisation")
+      expect(page).to have_content("We have no record of authentication requests from IP address")
     end
   end
 end
