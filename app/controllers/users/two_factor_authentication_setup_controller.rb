@@ -21,10 +21,9 @@ class Users::TwoFactorAuthenticationSetupController < ApplicationController
                       else
                         invite_second_admin_path
                       end
-
       redirect_to redirect_path, notice: "Two factor authentication setup successful"
     else
-      flash[:alert] = "The 6 digit code entered is not valid.<br/>  Check the code sent in the email or request a new email.".html_safe
+      flash[:alert] = "The 6 digit code entered is not valid.<br/>Check the code sent in the email or request a new email.".html_safe
       render "show"
     end
   end
