@@ -8,8 +8,8 @@ class NotifyTemplates
     nominate_user_to_sign_mou
     thank_you_for_signing_the_mou
     first_ip_survey
-    notify_user_account_removed
-    notify_user_account_removed_sms
+    user_account_removed_email
+    user_account_removed_sms
   ].freeze
 
   def self.template_hash

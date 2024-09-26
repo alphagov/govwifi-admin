@@ -40,7 +40,7 @@ module EmailHelpers
   end
 
   def it_sent_a_notify_user_email_once
-    expect(email_count("notify_user_account_removed_template")).to eq(1)
+    expect(email_count("user_account_removed_email_template")).to eq(1)
   end
 
   def email_count(template_name)
