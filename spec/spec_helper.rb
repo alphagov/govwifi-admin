@@ -50,6 +50,8 @@ RSpec.configure do |config|
   config.around do |example|
     original_s3_aws_config = Rails.application.config.s3_aws_config
     Services.notify_gateway.reset
+    Object.send(:remove_const, :NotifyTemplates) if Object.const_defined?(:NotifyTemplates)
+    load "notify_templates.rb"
     begin
       example.run
     ensure

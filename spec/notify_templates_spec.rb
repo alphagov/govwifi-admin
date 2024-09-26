@@ -4,7 +4,8 @@ describe NotifyTemplates do
       before do
         templates = [instance_double(Notifications::Client::Template, name: "unused", id: "unused")]
         template_collection = instance_double(Notifications::Client::TemplateCollection, collection: templates)
-        allow(Services).to receive(:notify_gateway).and_return(template_collection)
+        notify_gateway = instance_double(Notifications::Client, get_all_templates: template_collection)
+        allow(Services).to receive(:notify_gateway).and_return(notify_gateway)
       end
       it "filters out unused templates" do
         expect { NotifyTemplates.template("unused") }.to raise_error(KeyError)
