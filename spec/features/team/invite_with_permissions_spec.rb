@@ -5,7 +5,6 @@ describe "Set user permissions on invite", type: :feature do
   let(:invited_user) { User.find_by(email: invited_email) }
 
   before do
-    allow(Services).to receive(:notify_gateway).and_return(spy)
     sign_in_user user
     visit new_user_invitation_path
     fill_in "Email", with: invited_email
