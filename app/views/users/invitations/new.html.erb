@@ -17,11 +17,18 @@
 
       <%= f.govuk_email_field :email, label: { text: "Email address" }, hint: { text: "Enter the email address of the person you want to invite." } %>
 
-      <div class="govuk-form-group">
+      <div class="govuk-form-group govuk-form-group--error">
         <fieldset class="govuk-fieldset" aria-describedby="sign-in-hint">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
             Permission level
           </legend>
+            <input value="" autocomplete="off" type="hidden" name="user[permission_level]" id="user_permission_level" />
+    <p class="govuk-error-message" id="user-permission-level-error">
+      <span class="govuk-visually-hidden">
+        Error: 
+      </span>
+      Please select a permission level
+    </p>
           <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
               <%= radio_button_tag(
