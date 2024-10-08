@@ -134,6 +134,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    csv (3.3.0)
     date (3.3.4)
     debug (1.8.0)
       irb (>= 1.5.0)
@@ -215,7 +216,8 @@ GEM
     hashie (5.0.0)
     html-attributes-utils (1.0.2)
       activesupport (>= 6.1.4.4)
-    httparty (0.21.0)
+    httparty (0.22.0)
+      csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     httpclient (2.8.3)
@@ -253,7 +255,8 @@ GEM
     mini_portile2 (2.8.7)
     minitest (5.22.3)
     multi_json (1.15.0)
-    multi_xml (0.6.0)
+    multi_xml (0.7.1)
+      bigdecimal (~> 3.1)
     multipart-post (2.3.0)
     mutex_m (0.2.0)
     mysql2 (0.5.6)
@@ -550,7 +553,7 @@ DEPENDENCIES
   faker
   google-apis-drive_v3
   govuk_design_system_formbuilder
-  httparty (~> 0.21.0)
+  httparty (~> 0.22.0)
   listen
   mysql2 (~> 0.5.6)
   net-imap
