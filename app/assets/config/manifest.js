@@ -4,4 +4,4 @@
 //= link_directory ../javascripts .js
 //= link accessible-autocomplete.min.css
 //= link html5shiv.js
-//= link govuk-logotype-crown.png
+//= link govuk-frontend.min.js
