@@ -145,6 +145,22 @@ describe "Inviting a team member", type: :feature do
       end
     end
 
+     context "with a valid email address and premission level selected" do
+      let(:invited_user_email) { "hello" }
+
+      before do
+        click_on "Send invitation email"
+      end
+
+      it "does not send an invite" do
+        it_did_not_send_any_emails
+      end
+
+      it "displays the correct error message" do
+        expect(page).to have_content("Please select a premission level").twice
+      end
+    end
+
     context "with an invalid email address" do
       let(:invited_user_email) { "hello" }
 
