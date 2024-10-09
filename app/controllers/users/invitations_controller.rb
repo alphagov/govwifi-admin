@@ -4,12 +4,22 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
   after_action :confirm_new_user_membership, only: :update # rubocop:disable Rails/LexicallyScopedActionFilter
 
-  def create
+   def create
+        if params[:permission_level].blank?
+      flash[:alert] = "Please select a permission level."
+      redirect_to new_user_invitation_path and return
+    end
+    
     if user_is_invalid? || user_belongs_to_current_organisation?
       self.resource = invite_resource
       render(params[:user][:source] == "invite_admin" ? :invite_second_admin : :new)
       return
     end
+
+    #      if params[:permission_level].blank?
+    #   flash[:alert] = "Please select a permission level."
+    #   redirect_to new_user_invitation_path and return
+    # end
 
     self.resource = invite_resource unless user_belongs_to_other_organisations?
 
