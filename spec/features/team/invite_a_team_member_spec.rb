@@ -15,6 +15,7 @@ describe "Inviting a team member", type: :feature do
       sign_in_user user
       visit new_user_invitation_path
       fill_in "Email", with: invited_user_email
+      choose("Administrator")
     end
 
     context "with a gov.uk email address" do
@@ -133,7 +134,7 @@ describe "Inviting a team member", type: :feature do
       expect(assigns(:user_invitation_form).errors).not_to be_empty
     end
   end
-  
+
     context "with an unconfirmed user that has already been invited" do
       let(:notify_gateway) { spy }
       let!(:invited_user) { create(:user, invitation_sent_at: Time.zone.now, organisations: user.organisations, confirmed_at: nil) }
