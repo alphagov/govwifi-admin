@@ -24,13 +24,12 @@ class Users::InvitationsController < Devise::InvitationsController
     @user_invitation_form = UserInvitationForm.new(invite_params)
 
     if @user_invitation_form.valid?
-      invited_user = @user_invitation_form.save!(organisation: current_organisation, user: current_user, email: params[:email],  permission_level: params[:permission_level])
+      invited_user = @user_invitation_form.save!(organisation: current_organisation, user: current_user)
 
 if invited_user
       send_invite_email(invited_user)
       redirect_to settings_path, notice: "#{current_organisation.name} has invited the user."
     else
-      flash.now[:alert] = "There was an error inviting the user."
       render :new
     end
   else

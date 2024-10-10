@@ -7,10 +7,8 @@ class UserInvitationForm
 
   attr_accessor :email, :permission_level
 
-  def save!(organisation:, user:, email:, permission_level:)
-    return false unless valid?
-    user_invitation_form.create!(email:, permission_level:)
-    
+  def save!(organisation:, user:)
+    user.create! User.invite!(invite_params, current_inviter)
   end
 
   # def confirm!
