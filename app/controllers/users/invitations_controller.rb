@@ -24,18 +24,12 @@ class Users::InvitationsController < Devise::InvitationsController
     @user_invitation_form = UserInvitationForm.new(invite_params)
 
     if @user_invitation_form.valid?
-      invited_user = @user_invitation_form.save!(organisation: current_organisation, user: current_user)
-
-if invited_user
-      send_invite_email(invited_user)
-      redirect_to settings_path, notice: "#{current_organisation.name} has invited the user."
+      invited_user = @user_invitation_form.save!(current_inviter: current_user, organisation: current_organisation)
+      redirect_to(after_path(current_organisation), notice: "#{@user_invitation_form.email} has been invited to join #{current_organisation.name}")
     else
       render :new
     end
-  else
-    render :new
   end
-end
 
   def invite_second_admin
     @user = User.new
