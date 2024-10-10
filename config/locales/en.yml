@@ -21,6 +21,15 @@ en:
               format: "%{message}"
             organisation_name:
               format: "%{message}"
+        user_invitation_form:
+          attributes:
+            email:
+              format: "%{message}"
+              blank: "Email can't be blank"
+              invalid: "Email is not a valid email address"
+            permission_level:
+              format: "%{message}"
+              blank: "Please select a permission level"
         support_form:
           attributes:
             email:

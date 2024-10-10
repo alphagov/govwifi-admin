@@ -4,35 +4,49 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
   after_action :confirm_new_user_membership, only: :update # rubocop:disable Rails/LexicallyScopedActionFilter
 
-   def create
-        if params[:permission_level].blank?
-      flash[:alert] = "Please select a permission level."
-      redirect_to new_user_invitation_path and return
-    end
-    
-    if user_is_invalid? || user_belongs_to_current_organisation?
-      self.resource = invite_resource
-      render(params[:user][:source] == "invite_admin" ? :invite_second_admin : :new)
-      return
-    end
+  def new
+    @permission_level_data = permission_levels
 
-    #      if params[:permission_level].blank?
-    #   flash[:alert] = "Please select a permission level."
-    #   redirect_to new_user_invitation_path and return
-    # end
-
-    self.resource = invite_resource unless user_belongs_to_other_organisations?
-
-    add_user_to_organisation(organisation)
-
-    redirect_to(after_path(organisation), notice: "#{invited_user.email} has been invited to join #{organisation.name}")
+    @user_invitation_form = UserInvitationForm.new
   end
+
+  # def create
+  #   @permission_level_data = permission_levels
+  #   @user_invitation_form = UserInvitationForm.new(invite_params)
+  #   @user_invitation_form.valid?
+  #   # @user_invitation_form.confirm!
+  #   #   invitation = current_user.memberships.find_by(invitation_token: params.fetch(:token))
+  #   # invitation.confirm!
+  # end
+
+  def create
+    @permission_level_data = permission_levels
+    @user_invitation_form = UserInvitationForm.new(invite_params)
+
+    if @user_invitation_form.valid?
+      invited_user = @user_invitation_form.save!(organisation: current_organisation, user: current_user, email: params[:email],  permission_level: params[:permission_level])
+
+if invited_user
+      send_invite_email(invited_user)
+      redirect_to settings_path, notice: "#{current_organisation.name} has invited the user."
+    else
+      flash.now[:alert] = "There was an error inviting the user."
+      render :new
+    end
+  else
+    render :new
+  end
+end
 
   def invite_second_admin
     @user = User.new
   end
 
 private
+
+  def token
+    params[:token] || params.dig(:permission_level, :token)
+  end
 
   def show_navigation_bars
     false if action_name == "invite_second_action"
@@ -52,6 +66,13 @@ private
     )
 
     send_invite_email(membership) if user_has_confirmed_account?
+  end
+
+  def send_user_invitation_email(*)
+    GovWifiMailer.thank_you_for_user_invitation(
+      user_invitation_form.email_address,
+      user_invitation_form.permission_level,
+    ).deliver_now
   end
 
   def send_invite_email(membership)
@@ -141,6 +162,44 @@ private
 
   # Overrides https://github.com/scambra/devise_invitable/blob/master/app/controllers/devise/invitations_controller.rb#L105
   def invite_params
-    params.require(:user).permit(:email)
+    params.require(:user_invitation_form).permit(:email, :permission_level)
+  end
+
+  # def set_invitation_token
+  #   self.invitation_token = Devise.friendly_token[0, 20]
+  # end
+
+  def permission_levels
+    @permission_level_data = [
+      OpenStruct.new(
+        value: "administrator",
+        text: "Administrator",
+        hint: <<~HINT.html_safe,
+          <span>View locations and IPs, team members, and logs</span><br>
+          <span>Manage locations and IPs</span><br>
+          <span>Add or remove team members</span><br>
+          <span>View, add and remove certificates</span>
+        HINT
+      ),
+      OpenStruct.new(
+        value: "manage_locations",
+        text: "Manage Locations",
+        hint: <<~HINT.html_safe,
+          <span>View locations and IPs, team members, and logs</span><br>
+          <span>Manage locations and IPs</span><br>
+          <span>Cannot add or remove team members</span><br>
+          <span>View, add and remove certificates</span>
+        HINT
+      ),
+      OpenStruct.new(
+        value: "view_only",
+        text: "View only",
+        hint: <<~HINT.html_safe,
+          <span>View locations and IPs, team members, and logs</span><br>
+          <span>Cannot manage locations and IPs</span><br>
+          <span>Cannot add or remove team members</span>
+        HINT
+      ),
+    ]
   end
 end

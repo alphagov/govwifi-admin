@@ -13,4 +13,8 @@ class Invitation < ApplicationRecord
       errors.add(:permission_level, "User does not have a permission level set.")
     end
   end
+
+  def set_invitation_token
+    self.invitation_token = Devise.friendly_token[0, 20]
+  end
 end
