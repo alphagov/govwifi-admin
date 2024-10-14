@@ -116,24 +116,24 @@ describe "Inviting a team member", type: :feature do
       end
     end
     context "with valid attributes" do
-    let(:valid_params) { { user_invitation_form: { email: "test@gov.co.uk", permission_level: "administrator" } } }
+      let(:valid_params) { { user_invitation_form: { email: "test@gov.co.uk", permission_level: "administrator" } } }
 
-    it "creates an invitation and redirects" do
-      post :create, params: valid_params
-      expect(response).to redirect_to(settings_path)
-      expect(flash[:notice]).to eq("#{organisation.name} has invited the user.")
+      it "creates an invitation and redirects" do
+        post :create, params: valid_params
+        expect(response).to redirect_to(settings_path)
+        expect(flash[:notice]).to eq("#{organisation.name} has invited the user.")
+      end
     end
-  end
 
-  context "with invalid attributes" do
-    let(:invalid_params) { { user_invitation_form: { email: "", permission_level: "" } } }
+    context "with invalid attributes" do
+      let(:invalid_params) { { user_invitation_form: { email: "", permission_level: "" } } }
 
-    it "renders the new template with errors" do
-      post :create, params: invalid_params
-      expect(response).to render_template(:new)
-      expect(assigns(:user_invitation_form).errors).not_to be_empty
+      it "renders the new template with errors" do
+        post :create, params: invalid_params
+        expect(response).to render_template(:new)
+        expect(assigns(:user_invitation_form).errors).not_to be_empty
+      end
     end
-  end
 
     context "with an unconfirmed user that has already been invited" do
       let(:notify_gateway) { spy }
