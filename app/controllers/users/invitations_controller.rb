@@ -10,15 +10,6 @@ class Users::InvitationsController < Devise::InvitationsController
     @user_invitation_form = UserInvitationForm.new
   end
 
-  # def create
-  #   @permission_level_data = permission_levels
-  #   @user_invitation_form = UserInvitationForm.new(invite_params)
-  #   @user_invitation_form.valid?
-  #   # @user_invitation_form.confirm!
-  #   #   invitation = current_user.memberships.find_by(invitation_token: params.fetch(:token))
-  #   # invitation.confirm!
-  # end
-
   def create
     @permission_level_data = permission_levels
     @user_invitation_form = UserInvitationForm.new(invite_params)
