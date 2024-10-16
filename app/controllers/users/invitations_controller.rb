@@ -15,7 +15,7 @@ class Users::InvitationsController < Devise::InvitationsController
     @user_invitation_form = UserInvitationForm.new(invite_params)
 
     if @user_invitation_form.valid?
-      invited_user = @user_invitation_form.save!(current_inviter: current_user, organisation: current_organisation)
+      @user_invitation_form.save!(current_inviter: current_user, organisation: current_organisation)
       redirect_to(after_path(current_organisation), notice: "#{@user_invitation_form.email} has been invited to join #{current_organisation.name}")
     else
       render :new
@@ -50,13 +50,6 @@ private
     )
 
     send_invite_email(membership) if user_has_confirmed_account?
-  end
-
-  def send_user_invitation_email(*)
-    GovWifiMailer.thank_you_for_user_invitation(
-      user_invitation_form.email_address,
-      user_invitation_form.permission_level,
-    ).deliver_now
   end
 
   def send_invite_email(membership)

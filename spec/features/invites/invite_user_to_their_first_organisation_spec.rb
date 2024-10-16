@@ -9,6 +9,7 @@ describe "Inviting a user to their first organisation", type: :feature do
       sign_in_user invitor
       visit new_user_invitation_path
       fill_in "Email", with: invitee_email
+      choose "Administrator"
       click_on "Send invitation email"
     end
 
