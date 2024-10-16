@@ -8,7 +8,9 @@ class UserInvitationForm
   attr_accessor :email, :permission_level
 
   def save!(current_inviter:, organisation:)
-    invited_user = User.invite!({ email: email }, current_inviter)
+    invited_user = User.invite!({ email: }, current_inviter) do |user|
+    end
+
 
     membership = invited_user.memberships.find_or_create_by!(invited_by_id: current_inviter.id, organisation:)
     membership.update!(

@@ -10,6 +10,7 @@ describe "Inviting a user to their second or subsequent organisation", type: :fe
       sign_in_user confirmed_user
       visit new_user_invitation_path
       fill_in "Email", with: betty.email
+      choose "Administrator"
       click_on "Send invitation email"
     end
 
