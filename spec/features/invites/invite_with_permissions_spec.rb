@@ -24,7 +24,7 @@ describe "Set user permissions on invite", type: :feature do
 
   context "for the manage locations permissions level" do
     before do
-      choose "Manage locations"
+      choose "Manage Locations"
       click_on "Send invitation email"
     end
 

@@ -1,8 +1,8 @@
 describe "Inviting a user to their second or subsequent organisation", type: :feature do
   include EmailHelpers
 
-  let(:inviter_organisation) { create(:organisation) }
-  let(:betty) { create(:user, organisations: [inviter_organisation]) }
+  let(:betty_organisation) { create(:organisation) }
+  let(:betty) { create(:user, organisations: [betty_organisation]) }
   let(:confirmed_user) { create(:user, :with_organisation) }
 
   context "with a confirmed user" do
@@ -34,12 +34,12 @@ describe "Inviting a user to their second or subsequent organisation", type: :fe
       before do
         sign_out
         sign_in_user betty
-        visit confirm_new_membership_url(token: betty.membership_for(inviter_organisation).invitation_token)
+        visit confirm_new_membership_url(token: betty.membership_for(betty_organisation).invitation_token)
       end
 
       it "changes your current organisation to this organisation" do
         within(".govuk-header") do
-          expect(page.html).to include(inviter_organisation.name)
+          expect(page.html).to include(betty_organisation.name)
         end
       end
     end
@@ -53,6 +53,7 @@ describe "Inviting a user to their second or subsequent organisation", type: :fe
       sign_in_user confirmed_user
       visit new_user_invitation_path
       fill_in "Email", with: unconfirmed_email
+      choose "Administrator"
       click_on "Send invitation email"
     end
 

@@ -11,6 +11,7 @@ describe "Inviting an existing user which belongs to an organisation", type: :fe
       visit memberships_path
       click_link("Invite a team member", class: "govuk-button")
       fill_in "Email", with: user_2.email
+      choose "Administrator"
       click_on "Send invitation email"
     end
 

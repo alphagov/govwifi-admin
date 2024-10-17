@@ -42,7 +42,7 @@
               <% if member.invitation_pending? %>
                 <li class="govuk-summary-list__actions-list-item">
                   <%= button_to("Resend invite",
-                                user_invitation_path(user: { email: member.email }, resend: true),
+                                user_invitation_path(user_invitation_form: { email: member.email }, resend: true),
                                 "aria-label" => "Resend invite to #{member.email}",
                                 method: :post,
                                 class: "button-as-link govuk-body") %>
