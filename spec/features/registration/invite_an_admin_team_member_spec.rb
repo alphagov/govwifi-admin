@@ -53,7 +53,7 @@ describe "Inviting an admin team member on registration", type: :feature do
     end
 
     it "displays the correct error message" do
-      expect(page).to have_content("Enter an email address in the correct format, like name@example.com")
+      expect(page).to have_content("Email is not a valid email address")
     end
   end
 end

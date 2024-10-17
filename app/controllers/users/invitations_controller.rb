@@ -10,20 +10,25 @@ class Users::InvitationsController < Devise::InvitationsController
     @user_invitation_form = UserInvitationForm.new
   end
 
+
+  def resend_invitation
+
+  end
+
   def create
-    @permission_level_data = permission_levels
-    @user_invitation_form = UserInvitationForm.new(invite_params)
+    @user_invitation_form = UserInvitationForm.new(invite_params.merge(organisation: current_organisation))
 
     if @user_invitation_form.valid?
-      @user_invitation_form.save!(current_inviter: current_user, organisation: current_organisation)
+      @user_invitation_form.save!(current_inviter: current_user)
       redirect_to(after_path(current_organisation), notice: "#{@user_invitation_form.email} has been invited to join #{current_organisation.name}")
     else
+      @permission_level_data = permission_levels
       render :new
     end
   end
 
   def invite_second_admin
-    @user = User.new
+    @user_invitation_form = UserInvitationForm.new
   end
 
 private

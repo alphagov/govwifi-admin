@@ -46,5 +46,6 @@ end
 def invite_user(email)
   visit new_user_invitation_path
   fill_in "Email", with: email
+  choose "Administrator"
   click_on "Send invitation email"
 end
