@@ -5,8 +5,8 @@
     <tbody class="govuk-table__body">
       <% locations.each do |location| %>
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell" scope="row"><%= location.address %></td>
-          <td class="govuk-table__cell text-right" scope="row"><%= location.postcode %></td>
+          <td class="govuk-table__cell"><%= location.address %></td>
+          <td class="govuk-table__cell text-right"><%= location.postcode %></td>
         </tr>
       <% end %>
     </tbody>
