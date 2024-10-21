@@ -1,4 +1,6 @@
-class SuperAdmin::Allowlists::OrganisationNamesController < SuperAdminController
+class SuperAdmin::Allowlists::OrganisationNamesController < ApplicationController
+  include SuperUserConcern
+
   helper_method :sort_column, :sort_direction
 
   before_action :set_organisations_from_register, only: %i[new create index]

@@ -1,4 +1,6 @@
-class SuperAdmin::UsersController < SuperAdminController
+class SuperAdmin::UsersController < ApplicationController
+  include SuperUserConcern
+
   helper_method :super_admins
 
   def new

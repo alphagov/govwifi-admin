@@ -1,4 +1,6 @@
-class SuperAdmin::OrganisationsController < SuperAdminController
+class SuperAdmin::OrganisationsController < ApplicationController
+  include SuperUserConcern
+
   helper_method :sort_column, :sort_direction
   before_action :set_organisation, only: %i[show destroy toggle_cba_feature]
 

@@ -1,4 +1,6 @@
-class SuperAdmin::CurrentOrganisationController < SuperAdminController
+class SuperAdmin::CurrentOrganisationController < ApplicationController
+  include SuperUserConcern
+
   def edit; end
 
   def update

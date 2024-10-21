@@ -1,4 +1,6 @@
-class SuperAdmin::LocationsController < SuperAdminController
+class SuperAdmin::LocationsController < ApplicationController
+  include SuperUserConcern
+
   def index
     @locations = Location.order("#{sort_column} #{sort_direction}").includes(:organisation)
   end

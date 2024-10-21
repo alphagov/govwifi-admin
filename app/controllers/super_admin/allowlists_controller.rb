@@ -1,4 +1,6 @@
-class SuperAdmin::AllowlistsController < SuperAdminController
+class SuperAdmin::AllowlistsController < ApplicationController
+  include SuperUserConcern
+
   def new
     @allowlist = Allowlist.new(allowlist_params)
     @allowlist.validate

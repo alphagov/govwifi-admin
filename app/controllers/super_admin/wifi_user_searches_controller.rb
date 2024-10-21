@@ -1,4 +1,6 @@
-class SuperAdmin::WifiUserSearchesController < SuperAdminController
+class SuperAdmin::WifiUserSearchesController < ApplicationController
+  include SuperUserConcern
+
   def show
     @form = SearchForm.new(search_term_params)
   end

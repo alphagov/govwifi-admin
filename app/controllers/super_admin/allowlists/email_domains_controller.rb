@@ -1,4 +1,5 @@
-class SuperAdmin::Allowlists::EmailDomainsController < SuperAdminController
+class SuperAdmin::Allowlists::EmailDomainsController < ApplicationController
+  include SuperUserConcern
   helper_method :sort_column, :sort_direction
 
   def index
