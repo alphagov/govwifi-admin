@@ -118,11 +118,11 @@ brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
-braces@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.npmjs.org/braces/-/braces-3.0.2.tgz"
+braces@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/braces/-/braces-3.0.3.tgz#490332f40919452272d55a8480adc0c441358789"
   dependencies:
-    fill-range "^7.0.1"
+    fill-range "^7.1.1"
 
 callsites@^3.0.0:
   version "3.1.0"
@@ -272,9 +272,9 @@ file-entry-cache@^7.0.0:
   dependencies:
     flat-cache "^3.2.0"
 
-fill-range@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.npmjs.org/fill-range/-/fill-range-7.0.1.tgz"
+fill-range@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/fill-range/-/fill-range-7.1.1.tgz#44265d3cac07e3ea7dc247516380643754a05292"
   dependencies:
     to-regex-range "^5.0.1"
 
@@ -351,9 +351,9 @@ globjoin@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npmjs.org/globjoin/-/globjoin-0.1.4.tgz"
 
-govuk-frontend@^4.7.0:
-  version "4.8.0"
-  resolved "https://registry.npmjs.org/govuk-frontend/-/govuk-frontend-4.8.0.tgz"
+govuk-frontend@^5.7.1:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.7.1.tgz#d4c561ebf8c0b76130f31df8c2e4d70d340cd63f"
 
 "govwifi-shared-frontend@https://github.com/alphagov/govwifi-shared-frontend/releases/download/v0.6.10/govwifi-shared-frontend-0.6.10.tgz":
   version "0.6.10"
@@ -569,10 +569,10 @@ merge2@^1.3.0, merge2@^1.4.1:
   resolved "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz"
 
 micromatch@^4.0.4, micromatch@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.npmjs.org/micromatch/-/micromatch-4.0.5.tgz"
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.8.tgz#d66fa18f3a47076789320b9b1af32bd86d9fa202"
   dependencies:
-    braces "^3.0.2"
+    braces "^3.0.3"
     picomatch "^2.3.1"
 
 min-indent@^1.0.1:
@@ -681,7 +681,7 @@ postcss-safe-parser@^6.0.0:
 
 postcss-scss@^4.0.9:
   version "4.0.9"
-  resolved "https://registry.yarnpkg.com/postcss-scss/-/postcss-scss-4.0.9.tgz#a03c773cd4c9623cb04ce142a52afcec74806685"
+  resolved "https://registry.npmjs.org/postcss-scss/-/postcss-scss-4.0.9.tgz"
 
 postcss-selector-parser@^6.0.13:
   version "6.0.13"
@@ -844,14 +844,14 @@ style-search@^0.1.0:
 
 stylelint-config-gds@^1.1.1:
   version "1.1.1"
-  resolved "https://registry.yarnpkg.com/stylelint-config-gds/-/stylelint-config-gds-1.1.1.tgz#9a7706913e567745cb62c9e105429e8216d8bfae"
+  resolved "https://registry.npmjs.org/stylelint-config-gds/-/stylelint-config-gds-1.1.1.tgz"
   dependencies:
     stylelint-config-standard "^34.0.0"
     stylelint-config-standard-scss "^11.1.0"
 
 stylelint-config-recommended-scss@^13.1.0:
   version "13.1.0"
-  resolved "https://registry.yarnpkg.com/stylelint-config-recommended-scss/-/stylelint-config-recommended-scss-13.1.0.tgz#04e529ae0e9c1abb1e04de79258461c07811876f"
+  resolved "https://registry.npmjs.org/stylelint-config-recommended-scss/-/stylelint-config-recommended-scss-13.1.0.tgz"
   dependencies:
     postcss-scss "^4.0.9"
     stylelint-config-recommended "^13.0.0"
@@ -863,7 +863,7 @@ stylelint-config-recommended@^13.0.0:
 
 stylelint-config-standard-scss@^11.1.0:
   version "11.1.0"
-  resolved "https://registry.yarnpkg.com/stylelint-config-standard-scss/-/stylelint-config-standard-scss-11.1.0.tgz#53c2fb9423ed89c0921aa83479892a912cc1ca15"
+  resolved "https://registry.npmjs.org/stylelint-config-standard-scss/-/stylelint-config-standard-scss-11.1.0.tgz"
   dependencies:
     stylelint-config-recommended-scss "^13.1.0"
     stylelint-config-standard "^34.0.0"
@@ -876,7 +876,7 @@ stylelint-config-standard@^34.0.0:
 
 stylelint-scss@^5.3.0:
   version "5.3.2"
-  resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-5.3.2.tgz#c54564dfbd98de0c08742b9c43025cda91acf940"
+  resolved "https://registry.npmjs.org/stylelint-scss/-/stylelint-scss-5.3.2.tgz"
   dependencies:
     known-css-properties "^0.29.0"
     postcss-media-query-parser "^0.2.3"
