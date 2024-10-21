@@ -20,7 +20,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
     if @user_invitation_form.valid?
       @user_invitation_form.save!(current_inviter: current_user)
-      redirect_to(after_path(current_organisation), notice: "#{@user_invitation_form.email} has been invited to join #{current_organisation.name}")
+      redirect_to(memberships_path, notice: "#{@user_invitation_form.email} has been invited to join #{current_organisation.name}")
     else
       @permission_level_data = permission_levels
       render :new

@@ -8,6 +8,7 @@ describe "Inviting a team member as a super admin", type: :feature do
     sign_in_user super_admin
     visit super_admin_organisation_path(organisation)
     click_on "Add team member"
+    choose "Administrator"
     fill_in "Email address", with: email
   end
 
