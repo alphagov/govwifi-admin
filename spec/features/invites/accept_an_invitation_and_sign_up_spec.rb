@@ -47,7 +47,7 @@ describe "Sign up from invitation", type: :feature do
       end
 
       it "confirms the user" do
-        expect(invited_user.confirmed?).to eq(true)
+        expect(invited_user).to be_confirmed
       end
 
       it "confirms the membership" do

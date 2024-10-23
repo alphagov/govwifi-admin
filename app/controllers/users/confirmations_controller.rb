@@ -21,8 +21,9 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   end
 
   def update
-    @form = UserMembershipForm.new(form_params)
-    if @form.write_to(@user)
+    @form = UserMembershipForm.new(form_params.merge(user: @user))
+    if @form.valid?
+      @form.save
       set_flash_message :notice, :confirmed
       sign_in_and_redirect(resource_name, @user)
     else

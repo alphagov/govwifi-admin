@@ -61,7 +61,6 @@ end
 group :development, :test do
   gem "bullet"
   gem "byebug"
-  gem "debug", require: false
   gem "listen"
   gem "pry"
   gem "rack-mini-profiler", require: false

@@ -1,8 +1,7 @@
 <% content_for :page_title, "Create your account" %>
 
-<%= form_with model: resource,
-              as: resource_name,
-              url: invitation_path(resource_name),
+<%= form_with model: @accept_user_invitation_form,
+              url: invitation_path(@accept_user_invitation_form.user),
               method: :put do |f| %>
   <%= f.govuk_error_summary %>
   <div class="govuk-grid-row">

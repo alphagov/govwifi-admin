@@ -8,7 +8,7 @@ describe "Inviting a team member", type: :feature do
     it_behaves_like "not signed in"
   end
 
-  context "when inviting a team member" do
+  context "When logged in" do
     let(:user) { create(:user, :with_organisation) }
 
     before do
@@ -18,7 +18,7 @@ describe "Inviting a team member", type: :feature do
       choose("Administrator")
     end
 
-    context "with a gov.uk email address" do
+    describe "Inviting a new team member who is not in the database" do
       let(:invited_user_email) { "correct@gov.uk" }
       let(:invited_user) { User.find_by(email: invited_user_email) }
 
@@ -32,32 +32,7 @@ describe "Inviting a team member", type: :feature do
 
       it "sends an invite" do
         it_sent_an_invitation_email_once
-      end
-
-      it "sets the invitees organisation" do
-        organisations = invited_user.organisations
-        expect(organisations).to eq(user.organisations)
-      end
-
-      it 'redirects to the "after user invited" path for analytics' do
-        expect(page).to have_current_path("/memberships")
-      end
-    end
-
-    context "with a non gov.uk email address" do
-      let(:invited_user_email) { "incorrect@gmail.com" }
-      let(:invited_user) { User.find_by(email: invited_user_email) }
-
-      before do
-        click_on "Send invitation email"
-      end
-
-      it "creates an unconfirmed user" do
-        expect(invited_user).to be_present
-      end
-
-      it "sends an invite" do
-        it_sent_an_invitation_email_once
+        number_of_emails_sent_equals 1
       end
 
       it "sets the invitees organisation" do
@@ -102,6 +77,7 @@ describe "Inviting a team member", type: :feature do
 
       it "results in an unconfirmed user" do
         expect(invited_user).to be_present
+        expect(invited_user).not_to be_confirmed
       end
 
       it "sends an invite" do

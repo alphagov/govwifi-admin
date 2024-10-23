@@ -9,33 +9,29 @@ class UserInvitationForm
   attr_accessor :email, :permission_level, :organisation
 
   def save!(current_inviter:)
-    invited_user = User.invite!({ email: }, current_inviter)
+    invited_user = User.find_or_initialize_by(email:)
+    invited_user.skip_confirmation_notification!
     membership = invited_user.memberships.build(invited_by_id: current_inviter.id, organisation:)
     membership.permission_level = permission_level
-    membership.save!
-    send_invite_membership_email(membership) if user.confirmed?
-  end
-
-  # def confirm!
-  #   !!confirmed_at: Time.zone.now
-  # end
-  def set_invitation_token
-    self.invitation_token = Devise.friendly_token[0, 20]
+    invited_user.save!
+    token = membership.invitation_token
+    invited_user.confirmed? ? send_cross_organisational_email(user, token) : send_invite_new_user(user, token)
   end
 
 private
 
-  def send_invite_membership_email(membership)
-    GovWifiMailer.membership_instructions(
-      user,
-      membership.invitation_token,
-      organisation: membership.organisation,
-      ).deliver_now
+  def send_invite_new_user(user, token)
+    GovWifiMailer.invitation_instructions(user, token).deliver_now
+  end
+
+  def send_cross_organisational_email(user, token)
+    GovWifiMailer.membership_instructions(user, token, organisation:).deliver_now
   end
 
   def user
     @user ||= User.find_by(email:)
   end
+
   def user_is_already_a_member
     if user&.membership_for(organisation)
       errors.add(:invalid, "This email address is already associated with an administrator account")

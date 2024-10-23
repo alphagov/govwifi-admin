@@ -1,18 +1,11 @@
-class Users::InvitationsController < Devise::InvitationsController
-  before_action :show_navigation_bars
-  before_action :set_target_organisation, if: :super_admin?, only: %i[create new]
-  before_action :delete_user_record, if: :user_should_be_cleared?, only: :create
-  after_action :confirm_new_user_membership, only: :update # rubocop:disable Rails/LexicallyScopedActionFilter
+class Users::InvitationsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:edit, :update]
+  before_action :authorise_inviter!, only: [:new, :create]
 
   def new
     @permission_level_data = permission_levels
 
     @user_invitation_form = UserInvitationForm.new
-  end
-
-
-  def resend_invitation
-
   end
 
   def create
@@ -27,11 +20,36 @@ class Users::InvitationsController < Devise::InvitationsController
     end
   end
 
+  def edit
+    @accept_user_invitation_form = AcceptUserInvitationForm.new(invitation_token: params[:invitation_token])
+    redirect_to root_path if @accept_user_invitation_form.invalid_invitation_token?
+  end
+
+  def update
+    @accept_user_invitation_form = AcceptUserInvitationForm.new(accept_user_invitation_params)
+    if @accept_user_invitation_form.invalid?
+      render :edit
+    else
+      @accept_user_invitation_form.save!
+      redirect_to root_path
+    end
+  end
+
   def invite_second_admin
     @user_invitation_form = UserInvitationForm.new
   end
 
 private
+
+  def authorise_inviter!
+    unless current_user&.can_manage_team?(current_organisation)
+      redirect_to(root_path) and return
+    end
+  end
+
+  def accept_user_invitation_params
+    params.require(:accept_user_invitation_form).permit(:invitation_token, :name, :password)
+  end
 
   def token
     params[:token] || params.dig(:permission_level, :token)

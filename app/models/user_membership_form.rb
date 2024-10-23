@@ -1,11 +1,14 @@
 class UserMembershipForm
   include ActiveModel::Model
 
-  attr_accessor :name, :service_email, :organisation_name, :confirmation_token, :password
+  attr_accessor :name, :service_email, :organisation_name, :confirmation_token, :password, :user
 
-  def write_to(user)
-    return false if user.confirmed?
+  validates :name, presence: true
+  validates :user, presence: true
+  validate :user_is_valid
+  validate :user_is_confirmed
 
+  def save
     user.assign_attributes(name:, password:)
     user.organisations.build(name: organisation_name, service_email:)
     if user.valid?
@@ -14,14 +17,17 @@ class UserMembershipForm
       user.default_membership.confirm!
       true
     else
-      copy_errors_from(user)
       false
     end
   end
 
 private
 
-  def copy_errors_from(user)
+  def user_is_confirmed
+    errors.add(:invalid, "The user already been confirmed") if user.confirmed?
+  end
+
+  def user_is_valid
     attribute_transform_map = {
       "organisations.service_email": :service_email,
       "organisations.name": :organisation_name,

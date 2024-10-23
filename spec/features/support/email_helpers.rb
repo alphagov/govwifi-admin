@@ -46,4 +46,8 @@ module EmailHelpers
   def email_count(template_name)
     Services.notify_gateway.count_emails_with_template template_name
   end
+
+  def number_of_emails_sent_equals number
+    expect(Services.notify_gateway.count_all_emails).to eq(number)
+  end
 end
