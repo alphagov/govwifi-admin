@@ -13,20 +13,24 @@ class UserInvitationForm
     invited_user.skip_confirmation_notification!
     membership = invited_user.memberships.build(invited_by_id: current_inviter.id, organisation:)
     membership.permission_level = permission_level
-    invited_user.save!
+    invited_user.save!(validate: false)
     token = membership.invitation_token
-    invited_user.confirmed? ? send_cross_organisational_email(user, token) : send_invite_new_user(user, token)
+    UserInvitationForm.send_invite(invited_user, token, organisation)
   end
 
-private
+  def self.send_invite(user, token, organisation)
+    user.confirmed? ? self.send_cross_organisational_email(user, token, organisation) : self.send_invite_new_user(user, token)
+  end
 
-  def send_invite_new_user(user, token)
+  def self.send_invite_new_user(user, token)
     GovWifiMailer.invitation_instructions(user, token).deliver_now
   end
 
-  def send_cross_organisational_email(user, token)
+  def self.send_cross_organisational_email(user, token, organisation)
     GovWifiMailer.membership_instructions(user, token, organisation:).deliver_now
   end
+
+private
 
   def user
     @user ||= User.find_by(email:)

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     put "users/confirmations", to: "users/confirmations#update"
     get "users/confirmations/pending", to: "users/confirmations#pending"
     get "users/invitations/invite_second_admin", to: "users/invitations#invite_second_admin", as: :invite_second_admin
+    post "users/invitations/resend_invitation", to: "users/invitations#resend_invitation"
     put "users/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#update"
     get "users/two_factor_authentication_setup", to: "users/two_factor_authentication_setup#show"
     get "users/:id/two_factor_authentication/edit", to: "users/two_factor_authentication#edit"

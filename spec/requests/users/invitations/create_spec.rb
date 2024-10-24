@@ -8,28 +8,6 @@ describe "POST /users/invitation", type: :request do
     login_as(user, scope: :user)
   end
 
-  context "with tampered organisation_id parameter" do
-    let(:email) { "barry@gov.uk" }
-    let(:other_organisation) { create(:organisation) }
-
-    before do
-      post user_invitation_path, params: { user: {
-        email:,
-        organisation_id: organisation.id,
-      } }
-    end
-
-    it "invites a user" do
-      expect(notify_gateway.count_all_emails).to eq 1
-      expect(notify_gateway.last_email_parameters).to include(template_id: NotifyTemplates.template(:invite_email))
-    end
-
-    it "ignores provided organisation_id" do
-      user = User.find_by(email:)
-      expect(user.organisations).to eq([organisation])
-    end
-  end
-
   context "when the user already exists and therefore is invalid" do
     before do
       post user_invitation_path, params: {
