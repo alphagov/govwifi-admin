@@ -25,14 +25,12 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_user_with_no_organisation
-    if current_user&.organisations&.empty?
-      redirection_url, message = if current_user&.is_super_admin?
-                                   [super_admin_organisations_path, "You do not belong to an organisation."]
-                                 else
-                                   [signed_in_new_help_path,
-                                    "You do not belong to an organisation. Please mention this in your support request."]
-                                 end
-      redirect_to redirection_url, notice: message
+    return if current_user&.is_super_admin? && current_organisation.present?
+
+    if current_user&.is_super_admin? && current_organisation.nil?
+      redirect_to super_admin_organisations_path, notice: "You have not assumed a membership."
+    elsif current_user&.organisations&.empty?
+      redirect_to signed_in_new_help_path, notice: "You do not belong to an organisation. Please mention this in your support request."
     end
   end
 
