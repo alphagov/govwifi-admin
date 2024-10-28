@@ -1,0 +1,16 @@
+<% content_for :page_title, @location.address.to_s %>
+
+<%= form_with model: @location,
+              url: super_admin_location_path(@location),
+              method: :patch do |f| %>
+  <%= f.govuk_error_summary %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Set Radius secret key for <%= @location.address.to_s %></h1>
+      <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
+        <%= f.govuk_text_field :radius_secret_key, label: { text: "Radius secret key" } %>
+        <%= f.govuk_submit "Update" %>
+      </div>
+    </div>
+  </div>
+<% end %>

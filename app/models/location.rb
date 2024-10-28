@@ -12,6 +12,7 @@ class Location < ApplicationRecord
   validates :address, uniqueness: { scope: :organisation_id }
   validate :validate_postcode_format, if: ->(l) { l.postcode.present? }
   validate :unpersisted_addresses_are_unique
+  validates :radius_secret_key, length: { minimum: 10 }, on: :update
 
   before_create :set_radius_secret_key
 
