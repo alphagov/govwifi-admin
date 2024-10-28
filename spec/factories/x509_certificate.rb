@@ -14,7 +14,7 @@ FactoryBot.define do
 
     initialize_with do
       result = OpenSSL::X509::Certificate.new.tap do |certificate|
-        certificate.public_key = key.public_key
+        certificate.public_key = key
         certificate.serial = OpenSSL::BN.new(serial)
         certificate.subject = OpenSSL::X509::Name.parse(subject)
         certificate.issuer =  OpenSSL::X509::Name.parse(issuing_subject)

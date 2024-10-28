@@ -43,7 +43,7 @@ class Certificate < ApplicationRecord
   def has_child?
     children = Certificate.where(issuer: subject, organisation:).where.not(subject:)
     first_child = children.find do |child|
-      child.verify public_key
+      child.verify self
     end
     !!first_child
   end
