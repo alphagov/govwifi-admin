@@ -12,9 +12,6 @@
   <p class="govuk-body">Anyone can view or share the <%= link_to "GovWifi MOU (opens in another tab).", "https://www.wifi.service.gov.uk/memorandum-of-understanding/", target: "_blank", class: "govuk-body govuk-link govuk-link--no-visited-state", rel: "noopener" %>
   </p>
 
-  <p class="govuk-body govuk-!-font-weight-bold">
-    Who will sign the MOU?
-  </p>
   <p class="govuk-body">
     This can be a GovWifi admin or someone else from your organisation.
   </p>
@@ -23,13 +20,13 @@
   </div>
 
   <%= form_with url: choose_option_mous_path, method: :post do |f| %>
-    <%= f.govuk_radio_button :chosen_action, "sign_mou", id: "sign_mou", link_errors: true, label: { text: "I will sign the MOU" } %>
-    <%= f.govuk_radio_button :chosen_action, "nominate_user", id: "nominate_user", link_errors: true, label: { text: "I will nominate someone from my organisation to sign" } %>
-
+      <%= f.govuk_fieldset legend: { text: "Who will sign the MOU?" } do %>
+        <%= f.govuk_radio_button :chosen_action, "sign_mou", id: "sign_mou", link_errors: true, label: { text: "I will sign the MOU" } %>
+        <%= f.govuk_radio_button :chosen_action, "nominate_user", id: "nominate_user", link_errors: true, label: { text: "I will nominate someone from my organisation to sign" } %>
     <div class="govuk-form-group">
       <%= f.govuk_submit "Continue" %>
     </div>
+    <% end %>
   <% end %>
-
   <%= link_to "Contact GovWifi support", help_index_path, class: "govuk-link" %>
 </div>

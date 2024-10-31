@@ -130,4 +130,25 @@ describe Certificate do
       expect(root_ca).to have_child
     end
   end
+
+  describe "EC encryption" do
+    let(:key) { OpenSSL::PKey::EC.generate("prime256v1") }
+    let(:child_key) { OpenSSL::PKey::EC.generate("prime256v1") }
+
+    it "has a child" do
+      root_ca = create(:certificate, key:, subject: root_subject, organisation:)
+      create(:certificate,
+             key: child_key,
+             issuing_key: key,
+             issuing_subject: root_subject,
+             organisation:)
+      expect(root_ca).to have_child
+    end
+
+    it "has a parent" do
+      create(:certificate, key:, subject: root_subject, organisation:)
+      intermediate_ca = create(:certificate, key: child_key, issuing_key: key, issuing_subject: root_subject, organisation:)
+      expect(intermediate_ca).to have_parent
+    end
+  end
 end

@@ -8,23 +8,23 @@ describe UseCases::Radius::PublishRadiusIpAllowlist do
     location1.ips << create(:ip, address: "1.1.1.1")
     location1.ips << create(:ip, address: "1.2.2.1")
     location2.ips << create(:ip, address: "2.2.2.2")
-    location1.update!(radius_secret_key: "radkey1")
-    location2.update!(radius_secret_key: "radkey2")
+    location1.update!(radius_secret_key: "radkey1234")
+    location2.update!(radius_secret_key: "radkey2345")
   end
 
   context "with locations and IPs" do
     let(:correct_configuration) do
       'client 1-1-1-1 {
       ipaddr = 1.1.1.1
-      secret = radkey1
+      secret = radkey1234
 }
 client 1-2-2-1 {
       ipaddr = 1.2.2.1
-      secret = radkey1
+      secret = radkey1234
 }
 client 2-2-2-2 {
       ipaddr = 2.2.2.2
-      secret = radkey2
+      secret = radkey2345
 }
 '
     end
@@ -39,7 +39,7 @@ client 2-2-2-2 {
     let(:correct_configuration) do
       'client 2-2-2-2 {
       ipaddr = 2.2.2.2
-      secret = radkey2
+      secret = radkey2345
 }
 '
     end
@@ -65,11 +65,11 @@ client 2-2-2-2 {
     let(:correct_configuration) do
       'client 1-2-2-1 {
       ipaddr = 1.2.2.1
-      secret = radkey1
+      secret = radkey1234
 }
 client 2-2-2-2 {
       ipaddr = 2.2.2.2
-      secret = radkey2
+      secret = radkey2345
 }
 '
     end
