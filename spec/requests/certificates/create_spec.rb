@@ -40,7 +40,7 @@ describe "POST /certificates", type: :request do
     it "re-renders the new page" do
       perform
       expect(response).to render_template(:new)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -53,7 +53,7 @@ describe "POST /certificates", type: :request do
     it "re-renders the new page" do
       perform
       expect(response).to render_template(:new)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 end
