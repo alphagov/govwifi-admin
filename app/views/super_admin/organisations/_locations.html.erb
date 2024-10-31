@@ -3,12 +3,13 @@
     <thead class="govuk-table__head" scope="row">
     </thead>
     <tbody class="govuk-table__body">
-      <% locations.each do |location| %>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><%= location.address %></td>
-          <td class="govuk-table__cell text-right"><%= location.postcode %></td>
-        </tr>
-      <% end %>
+    <% locations.each do |location| %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell"><%= location.address %></td>
+        <td class="govuk-table__cell text-right"><%= location.postcode %></td>
+        <td class="govuk-table__cell"><%= link_to "Set secret key", edit_super_admin_location_path(location.id), class: "govuk-link" %></td>
+      </tr>
+    <% end %>
     </tbody>
   </table>
 <% else %>
