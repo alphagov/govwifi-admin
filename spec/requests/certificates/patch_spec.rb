@@ -26,7 +26,7 @@ describe "GET /certificates/edit/:id", type: :request do
     it "renders the edit page with an error" do
       perform
       expect(response).to render_template(:edit)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 end
