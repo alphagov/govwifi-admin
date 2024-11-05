@@ -23,9 +23,9 @@ class ApplicationController < ActionController::Base
   end
 
   def confirm_two_factor_setup
-    return unless current_user &&
-      current_user.need_two_factor_authentication?(request) &&
-      !current_user.totp_enabled?
+    return if current_user.nil? ||
+      !current_user.need_two_factor_authentication?(request) ||
+      current_user.totp_enabled?
 
     redirect_to users_two_factor_authentication_setup_path
   end
