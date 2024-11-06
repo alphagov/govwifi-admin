@@ -112,7 +112,7 @@ GEM
     bigdecimal (3.1.8)
     bindex (0.8.1)
     builder (3.3.0)
-    bullet (7.1.6)
+    bullet (7.2.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     byebug (11.1.3)
