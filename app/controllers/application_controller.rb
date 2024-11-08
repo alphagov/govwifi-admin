@@ -40,6 +40,8 @@ class ApplicationController < ActionController::Base
     elsif user_signed_in?
       current_user.confirmed_organisations.first
     end
+  rescue ActiveRecord::RecordNotFound
+    current_user.confirmed_organisations.first
   end
 
   def super_admin?

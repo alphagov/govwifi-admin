@@ -1,6 +1,6 @@
 describe "GET /certificates/edit/:id", type: :request do
   let(:organisation) { create(:organisation, :with_cba_enabled) }
-  let(:user) { create(:user, organisations: [organisation]) }
+  let(:user) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
   let(:certificate) { create(:certificate, name: "OldName", organisation:) }
   let(:new_name) { "NewName" }
   let(:perform) { patch certificate_path(certificate), params: { certificate: { name: new_name } } }
