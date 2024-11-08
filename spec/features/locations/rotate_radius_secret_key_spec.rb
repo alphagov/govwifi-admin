@@ -23,7 +23,7 @@ describe "Rotate RADIUS secret key", type: :feature do
 
   context "when it is a company that I do not belong to" do
     let(:organisation) { create(:organisation) }
-    let(:user_2) { create(:user, organisations: [organisation]) }
+    let(:user_2) { create(:user, :confirm_all_memberships, organisations: [organisation]) }
     let(:location_2) { create(:location, organisation: user_2.organisations.first) }
 
     before do
