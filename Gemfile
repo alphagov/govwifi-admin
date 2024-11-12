@@ -23,7 +23,7 @@ gem "net-pop", require: false
 gem "net-smtp", require: false
 gem "notifications-ruby-client", "~> 5.4.0"
 gem "opensearch-ruby"
-gem "pagy", "~> 7.0.10"
+gem "pagy", "~> 9.2.2"
 gem "puma", "~> 6.4"
 gem "rails", "~> 7.1.3"
 gem "rqrcode"
