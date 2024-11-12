@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :redirect_user_with_no_organisation, unless: :devise_controller?
   before_action :update_active_sidebar_path
   before_action :authenticate_user!, except: :error
-  before_action :confirm_two_factor_setup
+  before_action :confirm_two_factor_setup, unless: :signing_out?
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
   helper_method :current_organisation, :super_admin?
   helper_method :sidebar
@@ -18,10 +18,14 @@ class ApplicationController < ActionController::Base
     render :error, code: params[:code]
   end
 
+  def signing_out?
+    params["controller"] == "devise/sessions" && params["action"] == "destroy"
+  end
+
   def confirm_two_factor_setup
-    return unless current_user &&
-      current_user.need_two_factor_authentication?(request) &&
-      !current_user.totp_enabled?
+    return if current_user.nil? ||
+      !current_user.need_two_factor_authentication?(request) ||
+      current_user.totp_enabled?
 
     redirect_to users_two_factor_authentication_setup_path
   end
