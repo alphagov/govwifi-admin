@@ -19,5 +19,6 @@
       "max-nesting-depth": 3,
       "media-feature-range-notation": null
     }
-  }
+  },
+  "version": "0.0.0"
 }
