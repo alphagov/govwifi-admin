@@ -115,6 +115,9 @@ en:
             postcode:
               format: "%{message}"
               blank: "Postcode can't be blank"
+            radius_secret_key:
+              format: "%{message}"
+              too_short: "The secret key is too short (minimum is %{count} characters)"
         ip:
           attributes:
             address:
